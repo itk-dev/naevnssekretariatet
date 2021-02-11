@@ -34,6 +34,11 @@ To get a local copy up and running follow these simple steps.
    docker-compose exec phpfpm composer install
    ```
 
+4. Install yarn packages
+   ```sh
+   docker run -v ${PWD}:/app itkdev/yarn:latest install
+   ```
+
 You should now be able to browse to the application
 ```shell
 open http://$(docker-compose port nginx 80)
