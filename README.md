@@ -79,6 +79,10 @@ The following coding standards are enforced in this project:
 * PHP - [Symfony Coding Standards](https://symfony.com/doc/5.2/contributing/code/standards.html)
 * Twig - [Twig Coding Standards](https://twig.symfony.com/doc/3.x/coding_standards.html)
 
+## Versioning
+We use [SemVer](http://semver.org/) for versioning. For the versions available,
+see the [tags on this repository](https://github.com/itk-dev/naevnssekretariatet/tags).
+
 ## License
 This project is licensed under the MIT License - see the
 [LICENSE.md](LICENSE.md) file for details
