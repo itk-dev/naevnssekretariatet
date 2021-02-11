@@ -119,10 +119,11 @@ is used as our development model.
 
 Before opening a pull request, make sure that you have:
 
-* Made sure that your changes follows the coding standards described in the [README](README.md).
+* Checked that your changes follows the coding standards described in the [README](README.md).
 * Passed all the tests.
 * Updated the [README](README.md) with details of changes to the interface,
   this includes new environment variables, useful file locations and container parameters.
+* Updated the [CHANGELOG](CHANGELOG.md).
 
 1. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 2. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
