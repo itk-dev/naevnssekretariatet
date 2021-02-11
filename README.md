@@ -41,6 +41,11 @@ open http://$(docker-compose port nginx 80)
 
 ## Running the tests
 
+### Unit tests
+```shell
+docker-compose exec phpfpm bin/phpunit
+```
+
 ### Coding standard tests
 The following commands let you test that the code follows the coding standards we decided to adhere to in this project.
 
@@ -60,6 +65,7 @@ The [Git Flow branching model](https://nvie.com/posts/a-successful-git-branching
 ### Pull Request Process
 Before opening a pull request, make sure that you have:
 * Made sure that your changes follows the coding standards described in the [README](README.md).
+* Passed all the tests.
 * Updated the [README](README.md) with details of changes to the interface, this includes new environment variables, useful file locations and container parameters.
 
 1. Create your feature branch (`git checkout -b feature/AmazingFeature`)
