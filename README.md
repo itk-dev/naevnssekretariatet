@@ -38,3 +38,7 @@ You should now be able to browse to the application
 ```shell
 open http://$(docker-compose port nginx 80)
 ```
+
+## License
+This project is licensed under the MIT License - see the
+[LICENSE.md](LICENSE.md) file for details

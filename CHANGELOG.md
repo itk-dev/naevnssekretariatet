@@ -12,3 +12,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Standard Symfony 5.2 project
 - Docker-compose development setup
 - README
+- LICENSE
