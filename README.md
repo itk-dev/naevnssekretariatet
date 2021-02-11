@@ -63,6 +63,11 @@ The following commands let you test that the code follows the coding standards w
    docker-compose exec phpfpm vendor/bin/twigcs templates
    ```
 
+* Javascript files (Standard with standard settings)
+  ```sh
+  docker run -v ${PWD}:/app itkdev/yarn:latest standard
+  ```
+
 ## Contributing
 ### Development Model
 The [Git Flow branching model](https://nvie.com/posts/a-successful-git-branching-model/) is used as our development model.
@@ -83,6 +88,7 @@ Before opening a pull request, make sure that you have:
 The following coding standards are enforced in this project:
 * PHP - [Symfony Coding Standards](https://symfony.com/doc/5.2/contributing/code/standards.html)
 * Twig - [Twig Coding Standards](https://twig.symfony.com/doc/3.x/coding_standards.html)
+* Javascript - [Javascript Standard Style](https://standardjs.com/rules.html)
 
 ## Versioning
 We use [SemVer](http://semver.org/) for versioning. For the versions available,
