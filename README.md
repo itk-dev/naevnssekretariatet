@@ -58,6 +58,12 @@ To get a local copy up and running follow these simple steps.
    docker-compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
    ```
 
+6. Load database fixtures
+
+   ```sh
+   docker-compose exec phpfpm bin/console hautelook:fixtures:load --purge-with-truncate --no-interaction
+   ```
+
 You should now be able to browse to the application
 
 ```shell
