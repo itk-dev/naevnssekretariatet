@@ -68,6 +68,11 @@ The following commands let you test that the code follows the coding standards w
   docker run -v ${PWD}:/app itkdev/yarn:latest standard
   ```
 
+* Markdown files (markdownlint standard rules)
+  ```sh
+  docker run -v ${PWD}:/app itkdev/yarn:latest markdownlint README.md
+  ```
+
 ## Contributing
 ### Development Model
 The [Git Flow branching model](https://nvie.com/posts/a-successful-git-branching-model/) is used as our development model.
@@ -89,6 +94,7 @@ The following coding standards are enforced in this project:
 * PHP - [Symfony Coding Standards](https://symfony.com/doc/5.2/contributing/code/standards.html)
 * Twig - [Twig Coding Standards](https://twig.symfony.com/doc/3.x/coding_standards.html)
 * Javascript - [Javascript Standard Style](https://standardjs.com/rules.html)
+* Markdown - [markdownlint rules](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md)
 
 ## Versioning
 We use [SemVer](http://semver.org/) for versioning. For the versions available,
