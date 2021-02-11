@@ -39,6 +39,17 @@ You should now be able to browse to the application
 open http://$(docker-compose port nginx 80)
 ```
 
+## Contributing
+### Development Model
+The [Git Flow branching model](https://nvie.com/posts/a-successful-git-branching-model/) is used as our development model.
+
+### Pull Request Process
+1. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+2. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+3. Push to the Branch (`git push origin feature/AmazingFeature`)
+4. Open a Pull Request
+5. You may merge your Pull Request when another team member has reviewed and approved your request.
+
 ## License
 This project is licensed under the MIT License - see the
 [LICENSE.md](LICENSE.md) file for details
