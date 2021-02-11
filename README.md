@@ -52,6 +52,12 @@ To get a local copy up and running follow these simple steps.
    docker run -v ${PWD}:/app itkdev/yarn:latest install
    ```
 
+5. Run database migrations
+
+   ```sh
+   docker-compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
+   ```
+
 You should now be able to browse to the application
 
 ```shell
