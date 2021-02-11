@@ -15,6 +15,7 @@ of a board can make a decision upon.
 ### Built with
 
 * [Symfony](https://symfony.com)
+* [Encore](https://symfony.com/doc/current/frontend.html)
 
 ## Getting started
 
