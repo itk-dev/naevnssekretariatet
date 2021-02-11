@@ -48,6 +48,10 @@ The following commands let you test that the code follows the coding standards w
    ```shell
    docker-compose exec phpfpm vendor/bin/php-cs-fixer fix --dry-run
    ```
+* Twig templates (Twigcs with standard settings)
+   ```shell
+   docker-compose exec phpfpm vendor/bin/twigcs templates
+   ```
 
 ## Contributing
 ### Development Model
@@ -67,6 +71,7 @@ Before opening a pull request, make sure that you have:
 ### Coding Standards
 The following coding standards are enforced in this project:
 * PHP - [Symfony Coding Standards](https://symfony.com/doc/5.2/contributing/code/standards.html)
+* Twig - [Twig Coding Standards](https://twig.symfony.com/doc/3.x/coding_standards.html)
 
 ## License
 This project is licensed under the MIT License - see the

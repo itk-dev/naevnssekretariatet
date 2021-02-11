@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
+        "friendsoftwig/twigcs": "^5.0",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "5.2.*",
@@ -89,8 +90,12 @@
         "check-coding-standards/php-cs-fixer": [
             "php-cs-fixer --config=.php_cs.dist fix --dry-run"
         ],
+        "check-coding-standards/twigcs": [
+            "twigcs templates"
+        ],
         "check-coding-standards": [
-            "@check-coding-standards/php-cs-fixer"
+            "@check-coding-standards/php-cs-fixer",
+            "@check-coding-standards/twigcs"
         ],
         "apply-coding-standards/php-cs-fixer": [
             "php-cs-fixer --config=.php_cs.dist fix"
