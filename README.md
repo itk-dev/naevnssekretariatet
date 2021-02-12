@@ -120,36 +120,7 @@ we decided to adhere to in this project.
 
 ## Contributing
 
-### Development Model
-
-The [Git Flow branching model](https://nvie.com/posts/a-successful-git-branching-model/)
-is used as our development model.
-
-### Pull Request Process
-
-Before opening a pull request, make sure that you have:
-
-* Checked that your changes follows the coding standards described in the [README](README.md).
-* Passed all the tests.
-* Updated the [README](README.md) with details of changes to the interface,
-  this includes new environment variables, useful file locations and container parameters.
-* Updated the [CHANGELOG](CHANGELOG.md).
-
-1. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-2. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-3. Push to the Branch (`git push origin feature/AmazingFeature`)
-4. Open a Pull Request
-5. You may merge your Pull Request when another team member has reviewed and
-   approved your request.
-
-### Coding Standards
-
-The following coding standards are enforced in this project:
-
-* PHP - [Symfony Coding Standards](https://symfony.com/doc/5.2/contributing/code/standards.html)
-* Twig - [Twig Coding Standards](https://twig.symfony.com/doc/3.x/coding_standards.html)
-* Javascript - [Javascript Standard Style](https://standardjs.com/rules.html)
-* Markdown - [markdownlint rules](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md)
+See the [CONTRIBUTING.md](docs/CONTRIBUTING.md) documentation file.
 
 ## Documentation
 
