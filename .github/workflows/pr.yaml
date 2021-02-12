@@ -2,7 +2,7 @@ on: pull_request
 name: Review
 jobs:
   test-composer-install:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       fail-fast: false
       matrix:
@@ -34,67 +34,61 @@ jobs:
           APP_ENV=prod composer install --no-dev -o
 
   unit_tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       fail-fast: false
       matrix:
         php: ['7.4']
     name: Unit tests (${{ matrix.php}})
     steps:
-      - uses: actions/checkout@master
-
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php}}
-          tools: composer:v2
           extensions: apcu, ctype, iconv, imagick, json, redis, soap, xmlreader, zip
           coverage: none
-
       - name: Get composer cache directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v1
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-
+          restore-keys: ${{ matrix.php }}-composer-
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-
       - name: Unit tests
         run: phpdbg -qrr ./bin/phpunit --coverage-clover=coverage/unit.xml
 
   php-cs-fixer:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       fail-fast: false
       matrix:
         php: ['7.4']
-    name: Coding style fixer (${{ matrix.php }})
+    name: Coding Standards Fixer (${{ matrix.php }})
     steps:
-      - uses: actions/checkout@master
-
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
-          tools: composer:v2
+          php-version: ${{ matrix.php}}
           extensions: apcu, ctype, iconv, imagick, json, redis, soap, xmlreader, zip
           coverage: none
-
       - name: Get composer cache directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v1
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-
+          restore-keys: ${{ matrix.php }}-composer-
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-
       - name: php-cs-fixer
         run: phpdbg -qrr ./vendor/bin/php-cs-fixer fix --dry-run
