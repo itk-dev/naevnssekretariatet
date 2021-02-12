@@ -2,6 +2,8 @@
 
 Application for managing multiple boards (Danish: Nævn) in multiple municipalities.
 
+[![CI Status][ci-image]][ci-url]
+
 ## About the project
 
 A danish municipality has different boards (Danish: Nævn) which handles
@@ -137,3 +139,6 @@ see the [tags on this repository](https://github.com/itk-dev/naevnssekretariatet
 
 This project is licensed under the MIT License - see the
 [LICENSE.md](LICENSE.md) file for details
+
+[ci-image]: https://github.com/itk-dev/naevnssekretariatet/workflows/pr/badge.svg?branch=main
+[ci-url]: https://github.com/itk-dev/naevnssekretariatet/actions?query=branch%3Amain
