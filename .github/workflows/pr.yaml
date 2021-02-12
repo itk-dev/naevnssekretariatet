@@ -65,28 +65,11 @@ jobs:
 
   end-to-end-tests:
     runs-on: ubuntu-18.04
-    services:
-      mariadb:
-        image: itkdev/mariadb:latest
-        ports:
-          - 3306
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_USER: db
-          MYSQL_PASSWORD: db
-          MYSQL_DATABASE: db
-      phpfpm:
-        image: itkdev/php7.4-fpm:latest
-        options: -v ${{ github.workspace }}:/app
-      nginx:
-        image: nginx:latest
-        ports:
-          - 80
-        volumes:
-          - .docker/vhost.conf:/etc/nginx/conf.d/default.conf:ro
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Build the docker-compose stack
+        run: docker-compose up -d
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
