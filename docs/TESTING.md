@@ -3,21 +3,42 @@
 This document introduces the types of tests we utilize, which tools we use
 for testing, and lastly describes how to structure and write tests.
 
+In this project we make use of both unit tests and end-to-end tests. We've
+decided that the major focus should be on end-to-end tests, and only write
+unit tests when it makes sense.
+
 ## Unit tests
 
-@TODO
+The purpose of unit tests is to make sure that a section of an application 
+meets its design and behaves as intended.
 
-### When to test
+To make these tests we use the [PHPUnit](https://phpunit.de/) testing framework.
 
-@TODO
+### When to unit test
 
-### How to write and organize tests
+A lot of times it's not clear if a unit test brings value, or just adds boilerplate code.
+There are of course instances where a unit test makes perfectly sense. Here are some pointers
+to decide:
 
-@TODO
+* Functions/methods that makes calculations.
+* Making sure that a bug is solved.
+
+### How to write and organize unit tests
+
+This project follows the testing [guidelines](https://symfony.com/doc/current/testing.html) described within the Symfony framework.
+
+### How to run unit tests
+
+Run the following command in a terminal:
+
+```shell
+docker-compose exec phpfpm bin/phpunit
+```
 
 ### Useful links
 
-@TODO
+* [PHPUnit](https://phpunit.de/)
+* [Symfony guidelines for writing and organizing tests](https://symfony.com/doc/current/testing.html)
 
 ## End-to-end tests
 
@@ -40,7 +61,7 @@ out to other team members and discuss the path to follow.
 This project follows the [guidelines](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html)
 described in the Cypress documentation for writing and organizing tests.
 
-### How ro run tests
+### How ro run E2E tests
 
 Run the following command in a terminal:
 
