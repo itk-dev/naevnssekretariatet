@@ -26,7 +26,7 @@ jobs:
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ matrix.php }}-composer-
+          restore-keys: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
 
       - name: Validate composer files
         run: composer validate composer.json
