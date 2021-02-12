@@ -141,6 +141,11 @@ The following coding standards are enforced in this project:
 * Javascript - [Javascript Standard Style](https://standardjs.com/rules.html)
 * Markdown - [markdownlint rules](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md)
 
+## Documentation
+
+Documentation is placed in the [docs](docs) folder. Follow the guidelines described in the 
+[DOCUMENTATION.md](docs/DOCUMENTATION.md) document whent writing documentation.
+
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available,
