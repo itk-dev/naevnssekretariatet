@@ -96,6 +96,7 @@ jobs:
   javascript-standard-style:
     runs-on: ubuntu-18.04
     container: itkdev/yarn:latest
+    name: JavaScript Standard Style
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -111,7 +112,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install
       - name: javascript-standard-style
         run: yarn standard
@@ -119,6 +119,7 @@ jobs:
   markdownlint:
     runs-on: ubuntu-18.04
     container: itkdev/yarn:latest
+    name: markdownlint
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -134,7 +135,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install
       - name: markdownlint
         run: yarn markdownlint README.md docs
