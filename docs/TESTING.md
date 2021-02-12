@@ -9,23 +9,25 @@ unit tests when it makes sense.
 
 ## Unit tests
 
-The purpose of unit tests is to make sure that a section of an application 
+The purpose of unit tests is to make sure that a section of an application
 meets its design and behaves as intended.
 
 To make these tests we use the [PHPUnit](https://phpunit.de/) testing framework.
 
 ### When to unit test
 
-A lot of times it's not clear if a unit test brings value, or just adds boilerplate code.
-There are of course instances where a unit test makes perfectly sense. Here are some pointers
-to decide:
+A lot of times it's not clear if a unit test brings value,
+or just adds boilerplate code.
+There are of course instances where a unit test makes perfectly sense.
+Here are some pointers to decide:
 
 * Functions/methods that makes calculations.
 * Making sure that a bug is solved.
 
 ### How to write and organize unit tests
 
-This project follows the testing [guidelines](https://symfony.com/doc/current/testing.html) described within the Symfony framework.
+This project follows the testing [guidelines](https://symfony.com/doc/current/testing.html)
+described within the Symfony framework.
 
 ### How to run unit tests
 
