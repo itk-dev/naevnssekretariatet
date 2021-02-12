@@ -73,10 +73,18 @@ open http://$(docker-compose port nginx 80)
 
 ## Running the tests
 
+See the [TESTING.md](docs/TESTING.md) documentation for more information.
+
 ### Unit tests
 
 ```shell
 docker-compose exec phpfpm bin/phpunit
+```
+
+### End-to-end tests
+
+```sh
+docker run -it -v $PWD:/e2e -w /e2e --network=host --env CYPRESS_baseUrl=http://$(docker-compose port nginx 80) cypress/included:6.4.0
 ```
 
 ### Coding standard tests
