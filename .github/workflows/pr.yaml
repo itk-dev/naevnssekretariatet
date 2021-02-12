@@ -82,7 +82,8 @@ jobs:
         image: nginx:latest
         ports:
           - 80
-        options: -v ${{ github.workspace }}/.docker/vhost.conf:/etc/nginx/conf.d/default.conf
+        volumes:
+          - .docker/vhost.conf:/etc/nginx/conf.d/default.conf:ro
     steps:
       - name: Checkout
         uses: actions/checkout@v2
