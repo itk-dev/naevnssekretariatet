@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-
 - This CHANGELOG file to hopefully serve as an evolving example of a
   standardized open source project CHANGELOG.
+- Standard Symfony 5.2 project
+- Docker-compose development setup
+- README
+- LICENSE
+- PHP-CS-Fixer
+- Twigcs
+- PHPUnit
+- Encore
+- Standard
+- markdownlint
+- AliceBundle
+- Documentation files
+- Cypress
+- Testing documentation
+- Contributing documentation
