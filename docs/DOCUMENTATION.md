@@ -1,14 +1,14 @@
 # Documentation
 
 All our documentation is written in the [Markdown](https://en.wikipedia.org/wiki/Markdown)
-format and should adhere to  the [rules](https://github.com/DavidAnson/markdownlint#rules--aliases)
+format and should adhere to the [rules](https://github.com/DavidAnson/markdownlint#rules--aliases)
 described in the [markdownlint](https://github.com/DavidAnson/markdownlint)
 tool we use for linting our markdown files.
 
 Documentation files should be named in all caps with .md as the file extension
 and placed in the docs folder.
 For inspiration on how to write and structure documentation you could look at the
-documentation files that already exists.
+documentation files that already exist.
 
 A very simple template could look something like this:
 
