@@ -24,3 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cypress
 - Testing documentation
 - Contributing documentation
+
+### Fixed
+- [NSEK-104](https://jira.itkdev.dk/browse/NSEK-104): Added missing database variables to .env file.
