@@ -112,6 +112,12 @@ we decided to adhere to in this project.
   docker run -v ${PWD}:/app itkdev/yarn:latest standard
   ```
 
+* Sass files (Sass guidelines)
+
+  ```sh
+  docker run -v ${PWD}:/app itkdev/yarn:latest stylelint "assets/**/*.scss"
+  ```
+
 * Markdown files (markdownlint standard rules)
 
   ```sh
