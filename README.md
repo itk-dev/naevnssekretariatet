@@ -53,13 +53,19 @@ To get a local copy up and running follow these simple steps.
    docker run -v ${PWD}:/app itkdev/yarn:latest install
    ```
 
-5. Run database migrations
+5. Build assets
+
+   ```sh
+   docker run -v ${PWD}:/app itkdev/yarn:latest encore dev
+   ```
+
+6. Run database migrations
 
    ```sh
    docker-compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
    ```
 
-6. Load database fixtures
+7. Load database fixtures
 
    ```sh
    docker-compose exec phpfpm bin/console hautelook:fixtures:load \
