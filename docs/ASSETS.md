@@ -30,49 +30,50 @@ docker run -v ${PWD}:/app itkdev/yarn:latest encore
 
 ## JavaScript
 
-JavaScript files are placed in the assets/js folder:
+JavaScript files are placed in the assets folder:
 
 ```sh
 /project_root
   /assets
-    /js
 ```
 
 A global js file is used for JavaScript that concern all pages.
-The file is called app.js and is placed in the assets/js folder:
+The file is called app.js and is placed in the assets folder:
 
 ```sh
 /project_root
   /assets
-    /js
       app.js
 ```
 
 ### Page specific JavaScript
 
-There should only be one JavaScript file for a page,
-and it should be named after the page itself.
-For example if you have a Dashboard page,
-the corresponding JavaScript file should be named dashboard.js.
-
-If you need to split up your JavaScript for a page,
-place the sub JavaScript in a folder in the assets/js named
-after the main JavaScript file but starting with an underscore:
+JavaScript files is grouped by routes and named after the action it concerns.
+For example if you have a Dashboard route, with an index action, the structure
+should look like this:
 
 ```sh
 /project_root
   /assets
-    /js
-      /dashboard
-        _partial.js
-      dashboard.js
+    /dashboard
+      index.js
 ```
 
-Require the partial in the main JavaScript file:
+Folders for routes and javascript files for actions is all in lowercase.
 
-```javascript
-// dashboard.js
-require('dashboard/_partial.js')
+If you need to make components, that is used in an action JavaScript file,
+you should place the component in the same folder as the action JavaScript
+files is placed. The component file should start with an uppercase letter.
+
+For example if you have a Feed component that is imported in the index.js file,
+the structure should look like this:
+
+```sh
+/project_root
+  /assets
+    /dashboard
+      index.js
+      Feed.js
 ```
 
 Remember to add new JavaScript files to the webpack config file
@@ -82,17 +83,17 @@ placed in the project root:
 // webpack.config.js
 Encore
     // ...
-    .addEntry('app', './assets/dashboard.js')
+    .addEntry('dashboard_index', './assets/dashboard/index.js')
     // ...
 ```
 
 And to the specific page it should affect:
 
 ```twig
-{# dashboard.html.twig #}
+{# dashboard/index.html.twig #}
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('dashboard') }}
+    {{ encore_entry_script_tags('dashboard_index') }}
 {% endblock %}
 ```
 
