@@ -27,21 +27,23 @@ class UserLoginCommand extends Command
     {
         $this
             ->setDescription(self::$defaultDescription)
-            ->addArgument('arg1', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('username', InputArgument::REQUIRED, 'Argument description')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
+        $username = $input->getArgument('username');
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
+        if ($username) {
+            $io->note(sprintf('You passed an argument: %s', $username));
         }
+        // Lookup username in DB, fetch the token and then pass it on
         // Call some method or service to create the absolute url to be output via success
+        $token = '';
         $loginPage = $this->urlGenerator->generate('default', [
-            'token' => $arg1,
+            'user_login_token' => $token,
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $io->success('URL:   '.$loginPage);
