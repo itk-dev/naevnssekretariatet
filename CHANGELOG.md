@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Testing documentation
 - Contributing documentation
 - [NSEK-102](https://jira.itkdev.dk/browse/NSEK-104) Initial setup of assets.
+- [NSEK-84](https://jira.itkdev.dk/browse/NSEK-84): Adding GitHub actions workflow for pull requests.
 
 ### Fixed
 - [NSEK-104](https://jira.itkdev.dk/browse/NSEK-104): Added missing database variables to .env file.

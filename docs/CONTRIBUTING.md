@@ -75,9 +75,9 @@ NSEK-84: Creating project
 Before opening a pull request, make sure that you have followed
 the definition of done described elsewhere in this document.
 
-1. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-2. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-3. Push to the Branch (`git push origin feature/AmazingFeature`)
+1. Create your feature branch (`git checkout -b feature/NSEK-84-AmazingFeature`)
+2. Commit your Changes (`git commit -m 'NSEK-84: Add some AmazingFeature'`)
+3. Push to the Branch (`git push origin feature/NESK-84-AmazingFeature`)
 4. Open a Pull Request
 5. You may merge your Pull Request when another team member has reviewed and
    approved your request.
