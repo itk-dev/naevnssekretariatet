@@ -3,6 +3,7 @@
         "@symfony/stimulus-bridge": "^2.0.0",
         "@symfony/webpack-encore": "^1.0.0",
         "core-js": "^3.0.0",
+        "cypress": "^6.5.0",
         "markdownlint-cli": "^0.26.0",
         "regenerator-runtime": "^0.13.2",
         "standard": "^16.0.3",
