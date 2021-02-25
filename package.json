@@ -3,8 +3,8 @@
         "@symfony/webpack-encore": "^1.0.0",
         "bootstrap": "^4.6.0",
         "core-js": "^3.0.0",
-        "jquery": "^3.5.1",
         "cypress": "^6.5.0",
+        "jquery": "^3.5.1",
         "markdownlint-cli": "^0.26.0",
         "popper.js": "^1.16.1",
         "regenerator-runtime": "^0.13.2",
@@ -23,5 +23,8 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "check-coding-standards/stylelint": "stylelint --config=.stylelintrc.json 'assets/**/*.scss'"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.2"
     }
 }
