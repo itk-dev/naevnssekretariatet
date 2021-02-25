@@ -53,13 +53,19 @@ To get a local copy up and running follow these simple steps.
    docker run -v ${PWD}:/app itkdev/yarn:latest install
    ```
 
-5. Run database migrations
+5. Build assets
+
+   ```sh
+   docker run -v ${PWD}:/app itkdev/yarn:latest encore dev
+   ```
+
+6. Run database migrations
 
    ```sh
    docker-compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
    ```
 
-6. Load database fixtures
+7. Load database fixtures
 
    ```sh
    docker-compose exec phpfpm bin/console hautelook:fixtures:load \
@@ -110,6 +116,12 @@ we decided to adhere to in this project.
 
   ```sh
   docker run -v ${PWD}:/app itkdev/yarn:latest standard
+  ```
+
+* Sass files (Sass guidelines)
+
+  ```sh
+  docker run -v ${PWD}:/app itkdev/yarn:latest stylelint "assets/**/*.scss"
   ```
 
 * Markdown files (markdownlint standard rules)

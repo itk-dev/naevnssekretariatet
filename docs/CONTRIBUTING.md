@@ -34,6 +34,7 @@ The following coding standards are enforced in this project:
 * PHP - [Symfony Coding Standards](https://symfony.com/doc/5.2/contributing/code/standards.html)
 * Twig - [Twig Coding Standards](https://twig.symfony.com/doc/3.x/coding_standards.html)
 * Javascript - [Javascript Standard Style](https://standardjs.com/rules.html)
+* Sass - [Sass Guidelines](https://sass-guidelin.es/)
 * Markdown - [markdownlint rules](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md)
 
 ### Naming branches
