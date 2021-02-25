@@ -16,6 +16,7 @@ Other than fulfilling its use case, a feature is considered done when
 the following requirements are met.
 
 * Written tests covering the feature.
+* Translated all texts that are shown to users.
 * Adhered to the coding standards.
 * Documented the feature.
 * Added an entry to the changelog.
