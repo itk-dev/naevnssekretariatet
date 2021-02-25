@@ -48,31 +48,32 @@ The file is called app.js and is placed in the assets folder:
 
 ### Page specific JavaScript
 
-JavaScript files is grouped by routes and named after the action it concerns.
-For example if you have a Dashboard route, with an index action, the structure
-should look like this:
+We group our JavaScript files by routes. This means that if you have a route
+called dashboard, and have some JavaScript that only affects the dashboard route,
+you should place it in a folder in the assets directory named after the route:
 
 ```sh
 /project_root
   /assets
     /dashboard
-      index.js
+      dashboard.js
 ```
 
 Folders for routes and javascript files for actions is all in lowercase.
 
-If you need to make components, that is used in an action JavaScript file,
-you should place the component in the same folder as the action JavaScript
-files is placed. The component file should start with an uppercase letter.
+If you need to make components, that is used in for example a route specific
+JavaScript file, you should place the component in the same folder as the
+main JavaScript files is placed.
+The component file should start with an uppercase letter.
 
-For example if you have a Feed component that is imported in the index.js file,
+For example if you have a Feed component that is imported in the dashboard.js file,
 the structure should look like this:
 
 ```sh
 /project_root
   /assets
     /dashboard
-      index.js
+      dashboard.js
       Feed.js
 ```
 
@@ -83,7 +84,7 @@ placed in the project root:
 // webpack.config.js
 Encore
     // ...
-    .addEntry('dashboard_index', './assets/dashboard/index.js')
+    .addEntry('dashboard', './assets/dashboard/dashboard.js')
     // ...
 ```
 
@@ -93,7 +94,7 @@ And to the specific page it should affect:
 {# dashboard/index.html.twig #}
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('dashboard_index') }}
+    {{ encore_entry_script_tags('dashboard') }}
 {% endblock %}
 ```
 
@@ -104,51 +105,46 @@ for more information.
 
 The [Sass language](https://sass-lang.com/)
 is used for defining styles within our project.
-Files are placed in the assets/styles folder:
+Sass files are placed in the assets folder:
+
+For example
 
 ```sh
 /project_root
   /assets
-    /styles
 ```
 
 A global scss file is used for styles that concerns all pages.
-The file is called app.scss and is placed in the assets/styles folder:
+The file is called app.scss and is placed in the assets folder:
 
 ```sh
 /project_root
   /assets
-    /styles
-      app.scss
+    app.scss
 ```
 
 ### Page specific styles
 
-As with JavaScript files, there should only be one Sass file for a page.
-It should be named after the page it affects.
-For example if you have a Dashboard page, the Sass file should be named dashboard.scss.
-
-If you need to split up your Sass files, place your partials in a subfolder
-within the assets/styles folder named after the page it concerns,
-but starting with an underscore:
+Sass files are placed with the JavaScript modules that use them.
+For example if you have styles that is used in the dashboard/dashboard.js
+file they should be placed in the dashboard folder:
 
 ```sh
+# Action specific styles
 /project_root
   /assets
-    /styles
-      /dashboard
-        _partial.scss
+    /dashboard
+      dashboard.js
       dashboard.scss
 ```
 
-Import the partial in the main page specific Sass file:
+Remember to import the styles in the JavaScript file and
+add the styles to the specific page it should affect:
 
-```sass
-/* dashboard.scss */
-@import 'dashboard/_partial.scss'; 
+```js
+// dashboard/dashboard.js
+import './dashboard.scss'
 ```
-
-Remember to add the styles to the specific page it should affect:
 
 ```twig
 {# dashboard.html.twig #}
