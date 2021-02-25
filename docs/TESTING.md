@@ -69,7 +69,7 @@ Run the following command in a terminal:
 
 ```sh
 docker run -it -v $PWD:/e2e -w /e2e --network=host \
---env CYPRESS_baseUrl=http://$(docker-compose port nginx 80) cypress/included:6.4.0
+--env CYPRESS_baseUrl=http://$(docker-compose port nginx 80) cypress/included:6.5.0
 ```
 
 ### Information about coding standards

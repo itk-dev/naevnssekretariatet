@@ -27,5 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [NSEK-102](https://jira.itkdev.dk/browse/NSEK-104) Initial setup of assets.
 - [NSEK-84](https://jira.itkdev.dk/browse/NSEK-84): Adding GitHub actions workflow for pull requests.
 
+### Changed
+- [NSEK-138](https://jira.itkdev.dk/browse/NSEK-138): Updating Cypress to 6.5.0 so the same version is used project wide.
+
 ### Fixed
 - [NSEK-104](https://jira.itkdev.dk/browse/NSEK-104): Added missing database variables to .env file.
