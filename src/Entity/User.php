@@ -31,6 +31,11 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $loginToken;
+
     public function getId(): ?string
     {
         return $this->id;
@@ -104,5 +109,17 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getLoginToken(): ?string
+    {
+        return $this->loginToken;
+    }
+
+    public function setLoginToken(string $loginToken): self
+    {
+        $this->loginToken = $loginToken;
+
+        return $this;
     }
 }
