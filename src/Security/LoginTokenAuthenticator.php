@@ -19,8 +19,6 @@ class LoginTokenAuthenticator extends AbstractGuardAuthenticator
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        // todo
-        // brug user repository i stedet for
         $this->entityManager = $entityManager;
     }
 
@@ -49,7 +47,11 @@ class LoginTokenAuthenticator extends AbstractGuardAuthenticator
             // fail authentication with a custom error
             throw new AuthenticationCredentialsNotFoundException('Token could not be found.');
         }
-
+        // User will always be set at this point,
+        // reset token to avoid being able to reuse login url
+        $user->setLoginToken(null);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
         return $user;
     }
 

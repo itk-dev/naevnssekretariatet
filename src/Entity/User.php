@@ -32,7 +32,7 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $loginToken;
 
@@ -116,7 +116,7 @@ class User implements UserInterface
         return $this->loginToken;
     }
 
-    public function setLoginToken(string $loginToken): self
+    public function setLoginToken($loginToken): self
     {
         $this->loginToken = $loginToken;
 

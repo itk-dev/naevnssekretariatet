@@ -2,15 +2,16 @@
 
 namespace App\Command;
 
-use App\Repository\UserRepository;
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-//use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Uid\Uuid;
 
 class UserLoginCommand extends Command
 {
@@ -21,14 +22,14 @@ class UserLoginCommand extends Command
      */
     private $urlGenerator;
     /**
-     * @var UserRepository
+     * @var EntityManagerInterface
      */
-    private $userRepository;
+    private $entityManager;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, UserRepository $userRepository)
+    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $entityManager)
     {
         $this->urlGenerator = $urlGenerator;
-        $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
 
         parent::__construct();
     }
@@ -50,14 +51,17 @@ class UserLoginCommand extends Command
             $io->note(sprintf('You passed an argument: %s', $email));
         }
         // Lookup username in DB, fetch the token and then pass it on
-        $user = $this->userRepository->findOneBy(['email' => $email]);
+        $user = $this->entityManager->getRepository(User::class)
+            ->findOneBy(['email' => $email]);
         if (null === $user) {
             throw new RuntimeException('User not found in database');
         }
         // generate new token and set it on the user
-        // persist
-        // flush
-        $token = $user->getLoginToken();
+        $token = Uuid::v4()->toBase32();
+        $user->setLoginToken($token);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
         $loginPage = $this->urlGenerator->generate('default', [
             'loginToken' => $token,
         ], UrlGeneratorInterface::ABSOLUTE_URL);
