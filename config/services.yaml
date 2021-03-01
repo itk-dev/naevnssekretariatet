@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: '%env(DEFAULT_LOCALE)%'
+    site_name: '%env(SITE_NAME)%'
 
 services:
     # default configuration for services in *this* file
