@@ -17,6 +17,8 @@ security:
             guard:
                 authenticators:
                     - App\Security\LoginTokenAuthenticator
+                    - App\Security\OpenIdLoginAuthenticator
+                entry_point: App\Security\OpenIdLoginAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
