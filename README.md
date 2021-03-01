@@ -16,6 +16,7 @@ of a board can make a decision upon.
 
 * [Symfony](https://symfony.com)
 * [Encore](https://symfony.com/doc/current/frontend.html)
+* [EasyAdmin](https://github.com/EasyCorp/EasyAdminBundle)
 
 ## Getting started
 
