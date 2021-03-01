@@ -40,13 +40,13 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
     {
         $code = $request->query->get('id_token');
         [$jose, $payload, $signature] = array_map('base64_decode', explode('.', $code));
-        var_dump([$jose, $payload, $signature]);
-        die(__FILE__);
+
+        return $payload;
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        // todo
+        // todo check email osv lav bruger etc...
     }
 
     public function checkCredentials($credentials, UserInterface $user)

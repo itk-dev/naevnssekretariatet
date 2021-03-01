@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Security;
 
@@ -6,9 +8,9 @@ use League\OAuth2\Client\Provider\GenericProvider;
 use League\OAuth2\Client\Token\AccessToken;
 
 /**
- * Class OpenIdConfigurationProvider
+ * Class OpenIdConfigurationProvider.
  *
- * @author "Emmanuel BALLERY" <emmanuel.ballery@gmail.com>
+ * @see https://github.com/cirrusidentity/simplesamlphp-module-authoauth2/blob/master/lib/Providers/OpenIDConnectProvider.php
  */
 class OpenIdConfigurationProvider extends GenericProvider
 {
@@ -33,7 +35,7 @@ class OpenIdConfigurationProvider extends GenericProvider
     private $cache;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getConfigurableOptions()
     {
@@ -43,7 +45,7 @@ class OpenIdConfigurationProvider extends GenericProvider
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getRequiredOptions()
     {
@@ -54,7 +56,7 @@ class OpenIdConfigurationProvider extends GenericProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getBaseAuthorizationUrl()
     {
@@ -62,7 +64,7 @@ class OpenIdConfigurationProvider extends GenericProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getBaseAccessTokenUrl(array $params)
     {
@@ -70,7 +72,7 @@ class OpenIdConfigurationProvider extends GenericProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
@@ -78,7 +80,7 @@ class OpenIdConfigurationProvider extends GenericProvider
     }
 
     /**
-     * Refresh Cache
+     * Refresh Cache.
      *
      * @throws \Exception
      */
@@ -105,11 +107,8 @@ class OpenIdConfigurationProvider extends GenericProvider
     }
 
     /**
-     * Get Configuration
+     * Get Configuration.
      *
-     * @param string $key
-     *
-     * @return string
      * @throws \Exception
      */
     private function getConfiguration(string $key): string
@@ -120,7 +119,7 @@ class OpenIdConfigurationProvider extends GenericProvider
     }
 
     /**
-     * Load Cache
+     * Load Cache.
      *
      * @throws \Exception
      */

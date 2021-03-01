@@ -28,15 +28,14 @@ class DefaultController extends AbstractController
     public function login(SessionInterface $session, array $openIdProviderOptions = []): Response
     {
         $provider = new OpenIdConfigurationProvider([
-            'scope' => 'openid',
-            'response_type' => 'id_token',
-            'response_mode' => 'query',
             'redirectUri' => $this->generateUrl('default', [], UrlGeneratorInterface::ABSOLUTE_URL),
         ] + $openIdProviderOptions);
 
-        $authUrl = $provider->getAuthorizationUrl();
-        var_dump($authUrl);
-        die(__FILE__);
+        $authUrl = $provider->getAuthorizationUrl([
+            'scope' => 'openid',
+            'response_type' => 'id_token',
+            'response_mode' => 'query',
+        ]);
 
         $session->set('oauth2state', $provider->getState());
 
