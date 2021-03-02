@@ -38,7 +38,7 @@ class UserLoginCommand extends Command
     {
         $this
             ->setDescription(self::$defaultDescription)
-            ->addArgument('email', InputArgument::REQUIRED, 'user email')
+            ->addArgument('email', InputArgument::REQUIRED, 'User email')
         ;
     }
 
@@ -47,7 +47,7 @@ class UserLoginCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $email = $input->getArgument('email');
 
-        // Lookup username in DB, fetch the token and then pass it on
+        // Lookup username in database, fetch the token and then pass it on
         $user = $this->entityManager->getRepository(User::class)
             ->findOneBy(['email' => $email]);
         if (null === $user) {

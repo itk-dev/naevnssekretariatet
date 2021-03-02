@@ -34,8 +34,6 @@ class OpenIdConfigurationProvider extends GenericProvider
      */
     private $cache;
 
-
-
     /**
      * {@inheritDoc}
      */
@@ -63,6 +61,19 @@ class OpenIdConfigurationProvider extends GenericProvider
     public function getBaseAuthorizationUrl()
     {
         return $this->getConfiguration('authorization_endpoint');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAuthorizationUrl(array $options = [])
+    {
+        // Add default options scope, response_type and response_mode
+        return parent::getAuthorizationUrl($options + [
+                'scope' => 'openid',
+                'response_type' => 'id_token',
+                'response_mode' => 'query',
+            ]);
     }
 
     /**
