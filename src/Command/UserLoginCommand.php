@@ -38,7 +38,7 @@ class UserLoginCommand extends Command
     {
         $this
             ->setDescription(self::$defaultDescription)
-            ->addArgument('email', InputArgument::REQUIRED, 'email')
+            ->addArgument('email', InputArgument::REQUIRED, 'user email')
         ;
     }
 
@@ -59,6 +59,7 @@ class UserLoginCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
+        //Generate absolute url for login
         $loginPage = $this->urlGenerator->generate('default', [
             'loginToken' => $token,
         ], UrlGeneratorInterface::ABSOLUTE_URL);
