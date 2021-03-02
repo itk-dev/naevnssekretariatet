@@ -38,7 +38,7 @@ class UserLoginCommand extends Command
     {
         $this
             ->setDescription(self::$defaultDescription)
-            ->addArgument('email', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('email', InputArgument::REQUIRED, 'email')
         ;
     }
 
@@ -47,16 +47,13 @@ class UserLoginCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $email = $input->getArgument('email');
 
-        if ($email) {
-            $io->note(sprintf('You passed an argument: %s', $email));
-        }
         // Lookup username in DB, fetch the token and then pass it on
         $user = $this->entityManager->getRepository(User::class)
             ->findOneBy(['email' => $email]);
         if (null === $user) {
             throw new RuntimeException('User not found in database');
         }
-        // generate new token and set it on the user
+        // Generate new token and set it on the user
         $token = Uuid::v4()->toBase32();
         $user->setLoginToken($token);
         $this->entityManager->persist($user);
@@ -66,7 +63,7 @@ class UserLoginCommand extends Command
             'loginToken' => $token,
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        $io->success('URL:   '.$loginPage);
+        $io->writeln($loginPage);
 
         return Command::SUCCESS;
     }

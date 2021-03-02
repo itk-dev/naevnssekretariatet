@@ -38,9 +38,14 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
 
     public function getCredentials(Request $request)
     {
-        $code = $request->query->get('id_token');
-        [$jose, $payload, $signature] = array_map('base64_decode', explode('.', $code));
+        $idToken = $request->query->get('id_token');
+        [$jose, $payload, $signature] = array_map('base64_decode', explode('.', $idToken));
 
+        $testint = strpos($payload, 'name');
+        var_dump($testint);
+
+        var_dump($jose);
+        die(__FILE__);
         return $payload;
     }
 

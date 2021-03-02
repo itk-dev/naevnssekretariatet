@@ -34,6 +34,15 @@ class OpenIdConfigurationProvider extends GenericProvider
      */
     private $cache;
 
+    public function __construct(array $options)
+    {
+        parent::__construct($options + [
+                'scope' => 'openid',
+                'response_type' => 'id_token',
+                'response_mode' => 'query',
+            ]);
+    }
+
     /**
      * {@inheritDoc}
      */

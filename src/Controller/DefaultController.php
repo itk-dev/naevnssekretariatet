@@ -31,11 +31,7 @@ class DefaultController extends AbstractController
             'redirectUri' => $this->generateUrl('default', [], UrlGeneratorInterface::ABSOLUTE_URL),
         ] + $openIdProviderOptions);
 
-        $authUrl = $provider->getAuthorizationUrl([
-            'scope' => 'openid',
-            'response_type' => 'id_token',
-            'response_mode' => 'query',
-        ]);
+        $authUrl = $provider->getAuthorizationUrl();
 
         $session->set('oauth2state', $provider->getState());
 
