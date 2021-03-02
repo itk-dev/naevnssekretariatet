@@ -72,6 +72,26 @@ class DashboardController extends AbstractDashboardController
 }
 ```
 
+Our current theme doesn't support nested menu items, so the following will not render
+a menu item:
+
+```php
+class DashboardController extends AbstractDashboardController
+{
+    // ...
+
+    public function configureMenuItems(): iterable
+    {
+        MenuItem::subMenu('Blog', 'fa fa-article')->setSubItems([
+            MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class),
+            MenuItem::linkToCrud('Posts', 'fa fa-file-text', BlogPost::class),
+            MenuItem::linkToCrud('Comments', 'fa fa-comment', Comment::class),
+        ]),
+        // ...
+    }
+}
+```
+
 See the EasyAdmin documentation [about the main menu in the dashboard](https://symfony.com/doc/current/bundles/EasyAdminBundle/dashboards.html#main-menu).
 
 ## Useful links
