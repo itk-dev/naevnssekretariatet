@@ -61,15 +61,27 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         $user = $this->entityManager->getRepository(User::class)
             ->findOneBy(['email' => $email]);
         if (null === $user) {
-            // todo create user here
-            throw new \Exception('Create user here');
+            // Create the new user
+            $user = new User();
         }
-        // todo check email osv lav bruger etc...
+
+        // Update/set names here
+        $user->setName($name);
+        $user->setEmail($email);
+        // todo roller skal trækkes ud af credentials på senere tidspunkt
+        // $newUser->setRoles(['ROLE_ADMIN']);
+
+        // persist and flush user to database
+        // If no change persist will recognize this
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        return $user;
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        // todo
+        return true;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
