@@ -79,9 +79,7 @@ You should now be able to browse to the application
 open http://$(docker-compose port nginx 80)
 ```
 
-## Environment
-
-### Azure B2C 
+#### Azure B2C 
 Configuration of the following environment variables must be done in order to login via Azure B2C:
 
    ```
@@ -90,8 +88,8 @@ Configuration of the following environment variables must be done in order to lo
    OPEN_ID_PROVIDER_CLIENT_SECRET=
    ```
 
-### CLI login
-In order to use the CLI login command the following environment variable must be set:
+#### CLI login
+In order to use the CLI login feature the following environment variable must be set:
    ```
    DEFAULT_URI=
    ```
@@ -103,7 +101,7 @@ Rather than signing in via Azure B2C, you can get a sign in url from the command
 ```shell
 symfony php bin/console app:user-login --help
 ```
-for details.
+for details. Be aware that a login url will only work once.
 
 ## Running the tests
 
