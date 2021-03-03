@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -86,21 +87,22 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        // todo
+        // Throw (telling) error
+        throw new AuthenticationException('Error occurred validating azure login');
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
-        // todo
+        // todo Redirect to some destination - default for now?
+        return new RedirectResponse('/');
     }
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        // todo
     }
 
     public function supportsRememberMe()
     {
-        // todo
+        return false;
     }
 }
