@@ -40,8 +40,8 @@
     {% endif %}
 
     {% block configured_head_contents %}
-        {% for htmlContent in ea.assets.headContents ?? [] %}
-            {{ htmlContent|raw }}
+        {% for html_content in ea.assets.headContents ?? [] %}
+            {{ html_content|raw }}
         {% endfor %}
     {% endblock %}
 </head>
@@ -84,9 +84,9 @@
 
                         {% set _user_menu_content %}
                             <div class="popover-content-section user-details {{ ea.userMenu.items|length > 0 ? 'user-has-actions' }}">
-                                <p class="small text-muted mb-0">{{ 'user.logged_in_as'|trans(domain = 'EasyAdminBundle') }}</p>
+                                <p class="small text-muted mb-0">{{ 'user.logged_in_as'|trans(domain='EasyAdminBundle') }}</p>
                                 <p class="user-details-name">
-                                    {{ ea.user is null ? 'user.anonymous'|trans(domain = 'EasyAdminBundle') : ea.userMenu.name }}
+                                    {{ ea.user is null ? 'user.anonymous'|trans(domain='EasyAdminBundle') : ea.userMenu.name }}
                                 </p>
                             </div>
 
@@ -206,8 +206,8 @@
     {% endblock %}
 
     {% block configured_body_contents %}
-        {% for htmlContent in ea.assets.bodyContents ?? [] %}
-            {{ htmlContent|raw }}
+        {% for html_content in ea.assets.bodyContents ?? [] %}
+            {{ html_content|raw }}
         {% endfor %}
     {% endblock %}
     </body>
