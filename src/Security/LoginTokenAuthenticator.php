@@ -43,7 +43,7 @@ class LoginTokenAuthenticator extends AbstractGuardAuthenticator
         $user = $this->entityManager->getRepository(User::class)
             ->findOneBy(['loginToken' => $credentials]);
 
-        if (!$user) {
+        if (null === $user) {
             // fail authentication with a custom error
             throw new AuthenticationCredentialsNotFoundException('Token could not be found.');
         }

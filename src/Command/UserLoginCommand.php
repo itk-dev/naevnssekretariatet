@@ -47,7 +47,7 @@ class UserLoginCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $email = $input->getArgument('email');
 
-        // Lookup username in database, fetch the token and then pass it on
+        // Lookup user in database
         $user = $this->entityManager->getRepository(User::class)
             ->findOneBy(['email' => $email]);
         if (null === $user) {
