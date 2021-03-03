@@ -79,6 +79,32 @@ You should now be able to browse to the application
 open http://$(docker-compose port nginx 80)
 ```
 
+## Environment
+
+### Azure B2C 
+Configuration of the following environment variables must be done in order to login via Azure B2C:
+
+   ```
+   OPEN_ID_PROVIDER_URL=
+   OPEN_ID_PROVIDER_CLIENT_ID=
+   OPEN_ID_PROVIDER_CLIENT_SECRET=
+   ```
+
+### CLI login
+In order to use the CLI login command the following environment variable must be set:
+   ```
+   DEFAULT_URI=
+   ```
+
+## Sign in from command line
+
+Rather than signing in via Azure B2C, you can get a sign in url from the command line. Run
+
+```shell
+symfony php bin/console app:user-login --help
+```
+for details.
+
 ## Running the tests
 
 See the [TESTING.md](docs/TESTING.md) documentation for more information.
