@@ -41,11 +41,22 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         $idToken = $request->query->get('id_token');
         [$jose, $payload, $signature] = array_map('base64_decode', explode('.', $idToken));
 
+        // Figure out where name starts
         $testint = strpos($payload, 'name');
-        var_dump($testint);
 
-        var_dump($jose);
-        exit(__FILE__);
+        // Go to first important piece of payload, name
+        $usefulStuff = str_split($payload, $testint)[1];
+
+        // Remove special characters
+        $usefulStuff = preg_replace('/[:{},]/', '', $usefulStuff);
+        $usefulStuff = preg_replace('/(")(")*/', ':', $usefulStuff);
+
+        // Split string, such that we can extract name and upn(email)
+        // Can also get AZ-ident if needed in arrayData[5]
+        $arrayData = preg_split('/:/', $usefulStuff);
+        $name = $arrayData[1];
+        $upn = $arrayData[3];
+        
 
         return $payload;
     }
