@@ -2,6 +2,8 @@
 
 namespace App\Security;
 
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -17,8 +19,14 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
      */
     private $session;
 
-    public function __construct(SessionInterface $session)
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
     {
+        $this->entityManager = $entityManager;
         $this->session = $session;
     }
 
@@ -41,28 +49,21 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         $idToken = $request->query->get('id_token');
         [$jose, $payload, $signature] = array_map('base64_decode', explode('.', $idToken));
 
-        // Figure out where name starts
-        $testint = strpos($payload, 'name');
-
-        // Go to first important piece of payload, name
-        $usefulStuff = str_split($payload, $testint)[1];
-
-        // Remove special characters
-        $usefulStuff = preg_replace('/[:{},]/', '', $usefulStuff);
-        $usefulStuff = preg_replace('/(")(")*/', ':', $usefulStuff);
-
-        // Split string, such that we can extract name and upn(email)
-        // Can also get AZ-ident if needed in arrayData[5]
-        $arrayData = preg_split('/:/', $usefulStuff);
-        $name = $arrayData[1];
-        $upn = $arrayData[3];
-        
-
-        return $payload;
+        return json_decode($payload, true);
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+        $name = $credentials['name'];
+        $email = $credentials['upn'];
+
+        //Check if user exists already - if not create a user
+        $user = $this->entityManager->getRepository(User::class)
+            ->findOneBy(['email' => $email]);
+        if (null === $user) {
+            // todo create user here
+            throw new \Exception('Create user here');
+        }
         // todo check email osv lav bruger etc...
     }
 
