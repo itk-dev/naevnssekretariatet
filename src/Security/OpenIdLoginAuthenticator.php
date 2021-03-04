@@ -6,6 +6,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -69,7 +70,7 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         // Update/set names here
         $user->setName($name);
         $user->setEmail($email);
-        // todo roller skal trækkes ud af credentials på senere tidspunkt
+        // todo - roles must be extracted from credentials at a later stage
         // $newUser->setRoles(['ROLE_ADMIN']);
 
         // persist and flush user to database
@@ -99,6 +100,7 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
+        return new RedirectResponse('/login');
     }
 
     public function supportsRememberMe()
