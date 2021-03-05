@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,11 +16,20 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class LoginTokenAuthenticator extends AbstractGuardAuthenticator
 {
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
     {
         $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
     }
 
     public function supports(Request $request)
@@ -40,8 +50,7 @@ class LoginTokenAuthenticator extends AbstractGuardAuthenticator
             return null;
         }
 
-        $user = $this->entityManager->getRepository(User::class)
-            ->findOneBy(['loginToken' => $credentials]);
+        $user = $this->userRepository->findOneBy(['loginToken' => $credentials]);
 
         if (null === $user) {
             // fail authentication with a custom error

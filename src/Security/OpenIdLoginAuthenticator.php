@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,10 +26,16 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
      */
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, UserRepository $userRepository)
     {
         $this->entityManager = $entityManager;
         $this->session = $session;
+        $this->userRepository = $userRepository;
     }
 
     public function supports(Request $request)
@@ -59,8 +66,7 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         $email = $credentials['upn'];
 
         //Check if user exists already - if not create a user
-        $user = $this->entityManager->getRepository(User::class)
-            ->findOneBy(['email' => $email]);
+        $user = $this->userRepository->findOneBy(['email' => $email]);
         if (null === $user) {
             // Create the new user
             $user = new User();
