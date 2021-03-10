@@ -5,7 +5,21 @@
 {% endblock %}
 
 {% block body %}
-    {% block content %}{% endblock %}
+    {% block navbar %}
+        {% include 'navbar/navbar.html.twig' %}
+    {% endblock %}
+    <div class="container-fluid">
+      <div class="row">
+        {% block sidebarMenu %}
+            {% include 'sidebar/sidebar.html.twig' %}
+        {% endblock %}
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            {% block content %}{% endblock %}
+          </div>
+        </main>
+      </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

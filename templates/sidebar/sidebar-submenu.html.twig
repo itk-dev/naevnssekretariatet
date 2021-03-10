@@ -1,0 +1,7 @@
+{% for item in submenu %}
+  <li class="nav-item">
+    <a class="nav-link" href="{{ item.link|e }}">
+      {{ item.name|e }}
+    </a>
+  </li>
+{% endfor %}
