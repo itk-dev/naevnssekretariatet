@@ -4,6 +4,8 @@
         "bootstrap": "^4.6.0",
         "core-js": "^3.0.0",
         "cypress": "^6.5.0",
+        "datatables.net": "^1.10.24",
+        "datatables.net-bs4": "^1.10.24",
         "jquery": "^3.5.1",
         "markdownlint-cli": "^0.26.0",
         "popper.js": "^1.16.1",

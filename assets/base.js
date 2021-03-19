@@ -9,12 +9,18 @@
 import './base.scss'
 
 const $ = require('jquery')
+
 require('bootstrap')
+
+// Note this requires .autoProvidejQuery() in webpack.config.js
+require('datatables.net')
 
 $(document).ready(function () {
   $('[data-toggle="popover"]').popover()
-})
-
-$(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip()
+  $('#casetable').DataTable({
+    paginate: false,
+    info: false,
+    filter: false,
+  })
 })

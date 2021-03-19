@@ -1,0 +1,23 @@
+{% extends 'layout-with-submenu.html.twig' %}
+
+{% block title %}{% trans %}Cases{% endtrans %}{% endblock %}
+
+{% block header %}
+  <h1>{% trans %}Cases{% endtrans %}</h1>
+  <div class="row">
+    <div class="form-group col-md-4">
+      <label for="{% trans %}municipality{% endtrans %}">{% trans %}Select municipality{% endtrans %}</label>
+      <select class="form-control" name="municipality" id="municipality">
+        <option value="all">{% trans %}All municipalities{% endtrans %}</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+      </select>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  Case overview
+
+{% endblock %}
