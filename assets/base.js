@@ -21,6 +21,6 @@ $(document).ready(function () {
   $('#casetable').DataTable({
     paginate: false,
     info: false,
-    filter: false,
+    filter: false
   })
 })
