@@ -19,7 +19,7 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/show", name="case_show")
+     * @Route("/case/show", name="case_show")
      */
     public function show(): Response
     {
