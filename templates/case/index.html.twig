@@ -113,7 +113,7 @@
         </thead>
         <tbody>
           {% for item in tablecontents %}
-          <tr class="{% if  item.status == "Uåbnet" %}table-primary{% endif %} ">
+          <tr class="{% if item.status == "Uåbnet" %}table-primary{% endif %} ">
             <th scope="row">{{ item.casenumber|e }}</th>
             <td>{{ item.casetype|e }}</td>
             <td>{{ item.status|e }}</td>
