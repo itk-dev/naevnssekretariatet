@@ -1,45 +1,4 @@
 {% extends 'base.html.twig' %}
-
-
-{% set menu = [
-  {
-    "name": "Dashboard",
-    "tooltip": "Go to dashboard",
-    "link": "#",
-    "icon": "tachometer-alt"
-  },
-  {
-    "name": "Case list",
-    "tooltip": "Go to case list",
-    "link": "#",
-    "icon": "list"
-  },
-  {
-    "name": "Agenda",
-    "tooltip": "Go to Agendas",
-    "link": "#",
-    "icon": "clipboard-list"
-  },
-  {
-    "name": "Templates",
-    "tooltip": "Go to Templates",
-    "link": "#",
-    "icon": "file-alt"
-  },
-  {
-    "name": "FAQ",
-    "tooltip": "Go to FAQ",
-    "link": "#",
-    "icon": "question-circle"
-  },
-  {
-    "name": "Settings",
-    "tooltip": "Go to Settings",
-    "link": "#",
-    "icon": "cog"
-  },
-] %}
-
 {% block stylesheets %}
     {{ parent() }}
 {% endblock %}
@@ -55,21 +14,19 @@
               <nav id="sidebarMenu" role="nav" class="col-auto d-md-block bg-dark sidebar collapse">
                 <div class="bg-dark">
                   <ul class="nav flex-column">
-                    {% include 'sidebar/sidebar-menu.html.twig' with menu %}
+                    {% include 'sidebar/sidebar-menu.html.twig' %}
                   </ul>
                 </div>
               </nav>
             {% endblock %}
         {% endblock %}
         <div class="col ml-sm-auto ml-md-5 px-md-4">
-          {# <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> #}
           <header class="pt-3">
             {% block header %}{% endblock %}
           </header>
           <div class="row pb-2 mb-3">
             {% block content %}{% endblock %}
           </div>
-          {# </div> #}
         </div>
       </div>
     </div>
