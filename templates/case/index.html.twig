@@ -65,6 +65,7 @@
       "adress": "Vej 1, 8000 Århus C",
       "landlord": "Udlejer Udlejersensnavn",
       "tenant": "Lejer Lejersnavn",
+      "caselink": "/case/show",
     },
     {
       "casenumber": "2202",
@@ -74,6 +75,7 @@
       "adress": "Vej 1, 8000 Århus C",
       "landlord": "Udlejer Udlejersensnavn",
       "tenant": "Lejer Lejersnavn",
+      "caselink": "/case/show",
     },
     {
       "casenumber": "2203",
@@ -83,10 +85,18 @@
       "adress": "Vej 1, 8000 Århus C",
       "landlord": "Udlejer Udlejersensnavn",
       "tenant": "Lejer Lejersnavn",
+      "caselink": "/case/show",
     },
   ] %}
 
   {% set btn_group = [
+    {
+      "name": "Show case",
+      "style": "primary",
+      "icon": "eye",
+      "link": "#",
+      "tooltip": "Show case",
+    },
     {
       "name": "Add reminder",
       "style": "warning",
@@ -105,7 +115,7 @@
             <th scope="col">{% trans %}Casetype{% endtrans %}</th>
             <th scope="col">{% trans %}Status{% endtrans %}</th>
             <th scope="col">{% trans %}Deadline{% endtrans %}</th>
-            <th scope="col">{% trans %}Adress{% endtrans %}</th>
+            <th scope="col">{% trans %}Address{% endtrans %}</th>
             <th scope="col">{% trans %}Landlord{% endtrans %}</th>
             <th scope="col">{% trans %}Tenant{% endtrans %}</th>
             <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
@@ -114,7 +124,7 @@
         <tbody>
           {% for item in tablecontents %}
           <tr class="{% if item.status == "Uåbnet" %}table-primary{% endif %} ">
-            <th scope="row">{{ item.casenumber|e }}</th>
+            <td><a href="{{ item.caselink|e }}" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ item.casenumber|e }}">{{ item.casenumber|e }}</a></td>
             <td>{{ item.casetype|e }}</td>
             <td>{{ item.status|e }}</td>
             <td>{{ item.deadline|e }}</td>
