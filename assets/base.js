@@ -18,7 +18,7 @@ require('datatables.net')
 $(document).ready(function () {
   $('[data-toggle="popover"]').popover()
   $('[data-toggle="tooltip"]').tooltip({
-    delay: { "show": 1000, "hide": 100 }
+    delay: { show: 1000, hide: 100 }
   })
   $('#casetable').DataTable({
     paginate: false,
