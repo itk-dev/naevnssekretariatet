@@ -1,3 +1,42 @@
+{% set menu = [
+  {
+    "name": "Dashboard",
+    "tooltip": "Go to dashboard",
+    "link": "/",
+    "icon": "tachometer-alt"
+  },
+  {
+    "name": "Case list",
+    "tooltip": "Go to case list",
+    "link": "/case",
+    "icon": "list"
+  },
+  {
+    "name": "Agenda",
+    "tooltip": "Go to Agendas",
+    "link": "#",
+    "icon": "clipboard-list"
+  },
+  {
+    "name": "Templates",
+    "tooltip": "Go to Templates",
+    "link": "#",
+    "icon": "file-alt"
+  },
+  {
+    "name": "FAQ",
+    "tooltip": "Go to FAQ",
+    "link": "#",
+    "icon": "question-circle"
+  },
+  {
+    "name": "Settings",
+    "tooltip": "Go to Settings",
+    "link": "#",
+    "icon": "cog"
+  },
+] %}
+
 {% for item in menu %}
   <li class="nav-item">
     {# TODO: add active class to highlight current navigation item{{ app.request.get('_route') == '_list' ? 'active' }} #}
