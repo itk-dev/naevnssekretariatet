@@ -1,63 +1,9 @@
-{% set menu = [
-  {
-    "name": "Dashboard",
-    "tooltip": "Go to dashboard",
-    "link": "#",
-    "icon": "tachometer-alt"
-  },
-  {
-    "name": "Case list",
-    "tooltip": "Go to case list",
-    "link": "#",
-    "icon": "list"
-  },
-  {
-    "name": "Agenda",
-    "tooltip": "Go to Agendas",
-    "link": "#",
-    "icon": "clipboard-list"
-  },
-  {
-    "name": "Templates",
-    "tooltip": "Go to Templates",
-    "link": "#",
-    "icon": "file-alt"
-  },
-  {
-    "name": "FAQ",
-    "tooltip": "Go to FAQ",
-    "link": "#",
-    "icon": "question-circle"
-  },
-  {
-    "name": "Settings",
-    "tooltip": "Go to Settings",
-    "link": "#",
-    "icon": "cog"
-  },
-] %}
-
-{% set submenu = [
-  {
-    "name": "Casesummary",
-    "link": "#"
-  },
-  {
-    "name": "Basic information",
-    "link": "#"
-  },
-  {
-    "name": "Status info",
-    "link": "#"
-  },
-] %}
-
 <nav id="sidebarMenu" role="nav" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
   <div class="row no-gutters">
     {% block sidebarMenu %}
       <div class="col-auto bg-dark">
         <ul class="nav flex-column">
-          {% include 'sidebar/sidebar-menu.html.twig' with menu %}
+          {% include 'sidebar/sidebar-menu.html.twig' %}
         </ul>
       </div>
     {% endblock %}
@@ -70,7 +16,7 @@
           <h6 class="px-3 mb-1">Sag 21/220312</h6>
           <p><small class="text-sm text-muted px-3 mt-4 mb-1">Espedalen 38, 8240 Risskov</small></p>
           <ul class="nav flex-column">
-            {% include 'sidebar/sidebar-submenu.html.twig' with submenu %}
+            {% include 'sidebar/sidebar-submenu.html.twig' %}
           </ul>
         </div>
       {% endblock %}

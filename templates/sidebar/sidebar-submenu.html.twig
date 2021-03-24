@@ -1,7 +1,48 @@
+{% set submenu = [
+  {
+    "name": "Casesummary",
+    "link": "#",
+    "active": "true"
+  },
+  {
+    "name": "Basic information",
+    "link": "#"
+  },
+  {
+    "name": "Status info",
+    "link": "#"
+  },
+  {
+    "name": "Parties",
+    "link": "#"
+  },
+  {
+    "name": "Communication",
+    "link": "#",
+    "notification_count": "2"
+  },
+  {
+    "name": "Documents",
+    "link": "#"
+  },
+  {
+    "name": "Decision",
+    "link": "#"
+  },
+  {
+    "name": "Notes",
+    "link": "#"
+  },
+  {
+    "name": "Log",
+    "link": "#"
+  },
+] %}
+
 {% for item in submenu %}
   <li class="nav-item">
-    <a class="nav-link" href="{{ item.link|e }}">
-      {{ item.name|e }}
+    <a class="nav-link {% if item.active is defined %}btn btn-secondary disabled text-left mx-3{% endif %}" href="{{ item.link|e }}">
+      {{ item.name|e }}{% if item.notification_count is defined %}<span class="badge badge-pill badge-primary ml-3">{{ item.notification_count|e }}</span>{% endif %}
     </a>
   </li>
 {% endfor %}
