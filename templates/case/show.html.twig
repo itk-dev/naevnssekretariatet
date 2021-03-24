@@ -1,16 +1,49 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% set casestatuses = [
+  {
+    "name": "Case created"
+  },
+  {
+    "name": "Validated"
+  },
+  {
+    "name": "Parties hearing"
+  },
+  {
+    "name": "Case processing"
+  },
+  {
+    "name": "On agenda"
+  },
+  {
+    "name": "Decision"
+  },
+] %}
+
 {% block title %}{% trans %}Cases{% endtrans %}{% endblock %}
 
 {% block header %}
-  <h1>{% trans %}Cases{% endtrans %}</h1>
   <div class="row">
-    <div class="form-group col-md-4">
-      <label for="{% trans %}municipality{% endtrans %}">{% trans %}Select municipality{% endtrans %}</label>
-      <select class="form-control" name="municipality" id="municipality">
-        <option value="all">{% trans %}All municipalities{% endtrans %}</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
+    <div class="col">
+      {# TODO: Heading should not be static :) #}
+      <h1>Sag 21/220312</h1>
+    </div>
+    <div class="col-auto">
+      {# TODO: Needs functionality on buttons #}
+      <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
+      <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+    </div>
+  </div>
+  <div class="row form-inline my-3">
+    <div class="form-group col">
+      <label for="casestatus" class="mr-2">{% trans %}Casestatus{% endtrans %}</label>
+      <select class="form-control form-control-sm" name="casestatus" id="casestatus">
+        {# TODO: Dynamicly populated with availeble statues #}
+        {# TODO: Case changes status if a new status is selected. Confirm or cancel via dialog #}
+        {% for item in casestatuses %}
+          <option value="{{ item.name|e }}">{{ item.name|e }}</option>
+        {% endfor %}
       </select>
     </div>
   </div>
@@ -18,6 +51,54 @@
 
 {% block content %}
 
-  Case overview
-
+  <main role="main" class="col-12">
+    <section area-labelledby="section_title_caseprogress">
+      <div class="row">
+        <div class="col">
+          <h2 id="section_title_caseprogress">{% trans %}Caseprogress{% endtrans %}</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="progress">
+            {# TODO: Needs functionality on buttons #}
+            <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="row mt-1">
+            {% for item in casestatuses %}
+              <div class="col">
+                <p class="m-0">{{ item.name|e }}<i class="fas fa-angle-right ml-1 mt-1 float-right"></i></p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <section area-labelledby="section_title_caseinfo">
+      <div class="row">
+        <div class="col">
+          <h2 id="section_title_caseinfo">{% trans %}Caseinfo{% endtrans %}</h2>
+        </div>
+      </div>
+      <div class="row">
+        {% for item in casestatuses %}
+          <div class="col">
+            <p class="m-0">{{ item.name|e }}<i class="fas fa-angle-right ml-1 mt-1 float-right"></i></p>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+  <footer class="col-12 mt-3">
+    <div class="row">
+      <div class="col">
+        <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Back to list{% endtrans %}</a>
+      </div>
+      <div class="col-auto ml-auto">
+        {# TODO: Needs functionality on buttons #}
+        <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
+        <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+      </div>
+    </div>
+  </footer>
 {% endblock %}
