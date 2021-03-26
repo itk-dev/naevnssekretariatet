@@ -21,6 +21,72 @@
   },
 ] %}
 
+{% set caseinfo = [
+  {
+    "label": "Created by",
+    "value": "Bruger Brugersen"
+  },
+  {
+    "label": "Date created",
+    "value": "15/12/2020"
+  },
+  {
+    "label": "Last changed",
+    "value": "10/01/2021"
+  },
+  {
+    "label": "Assigned to",
+    "value": "Bruger Brugersen"
+  },
+  {
+    "label": "Board",
+    "value": "Huslejenævnet"
+  },
+  {
+    "label": "Municipality",
+    "value": "Aarhus"
+  },
+] %}
+
+{% set casecommunication = [
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a.",
+    "status": "unread"
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+] %}
+
+{% set casenotes = [
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+] %}
+
 {% block title %}{% trans %}Cases{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -35,7 +101,7 @@
       <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
     </div>
   </div>
-  <div class="row form-inline my-3">
+  <div class="row form-inline mt-3">
     <div class="form-group col">
       <label for="casestatus" class="mr-2">{% trans %}Casestatus{% endtrans %}</label>
       <select class="form-control form-control-sm" name="casestatus" id="casestatus">
@@ -52,10 +118,10 @@
 {% block content %}
 
   <main role="main" class="col-12">
-    <section area-labelledby="section_title_caseprogress">
+    <section area-labelledby="section_caseprogress" class="mt-5">
       <div class="row">
         <div class="col">
-          <h2 id="section_title_caseprogress">{% trans %}Caseprogress{% endtrans %}</h2>
+          <h2 id="section_caseprogress">{% trans %}Caseprogress{% endtrans %}</h2>
         </div>
       </div>
       <div class="row">
@@ -74,20 +140,71 @@
         </div>
       </div>
     </section>
-    <section area-labelledby="section_title_caseinfo">
+
+    <section area-labelledby="section_caseinfo" class="mt-5">
       <div class="row">
         <div class="col">
-          <h2 id="section_title_caseinfo">{% trans %}Caseinfo{% endtrans %}</h2>
+          <h2 id="section_caseinfo">{% trans %}Caseinfo{% endtrans %}</h2>
         </div>
       </div>
       <div class="row">
-        {% for item in casestatuses %}
+        {% for item in caseinfo %}
           <div class="col">
-            <p class="m-0">{{ item.name|e }}<i class="fas fa-angle-right ml-1 mt-1 float-right"></i></p>
+            <label for="{{ item.label|e }}">{{ item.label|e }}</label>
+            <p class="m-0" id="{{ item.label|e }}"><strong>{{ item.value|e }}</strong></p>
           </div>
         {% endfor %}
       </div>
     </section>
+
+    <div class="row mt-md-5">
+      <section area-labelledby="section_latest_communication" class="col-md-6 mt-5 mt-md-0">
+        <div class="row">
+          <div class="col">
+            <h2 id="section_latest_communication">{% trans %}Latest communication{% endtrans %}</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="list-group">
+              {% for item in casecommunication %}
+                <a href="#" class="list-group-item list-group-item-action {% if item.status is defined == "unread" %}active{% endif %}">
+                  <div class="d-flex w-100 justify-content-between">
+                    <span class="mr-3">{{ item.date|e }}</span>
+                    <p class="mb-1">{{ item.title|e }}</p>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section area-labelledby="section_latest_notes" class="col-md-6 mt-5 mt-md-0">
+        <div class="row">
+          <div class="col">
+            <h2 id="section_latest_notes">{% trans %}Latest notes{% endtrans %}</h2>
+          </div>
+          <div class="col-auto">
+            <a name="" id="" class="btn btn-success float-right" href="#" role="button">Create new note</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="list-group">
+              {% for item in casenotes %}
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="d-flex w-100 justify-content-between">
+                    <span class="mr-3">{{ item.date|e }}</span>
+                    <p class="mb-1">{{ item.title|e }}</p>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
   <footer class="col-12 mt-3">
     <div class="row">
