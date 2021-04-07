@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\KommuneRepository;
+use App\Repository\MunicipalityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 
 
 /**
- * @ORM\Entity(repositoryClass=KommuneRepository::class)
+ * @ORM\Entity(repositoryClass=MunicipalityRepository::class)
  */
-class Kommune
+class Municipality
 {
     /**
      * @ORM\Id
@@ -25,7 +25,7 @@ class Kommune
      */
     private $name;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }

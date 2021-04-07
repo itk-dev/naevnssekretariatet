@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Kommune;
+use App\Entity\Municipality;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Kommune|null find($id, $lockMode = null, $lockVersion = null)
- * @method Kommune|null findOneBy(array $criteria, array $orderBy = null)
- * @method Kommune[]    findAll()
- * @method Kommune[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Municipality|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Municipality|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Municipality[]    findAll()
+ * @method Municipality[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class KommuneRepository extends ServiceEntityRepository
+class MunicipalityRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Kommune::class);
+        parent::__construct($registry, Municipality::class);
     }
 
     // /**
-    //  * @return Kommune[] Returns an array of Kommune objects
+    //  * @return Municipality[] Returns an array of Municipality objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class KommuneRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Kommune
+    public function findOneBySomeField($value): ?Municipality
     {
         return $this->createQueryBuilder('k')
             ->andWhere('k.exampleField = :val')
