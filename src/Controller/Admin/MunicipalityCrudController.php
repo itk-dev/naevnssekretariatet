@@ -20,18 +20,7 @@ class MunicipalityCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Municipality')
             ->setEntityLabelInPlural('Municipalities')
             ->setSearchFields(['name'])
-            ->setDefaultSort(['name'=>'ASC']);
+            ->setDefaultSort(['name' => 'ASC'])
         ;
     }
-
-    /*
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
-    }
-    */
 }

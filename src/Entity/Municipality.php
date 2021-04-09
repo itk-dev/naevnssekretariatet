@@ -6,7 +6,6 @@ use App\Repository\MunicipalityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 
-
 /**
  * @ORM\Entity(repositoryClass=MunicipalityRepository::class)
  */
