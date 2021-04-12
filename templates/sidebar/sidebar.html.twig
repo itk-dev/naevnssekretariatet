@@ -1,4 +1,4 @@
-<nav id="sidebarMenu" role="nav" class="col-md-3 d-lg-block bg-light sidebar collapse">
+<nav id="sidebarMenu" role="nav" class="col-md-5 col-lg-3 d-lg-block bg-light sidebar collapse">
   <div class="row no-gutters">
     {% block sidebarMenu %}
       <div class="col-auto bg-dark">
@@ -8,7 +8,7 @@
       </div>
     {% endblock %}
     <div class="col">
-      <div class="d-md-none">
+      <div class="d-lg-none">
         {% include 'navbar/navbar-menu.html.twig' %}
       </div>
       {% block sidebarSubmenu %}
