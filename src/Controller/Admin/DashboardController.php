@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Board;
+use App\Entity\BoardMember;
 use App\Entity\Municipality;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -37,7 +38,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         //yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Municipalities', 'fas fa-list', Municipality::class);
-        yield MenuItem::linkToCrud('Boards', 'fas fa-list', Board::class);
+        yield MenuItem::linkToCrud('Municipalities', '', Municipality::class);
+        yield MenuItem::linkToCrud('Boards', '', Board::class);
+        yield MenuItem::linkToCrud('Boardmembers', '', BoardMember::class);
     }
 }

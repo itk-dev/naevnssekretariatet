@@ -2,26 +2,27 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Board;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use App\Entity\BoardMember;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class BoardCrudController extends AbstractCrudController
+
+class BoardMemberCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Board::class;
+        return BoardMember::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle('new', 'Add board')
-            ->setEntityLabelInSingular('Board')
-            ->setEntityLabelInPlural('Boards')
-            ->setSearchFields(['name', 'municipality.name'])
+            ->setPageTitle('new', 'Add boardmember')
+            ->setEntityLabelInSingular('Boardmember')
+            ->setEntityLabelInPlural('Boardmembers')
+            ->setSearchFields(['name', 'az', 'board.name'])
             ->setDefaultSort(['name' => 'ASC'])
             ;
     }
@@ -29,6 +30,7 @@ class BoardCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Name');
-        yield AssociationField::new('municipality', 'Municipality');
+        yield TextField::new('az', 'Az-ident');
+        yield AssociationField::new('board', 'Board');
     }
 }

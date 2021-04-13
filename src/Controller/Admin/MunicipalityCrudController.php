@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Municipality;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class MunicipalityCrudController extends AbstractCrudController
 {
@@ -22,5 +23,10 @@ class MunicipalityCrudController extends AbstractCrudController
             ->setSearchFields(['name'])
             ->setDefaultSort(['name' => 'ASC'])
             ;
+    }
+
+    public function configureFields(string $pageName): iterable
+    {
+        yield TextField::new('name', 'Name');
     }
 }
