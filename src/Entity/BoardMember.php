@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Uid\UuidV4;
 
-
 /**
  * @ORM\Entity(repositoryClass=BoardMemberRepository::class)
  */
