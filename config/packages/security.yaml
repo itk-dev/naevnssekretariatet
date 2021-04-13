@@ -19,6 +19,8 @@ security:
                     - App\Security\LoginTokenAuthenticator
                     - App\Security\OpenIdLoginAuthenticator
                 entry_point: App\Security\OpenIdLoginAuthenticator
+            logout:
+                path: app_logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
