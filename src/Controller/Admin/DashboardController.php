@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Board;
 use App\Entity\Municipality;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -29,5 +30,6 @@ class DashboardController extends AbstractDashboardController
     {
         //yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Municipalities', 'fas fa-list', Municipality::class);
+        yield MenuItem::linkToCrud('Boards', 'fas fa-list', Board::class);
     }
 }
