@@ -1,0 +1,111 @@
+{% extends 'layout-with-submenu.html.twig' %}
+
+{% set casestatuses = [
+  {
+    "name": "Case created"
+  },
+  {
+    "name": "Validated"
+  },
+  {
+    "name": "Parties hearing"
+  },
+  {
+    "name": "Case processing"
+  },
+  {
+    "name": "On agenda"
+  },
+  {
+    "name": "Decision"
+  },
+] %}
+
+{% block title %}{% trans %}Basic information{% endtrans %}{% endblock %}
+
+{% block header %}
+  <div class="row">
+    <div class="col">
+      <h1>{% trans %}Basic information{% endtrans %}</h1>
+    </div>
+    <div class="col-auto">
+      {# TODO: Needs functionality on buttons #}
+      <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
+      <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+    </div>
+  </div>
+  <div class="row form-inline mt-3">
+    <div class="form-group col">
+      <label for="casestatus" class="mr-2">{% trans %}Casestatus{% endtrans %}</label>
+      <select class="form-control form-control-sm" name="casestatus" id="casestatus">
+        {# TODO: Dynamicly populated with availeble statues #}
+        {# TODO: Case changes status if a new status is selected. Confirm or cancel via dialog #}
+        {% for item in casestatuses %}
+          <option value="{{ item.name|e }}">{{ item.name|e }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <main role="main" class="col-12">
+    <ul class="nav nav-tabs mt-3" id="casestatusTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">{% trans %}Overview{% endtrans %}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="lease-tab" data-toggle="tab" href="#lease" role="tab" aria-controls="lease" aria-selected="true">{% trans %}Lease{% endtrans %}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tenant-tab" data-toggle="tab" href="#tenant" role="tab" aria-controls="tenant" aria-selected="true">{% trans %}Tenant{% endtrans %}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="landlord-tab" data-toggle="tab" href="#landlord" role="tab" aria-controls="landlord" aria-selected="true">{% trans %}Landlord{% endtrans %}</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="casestatusTabContent">
+      <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+        <div class="row mt-3">
+          <div class="col">
+            Overview
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="lease" role="tabpanel" aria-labelledby="lease-tab">
+        <div class="row mt-3">
+          <div class="col">
+            Lease
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="tenant" role="tabpanel" aria-labelledby="tenant-tab">
+        <div class="row mt-3">
+          <div class="col">
+            Tenant
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="landlord" role="tabpanel" aria-labelledby="landlord-tab">
+        <div class="row mt-3">
+          <div class="col">
+            Landlord
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="col-12 mt-3">
+    <div class="row">
+      <div class="col">
+        <a name="" id="" class="btn btn-secondary" href="/case" role="button">{% trans %}Back to list{% endtrans %}</a>
+      </div>
+      <div class="col-auto ml-auto">
+        {# TODO: Needs functionality on buttons #}
+        <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
+        <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+      </div>
+    </div>
+  </footer>
+{% endblock %}

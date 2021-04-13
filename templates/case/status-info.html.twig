@@ -1,0 +1,36 @@
+{% extends 'layout-with-submenu.html.twig' %}
+
+{% block title %}{% trans %}Status info{% endtrans %}{% endblock %}
+
+{% block header %}
+  <div class="row">
+    <div class="col">
+      <h1>{% trans %}Status info{% endtrans %}</h1>
+    </div>
+    <div class="col-auto">
+      {# TODO: Needs functionality on buttons #}
+      <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
+      <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+    </div>
+  </div>
+  {% include "common/case-status.html.twig" %}
+{% endblock %}
+
+{% block content %}
+
+  <main role="main" class="col-12">
+
+  </main>
+  <footer class="col-12 mt-3">
+    <div class="row">
+      <div class="col">
+        <a name="" id="" class="btn btn-secondary" href="/case" role="button">{% trans %}Back to list{% endtrans %}</a>
+      </div>
+      <div class="col-auto ml-auto">
+        {# TODO: Needs functionality on buttons #}
+        <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
+        <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+      </div>
+    </div>
+  </footer>
+{% endblock %}
