@@ -22,7 +22,7 @@ class BoardCrudController extends AbstractCrudController
             ->setPageTitle('new', 'Add board')
             ->setEntityLabelInSingular('Board')
             ->setEntityLabelInPlural('Boards')
-            ->setSearchFields(['name'])
+            ->setSearchFields(['name', 'municipality.name'])
             ->setDefaultSort(['name' => 'ASC'])
             ;
     }

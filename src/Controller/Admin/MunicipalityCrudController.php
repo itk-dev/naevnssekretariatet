@@ -21,6 +21,6 @@ class MunicipalityCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Municipalities')
             ->setSearchFields(['name'])
             ->setDefaultSort(['name' => 'ASC'])
-        ;
+            ;
     }
 }

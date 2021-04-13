@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Board;
 use App\Entity\Municipality;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -24,6 +25,13 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTitle('Settings');
+    }
+
+    public function configureCrud(): Crud
+    {
+        return Crud::new()
+        ->setPaginatorPageSize(10)
+        ->setPaginatorRangeSize(2);
     }
 
     public function configureMenuItems(): iterable
