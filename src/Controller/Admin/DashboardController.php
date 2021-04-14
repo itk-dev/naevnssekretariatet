@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Board;
 use App\Entity\BoardMember;
 use App\Entity\Municipality;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -63,5 +64,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Municipalities', '', Municipality::class);
         yield MenuItem::linkToCrud('Boards', '', Board::class);
         yield MenuItem::linkToCrud('Boardmembers', '', BoardMember::class);
+        yield MenuItem::linkToCrud('User settings', '', User::class)
+            ->setAction('edit')
+            ->setEntityId($this->getUser()->getId())
+        ;
     }
 }

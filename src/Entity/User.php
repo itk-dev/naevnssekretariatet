@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -40,7 +41,7 @@ class User implements UserInterface
      */
     private $name;
 
-    public function getId(): ?string
+    public function getId(): ?UuidV4
     {
         return $this->id;
     }
