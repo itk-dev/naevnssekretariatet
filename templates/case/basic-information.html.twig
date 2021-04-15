@@ -30,8 +30,8 @@
     </div>
     <div class="col-auto">
       {# TODO: Needs functionality on buttons #}
-      <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
-      <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+      <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Edit basic information{% endtrans %}</a>
+      {# Moved validation buttons inline in form #}
     </div>
   </div>
   <div class="row form-inline mt-3">
@@ -69,7 +69,109 @@
       <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
         <div class="row mt-3">
           <div class="col">
-            Overview
+            <form>
+              {# TODO: Form validation: https://getbootstrap.com/docs/4.0/components/forms/#validation #}
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputBasicInformation1">{% trans %}Complaint sent by{% endtrans %}</label>
+                  <input type="email" class="form-control" id="inputBasicInformation1" placeholder="Fornavn Efternavn">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputBasicInformation2">{% trans %}Date for recieving complaint{% endtrans %}</label>
+                  <input type="date" class="form-control" id="inputBasicInformation2" value="2020-12-16">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputBasicInformation3">{% trans %}Complaint fee{% endtrans %}</label>
+                  <select id="inputBasicInformation3" class="form-control">
+                    <option selected>360 dkk (Standard gebyr)</option>
+                    <option>Andet gebyr</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputBasicInformation4">{% trans %}Complaint category{% endtrans %}</label>
+                  <select id="inputBasicInformation4" class="form-control">
+                    <option selected>Økonomisk tvist</option>
+                    <option>Anden kategori</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="inputBasicInformation5">{% trans %}CPR number{% endtrans %}</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="inputBasicInformation5" placeholder="123456-7890">
+                    <div class="input-group-append">
+                      {# TODO: Show status depending on validation result #}
+                      {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="Validate CPR number"><i class="fas fa-check-circle"></i></button>
+                      {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
+                      {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
+                      {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputBasicInformation6">{% trans %}Telephone number{% endtrans %}</label>
+                  <input type="text" class="form-control" id="inputBasicInformation6" placeholder="+45 12354678">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputBasicInformation7">{% trans %}Property name{% endtrans %}</label>
+                  <input type="text" class="form-control" id="inputBasicInformation7" placeholder="Dokk1">
+                </div>
+              </div>
+              <fieldset>
+                <legend>{% trans %}Address{% endtrans %}</legend>
+                <div class="form-row">
+                  <div class="form-group col-md-5">
+                    <label for="inputBasicInformation8">{% trans %}Road{% endtrans %}</label>
+                    <input type="text" class="form-control" id="inputBasicInformation8" placeholder="Villavej 10a">
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="inputBasicInformation9">{% trans %}Postal code{% endtrans %}</label>
+                    <input type="text" class="form-control" id="inputBasicInformation9" placeholder="1234">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="inputBasicInformation10">{% trans %}City{% endtrans %}</label>
+                    <input type="text" class="form-control" id="inputBasicInformation10" placeholder="Villaby">
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="inputBasicInformation10">{% trans %}Validate{% endtrans %}</label>
+                    {# TODO: Show status depending on validation result #}
+                      {# Not yet validated #} <button class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="Validate address"><i class="fas fa-check-circle"></i></button>
+                      {# Success <button class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="Address is validated"><i class="fas fa-check-circle"></i></button>#}
+                      {# Warning <button class="btn btn-block btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
+                      {# Failed <button class="btn btn-block btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                  </div>
+                </div>
+                <p class="text-muted">{% trans %}Validate the ligidity of the address by pressing the validate button{% endtrans %}</p>
+              </fieldset>
+              <fieldset>
+                <legend>{% trans %}Alternative address{% endtrans %}</legend>
+                <div class="form-row">
+                  <div class="form-group col-md-5">
+                    <label for="inputBasicInformation11">{% trans %}Road{% endtrans %}</label>
+                    <input type="text" class="form-control" id="inputBasicInformation11" placeholder="Villavej 10a">
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="inputBasicInformation12">{% trans %}Postal code{% endtrans %}</label>
+                    <input type="text" class="form-control" id="inputBasicInformation12" placeholder="1234">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="inputBasicInformation13">{% trans %}City{% endtrans %}</label>
+                    <input type="text" class="form-control" id="inputBasicInformation13" placeholder="Villaby">
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="inputBasicInformation10">{% trans %}Validate{% endtrans %}</label>
+                    {# TODO: Show status depending on validation result #}
+                      {# Not yet validated #} <button class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="Validate address"><i class="fas fa-check-circle"></i></button>
+                      {# Success <button class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="Address is validated"><i class="fas fa-check-circle"></i></button>#}
+                      {# Warning <button class="btn btn-block btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
+                      {# Failed <button class="btn btn-block btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                  </div>
+                </div>
+              </fieldset>
+            </form>
           </div>
         </div>
       </div>
@@ -103,8 +205,7 @@
       </div>
       <div class="col-auto ml-auto">
         {# TODO: Needs functionality on buttons #}
-        <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
-        <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+        <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Edit basic information{% endtrans %}</a>
       </div>
     </div>
   </footer>
