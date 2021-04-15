@@ -1,0 +1,168 @@
+{% extends 'layout-with-submenu.html.twig' %}
+
+{% set caseinfo = [
+  {
+    "label": "Created by",
+    "value": "Bruger Brugersen"
+  },
+  {
+    "label": "Date created",
+    "value": "15/12/2020"
+  },
+  {
+    "label": "Last changed",
+    "value": "10/01/2021"
+  },
+  {
+    "label": "Assigned to",
+    "value": "Bruger Brugersen"
+  },
+  {
+    "label": "Board",
+    "value": "Huslejenævnet"
+  },
+  {
+    "label": "Municipality",
+    "value": "Aarhus"
+  },
+] %}
+
+{% set casecommunication = [
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a.",
+    "status": "unread"
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+] %}
+
+{% set casenotes = [
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+  {
+    "date": "19/01/2019",
+    "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
+  },
+] %}
+
+{% block title %}{% trans %}Casesummary{% endtrans %}{% endblock %}
+
+{% block header %}
+  <div class="row">
+    <div class="col">
+      {# TODO: Heading should not be static :) #}
+      <h1>Sag 21/220312</h1>
+    </div>
+    <div class="col-auto">
+      {# TODO: Needs functionality on buttons #}
+      <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
+      <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+    </div>
+  </div>
+  {% include "common/case-status.html.twig" %}
+{% endblock %}
+
+{% block content %}
+
+  <main role="main" class="col-12">
+    {% include "common/case-progress.html.twig" %}
+
+    <section area-labelledby="section_caseinfo" class="mt-5">
+      <div class="row">
+        <div class="col">
+          <h2 id="section_caseinfo">{% trans %}Caseinfo{% endtrans %}</h2>
+        </div>
+      </div>
+      <div class="row">
+        {% for item in caseinfo %}
+          <div class="col">
+            <label for="{{ item.label|e }}">{{ item.label|e }}</label>
+            <p class="m-0" id="{{ item.label|e }}"><strong>{{ item.value|e }}</strong></p>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <div class="row mt-md-5">
+      <section area-labelledby="section_latest_communication" class="col-md-6 mt-5 mt-md-0">
+        <div class="row">
+          <div class="col">
+            <h2 id="section_latest_communication">{% trans %}Latest communication{% endtrans %}</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="list-group">
+              {% for item in casecommunication %}
+                <a href="#" class="list-group-item list-group-item-action {% if item.status is defined == "unread" %}active{% endif %}">
+                  <div class="d-flex w-100 justify-content-between">
+                    <span class="mr-3">{{ item.date|e }}</span>
+                    <p class="mb-1">{{ item.title|e }}</p>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section area-labelledby="section_latest_notes" class="col-md-6 mt-5 mt-md-0">
+        <div class="row">
+          <div class="col">
+            <h2 id="section_latest_notes">{% trans %}Latest notes{% endtrans %}</h2>
+          </div>
+          <div class="col-auto">
+            <a name="" id="" class="btn btn-success float-right" href="#" role="button">Create new note</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="list-group">
+              {% for item in casenotes %}
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="d-flex w-100 justify-content-between">
+                    <span class="mr-3">{{ item.date|e }}</span>
+                    <p class="mb-1">{{ item.title|e }}</p>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="col-12 mt-3">
+    <div class="row">
+      <div class="col">
+        <a name="" id="" class="btn btn-secondary" href="/case" role="button">{% trans %}Back to list{% endtrans %}</a>
+      </div>
+      <div class="col-auto ml-auto">
+        {# TODO: Needs functionality on buttons #}
+        <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
+        <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+      </div>
+    </div>
+  </footer>
+{% endblock %}

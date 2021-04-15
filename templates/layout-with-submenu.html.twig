@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+
 {% block stylesheets %}
     {{ parent() }}
 {% endblock %}
@@ -10,23 +11,17 @@
     <div class="container-fluid">
       <div class="row">
         {% block sidebar %}
-            {% block sidebarMenu %}
-              <nav id="sidebarMenu" role="nav" class="col-auto d-md-block bg-dark sidebar collapse">
-                <div class="bg-dark">
-                  <ul class="nav flex-column">
-                    {% include 'sidebar/sidebar-menu.html.twig' %}
-                  </ul>
-                </div>
-              </nav>
-            {% endblock %}
+            {% include 'sidebar/sidebar.html.twig' %}
         {% endblock %}
-        <div class="col ml-sm-auto ml-md-5 px-md-4">
+        <div class="col-md-12 col-lg-9 ml-sm-auto px-md-4">
+          {# <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> #}
           <header class="pt-3">
             {% block header %}{% endblock %}
           </header>
           <div class="row pb-2 mb-3">
             {% block content %}{% endblock %}
           </div>
+          {# </div> #}
         </div>
       </div>
     </div>
