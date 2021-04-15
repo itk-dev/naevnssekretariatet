@@ -107,5 +107,4 @@ class CaseController extends AbstractController
             'controller_name' => 'CaseController',
         ]);
     }
-
 }
