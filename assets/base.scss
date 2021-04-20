@@ -4,6 +4,12 @@
 // DataTables
 @import './table/datatables.bs-4.css';
 
+// Select2 css
+@import '~select2/dist/css/select2.css';
+
+// Select2 bootstrap4 theme
+@import '~@ttskch/select2-bootstrap4-theme/src/select2-bootstrap4';
+
 // FontAwesome
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/regular';

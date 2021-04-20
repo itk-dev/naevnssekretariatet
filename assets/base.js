@@ -15,6 +15,8 @@ require('bootstrap')
 // Note this requires .autoProvidejQuery() in webpack.config.js
 require('datatables.net')
 
+require('select2')
+
 $(document).ready(function () {
   $('[data-toggle="popover"]').popover()
   $('[data-toggle="tooltip"]').tooltip({
@@ -25,4 +27,7 @@ $(document).ready(function () {
     info: false,
     filter: false
   })
+  $('select.js-select2').select2({
+    theme: 'bootstrap4',
+});
 })
