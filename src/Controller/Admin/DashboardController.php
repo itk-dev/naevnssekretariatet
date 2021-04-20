@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Board;
 use App\Entity\BoardMember;
+use App\Entity\ComplaintCategory;
 use App\Entity\Municipality;
 use App\Entity\Party;
 use App\Entity\User;
@@ -17,9 +18,20 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DashboardController extends AbstractDashboardController
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @Route("/admin", name="admin")
      */
@@ -31,7 +43,9 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Settings');
+            ->setTitle($this->translator->trans('Settings', [], 'admin'))
+            ->setTranslationDomain('admin')
+            ;
     }
 
     public function configureCrud(): Crud
@@ -62,11 +76,12 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         //yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Municipalities', '', Municipality::class);
-        yield MenuItem::linkToCrud('Boards', '', Board::class);
-        yield MenuItem::linkToCrud('Boardmembers', '', BoardMember::class);
-        yield MenuItem::linkToCrud('Part Index', '', Party::class);
-        yield MenuItem::linkToCrud('User settings', '', User::class)
+        yield MenuItem::linkToCrud($this->translator->trans('Complaint categories', [], 'admin'), '', ComplaintCategory::class);
+        yield MenuItem::linkToCrud($this->translator->trans('Municipality', [], 'admin'), '', Municipality::class);
+        yield MenuItem::linkToCrud($this->translator->trans('Board', [], 'admin'), '', Board::class);
+        yield MenuItem::linkToCrud($this->translator->trans('Boardmember', [], 'admin'), '', BoardMember::class);
+        yield MenuItem::linkToCrud($this->translator->trans('Part Index', [], 'admin'), '', Party::class);
+        yield MenuItem::linkToCrud($this->translator->trans('User Settings', [], 'admin'), '', User::class)
             ->setAction('edit')
             ->setEntityId($this->getUser()->getId())
         ;

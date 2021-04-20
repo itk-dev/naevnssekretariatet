@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="da" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="vyuuS30" resname="Add board">
+        <source>Add board</source>
+        <target>Tilføj nævn</target>
+      </trans-unit>
+      <trans-unit id="SBbL.XS" resname="Board">
+        <source>Board</source>
+        <target>Nævn</target>
+      </trans-unit>
+      <trans-unit id="T8053ZJ" resname="Boards">
+        <source>Boards</source>
+        <target>Nævn</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Navn</target>
+      </trans-unit>
+      <trans-unit id="5vSuyiT" resname="Municipality">
+        <source>Municipality</source>
+        <target>Kommune</target>
+      </trans-unit>
+      <trans-unit id="Zbq_T4C" resname="Add boardmember">
+        <source>Add boardmember</source>
+        <target>Tilføj nævnsmedlem</target>
+      </trans-unit>
+      <trans-unit id="HcleG6J" resname="Boardmember">
+        <source>Boardmember</source>
+        <target>Nævnsmedlem</target>
+      </trans-unit>
+      <trans-unit id="SZa3Qhf" resname="Boardmembers">
+        <source>Boardmembers</source>
+        <target>Nævnsmedlemmer</target>
+      </trans-unit>
+      <trans-unit id="6jRHZCk" resname="AZ-ident">
+        <source>AZ-ident</source>
+        <target>AZ-ident</target>
+      </trans-unit>
+      <trans-unit id="dKiDoDe" resname="Settings">
+        <source>Settings</source>
+        <target>Indstillinger</target>
+      </trans-unit>
+      <trans-unit id="jKrNr1p" resname="Part Index">
+        <source>Part Index</source>
+        <target>Partskartotek</target>
+      </trans-unit>
+      <trans-unit id="gY7QyHV" resname="User Settings">
+        <source>User Settings</source>
+        <target>Brugerprofil</target>
+      </trans-unit>
+      <trans-unit id="hOPtAc4" resname="Add municipality">
+        <source>Add municipality</source>
+        <target>Tilføj kommune</target>
+      </trans-unit>
+      <trans-unit id="2N3hntQ" resname="Municipalities">
+        <source>Municipalities</source>
+        <target>Kommuner</target>
+      </trans-unit>
+      <trans-unit id="v7KnF3u" resname="Add party">
+        <source>Add party</source>
+        <target>Tilføj part</target>
+      </trans-unit>
+      <trans-unit id="36gvIbP" resname="Party">
+        <source>Party</source>
+        <target>Part</target>
+      </trans-unit>
+      <trans-unit id="Jyn13Ug" resname="Parties">
+        <source>Parties</source>
+        <target>Parter</target>
+      </trans-unit>
+      <trans-unit id="cC75Ie0" resname="First name">
+        <source>First name</source>
+        <target>Fornavn</target>
+      </trans-unit>
+      <trans-unit id="e0iIBJR" resname="Last name">
+        <source>Last name</source>
+        <target>Efternavn</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Adresse</target>
+      </trans-unit>
+      <trans-unit id="MG8bsgZ" resname="Phone number">
+        <source>Phone number</source>
+        <target>Telefon nummer</target>
+      </trans-unit>
+      <trans-unit id="itYV46W" resname="Name and address protected">
+        <source>Name and address protected</source>
+        <target>Navne- og adressebeskyttet</target>
+      </trans-unit>
+      <trans-unit id="9gcREM5" resname="Journal number">
+        <source>Journal number</source>
+        <target>Journal nummer</target>
+      </trans-unit>
+      <trans-unit id="N7U6QPI" resname="Edit user information">
+        <source>Edit user information</source>
+        <target>Rediger brugerprofil</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="0SSiJv_" resname="Add complaint category">
+        <source>Add complaint category</source>
+        <target>Tilføj sagstype</target>
+      </trans-unit>
+      <trans-unit id="SaPHHYy" resname="Complaint category">
+        <source>Complaint category</source>
+        <target>Sagstype</target>
+      </trans-unit>
+      <trans-unit id="3na35C4" resname="Complaint categories">
+        <source>Complaint categories</source>
+        <target>Sagstyper</target>
+      </trans-unit>
+      <trans-unit id="_ELD4YW" resname="Fee">
+        <source>Fee</source>
+        <target>Gebyr</target>
+      </trans-unit>
+      <trans-unit id="EyxyB5F" resname="Favorite municipality">
+        <source>Favorite municipality</source>
+        <target>Foretrukken kommune</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
