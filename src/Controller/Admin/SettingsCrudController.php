@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SettingsCrudController extends AbstractCrudController
@@ -46,7 +47,7 @@ class SettingsCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield IntegerField::new('deadline', $this->translator->trans('Deadline', [], 'admin'))
-            ->setFormTypeOption()
+            ->setFormTypeOptions(['constraints' => new Positive()])
         ;
     }
 }
