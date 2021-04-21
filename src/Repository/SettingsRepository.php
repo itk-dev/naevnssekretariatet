@@ -19,12 +19,11 @@ class SettingsRepository extends ServiceEntityRepository
         parent::__construct($registry, Settings::class);
     }
 
-    public function getSettings()
+    public function getSettings(): Settings
     {
         $settings = $this->findOneBy([]);
 
-        if (null === $settings)
-        {
+        if (null === $settings) {
             $settings = new Settings();
             $settings->setDeadline(14);
             $em = $this->getEntityManager();

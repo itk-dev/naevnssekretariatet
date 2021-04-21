@@ -34,20 +34,18 @@ class SettingsCrudController extends AbstractCrudController
             ->remove(Crud::PAGE_EDIT, Action::INDEX)
             ->remove(Crud::PAGE_EDIT, Action::DELETE)
             ->remove(Crud::PAGE_EDIT, Action::SAVE_AND_RETURN)
-            ;
+        ;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle('edit', $this->translator->trans('Edit deadlines and notification', [], 'admin'))
-            ;
+            ->setPageTitle('edit', $this->translator->trans('Edit deadlines and notification', [], 'admin'));
     }
 
     public function configureFields(string $pageName): iterable
     {
         yield IntegerField::new('deadline', $this->translator->trans('Deadline', [], 'admin'))
-            ->setFormTypeOptions(['constraints' => new Positive()])
-        ;
+            ->setFormTypeOptions(['constraints' => new Positive()]);
     }
 }

@@ -33,7 +33,7 @@ class MunicipalityCrudController extends AbstractCrudController
             ->setEntityLabelInPlural($this->translator->trans('Municipalities', [], 'admin'))
             ->setSearchFields(['name'])
             ->setDefaultSort(['name' => 'ASC'])
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable

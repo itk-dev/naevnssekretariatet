@@ -34,7 +34,7 @@ class ComplaintCategoryCrudController extends AbstractCrudController
             ->setEntityLabelInPlural($this->translator->trans('Complaint categories', [], 'admin'))
             ->setSearchFields(['name', 'fee'])
             ->setDefaultSort(['name' => 'ASC'])
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable

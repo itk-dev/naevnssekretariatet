@@ -35,14 +35,13 @@ class UserCrudController extends AbstractCrudController
             ->remove(Crud::PAGE_EDIT, Action::INDEX)
             ->remove(Crud::PAGE_EDIT, Action::DELETE)
             ->remove(Crud::PAGE_EDIT, Action::SAVE_AND_RETURN)
-            ;
+        ;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle('edit', $this->translator->trans('Edit user information', [], 'admin'))
-        ;
+            ->setPageTitle('edit', $this->translator->trans('Edit user information', [], 'admin'));
     }
 
     public function configureFields(string $pageName): iterable
@@ -52,6 +51,5 @@ class UserCrudController extends AbstractCrudController
         yield TextField::new('name', $this->translator->trans('Name', [], 'admin'))
             ->setFormTypeOptions(['disabled' => true]);
         yield AssociationField::new('favoriteMunicipality', $this->translator->trans('Favorite municipality', [], 'admin'));
-
     }
 }

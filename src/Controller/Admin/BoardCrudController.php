@@ -34,7 +34,7 @@ class BoardCrudController extends AbstractCrudController
             ->setEntityLabelInPlural($this->translator->trans('Boards', [], 'admin'))
             ->setSearchFields(['name', 'municipality.name'])
             ->setDefaultSort(['name' => 'ASC'])
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable

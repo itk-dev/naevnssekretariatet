@@ -34,7 +34,7 @@ class PartyCrudController extends AbstractCrudController
             ->setEntityLabelInPlural($this->translator->trans('Parties', [], 'admin'))
             ->setSearchFields(['firstName', 'lastName'])
             ->setDefaultSort(['firstName' => 'ASC'])
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable

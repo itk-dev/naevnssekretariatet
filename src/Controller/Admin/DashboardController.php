@@ -71,14 +71,13 @@ class DashboardController extends AbstractDashboardController
             ->add(Crud::PAGE_EDIT, Action::DELETE)
             ->add(Crud::PAGE_EDIT, Action::INDEX)
             ->add(Crud::PAGE_NEW, Action::INDEX)
-            ;
+        ;
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu
     {
         return parent::configureUserMenu($user)
-            ->setName($user->getName())
-            ;
+            ->setName($user->getName());
     }
 
     public function configureMenuItems(): iterable
