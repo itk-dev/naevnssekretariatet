@@ -9,8 +9,8 @@
     </div>
     <div class="col-auto">
       {# TODO: Needs functionality on buttons #}
-      <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
-      <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+      <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Create decision{% endtrans %}</a>
+      <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Create phone note{% endtrans %}</a>
     </div>
   </div>
   {% include "common/case-status.html.twig" %}
@@ -18,8 +18,273 @@
 
 {% block content %}
 
-  <main role="main" class="col-12">
+  <main role="main" class="col-12 mt-3">
+    {# TODO: Add active tab to url #}
+    <ul class="nav nav-tabs" id="communicationTabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="all-messages-tab" data-toggle="tab" href="#all-messages" role="tab" aria-controls="all-messages" aria-selected="true">{% trans %}All messages{% endtrans %}<span class="badge badge-pill badge-primary ml-2">2</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="phone-notes-tab" data-toggle="tab" href="#phone-notes" role="tab" aria-controls="phone-notes" aria-selected="false">{% trans %}Phone notes{% endtrans %}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="parties-messages-tab" data-toggle="tab" href="#parties-messages" role="tab" aria-controls="parties-messages" aria-selected="false">{% trans %}Parties messages{% endtrans %}<span class="badge badge-pill badge-primary ml-2">2</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="citizens-messages-tab" data-toggle="tab" href="#citizens-messages" role="tab" aria-controls="citizens-messages" aria-selected="false">{% trans %}Citizens messages{% endtrans %}</a>
+      </li>
+    </ul>
 
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="all-messages" role="tabpanel" aria-labelledby="all-messages-tab">
+
+        <h2 class="h5 mt-3">All messages</h2>
+
+        <div class="accordion mt-3" id="accordionAllMessages">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <div class="row">
+                <div class="col">
+                  <h2 class="m-0 p-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <span class="badge badge-danger mr-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
+                    </button>
+                  </h2>
+                </div>
+                <div class="col-auto ml-auto">
+                  <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
+                </div>
+                <div class="col-auto">
+                  <p class="pt-2">01.01.2020 - 13:37</p>
+                </div>
+              </div>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionAllMessages">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8" aria-label="message content">
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                  </div>
+                  <div class="col-md-4" aria-label="attachments">
+                    <p class="text-muted"><a href="#">Bilag1</a>; <a href="#">Bilag2</a>; <a href="#">Bilag3</a>; <a href="#">Huslejenævnet den 04.06.2020 Lejen Størrelse</a></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <div class="row">
+                <div class="col">
+                  <h2 class="m-0 p-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      <span class="badge badge-danger mr-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
+                    </button>
+                  </h2>
+                </div>
+                <div class="col-auto ml-auto">
+                  <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
+                </div>
+                <div class="col-auto">
+                  <p class="pt-2">01.01.2020 - 13:37</p>
+                </div>
+              </div>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionAllMessages">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8" aria-label="message content">
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                  </div>
+                  <div class="col-md-4" aria-label="attachments">
+                    <p class="text-muted"><a href="#">Bilag1</a>; <a href="#">Bilag2</a>; <a href="#">Bilag3</a>; <a href="#">Huslejenævnet den 04.06.2020 Lejen Størrelse</a></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="row">
+                <div class="col">
+                  <h2 class="m-0 p-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Partshøringsinvitation
+                    </button>
+                  </h2>
+                </div>
+                <div class="col-auto ml-auto">
+                  <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
+                </div>
+                <div class="col-auto">
+                  <p class="pt-2">01.01.2020 - 13:37</p>
+                </div>
+              </div>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionAllMessages">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8" aria-label="message content">
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                  </div>
+                  <div class="col-md-4" aria-label="attachments">
+                    <p class="text-muted"><a href="#">Bilag1</a>; <a href="#">Bilag2</a>; <a href="#">Bilag3</a>; <a href="#">Huslejenævnet den 04.06.2020 Lejen Størrelse</a></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="phone-notes" role="tabpanel" aria-labelledby="phone-notes-tab">
+        <h2 class="h5 mt-3">Phone notes</h2>
+        <p>{% trans %}No messages in this category{% endtrans %}</p>
+      </div>
+
+      <div class="tab-pane" id="parties-messages" role="tabpanel" aria-labelledby="parties-messages-tab">
+        <h2 class="h5 mt-3">Parties messages</h2>
+        <div class="accordion mt-3" id="accordionPartiesMessages">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <div class="row">
+                <div class="col">
+                  <h2 class="m-0 p-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                      <span class="badge badge-danger mr-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
+                    </button>
+                  </h2>
+                </div>
+                <div class="col-auto ml-auto">
+                  <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
+                </div>
+                <div class="col-auto">
+                  <p class="pt-2">01.01.2020 - 13:37</p>
+                </div>
+              </div>
+            </div>
+
+            <div id="collapseFour" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionPartiesMessages">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8" aria-label="message content">
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                  </div>
+                  <div class="col-md-4" aria-label="attachments">
+                    <p class="text-muted"><a href="#">Bilag1</a>; <a href="#">Bilag2</a>; <a href="#">Bilag3</a>; <a href="#">Huslejenævnet den 04.06.2020 Lejen Størrelse</a></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <div class="row">
+                <div class="col">
+                  <h2 class="m-0 p-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                      <span class="badge badge-danger mr-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
+                    </button>
+                  </h2>
+                </div>
+                <div class="col-auto ml-auto">
+                  <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
+                </div>
+                <div class="col-auto">
+                  <p class="pt-2">01.01.2020 - 13:37</p>
+                </div>
+              </div>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionPartiesMessages">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8" aria-label="message content">
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                  </div>
+                  <div class="col-md-4" aria-label="attachments">
+                    <p class="text-muted"><a href="#">Bilag1</a>; <a href="#">Bilag2</a>; <a href="#">Bilag3</a>; <a href="#">Huslejenævnet den 04.06.2020 Lejen Størrelse</a></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="row">
+                <div class="col">
+                  <h2 class="m-0 p-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                      Partshøringsinvitation
+                    </button>
+                  </h2>
+                </div>
+                <div class="col-auto ml-auto">
+                  <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
+                </div>
+                <div class="col-auto">
+                  <p class="pt-2">01.01.2020 - 13:37</p>
+                </div>
+              </div>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingThree" data-parent="#accordionPartiesMessages">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8" aria-label="message content">
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                  </div>
+                  <div class="col-md-4" aria-label="attachments">
+                    <p class="text-muted"><a href="#">Bilag1</a>; <a href="#">Bilag2</a>; <a href="#">Bilag3</a>; <a href="#">Huslejenævnet den 04.06.2020 Lejen Størrelse</a></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="citizens-messages" role="tabpanel" aria-labelledby="citizens-messages-tab">
+        <h2 class="h5 mt-3">Citizens messages</h2>
+        <p>{% trans %}No messages in this category{% endtrans %}</p>
+      </div>
+    </div>
   </main>
   <footer class="col-12 mt-3">
     <div class="row">
@@ -28,8 +293,8 @@
       </div>
       <div class="col-auto ml-auto">
         {# TODO: Needs functionality on buttons #}
-        <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
-        <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+        <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Create decision{% endtrans %}</a>
+        <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Create phone note{% endtrans %}</a>
       </div>
     </div>
   </footer>
