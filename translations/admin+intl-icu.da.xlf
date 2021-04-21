@@ -125,6 +125,18 @@
         <source>Favorite municipality</source>
         <target>Foretrukken kommune</target>
       </trans-unit>
+      <trans-unit id="QspV5g2" resname="Deadlines and notification">
+        <source>Deadlines and notification</source>
+        <target>Tidsfrist og advisering</target>
+      </trans-unit>
+      <trans-unit id="c40OpRX" resname="Edit deadlines and notification">
+        <source>Edit deadlines and notification</source>
+        <target>Tidsfrist og adviserings indstillinger</target>
+      </trans-unit>
+      <trans-unit id="b8s43ch" resname="Deadline">
+        <source>Deadline</source>
+        <target>Tidsfrist (dage)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
