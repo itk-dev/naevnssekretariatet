@@ -7,7 +7,9 @@ use App\Entity\BoardMember;
 use App\Entity\ComplaintCategory;
 use App\Entity\Municipality;
 use App\Entity\Party;
+use App\Entity\Settings;
 use App\Entity\User;
+use App\Repository\SettingsRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -23,12 +25,18 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DashboardController extends AbstractDashboardController
 {
     /**
+     * @var SettingsRepository
+     */
+    private $settingsRepository;
+
+    /**
      * @var TranslatorInterface
      */
     private $translator;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(SettingsRepository $settingsRepository, TranslatorInterface $translator)
     {
+        $this->settingsRepository = $settingsRepository;
         $this->translator = $translator;
     }
 
@@ -84,6 +92,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud($this->translator->trans('User Settings', [], 'admin'), '', User::class)
             ->setAction('edit')
             ->setEntityId($this->getUser()->getId())
+        ;
+        yield MenuItem::linkToCrud($this->translator->trans('Deadlines and notification', [], 'admin'), '', Settings::class)
+            ->setAction('edit')
+            ->setEntityId($this->settingsRepository->getSettings())
         ;
     }
 }
