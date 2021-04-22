@@ -7,20 +7,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ComplaintCategoryCrudController extends AbstractCrudController
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     public static function getEntityFqcn(): string
     {
         return ComplaintCategory::class;
@@ -29,9 +18,9 @@ class ComplaintCategoryCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle('new', $this->translator->trans('Add complaint category', [], 'admin'))
-            ->setEntityLabelInSingular($this->translator->trans('Complaint category', [], 'admin'))
-            ->setEntityLabelInPlural($this->translator->trans('Complaint categories', [], 'admin'))
+            ->setPageTitle('new', 'Add complaint category')
+            ->setEntityLabelInSingular('Complaint category')
+            ->setEntityLabelInPlural('Complaint categories')
             ->setSearchFields(['name', 'fee'])
             ->setDefaultSort(['name' => 'ASC'])
         ;
@@ -39,7 +28,7 @@ class ComplaintCategoryCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new('name', $this->translator->trans('Name', [], 'admin'));
-        yield NumberField::new('fee', $this->translator->trans('Fee', [], 'admin'));
+        yield TextField::new('name', 'Name');
+        yield NumberField::new('fee', 'Fee');
     }
 }

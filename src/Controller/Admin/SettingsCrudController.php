@@ -9,20 +9,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use Symfony\Component\Validator\Constraints\Positive;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SettingsCrudController extends AbstractCrudController
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     public static function getEntityFqcn(): string
     {
         return Settings::class;
@@ -40,12 +29,12 @@ class SettingsCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle('edit', $this->translator->trans('Edit deadlines and notification', [], 'admin'));
+            ->setPageTitle('edit', 'Edit deadlines and notification');
     }
 
     public function configureFields(string $pageName): iterable
     {
-        yield IntegerField::new('deadline', $this->translator->trans('Deadline', [], 'admin'))
+        yield IntegerField::new('deadline', 'Deadline')
             ->setFormTypeOptions(['constraints' => new Positive()]);
     }
 }

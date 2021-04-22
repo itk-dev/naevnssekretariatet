@@ -1,0 +1,48 @@
+# Title
+dashboard:
+  title:
+
+# Entities and menu items
+Complaint category:
+Complaint categories:
+Municipality:
+Municipalities:
+Board:
+Boards:
+Boardmember:
+Boardmembers:
+Part Index:
+Party:
+Parties:
+User Settings:
+Settings:
+Deadlines and notification:
+User:
+
+# Actions
+Add complaint category:
+Add municipality:
+Add board:
+Add boardmember:
+Add party:
+Edit deadlines and notification:
+Edit user information:
+label:
+  form:
+    empty_value:
+
+# Properties
+Name:
+Fee:
+AZ-ident:
+First name:
+Last name:
+Address:
+Phone number:
+Name and address protected:
+Journal number:
+Email:
+Favorite municipality:
+Deadline:
+
+

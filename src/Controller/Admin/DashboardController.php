@@ -51,8 +51,8 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle($this->translator->trans('Settings', [], 'admin'))
             ->setTranslationDomain('admin')
+            ->setTitle($this->translator->trans('dashboard.title', [], 'admin'))
             ;
     }
 
@@ -83,16 +83,16 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         //yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud($this->translator->trans('Complaint categories', [], 'admin'), '', ComplaintCategory::class);
-        yield MenuItem::linkToCrud($this->translator->trans('Municipality', [], 'admin'), '', Municipality::class);
-        yield MenuItem::linkToCrud($this->translator->trans('Board', [], 'admin'), '', Board::class);
-        yield MenuItem::linkToCrud($this->translator->trans('Boardmember', [], 'admin'), '', BoardMember::class);
-        yield MenuItem::linkToCrud($this->translator->trans('Part Index', [], 'admin'), '', Party::class);
-        yield MenuItem::linkToCrud($this->translator->trans('User Settings', [], 'admin'), '', User::class)
+        yield MenuItem::linkToCrud('Complaint category', '', ComplaintCategory::class);
+        yield MenuItem::linkToCrud('Municipality', '', Municipality::class);
+        yield MenuItem::linkToCrud('Board', '', Board::class);
+        yield MenuItem::linkToCrud('Boardmember', '', BoardMember::class);
+        yield MenuItem::linkToCrud('Part Index', '', Party::class);
+        yield MenuItem::linkToCrud('User Settings', '', User::class)
             ->setAction('edit')
             ->setEntityId($this->getUser()->getId())
         ;
-        yield MenuItem::linkToCrud($this->translator->trans('Deadlines and notification', [], 'admin'), '', Settings::class)
+        yield MenuItem::linkToCrud('Deadlines and notification', '', Settings::class)
             ->setAction('edit')
             ->setEntityId($this->settingsRepository->getSettings())
         ;
