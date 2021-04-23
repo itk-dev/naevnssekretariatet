@@ -18,3 +18,52 @@
     </ul>
 </div>
 {% endblock %}
+
+{% block _translation %}
+    {# Help the translation extractor #}
+
+    {{ 'dashboard.title'|trans({}, 'admin') }}
+
+    {# Entities and menu items #}
+    {{ 'Complaint category'|trans({}, 'admin') }}
+    {{ 'Complaint categories'|trans({}, 'admin') }}
+    {{ 'Municipality'|trans({}, 'admin') }}
+    {{ 'Municipalities'|trans({}, 'admin') }}
+    {{ 'Board'|trans({}, 'admin') }}
+    {{ 'Boards'|trans({}, 'admin') }}
+    {{ 'Boardmember'|trans({}, 'admin') }}
+    {{ 'Boardmembers'|trans({}, 'admin') }}
+    {{ 'Part Index'|trans({}, 'admin') }}
+    {{ 'Party'|trans({}, 'admin') }}
+    {{ 'Parties'|trans({}, 'admin') }}
+    {{ 'User Settings'|trans({}, 'admin') }}
+    {{ 'Settings'|trans({}, 'admin') }}
+    {{ 'Deadlines and notification'|trans({}, 'admin') }}
+    {{ 'User'|trans({}, 'admin') }}
+
+    {# Actions #}
+    {{ 'Add complaint category'|trans({}, 'admin') }}
+    {{ 'Add municipality'|trans({}, 'admin') }}
+    {{ 'Add board'|trans({}, 'admin') }}
+    {{ 'Add boardmember'|trans({}, 'admin') }}
+    {{ 'Add party'|trans({}, 'admin') }}
+    {{ 'Edit deadlines and notification'|trans({}, 'admin') }}
+    {{ 'Edit user information'|trans({}, 'admin') }}
+
+    {# Properties #}
+    {{ 'Name'|trans({}, 'admin') }}
+    {{ 'Fee'|trans({}, 'admin') }}
+    {{ 'AZ-ident'|trans({}, 'admin') }}
+    {{ 'First name'|trans({}, 'admin') }}
+    {{ 'Last name'|trans({}, 'admin') }}
+    {{ 'Address'|trans({}, 'admin') }}
+    {{ 'Phone number'|trans({}, 'admin') }}
+    {{ 'Name and address protected'|trans({}, 'admin') }}
+    {{ 'Journal number'|trans({}, 'admin') }}
+    {{ 'Email'|trans({}, 'admin') }}
+    {{ 'Favorite municipality'|trans({}, 'admin') }}
+    {{ 'Deadline'|trans({}, 'admin') }}
+
+{% endblock %}
+
+
