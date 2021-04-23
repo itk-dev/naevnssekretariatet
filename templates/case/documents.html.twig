@@ -8,9 +8,7 @@
       <h1>{% trans %}Documents{% endtrans %}</h1>
     </div>
     <div class="col-auto">
-      {# TODO: Needs functionality on buttons #}
-      <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
-      <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+      <a name="" id="" class="btn btn-secondary" href="/case/documents/create" role="button">{% trans %}Create document{% endtrans %}</a>
     </div>
   </div>
   {% include "common/case-status.html.twig" %}
@@ -18,8 +16,78 @@
 
 {% block content %}
 
-  <main role="main" class="col-12">
+  {% set document_table = [
+    {
+      "document_name": "Mail fra lejer",
+      "caseworker": "Sagsbehandler",
+      "created_by": "Part",
+      "create_date": "01.01.2021 13:47",
+    },
+    {
+      "document_name": "Bilag 2",
+      "caseworker": "Diverse bilag",
+      "created_by": "Part",
+      "create_date": "01.01.2021 13:47",
+    },
+    {
+      "document_name": "Huslejenævnet",
+      "caseworker": "Afsendte breve",
+      "created_by": "Part",
+      "create_date": "01.01.2021 13:47",
+    },
 
+  ] %}
+
+  {% set btn_group = [
+    {
+      "name": "Copy document to another case",
+      "style": "secondary",
+      "icon": "copy",
+      "link": "#",
+      "tooltip": "Copy document to another case",
+    },
+    {
+      "name": "Open document",
+      "style": "primary",
+      "icon": "file-alt",
+      "link": "#",
+      "tooltip": "Open document",
+    },
+    {
+      "name": "Delete document",
+      "style": "danger",
+      "icon": "trash-alt",
+      "link": "#",
+      "tooltip": "Delete document",
+    },
+  ] %}
+
+  <main role="main" class="col-12 mt-3">
+    <div class="table-responsive-sm"></div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>{% trans %}Document name{% endtrans %}</th>
+          <th>{% trans %}Document type{% endtrans %}</th>
+          <th>{% trans %}Created by{% endtrans %}</th>
+          <th>{% trans %}Created date{% endtrans %}</th>
+          <th class="text-right">{% trans %}Functions{% endtrans %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in document_table %}
+          <tr>
+            <td>{{ item.document_name|e }}</td>
+            <td>{{ item.caseworker|e }}</td>
+            <td>{{ item.created_by|e }}</td>
+            <td>{{ item.create_date|e }}.01.2021 13:47</td>
+            <td class="text-right">
+              {% include "common/btn-group.html.twig" with btn_group %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </main>
   <footer class="col-12 mt-3">
     <div class="row">
@@ -27,9 +95,7 @@
         <a name="" id="" class="btn btn-secondary" href="/case" role="button">{% trans %}Back to list{% endtrans %}</a>
       </div>
       <div class="col-auto ml-auto">
-        {# TODO: Needs functionality on buttons #}
-        <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
-        <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+        <a name="" id="" class="btn btn-secondary" href="/case/documents/create" role="button">{% trans %}Create document{% endtrans %}</a>
       </div>
     </div>
   </footer>
