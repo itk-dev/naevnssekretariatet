@@ -1,0 +1,19 @@
+[aria-expanded='true'] {
+  .show {
+    display: none;
+  }
+
+  .hide {
+    display: inline;
+  }
+}
+
+[aria-expanded='false'] {
+  .show {
+    display: inline;
+  }
+
+  .hide {
+    display: none;
+  }
+}
