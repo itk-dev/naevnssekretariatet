@@ -79,6 +79,16 @@ class CaseController extends AbstractController
     }
 
     /**
+     * @Route("/case/documents/create", name="case_documents_create")
+     */
+    public function documentsCreate(): Response
+    {
+        return $this->render('case/documents-create.html.twig', [
+            'controller_name' => 'CaseController',
+        ]);
+    }
+
+    /**
      * @Route("/case/decision", name="case_decision")
      */
     public function decision(): Response
