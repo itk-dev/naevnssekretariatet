@@ -14,6 +14,7 @@ class SubBoardCrudController extends AbstractCrudController
     {
         return SubBoard::class;
     }
+
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
