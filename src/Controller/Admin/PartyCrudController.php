@@ -32,7 +32,6 @@ class PartyCrudController extends AbstractCrudController
         yield TextField::new('lastName', 'Last name');
         yield TextField::new('address', 'Address');
         yield TextField::new('phoneNumber', 'Phone number');
-        yield BooleanField::new('isNameAndAddressProtected', 'Name and address protected');
         yield TextField::new('journalNumber', 'Journal number');
     }
 }

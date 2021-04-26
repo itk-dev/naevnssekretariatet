@@ -41,11 +41,6 @@ class Party
     private $phoneNumber;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isNameAndAddressProtected;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $journalNumber;
@@ -99,18 +94,6 @@ class Party
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
-
-        return $this;
-    }
-
-    public function getIsNameAndAddressProtected(): ?bool
-    {
-        return $this->isNameAndAddressProtected;
-    }
-
-    public function setIsNameAndAddressProtected(bool $isNameAndAddressProtected): self
-    {
-        $this->isNameAndAddressProtected = $isNameAndAddressProtected;
 
         return $this;
     }
