@@ -38,9 +38,21 @@ class Board
      */
     private $boardMembers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=SubBoard::class, mappedBy="mainBoard")
+     */
+    private $subBoards;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ComplaintCategory::class, mappedBy="board")
+     */
+    private $complaintCategories;
+
     public function __construct()
     {
         $this->boardMembers = new ArrayCollection();
+        $this->subBoards = new ArrayCollection();
+        $this->complaintCategories = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -105,5 +117,65 @@ class Board
     public function __toString()
     {
         return $this->name.' '.$this->getMunicipality()->getName();
+    }
+
+    /**
+     * @return Collection|SubBoard[]
+     */
+    public function getSubBoards(): Collection
+    {
+        return $this->subBoards;
+    }
+
+    public function addSubBoard(SubBoard $subBoard): self
+    {
+        if (!$this->subBoards->contains($subBoard)) {
+            $this->subBoards[] = $subBoard;
+            $subBoard->setMainBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubBoard(SubBoard $subBoard): self
+    {
+        if ($this->subBoards->removeElement($subBoard)) {
+            // set the owning side to null (unless already changed)
+            if ($subBoard->getMainBoard() === $this) {
+                $subBoard->setMainBoard(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ComplaintCategory[]
+     */
+    public function getComplaintCategories(): Collection
+    {
+        return $this->complaintCategories;
+    }
+
+    public function addComplaintCategory(ComplaintCategory $complaintCategory): self
+    {
+        if (!$this->complaintCategories->contains($complaintCategory)) {
+            $this->complaintCategories[] = $complaintCategory;
+            $complaintCategory->setBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComplaintCategory(ComplaintCategory $complaintCategory): self
+    {
+        if ($this->complaintCategories->removeElement($complaintCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($complaintCategory->getBoard() === $this) {
+                $complaintCategory->setBoard(null);
+            }
+        }
+
+        return $this;
     }
 }

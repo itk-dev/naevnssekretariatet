@@ -8,6 +8,7 @@ use App\Entity\ComplaintCategory;
 use App\Entity\Municipality;
 use App\Entity\Party;
 use App\Entity\Settings;
+use App\Entity\SubBoard;
 use App\Entity\User;
 use App\Repository\SettingsRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -86,6 +87,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Complaint category', '', ComplaintCategory::class);
         yield MenuItem::linkToCrud('Municipality', '', Municipality::class);
         yield MenuItem::linkToCrud('Board', '', Board::class);
+        yield MenuItem::linkToCrud('Subboards', '', SubBoard::class);
         yield MenuItem::linkToCrud('Boardmember', '', BoardMember::class);
         yield MenuItem::linkToCrud('Part Index', '', Party::class);
         yield MenuItem::linkToCrud('User Settings', '', User::class)
@@ -94,7 +96,7 @@ class DashboardController extends AbstractDashboardController
         ;
         yield MenuItem::linkToCrud('Deadlines and notification', '', Settings::class)
             ->setAction('edit')
-            ->setEntityId($this->settingsRepository->getSettings())
+            ->setEntityId($this->settingsRepository->getSettings()->getId())
         ;
     }
 }

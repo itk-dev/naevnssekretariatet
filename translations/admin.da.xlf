@@ -149,6 +149,18 @@
         <source>Deadline</source>
         <target>Tidsfrist</target>
       </trans-unit>
+      <trans-unit id="XWyh8qz" resname="Subboard">
+        <source>Subboard</source>
+        <target>Undernævn</target>
+      </trans-unit>
+      <trans-unit id="qDuX.Ui" resname="Subboards">
+        <source>Subboards</source>
+        <target>Undernævn</target>
+      </trans-unit>
+      <trans-unit id="HkPKUG." resname="Add Subboard">
+        <source>Add Subboard</source>
+        <target>Tilføj undernævn</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

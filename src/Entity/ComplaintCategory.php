@@ -27,6 +27,12 @@ class ComplaintCategory
      */
     private $fee;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="complaintCategories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $board;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +58,18 @@ class ComplaintCategory
     public function setFee(?float $fee): self
     {
         $this->fee = $fee;
+
+        return $this;
+    }
+
+    public function getBoard(): ?Board
+    {
+        return $this->board;
+    }
+
+    public function setBoard(?Board $board): self
+    {
+        $this->board = $board;
 
         return $this;
     }
