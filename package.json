@@ -6,12 +6,14 @@
         "cypress": "^6.5.0",
         "datatables.net": "^1.10.24",
         "datatables.net-bs4": "^1.10.24",
+        "file-loader": "^6.0.0",
         "jquery": "^3.5.1",
         "markdownlint-cli": "^0.26.0",
         "popper.js": "^1.16.1",
         "regenerator-runtime": "^0.13.2",
         "sass": "^1.32.7",
         "sass-loader": "^10.0.0",
+        "select2": "^4.1.0-rc.0",
         "standard": "^16.0.3",
         "stylelint": "^13.10.0",
         "stylelint-config-sass-guidelines": "^8.0.0",
@@ -27,6 +29,7 @@
         "check-coding-standards/stylelint": "stylelint --config=.stylelintrc.json 'assets/**/*.scss'"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.15.2"
+        "@fortawesome/fontawesome-free": "^5.15.2",
+        "@ttskch/select2-bootstrap4-theme": "^1.5.2"
     }
 }

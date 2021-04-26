@@ -15,14 +15,19 @@ require('bootstrap')
 // Note this requires .autoProvidejQuery() in webpack.config.js
 require('datatables.net')
 
+require('select2')
+
 $(document).ready(function () {
   $('[data-toggle="popover"]').popover()
   $('[data-toggle="tooltip"]').tooltip({
     delay: { show: 1000, hide: 100 }
   })
-  $('#casetable').DataTable({
+  $('#casetable', '#basicInformationTenant', '#basicInformationLandlord').DataTable({
     paginate: false,
     info: false,
     filter: false
+  })
+  $('select.js-select2').select2({
+    theme: 'bootstrap4'
   })
 })

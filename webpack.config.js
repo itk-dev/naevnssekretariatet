@@ -71,4 +71,9 @@ Encore
 // uncomment if you're having problems with a jQuery plugin
   .autoProvidejQuery()
 
+// copy images from assets to build https://symfony.com/doc/current/frontend/encore/copy-files.html
+  .copyFiles({
+    from: './assets/images'
+  })
+
 module.exports = Encore.getWebpackConfig()
