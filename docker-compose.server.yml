@@ -1,3 +1,4 @@
+# itk-version: 1.0.0
 version: "3"
 
 networks:
@@ -5,8 +6,7 @@ networks:
     external: true
   app:
     driver: bridge
-    internal: true
-    external: false
+    internal: false
 
 services:
   phpfpm:
@@ -14,10 +14,10 @@ services:
     restart: unless-stopped
     networks:
       - app
-      - frontend
     environment:
       - PHP_MAX_EXECUTION_TIME=30
       - PHP_MEMORY_LIMIT=128M
+      - COMPOSER_VERSION=2
     volumes:
       - .:/app:delegated
 
