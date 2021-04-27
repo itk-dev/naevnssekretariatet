@@ -22,7 +22,7 @@ $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip({
     delay: { show: 1000, hide: 100 }
   })
-  $('#casetable', '#basicInformationTenant', '#basicInformationLandlord').DataTable({
+  $('#casetable, #basicInformationTenant, #basicInformationLandlord, caseLogtable').DataTable({
     paginate: false,
     info: false,
     filter: false
