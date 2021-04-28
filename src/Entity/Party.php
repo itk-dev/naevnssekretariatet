@@ -45,6 +45,12 @@ class Party
      */
     private $journalNumber;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="parties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $municipality;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -106,6 +112,18 @@ class Party
     public function setJournalNumber(?string $journalNumber): self
     {
         $this->journalNumber = $journalNumber;
+
+        return $this;
+    }
+
+    public function getMunicipality(): ?Municipality
+    {
+        return $this->municipality;
+    }
+
+    public function setMunicipality(?Municipality $municipality): self
+    {
+        $this->municipality = $municipality;
 
         return $this;
     }

@@ -31,6 +31,12 @@ class SubBoard
      */
     private $mainBoard;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="subBoards")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $municipality;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -56,6 +62,18 @@ class SubBoard
     public function setMainBoard(?Board $mainBoard): self
     {
         $this->mainBoard = $mainBoard;
+
+        return $this;
+    }
+
+    public function getMunicipality(): ?Municipality
+    {
+        return $this->municipality;
+    }
+
+    public function setMunicipality(?Municipality $municipality): self
+    {
+        $this->municipality = $municipality;
 
         return $this;
     }

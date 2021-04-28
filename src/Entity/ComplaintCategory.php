@@ -36,6 +36,12 @@ class ComplaintCategory
      */
     private $board;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="complaintCategories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $municipality;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -73,6 +79,18 @@ class ComplaintCategory
     public function setBoard(?Board $board): self
     {
         $this->board = $board;
+
+        return $this;
+    }
+
+    public function getMunicipality(): ?Municipality
+    {
+        return $this->municipality;
+    }
+
+    public function setMunicipality(?Municipality $municipality): self
+    {
+        $this->municipality = $municipality;
 
         return $this;
     }
