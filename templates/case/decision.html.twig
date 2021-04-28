@@ -9,17 +9,68 @@
     </div>
     <div class="col-auto">
       {# TODO: Needs functionality on buttons #}
-      <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
-      <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+      <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Send decision{% endtrans %}</a>
     </div>
   </div>
-  {% include "common/case-status.html.twig" %}
 {% endblock %}
 
 {% block content %}
 
-  <main role="main" class="col-12">
-
+  <main role="main" class="col-12 mt-3">
+    <form>
+      <div class="form-row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">{% trans %}Select a letter template{% endtrans %}</label>
+            <select class="form-control js-select2" name="" id="">
+              <!-- TODO: List templates fom settings -->
+              <option>Template 1</option>
+              <option>Template 2</option>
+              <option>Template 3</option>
+            </select>
+            <small id="helpId1" class="form-text text-muted">{% trans %}Use letter templates to create standardized letters{% endtrans %}</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">{% trans %}Select recipient(s) {% endtrans %}</label>
+            <select class="form-control js-select2" name="" id="">
+              <!-- TODO: List templates fom settings -->
+              <option>Recipient 1</option>
+              <option>Recipient 2</option>
+              <option>Recipient 3</option>
+            </select>
+            <small id="helpId2" class="form-text text-muted">{% trans %}Select who should recieve the letter{% endtrans %}</small>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="">{% trans %}Subject{% endtrans %}</label>
+            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+            <small id="helpId3" class="form-text text-muted">{% trans %}Should describe the essence of the letter{% endtrans %}</small>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="">{% trans %}Attachments{% endtrans %}</label>
+            <input type="file" class="form-control-file" name="" id="" placeholder="" aria-describedby="fileHelpId">
+            <small id="fileHelpId1" class="form-text text-muted">{% trans %}Attatch files to the letter{% endtrans %}</small>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="">{% trans %}Content{% endtrans %}</label>
+            <textarea class="form-control" name="" id="" rows="5"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
   </main>
   <footer class="col-12 mt-3">
     <div class="row">
@@ -28,8 +79,7 @@
       </div>
       <div class="col-auto ml-auto">
         {# TODO: Needs functionality on buttons #}
-        <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
-        <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+        <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Send decision{% endtrans %}</a>
       </div>
     </div>
   </footer>
