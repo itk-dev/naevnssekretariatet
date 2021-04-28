@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\SubBoardRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
+use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=SubBoardRepository::class)
@@ -12,8 +14,9 @@ class SubBoard
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class=UuidV4Generator::class)
      */
     private $id;
 
@@ -28,7 +31,7 @@ class SubBoard
      */
     private $mainBoard;
 
-    public function getId(): ?int
+    public function getId(): ?UuidV4
     {
         return $this->id;
     }
