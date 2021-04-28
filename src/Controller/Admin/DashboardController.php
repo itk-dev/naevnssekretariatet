@@ -53,7 +53,7 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTranslationDomain('admin')
-            ->setTitle($this->translator->trans('dashboard.title', [], 'admin'))
+            ->setTitle($this->translator->trans('dashboard', [], 'admin'))
             ;
     }
 
@@ -83,7 +83,6 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        //yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Complaint category', '', ComplaintCategory::class);
         yield MenuItem::linkToCrud('Municipality', '', Municipality::class);
         yield MenuItem::linkToCrud('Board', '', Board::class)

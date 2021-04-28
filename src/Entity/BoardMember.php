@@ -24,7 +24,7 @@ class BoardMember
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="boardMembers")
      * @ORM\JoinColumn(nullable=false)

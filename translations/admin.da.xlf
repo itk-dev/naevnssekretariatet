@@ -5,8 +5,8 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="3bqLM8Q" resname="dashboard.title">
-        <source>dashboard.title</source>
+      <trans-unit id="3bqLM8Q" resname="dashboard">
+        <source>dashboard</source>
         <target>Indstillinger</target>
       </trans-unit>
       <trans-unit id="SaPHHYy" resname="Complaint category">
