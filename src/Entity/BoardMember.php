@@ -24,12 +24,7 @@ class BoardMember
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $az;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="boardMembers")
      * @ORM\JoinColumn(nullable=false)
@@ -55,18 +50,6 @@ class BoardMember
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getAz(): ?string
-    {
-        return $this->az;
-    }
-
-    public function setAz(string $az): self
-    {
-        $this->az = $az;
 
         return $this;
     }

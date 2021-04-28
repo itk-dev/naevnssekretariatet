@@ -21,7 +21,7 @@ class BoardMemberCrudController extends AbstractCrudController
             ->setPageTitle('new', 'Add boardmember')
             ->setEntityLabelInSingular('Boardmember')
             ->setEntityLabelInPlural('Boardmembers')
-            ->setSearchFields(['name', 'az', 'board.name'])
+            ->setSearchFields(['name', 'board.name'])
             ->setDefaultSort(['name' => 'ASC'])
         ;
     }
@@ -29,7 +29,6 @@ class BoardMemberCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Name');
-        yield TextField::new('az', 'AZ-ident');
         yield AssociationField::new('board', 'Board');
         yield AssociationField::new('municipality', 'Municipality');
     }
