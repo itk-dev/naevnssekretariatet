@@ -31,5 +31,6 @@ class BoardMemberCrudController extends AbstractCrudController
         yield TextField::new('name', 'Name');
         yield TextField::new('az', 'AZ-ident');
         yield AssociationField::new('board', 'Board');
+        yield AssociationField::new('municipality', 'Municipality');
     }
 }

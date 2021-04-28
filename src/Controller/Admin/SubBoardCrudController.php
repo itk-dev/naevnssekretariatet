@@ -30,5 +30,6 @@ class SubBoardCrudController extends AbstractCrudController
     {
         yield TextField::new('name', 'Name');
         yield AssociationField::new('mainBoard', 'Board');
+        yield AssociationField::new('municipality', 'Municipality');
     }
 }

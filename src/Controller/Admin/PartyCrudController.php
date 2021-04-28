@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Party;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class PartyCrudController extends AbstractCrudController
@@ -32,5 +33,6 @@ class PartyCrudController extends AbstractCrudController
         yield TextField::new('address', 'Address');
         yield TextField::new('phoneNumber', 'Phone number');
         yield TextField::new('journalNumber', 'Journal number');
+        yield AssociationField::new('municipality', 'Municipality');
     }
 }

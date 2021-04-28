@@ -116,7 +116,7 @@ class Board
 
     public function __toString()
     {
-        return $this->name.' '.$this->getMunicipality()->getName();
+        return $this->name;
     }
 
     /**

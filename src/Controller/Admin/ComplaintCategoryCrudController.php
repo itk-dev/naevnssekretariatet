@@ -32,5 +32,6 @@ class ComplaintCategoryCrudController extends AbstractCrudController
         yield TextField::new('name', 'Name');
         yield NumberField::new('fee', 'Fee');
         yield AssociationField::new('board', 'Board');
+        yield AssociationField::new('municipality', 'Municipality');
     }
 }
