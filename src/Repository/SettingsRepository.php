@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Settings;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Settings|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,13 +21,21 @@ class SettingsRepository extends ServiceEntityRepository
         parent::__construct($registry, Settings::class);
     }
 
-    public function getSettings(): Settings
+    public function getSettings(UserInterface $user): Settings
     {
-        $settings = $this->findOneBy([]);
+        $favMunicipality = $user->getFavoriteMunicipality();
+
+        if (null === $favMunicipality) {
+            throw new \Exception('No favorite municipality set');
+        }
+
+        $settings = $this->findOneBy(['municipality' => $favMunicipality]);
 
         if (null === $settings) {
             $settings = new Settings();
             $settings->setDeadline(14);
+            $settings->setMunicipality($favMunicipality);
+
             $em = $this->getEntityManager();
             $em->persist($settings);
             $em->flush();

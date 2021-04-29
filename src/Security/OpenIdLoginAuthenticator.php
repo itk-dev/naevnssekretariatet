@@ -3,7 +3,9 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Repository\MunicipalityRepository;
 use App\Repository\UserRepository;
+use App\Util\MunicipalityHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,23 +19,34 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
 {
     /**
-     * @var SessionInterface
-     */
-    private $session;
-
-    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
+
+    /**
+     * @var MunicipalityHelper
+     */
+    private $municipalityHelper;
+
+    /**
+     * @var MunicipalityRepository
+     */
+    private $municipalityRepository;
+    /**
+     * @var SessionInterface
+     */
+    private $session;
 
     /**
      * @var UserRepository
      */
     private $userRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, UserRepository $userRepository)
+    public function __construct(EntityManagerInterface $entityManager, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, SessionInterface $session, UserRepository $userRepository)
     {
         $this->entityManager = $entityManager;
+        $this->municipalityHelper = $municipalityHelper;
+        $this->municipalityRepository = $municipalityRepository;
         $this->session = $session;
         $this->userRepository = $userRepository;
     }
@@ -77,6 +90,20 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         $user->setEmail($email);
         // todo - roles must be extracted from credentials at a later stage
         // $newUser->setRoles(['ROLE_ADMIN']);
+
+        // todo - (favorite) municipality must be set and created if does not exist already
+        // That is, extract which municipality user login came from and set it
+
+        $muniName = 'Aarhus';
+        $municipality = $this->municipalityRepository->findOneBy(['name' => $muniName]);
+
+        if(null === $municipality) {
+            $municipality = $this->municipalityHelper->createMunicipality($muniName);
+            $this->entityManager->persist($municipality);
+        }
+
+        $user->setFavoriteMunicipality($municipality);
+
 
         // persist and flush user to database
         // If no change persist will recognize this

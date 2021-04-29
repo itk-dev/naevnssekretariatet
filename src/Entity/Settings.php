@@ -25,6 +25,12 @@ class Settings
      */
     private $deadline;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Municipality::class, inversedBy="settings", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $municipality;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -45,5 +51,17 @@ class Settings
     public function __toString(): string
     {
         return strval($this->getId());
+    }
+
+    public function getMunicipality(): ?Municipality
+    {
+        return $this->municipality;
+    }
+
+    public function setMunicipality(Municipality $municipality): self
+    {
+        $this->municipality = $municipality;
+
+        return $this;
     }
 }

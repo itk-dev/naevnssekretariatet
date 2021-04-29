@@ -97,7 +97,7 @@ class DashboardController extends AbstractDashboardController
         ;
         yield MenuItem::linkToCrud('Deadlines and notification', '', Settings::class)
             ->setAction('edit')
-            ->setEntityId($this->settingsRepository->getSettings()->getId())
+            ->setEntityId($this->settingsRepository->getSettings($this->getUser())->getId())
         ;
     }
 }

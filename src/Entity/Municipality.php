@@ -23,7 +23,7 @@ class Municipality
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 
@@ -51,6 +51,11 @@ class Municipality
      * @ORM\OneToMany(targetEntity=ComplaintCategory::class, mappedBy="municipality")
      */
     private $complaintCategories;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Settings::class, mappedBy="municipality", cascade={"persist", "remove"})
+     */
+    private $settings;
 
     public function __construct()
     {
@@ -229,6 +234,23 @@ class Municipality
                 $complaintCategory->setMunicipality(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSettings(): ?Settings
+    {
+        return $this->settings;
+    }
+
+    public function setSettings(Settings $settings): self
+    {
+        // set the owning side of the relation if necessary
+        if ($settings->getMunicipality() !== $this) {
+            $settings->setMunicipality($this);
+        }
+
+        $this->settings = $settings;
 
         return $this;
     }
