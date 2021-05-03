@@ -97,13 +97,12 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         $muniName = 'Aarhus';
         $municipality = $this->municipalityRepository->findOneBy(['name' => $muniName]);
 
-        if(null === $municipality) {
+        if (null === $municipality) {
             $municipality = $this->municipalityHelper->createMunicipality($muniName);
             $this->entityManager->persist($municipality);
         }
 
         $user->setFavoriteMunicipality($municipality);
-
 
         // persist and flush user to database
         // If no change persist will recognize this
