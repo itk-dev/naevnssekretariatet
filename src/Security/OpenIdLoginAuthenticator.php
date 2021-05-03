@@ -3,9 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
-use App\Repository\MunicipalityRepository;
 use App\Repository\UserRepository;
-use App\Util\MunicipalityHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,15 +22,6 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
     private $entityManager;
 
     /**
-     * @var MunicipalityHelper
-     */
-    private $municipalityHelper;
-
-    /**
-     * @var MunicipalityRepository
-     */
-    private $municipalityRepository;
-    /**
      * @var SessionInterface
      */
     private $session;
@@ -42,11 +31,9 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
      */
     private $userRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, SessionInterface $session, UserRepository $userRepository)
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, UserRepository $userRepository)
     {
         $this->entityManager = $entityManager;
-        $this->municipalityHelper = $municipalityHelper;
-        $this->municipalityRepository = $municipalityRepository;
         $this->session = $session;
         $this->userRepository = $userRepository;
     }
