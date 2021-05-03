@@ -33,6 +33,5 @@ class PartyCrudController extends AbstractCrudController
         yield TextField::new('address', 'Address');
         yield TextField::new('phoneNumber', 'Phone number');
         yield TextField::new('journalNumber', 'Journal number');
-        yield AssociationField::new('municipality', 'Municipality');
     }
 }

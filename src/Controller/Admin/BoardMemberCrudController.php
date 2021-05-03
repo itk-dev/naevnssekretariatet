@@ -29,7 +29,9 @@ class BoardMemberCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Name');
-        yield AssociationField::new('board', 'Board');
-        yield AssociationField::new('municipality', 'Municipality');
+        yield AssociationField::new('board', 'Board')
+            ->setRequired(true);
+        yield AssociationField::new('municipality', 'Municipality')
+            ->setRequired(true);
     }
 }

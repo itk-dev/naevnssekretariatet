@@ -30,8 +30,11 @@ class ComplaintCategoryCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Name');
-        yield NumberField::new('fee', 'Fee');
-        yield AssociationField::new('board', 'Board');
-        yield AssociationField::new('municipality', 'Municipality');
+        yield NumberField::new('fee', 'Fee')
+            ->setRequired(true);
+        yield AssociationField::new('board', 'Board')
+            ->setRequired(true);
+        yield AssociationField::new('municipality', 'Municipality')
+            ->setRequired(true);
     }
 }

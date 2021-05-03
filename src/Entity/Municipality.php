@@ -38,11 +38,6 @@ class Municipality
     private $subBoards;
 
     /**
-     * @ORM\OneToMany(targetEntity=Party::class, mappedBy="municipality")
-     */
-    private $parties;
-
-    /**
      * @ORM\OneToMany(targetEntity=BoardMember::class, mappedBy="municipality")
      */
     private $boardMembers;
@@ -56,7 +51,6 @@ class Municipality
     {
         $this->boards = new ArrayCollection();
         $this->subBoards = new ArrayCollection();
-        $this->parties = new ArrayCollection();
         $this->boardMembers = new ArrayCollection();
         $this->complaintCategories = new ArrayCollection();
     }
@@ -137,36 +131,6 @@ class Municipality
             // set the owning side to null (unless already changed)
             if ($subBoard->getMunicipality() === $this) {
                 $subBoard->setMunicipality(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Party[]
-     */
-    public function getParties(): Collection
-    {
-        return $this->parties;
-    }
-
-    public function addParty(Party $party): self
-    {
-        if (!$this->parties->contains($party)) {
-            $this->parties[] = $party;
-            $party->setMunicipality($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParty(Party $party): self
-    {
-        if ($this->parties->removeElement($party)) {
-            // set the owning side to null (unless already changed)
-            if ($party->getMunicipality() === $this) {
-                $party->setMunicipality(null);
             }
         }
 
