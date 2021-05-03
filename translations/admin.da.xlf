@@ -57,14 +57,6 @@
         <source>User Settings</source>
         <target>Brugerprofil</target>
       </trans-unit>
-      <trans-unit id="dKiDoDe" resname="Settings">
-        <source>Settings</source>
-        <target>Indstillinger</target>
-      </trans-unit>
-      <trans-unit id="QspV5g2" resname="Deadlines and notification">
-        <source>Deadlines and notification</source>
-        <target>Tidsfrist og advisering</target>
-      </trans-unit>
       <trans-unit id="tRLZfny" resname="User">
         <source>User</source>
         <target>Bruger</target>
@@ -88,10 +80,6 @@
       <trans-unit id="v7KnF3u" resname="Add party">
         <source>Add party</source>
         <target>Tilføj part</target>
-      </trans-unit>
-      <trans-unit id="c40OpRX" resname="Edit deadlines and notification">
-        <source>Edit deadlines and notification</source>
-        <target>Tidsfrist og advisering</target>
       </trans-unit>
       <trans-unit id="N7U6QPI" resname="Edit user information">
         <source>Edit user information</source>
@@ -144,10 +132,6 @@
       <trans-unit id="EyxyB5F" resname="Favorite municipality">
         <source>Favorite municipality</source>
         <target>Foretrukken kommune</target>
-      </trans-unit>
-      <trans-unit id="b8s43ch" resname="Deadline">
-        <source>Deadline</source>
-        <target>Tidsfrist</target>
       </trans-unit>
       <trans-unit id="XWyh8qz" resname="Subboard">
         <source>Subboard</source>

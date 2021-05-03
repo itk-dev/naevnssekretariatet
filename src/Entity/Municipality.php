@@ -52,11 +52,6 @@ class Municipality
      */
     private $complaintCategories;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Settings::class, mappedBy="municipality", cascade={"persist", "remove"})
-     */
-    private $settings;
-
     public function __construct()
     {
         $this->boards = new ArrayCollection();
@@ -234,23 +229,6 @@ class Municipality
                 $complaintCategory->setMunicipality(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getSettings(): ?Settings
-    {
-        return $this->settings;
-    }
-
-    public function setSettings(Settings $settings): self
-    {
-        // set the owning side of the relation if necessary
-        if ($settings->getMunicipality() !== $this) {
-            $settings->setMunicipality($this);
-        }
-
-        $this->settings = $settings;
 
         return $this;
     }
