@@ -91,19 +91,6 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         // todo - roles must be extracted from credentials at a later stage
         // $newUser->setRoles(['ROLE_ADMIN']);
 
-        // todo - (favorite) municipality must be set and created if does not exist already
-        // That is, extract which municipality user login came from and set it
-
-        $muniName = 'Aarhus';
-        $municipality = $this->municipalityRepository->findOneBy(['name' => $muniName]);
-
-        if (null === $municipality) {
-            $municipality = $this->municipalityHelper->createMunicipality($muniName);
-            $this->entityManager->persist($municipality);
-        }
-
-        $user->setFavoriteMunicipality($municipality);
-
         // persist and flush user to database
         // If no change persist will recognize this
         $this->entityManager->persist($user);
