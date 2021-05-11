@@ -26,16 +26,15 @@ class BoardMember
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="boardMembers")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $board;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="boardMembers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $municipality;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=SubBoard::class, inversedBy="boardMembers")
+     */
+    private $board;
 
     public function getId(): ?UuidV4
     {
@@ -54,18 +53,6 @@ class BoardMember
         return $this;
     }
 
-    public function getBoard(): ?Board
-    {
-        return $this->board;
-    }
-
-    public function setBoard(?Board $board): self
-    {
-        $this->board = $board;
-
-        return $this;
-    }
-
     public function getMunicipality(): ?Municipality
     {
         return $this->municipality;
@@ -74,6 +61,18 @@ class BoardMember
     public function setMunicipality(?Municipality $municipality): self
     {
         $this->municipality = $municipality;
+
+        return $this;
+    }
+
+    public function getBoard(): ?SubBoard
+    {
+        return $this->board;
+    }
+
+    public function setBoard(?SubBoard $board): self
+    {
+        $this->board = $board;
 
         return $this;
     }

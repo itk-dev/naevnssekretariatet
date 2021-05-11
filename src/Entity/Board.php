@@ -34,11 +34,6 @@ class Board
     private $municipality;
 
     /**
-     * @ORM\OneToMany(targetEntity=BoardMember::class, mappedBy="board")
-     */
-    private $boardMembers;
-
-    /**
      * @ORM\OneToMany(targetEntity=SubBoard::class, mappedBy="mainBoard")
      */
     private $subBoards;
@@ -60,7 +55,6 @@ class Board
 
     public function __construct()
     {
-        $this->boardMembers = new ArrayCollection();
         $this->subBoards = new ArrayCollection();
         $this->complaintCategories = new ArrayCollection();
         $this->caseEntities = new ArrayCollection();
@@ -91,36 +85,6 @@ class Board
     public function setMunicipality(?Municipality $municipality): self
     {
         $this->municipality = $municipality;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|BoardMember[]
-     */
-    public function getBoardMembers(): Collection
-    {
-        return $this->boardMembers;
-    }
-
-    public function addBoardMember(BoardMember $boardMember): self
-    {
-        if (!$this->boardMembers->contains($boardMember)) {
-            $this->boardMembers[] = $boardMember;
-            $boardMember->setBoard($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBoardMember(BoardMember $boardMember): self
-    {
-        if ($this->boardMembers->removeElement($boardMember)) {
-            // set the owning side to null (unless already changed)
-            if ($boardMember->getBoard() === $this) {
-                $boardMember->setBoard(null);
-            }
-        }
 
         return $this;
     }
