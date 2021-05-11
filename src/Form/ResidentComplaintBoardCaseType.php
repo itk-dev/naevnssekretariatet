@@ -2,9 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\ComplaintCategory;
 use App\Entity\ResidentComplaintBoardCase;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -17,7 +15,7 @@ class ResidentComplaintBoardCaseType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ResidentComplaintBoardCase::class,
-            'board' => null
+            'board' => null,
         ]);
     }
 
@@ -29,6 +27,7 @@ class ResidentComplaintBoardCaseType extends AbstractType
         $caseTypes = $options['board']->getComplaintCategories()->toArray();
 
         $caseTypesAssociative = array();
+
         // Make array contain strings (names) rather then the objects
         foreach ($caseTypes as $value) {
             $name = $value->getName();
@@ -40,8 +39,8 @@ class ResidentComplaintBoardCaseType extends AbstractType
             ->add('size')
             ->add('caseType', ChoiceType::class, [
                 'choices' => [
-                    $caseTypesAssociative
-                ]
+                    $caseTypesAssociative,
+                ],
             ])
             ->add('createCase', SubmitType::class, ['label' => 'Create case'])
         ;
