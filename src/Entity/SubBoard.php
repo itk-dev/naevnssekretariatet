@@ -44,9 +44,15 @@ class SubBoard
      */
     private $boardMembers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="subboard")
+     */
+    private $caseEntities;
+
     public function __construct()
     {
         $this->boardMembers = new ArrayCollection();
+        $this->caseEntities = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -123,5 +129,35 @@ class SubBoard
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|CaseEntity[]
+     */
+    public function getCaseEntities(): Collection
+    {
+        return $this->caseEntities;
+    }
+
+    public function addCaseEntity(CaseEntity $caseEntity): self
+    {
+        if (!$this->caseEntities->contains($caseEntity)) {
+            $this->caseEntities[] = $caseEntity;
+            $caseEntity->setSubboard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaseEntity(CaseEntity $caseEntity): self
+    {
+        if ($this->caseEntities->removeElement($caseEntity)) {
+            // set the owning side to null (unless already changed)
+            if ($caseEntity->getSubboard() === $this) {
+                $caseEntity->setSubboard(null);
+            }
+        }
+
+        return $this;
     }
 }

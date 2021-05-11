@@ -37,7 +37,7 @@ class CreateCaseController extends AbstractController
         $rescase->setBoard($board);
         $rescase->setCaseType($board->getCaseFormType());
 
-        $form = $this->createForm(ResidentComplaintBoardCaseType::class, $rescase);
+        $form = $this->createForm(ResidentComplaintBoardCaseType::class, $rescase, ['board' => $board]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
