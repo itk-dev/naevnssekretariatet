@@ -48,11 +48,22 @@ class Board
      */
     private $complaintCategories;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="board")
+     */
+    private $caseEntities;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $caseFormType;
+
     public function __construct()
     {
         $this->boardMembers = new ArrayCollection();
         $this->subBoards = new ArrayCollection();
         $this->complaintCategories = new ArrayCollection();
+        $this->caseEntities = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -175,6 +186,48 @@ class Board
                 $complaintCategory->setBoard(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaseEntity[]
+     */
+    public function getCaseEntities(): Collection
+    {
+        return $this->caseEntities;
+    }
+
+    public function addCaseEntity(CaseEntity $caseEntity): self
+    {
+        if (!$this->caseEntities->contains($caseEntity)) {
+            $this->caseEntities[] = $caseEntity;
+            $caseEntity->setBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaseEntity(CaseEntity $caseEntity): self
+    {
+        if ($this->caseEntities->removeElement($caseEntity)) {
+            // set the owning side to null (unless already changed)
+            if ($caseEntity->getBoard() === $this) {
+                $caseEntity->setBoard(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCaseFormType(): ?string
+    {
+        return $this->caseFormType;
+    }
+
+    public function setCaseFormType(string $caseFormType): self
+    {
+        $this->caseFormType = $caseFormType;
 
         return $this;
     }

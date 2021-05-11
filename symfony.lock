@@ -1,4 +1,7 @@
 {
+    "behat/transliterator": {
+        "version": "v1.3.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
@@ -122,6 +125,9 @@
     },
     "friendsoftwig/twigcs": {
         "version": "v5.0.0"
+    },
+    "gedmo/doctrine-extensions": {
+        "version": "v3.0.5"
     },
     "guzzlehttp/guzzle": {
         "version": "7.2.0"

@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class BoardCrudController extends AbstractCrudController
@@ -41,5 +42,11 @@ class BoardCrudController extends AbstractCrudController
     {
         yield TextField::new('name', 'Name');
         yield AssociationField::new('municipality', 'Municipality');
+        yield ChoiceField::new('caseFormType', 'Case Form Type')
+            ->setChoices([
+                'Resident complaint form type' => 'ResidentComplaintBoardFormType',
+            ])
+            ->setRequired('true')
+        ;
     }
 }

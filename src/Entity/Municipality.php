@@ -47,12 +47,18 @@ class Municipality
      */
     private $complaintCategories;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="municipality")
+     */
+    private $caseEntities;
+
     public function __construct()
     {
         $this->boards = new ArrayCollection();
         $this->subBoards = new ArrayCollection();
         $this->boardMembers = new ArrayCollection();
         $this->complaintCategories = new ArrayCollection();
+        $this->caseEntities = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -191,6 +197,36 @@ class Municipality
             // set the owning side to null (unless already changed)
             if ($complaintCategory->getMunicipality() === $this) {
                 $complaintCategory->setMunicipality(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaseEntity[]
+     */
+    public function getCaseEntities(): Collection
+    {
+        return $this->caseEntities;
+    }
+
+    public function addCaseEntity(CaseEntity $caseEntity): self
+    {
+        if (!$this->caseEntities->contains($caseEntity)) {
+            $this->caseEntities[] = $caseEntity;
+            $caseEntity->setMunicipality($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaseEntity(CaseEntity $caseEntity): self
+    {
+        if ($this->caseEntities->removeElement($caseEntity)) {
+            // set the owning side to null (unless already changed)
+            if ($caseEntity->getMunicipality() === $this) {
+                $caseEntity->setMunicipality(null);
             }
         }
 
