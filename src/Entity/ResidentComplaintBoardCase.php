@@ -20,6 +20,26 @@ class ResidentComplaintBoardCase extends CaseEntity
      */
     private $complainant;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $complainantAddress;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $complainantPhone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $complainantPostalCode;
+
+    /**
+     * @ORM\Column(type="string", length=255, options={"default": "submitted"})
+     */
+    private $caseState = 'submitted';
+
     public function getSize(): ?int
     {
         return $this->size;
@@ -40,6 +60,54 @@ class ResidentComplaintBoardCase extends CaseEntity
     public function setComplainant(?string $complainant): self
     {
         $this->complainant = $complainant;
+
+        return $this;
+    }
+
+    public function getComplainantAddress(): ?string
+    {
+        return $this->complainantAddress;
+    }
+
+    public function setComplainantAddress(?string $complainantAddress): self
+    {
+        $this->complainantAddress = $complainantAddress;
+
+        return $this;
+    }
+
+    public function getComplainantPhone(): ?int
+    {
+        return $this->complainantPhone;
+    }
+
+    public function setComplainantPhone(?int $complainantPhone): self
+    {
+        $this->complainantPhone = $complainantPhone;
+
+        return $this;
+    }
+
+    public function getComplainantPostalCode(): ?string
+    {
+        return $this->complainantPostalCode;
+    }
+
+    public function setComplainantPostalCode(?string $complainantPostalCode): self
+    {
+        $this->complainantPostalCode = $complainantPostalCode;
+
+        return $this;
+    }
+
+    public function getCaseState(): ?string
+    {
+        return $this->caseState;
+    }
+
+    public function setCaseState(string $caseState): self
+    {
+        $this->caseState = $caseState;
 
         return $this;
     }

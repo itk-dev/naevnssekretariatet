@@ -36,12 +36,15 @@ class ResidentComplaintBoardCaseType extends AbstractType
 
         $builder
             ->add('complainant')
-            ->add('size')
+            ->add('complainantPhone')
+            ->add('complainantAddress')
+            ->add('complainantPostalCode')
             ->add('caseType', ChoiceType::class, [
                 'choices' => [
                     $caseTypesAssociative,
                 ],
             ])
+            ->add('size')
             ->add('createCase', SubmitType::class, ['label' => 'Create case'])
         ;
     }
