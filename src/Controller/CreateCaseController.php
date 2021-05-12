@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\ResidentComplaintBoardCase;
-use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\BoardRepository;
 use App\Repository\MunicipalityRepository;
 use Doctrine\DBAL\Exception;
@@ -42,6 +41,10 @@ class CreateCaseController extends AbstractController
             case 'ResidentComplaintBoardCaseType':
                 $case = new ResidentComplaintBoardCase();
                 break;
+        }
+
+        if (null === $case) {
+            throw new Exception('Case object was not created.');
         }
 
         $case->setMunicipality($municipality);
