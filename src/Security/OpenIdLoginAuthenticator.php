@@ -76,7 +76,7 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         $user->setName($name);
         $user->setEmail($email);
         // todo - roles must be extracted from credentials at a later stage
-        // $newUser->setRoles(['ROLE_ADMIN']);
+        // $user->setRoles(['ROLE_ADMIN']);
 
         // persist and flush user to database
         // If no change persist will recognize this
