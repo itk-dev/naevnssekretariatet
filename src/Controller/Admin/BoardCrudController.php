@@ -44,7 +44,7 @@ class BoardCrudController extends AbstractCrudController
         yield AssociationField::new('municipality', 'Municipality');
         yield ChoiceField::new('caseFormType', 'Case Form Type')
             ->setChoices([
-                'Resident complaint form type' => 'ResidentComplaintBoardFormType',
+                'Resident complaint form' => 'ResidentComplaintBoardCaseType',
             ])
             ->setRequired('true')
         ;
