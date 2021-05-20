@@ -45,6 +45,11 @@ class Party
      */
     private $journalNumber;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPartOfPartIndex;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -106,6 +111,18 @@ class Party
     public function setJournalNumber(?string $journalNumber): self
     {
         $this->journalNumber = $journalNumber;
+
+        return $this;
+    }
+
+    public function getIsPartOfPartIndex(): ?bool
+    {
+        return $this->isPartOfPartIndex;
+    }
+
+    public function setIsPartOfPartIndex(bool $isPartOfPartIndex): self
+    {
+        $this->isPartOfPartIndex = $isPartOfPartIndex;
 
         return $this;
     }
