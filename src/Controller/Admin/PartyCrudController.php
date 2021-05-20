@@ -43,13 +43,7 @@ class PartyCrudController extends AbstractCrudController
     }
 
     /**
-     * Display only parties which are to be part of part index
-     *
-     * @param SearchDto $searchDto
-     * @param EntityDto $entityDto
-     * @param FieldCollection $fields
-     * @param FilterCollection $filters
-     * @return QueryBuilder
+     * Display only parties which are to be part of part index.
      */
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
     {

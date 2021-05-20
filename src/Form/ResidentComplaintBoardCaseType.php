@@ -26,7 +26,7 @@ class ResidentComplaintBoardCaseType extends AbstractType
          */
         $caseTypes = $options['board']->getComplaintCategories()->toArray();
 
-        $caseTypesAssociative = array();
+        $caseTypesAssociative = [];
 
         // Make array contain strings (names) rather then the objects
         foreach ($caseTypes as $value) {
