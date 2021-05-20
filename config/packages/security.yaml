@@ -29,6 +29,8 @@ security:
             # switch_user: true
 
     role_hierarchy:
+        ROLE_BOARDMEMBER:
+        ROLE_CITIZEN:
         ROLE_CASEWORKER:
         ROLE_ADMINISTRATION:
         ROLE_ADMIN: [ROLE_CASEWORKER, ROLE_ADMINISTRATION]
