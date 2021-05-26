@@ -65,7 +65,6 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         $name = $credentials['name'];
         $email = $credentials['upn'];
 
-
         //Check if user exists already - if not create a user
         $user = $this->userRepository->findOneBy(['email' => $email]);
         if (null === $user) {
@@ -78,7 +77,7 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
             'GG-Rolle-B2C-Tvist1-SuperAdmin' => 'ROLE_SUPER_ADMIN',
             'GG-Rolle-B2C-Tvist1-Admin' => 'ROLE_ADMIN',
             'GG-Rolle-B2C-Tvist1-Administrator' => 'ROLE_ADMINISTRATOR',
-            'GG-Rolle-B2C-Tvist1-Sagsbehandler' => 'ROLE_CASEWORKER'
+            'GG-Rolle-B2C-Tvist1-Sagsbehandler' => 'ROLE_CASEWORKER',
         ];
 
         // Extract user role(s)
