@@ -32,7 +32,7 @@ security:
         ROLE_BOARDMEMBER:
         ROLE_CITIZEN:
         ROLE_CASEWORKER:
-        ROLE_ADMINISTRATION:
+        ROLE_ADMINISTRATOR:
         ROLE_ADMIN: [ROLE_CASEWORKER, ROLE_ADMINISTRATION]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN]
     # Easy way to control access for large sections of your site
