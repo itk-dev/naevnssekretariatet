@@ -74,10 +74,10 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
 
         // Associative array mapping AD roles to system roles
         $roleArrayAssociative = [
-            'GG-Rolle-B2C-Tvist1-SuperAdmin' => 'ROLE_SUPER_ADMIN',
-            'GG-Rolle-B2C-Tvist1-Admin' => 'ROLE_ADMIN',
-            'GG-Rolle-B2C-Tvist1-Administrator' => 'ROLE_ADMINISTRATOR',
-            'GG-Rolle-B2C-Tvist1-Sagsbehandler' => 'ROLE_CASEWORKER',
+            'SuperAdmin' => 'ROLE_SUPER_ADMIN',
+            'Admin' => 'ROLE_ADMIN',
+            'Administrator' => 'ROLE_ADMINISTRATOR',
+            'Sagsbehandler' => 'ROLE_CASEWORKER',
         ];
 
         // Extract user role(s)
