@@ -34,7 +34,7 @@ security:
         ROLE_CASEWORKER:
         ROLE_ADMINISTRATOR:
         ROLE_ADMIN: [ROLE_CASEWORKER, ROLE_ADMINISTRATION]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_CITIZEN, ROLE_BOARDMEMBER]
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
