@@ -52,6 +52,11 @@ abstract class CaseEntity
      */
     private $subboard;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $documents = [];
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -113,6 +118,18 @@ abstract class CaseEntity
     public function setSubboard(?SubBoard $subboard): self
     {
         $this->subboard = $subboard;
+
+        return $this;
+    }
+
+    public function getDocuments(): ?array
+    {
+        return $this->documents;
+    }
+
+    public function setDocuments(?array $documents): self
+    {
+        $this->documents = $documents;
 
         return $this;
     }
