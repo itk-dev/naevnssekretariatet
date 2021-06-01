@@ -15,6 +15,7 @@ with the necessary fields.
 ## Workflow
 
 If adding a feature to the application that is to be logged:
+
 * Implement feature
 * Create event(s)
 * Create or update event subscriber
@@ -26,7 +27,8 @@ We keep a folder for events and one for its subscribers.
 /project_root
   /src
     /Event
-      SomeGenericEvent.php
+      SomeAbstractEvent.php
+      SomeSpecificEvent.php
     /EventSubscriber
       SomeEventSubsrciber.php
 ```
@@ -34,10 +36,10 @@ We keep a folder for events and one for its subscribers.
 ### Events
 
 We have an abstract event class for each entity
-that in any shape or form relates may relate to a case.
+that in any shape or form may relate to a case.
 
 We then create specific event classes such as PartyUpdatedEvent
-that extend the above mentioned.
+that extend the above mentioned abstract class.
 
 #### Example Event
 
@@ -136,7 +138,6 @@ and create an instance of the event:
 $event = new PartyUpdatedEvent($party);
 $dispatcher->dispatch($event, PartyUpdatedEvent::NAME);
 ```
-
 
 ## Useful links
 
