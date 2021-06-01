@@ -1,11 +1,14 @@
 # Logging
 
 To ensure a thorough logging during the processes
-handled by this application we use Symfonys
-[event dispatcher component](https://symfony.com/doc/current/components/event_dispatcher.html).
-This allows easy addition and modification of events and their handlers.
+handled by this application we use 
+[doctrine events](https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/events.html).
 
-The logging is done on case level.
+This give us to use already defined
+[Lifecycle Events](https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/events.html#lifecycle-events),
+and specifying our own logic when listening and handling such events.
+
+Logging is done on case level.
 In other words, anything related to a case must be logged
 whether it is editing a party, adding the case to an agenda or simply viewing it.
 
@@ -18,8 +21,8 @@ If adding a feature to the application that contains logic
 that must be logged:
 
 * Implement feature
-* Create event(s)
-* Create or update event subscriber
+* Create entity listener
+* Add entity listener to entity
 * Dispatch events
 
 We keep a folder for events and one for its subscribers.
