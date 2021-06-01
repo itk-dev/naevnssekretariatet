@@ -2,11 +2,11 @@
 
 To ensure a thorough logging during the processes
 handled by this application we use Symfonys
-[event dispatcher component](https://symfony.com/doc/current/components/event_dispatcher.html),
-as this allows easy addition and modification of events and their handlers.
+[event dispatcher component](https://symfony.com/doc/current/components/event_dispatcher.html).
+This allows easy addition and modification of events and their handlers.
 
 The logging is done on case level.
-This means anything related to a case must be logged
+In other words, anything related to a case must be logged
 whether it is editing a party, adding the case to an agenda or simply viewing it.
 
 To store the logs in our database we make a LogEntry entity
@@ -14,7 +14,8 @@ with the necessary fields.
 
 ## Workflow
 
-If adding a feature to the application that is to be logged:
+If adding a feature to the application that contains logic
+that must be logged:
 
 * Implement feature
 * Create event(s)
@@ -83,7 +84,7 @@ class PartyUpdatedEvent extends PartyEvent
 
 ### EventSubscriber
 
-We will keep a subscriber for each type of events,
+We will keep a subscriber for each abstract event class described above,
 i.e. PartyEvent or BoardMemberEvent.
 
 As an example, the PartyEventSubscriber will listen to
@@ -131,8 +132,8 @@ class PartyEventSubscriber implements EventSubscriberInterface
 ### Dispatching event
 
 To dispatch an event simply inject the
-[EventDispatcher](https://github.com/symfony/symfony/blob/5.2/src/Symfony/Component/EventDispatcher/EventDispatcher.php)
-and create an instance of the event:
+[EventDispatcher](https://github.com/symfony/symfony/blob/5.2/src/Symfony/Component/EventDispatcher/EventDispatcher.php),
+create an instance of the event and finally dispatch it:
 
 ```php
 $event = new PartyUpdatedEvent($party);
