@@ -82,7 +82,7 @@ class CreateCaseController extends AbstractController
                     // todo: Make sure original file name is ok, possibly use slugger
                     $safeOriginalFilename = $slugger->slug($originalFilename);
 
-                    $newFileName = $safeOriginalFilename.'.'.$document->guessExtension();
+                    $newFileName = $safeOriginalFilename.'-'.uniqid().'.'.$document->guessExtension();
 
                     // Move the file to the directory where they are stored
                     try {
