@@ -1,6 +1,6 @@
 /* @todo There should be a better way for authenticating users */
 
-/* global describe it cy */
+/* global describe it cy before */
 describe('End-to-end tests for the admin dashboard', () => {
   before(() => {
     cy.visit('/?masquerade=test@example.com')
