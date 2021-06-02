@@ -3,7 +3,7 @@
 /* global describe it cy before */
 describe('End-to-end tests for the admin dashboard', () => {
   before(() => {
-    cy.visit('/?masquerade=test@example.com')
+    cy.visit('/?masquerade=admin@example.com')
   })
 
   it('Shows the admin dashboard', () => {
