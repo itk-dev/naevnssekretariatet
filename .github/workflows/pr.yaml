@@ -106,7 +106,7 @@ jobs:
       - name: Composer install with exported .env variables
         run: |
           set -a && source .env && set +a
-          APP_ENV=dev composer install
+          APP_ENV=e2e composer install
       - name: Yarn install
         uses: actions/setup-node@v2
         with:
@@ -118,8 +118,8 @@ jobs:
         run: symfony server:start --no-tls --port=8000 -d
       - name: Run Doctrine Migrations
         run: php bin/console doctrine:migrations:migrate --no-interaction
-      #- name: Load Fixtures
-      #  run: php bin/console hautelook:fixtures:load --purge-with-truncate --no-interaction
+      - name: Load Fixtures
+        run: php bin/console hautelook:fixtures:load --purge-with-truncate --no-interaction
       - name: Cypress
         uses: cypress-io/github-action@v2
         env:
