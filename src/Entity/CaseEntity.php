@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CaseEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
@@ -53,9 +55,14 @@ abstract class CaseEntity
     private $subboard;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\ManyToMany(targetEntity=Document::class, mappedBy="process")
      */
-    private $documents = [];
+    private $documents;
+
+    public function __construct()
+    {
+        $this->documents = new ArrayCollection();
+    }
 
     public function getId(): ?UuidV4
     {
@@ -122,14 +129,29 @@ abstract class CaseEntity
         return $this;
     }
 
-    public function getDocuments(): ?array
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocuments(): Collection
     {
         return $this->documents;
     }
 
-    public function setDocuments(?array $documents): self
+    public function addDocument(Document $document): self
     {
-        $this->documents = $documents;
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->addProcess($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            $document->removeProcess($this);
+        }
 
         return $this;
     }

@@ -2,23 +2,29 @@
 
 namespace App\Controller;
 
+use App\Entity\CaseEntity;
 use App\Repository\CaseEntityRepository;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Uid\Uuid;
 
 /**
- * @Route("/process/{process_id}", name="process")
+ * @Route("/process", name="process")
  */
 class ProcessController extends AbstractController
 {
     /**
-     * @Route("/documents", name="_documents")
+     * @Route("/", name="process_index")
      */
-    public function documents(CaseEntityRepository $caseRepository, string $process_id): Response
+    public function index(CaseEntityRepository $caseEntityRepository): Response
     {
+        $processes = $caseEntityRepository->findAll();
+
         return $this->render('process/index.html.twig', [
             'controller_name' => 'ProcessController',
+            'processes' => $processes,
         ]);
     }
 }
