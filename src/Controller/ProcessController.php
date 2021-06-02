@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/process/{process_id}", name="process")
  */
-
 class ProcessController extends AbstractController
 {
     /**
