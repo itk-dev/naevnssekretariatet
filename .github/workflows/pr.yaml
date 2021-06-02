@@ -67,7 +67,6 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       DATABASE_URL: mysql://db:db@127.0.0.1:3306/db?serverVersion=mariadb-10.3.17&charset=utf8mb4
-      APP_ENV: e2e
     services:
       mariadb:
         image: mariadb:10.3
@@ -107,7 +106,7 @@ jobs:
       - name: Composer install with exported .env variables
         run: |
           set -a && source .env && set +a
-          APP_ENV=e2e composer install
+          APP_ENV=dev composer install
       - name: Yarn install
         uses: actions/setup-node@v2
         with:
