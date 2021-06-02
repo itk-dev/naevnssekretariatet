@@ -1,6 +1,24 @@
 App\Entity\User:
-  user-test:
-    name: Test User
-    email: test@example.com
-    loginToken: imatoken
+  user-case-worker:
+    name: Case Worker
+    email: case-worker@example.com
+    roles: [ROLE_CASE_WORKER]
+    favoriteMunicipality: '@municipality-test'
+
+  user-administration:
+    name: Administration
+    email: administration@example.com
+    roles: [ROLE_ADMINISTRATION]
+    favoriteMunicipality: '@municipality-test'
+
+  user-admin:
+    name: Admin
+    email: admin@example.com
+    roles: [ROLE_ADMIN]
+    favoriteMunicipality: '@municipality-test'
+
+  user-super-admin:
+    name: Super Admin
+    email: super-admin@example.com
+    roles: [ROLE_SUPER_ADMIN]
     favoriteMunicipality: '@municipality-test'
