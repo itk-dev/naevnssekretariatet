@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Board;
+use App\Entity\Municipality;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Repository\BoardRepository;
 use App\Repository\MunicipalityRepository;
@@ -11,27 +13,36 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class CreateCaseController extends AbstractController
 {
     /**
+     * @var BoardRepository
+     */
+    private $boardRepository;
+
+    /**
+     * @var MunicipalityRepository
+     */
+    private $municipalityRepository;
+
+    public function __construct(BoardRepository $boardRepository, MunicipalityRepository $municipalityRepository)
+    {
+        $this->boardRepository = $boardRepository;
+        $this->municipalityRepository = $municipalityRepository;
+    }
+
+    /**
      * @Route("/municipality/{municipality_name}/board/{board_name}/case/create", name="rescase")
      */
-    public function createCase(BoardRepository $boardRepository, MunicipalityRepository $municipalityRepository, Request $request, string $municipality_name, string $board_name): Response
+    public function createCase(Request $request, string $municipality_name, string $board_name): Response
     {
         // Check that municipality exists
-        $municipality = $municipalityRepository->findOneBy(['name' => $municipality_name]);
-
-        if (null === $municipality) {
-            throw new Exception('Municipality not found.');
-        }
+        $municipality = $this->findMunicipality($municipality_name);
 
         // Check that board exists
-        $board = $boardRepository->findOneBy(['name' => $board_name]);
-
-        if (null === $board) {
-            throw new Exception('Board not found.');
-        }
+        $board = $this->findBoard($board_name);
 
         // Match on which case object to create
         $caseType = $board->getCaseFormType();
@@ -62,12 +73,16 @@ class CreateCaseController extends AbstractController
 
             if ($documents) {
                 $revisedDocumentPaths = [];
+
+                $slugger = new AsciiSlugger();
+
                 foreach ($documents as $document) {
                     $originalFilename = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
 
                     // todo: Make sure original file name is ok, possibly use slugger
+                    $safeOriginalFilename = $slugger->slug($originalFilename);
 
-                    $newFileName = $originalFilename.'.'.$document->guessExtension();
+                    $newFileName = $safeOriginalFilename.'.'.$document->guessExtension();
 
                     // Move the file to the directory where they are stored
                     try {
@@ -76,8 +91,7 @@ class CreateCaseController extends AbstractController
                             $newFileName
                         );
                     } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
-                        throw new FileException('Error moving file');
+                        throw new FileException('Error during file upload');
                     }
                     array_push($revisedDocumentPaths, $newFileName);
                 }
@@ -95,5 +109,27 @@ class CreateCaseController extends AbstractController
         return $this->render('case/createCase.html.twig', [
             'case_form' => $form->createView(),
         ]);
+    }
+
+    public function findBoard(string $name): Board
+    {
+        $board = $this->boardRepository->findOneBy(['name' => $name]);
+
+        if (null === $board) {
+            throw new Exception('Board not found.');
+        }
+
+        return $board;
+    }
+
+    public function findMunicipality(string $name): Municipality
+    {
+        $municipality = $this->municipalityRepository->findOneBy(['name' => $name]);
+
+        if (null === $municipality) {
+            throw new Exception('Municipality not found.');
+        }
+
+        return $municipality;
     }
 }
