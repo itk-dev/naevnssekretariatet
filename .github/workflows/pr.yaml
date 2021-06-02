@@ -67,6 +67,7 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       DATABASE_URL: mysql://db:db@127.0.0.1:3306/db?serverVersion=mariadb-10.3.17&charset=utf8mb4
+      APP_ENV: e2e
     services:
       mariadb:
         image: mariadb:10.3
