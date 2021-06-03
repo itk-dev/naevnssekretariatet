@@ -5,7 +5,7 @@
 {% block body %}
     {% if documents|length > 0 %}
         {% for document in documents %}
-            <h4>{{ document.name }}</h4>
+            <h4>{{ document.name }} Uploader: {{ document.createdBy }}</h4>
         {% endfor %}
     {% else %}
         <div>No documents have been uploaded yet.</div>

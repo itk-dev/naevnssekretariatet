@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Document;
+use App\Entity\User;
 use App\Form\DocumentType;
 use App\Repository\CaseEntityRepository;
 use Doctrine\DBAL\Exception;
@@ -43,7 +44,7 @@ class DocumentController extends AbstractController
 
             $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
-            // todo: modify orignal file name more than just ascii slug as beneath
+            // Beneath handles spaces, special chars and also danish specific letters
             $slugger = new AsciiSlugger();
             $safeFilename = $slugger->slug($originalFilename);
 
@@ -60,9 +61,9 @@ class DocumentController extends AbstractController
 
             $document->setName($newFilename);
 
-            // todo: get name of uploader and set
-            $uploader = 'Test Testersen';
-            $document->setCreatedBy($uploader);
+            /** @var User $uploader */
+            $uploader = $this->getUser();
+            $document->setCreatedBy($uploader->getEmail());
 
             $document->addCase($case);
 
