@@ -44,11 +44,11 @@ class Document
     /**
      * @ORM\ManyToMany(targetEntity=CaseEntity::class, inversedBy="documents")
      */
-    private $process;
+    private $case;
 
     public function __construct()
     {
-        $this->process = new ArrayCollection();
+        $this->case = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,23 +107,23 @@ class Document
     /**
      * @return Collection|CaseEntity[]
      */
-    public function getProcess(): Collection
+    public function getCase(): Collection
     {
-        return $this->process;
+        return $this->case;
     }
 
-    public function addProcess(CaseEntity $process): self
+    public function addCase(CaseEntity $case): self
     {
-        if (!$this->process->contains($process)) {
-            $this->process[] = $process;
+        if (!$this->case->contains($case)) {
+            $this->case[] = $case;
         }
 
         return $this;
     }
 
-    public function removeProcess(CaseEntity $process): self
+    public function removeCase(CaseEntity $case): self
     {
-        $this->process->removeElement($process);
+        $this->case->removeElement($case);
 
         return $this;
     }

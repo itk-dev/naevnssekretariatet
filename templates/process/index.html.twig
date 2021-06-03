@@ -1,9 +1,0 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello ProcessController!{% endblock %}
-
-{% block body %}
-{% for process in processes %}
-    <a href="{{ url('document_index', {'process_id': process.id}) }}">{{ process.id }}</a><br />
-{% endfor %}
-{% endblock %}

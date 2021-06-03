@@ -55,7 +55,8 @@ abstract class CaseEntity
     private $subboard;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Document::class, mappedBy="process")
+     * @ORM\ManyToMany(targetEntity=Document::class, mappedBy="case")
+     * @ORM\JoinTable(name="document_case_entity")
      */
     private $documents;
 
@@ -141,7 +142,7 @@ abstract class CaseEntity
     {
         if (!$this->documents->contains($document)) {
             $this->documents[] = $document;
-            $document->addProcess($this);
+            $document->addCase($this);
         }
 
         return $this;
@@ -150,7 +151,7 @@ abstract class CaseEntity
     public function removeDocument(Document $document): self
     {
         if ($this->documents->removeElement($document)) {
-            $document->removeProcess($this);
+            $document->removeCase($this);
         }
 
         return $this;

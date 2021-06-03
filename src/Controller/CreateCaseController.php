@@ -9,11 +9,9 @@ use App\Repository\BoardRepository;
 use App\Repository\MunicipalityRepository;
 use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class CreateCaseController extends AbstractController
 {
@@ -69,34 +67,6 @@ class CreateCaseController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Handle document upload
-            $documents = $form->get('documents')->getData();
-
-            if ($documents) {
-                $revisedDocumentPaths = [];
-
-                $slugger = new AsciiSlugger();
-
-                foreach ($documents as $document) {
-                    $originalFilename = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
-
-                    // todo: Make sure original file name is ok, possibly use slugger
-                    $safeOriginalFilename = $slugger->slug($originalFilename);
-
-                    $newFileName = $safeOriginalFilename.'-'.uniqid().'.'.$document->guessExtension();
-
-                    // Move the file to the directory where they are stored
-                    try {
-                        $document->move(
-                            $this->getParameter('file_directory'),
-                            $newFileName
-                        );
-                    } catch (FileException $e) {
-                        throw new FileException('Error during file upload');
-                    }
-                    array_push($revisedDocumentPaths, $newFileName);
-                }
-                $case->setDocuments($revisedDocumentPaths);
-            }
             $case = $form->getData();
 
             $em = $this->getDoctrine()->getManager();

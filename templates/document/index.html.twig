@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DocumentController!{% endblock %}
+
+{% block body %}
+    {% if documents|length > 0 %}
+        {% for document in documents %}
+            <h4>{{ document.name }}</h4>
+        {% endfor %}
+    {% else %}
+        <div>No documents have been uploaded yet.</div>
+    {% endif %}
+    <h2>Upload file:</h2>
+    {{ form(document_form) }}
+{% endblock %}
