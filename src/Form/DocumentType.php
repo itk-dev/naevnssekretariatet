@@ -34,6 +34,9 @@ class DocumentType extends AbstractType
                         'mimeTypes' => [
                             'application/pdf',
                             'application/x-pdf',
+                            'application/msword',
+                            'application/vnd.ms-excel',
+                            'text/plain',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
