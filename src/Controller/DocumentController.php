@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Entity\Document;
@@ -28,7 +27,7 @@ class DocumentController extends AbstractController
         // The beneath can possibly be removed and done via 'guessing' the case instead
         $case = $caseEntityRepository->find(['id' => $case_id]);
 
-        if (null === $case){
+        if (null === $case) {
             throw new Exception('Case not found');
         }
 
@@ -43,8 +42,11 @@ class DocumentController extends AbstractController
             $file = $form->get('name')->getData();
 
             $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+
+            // todo: modify orignal file name more than just ascii slug as beneath
             $slugger = new AsciiSlugger();
             $safeFilename = $slugger->slug($originalFilename);
+
             $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
             try {
@@ -59,7 +61,8 @@ class DocumentController extends AbstractController
             $document->setName($newFilename);
 
             // todo: get name of uploader and set
-            $document->setCreatedBy('Test Testersen');
+            $uploader = 'Test Testersen';
+            $document->setCreatedBy($uploader);
 
             $document->addCase($case);
 
@@ -68,7 +71,6 @@ class DocumentController extends AbstractController
 
             return $this->redirectToRoute('document_index', ['case_id' => $case_id]);
         }
-
 
         return $this->render('document/index.html.twig', [
             'controller_name' => 'DocumentController',

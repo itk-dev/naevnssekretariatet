@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Form;
-
 
 use App\Entity\Document;
 use Symfony\Component\Form\AbstractType;
@@ -39,7 +37,7 @@ class DocumentType extends AbstractType
                             'text/plain',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
-                    ])
+                    ]),
                 ],
             ])
             ->add('uploadDocument', SubmitType::class, ['label' => 'Upload file'])
