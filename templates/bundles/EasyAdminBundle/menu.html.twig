@@ -1,0 +1,42 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @TODO Design #}
+{% macro render_menu_item(item) %}
+    {% if item.isMenuSection %}
+        {% if item.icon is not empty %}<i class="menu-icon fa-fw {{ item.icon }}"></i>{% endif %}
+        <span class="{{ item.cssClass }}">{{ item.label }}</span>
+    {% else %}
+        <a href="{{ item.linkUrl }}" class="{{ item.cssClass }}" target="{{ item.linkTarget }}" rel="{{ item.linkRel }}" referrerpolicy="origin-when-cross-origin">
+            {% if item.icon is not empty %}<i class="menu-icon fa-fw {{ item.icon }}"></i>{% endif %}
+            <span>{{ item.label|raw }}</span>
+            {% if item.hasSubItems %}<i class="fa fa-fw fa-angle-right treeview-icon"></i>{% endif %}
+        </a>
+    {% endif %}
+{% endmacro %}
+
+{% block main_menu_before %}{% endblock %}
+
+<ul class="sidebar-menu" data-widget="tree" data-animation-speed="250">
+    {% block main_menu %}
+        {% for menu_item in ea.mainMenu.items %}
+            {% block menu_item %}
+                <li class="{{ menu_item.isMenuSection ? 'header' }} {{ menu_item.hasSubItems ? 'treeview' }} {{ ea.mainMenu.isSelected(menu_item) ? 'active' }} {{ ea.mainMenu.isExpanded(menu_item) ? 'active submenu-active' }}">
+                    {{ _self.render_menu_item(menu_item) }}
+
+                    {% if menu_item.hasSubItems %}
+                        <ul class="treeview-menu">
+                            {% for menu_sub_item in menuItem.subItems %}
+                                {% block menu_subitem %}
+                                    <li class="{{ menu_sub_item.isMenuSection ? 'header' }} {{ ea.mainMenu.isSelected(menu_sub_item) ? 'active' }}">
+                                        {{ _self.render_menu_item(menu_sub_item) }}
+                                    </li>
+                                {% endblock menu_subitem %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endblock menu_item %}
+        {% endfor %}
+    {% endblock main_menu %}
+</ul>
+
+{% block main_menu_after %}{% endblock %}

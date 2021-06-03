@@ -16,6 +16,7 @@ of a board can make a decision upon.
 
 * [Symfony](https://symfony.com)
 * [Encore](https://symfony.com/doc/current/frontend.html)
+* [EasyAdmin](https://github.com/EasyCorp/EasyAdminBundle)
 
 ## Getting started
 
@@ -78,6 +79,48 @@ You should now be able to browse to the application
 open http://$(docker-compose port nginx 80)
 ```
 
+#### Azure B2C
+
+Configuration of the following environment variables
+must be done in order to login via Azure B2C:
+
+```shell
+OPEN_ID_PROVIDER_URL=
+OPEN_ID_PROVIDER_CLIENT_ID=
+OPEN_ID_PROVIDER_CLIENT_SECRET=
+```
+
+Example configuration:
+
+```shell
+OPEN_ID_PROVIDER_URL='https://.../.well-known/openid-configuration...'
+OPEN_ID_PROVIDER_CLIENT_ID={app.client.id}
+OPEN_ID_PROVIDER_CLIENT_SECRET={app.client.secret}
+```
+
+#### CLI login
+
+In order to use the CLI login feature the following
+environment variable must be set:
+
+```shell
+DEFAULT_URI=
+```
+
+See [Symfony documentation](https://symfon.com/doc/current/routing.html#generating-urls-in-commands)
+for more information.
+
+## Sign in from command line
+
+Rather than signing in via Azure B2C, you can get
+a sign in url from the command line. Run
+
+```shell
+bin/console app:user-login --help
+```
+
+for details. Be aware that a login url will only work once.
+
 ## Running the tests
 
 See the [TESTING.md](docs/TESTING.md) documentation for more information.
@@ -92,7 +135,7 @@ docker-compose exec phpfpm bin/phpunit
 
 ```sh
 docker run -it -v $PWD:/e2e -w /e2e --network=host \
---env CYPRESS_baseUrl=http://$(docker-compose port nginx 80) cypress/included:6.4.0
+--env CYPRESS_baseUrl=http://$(docker-compose port nginx 80) cypress/included:6.5.0
 ```
 
 ### Coding standard tests

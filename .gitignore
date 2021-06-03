@@ -28,4 +28,9 @@ yarn-error.log
 
 ###> cypress
 /cypress/videos
+/cypress/screenshots
 ###< cypress
+
+###> idea
+/.idea/
+###< idea
