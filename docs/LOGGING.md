@@ -100,4 +100,8 @@ class Party
 
 ## Useful links
 
-* [Doctrine ORM events](https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/events.html#events)
+Both links beneath have documentation on
+Doctrine Events, Listeners and Subscribers.
+
+* [Doctrine Documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/events.html)
+* [Symfony Documentation](https://symfony.com/doc/current/doctrine/events.html)
