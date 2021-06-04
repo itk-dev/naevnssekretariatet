@@ -23,7 +23,7 @@ that must be logged:
 
 * Implement feature
 * Create entity listener and logging logic
-* Add entity listener to entity
+* Add entity listener to entity if not already there
 
 We keep a folder for entity listeners:
 
@@ -44,14 +44,18 @@ The doctrine events we are interested in are
 * `postUpdate`
 * `postLoad`
 
+We are not interested in `postPersist`, as creation of a
+Party is not something we wish to log. Instead, the logging
+occur when updating a case by adding a party to it.
+
 All doctrine lifecycle events are listed
 [here](https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/events.html#lifecycle-events).
 
 ### EventListener
 
 We will keep a listener for each entity that in any shape or form
-relates to a process, as any changes to such entity must be logged
-on the respective processes.
+relates to a case, as any changes to such entity must be logged
+on the respective case.
 
 ### Party entity example
 
@@ -68,7 +72,9 @@ class PartyChangedListener extends AbstractChangedListener
 {
     public function postUpdate(Party $party, LifecycleEventArgs $event)
     {
-        // Do something on post update.
+        // Obtain affected cases
+        // Create LogEntry entity
+        // Persist LogEntry to EntityManager
     }
     
     public function postRemove(Party $party, LifecycleEventArgs $event)
@@ -77,10 +83,6 @@ class PartyChangedListener extends AbstractChangedListener
     }
 }
 ```
-
-The `AbstractChangedListener` contain a `createLogEntry()` function.
-This avoids code duplication, as the same logic would be needed for
-BoardMember and possibly more entities.
 
 #### Adding the EntityListener
 
