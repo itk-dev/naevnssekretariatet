@@ -110,12 +110,13 @@ jobs:
       - name: Yarn install
         uses: actions/setup-node@v2
         with:
-          node-version: '12'
+          node-version: '14'
       - run: yarn install
       - name: Yarn build
         run: yarn run encore production
       - name: Run local server
         run: symfony server:start --no-tls --port=8000 -d
+      #  @TODO Re-enable when migrations and fixtures are added
       #- name: Run Doctrine Migrations
       #  run: php bin/console doctrine:migrations:migrate --no-interaction
       #- name: Load Fixtures
