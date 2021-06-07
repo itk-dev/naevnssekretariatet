@@ -51,7 +51,7 @@ jobs:
         run: yarn run encore production
 
   package:
-    needs: end-to-end-tests
+    needs: yarn-install
     runs-on: ubuntu-20.04
     steps:
       - name: Build package
