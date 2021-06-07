@@ -1,6 +1,6 @@
 # Logging
 
-To ensure a thorough logging during the processes
+To ensure a thorough logging during the cases
 handled by this application we use
 [doctrine events](https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/events.html).
 
@@ -14,7 +14,19 @@ whether it is editing a party,
 adding the case to an agenda or simply viewing the case.
 
 To store the logs in our database we make a LogEntry entity
-with the necessary fields.
+with the necessary fields. That is
+
+* Case ID
+* Entity
+* Entity ID
+* Action
+* User
+* Data
+* Timestamp
+
+The reason for the Entity and Entity ID columns are
+to specify which entity has been modified e.g.
+Party has been updated, with Data containing the updated data.
 
 ## Workflow
 
