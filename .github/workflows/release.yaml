@@ -53,12 +53,13 @@ jobs:
   package:
     needs: yarn-install
     runs-on: ubuntu-20.04
+    name: Package application
     steps:
       - name: Build package
         run: |
-          tar /
-            --exclude ='./.git' /
-            --exclude ='./build' /
-            --exclude='./node_modules' /
-            --exclude='./var/cache/dev' /
+          tar \
+            --exclude ='./.git' \
+            --exclude ='./build' \
+            --exclude='./node_modules' \
+            --exclude='./var/cache/dev' \
             -zcvf ./build/TVIST1-$GITHUB_SHA.tar.gz .
