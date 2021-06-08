@@ -28,14 +28,15 @@ jobs:
           set -a && source .env && set +a
           APP_ENV=prod composer install --no-dev -o
 
-      - name: Yarn install
+      - name: Setup node
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-        run: yarn install
 
       - name: Yarn build
-        run: yarn run encore production
+        run: |
+          yarn install
+          yarn run encore production
 
       - name: Package tar
         run: |
