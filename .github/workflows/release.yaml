@@ -65,3 +65,5 @@ jobs:
             --exclude='./var/cache/dev' \
             -zcvf ./build/TVIST1-$GITHUB_SHA.tar.gz .
           ls -la ./build
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
