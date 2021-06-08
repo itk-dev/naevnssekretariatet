@@ -57,6 +57,7 @@ jobs:
     steps:
       - name: Build package
         run: |
+          mkdir -p ./build
           tar \
             --exclude ='./.git' \
             --exclude ='./build' \
