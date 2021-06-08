@@ -38,16 +38,16 @@ jobs:
           yarn install
           yarn run encore production
 
-      - name: Package tar
-        run: |
-          mkdir -p ./build
-          tar \
-            --exclude ='./.git' \
-            --exclude ='./build' \
-            --exclude='./node_modules' \
-            --exclude='./var/cache/dev' \
-            -zcvf ./build/TVIST1-$GITHUB_SHA.tar.gz .
-          ls -la ./build
+#      - name: Package tar
+#        run: |
+#          mkdir -p ./build
+#          tar \
+#            --exclude ='./.git' \
+#            --exclude ='./build' \
+#            --exclude='./node_modules' \
+#            --exclude='./var/cache/dev' \
+#            -zcvf ./build/TVIST1-$GITHUB_SHA.tar.gz .
+#          ls -la ./build
 
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
