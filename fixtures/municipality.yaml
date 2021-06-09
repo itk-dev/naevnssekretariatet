@@ -1,0 +1,3 @@
+App\Entity\Municipality:
+  municipality-test:
+    name: Test

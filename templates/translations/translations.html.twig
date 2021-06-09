@@ -1,0 +1,49 @@
+
+{% block _translation %}
+
+    {% trans_default_domain 'admin' %}
+    {# Help the translation extractor #}
+
+    {{ 'dashboard'|trans }}
+
+    {# Entities and menu items #}
+    {{ 'Complaint category'|trans }}
+    {{ 'Complaint categories'|trans }}
+    {{ 'Municipality'|trans }}
+    {{ 'Municipalities'|trans }}
+    {{ 'Board'|trans }}
+    {{ 'Boards'|trans }}
+    {{ 'Boardmember'|trans }}
+    {{ 'Boardmembers'|trans }}
+    {{ 'Part Index'|trans }}
+    {{ 'Party'|trans }}
+    {{ 'Parties'|trans }}
+    {{ 'User Settings'|trans }}
+    {{ 'User'|trans }}
+    {{ 'Subboard'|trans }}
+    {{ 'Subboards'|trans }}
+
+    {# Actions #}
+    {{ 'Add complaint category'|trans }}
+    {{ 'Add municipality'|trans }}
+    {{ 'Add board'|trans }}
+    {{ 'Add boardmember'|trans }}
+    {{ 'Add party'|trans }}
+    {{ 'Add Subboard'|trans }}
+    {{ 'Edit user information'|trans }}
+
+    {# Properties #}
+    {{ 'Name'|trans }}
+    {{ 'Fee'|trans }}
+    {{ 'AZ-ident'|trans }}
+    {{ 'First name'|trans }}
+    {{ 'Last name'|trans }}
+    {{ 'Address'|trans }}
+    {{ 'Phone number'|trans }}
+    {{ 'Name and address protected'|trans }}
+    {{ 'Journal number'|trans }}
+    {{ 'Email'|trans }}
+    {{ 'Favorite municipality'|trans }}
+
+
+{% endblock %}

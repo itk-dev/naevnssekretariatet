@@ -17,14 +17,14 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
 {
     /**
-     * @var SessionInterface
-     */
-    private $session;
-
-    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
+
+    /**
+     * @var SessionInterface
+     */
+    private $session;
 
     /**
      * @var UserRepository
@@ -76,7 +76,7 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         $user->setName($name);
         $user->setEmail($email);
         // todo - roles must be extracted from credentials at a later stage
-        // $newUser->setRoles(['ROLE_ADMIN']);
+        // $user->setRoles(['ROLE_ADMIN']);
 
         // persist and flush user to database
         // If no change persist will recognize this

@@ -37,4 +37,14 @@ class DefaultController extends AbstractController
 
         return new RedirectResponse($authUrl);
     }
+
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout(): Response
+    {
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
 }

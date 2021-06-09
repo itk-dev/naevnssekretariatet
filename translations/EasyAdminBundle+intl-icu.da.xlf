@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="rSWmi1r" resname="label.form.empty_value">
+        <source>label.form.empty_value</source>
+        <target>Ingen</target>
+      </trans-unit>
+      <trans-unit id="r2IGHZo" resname="user.logged_in_as">
+        <source>user.logged_in_as</source>
+        <target>Logget ind som</target>
+      </trans-unit>
+      <trans-unit id="xxVfXla" resname="user.anonymous">
+        <source>user.anonymous</source>
+        <target>Anonym bruger</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
