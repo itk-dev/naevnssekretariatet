@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -40,7 +41,12 @@ class User implements UserInterface
      */
     private $name;
 
-    public function getId(): ?string
+    /**
+     * @ORM\ManyToOne(targetEntity=Municipality::class)
+     */
+    private $favoriteMunicipality;
+
+    public function getId(): ?UuidV4
     {
         return $this->id;
     }
@@ -135,6 +141,18 @@ class User implements UserInterface
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFavoriteMunicipality(): ?Municipality
+    {
+        return $this->favoriteMunicipality;
+    }
+
+    public function setFavoriteMunicipality(?Municipality $favoriteMunicipality): self
+    {
+        $this->favoriteMunicipality = $favoriteMunicipality;
 
         return $this;
     }
