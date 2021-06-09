@@ -53,6 +53,11 @@ class Board
      */
     private $caseFormType;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $defaultDeadline;
+
     public function __construct()
     {
         $this->subBoards = new ArrayCollection();
@@ -192,6 +197,18 @@ class Board
     public function setCaseFormType(string $caseFormType): self
     {
         $this->caseFormType = $caseFormType;
+
+        return $this;
+    }
+
+    public function getDefaultDeadline(): ?int
+    {
+        return $this->defaultDeadline;
+    }
+
+    public function setDefaultDeadline(int $defaultDeadline): self
+    {
+        $this->defaultDeadline = $defaultDeadline;
 
         return $this;
     }
