@@ -40,20 +40,19 @@ jobs:
 
       - name: Make build dir
         run: |
-          mkdir -p ./build
+          mkdir -p ../build
 
       - name: Package tar
         run: |
           tar \
             --exclude ='./.git' \
-            --exclude ='./build' \
             --exclude='./node_modules' \
             --exclude='./var/cache/dev' \
-            -zcvf ./build/TVIST1-$GITHUB_SHA.tar.gz .
+            -zcvf ../build/TVIST1-$GITHUB_SHA.tar.gz .
 
       - name: List build dir
         run: |
-          ls -la ./build
+          ls -la ../build
 
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
