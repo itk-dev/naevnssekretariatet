@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Uid\UuidV4;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=BoardRepository::class)
@@ -54,6 +56,7 @@ class Board
     private $caseFormType;
 
     /**
+     * @Assert\Positive
      * @ORM\Column(type="integer")
      */
     private $defaultDeadline;
