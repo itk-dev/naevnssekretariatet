@@ -25,7 +25,6 @@ class BoardCrudController extends AbstractCrudController
             ->setPermission(Action::EDIT, 'ROLE_ADMINISTRATION')
             ->setPermission(Action::DELETE, 'ROLE_SUPER_ADMIN')
             ->setPermission(Action::NEW, 'ROLE_SUPER_ADMIN')
-            ->setPermission(Action::INDEX, 'ROLE_USER')
             ;
     }
 
@@ -42,8 +41,12 @@ class BoardCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new('name', 'Name')->hideOnForm();
-        yield AssociationField::new('municipality', 'Municipality')->hideOnForm();
+        yield TextField::new('name', 'Name')
+            ->hideOnForm()
+        ;
+        yield AssociationField::new('municipality', 'Municipality')
+            ->hideOnForm()
+        ;
         yield ChoiceField::new('caseFormType', 'Case Form Type')
             ->setChoices([
                 'Resident complaint form' => 'ResidentComplaintBoardCaseType',
