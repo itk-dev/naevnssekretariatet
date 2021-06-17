@@ -106,7 +106,7 @@ class DocumentController extends AbstractController
             $case->removeDocument($document);
 
             // If document is no longer related to a case remove it completely
-            if ($document->getCase()->isEmpty()){
+            if ($document->getCase()->isEmpty()) {
                 $this->entityManager->remove($document);
             }
 
@@ -115,5 +115,4 @@ class DocumentController extends AbstractController
 
         return $this->redirectToRoute('document_index', ['case_id' => $case->getId()]);
     }
-
 }
