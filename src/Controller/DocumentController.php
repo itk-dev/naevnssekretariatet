@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Document;
 use App\Entity\User;
+use App\Exception\CaseNotFoundException;
+use App\Exception\FileMovingException;
+use App\Exception\TvistException;
 use App\Form\DocumentType;
 use App\Repository\CaseEntityRepository;
 use Doctrine\DBAL\Exception;
@@ -21,15 +24,32 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 class DocumentController extends AbstractController
 {
     /**
-     * @Route("/", name="document_index")
+     * @var CaseEntityRepository
      */
-    public function index(CaseEntityRepository $caseEntityRepository, EntityManagerInterface $entityManager, Request $request, string $case_id): Response
+    private $caseRepository;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(CaseEntityRepository $caseRepository, EntityManagerInterface $entityManager)
+    {
+        $this->caseRepository = $caseRepository;
+        $this->entityManager = $entityManager;
+    }
+
+    /**
+     * @Route("/", name="document_index")
+     * @throws TvistException
+     */
+    public function index(Request $request, string $case_id): Response
     {
         // The beneath can possibly be removed and done via 'guessing' the case instead
-        $case = $caseEntityRepository->find(['id' => $case_id]);
+        $case = $this->caseRepository->find(['id' => $case_id]);
 
         if (null === $case) {
-            throw new Exception('Case not found');
+            throw new CaseNotFoundException('Case with id ' . $case_id . ' not found.');
         }
 
         $documents = $case->getDocuments();
@@ -56,7 +76,7 @@ class DocumentController extends AbstractController
                     $newFilename
                 );
             } catch (FileException $e) {
-                throw new FileException('Error moving file to directory.');
+                throw new FileMovingException($e->getMessage());
             }
 
             $document->setName($newFilename);
@@ -67,8 +87,8 @@ class DocumentController extends AbstractController
 
             $document->addCase($case);
 
-            $entityManager->persist($document);
-            $entityManager->flush();
+            $this->entityManager->persist($document);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('document_index', ['case_id' => $case_id]);
         }
