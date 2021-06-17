@@ -5,11 +5,9 @@ namespace App\Controller;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
 use App\Entity\User;
-use App\Exception\CaseNotFoundException;
 use App\Exception\FileMovingException;
 use App\Exception\TvistException;
 use App\Form\DocumentType;
-use App\Repository\CaseEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,8 +40,7 @@ class DocumentController extends AbstractController
      */
     public function index(Request $request, CaseEntity $case): Response
     {
-        $documents = $case->getDocuments();
-
+        // Create new document and its form
         $document = new Document();
         $form = $this->createForm(DocumentType::class, $document);
 
@@ -54,10 +51,11 @@ class DocumentController extends AbstractController
 
             $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
-            // Beneath handles spaces, special chars and also danish specific letters
+            // AsciiSlugger handles spaces, special chars and danish specific letters
             $slugger = new AsciiSlugger();
             $safeFilename = $slugger->slug($originalFilename);
 
+            // Make a safe and unique filename
             $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
             try {
@@ -69,6 +67,7 @@ class DocumentController extends AbstractController
                 throw new FileMovingException($e->getMessage());
             }
 
+            // Set document name, creator and case
             $document->setName($newFilename);
 
             /** @var User $uploader */
@@ -82,6 +81,9 @@ class DocumentController extends AbstractController
 
             return $this->redirectToRoute('document_index', ['case_id' => $case->getId()]);
         }
+
+        // Load documents to be shown
+        $documents = $case->getDocuments();
 
         return $this->render('document/index.html.twig', [
             'controller_name' => 'DocumentController',
