@@ -88,7 +88,32 @@ class DocumentController extends AbstractController
         return $this->render('document/index.html.twig', [
             'controller_name' => 'DocumentController',
             'documents' => $documents,
+            'case_id' => $case->getId(),
             'document_form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/{document_id}", name="document_delete", methods={"DELETE"}, requirements={"document_id":"\d+"})
+     * @Entity("document", expr="repository.find(document_id)")
+     * @Entity("case", expr="repository.find(case_id)")
+     */
+    public function delete(Request $request, Document $document, CaseEntity $case): Response
+    {
+        // Check that CSRF token is valid
+        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
+            // Remove document from case
+            $case->removeDocument($document);
+
+            // If document is no longer related to a case remove it completely
+            if ($document->getCase()->isEmpty()){
+                $this->entityManager->remove($document);
+            }
+
+            $this->entityManager->flush();
+        }
+
+        return $this->redirectToRoute('document_index', ['case_id' => $case->getId()]);
+    }
+
 }
