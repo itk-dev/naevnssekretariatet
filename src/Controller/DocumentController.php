@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CaseEntity;
 use App\Entity\Document;
 use App\Entity\User;
 use App\Exception\CaseNotFoundException;
@@ -9,8 +10,8 @@ use App\Exception\FileMovingException;
 use App\Exception\TvistException;
 use App\Form\DocumentType;
 use App\Repository\CaseEntityRepository;
-use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,34 +25,23 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 class DocumentController extends AbstractController
 {
     /**
-     * @var CaseEntityRepository
-     */
-    private $caseRepository;
-
-    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
 
-    public function __construct(CaseEntityRepository $caseRepository, EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->caseRepository = $caseRepository;
         $this->entityManager = $entityManager;
     }
 
     /**
      * @Route("/", name="document_index")
+     * @Entity("case", expr="repository.find(case_id)")
+     *
      * @throws TvistException
      */
-    public function index(Request $request, string $case_id): Response
+    public function index(Request $request, CaseEntity $case): Response
     {
-        // The beneath can possibly be removed and done via 'guessing' the case instead
-        $case = $this->caseRepository->find(['id' => $case_id]);
-
-        if (null === $case) {
-            throw new CaseNotFoundException('Case with id ' . $case_id . ' not found.');
-        }
-
         $documents = $case->getDocuments();
 
         $document = new Document();
@@ -90,7 +80,7 @@ class DocumentController extends AbstractController
             $this->entityManager->persist($document);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('document_index', ['case_id' => $case_id]);
+            return $this->redirectToRoute('document_index', ['case_id' => $case->getId()]);
         }
 
         return $this->render('document/index.html.twig', [
