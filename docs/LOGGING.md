@@ -55,10 +55,7 @@ The doctrine events we are interested in are
 * `postRemove`
 * `postUpdate`
 * `postLoad`
-
-We are not interested in `postPersist`, as creation of a
-Party is not something we wish to log. Instead, the logging
-occur when updating a case by adding a party to it.
+* `postPersist`
 
 All doctrine lifecycle events are listed
 [here](https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/events.html#lifecycle-events).
@@ -80,7 +77,7 @@ The following is an example of how to log party updates:
 
 namespace App\EntityListener;
 
-class PartyChangedListener extends AbstractChangedListener
+class PartyListener
 {
     public function postUpdate(Party $party, LifecycleEventArgs $event)
     {
@@ -103,7 +100,11 @@ class PartyChangedListener extends AbstractChangedListener
 
 namespace App\Entity;
 
-/** @Entity @EntityListeners({"PartyListener"}) */
+/**
+ * ..
+ * @ORM\EntityListeners({"App\EntityListener\PartyListener"})
+ * ..
+ */
 class Party
 {
     // ....
