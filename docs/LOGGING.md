@@ -77,17 +77,35 @@ The following is an example of how to log party updates:
 
 namespace App\EntityListener;
 
-class PartyListener{
-    public function postUpdate(Party $party, LifecycleEventArgs $event)
+use App\Entity\LogEntry;use App\Entity\Party;
+
+class PartyListener
+{
+    public function postUpdate(Party $party, LifecycleEventArgs $args)
     {
-        // Obtain affected cases
-        // Create LogEntry entity
-        // Persist LogEntry to EntityManager
+        $this->logActivity('Update', $args);
+    }
+    public function postPersist(Party $party, LifecycleEventArgs $args)
+    {
+        $this->logActivity('Create', $args);
+    }
+
+    public function postRemove(Party $party, LifecycleEventArgs $args)
+    {
+        $this->logActivity('Delete', $args);
     }
     
-    public function postRemove(Party $party, LifecycleEventArgs $event)
+    public function logActivity(string $action, LifecycleEventArgs $args): void
     {
-        // Do something on post update.
+        $em = $args->getEntityManager();
+
+        // Create LogEntry entity
+        $logEntry = new LogEntry();
+        
+        // Obtain changes
+        $changeArray = $em->getUnitOfWork()->getEntityChangeSet($args->getObject());
+
+        // Persist LogEntry to EntityManager
     }
 }
 ```
