@@ -8,7 +8,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Uid\UuidV4;
 
-
 /**
  * @ORM\Entity(repositoryClass=LogEntryRepository::class)
  */
