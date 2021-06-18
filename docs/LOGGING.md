@@ -77,8 +77,7 @@ The following is an example of how to log party updates:
 
 namespace App\EntityListener;
 
-class PartyListener
-{
+class PartyListener{
     public function postUpdate(Party $party, LifecycleEventArgs $event)
     {
         // Obtain affected cases
