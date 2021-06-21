@@ -54,15 +54,35 @@ class CaseListener
         $caseID = $case->getId();
         $changeArray = $em->getUnitOfWork()->getEntityChangeSet($args->getObject());
 
+        $dataArray = array();
+
+        foreach (array_keys($changeArray) as $array_key) {
+            switch ($array_key){
+                case "board":
+                case "municipality":
+                    $dataArray[$array_key] = $changeArray[$array_key][1]->getName();
+                    break;
+                case "createdAt":
+                    $date = $changeArray[$array_key][1];
+                    $dataArray[$array_key] = $date->format('d-m-Y H:i');
+                    break;
+                default:
+                    if (null === $changeArray[$array_key][1]) {
+                        break;
+                    }
+                    $dataArray[$array_key] = $changeArray[$array_key][1];
+                    break;
+            }
+        }
+
         $logEntry = new LogEntry();
         $logEntry->setCaseID($caseID);
         $logEntry->setEntity('Case');
         $logEntry->setEntityID($caseID);
         $logEntry->setAction($action);
+        $logEntry->setUser('tester');
         // todo set user on LogEntry
-        $logEntry->setData('test');
-        // todo figure out how to fill data property
-        //$logEntry->setData(json_encode($changeArray));
+        $logEntry->setData(json_encode($dataArray));
 
         return $logEntry;
     }

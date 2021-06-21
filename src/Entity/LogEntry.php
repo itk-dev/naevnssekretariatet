@@ -42,7 +42,7 @@ class LogEntry
     private $action;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1000)
      */
     private $data;
 
@@ -51,6 +51,11 @@ class LogEntry
      * @ORM\Column(type="datetime")
      */
     private $timeStamp;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $user;
 
     public function getId(): ?UuidV4
     {
@@ -120,6 +125,18 @@ class LogEntry
     public function setCreatedAt(\DateTimeInterface $timeStamp): self
     {
         $this->timeStamp = $timeStamp;
+
+        return $this;
+    }
+
+    public function getUser(): ?string
+    {
+        return $this->user;
+    }
+
+    public function setUser(string $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
