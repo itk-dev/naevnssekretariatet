@@ -30,22 +30,27 @@ Party has been updated, with Data containing the updated data.
 
 ## Workflow
 
-If adding a feature to the application that contains logic
-that must be logged:
+If adding a feature to the application that relates to case(s)
+and therefore must be logged:
 
 * Implement feature
-* Create entity listener and logging logic
+* Create entity listener extending `AbstractEntityListener`
+* Listen to doctrine events in entity listener
+  and call `logActivity($action, $args)`
 * Add entity listener to entity if not already there
 
-We keep a folder for entity listeners:
+We keep the following structure:
 
 ```sh
 /project_root
   /src
     /Entity
       SomeEntity.php
-    /EntityListener
-      SomeEntityListener.php
+    /Logging
+      /EntityListener
+        AbstractEntityListener.php
+        SomeEntityListener.php
+      
 ```
 
 ### Events
@@ -77,35 +82,28 @@ The following is an example of how to log party updates:
 
 namespace App\EntityListener;
 
-use App\Entity\LogEntry;use App\Entity\Party;
+use App\Entity\Party;
+use App\Logging\ItkDevLoggingException;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\ORMException;
+use Symfony\Component\Security\Core\Security;
 
-class PartyListener
+class PartyListener extends AbstractEntityListener
 {
+    public function __construct(Security $security)
+    {
+        parent::__construct($security);
+    }
+
+    // Listening to doctrine events, here postUpdate
+    
+    /**
+     * @throws ItkDevLoggingException
+     * @throws ORMException
+     */
     public function postUpdate(Party $party, LifecycleEventArgs $args)
     {
         $this->logActivity('Update', $args);
-    }
-    public function postPersist(Party $party, LifecycleEventArgs $args)
-    {
-        $this->logActivity('Create', $args);
-    }
-
-    public function postRemove(Party $party, LifecycleEventArgs $args)
-    {
-        $this->logActivity('Delete', $args);
-    }
-    
-    public function logActivity(string $action, LifecycleEventArgs $args): void
-    {
-        $em = $args->getEntityManager();
-
-        // Create LogEntry entity
-        $logEntry = new LogEntry();
-        
-        // Obtain changes
-        $changeArray = $em->getUnitOfWork()->getEntityChangeSet($args->getObject());
-
-        // Persist LogEntry to EntityManager
     }
 }
 ```
@@ -131,7 +129,7 @@ class Party
 ## Useful links
 
 Both links beneath have documentation on
-Doctrine Events, Listeners and Subscribers.
+Doctrine Events &  Listeners.
 
 * [Doctrine Documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/events.html)
 * [Symfony Documentation](https://symfony.com/doc/current/doctrine/events.html)
