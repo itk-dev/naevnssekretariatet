@@ -64,6 +64,7 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
     {
         $name = $credentials['name'];
         $email = $credentials['upn'];
+        $roles = $credentials['role'];
 
         //Check if user exists already - if not create a user
         $user = $this->userRepository->findOneBy(['email' => $email]);
@@ -72,11 +73,23 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
             $user = new User();
         }
 
+        // Associative array mapping AD roles to system roles
+        $roleArrayAssociative = [
+            'SuperAdmin' => 'ROLE_SUPER_ADMIN',
+            'Admin' => 'ROLE_ADMIN',
+            'Administrator' => 'ROLE_ADMINISTRATOR',
+            'Sagsbehandler' => 'ROLE_CASEWORKER',
+        ];
+
+        $mappedRoles = [];
+        foreach ($roles as $role) {
+            $mappedRoles[] = $roleArrayAssociative[$role];
+        }
+
         // Update/set names here
         $user->setName($name);
         $user->setEmail($email);
-        // todo - roles must be extracted from credentials at a later stage
-        // $user->setRoles(['ROLE_ADMIN']);
+        $user->setRoles($mappedRoles);
 
         // persist and flush user to database
         // If no change persist will recognize this
