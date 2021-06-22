@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BoardRepository;
+use App\Logging\LoggableEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +13,7 @@ use Symfony\Component\Uid\UuidV4;
 /**
  * @ORM\Entity(repositoryClass=BoardRepository::class)
  */
-class Board
+class Board implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
@@ -194,5 +195,14 @@ class Board
         $this->caseFormType = $caseFormType;
 
         return $this;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'id',
+            'name',
+            'caseFormType',
+        ];
     }
 }

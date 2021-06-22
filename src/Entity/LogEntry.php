@@ -42,7 +42,7 @@ class LogEntry
     private $action;
 
     /**
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\Column(type="json")
      */
     private $data;
 
@@ -110,12 +110,12 @@ class LogEntry
         return $this;
     }
 
-    public function getData(): ?string
+    public function getData(): ?array
     {
         return $this->data;
     }
 
-    public function setData(string $data): self
+    public function setData(array $data): self
     {
         $this->data = $data;
 

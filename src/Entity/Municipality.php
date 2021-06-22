@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MunicipalityRepository;
+use App\Logging\LoggableEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +13,7 @@ use Symfony\Component\Uid\UuidV4;
 /**
  * @ORM\Entity(repositoryClass=MunicipalityRepository::class)
  */
-class Municipality
+class Municipality implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
@@ -231,5 +232,13 @@ class Municipality
         }
 
         return $this;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'id',
+            'name',
+        ];
     }
 }
