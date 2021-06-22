@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\MunicipalityRepository;
 use App\Logging\LoggableEntityInterface;
+use App\Repository\MunicipalityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +12,7 @@ use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=MunicipalityRepository::class)
+ * @ORM\EntityListeners({"App\Logging\EntityListener\MunicipalityListener"})
  */
 class Municipality implements LoggableEntityInterface
 {

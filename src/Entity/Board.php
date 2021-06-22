@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\BoardRepository;
 use App\Logging\LoggableEntityInterface;
+use App\Repository\BoardRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

@@ -28,24 +28,40 @@ abstract class AbstractEntityListener
     {
         $em = $args->getEntityManager();
 
-        // Create LogEntry entity
-        $logEntry = $this->createLogEntry($action, $args);
+        // Figure out which cases to log on
+        $object = $args->getObject();
 
-        // Persist LogEntry to EntityManager
-        $em->persist($logEntry);
+        if ($object instanceof CaseEntity) {
+            // Send along the object itself as it is a case
+            $logEntry = $this->createLogEntry($action, $object, $args);
+
+            $em->persist($logEntry);
+        } elseif (method_exists($object, 'getCaseEntities')) {
+            foreach ($object->getCaseEntities() as $case) {
+                // Create a log entry for each case object is related to
+                $logEntry = $this->createLogEntry($action, $case, $args);
+
+                $em->persist($logEntry);
+            }
+        } else {
+            // Object is not related to a case
+            $message = sprintf('Change to object %s is not related to any case.', $object);
+            throw new ItkDevLoggingException($message);
+        }
+
+        // Flush EntityManager
         $em->flush();
     }
 
     /**
      * @throws ItkDevLoggingException
      */
-    public function createLogEntry(string $action, LifecycleEventArgs $args): LogEntry
+    public function createLogEntry(string $action, CaseEntity $case, LifecycleEventArgs $args): LogEntry
     {
         $em = $args->getEntityManager();
 
-        /** @var CaseEntity $case */
-        $case = $args->getObject();
-        $changeArray = $em->getUnitOfWork()->getEntityChangeSet($case);
+        $object = $args->getObject();
+        $changeArray = $em->getUnitOfWork()->getEntityChangeSet($object);
 
         $dataArray = [];
 
@@ -90,8 +106,8 @@ abstract class AbstractEntityListener
         $logEntry = new LogEntry();
 
         $logEntry->setCaseID($case->getId());
-        $logEntry->setEntity(get_class($case));
-        $logEntry->setEntityID($case->getId());
+        $logEntry->setEntity(get_class($object));
+        $logEntry->setEntityID($object->getId());
         $logEntry->setAction($action);
         $logEntry->setUser($this->security->getUser()->getUsername());
         $logEntry->setData($dataArray);
