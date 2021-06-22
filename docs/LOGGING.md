@@ -119,7 +119,7 @@ namespace App\Entity;
 
 /**
  * ..
- * @ORM\EntityListeners({"App\EntityListener\PartyListener"})
+ * @ORM\EntityListeners({"App\Logging\EntityListener\PartyListener"})
  * ..
  */
 class Party
