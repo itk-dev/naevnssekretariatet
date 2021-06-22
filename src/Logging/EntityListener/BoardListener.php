@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Logging\EntityListener;
-
 
 use App\Entity\Board;
 use App\Logging\ItkDevLoggingException;
