@@ -1,14 +1,16 @@
 <?php
 
+
 namespace App\Logging\EntityListener;
 
-use App\Entity\CaseEntity;
+
+use App\Entity\Board;
 use App\Logging\ItkDevLoggingException;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Security\Core\Security;
 
-class CaseListener extends AbstractEntityListener
+class BoardListener extends AbstractEntityListener
 {
     public function __construct(Security $security)
     {
@@ -19,17 +21,8 @@ class CaseListener extends AbstractEntityListener
      * @throws ItkDevLoggingException
      * @throws ORMException
      */
-    public function postUpdate(CaseEntity $case, LifecycleEventArgs $args)
+    public function postUpdate(Board $board, LifecycleEventArgs $args)
     {
         $this->logActivity('Update', $args);
-    }
-
-    /**
-     * @throws ItkDevLoggingException
-     * @throws ORMException
-     */
-    public function postPersist(CaseEntity $case, LifecycleEventArgs $args)
-    {
-        $this->logActivity('Create', $args);
     }
 }

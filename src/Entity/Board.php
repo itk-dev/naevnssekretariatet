@@ -12,6 +12,7 @@ use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=BoardRepository::class)
+ * @ORM\EntityListeners({"App\Logging\EntityListener\BoardListener"})
  */
 class Board implements LoggableEntityInterface
 {

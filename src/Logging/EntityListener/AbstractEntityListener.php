@@ -45,7 +45,7 @@ abstract class AbstractEntityListener
             }
         } else {
             // Object is not related to a case
-            $message = sprintf('Change to object %s is not related to any case.', $object);
+            $message = sprintf('Action %s to object %s is not related to any case.', $action, $object);
             throw new ItkDevLoggingException($message);
         }
 
