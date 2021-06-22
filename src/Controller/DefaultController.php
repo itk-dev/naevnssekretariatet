@@ -27,7 +27,8 @@ class DefaultController extends AbstractController
      */
     public function login(SessionInterface $session, array $openIdProviderOptions = []): Response
     {
-        $redirectUrl = $this->generateUrl('default', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        // Hackish until new bundle fixes this
+        $redirectUrl = 'https:'.$this->generateUrl('default', [], UrlGeneratorInterface::NETWORK_PATH);
 
         if ('/' === substr($redirectUrl, -1)) {
             $redirectUrl = substr($redirectUrl, 0, -1);
