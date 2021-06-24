@@ -7,7 +7,6 @@ use App\Entity\LogEntry;
 use App\Logging\ItkDevLoggingException;
 use App\Logging\LoggableEntityInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\ORMException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Uid\UuidV4;
 
@@ -20,38 +19,7 @@ abstract class AbstractEntityListener
         $this->security = $security;
     }
 
-    /**
-     * @throws ItkDevLoggingException
-     * @throws ORMException
-     */
-    public function logActivity(string $action, LifecycleEventArgs $args): void
-    {
-        $em = $args->getEntityManager();
-
-        // Figure out which cases to log on
-        $object = $args->getObject();
-
-        if ($object instanceof CaseEntity) {
-            // Send along the object itself as it is a case
-            $logEntry = $this->createLogEntry($action, $object, $args);
-
-            $em->persist($logEntry);
-        } elseif (method_exists($object, 'getCaseEntities')) {
-            foreach ($object->getCaseEntities() as $case) {
-                // Create a log entry for each case object is related to
-                $logEntry = $this->createLogEntry($action, $case, $args);
-
-                $em->persist($logEntry);
-            }
-        } else {
-            // Object is not related to a case
-            $message = sprintf('Action %s to object %s is not related to any case.', $action, $object);
-            throw new ItkDevLoggingException($message);
-        }
-
-        // Flush EntityManager
-        $em->flush();
-    }
+    abstract public function logActivity(string $action, LifecycleEventArgs $args): void;
 
     /**
      * @throws ItkDevLoggingException
@@ -118,11 +86,11 @@ abstract class AbstractEntityListener
     /**
      * @throws ItkDevLoggingException
      */
-    private function handleLoggableEntities(LoggableEntityInterface $entity): array
+    public function handleLoggableEntities(LoggableEntityInterface $entity): array
     {
         $loggedProperties = $entity->getLoggableProperties();
 
-        $valueLog = [];
+        $valuesToLog = [];
 
         foreach ($loggedProperties as $loggedProperty) {
             $nameOfGetter = 'get'.ucfirst($loggedProperty);
@@ -132,12 +100,12 @@ abstract class AbstractEntityListener
                 throw new ItkDevLoggingException($message);
             }
 
-            $valueLog[$loggedProperty] = call_user_func([
+            $valuesToLog[$loggedProperty] = call_user_func([
                 $entity,
                 $nameOfGetter,
             ]);
         }
 
-        return $valueLog;
+        return $valuesToLog;
     }
 }

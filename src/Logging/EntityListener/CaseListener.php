@@ -32,4 +32,21 @@ class CaseListener extends AbstractEntityListener
     {
         $this->logActivity('Create', $args);
     }
+
+    /**
+     * @throws ItkDevLoggingException
+     * @throws ORMException
+     */
+    public function logActivity(string $action, LifecycleEventArgs $args): void
+    {
+        $em = $args->getEntityManager();
+
+        /** @var CaseEntity $case */
+        $case = $args->getObject();
+
+        $logEntry = $this->createLogEntry($action, $case, $args);
+
+        $em->persist($logEntry);
+        $em->flush();
+    }
 }

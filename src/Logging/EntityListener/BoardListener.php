@@ -23,4 +23,23 @@ class BoardListener extends AbstractEntityListener
     {
         $this->logActivity('Update', $args);
     }
+
+    /**
+     * @throws ItkDevLoggingException
+     * @throws ORMException
+     */
+    public function logActivity(string $action, LifecycleEventArgs $args): void
+    {
+        $em = $args->getEntityManager();
+
+        /** @var Board $board */
+        $board = $args->getObject();
+
+        foreach ($board->getCaseEntities() as $case) {
+            $logEntry = $this->createLogEntry($action, $case, $args);
+            $em->persist($logEntry);
+        }
+
+        $em->flush();
+    }
 }
