@@ -38,3 +38,4 @@ MunicipalityListener, BoardListener and their tests.
 
 ### Fixed
 - [NSEK-104](https://jira.itkdev.dk/browse/NSEK-104): Added missing database variables to .env file.
+- [TVIST1-254](https://jira.itkdev.dk/browse/TVIST1-254): Removed trailing slash in redirect URL
