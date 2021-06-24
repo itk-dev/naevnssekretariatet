@@ -34,8 +34,3 @@ yarn-error.log
 ###> idea
 /.idea/
 ###< idea
-
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
