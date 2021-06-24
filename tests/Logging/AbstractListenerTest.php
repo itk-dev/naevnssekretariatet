@@ -16,7 +16,6 @@ use Symfony\Component\Uid\UuidV4;
 
 class AbstractListenerTest extends TestCase
 {
-
     private $mockSecurity;
     private $mockListener;
 
@@ -33,7 +32,51 @@ class AbstractListenerTest extends TestCase
             ->getMock();
     }
 
-    public function testCreateLogEntry()
+    public function testCreateLogEntryException()
+    {
+        $this->expectException(ItkDevLoggingException::class);
+
+        $testAction = 'TestAction';
+        $mockCase = $this->createMock(CaseEntity::class);
+        $mockArgs = $this->createMock(LifecycleEventArgs::class);
+
+        $mockEntityManager = $this->createMock(EntityManager::class);
+
+        $mockArgs
+            ->expects($this->once())
+            ->method('getEntityManager')
+            ->willReturn($mockEntityManager);
+
+        $mockMunicipality = $this->createMock(Municipality::class);
+
+        $mockArgs
+            ->expects($this->once())
+            ->method('getObject')
+            ->willReturn($mockMunicipality);
+
+        $changeArray = [
+            'name' => [
+                'OnlyBeforeName',
+            ],
+        ];
+
+        $mockUnitOfWork = $this->createMock(UnitOfWork::class);
+
+        $mockEntityManager
+            ->expects($this->once())
+            ->method('getUnitOfWork')
+            ->willReturn($mockUnitOfWork);
+
+        $mockUnitOfWork
+            ->expects($this->once())
+            ->method('getEntityChangeSet')
+            ->with($mockMunicipality)
+            ->willReturn($changeArray);
+
+        $this->mockListener->createLogEntry($testAction, $mockCase, $mockArgs);
+    }
+
+    public function testSimpleTypeCreateLogEntry()
     {
         // Test name update of a Municipality
 
