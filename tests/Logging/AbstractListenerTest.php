@@ -175,6 +175,99 @@ class AbstractListenerTest extends TestCase
         $this->assertSame($expectedDataArray, $logEntry->getData());
     }
 
+    public function testNonSimpleCreateLogEntry()
+    {
+        $testAction = 'TestAction';
+        $mockCase = $this->createMock(CaseEntity::class);
+        $mockArgs = $this->createMock(LifecycleEventArgs::class);
+
+        $mockEntityManager = $this->createMock(EntityManager::class);
+
+        $mockArgs
+            ->expects($this->once())
+            ->method('getEntityManager')
+            ->willReturn($mockEntityManager);
+
+        $mockArgs
+            ->expects($this->once())
+            ->method('getObject')
+            ->willReturn($mockCase);
+
+        $caseUuidv4 = new UuidV4();
+
+        $caseDateTime = new \DateTime();
+
+        $changeArray = [
+            'size' => [
+                null,
+                6,
+            ],
+            'subboard' => [
+                null,
+                null,
+            ],
+            'id' => [
+                null,
+                $caseUuidv4,
+            ],
+            'createdAt' => [
+                null,
+                $caseDateTime,
+            ],
+        ];
+
+        $mockUnitOfWork = $this->createMock(UnitOfWork::class);
+
+        $mockEntityManager
+            ->expects($this->once())
+            ->method('getUnitOfWork')
+            ->willReturn($mockUnitOfWork);
+
+        $mockUnitOfWork
+            ->expects($this->once())
+            ->method('getEntityChangeSet')
+            ->with($mockCase)
+            ->willReturn($changeArray);
+
+        $mockCaseID = $caseUuidv4->__toString();
+
+        $mockCase
+            ->expects($this->exactly(2))
+            ->method('getId')
+            ->willReturn($caseUuidv4);
+
+        $mockUser = $this->createMock(User::class);
+
+        $this->mockSecurity
+            ->expects($this->once())
+            ->method('getUser')
+            ->willReturn($mockUser);
+
+        $mockUsername = 'TestUser';
+
+        $mockUser
+            ->expects($this->once())
+            ->method('getUsername')
+            ->willReturn($mockUsername);
+
+        $logEntry = $this->mockListener->createLogEntry($testAction, $mockCase, $mockArgs);
+
+        $expectedDataArray = [
+            'size' => 6,
+            'id' => $mockCaseID,
+            'createdAt' => $caseDateTime->format('d-m-Y H:i:s'),
+        ];
+
+        // Assert all properties are as expected:
+        $this->assertSame($mockCaseID, $logEntry->getCaseID());
+        $this->assertSame(get_class($mockCase), $logEntry->getEntityType());
+        $this->assertSame($mockCaseID, $logEntry->getEntityID());
+        $this->assertSame($testAction, $logEntry->getAction());
+        $this->assertSame($mockUsername, $logEntry->getUser());
+        $this->assertSame($expectedDataArray, $logEntry->getData());
+    }
+
+
     public function testHandleLoggablePropertiesException()
     {
         $this->expectException(ItkDevLoggingException::class);
