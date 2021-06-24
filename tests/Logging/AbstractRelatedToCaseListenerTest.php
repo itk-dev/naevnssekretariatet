@@ -5,17 +5,17 @@ namespace App\Tests\Logging;
 use App\Entity\LogEntry;
 use App\Entity\Municipality;
 use App\Entity\ResidentComplaintBoardCase;
-use App\Logging\EntityListener\MunicipalityListener;
+use App\Logging\EntityListener\AbstractRelatedToCaseListener;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use PHPUnit\Framework\TestCase;
 
-class MunicipalityListenerTest extends TestCase
+class AbstractRelatedToCaseListenerTest extends TestCase
 {
     public function testLogActivity()
     {
-        $mockListener = $this->getMockBuilder(MunicipalityListener::class)
+        $mockListener = $this->getMockBuilder(AbstractRelatedToCaseListener::class)
             ->setMethodsExcept(['logActivity'])
             ->disableOriginalConstructor()
             ->getMock();
