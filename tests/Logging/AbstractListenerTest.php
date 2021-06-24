@@ -267,7 +267,6 @@ class AbstractListenerTest extends TestCase
         $this->assertSame($expectedDataArray, $logEntry->getData());
     }
 
-
     public function testHandleLoggablePropertiesException()
     {
         $this->expectException(ItkDevLoggingException::class);
