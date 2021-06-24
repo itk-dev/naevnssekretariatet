@@ -20,7 +20,6 @@ class CaseController extends AbstractController
         $cases = $caseEntityRepository->findAll();
 
         return $this->render('case/index.html.twig', [
-            'controller_name' => 'CaseController',
             'cases' => $cases,
         ]);
     }

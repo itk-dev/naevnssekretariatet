@@ -86,7 +86,6 @@ class DocumentController extends AbstractController
         $documents = $case->getDocuments();
 
         return $this->render('document/index.html.twig', [
-            'controller_name' => 'DocumentController',
             'documents' => $documents,
             'case_id' => $case->getId(),
             'document_form' => $form->createView(),
