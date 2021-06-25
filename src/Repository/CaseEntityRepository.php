@@ -18,4 +18,13 @@ class CaseEntityRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, CaseEntity::class);
     }
+
+    public function findLatestCase(): ?CaseEntity
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
