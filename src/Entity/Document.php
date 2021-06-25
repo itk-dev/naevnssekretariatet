@@ -23,7 +23,7 @@ class Document
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $documentName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -46,6 +46,11 @@ class Document
      */
     private $case;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $filename;
+
     public function __construct()
     {
         $this->case = new ArrayCollection();
@@ -56,14 +61,14 @@ class Document
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getDocumentName(): ?string
     {
-        return $this->name;
+        return $this->documentName;
     }
 
-    public function setName(string $name): self
+    public function setDocumentName(string $documentName): self
     {
-        $this->name = $name;
+        $this->documentName = $documentName;
 
         return $this;
     }
@@ -124,6 +129,18 @@ class Document
     public function removeCase(CaseEntity $case): self
     {
         $this->case->removeElement($case);
+
+        return $this;
+    }
+
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    public function setFilename(string $filename): self
+    {
+        $this->filename = $filename;
 
         return $this;
     }

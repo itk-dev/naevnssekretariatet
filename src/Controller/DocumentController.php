@@ -46,8 +46,9 @@ class DocumentController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Extract file and handle it
-            $file = $form->get('name')->getData();
+            // Extract filename and handle it
+            // Users will only see document name, not filename
+            $file = $form->get('filename')->getData();
 
             $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
@@ -67,8 +68,8 @@ class DocumentController extends AbstractController
                 throw new FileMovingException($e->getMessage());
             }
 
-            // Set document name, creator and case
-            $document->setName($newFilename);
+            // Set filename, document name, creator and case
+            $document->setFilename($newFilename);
 
             /** @var User $uploader */
             $uploader = $this->getUser();
