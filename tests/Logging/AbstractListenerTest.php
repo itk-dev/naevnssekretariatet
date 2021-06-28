@@ -6,6 +6,7 @@ use App\Entity\CaseEntity;
 use App\Entity\Municipality;
 use App\Entity\User;
 use App\Logging\EntityListener\AbstractEntityListener;
+use App\Logging\ItkDevGetFunctionNotFoundException;
 use App\Logging\ItkDevLoggingException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -269,7 +270,7 @@ class AbstractListenerTest extends TestCase
 
     public function testHandleLoggablePropertiesException()
     {
-        $this->expectException(ItkDevLoggingException::class);
+        $this->expectException(ItkDevGetFunctionNotFoundException::class);
 
         $mockEntity = $this->createMock(Municipality::class);
 

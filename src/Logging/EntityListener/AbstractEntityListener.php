@@ -4,6 +4,7 @@ namespace App\Logging\EntityListener;
 
 use App\Entity\CaseEntity;
 use App\Entity\LogEntry;
+use App\Logging\ItkDevGetFunctionNotFoundException;
 use App\Logging\ItkDevLoggingException;
 use App\Logging\LoggableEntityInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -22,6 +23,7 @@ abstract class AbstractEntityListener
     abstract public function logActivity(string $action, LifecycleEventArgs $args): void;
 
     /**
+     * @throws ItkDevGetFunctionNotFoundException
      * @throws ItkDevLoggingException
      */
     public function createLogEntry(string $action, CaseEntity $case, LifecycleEventArgs $args): LogEntry
@@ -84,7 +86,7 @@ abstract class AbstractEntityListener
     }
 
     /**
-     * @throws ItkDevLoggingException
+     * @throws ItkDevGetFunctionNotFoundException
      */
     public function handleLoggableEntities(LoggableEntityInterface $entity): array
     {
@@ -97,7 +99,7 @@ abstract class AbstractEntityListener
 
             if (!method_exists($entity, $nameOfGetter)) {
                 $message = sprintf('Getter %s not found in %s.', $nameOfGetter, get_class($entity));
-                throw new ItkDevLoggingException($message);
+                throw new ItkDevGetFunctionNotFoundException($message);
             }
 
             $valuesToLog[$loggedProperty] = call_user_func([

@@ -2,6 +2,7 @@
 
 namespace App\Logging\EntityListener;
 
+use App\Logging\ItkDevGetFunctionNotFoundException;
 use App\Logging\ItkDevLoggingException;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\OptimisticLockException;
@@ -10,6 +11,7 @@ use Doctrine\ORM\ORMException;
 abstract class AbstractRelatedToCaseListener extends AbstractEntityListener
 {
     /**
+     * @throws ItkDevGetFunctionNotFoundException
      * @throws ItkDevLoggingException
      * @throws OptimisticLockException
      * @throws ORMException

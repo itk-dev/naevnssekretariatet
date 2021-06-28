@@ -3,6 +3,7 @@
 namespace App\Logging\EntityListener;
 
 use App\Entity\Board;
+use App\Logging\ItkDevGetFunctionNotFoundException;
 use App\Logging\ItkDevLoggingException;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\OptimisticLockException;
@@ -17,6 +18,7 @@ class BoardListener extends AbstractRelatedToCaseListener
     }
 
     /**
+     * @throws ItkDevGetFunctionNotFoundException
      * @throws ItkDevLoggingException
      * @throws OptimisticLockException
      * @throws ORMException
