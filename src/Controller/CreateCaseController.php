@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\ResidentComplaintBoardCase;
 use App\Repository\BoardRepository;
-use App\Repository\CaseEntityRepository;
 use App\Repository\MunicipalityRepository;
 use App\Service\CaseManager;
 use Doctrine\DBAL\Exception;
@@ -18,7 +17,7 @@ class CreateCaseController extends AbstractController
     /**
      * @Route("/municipality/{municipality_name}/board/{board_name}/case/create", name="rescase")
      */
-    public function createCase(BoardRepository $boardRepository, CaseEntityRepository $caseEntity, MunicipalityRepository $municipalityRepository, Request $request, string $municipality_name, string $board_name): Response
+    public function createCase(BoardRepository $boardRepository, CaseManager $caseManager, MunicipalityRepository $municipalityRepository, Request $request, string $municipality_name, string $board_name): Response
     {
         // Check that municipality exists
         $municipality = $municipalityRepository->findOneBy(['name' => $municipality_name]);
@@ -59,8 +58,6 @@ class CreateCaseController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $case = $form->getData();
-
-            $caseManager = new CaseManager($caseEntity);
 
             $case->setCaseNumber($caseManager->generateCaseNumber());
 
