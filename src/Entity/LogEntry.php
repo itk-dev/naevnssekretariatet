@@ -50,7 +50,7 @@ class LogEntry
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    private $timeStamp;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -122,9 +122,9 @@ class LogEntry
         return $this;
     }
 
-    public function setCreatedAt(\DateTimeInterface $timeStamp): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->timeStamp = $timeStamp;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

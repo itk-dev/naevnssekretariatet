@@ -30,7 +30,7 @@ with the necessary fields. That is
 * Action
 * User
 * Data
-* Timestamp
+* createdAt
 
 The reason for the Entity and Entity ID columns are
 to specify which entity has been modified e.g.
