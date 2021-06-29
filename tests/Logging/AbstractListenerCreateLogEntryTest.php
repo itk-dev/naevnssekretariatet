@@ -3,6 +3,7 @@
 namespace App\Tests\Logging;
 
 use App\Entity\CaseEntity;
+use App\Entity\LogEntry;
 use App\Entity\User;
 use App\Logging\EntityListener\AbstractEntityListener;
 use App\Logging\ItkDevLoggingException;
@@ -24,6 +25,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
     private $mockCaseID;
     private $caseUuidv4;
     private $mockSecurity;
+    private $expectedDataArray;
 
     protected function setUp(): void
     {
@@ -32,7 +34,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
         $this->mockSecurity = $this->createMock(Security::class);
 
         $this->mockListener = $this->getMockBuilder(AbstractEntityListener::class)
-            ->setMethodsExcept(['handleLoggableEntities', 'createLogEntry'])
+            ->setMethodsExcept(['createLogEntry'])
             ->enableOriginalConstructor()
             ->setConstructorArgs([$this->mockSecurity])
             ->getMock();
@@ -59,6 +61,8 @@ class AbstractListenerCreateLogEntryTest extends TestCase
             ->expects($this->once())
             ->method('getUnitOfWork')
             ->willReturn($this->mockUnitOfWork);
+
+        $this->expectedDataArray = [];
     }
 
     public function testCreateLogEntryOnStringChange()
@@ -80,17 +84,11 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
-        $expectedDataArray = [
+        $this->expectedDataArray = [
             'caseType' => 'TestCaseType',
         ];
 
-        // Assert all properties are as expected
-        $this->assertSame($this->mockCaseID, $logEntry->getCaseID());
-        $this->assertSame(get_class($this->mockCase), $logEntry->getEntityType());
-        $this->assertSame($this->mockCaseID, $logEntry->getEntityID());
-        $this->assertSame($this->testAction, $logEntry->getAction());
-        $this->assertSame($this->mockUsername, $logEntry->getUser());
-        $this->assertSame($expectedDataArray, $logEntry->getData());
+        $this->assertPropertiesOfLogEntry($logEntry);
     }
 
     public function testCreateLogEntryOnIntegerChange()
@@ -112,17 +110,11 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
-        $expectedDataArray = [
+        $this->expectedDataArray = [
             'size' => '6',
         ];
 
-        // Assert all properties are as expected
-        $this->assertSame($this->mockCaseID, $logEntry->getCaseID());
-        $this->assertSame(get_class($this->mockCase), $logEntry->getEntityType());
-        $this->assertSame($this->mockCaseID, $logEntry->getEntityID());
-        $this->assertSame($this->testAction, $logEntry->getAction());
-        $this->assertSame($this->mockUsername, $logEntry->getUser());
-        $this->assertSame($expectedDataArray, $logEntry->getData());
+        $this->assertPropertiesOfLogEntry($logEntry);
     }
 
     public function testCreateLogEntryOnIdChange()
@@ -144,17 +136,11 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
-        $expectedDataArray = [
+        $this->expectedDataArray = [
             'id' => $this->mockCaseID,
         ];
 
-        // Assert all properties are as expected
-        $this->assertSame($this->mockCaseID, $logEntry->getCaseID());
-        $this->assertSame(get_class($this->mockCase), $logEntry->getEntityType());
-        $this->assertSame($this->mockCaseID, $logEntry->getEntityID());
-        $this->assertSame($this->testAction, $logEntry->getAction());
-        $this->assertSame($this->mockUsername, $logEntry->getUser());
-        $this->assertSame($expectedDataArray, $logEntry->getData());
+        $this->assertPropertiesOfLogEntry($logEntry);
     }
 
     public function testCreateLogEntryOnCreatedAtChange()
@@ -178,17 +164,11 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
-        $expectedDataArray = [
+        $this->expectedDataArray = [
             'createdAt' => $caseDateTime->format('d-m-Y H:i:s'),
         ];
 
-        // Assert all properties are as expected
-        $this->assertSame($this->mockCaseID, $logEntry->getCaseID());
-        $this->assertSame(get_class($this->mockCase), $logEntry->getEntityType());
-        $this->assertSame($this->mockCaseID, $logEntry->getEntityID());
-        $this->assertSame($this->testAction, $logEntry->getAction());
-        $this->assertSame($this->mockUsername, $logEntry->getUser());
-        $this->assertSame($expectedDataArray, $logEntry->getData());
+        $this->assertPropertiesOfLogEntry($logEntry);
     }
 
     public function testCreateLogEntryNoChange()
@@ -210,15 +190,9 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
-        $expectedDataArray = [];
+        $this->expectedDataArray = [];
 
-        // Assert all properties are as expected
-        $this->assertSame($this->mockCaseID, $logEntry->getCaseID());
-        $this->assertSame(get_class($this->mockCase), $logEntry->getEntityType());
-        $this->assertSame($this->mockCaseID, $logEntry->getEntityID());
-        $this->assertSame($this->testAction, $logEntry->getAction());
-        $this->assertSame($this->mockUsername, $logEntry->getUser());
-        $this->assertSame($expectedDataArray, $logEntry->getData());
+        $this->assertPropertiesOfLogEntry($logEntry);
     }
 
     public function testCreateLogEntryException()
@@ -264,5 +238,16 @@ class AbstractListenerCreateLogEntryTest extends TestCase
             ->expects($this->exactly(2))
             ->method('getId')
             ->willReturn($this->caseUuidv4);
+    }
+
+    public function assertPropertiesOfLogEntry(LogEntry $logEntry)
+    {
+        // Assert all properties are as expected
+        $this->assertSame($this->mockCaseID, $logEntry->getCaseID());
+        $this->assertSame(get_class($this->mockCase), $logEntry->getEntityType());
+        $this->assertSame($this->mockCaseID, $logEntry->getEntityID());
+        $this->assertSame($this->testAction, $logEntry->getAction());
+        $this->assertSame($this->mockUsername, $logEntry->getUser());
+        $this->assertSame($this->expectedDataArray, $logEntry->getData());
     }
 }
