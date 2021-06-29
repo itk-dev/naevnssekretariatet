@@ -20,7 +20,7 @@ class AbstractListenerHandleLoggablePropertiesTest extends TestCase
         $mockSecurity = $this->createMock(Security::class);
 
         $this->mockListener = $this->getMockBuilder(AbstractEntityListener::class)
-            ->setMethodsExcept(['handleLoggableEntities', 'createLogEntry'])
+            ->setMethodsExcept(['handleLoggableEntities'])
             ->enableOriginalConstructor()
             ->setConstructorArgs([$mockSecurity])
             ->getMock();
