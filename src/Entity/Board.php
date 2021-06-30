@@ -204,7 +204,7 @@ class Board implements LoggableEntityInterface
 
         return $this;
     }
-  
+
     public function getDefaultDeadline(): ?int
     {
         return $this->defaultDeadline;
@@ -216,7 +216,7 @@ class Board implements LoggableEntityInterface
 
         return $this;
     }
-  
+
     public function getLoggableProperties(): array
     {
         return [
