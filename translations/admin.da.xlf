@@ -145,6 +145,10 @@
         <source>Add Subboard</source>
         <target>Tilføj undernævn</target>
       </trans-unit>
+      <trans-unit id="juBm4s0" resname="Default Deadline(days)">
+        <source>Default Deadline(days)</source>
+        <target>Standard tidsfrist(dage)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

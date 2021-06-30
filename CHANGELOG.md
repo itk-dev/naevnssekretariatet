@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [NSEK-109](https://jira.itkdev.dk/browse/NSEK-84): Adding documentation about translations.
 - [NSEK-112](https://jira.itkdev.dk/browse/NSEK-112): Adding EasyAdmin bundle.
 - [NSEK-105](https://jira.itkdev.dk/browse/NSEK-105): Added CLI and Azure B2C login.
+- [TVIST1-120](https://jira.itkdev.dk/browse/TVIST1-120): Added modifiable default deadline on Board.
 - [TVIST1-237](https://jira.itkdev.dk/browse/TVIST1-237): Logging documentation.
 - [TVIST1-253](https://jira.itkdev.dk/browse/TVIST1-253): Added AbstractEntityListener, CaseListener,
 MunicipalityListener, BoardListener and their tests.
