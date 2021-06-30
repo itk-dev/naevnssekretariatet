@@ -223,6 +223,7 @@ class Board implements LoggableEntityInterface
             'id',
             'name',
             'caseFormType',
+            'defaultDeadline',
         ];
     }
 }
