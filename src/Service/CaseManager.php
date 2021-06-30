@@ -44,8 +44,7 @@ class CaseManager
         $counter = (int) substr($caseNumber, $positionOfDash + 1);
 
         $incrementedCounter = $counter + 1;
-        $incrementedCounterString = (string) $incrementedCounter;
 
-        return str_pad($incrementedCounterString, 4, '0', STR_PAD_LEFT);
+        return str_pad(strval($incrementedCounter), 4, '0', STR_PAD_LEFT);
     }
 }
