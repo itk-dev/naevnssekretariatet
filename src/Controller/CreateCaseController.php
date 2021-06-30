@@ -15,19 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class CreateCaseController extends AbstractController
 {
     /**
-     * @Route("/municipality/{municipality_name}/board/{board_name}/case/create", name="rescase")
+     * @Route("/municipality/{municipalityName}/board/{boardName}/case/create", name="rescase")
      */
-    public function createCase(BoardRepository $boardRepository, CaseManager $caseManager, MunicipalityRepository $municipalityRepository, Request $request, string $municipality_name, string $board_name): Response
+    public function createCase(BoardRepository $boardRepository, CaseManager $caseManager, MunicipalityRepository $municipalityRepository, Request $request, string $municipalityName, string $boardName): Response
     {
         // Check that municipality exists
-        $municipality = $municipalityRepository->findOneBy(['name' => $municipality_name]);
+        $municipality = $municipalityRepository->findOneBy(['name' => $municipalityName]);
 
         if (null === $municipality) {
             throw new Exception('Municipality not found.');
         }
 
         // Check that board exists
-        $board = $boardRepository->findOneBy(['name' => $board_name]);
+        $board = $boardRepository->findOneBy(['name' => $boardName]);
 
         if (null === $board) {
             throw new Exception('Board not found.');
