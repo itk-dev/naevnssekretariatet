@@ -20,7 +20,7 @@ class CaseEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, CaseEntity::class);
     }
 
-    public function findLatestCase(Municipality $municipality): ?CaseEntity
+    public function findLatestCaseByMunicipality(Municipality $municipality): ?CaseEntity
     {
         return $this->createQueryBuilder('c')
             ->where('c.municipality = :municipality')

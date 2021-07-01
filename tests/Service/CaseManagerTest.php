@@ -28,7 +28,7 @@ class CaseManagerTest extends TestCase
 
         $this->mockCaseRepository
             ->expects($this->once())
-            ->method('findLatestCase')
+            ->method('findLatestCaseByMunicipality')
             ->with($mockMunicipality)
             ->willReturn(null);
 
@@ -48,7 +48,7 @@ class CaseManagerTest extends TestCase
 
         $this->mockCaseRepository
             ->expects($this->once())
-            ->method('findLatestCase')
+            ->method('findLatestCaseByMunicipality')
             ->with($mockMunicipality)
             ->willReturn($mockCase);
 

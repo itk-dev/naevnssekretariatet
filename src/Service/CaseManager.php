@@ -19,7 +19,7 @@ class CaseManager
 
     public function generateCaseNumber(Municipality $municipality): string
     {
-        $case = $this->caseRepository->findLatestCase($municipality);
+        $case = $this->caseRepository->findLatestCaseByMunicipality($municipality);
 
         $date = new \DateTime();
         $currentYear = $date->format('Y');
