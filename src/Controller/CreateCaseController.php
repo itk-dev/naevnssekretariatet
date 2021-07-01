@@ -10,6 +10,7 @@ use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CreateCaseController extends AbstractController
@@ -17,7 +18,7 @@ class CreateCaseController extends AbstractController
     /**
      * @Route("/municipality/{municipalityName}/board/{boardName}/case/create", name="rescase")
      */
-    public function createCase(BoardRepository $boardRepository, CaseManager $caseManager, MunicipalityRepository $municipalityRepository, Request $request, string $municipalityName, string $boardName): Response
+    public function createCase(BoardRepository $boardRepository, CaseManager $caseManager, LockFactory $lockFactory ,MunicipalityRepository $municipalityRepository, Request $request, string $municipalityName, string $boardName): Response
     {
         // Check that municipality exists
         $municipality = $municipalityRepository->findOneBy(['name' => $municipalityName]);
@@ -59,7 +60,16 @@ class CreateCaseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $case = $form->getData();
 
-            $case->setCaseNumber($caseManager->generateCaseNumber($municipality));
+            $lock = $lockFactory->createLock('case-number-generation');
+
+            $lock->acquire(true);
+
+            // case number generation
+            $caseNumber = $caseManager->generateCaseNumber($municipality);
+
+            $lock->release();
+
+            $case->setCaseNumber($caseNumber);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($case);
