@@ -3,6 +3,7 @@
 namespace App\Tests\Service;
 
 use App\Entity\CaseEntity;
+use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
 use App\Service\CaseManager;
 use PHPUnit\Framework\TestCase;
@@ -23,26 +24,32 @@ class CaseManagerTest extends TestCase
 
     public function testGenerateCaseNumberFirstCase()
     {
+        $mockMunicipality = $this->createMock(Municipality::class);
+
         $this->mockCaseRepository
             ->expects($this->once())
             ->method('findLatestCase')
+            ->with($mockMunicipality)
             ->willReturn(null);
 
         $date = new \DateTime();
         $year = $date->format('Y');
 
-        $result = $this->caseManager->generateCaseNumber();
+        $result = $this->caseManager->generateCaseNumber($mockMunicipality);
 
         $this->assertSame($year.'-0001', $result);
     }
 
-    public function testGenerateCaseNumberpreviousYear()
+    public function testGenerateCaseNumberPreviousYear()
     {
         $mockCase = $this->createMock(CaseEntity::class);
+
+        $mockMunicipality = $this->createMock(Municipality::class);
 
         $this->mockCaseRepository
             ->expects($this->once())
             ->method('findLatestCase')
+            ->with($mockMunicipality)
             ->willReturn($mockCase);
 
         $mockDate = $this->createMock(\DateTime::class);
@@ -64,7 +71,7 @@ class CaseManagerTest extends TestCase
             ->with('Y')
             ->willReturn($previousYearString);
 
-        $result = $this->caseManager->generateCaseNumber();
+        $result = $this->caseManager->generateCaseNumber($mockMunicipality);
 
         $this->assertSame($currentYear.'-0001', $result);
     }

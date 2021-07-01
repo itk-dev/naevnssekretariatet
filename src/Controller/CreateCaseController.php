@@ -59,7 +59,7 @@ class CreateCaseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $case = $form->getData();
 
-            $case->setCaseNumber($caseManager->generateCaseNumber());
+            $case->setCaseNumber($caseManager->generateCaseNumber($municipality));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($case);

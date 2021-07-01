@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
 
 class CaseManager
@@ -16,9 +17,9 @@ class CaseManager
         $this->caseRepository = $caseRepository;
     }
 
-    public function generateCaseNumber(): string
+    public function generateCaseNumber(Municipality $municipality): string
     {
-        $case = $this->caseRepository->findLatestCase();
+        $case = $this->caseRepository->findLatestCase($municipality);
 
         $date = new \DateTime();
         $currentYear = $date->format('Y');
