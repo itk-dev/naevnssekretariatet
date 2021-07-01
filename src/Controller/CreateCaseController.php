@@ -18,7 +18,7 @@ class CreateCaseController extends AbstractController
     /**
      * @Route("/municipality/{municipalityName}/board/{boardName}/case/create", name="rescase")
      */
-    public function createCase(BoardRepository $boardRepository, CaseManager $caseManager, LockFactory $lockFactory ,MunicipalityRepository $municipalityRepository, Request $request, string $municipalityName, string $boardName): Response
+    public function createCase(BoardRepository $boardRepository, CaseManager $caseManager, LockFactory $lockFactory, MunicipalityRepository $municipalityRepository, Request $request, string $municipalityName, string $boardName): Response
     {
         // Check that municipality exists
         $municipality = $municipalityRepository->findOneBy(['name' => $municipalityName]);
