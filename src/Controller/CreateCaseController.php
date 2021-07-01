@@ -67,13 +67,13 @@ class CreateCaseController extends AbstractController
             // case number generation
             $caseNumber = $caseManager->generateCaseNumber($municipality);
 
-            $lock->release();
-
             $case->setCaseNumber($caseNumber);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($case);
             $em->flush();
+
+            $lock->release();
 
             return $this->redirectToRoute('default');
         }
