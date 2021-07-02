@@ -17,7 +17,7 @@
         <link rel="icon" type="image/png" href="{{ asset('build/icons/favicon-32x32.png') }}" sizes="32x32" />
         <link rel="icon" type="image/png" href="{{ asset('build/icons/favicon-16x16.png') }}" sizes="16x16" />
         <link rel="icon" type="image/png" href="{{ asset('build/icons/favicon-128.png') }}" sizes="128x128" />
-        <meta name="application-name" content="System name"/> {# TODO: Change "System name" to default application name #}
+        <meta name="application-name" content="{{ site_name }}"/> {# TODO: Change "System name" to default application name #}
         <meta name="msapplication-TileColor" content="#343a40" />
         <meta name="msapplication-TileImage" content="{{ asset('build/icons/mstile-144x144.png') }}" />
         <meta name="msapplication-square70x70logo" content="{{ asset('build/icons/mstile-70x70.png') }}" />
@@ -25,7 +25,7 @@
         <meta name="msapplication-wide310x150logo" content="{{ asset('build/icons/mstile-310x150.png') }}" />
         <meta name="msapplication-square310x310logo" content="{{ asset('build/icons/mstile-310x310.png') }}" />
 
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Welcome!{% endblock %} | {{ site_name }}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
