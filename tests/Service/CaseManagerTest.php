@@ -35,9 +35,11 @@ class CaseManagerTest extends TestCase
         $date = new \DateTime();
         $year = $date->format('Y');
 
-        $result = $this->caseManager->generateCaseNumber($mockMunicipality);
+        $actual = $this->caseManager->generateCaseNumber($mockMunicipality);
 
-        $this->assertSame($year.'-0001', $result);
+        $expected = $year.'-0001';
+
+        $this->assertSame($expected, $actual);
     }
 
     public function testGenerateCaseNumberPreviousYear()
@@ -71,17 +73,21 @@ class CaseManagerTest extends TestCase
             ->with('Y')
             ->willReturn($previousYearString);
 
-        $result = $this->caseManager->generateCaseNumber($mockMunicipality);
+        $actual = $this->caseManager->generateCaseNumber($mockMunicipality);
 
-        $this->assertSame($currentYear.'-0001', $result);
+        $expected = $currentYear.'-0001';
+
+        $this->assertSame($expected, $actual);
     }
 
     public function testGetIncrementedCaseCounter()
     {
         $testCaseNumber = '2021-0001';
 
-        $result = $this->caseManager->getIncrementedCaseCounter($testCaseNumber);
+        $actual = $this->caseManager->getIncrementedCaseCounter($testCaseNumber);
 
-        $this->assertSame('0002', $result);
+        $expected = '0002';
+
+        $this->assertSame($expected, $actual);
     }
 }
