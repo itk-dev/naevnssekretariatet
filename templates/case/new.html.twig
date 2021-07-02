@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CaseEntity{% endblock %}
+
+{% block body %}
+    <h1>Create new CaseEntity</h1>
+
+    {{ include('case/_form.html.twig') }}
+
+    <a href="{{ path('case_index') }}">back to list</a>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('case_new') }}
+{% endblock %}

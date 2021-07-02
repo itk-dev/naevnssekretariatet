@@ -34,27 +34,16 @@ class CreateCaseController extends AbstractController
             throw new Exception('Board not found.');
         }
 
-        // Match on which case object to create
-        $caseType = $board->getCaseFormType();
+        $form = $this->createForm($board->getCaseFormType(), null, ['board' => $board]);
 
-        $case = null;
+        $caseEntityType = $form->getConfig()->getDataClass();
 
-        switch ($caseType) {
-            case 'ResidentComplaintBoardCaseType':
-                $case = new ResidentComplaintBoardCase();
-                break;
-        }
-
-        if (null === $case) {
-            throw new Exception('Case object was not created.');
-        }
+        $case = new $caseEntityType();
 
         $case->setMunicipality($municipality);
         $case->setBoard($board);
 
-        $case->setCaseType($caseType);
-
-        $form = $this->createForm('App\\Form\\'.$caseType, $case, ['board' => $board]);
+        $form->setData($case);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

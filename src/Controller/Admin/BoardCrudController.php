@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Board;
+use App\Form\ResidentComplaintBoardCaseType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -42,17 +43,17 @@ class BoardCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Name')
-            ->hideOnForm()
+            //->hideOnForm()
         ;
         yield AssociationField::new('municipality', 'Municipality')
-            ->hideOnForm()
+            //->hideOnForm()
         ;
         yield ChoiceField::new('caseFormType', 'Case Form Type')
             ->setChoices([
-                'Resident complaint form' => 'ResidentComplaintBoardCaseType',
+                'Resident complaint form' => ResidentComplaintBoardCaseType::class,
             ])
             ->setRequired('true')
-            ->hideOnForm()
+            //->hideOnForm()
         ;
         yield IntegerField::new('defaultDeadline', 'Default Deadline(days)');
     }

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit CaseEntity{% endblock %}
+
+{% block body %}
+    <h1>Edit CaseEntity</h1>
+
+    {{ include('case/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('case_index') }}">back to list</a>
+
+    {{ include('case/_delete_form.html.twig') }}
+{% endblock %}
