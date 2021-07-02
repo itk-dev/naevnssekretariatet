@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class BoardCrudController extends AbstractCrudController
@@ -21,9 +22,9 @@ class BoardCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->setPermission(Action::EDIT, 'ROLE_USER')
-            ->setPermission(Action::DELETE, 'ROLE_USER')
-            ->setPermission(Action::INDEX, 'ROLE_USER')
+            ->setPermission(Action::EDIT, 'ROLE_ADMINISTRATION')
+            ->setPermission(Action::DELETE, 'ROLE_SUPER_ADMIN')
+            ->setPermission(Action::NEW, 'ROLE_SUPER_ADMIN')
             ;
     }
 
@@ -40,13 +41,19 @@ class BoardCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new('name', 'Name');
-        yield AssociationField::new('municipality', 'Municipality');
+        yield TextField::new('name', 'Name')
+            ->hideOnForm()
+        ;
+        yield AssociationField::new('municipality', 'Municipality')
+            ->hideOnForm()
+        ;
         yield ChoiceField::new('caseFormType', 'Case Form Type')
             ->setChoices([
                 'Resident complaint form' => 'ResidentComplaintBoardCaseType',
             ])
             ->setRequired('true')
+            ->hideOnForm()
         ;
+        yield IntegerField::new('defaultDeadline', 'Default Deadline(days)');
     }
 }
