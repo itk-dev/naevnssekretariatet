@@ -3,6 +3,20 @@
     "description": "Application for managing multiple boards in multiple municipalities",
     "type": "project",
     "license": "proprietary",
+    "authors": [
+        {
+            "name": "Jeppe Kuhlmann Andersen",
+            "email": "jekua@aarhus.dk"
+        },
+        {
+            "name": "Jesper Petersen",
+            "email": "pejes@aarhus.dk"
+        },
+        {
+            "name": "Lars Steen Risom",
+            "email": "lats@aarhus.dk"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
