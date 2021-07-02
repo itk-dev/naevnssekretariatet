@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Uid\UuidV4;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BoardRepository::class)
@@ -52,6 +53,12 @@ class Board
      * @ORM\Column(type="string", length=255)
      */
     private $caseFormType;
+
+    /**
+     * @Assert\Positive
+     * @ORM\Column(type="integer")
+     */
+    private $defaultDeadline;
 
     public function __construct()
     {
@@ -192,6 +199,18 @@ class Board
     public function setCaseFormType(string $caseFormType): self
     {
         $this->caseFormType = $caseFormType;
+
+        return $this;
+    }
+
+    public function getDefaultDeadline(): ?int
+    {
+        return $this->defaultDeadline;
+    }
+
+    public function setDefaultDeadline(int $defaultDeadline): self
+    {
+        $this->defaultDeadline = $defaultDeadline;
 
         return $this;
     }
