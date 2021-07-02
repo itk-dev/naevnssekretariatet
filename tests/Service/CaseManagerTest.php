@@ -61,17 +61,18 @@ class CaseManagerTest extends TestCase
             ->method('getCreatedAt')
             ->willReturn($mockDate);
 
-        $date = new \DateTime();
-        $currentYear = $date->format('Y');
+        $currentDate = new \DateTime();
+        $currentYear = $currentDate->format('Y');
 
-        $previousYear = (int) $currentYear - 1;
-        $previousYearString = (string) $previousYear;
+        // Subtract a year from DateTime and get the year
+        $previousYearDate = $currentDate->sub(new \DateInterval('P1Y'));
+        $previousYear = $previousYearDate->format('Y');
 
         $mockDate
             ->expects($this->once())
             ->method('format')
             ->with('Y')
-            ->willReturn($previousYearString);
+            ->willReturn($previousYear);
 
         $actual = $this->caseManager->generateCaseNumber($mockMunicipality);
 
