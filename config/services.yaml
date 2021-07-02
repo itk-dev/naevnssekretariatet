@@ -6,6 +6,7 @@
 parameters:
     locale: '%env(DEFAULT_LOCALE)%'
     site_name: '%env(SITE_NAME)%'
+    site_url: '%env(SITE_URL)%'
 
 services:
     # default configuration for services in *this* file
