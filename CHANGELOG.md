@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [TVIST1-237](https://jira.itkdev.dk/browse/TVIST1-237): Logging documentation.
 - [TVIST1-253](https://jira.itkdev.dk/browse/TVIST1-253): Added AbstractEntityListener, CaseListener,
 MunicipalityListener, BoardListener and their tests.
+- [TVIST1-256](https://jira.itkdev.dk/browse/TVIST1-256): Added case number and CaseManager service.
 
 ### Changed
 - [NSEK-138](https://jira.itkdev.dk/browse/NSEK-138): Updating Cypress to 6.5.0 so the same version is used project wide.

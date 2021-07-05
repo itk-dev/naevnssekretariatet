@@ -53,6 +53,11 @@ abstract class CaseEntity
      */
     private $subboard;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $caseNumber;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -114,6 +119,18 @@ abstract class CaseEntity
     public function setSubboard(?SubBoard $subboard): self
     {
         $this->subboard = $subboard;
+
+        return $this;
+    }
+
+    public function getCaseNumber(): ?string
+    {
+        return $this->caseNumber;
+    }
+
+    public function setCaseNumber(string $caseNumber): self
+    {
+        $this->caseNumber = $caseNumber;
 
         return $this;
     }
