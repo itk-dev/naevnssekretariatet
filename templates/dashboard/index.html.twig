@@ -1,0 +1,151 @@
+{% extends 'layout.html.twig' %}
+
+{% set reached_reminders = [
+    {
+        "link": "#",
+        "caseid": "2206",
+        "title": "Remember to add signed documents",
+        "description": "Here is a casesummery id tincidunt massa quam quis nunc.",
+        "status": "Closed",
+        "date": "2. sep 2020"
+    },
+] %}
+
+{% set unassigned_cases = [
+    {
+        "link": "#",
+        "caseid": "2207",
+        "title": "Unassigned Case",
+        "description": "Here is a casesummery id tincidunt massa quam quis nunc.",
+        "status": "Awaiting assignee",
+        "date": "2. sep 2020"
+    },
+    {
+        "link": "#",
+        "caseid": "2208",
+        "title": "Unassigned Case",
+        "description": "Here is a casesummery id tincidunt massa quam quis nunc.",
+        "status": "Awaiting assignee",
+        "date": "3. sep 2020"
+    },
+] %}
+
+{% set inactive_cases = [
+    {
+        "link": "#",
+        "caseid": "2207",
+        "title": "Remember to add signed documents",
+        "description": "Here is a casesummery id tincidunt massa quam quis nunc.",
+        "status": "Open",
+        "date": "2. sep 2020"
+    },
+] %}
+
+{% set upcomming_reminders = [
+    {
+        "link": "#",
+        "caseid": "2207",
+        "title": "Remember to check payment",
+        "date": "5. sep 2020"
+    },
+    {
+        "link": "#",
+        "caseid": "2207",
+        "title": "Remember to add to hearing",
+        "date": "6. sep 2020"
+    },
+] %}
+
+{% block title %}{% trans %}Dashboard{% endtrans %}{% endblock %}
+
+{% block header %}
+    <h1>{% trans %}Dashboard{% endtrans %}</h1>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="municipality">{% trans %}Select municipality{% endtrans %}</label>
+            <select class="form-control" name="municipality" id="municipality">
+                <option value="all">{% trans %}All municipalities{% endtrans %}</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-md-9">
+        <h2 class="h3"><i class="fas fa-clock mr-2"></i>{% trans %}Cases with reached reminders{% endtrans %}</h2>
+        {% include "dashboard/_list_reached_reminders.html.twig" with reached_reminders %}
+        <h2 class="h3"><i class="fas fa-user-plus mr-2"></i>{% trans %}Unassigned cases{% endtrans %}</h2>
+        {% include "dashboard/_list_unassigned_cases.html.twig" with unassigned_cases %}
+        <div class="row mb-5">
+            <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
+                <h2 class="h3"><i class="fas fa-list mr-2"></i>{% trans %}My cases{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
+                <button type="button" name="" id="" class="btn btn-primary btn-lg btn-block">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-secondary btn-lg btn-block">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-info btn-lg btn-block">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-dark btn-lg btn-block">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
+                <h2 class="h3">{% trans %}Cases tenant complaints{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
+                <button type="button" name="" id="" class="btn btn-primary btn-lg btn-block">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-secondary btn-lg btn-block">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-info btn-lg btn-block">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-dark btn-lg btn-block">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
+                <h2 class="h3">{% trans %}Cases rent complaints{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
+                <button type="button" name="" id="" class="btn btn-primary btn-lg btn-block">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-secondary btn-lg btn-block">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-info btn-lg btn-block">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-dark btn-lg btn-block">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
+                <h2 class="h3">{% trans %}Cases fence complaints{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
+                <button type="button" name="" id="" class="btn btn-primary btn-lg btn-block">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-secondary btn-lg btn-block">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-info btn-lg btn-block">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+                <button type="button" name="" id="" class="btn btn-dark btn-lg btn-block">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
+            </div>
+        </div>
+        <h2 class="h3"><i class="fas fa-undo mr-2"></i>{% trans %}Cases opened more than 30 days ago{% endtrans %}</h2>
+        {% include "dashboard/_list_inactive_cases.html.twig" with inactive_cases %}
+    </main>
+    <aside role="aside" class="col-md-3">
+        <div class="rounded-sm ">
+            <h2 class="h3">{% trans %}Upcomming reminders{% endtrans %}</h2>
+            <div class="form-group">
+                <label for="upcomming-reminders" class="sr-only">{% trans %}Select period{% endtrans %}</label>
+                <select class="form-control form-control-sm" name="upcomming-reminders" id="upcomming-reminders">
+                    <option value="7-days">{% trans %}Next 7 days{% endtrans %}</option>
+                    <option value="14-days">{% trans %}Next 14 days{% endtrans %}</option>
+                    <option value="30-days">{% trans %}Next 30 days{% endtrans %}</option>
+                </select>
+            </div>
+            <h3 class="h4">{% trans %}Monday{% endtrans %}</h3>
+            <div class="list-group mb-3">
+                {% for item in upcomming_reminders %}
+                    <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">
+                        <div class="d-flex w-100 justify-content-between">
+                            <small>{{ item.date|e }}</small>
+                            <small>{{ item.caseid|e }}</small>
+                        </div>
+                        <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ item.title|e }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+            <h3 class="h4">{% trans %}Wedensday{% endtrans %}</h3>
+            <div class="list-group mb-3">
+                {% for item in upcomming_reminders %}
+                    <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">
+                        <div class="d-flex w-100 justify-content-between">
+                            <small>{{ item.date|e }}</small>
+                            <small>{{ item.caseid|e }}</small>
+                        </div>
+                        <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ item.title|e }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </aside>
+{% endblock %}

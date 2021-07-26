@@ -1,0 +1,41 @@
+{% set btn_group = [
+    {
+        "name": "Assign user",
+        "style": "success",
+        "icon": "user-plus",
+        "link": "#",
+        "tooltip": "Assign case to user",
+    },
+    {
+        "name": "Add reminder",
+        "style": "warning",
+        "icon": "clock",
+        "link": "#",
+        "tooltip": "Add reminder",
+    },
+    {
+        "name": "Edit case",
+        "style": "primary",
+        "icon": "pen",
+        "link": "#",
+        "tooltip": "Edit case",
+    },
+] %}
+
+<div class="list-group mb-5">
+    {% for item in unassigned_cases %}
+        <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-success">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ item.caseid|e }}: {{ item.title|e }}</h5>
+                        <span>{{ item.status|e }}</span>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    {% include "common/btn-group.html.twig" with btn_group %}
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
