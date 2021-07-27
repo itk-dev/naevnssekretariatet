@@ -16,9 +16,7 @@ class DocumentController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('documents/index.html.twig', [
-
-        ]);
+        return $this->render('documents/index.html.twig', []);
     }
 
     /**
@@ -26,8 +24,6 @@ class DocumentController extends AbstractController
      */
     public function create(): Response
     {
-        return $this->render('documents/create.html.twig', [
-
-        ]);
+        return $this->render('documents/create.html.twig', []);
     }
 }

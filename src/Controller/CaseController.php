@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,9 +16,7 @@ class CaseController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('case/index.html.twig', [
-
-        ]);
+        return $this->render('case/index.html.twig', []);
     }
 
     /**
@@ -27,9 +24,7 @@ class CaseController extends AbstractController
      */
     public function summary(): Response
     {
-        return $this->render('case/summary.html.twig', [
-
-        ]);
+        return $this->render('case/summary.html.twig', []);
     }
 
     /**
@@ -37,20 +32,15 @@ class CaseController extends AbstractController
      */
     public function information(): Response
     {
-        return $this->render('case/information.html.twig', [
-
-        ]);
+        return $this->render('case/information.html.twig', []);
     }
 
     /**
      * @Route("/status", name="case_status", methods={"GET"})
      */
-
     public function status(): Response
     {
-        return $this->render('case/status.html.twig', [
-
-        ]);
+        return $this->render('case/status.html.twig', []);
     }
 
     /**
@@ -58,9 +48,7 @@ class CaseController extends AbstractController
      */
     public function hearing(): Response
     {
-        return $this->render('case/hearing.html.twig', [
-
-        ]);
+        return $this->render('case/hearing.html.twig', []);
     }
 
     /**
@@ -68,9 +56,7 @@ class CaseController extends AbstractController
      */
     public function communication(): Response
     {
-        return $this->render('case/communication.html.twig', [
-
-        ]);
+        return $this->render('case/communication.html.twig', []);
     }
 
     /**
@@ -78,9 +64,7 @@ class CaseController extends AbstractController
      */
     public function decision(): Response
     {
-        return $this->render('case/decision.html.twig', [
-
-        ]);
+        return $this->render('case/decision.html.twig', []);
     }
 
     /**
@@ -88,9 +72,7 @@ class CaseController extends AbstractController
      */
     public function notes(): Response
     {
-        return $this->render('case/notes.html.twig', [
-
-        ]);
+        return $this->render('case/notes.html.twig', []);
     }
 
     /**
@@ -98,8 +80,6 @@ class CaseController extends AbstractController
      */
     public function log(): Response
     {
-        return $this->render('case/log.html.twig', [
-
-        ]);
+        return $this->render('case/log.html.twig', []);
     }
 }
