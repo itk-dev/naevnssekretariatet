@@ -61,4 +61,14 @@ class CaseController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route("/communication", name="case_communication", methods={"GET"})
+     */
+    public function communication(): Response
+    {
+        return $this->render('case/communication.html.twig', [
+
+        ]);
+    }
 }
