@@ -34,11 +34,11 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/basic-information", name="case_information", methods={"GET"})
+     * @Route("/information", name="case_information", methods={"GET"})
      */
     public function basicInformation(): Response
     {
-        return $this->render('case/basic-information.html.twig', [
+        return $this->render('case/information.html.twig', [
 
         ]);
     }
