@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Municipality;
+use App\Entity\User;
+use App\Repository\MunicipalityRepository;
 use App\Security\OpenIdConfigurationProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -9,15 +12,29 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="default")
      */
-    public function index(): Response
+    public function index(MunicipalityRepository $municipalityRepository, Security $security): Response
     {
+        // Get current User
+        /** @var User $user */
+        $user = $security->getUser();
+
+        // Get favorite municipality
+        // null is fine as it is only used for selecting an option
+        $favoriteMunicipality = $user->getFavoriteMunicipality();
+
+        // Get municipalities
+        $municipalities = $municipalityRepository->findAll();
+
         return $this->render('dashboard/index.html.twig', [
+            'municipalities' => $municipalities,
+            'favorite_municipality' => $favoriteMunicipality,
         ]);
     }
 

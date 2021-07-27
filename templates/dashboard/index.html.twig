@@ -64,9 +64,12 @@
         <div class="form-group col-md-4">
             <label for="municipality">{% trans %}Select municipality{% endtrans %}</label>
             <select class="form-control" name="municipality" id="municipality">
-                <option value="all">{% trans %}All municipalities{% endtrans %}</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
+                {% if municipalities|length > 0 %}
+                    {% for municipality in municipalities %}
+                        {# Todo: Update page according to selected municipality #}
+                        <option value=municipality {% if municipality == favorite_municipality %} selected="selected" {% endif %} >{{ municipality.name }}</option>
+                    {% endfor %}
+                {% endif %}
             </select>
         </div>
     </div>
