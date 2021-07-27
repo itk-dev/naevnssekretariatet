@@ -11,7 +11,7 @@
             <a name="" id="" class="btn btn-secondary" href="/case/documents/create" role="button">{% trans %}Create document{% endtrans %}</a>
         </div>
     </div>
-    {% include "common/case-status.html.twig" %}
+    {% include "common/case_status.html.twig" %}
 {% endblock %}
 
 {% block content %}
@@ -82,7 +82,7 @@
                     <td>{{ item.created_by|e }}</td>
                     <td>{{ item.create_date|e }}.01.2021 13:47</td>
                     <td class="text-right">
-                        {% include "common/btn-group.html.twig" with btn_group %}
+                        {% include "common/btn_group.html.twig" with btn_group %}
                     </td>
                 </tr>
             {% endfor %}

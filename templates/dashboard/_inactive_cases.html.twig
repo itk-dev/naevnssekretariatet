@@ -1,12 +1,5 @@
 {% set btn_group = [
     {
-        "name": "Assign user",
-        "style": "success",
-        "icon": "user-plus",
-        "link": "#",
-        "tooltip": "Assign case to user",
-    },
-    {
         "name": "Add reminder",
         "style": "warning",
         "icon": "clock",
@@ -23,8 +16,8 @@
 ] %}
 
 <div class="list-group mb-5">
-    {% for item in unassigned_cases %}
-        <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-success">
+    {% for item in inactive_cases %}
+        <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-secondary">
             <div class="row">
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
@@ -33,7 +26,7 @@
                     </div>
                 </div>
                 <div class="col-auto">
-                    {% include "common/btn-group.html.twig" with btn_group %}
+                    {% include "common/btn_group.html.twig" with btn_group %}
                 </div>
             </div>
         </a>
