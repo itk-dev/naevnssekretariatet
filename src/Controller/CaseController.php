@@ -42,4 +42,15 @@ class CaseController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route("/status", name="case_status", methods={"GET"})
+     */
+
+    public function status(): Response
+    {
+        return $this->render('case/status.html.twig', [
+            
+        ]);
+    }
 }
