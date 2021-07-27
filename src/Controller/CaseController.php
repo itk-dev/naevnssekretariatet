@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\CaseEntityRepository;
-use DeepCopy\Filter\ReplaceFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,7 +48,17 @@ class CaseController extends AbstractController
     public function status(): Response
     {
         return $this->render('case/status.html.twig', [
-            
+
+        ]);
+    }
+
+    /**
+     * @Route("/hearing", name="case_hearing", methods={"GET"})
+     */
+    public function parties(): Response
+    {
+        return $this->render('case/hearing.html.twig', [
+
         ]);
     }
 }
