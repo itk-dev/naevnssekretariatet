@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -78,6 +79,16 @@ class CaseController extends AbstractController
     public function decision(): Response
     {
         return $this->render('case/decision.html.twig', [
+
+        ]);
+    }
+
+    /**
+     * @Route("/notes", name="case_notes", methods={"GET"})
+     */
+    public function notes(): Response
+    {
+        return $this->render('case/notes.html.twig', [
 
         ]);
     }
