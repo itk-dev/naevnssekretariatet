@@ -9,14 +9,14 @@
         {% endblock %}
         <div class="col">
             <div class="d-lg-none">
-                {% include 'navbar/menu.html.twig' %}
+                {% include 'navbar/_menu.html.twig' %}
             </div>
             {% block sidebarSubmenu %}
                 <div class="sidebar-sticky pt-3">
                     <h6 class="px-3 mb-1">Sag 21/220312</h6>
                     <p class="text-muted px-3 mt-1 mb-3"><small>Espedalen 38, 8240 Risskov</small></p>
                     <ul class="nav flex-column">
-                        {% include 'sidebar/submenu.html.twig' %}
+                        {% include 'sidebar/_submenu.html.twig' %}
                     </ul>
                 </div>
             {% endblock %}
