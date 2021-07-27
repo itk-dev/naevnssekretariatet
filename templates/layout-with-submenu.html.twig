@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% block navbar %}
+        {% include 'navbar/navbar.html.twig' %}
+    {% endblock %}
+    <div class="container-fluid">
+        <div class="row">
+            {% block sidebar %}
+                {% include 'sidebar/sidebar.html.twig' %}
+            {% endblock %}
+            <div class="col-md-12 col-lg-9 ml-sm-auto px-md-4">
+                {# <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> #}
+                <header class="pt-3">
+                    {% block header %}{% endblock %}
+                </header>
+                <div class="row pb-2 mb-3">
+                    {% block content %}{% endblock %}
+                </div>
+                {# </div> #}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

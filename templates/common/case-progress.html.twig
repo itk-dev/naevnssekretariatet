@@ -1,0 +1,43 @@
+{% set caseprogress = [
+    {
+        "name": "Case created"
+    },
+    {
+        "name": "Validated"
+    },
+    {
+        "name": "Parties hearing"
+    },
+    {
+        "name": "Case processing"
+    },
+    {
+        "name": "On agenda"
+    },
+    {
+        "name": "Decision"
+    },
+] %}
+
+<section area-labelledby="section_caseprogress" class="mt-5">
+    <div class="row">
+        <div class="col">
+            <h2 id="section_caseprogress">{% trans %}Caseprogress{% endtrans %}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="progress">
+                {# TODO: Needs functionality on buttons #}
+                <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="row mt-1">
+                {% for item in caseprogress %}
+                    <div class="col">
+                        <p class="m-0">{{ item.name|e }}<i class="fas fa-angle-right ml-1 mt-1 float-right"></i></p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
