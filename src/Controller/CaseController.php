@@ -92,4 +92,14 @@ class CaseController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route("/log", name="case_log", methods={"GET"})
+     */
+    public function log(): Response
+    {
+        return $this->render('case/log.html.twig', [
+
+        ]);
+    }
 }
