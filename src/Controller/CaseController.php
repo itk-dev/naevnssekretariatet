@@ -71,4 +71,14 @@ class CaseController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route("/decision", name="case_decision", methods={"GET"})
+     */
+    public function decision(): Response
+    {
+        return $this->render('case/decision.html.twig', [
+
+        ]);
+    }
 }
