@@ -78,7 +78,7 @@ class CreateCaseController extends AbstractController
             return $this->redirectToRoute('default');
         }
 
-        return $this->render('case/createCase.html.twig', [
+        return $this->render('case/create.html.twig', [
             'case_form' => $form->createView(),
         ]);
     }
