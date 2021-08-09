@@ -13,7 +13,7 @@ class ResidentComplaintBoardCase extends CaseEntity
     /**
      * @ORM\Column(type="integer")
      */
-    private $size;
+    private $leaseSize;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -33,21 +33,21 @@ class ResidentComplaintBoardCase extends CaseEntity
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $complainantPostalCode;
+    private $complainantZip;
 
     /**
      * @ORM\Column(type="string", length=255, options={"default": "submitted"})
      */
     private $caseState = 'submitted';
 
-    public function getSize(): ?int
+    public function getLeaseSize(): ?int
     {
-        return $this->size;
+        return $this->leaseSize;
     }
 
-    public function setSize(?int $size): self
+    public function setLeaseSize(?int $leaseSize): self
     {
-        $this->size = $size;
+        $this->leaseSize = $leaseSize;
 
         return $this;
     }
@@ -88,14 +88,14 @@ class ResidentComplaintBoardCase extends CaseEntity
         return $this;
     }
 
-    public function getComplainantPostalCode(): ?string
+    public function getComplainantZip(): ?string
     {
-        return $this->complainantPostalCode;
+        return $this->complainantZip;
     }
 
-    public function setComplainantPostalCode(?string $complainantPostalCode): self
+    public function setComplainantZip(?string $complainantZip): self
     {
-        $this->complainantPostalCode = $complainantPostalCode;
+        $this->complainantZip = $complainantZip;
 
         return $this;
     }

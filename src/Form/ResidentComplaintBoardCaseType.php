@@ -38,13 +38,13 @@ class ResidentComplaintBoardCaseType extends AbstractType
             ->add('complainant')
             ->add('complainantPhone')
             ->add('complainantAddress')
-            ->add('complainantPostalCode')
+            ->add('complainantZip')
             ->add('caseType', ChoiceType::class, [
                 'choices' => [
                     $caseTypesAssociative,
                 ],
             ])
-            ->add('size')
+            ->add('leaseSize')
             ->add('createCase', SubmitType::class, ['label' => 'Create case'])
         ;
     }
