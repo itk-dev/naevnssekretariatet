@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\FenceReviewCase;
 use App\Entity\RentBoardCase;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Repository\BoardRepository;
@@ -46,6 +47,9 @@ class CreateCaseController extends AbstractController
                 break;
             case 'RentBoardCaseType':
                 $case = new RentBoardCase();
+                break;
+            case 'FenceReviewCaseType':
+                $case = new FenceReviewCase();
                 break;
         }
 
