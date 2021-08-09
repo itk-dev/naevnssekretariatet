@@ -1,3 +1,6 @@
 App\Entity\Municipality:
-  municipality-test:
-    name: Test
+  municipality-aarhus:
+    name: Aarhus
+
+  municipality-randers:
+    name: Randers

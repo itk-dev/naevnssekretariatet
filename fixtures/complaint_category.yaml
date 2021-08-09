@@ -1,0 +1,24 @@
+App\Entity\ComplaintCategory:
+  security-deposit-complaint-aarhus:
+    name: Security deposit
+    fee: 199
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  security-deposit-complaint-randers:
+    name: Security deposit
+    fee: 219
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  maintenance-complaint-aarhus:
+    name: Maintenance
+    fee: 179
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  maintenance-complaint-randers:
+    name: Maintenance
+    fee: 189
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'

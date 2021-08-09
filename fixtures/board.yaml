@@ -1,0 +1,12 @@
+App\Entity\Board:
+  resident-complaint-board-aarhus:
+    name: Resident Complaint Board Aarhus
+    municipality: '@municipality-aarhus'
+    case_form_type: ResidentComplaintBoardCaseType
+    default_deadline: 14
+
+  resident-complaint-board-randers:
+    name: Resident Complaint Board Randers
+    municipality: '@municipality-randers'
+    case_form_type: ResidentComplaintBoardCaseType
+    default_deadline: 10
