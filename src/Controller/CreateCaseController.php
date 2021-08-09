@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\RentBoardCase;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Repository\BoardRepository;
 use App\Repository\MunicipalityRepository;
@@ -42,6 +43,9 @@ class CreateCaseController extends AbstractController
         switch ($caseType) {
             case 'ResidentComplaintBoardCaseType':
                 $case = new ResidentComplaintBoardCase();
+                break;
+            case 'RentBoardCaseType':
+                $case = new RentBoardCase();
                 break;
         }
 
