@@ -36,6 +36,7 @@ class ResidentComplaintBoardCaseType extends AbstractType
 
         $builder
             ->add('complainant')
+            ->add('complainantCPR')
             ->add('complainantPhone')
             ->add('complainantAddress')
             ->add('complainantZip')
