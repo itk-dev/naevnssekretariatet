@@ -2,35 +2,35 @@ App\Entity\Board:
   resident-complaint-board-aarhus:
     name: Resident Complaint Board Aarhus
     municipality: '@municipality-aarhus'
-    case_form_type: ResidentComplaintBoardCaseType
-    default_deadline: 14
+    caseFormType: ResidentComplaintBoardCaseType
+    defaultDeadline: 14
 
   resident-complaint-board-randers:
     name: Resident Complaint Board Randers
     municipality: '@municipality-randers'
-    case_form_type: ResidentComplaintBoardCaseType
-    default_deadline: 10
+    caseFormType: ResidentComplaintBoardCaseType
+    defaultDeadline: 10
 
   rent-board-aarhus:
     name: Rent Complaint Board Aarhus
     municipality: '@municipality-aarhus'
-    case_form_type: RentBoardCaseType
-    default_deadline: 14
+    caseFormType: RentBoardCaseType
+    defaultDeadline: 14
 
   rent-board-randers:
     name: Rent Complaint Board Randers
     municipality: '@municipality-randers'
-    case_form_type: RentBoardCaseType
-    default_deadline: 10
+    caseFormType: RentBoardCaseType
+    defaultDeadline: 10
 
   fence-board-aarhus:
     name: Fence Board Aarhus
     municipality: '@municipality-aarhus'
-    case_form_type: FenceBoardCaseType
-    default_deadline: 14
+    caseFormType: FenceBoardCaseType
+    defaultDeadline: 14
 
   fence-board-randers:
     name: Fence Board Randers
     municipality: '@municipality-randers'
-    case_form_type: FenceBoardCaseType
-    default_deadline: 10
+    caseFormType: FenceBoardCaseType
+    defaultDeadline: 10

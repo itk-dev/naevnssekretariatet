@@ -4,7 +4,7 @@ App\Entity\Party:
     lastName: Nielsen
     address: Nyborgvej 54, 8000 Aarhus C
     phoneNumber: 57209633
-    journalNumber:
+    journalNumber: 8Dw1pRDy
     isPartOfPartIndex: true
 
   party-2:
@@ -12,7 +12,7 @@ App\Entity\Party:
     lastName: Jensen
     address: Lærkevej 14, 8200 Aarhus N
     phoneNumber: 75568314
-    journalNumber:
+    journalNumber: W3gXJ3j0
     isPartOfPartIndex: true
 
   party-3:
@@ -20,7 +20,7 @@ App\Entity\Party:
     lastName: Hansen
     address: Birkevej 19, 8210 Aarhus V
     phoneNumber: 80264719
-    journalNumber:
+    journalNumber: RD1BO4UU
     isPartOfPartIndex: true
 
   party-4:
@@ -36,7 +36,7 @@ App\Entity\Party:
     lastName: Pedersen
     address: Vinkelvej 94, 8230 Åbyhøj
     phoneNumber: 88466494
-    journalNumber:
+    journalNumber: cCjsCo8b
     isPartOfPartIndex: true
 
   party-6:
@@ -44,7 +44,7 @@ App\Entity\Party:
     lastName: Christensen
     address: Vestergade 81, 8240 Risskov
     phoneNumber: 71952881
-    journalNumber:
+    journalNumber: PxNzbIaZ
     isPartOfPartIndex: true
 
   party-7:
@@ -68,7 +68,7 @@ App\Entity\Party:
     lastName: Rasmussen
     address: Skovvej 24, 8270 Højbjerg
     phoneNumber: 63374224
-    journalNumber:
+    journalNumber: r1vvdBlg
     isPartOfPartIndex: true
 
   party-10:
@@ -76,7 +76,7 @@ App\Entity\Party:
     lastName: Jørgensen
     address: Nørregade 21, 8310 Tranbjerg J
     phoneNumber: 23616621
-    journalNumber:
+    journalNumber: 6L9fwLpS
     isPartOfPartIndex: true
 
   party-11:
@@ -84,7 +84,7 @@ App\Entity\Party:
     lastName: Møller
     address: Drosselvej 73, 8320 Mårslet
     phoneNumber: 92209974
-    journalNumber:
+    journalNumber: uAo8LSBZ
     isPartOfPartIndex: true
 
   party-12:
@@ -92,5 +92,5 @@ App\Entity\Party:
     lastName: Schmidt
     address: Skolevej 35, 8330 Beder
     phoneNumber: 23479335
-    journalNumber:
+    journalNumber: Qjelwawl
     isPartOfPartIndex: true
