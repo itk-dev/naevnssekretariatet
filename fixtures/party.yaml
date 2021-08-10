@@ -1,0 +1,96 @@
+App\Entity\Party:
+  party-1:
+    firstName: Anne
+    lastName: Nielsen
+    address: Nyborgvej 54, 8000 Aarhus C
+    phoneNumber: 57209633
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-2:
+    firstName: Kirsten
+    lastName: Jensen
+    address: Lærkevej 14, 8200 Aarhus N
+    phoneNumber: 75568314
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-3:
+    firstName: Mette
+    lastName: Hansen
+    address: Birkevej 19, 8210 Aarhus V
+    phoneNumber: 80264719
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-4:
+    firstName: Hanne
+    lastName: Andersen
+    address: Vibevej 20, 8220 Brabrand
+    phoneNumber: 34223320
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-5:
+    firstName: Helle
+    lastName: Pedersen
+    address: Vinkelvej 94, 8230 Åbyhøj
+    phoneNumber: 88466494
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-6:
+    firstName: Susanne
+    lastName: Christensen
+    address: Vestergade 81, 8240 Risskov
+    phoneNumber: 71952881
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-7:
+    firstName: Peter
+    lastName: Sørensen
+    address: Elmevej 42, 8250 Egå
+    phoneNumber: 38261742
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-8:
+    firstName: Michael
+    lastName: Larsen
+    address: Stationsvej 74, 8260 Viby J
+    phoneNumber: 21336274
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-9:
+    firstName: Jens
+    lastName: Rasmussen
+    address: Skovvej 24, 8270 Højbjerg
+    phoneNumber: 63374224
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-10:
+    firstName: Lars
+    lastName: Jørgensen
+    address: Nørregade 21, 8310 Tranbjerg J
+    phoneNumber: 23616621
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-11:
+    firstName: Thomas
+    lastName: Møller
+    address: Drosselvej 73, 8320 Mårslet
+    phoneNumber: 92209974
+    journalNumber:
+    isPartOfPartIndex: true
+
+  party-12:
+    firstName: Henrik
+    lastName: Schmidt
+    address: Skolevej 35, 8330 Beder
+    phoneNumber: 23479335
+    journalNumber:
+    isPartOfPartIndex: true

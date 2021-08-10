@@ -3,3 +3,8 @@ App\Entity\SubBoard:
     name: Resident complaint board Aarhus nordre
     mainBoard: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+
+  subboard-aarhus-søndre:
+    name: Resident complaint board Aarhus søndre
+    mainBoard: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
