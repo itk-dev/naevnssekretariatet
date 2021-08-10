@@ -1,0 +1,577 @@
+App\Entity\ResidentComplaintBoardCase:
+  test-case-aarhus-1:
+    size: 51
+    complainant: Jens Jensen
+    complainantAddress: Aarhusvej 117
+    complainantPhone: 87654321
+    complainantPostalCode: 8000
+    caseState: submitted
+    caseType: '@security-deposit-complaint-aarhus->name'
+    caseNumber: 20210001
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-2:
+    size: 53
+    complainant: Jens Petersen
+    complainantAddress: Randersvej 119
+    complainantPhone: 23456789
+    complainantPostalCode: 8220
+    caseState: submitted
+    caseType: '@security-deposit-complaint-aarhus->name'
+    caseNumber: 20210002
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-3:
+    size: 55
+    complainant: Anton Per Hansen
+    complainantAddress: Skejbygårdsvej 1
+    complainantPhone: 87655678
+    complainantPostalCode: 8200
+    caseState: submitted
+    caseType: '@security-deposit-complaint-aarhus->name'
+    caseNumber: 20210003
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-4:
+    size: 61
+    complainant: Helle Hansen
+    complainantAddress: Skejbygårdsvej 21
+    complainantPhone: 87255678
+    complainantPostalCode: 8240
+    caseState: submitted
+    caseType: '@security-deposit-complaint-aarhus->name'
+    caseNumber: 20210004
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-5:
+    size: 78
+    complainant: Anne Jensen
+    complainantAddress: Jens Baggesensvej 27
+    complainantPhone: 61655678
+    complainantPostalCode: 8200
+    caseState: submitted
+    caseType: '@maintenance-complaint-aarhus->name'
+    caseNumber: 20210005
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-6:
+    size: 87
+    complainant: Malene Skriver
+    complainantAddress: Andevej 192
+    complainantPhone: 51650678
+    complainantPostalCode: 8000
+    caseState: submitted
+    caseType: '@maintenance-complaint-aarhus->name'
+    caseNumber: 20210006
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-7:
+    size: 84
+    complainant: Karen Skriver
+    complainantAddress: Silkeborgvej 192
+    complainantPhone: 51657654
+    complainantPostalCode: 8210
+    caseState: submitted
+    caseType: '@maintenance-complaint-aarhus->name'
+    caseNumber: 20210007
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-8:
+    size: 84
+    complainant: Helge Pedersen
+    complainantAddress: Silkeborgvej 13
+    complainantPhone: 71654674
+    complainantPostalCode: 8000
+    caseState: submitted
+    caseType: '@maintenance-complaint-aarhus->name'
+    caseNumber: 20210008
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-9:
+    size: 121
+    complainant: Kirsten Christensen
+    complainantAddress: Holmevej 45
+    complainantPhone: 71655674
+    complainantPostalCode: 8000
+    caseState: submitted
+    caseType: '@rent-increase-complaint-aarhus->name'
+    caseNumber: 20210009
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-10:
+    size: 101
+    complainant: Mette Susanne Larsen
+    complainantAddress: Holmevej 29
+    complainantPhone: 71257674
+    complainantPostalCode: 8000
+    caseState: submitted
+    caseType: '@rent-increase-complaint-aarhus->name'
+    caseNumber: 20210010
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-11:
+    size: 83
+    complainant: Susanne Birgitte Hanne
+    complainantAddress: Sømandsvej 2
+    complainantPhone: 81453614
+    complainantPostalCode: 8000
+    caseState: submitted
+    caseType: '@rent-increase-complaint-aarhus->name'
+    caseNumber: 20210011
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-12:
+    size: 45
+    complainant: Molly Marianne Olsen
+    complainantAddress: Landevej 5
+    complainantPhone: 81453614
+    complainantPostalCode: 8330
+    caseState: submitted
+    caseType: '@rent-increase-complaint-aarhus->name'
+    caseNumber: 20210012
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-13:
+    size: 76
+    complainant: Michael Olsen
+    complainantAddress: Nyringen 5
+    complainantPhone: 45368114
+    complainantPostalCode: 8210
+    caseState: submitted
+    caseType: '@water-heat-electricity-complaint-aarhus->name'
+    caseNumber: 20210013
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-14:
+    size: 67
+    complainant: Jan Martin Sørensen
+    complainantAddress: Nyringen 9
+    complainantPhone: 81144536
+    complainantPostalCode: 8210
+    caseState: submitted
+    caseType: '@water-heat-electricity-complaint-aarhus->name'
+    caseNumber: 20210014
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-15:
+    size: 56
+    complainant: Martin Jan Thomsen
+    complainantAddress: Næringen 52
+    complainantPhone: 44453816
+    complainantPostalCode: 8210
+    caseState: submitted
+    caseType: '@water-heat-electricity-complaint-aarhus->name'
+    caseNumber: 20210015
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-16:
+    size: 76
+    complainant: Charlotte Thomsen
+    complainantAddress: Risskov vej 245
+    complainantPhone: 45381644
+    complainantPostalCode: 8240
+    caseState: submitted
+    caseType: '@water-heat-electricity-complaint-aarhus->name'
+    caseNumber: 20210016
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-17:
+    size: 44
+    complainant: Tina Møller
+    complainantAddress: Egå vej 5
+    complainantPhone: 38451644
+    complainantPostalCode: 8250
+    caseState: submitted
+    caseType: '@improvement-compensation-complaint-aarhus->name'
+    caseNumber: 20210017
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-18:
+    size: 62
+    complainant: Pia Johansen
+    complainantAddress: Malling vej 98
+    complainantPhone: 51638444
+    complainantPostalCode: 8340
+    caseState: submitted
+    caseType: '@improvement-compensation-complaint-aarhus->name'
+    caseNumber: 20210018
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-19:
+    size: 98
+    complainant: Jeppe Johansen
+    complainantAddress: Trige vej 98
+    complainantPhone: 63844514
+    complainantPostalCode: 8380
+    caseState: submitted
+    caseType: '@improvement-compensation-complaint-aarhus->name'
+    caseNumber: 20210019
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-20:
+    size: 44
+    complainant: Jeppe Johansen
+    complainantAddress: Sabro vej 37
+    complainantPhone: 38445146
+    complainantPostalCode: 8471
+    caseState: submitted
+    caseType: '@improvement-compensation-complaint-aarhus->name'
+    caseNumber: 20210020
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-21:
+    size: 55
+    complainant: Søren Johansen
+    complainantAddress: Sabro vej 37
+    complainantPhone: 38445146
+    complainantPostalCode: 8471
+    caseState: submitted
+    caseType: '@telecommunications-service-complaint-aarhus->name'
+    caseNumber: 20210021
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-22:
+    size: 66
+    complainant: Søren Johansen
+    complainantAddress: Skolegade 19
+    complainantPhone: 84465314
+    complainantPostalCode: 8000
+    caseState: submitted
+    caseType: '@telecommunications-service-complaint-aarhus->name'
+    caseNumber: 20210022
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-23:
+    size: 81
+    complainant: Bente Poulsen
+    complainantAddress: Skolegade 29
+    complainantPhone: 44465314
+    complainantPostalCode: 8000
+    caseState: submitted
+    caseType: '@telecommunications-service-complaint-aarhus->name'
+    caseNumber: 20210023
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-aarhus-24:
+    size: 34
+    complainant: Rasmus Madsen
+    complainantAddress: Skolegade 32
+    complainantPhone: 46531444
+    complainantPostalCode: 8000
+    caseState: submitted
+    caseType: '@telecommunications-service-complaint-aarhus->name'
+    caseNumber: 20210024
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  test-case-randers-1:
+    size: 51
+    complainant: Anne Jensen
+    complainantAddress: Skolevej 117
+    complainantPhone: 87674321
+    complainantPostalCode: 8900
+    caseState: submitted
+    caseType: '@security-deposit-complaint-randers->name'
+    caseNumber: 20210001
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-2:
+    size: 73
+    complainant: Anne Petersen
+    complainantAddress: Skolevej 119
+    complainantPhone: 23476711
+    complainantPostalCode: 8900
+    caseState: submitted
+    caseType: '@security-deposit-complaint-randers->name'
+    caseNumber: 20210002
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-3:
+    size: 77
+    complainant: Henrik Per Hansen
+    complainantAddress: Skolevej 1
+    complainantPhone: 87677611
+    complainantPostalCode: 8900
+    caseState: submitted
+    caseType: '@security-deposit-complaint-randers->name'
+    caseNumber: 20210003
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-4:
+    size: 61
+    complainant: Henrik Hansen
+    complainantAddress: Skolevej 21
+    complainantPhone: 87277611
+    complainantPostalCode: 8900
+    caseState: submitted
+    caseType: '@security-deposit-complaint-randers->name'
+    caseNumber: 20210004
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-5:
+    size: 78
+    complainant: Niels Jensen
+    complainantAddress: Skolevej 27
+    complainantPhone: 61677611
+    complainantPostalCode: 8920
+    caseState: submitted
+    caseType: '@maintenance-complaint-randers->name'
+    caseNumber: 20210007
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-6:
+    size: 87
+    complainant: Niels Skriver
+    complainantAddress: Slotspladsen 192
+    complainantPhone: 71670611
+    complainantPostalCode: 8920
+    caseState: submitted
+    caseType: '@maintenance-complaint-randers->name'
+    caseNumber: 20210006
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-7:
+    size: 84
+    complainant: Anders Skriver
+    complainantAddress: Slotspladsen 192
+    complainantPhone: 71677611
+    complainantPostalCode: 8920
+    caseState: submitted
+    caseType: '@maintenance-complaint-randers->name'
+    caseNumber: 20210007
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-8:
+    size: 84
+    complainant: Anders Pedersen
+    complainantAddress: Slotspladsen 13
+    complainantPhone: 71674611
+    complainantPostalCode: 8920
+    caseState: submitted
+    caseType: '@maintenance-complaint-randers->name'
+    caseNumber: 20210008
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-9:
+    size: 121
+    complainant: Inger Christensen
+    complainantAddress: Snaregade 47
+    complainantPhone: 71677611
+    complainantPostalCode: 8930
+    caseState: submitted
+    caseType: '@rent-increase-complaint-randers->name'
+    caseNumber: 20210009
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-10:
+    size: 101
+    complainant: Inger Susanne Larsen
+    complainantAddress: Snaregade 29
+    complainantPhone: 71277611
+    complainantPostalCode: 8960
+    caseState: submitted
+    caseType: '@rent-increase-complaint-randers->name'
+    caseNumber: 20210010
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-11:
+    size: 83
+    complainant: Camilla Birgitte Hanne
+    complainantAddress: Solsortvej 2
+    complainantPhone: 81473611
+    complainantPostalCode: 8960
+    caseState: submitted
+    caseType: '@rent-increase-complaint-randers->name'
+    caseNumber: 20210011
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-12:
+    size: 47
+    complainant: Camilla Marianne Olsen
+    complainantAddress: Solsortvej 7
+    complainantPhone: 81473611
+    complainantPostalCode: 8960
+    caseState: submitted
+    caseType: '@rent-increase-complaint-randers->name'
+    caseNumber: 20210012
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-13:
+    size: 76
+    complainant: Louise Olsen
+    complainantAddress: Splejservej 7
+    complainantPhone: 47368111
+    complainantPostalCode: 8983
+    caseState: submitted
+    caseType: '@water-heat-electricity-complaint-randers->name'
+    caseNumber: 20210013
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-14:
+    size: 67
+    complainant: Louise Sørensen
+    complainantAddress: Splejservej 9
+    complainantPhone: 81144711
+    complainantPostalCode: 8983
+    caseState: submitted
+    caseType: '@water-heat-electricity-complaint-randers->name'
+    caseNumber: 20210014
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-15:
+    size: 76
+    complainant: Per Jan Thomsen
+    complainantAddress: Nygade 72
+    complainantPhone: 44473811
+    complainantPostalCode: 8983
+    caseState: submitted
+    caseType: '@water-heat-electricity-complaint-randers->name'
+    caseNumber: 20210017
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-16:
+    size: 76
+    complainant: Ole Thomsen
+    complainantAddress: Nygade 247
+    complainantPhone: 47381611
+    complainantPostalCode: 8983
+    caseState: submitted
+    caseType: '@water-heat-electricity-complaint-randers->name'
+    caseNumber: 20210016
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-17:
+    size: 44
+    complainant: Per Møller
+    complainantAddress: Odinsgade 7
+    complainantPhone: 38471611
+    complainantPostalCode: 8981
+    caseState: submitted
+    caseType: '@improvement-compensation-complaint-randers->name'
+    caseNumber: 20210017
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-18:
+    size: 62
+    complainant: Jørgen Johansen
+    complainantAddress: Odinsgade 98
+    complainantPhone: 71638411
+    complainantPostalCode: 8981
+    caseState: submitted
+    caseType: '@improvement-compensation-complaint-randers->name'
+    caseNumber: 20210018
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-19:
+    size: 98
+    complainant: Jørgen Johansen
+    complainantAddress: Vester Alle 98
+    complainantPhone: 63844711
+    complainantPostalCode: 8981
+    caseState: submitted
+    caseType: '@improvement-compensation-complaint-randers->name'
+    caseNumber: 20210019
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-20:
+    size: 44
+    complainant: Susanne Johansen
+    complainantAddress: Vester Alle 37
+    complainantPhone: 38447111
+    complainantPostalCode: 8981
+    caseState: submitted
+    caseType: '@improvement-compensation-complaint-randers->name'
+    caseNumber: 20210020
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-21:
+    size: 77
+    complainant: Susanne Johansen
+    complainantAddress: Integade 37
+    complainantPhone: 38447111
+    complainantPostalCode: 8970
+    caseState: submitted
+    caseType: '@telecommunications-service-complaint-randers->name'
+    caseNumber: 20210021
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-22:
+    size: 66
+    complainant: Bente Johansen
+    complainantAddress: Integade 19
+    complainantPhone: 84467311
+    complainantPostalCode: 8970
+    caseState: submitted
+    caseType: '@telecommunications-service-complaint-randers->name'
+    caseNumber: 20210022
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-23:
+    size: 81
+    complainant: Lone Poulsen
+    complainantAddress: Kirkegade 29
+    complainantPhone: 44467311
+    complainantPostalCode: 8970
+    caseState: submitted
+    caseType: '@telecommunications-service-complaint-randers->name'
+    caseNumber: 20210023
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  test-case-randers-24:
+    size: 34
+    complainant: Bente Madsen
+    complainantAddress: Kirkegade 32
+    complainantPhone: 46731411
+    complainantPostalCode: 8970
+    caseState: submitted
+    caseType: '@telecommunications-service-complaint-randers->name'
+    caseNumber: 20210024
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
