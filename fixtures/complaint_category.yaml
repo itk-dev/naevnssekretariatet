@@ -35,14 +35,14 @@ App\Entity\ComplaintCategory:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
 
-  water-heat-elictricity-complaint-aarhus:
-    name: Water-, heat- and elictricity complaint
+  water-heat-electricity-complaint-aarhus:
+    name: Water-, heat- and electricity complaint
     fee: 179
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
 
-  water-heat-elictricity-complaint-randers:
-    name: Water-, heat- and elictricity complaint
+  water-heat-electricity-complaint-randers:
+    name: Water-, heat- and electricity complaint
     fee: 189
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
