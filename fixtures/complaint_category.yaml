@@ -1,24 +1,72 @@
 App\Entity\ComplaintCategory:
   security-deposit-complaint-aarhus:
-    name: Security deposit
+    name: Security deposit complaint
     fee: 199
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
 
   security-deposit-complaint-randers:
-    name: Security deposit
+    name: Security deposit complaint
     fee: 219
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
 
   maintenance-complaint-aarhus:
-    name: Maintenance
+    name: Maintenance complaint
     fee: 179
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
 
   maintenance-complaint-randers:
-    name: Maintenance
+    name: Maintenance complaint
     fee: 189
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  rent-increase-complaint-aarhus:
+    name: Rent Increase complaint
+    fee: 201
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  rent-increase-complaint-randers:
+    name: Rent Increase complaint
+    fee: 211
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  water-heat-elictricity-complaint-aarhus:
+    name: Water-, heat- and elictricity complaint
+    fee: 179
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  water-heat-elictricity-complaint-randers:
+    name: Water-, heat- and elictricity complaint
+    fee: 189
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  improvement-compensation-complaint-aarhus:
+    name: Lease improvement compensation complaint
+    fee: 270
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  improvement-compensation-complaint-randers:
+    name: Lease improvement compensation complaint
+    fee: 270
+    board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  telecommunications-service-complaint-aarhus:
+    name: Shared antenna and telecommunications service complaint
+    fee: 159
+    board: '@resident-complaint-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  telecommunications-service-complaint-randers:
+    name: Shared antenna and telecommunications service complaint
+    fee: 230
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'

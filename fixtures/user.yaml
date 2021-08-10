@@ -22,3 +22,9 @@ App\Entity\User:
     email: super-admin@example.com
     roles: [ROLE_SUPER_ADMIN]
     favoriteMunicipality: '@municipality-aarhus'
+
+  user-{1..6}:
+    name: 'User-<current()>'
+    email: 'user<current()>\@example.com'
+    roles: [ROLE_USER]
+    favoriteMunicipality: '@municipality-aarhus'
