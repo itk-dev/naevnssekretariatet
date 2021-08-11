@@ -8,13 +8,15 @@
                         <span>{{ item.status|e }}</span>
                     </div>
                 </div>
-                <div class="btn-group" role="group" aria-label="{% trans %}List actions{% endtrans %}">
-                    <a class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}" href="#">
-                        <i class="fas fa-clock"></i><span class="sr-only">{% trans %}Edit note{% endtrans %}</span>
-                    </a>
-                    <a class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit case{% endtrans %}" href="#">
-                        <i class="fas fa-pen"></i><span class="sr-only">{% trans %}Edit case{% endtrans %}</span>
-                    </a>
+                <div class="col-auto">
+                    <div class="btn-group" role="group" aria-label="{% trans %}List actions{% endtrans %}">
+                        <a class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}" href="#">
+                            <i class="fas fa-clock"></i><span class="sr-only">{% trans %}Edit note{% endtrans %}</span>
+                        </a>
+                        <a class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit case{% endtrans %}" href="#">
+                            <i class="fas fa-pen"></i><span class="sr-only">{% trans %}Edit case{% endtrans %}</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </a>
