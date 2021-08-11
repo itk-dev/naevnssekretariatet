@@ -14,7 +14,9 @@
                     <nav id="sidebarMenu" role="navigation" class="col-auto d-md-block bg-dark sidebar collapse">
                         <div class="bg-dark">
                             <ul class="nav flex-column">
-                                {% include 'sidebar/menu.html.twig' %}
+                                {{ render(controller(
+                                    'App\\Controller\\SidebarController::renderMenu', {activeRoute: app.request.get('_route')}
+                                )) }}
                             </ul>
                         </div>
                     </nav>
