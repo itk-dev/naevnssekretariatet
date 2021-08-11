@@ -12,10 +12,12 @@
                         <p class="mb-0">{{ item.status|e }}</p>
                     </div>
                 </div>
-                <div class="btn-group" role="group" aria-label="{% trans %}List actions{% endtrans %}">
-                    <a class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit reminder{% endtrans %}" href="#">
-                        <i class="fas fa-pen"></i><span class="sr-only">{% trans %}Edit reminder{% endtrans %}</span>
-                    </a>
+                <div class="col-auto">
+                    <div class="btn-group" role="group" aria-label="{% trans %}List actions{% endtrans %}">
+                        <a class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit reminder{% endtrans %}" href="#">
+                            <i class="fas fa-pen"></i><span class="sr-only">{% trans %}Edit reminder{% endtrans %}</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </a>
