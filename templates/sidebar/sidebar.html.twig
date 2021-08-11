@@ -3,7 +3,9 @@
         {% block sidebarMenu %}
             <div class="col-auto bg-dark">
                 <ul class="nav flex-column">
-                    {% include 'sidebar/menu.html.twig' %}
+                    {{ render(controller(
+                        'App\\Controller\\SidebarController::renderMenu', {activeRoute: app.request.get('_route')}
+                    )) }}
                 </ul>
             </div>
         {% endblock %}
@@ -16,7 +18,9 @@
                     <h6 class="px-3 mb-1">Sag 21/220312</h6>
                     <p class="text-muted px-3 mt-1 mb-3"><small>Espedalen 38, 8240 Risskov</small></p>
                     <ul class="nav flex-column">
-                        {% include 'sidebar/_submenu.html.twig' %}
+                        {{ render(controller(
+                            'App\\Controller\\SidebarController::renderSubmenu', {activeRoute: app.request.get('_route')}
+                        )) }}
                     </ul>
                 </div>
             {% endblock %}

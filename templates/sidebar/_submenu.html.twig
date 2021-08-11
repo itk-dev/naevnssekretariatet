@@ -1,46 +1,6 @@
-{% set submenu = [
-    {
-        "name": "Casesummary",
-        "link": "/case/summary",
-    },
-    {
-        "name": "Basic information",
-        "link": "/case/information"
-    },
-    {
-        "name": "Status info",
-        "link": "/case/status"
-    },
-    {
-        "name": "Hearing",
-        "link": "/case/hearing"
-    },
-    {
-        "name": "Communication",
-        "link": "/case/communication",
-        "notification_count": "2"
-    },
-    {
-        "name": "Documents",
-        "link": "/case/documents"
-    },
-    {
-        "name": "Decision",
-        "link": "/case/decision"
-    },
-    {
-        "name": "Notes",
-        "link": "/case/notes"
-    },
-    {
-        "name": "Log",
-        "link": "/case/log"
-    },
-] %}
-
-{% for item in submenu %}
+{% for item in submenu_items %}
     <li class="nav-item">
-        <a class="nav-link {#{% if route_name == item.link %}btn btn-secondary disabled text-left mx-3{% endif %}#}" href="{{ item.link|e }}">
+        <a class="nav-link {{ item.active ? 'btn btn-secondary disabled text-left mx-3' }}" href="{{ item.link|e }}">
             {{ item.name|e }}{% if item.notification_count is defined %}<span class="badge badge-pill badge-primary ml-3">{{ item.notification_count|e }}</span>{% endif %}
         </a>
     </li>
