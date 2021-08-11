@@ -1,17 +1,20 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% set createdate = case.createdAt|date('d/m/Y') %}
+{% set updatedate = case.updatedAt|date('d/m/Y') %}
+
 {% set caseinfo = [
     {
         "label": "Created by",
-        "value": "Bruger Brugersen"
+        "value": case.complainant
     },
     {
         "label": "Date created",
-        "value": "15/12/2020"
+        "value": createdate
     },
     {
         "label": "Last changed",
-        "value": "10/01/2021"
+        "value": updatedate
     },
     {
         "label": "Assigned to",
@@ -19,11 +22,11 @@
     },
     {
         "label": "Board",
-        "value": "Huslejenævnet"
+        "value": case.board.name
     },
     {
         "label": "Municipality",
-        "value": "Aarhus"
+        "value": case.municipality.name
     },
 ] %}
 
@@ -72,7 +75,7 @@
     <div class="row">
         <div class="col">
             {# TODO: Heading should not be static :) #}
-            <h1>Sag 21/220312</h1>
+            <h1>{% trans %}Case{% endtrans %} {{ case.caseNumber }}</h1>
         </div>
         <div class="col-auto">
             {# TODO: Needs functionality on buttons #}
@@ -133,7 +136,7 @@
                         <h2 id="section_latest_notes">{% trans %}Latest notes{% endtrans %}</h2>
                     </div>
                     <div class="col-auto">
-                        <a name="" id="" class="btn btn-success float-right" href="#" role="button">Create new note</a>
+                        <a name="" id="" class="btn btn-success float-right" href={{ url("case_notes", {id: case.id}) }} role="button">Create new note</a>
                     </div>
                 </div>
                 <div class="row">
@@ -156,7 +159,7 @@
     <footer class="col-12 mt-3">
         <div class="row">
             <div class="col">
-                <a name="" id="" class="btn btn-secondary" href="/case" role="button">{% trans %}Back to list{% endtrans %}</a>
+                <a name="" id="" class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
             </div>
             <div class="col-auto ml-auto">
                 {# TODO: Needs functionality on buttons #}

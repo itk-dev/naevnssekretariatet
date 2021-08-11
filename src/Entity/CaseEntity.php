@@ -57,6 +57,12 @@ abstract class CaseEntity
      */
     private $caseNumber;
 
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -130,6 +136,18 @@ abstract class CaseEntity
     public function setCaseNumber(string $caseNumber): self
     {
         $this->caseNumber = $caseNumber;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

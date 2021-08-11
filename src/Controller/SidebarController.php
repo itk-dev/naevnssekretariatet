@@ -57,7 +57,7 @@ class SidebarController extends AbstractController
         ];
     }
 
-    public function renderSubmenu(string $activeRoute): Response
+    public function renderSubmenu(string $caseId, string $activeRoute): Response
     {
         $submenuItems = [
             $this->generateSubmenuItem('Summary', 'case_summary', $activeRoute),
