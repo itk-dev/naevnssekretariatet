@@ -45,23 +45,6 @@
         </section>
         <section label="{% trans %}List of existion notes{% endtrans %}" class="mt-3">
 
-            {% set btn_group = [
-                {
-                    "name": "Edit note",
-                    "style": "primary",
-                    "icon": "edit",
-                    "link": "#",
-                    "tooltip": "Edit note",
-                },
-                {
-                    "name": "Delete note",
-                    "style": "danger",
-                    "icon": "trash-alt",
-                    "link": "#",
-                    "tooltip": "Delete note",
-                },
-            ] %}
-
             <h2 class="h5">{% trans %}All notes{% endtrans %}</h2>
             <div class="accordion mt-3" id="accordionAllMessages">
                 <div class="card">
@@ -81,7 +64,14 @@
                                 <p class="pt-2">01.01.2020 - 13:37</p>
                             </div>
                             <div class="col-auto">
-                                {% include "common/btn_group.html.twig" with btn_group %}
+                                <div class="btn-group" role="group" aria-label="{% trans %}List actions{% endtrans %}">
+                                    <a class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit note{% endtrans %}" href="#">
+                                        <i class="fas fa-edit"></i><span class="sr-only">{% trans %}Edit note{% endtrans %}</span>
+                                    </a>
+                                    <a class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove note{% endtrans %}" href="#">
+                                        <i class="fas fa-trash-alt"></i><span class="sr-only">{% trans %}Remove note{% endtrans %}</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -108,8 +98,13 @@
                             <div class="col-auto">
                                 <p class="pt-2">01.01.2020 - 13:37</p>
                             </div>
-                            <div class="col-auto">
-                                {% include "common/btn_group.html.twig" with btn_group %}
+                            <div class="btn-group" role="group" aria-label="{% trans %}List actions{% endtrans %}">
+                                <a class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit note{% endtrans %}" href="#">
+                                    <i class="fas fa-edit"></i><span class="sr-only">{% trans %}Edit note{% endtrans %}</span>
+                                </a>
+                                <a class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove note{% endtrans %}" href="#">
+                                    <i class="fas fa-trash-alt"></i><span class="sr-only">{% trans %}Remove note{% endtrans %}</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -135,8 +130,13 @@
                             <div class="col-auto">
                                 <p class="pt-2">01.01.2020 - 13:37</p>
                             </div>
-                            <div class="col-auto">
-                                {% include "common/btn_group.html.twig" with btn_group %}
+                            <div class="btn-group" role="group" aria-label="{% trans %}List actions{% endtrans %}">
+                                <a class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit note{% endtrans %}" href="#">
+                                    <i class="fas fa-edit"></i><span class="sr-only">{% trans %}Edit note{% endtrans %}</span>
+                                </a>
+                                <a class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove note{% endtrans %}" href="#">
+                                    <i class="fas fa-trash-alt"></i><span class="sr-only">{% trans %}Remove note{% endtrans %}</span>
+                                </a>
                             </div>
                         </div>
                     </div>
