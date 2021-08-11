@@ -1,13 +1,3 @@
-{% set btn_group = [
-    {
-        "name": "Edit reminder",
-        "style": "warning",
-        "icon": "pen",
-        "link": "#",
-        "tooltip": "Edit reminder",
-    },
-] %}
-
 <div class="list-group mb-5">
     {% for item in reached_reminders %}
         <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning">
@@ -22,8 +12,10 @@
                         <p class="mb-0">{{ item.status|e }}</p>
                     </div>
                 </div>
-                <div class="col-auto">
-                    {% include "common/btn_group.html.twig" with btn_group %}
+                <div class="btn-group" role="group" aria-label="{% trans %}List actions{% endtrans %}">
+                    <a class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit reminder{% endtrans %}" href="#">
+                        <i class="fas fa-pen"></i><span class="sr-only">{% trans %}Edit reminder{% endtrans %}</span>
+                    </a>
                 </div>
             </div>
         </a>
