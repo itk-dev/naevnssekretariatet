@@ -1,46 +1,47 @@
 {% set submenu = [
     {
         "name": "Casesummary",
-        "link": "/case/summary",
+        "link": "/summary",
     },
     {
         "name": "Basic information",
-        "link": "/case/information"
+        "link": "/information"
     },
     {
         "name": "Status info",
-        "link": "/case/status"
+        "link": "/status"
     },
     {
         "name": "Hearing",
-        "link": "/case/hearing"
+        "link": "/hearing"
     },
     {
         "name": "Communication",
-        "link": "/case/communication",
+        "link": "/communication",
         "notification_count": "2"
     },
     {
         "name": "Documents",
-        "link": "/case/documents"
+        "link": "/documents"
     },
     {
         "name": "Decision",
-        "link": "/case/decision"
+        "link": "/decision"
     },
     {
         "name": "Notes",
-        "link": "/case/notes"
+        "link": "/notes"
     },
     {
         "name": "Log",
-        "link": "/case/log"
+        "link": "/log"
     },
 ] %}
 
 {% for item in submenu %}
     <li class="nav-item">
-        <a class="nav-link {#{% if route_name == item.link %}btn btn-secondary disabled text-left mx-3{% endif %}#}" href="{{ item.link|e }}">
+        {% set caselink = '/case/' ~ case.id ~ item.link %}
+        <a class="nav-link {#{% if route_name == caselink %}btn btn-secondary disabled text-left mx-3{% endif %}#}" href="{{ caselink|e }}">
             {{ item.name|e }}{% if item.notification_count is defined %}<span class="badge badge-pill badge-primary ml-3">{{ item.notification_count|e }}</span>{% endif %}
         </a>
     </li>

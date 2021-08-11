@@ -13,8 +13,8 @@
             </div>
             {% block sidebarSubmenu %}
                 <div class="sidebar-sticky pt-3">
-                    <h6 class="px-3 mb-1">Sag 21/220312</h6>
-                    <p class="text-muted px-3 mt-1 mb-3"><small>Espedalen 38, 8240 Risskov</small></p>
+                    <h6 class="px-3 mb-1">{% trans %}Sag{% endtrans %} {{ case.caseNumber }}</h6>
+                    <p class="text-muted px-3 mt-1 mb-3"><small>{{ case.complainantAddress }}</small></p>
                     <ul class="nav flex-column">
                         {% include 'sidebar/_submenu.html.twig' %}
                     </ul>

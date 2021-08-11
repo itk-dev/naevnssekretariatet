@@ -1,13 +1,17 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% set createdate = case.createdAt|date('d/m/Y') %}
+
+{% set noteslink = "/case/" ~ case.id ~ "/notes" %}
+
 {% set caseinfo = [
     {
         "label": "Created by",
-        "value": "Bruger Brugersen"
+        "value": case.complainant
     },
     {
         "label": "Date created",
-        "value": "15/12/2020"
+        "value": createdate
     },
     {
         "label": "Last changed",
@@ -19,11 +23,11 @@
     },
     {
         "label": "Board",
-        "value": "Huslejenævnet"
+        "value": case.board.name
     },
     {
         "label": "Municipality",
-        "value": "Aarhus"
+        "value": case.municipality.name
     },
 ] %}
 
@@ -72,7 +76,7 @@
     <div class="row">
         <div class="col">
             {# TODO: Heading should not be static :) #}
-            <h1>Sag 21/220312</h1>
+            <h1>{% trans %}Case{% endtrans %} {{ case.caseNumber }}</h1>
         </div>
         <div class="col-auto">
             {# TODO: Needs functionality on buttons #}
@@ -133,7 +137,7 @@
                         <h2 id="section_latest_notes">{% trans %}Latest notes{% endtrans %}</h2>
                     </div>
                     <div class="col-auto">
-                        <a name="" id="" class="btn btn-success float-right" href="#" role="button">Create new note</a>
+                        <a name="" id="" class="btn btn-success float-right" href={{ noteslink}} role="button">Create new note</a>
                     </div>
                 </div>
                 <div class="row">

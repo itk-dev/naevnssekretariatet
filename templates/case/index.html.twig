@@ -122,15 +122,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for item in tablecontents %}
-                    <tr class="{% if item.status == "Uåbnet" %}table-primary{% endif %} ">
-                        <td><a href="{{ item.caselink|e }}" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ item.casenumber|e }}">{{ item.casenumber|e }}</a></td>
-                        <td>{{ item.casetype|e }}</td>
-                        <td>{{ item.status|e }}</td>
-                        <td>{{ item.deadline|e }}</td>
-                        <td>{{ item.adress|e }}</td>
-                        <td>{{ item.landlord|e }}</td>
-                        <td>{{ item.tenant|e }}</td>
+                {% for case in cases %}
+                    <tr class="{% if case.caseState == "submitted" %}table-primary{% endif %} ">
+                        <td><a href="{{ url('case_summary', {id: case.id}) }}" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ case.casenumber|e }}">{{ case.casenumber|e }}</a></td>
+                        <td>{{ case.casetype|e }}</td>
+                        <td>{{ case.casestate|e }}</td>
+                        <td>{{ "2. sep 2020"|e }}</td>
+                        <td>{{ case.complainantAddress|e }}</td>
+                        <td>{{ "Udlejer"|e }}</td>
+                        <td>{{ case.complainant|e }}</td>
                         <td>{% include "common/btn_group.html.twig" with btn_group %}</td>
                     </tr>
                 {% endfor %}
