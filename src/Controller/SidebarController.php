@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Uid\UuidV4;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SidebarController extends AbstractController
@@ -57,18 +58,18 @@ class SidebarController extends AbstractController
         ];
     }
 
-    public function renderSubmenu(string $caseId, string $activeRoute): Response
+    public function renderSubmenu(UuidV4 $caseId, string $activeRoute): Response
     {
         $submenuItems = [
-            $this->generateSubmenuItem('Summary', 'case_summary', $activeRoute),
-            $this->generateSubmenuItem('Basic information', 'case_information', $activeRoute),
-            $this->generateSubmenuItem('Status info', 'case_status', $activeRoute),
-            $this->generateSubmenuItem('Hearing', 'case_hearing', $activeRoute),
-            $this->generateSubmenuItem('Communication', 'case_communication', $activeRoute),
-            $this->generateSubmenuItem('Documents', 'case_documents', $activeRoute),
-            $this->generateSubmenuItem('Decision', 'case_decision', $activeRoute),
-            $this->generateSubmenuItem('Notes', 'case_notes', $activeRoute),
-            $this->generateSubmenuItem('Log', 'case_log', $activeRoute),
+            $this->generateSubmenuItem('Summary', 'case_summary', $caseId, $activeRoute),
+            $this->generateSubmenuItem('Basic information', 'case_information', $caseId, $activeRoute),
+            $this->generateSubmenuItem('Status info', 'case_status', $caseId, $activeRoute),
+            $this->generateSubmenuItem('Hearing', 'case_hearing', $caseId, $activeRoute),
+            $this->generateSubmenuItem('Communication', 'case_communication', $caseId, $activeRoute),
+            $this->generateSubmenuItem('Documents', 'case_documents', $caseId,  $activeRoute),
+            $this->generateSubmenuItem('Decision', 'case_decision', $caseId, $activeRoute),
+            $this->generateSubmenuItem('Notes', 'case_notes', $caseId, $activeRoute),
+            $this->generateSubmenuItem('Log', 'case_log', $caseId, $activeRoute),
         ];
 
         return $this->render('sidebar/_submenu.html.twig', [
@@ -76,11 +77,11 @@ class SidebarController extends AbstractController
         ]);
     }
 
-    private function generateSubmenuItem(string $name, string $route, $activeRoute): array
+    private function generateSubmenuItem(string $name, string $route, string $caseId, $activeRoute): array
     {
         return [
             'name' => $this->translator->trans($name, [], 'sidebar'),
-            'link' => $this->generateUrl($route),
+            'link' => $this->generateUrl($route, ['id' => $caseId]),
             'active' => $activeRoute === $route,
         ];
     }
