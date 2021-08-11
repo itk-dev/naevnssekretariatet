@@ -19,6 +19,7 @@ class CaseController extends AbstractController
     public function index(CaseEntityRepository $caseRepository): Response
     {
         $cases = $caseRepository->findAll();
+
         return $this->render('case/index.html.twig', [
             'cases' => $cases,
         ]);
