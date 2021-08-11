@@ -38,30 +38,6 @@
 
     ] %}
 
-    {% set btn_group = [
-        {
-            "name": "Copy document to another case",
-            "style": "secondary",
-            "icon": "copy",
-            "link": "#",
-            "tooltip": "Copy document to another case",
-        },
-        {
-            "name": "Open document",
-            "style": "primary",
-            "icon": "file-alt",
-            "link": "#",
-            "tooltip": "Open document",
-        },
-        {
-            "name": "Delete document",
-            "style": "danger",
-            "icon": "trash-alt",
-            "link": "#",
-            "tooltip": "Delete document",
-        },
-    ] %}
-
     <main role="main" class="col-12 mt-3">
         <div class="table-responsive-sm"></div>
         <table class="table table-striped">
@@ -82,7 +58,17 @@
                     <td>{{ item.created_by|e }}</td>
                     <td>{{ item.create_date|e }}.01.2021 13:47</td>
                     <td class="text-right">
-                        {% include "common/btn_group.html.twig" with btn_group %}
+                        <div class="btn-group" role="group" aria-label="{% trans %}List actions{% endtrans %}">
+                            <a class="btn btn-secondary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Copy document to another case{% endtrans %}" href="#">
+                                <i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %}</span>
+                            </a>
+                            <a class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Open document{% endtrans %}" href="#">
+                                <i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Open document{% endtrans %}</span>
+                            </a>
+                            <a class="btn btn-danger" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}" href="#">
+                                <i class="fas fa-trash-alt"></i><span class="sr-only">{% trans %}Delete document{% endtrans %}</span>
+                            </a>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
