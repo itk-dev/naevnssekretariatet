@@ -3,8 +3,6 @@
 {% set createdate = case.createdAt|date('d/m/Y') %}
 {% set updatedate = case.updatedAt|date('d/m/Y') %}
 
-{% set noteslink = "/case/" ~ case.id ~ "/notes" %}
-
 {% set caseinfo = [
     {
         "label": "Created by",
@@ -138,7 +136,7 @@
                         <h2 id="section_latest_notes">{% trans %}Latest notes{% endtrans %}</h2>
                     </div>
                     <div class="col-auto">
-                        <a name="" id="" class="btn btn-success float-right" href={{ noteslink}} role="button">Create new note</a>
+                        <a name="" id="" class="btn btn-success float-right" href={{ url("case_notes", {id: case.id}) }} role="button">Create new note</a>
                     </div>
                 </div>
                 <div class="row">
@@ -161,7 +159,7 @@
     <footer class="col-12 mt-3">
         <div class="row">
             <div class="col">
-                <a name="" id="" class="btn btn-secondary" href="/case" role="button">{% trans %}Back to list{% endtrans %}</a>
+                <a name="" id="" class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
             </div>
             <div class="col-auto ml-auto">
                 {# TODO: Needs functionality on buttons #}
