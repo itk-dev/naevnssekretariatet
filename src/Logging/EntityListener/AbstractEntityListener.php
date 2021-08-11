@@ -79,7 +79,13 @@ abstract class AbstractEntityListener
         $logEntry->setEntity(get_class($object));
         $logEntry->setEntityID($object->getId());
         $logEntry->setAction($action);
-        $logEntry->setUser($this->security->getUser()->getUsername());
+
+        $user = $this->security->getUser();
+
+        if (null !== $user) {
+            $logEntry->setUser($user->getUsername());
+        }
+
         $logEntry->setData($dataArray);
 
         return $logEntry;

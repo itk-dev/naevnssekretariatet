@@ -3,22 +3,22 @@ App\Entity\User:
     name: Case Worker
     email: case-worker@example.com
     roles: [ROLE_CASE_WORKER]
-    favoriteMunicipality: '@municipality-test'
+    favoriteMunicipality: '@municipality-aarhus'
 
   user-administration:
     name: Administration
     email: administration@example.com
     roles: [ROLE_ADMINISTRATION]
-    favoriteMunicipality: '@municipality-test'
+    favoriteMunicipality: '@municipality-aarhus'
 
   user-admin:
     name: Admin
     email: admin@example.com
     roles: [ROLE_ADMIN]
-    favoriteMunicipality: '@municipality-test'
+    favoriteMunicipality: '@municipality-aarhus'
 
   user-super-admin:
     name: Super Admin
     email: super-admin@example.com
     roles: [ROLE_SUPER_ADMIN]
-    favoriteMunicipality: '@municipality-test'
+    favoriteMunicipality: '@municipality-aarhus'
