@@ -298,23 +298,6 @@
                             },
                         ] %}
 
-                        {% set btn_group = [
-                            {
-                                "name": "Edit landlord",
-                                "style": "primary",
-                                "icon": "edit",
-                                "link": "#edit-landlord",
-                                "tooltip": "Edit landlord",
-                            },
-                            {
-                                "name": "Remove landlord",
-                                "style": "danger",
-                                "icon": "trash-alt",
-                                "link": "#remove-landlord",
-                                "tooltip": "Remove landlord",
-                            },
-                        ] %}
-
                         <div class="table-responsive-sm">
                             <table id="basicInformationLandlord" class="table table-striped table-hover">
                                 <thead>
@@ -335,7 +318,16 @@
                                         <td>{{ item.cprNr|e }}</td>
                                         <td>{{ item.telephoneNr|e }}</td>
                                         <td>{{ item.journalNr|e }}</td>
-                                        <td>{% include "common/btn_group.html.twig" with btn_group %}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="{% trans %}List actions{% endtrans %}">
+                                                <a class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit landlord{% endtrans %}" href="#">
+                                                    <i class="fas fa-edit"></i><span class="sr-only">{% trans %}Edit landlord{% endtrans %}</span>
+                                                </a>
+                                                <a class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove landlord{% endtrans %}" href="#">
+                                                    <i class="fas fa-trash-alt"></i><span class="sr-only">{% trans %}Remove landlord{% endtrans %}</span>
+                                                </a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
