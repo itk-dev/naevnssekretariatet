@@ -1,6 +1,7 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
 {% set createdate = case.createdAt|date('d/m/Y') %}
+{% set updatedate = case.updatedAt|date('d/m/Y') %}
 
 {% set noteslink = "/case/" ~ case.id ~ "/notes" %}
 
@@ -15,7 +16,7 @@
     },
     {
         "label": "Last changed",
-        "value": "10/01/2021"
+        "value": updatedate
     },
     {
         "label": "Assigned to",
