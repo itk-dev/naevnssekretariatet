@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\CaseEntity;
+use App\Entity\ComplaintCategory;
+use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
+use App\Repository\ComplaintCategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -38,10 +42,60 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/information", name="case_information", methods={"GET"})
      */
-    public function information(CaseEntity $case): Response
+    public function information(CaseEntity $case, ComplaintCategoryRepository $categoryRepository): Response
     {
+        /** @var ComplaintCategory $complaintCategory */
+        $complaintCategory = $categoryRepository->findOneBy([
+            'board' => $case->getBoard(),
+            'municipality' => $case->getMunicipality(),
+            'name' => $case->getCaseType(),
+        ]);
+
         return $this->render('case/information.html.twig', [
             'case' => $case,
+            'complaintCategory' => $complaintCategory,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/information/edit", name="case_information_edit", methods={"GET", "POST"})
+     */
+    public function editInformation(CaseEntity $case, ComplaintCategoryRepository $categoryRepository, Request $request): Response
+    {
+        /** @var ComplaintCategory $complaintCategory */
+        $complaintCategory = $categoryRepository->findOneBy([
+            'board' => $case->getBoard(),
+            'municipality' => $case->getMunicipality(),
+            'name' => $case->getCaseType(),
+        ]);
+
+        $complaintCategories = $categoryRepository->findBy([
+            'board' => $case->getBoard(),
+            'municipality' => $case->getMunicipality(),
+        ]);
+
+        // Todo: Handle other case types, possibly via switch on $case->getBoard()->getCaseFormType()
+        $form = $this->createForm(ResidentComplaintBoardCaseType::class, $case, ['board' => $case->getBoard()]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $case = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('case_information', [
+                'id' => $case->getId(),
+                'case' => $case,
+                'complaintCategory' => $complaintCategory,
+            ]);
+        }
+
+        return $this->render('case/information_edit.html.twig', [
+            'case' => $case,
+            'complaintCategory' => $complaintCategory,
+            'complaintCategories' => $complaintCategories,
+            'case_form' => $form->createView(),
         ]);
     }
 

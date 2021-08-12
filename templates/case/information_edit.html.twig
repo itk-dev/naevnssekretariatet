@@ -1,0 +1,70 @@
+{% extends 'layout-with-submenu.html.twig' %}
+
+{% block title %}{% trans %}Edit Basic information{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Basic information{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            {# TODO: Need functionality on save changes button #}
+            <a name="" id="" class="btn btn-success" href="{{ url('case_information', {id: case.id}) }}" role="button">{% trans %}Cancel edit{% endtrans %}</a>
+        </div>
+    </div>
+
+    {{ form_start(case_form) }}
+        <form class="needs-validation" >
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="validationCustom01">{% trans %}Complainant{% endtrans %}</label>
+                    {{ form_widget(case_form.complainant, {'attr': {'type': 'text','class': 'form-control', 'id': 'validationCustom01', 'required': true}}) }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationCustom02">{% trans %}Complainant address{% endtrans %}</label>
+                    {{ form_widget(case_form.complainantAddress, {'attr': {'type': 'text','class': 'form-control', 'id': 'validationCustom02', 'required': true}}) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom03">{% trans %}Complainant phone number{% endtrans %}</label>
+                    {{ form_widget(case_form.complainantPhone, {'attr': {'type': 'text','class': 'form-control', 'id': 'validationCustom03', 'required': true}}) }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom04">{% trans %}Complainant postal code{% endtrans %}</label>
+                    {{ form_widget(case_form.complainantPostalCode, {'attr': {'type': 'text','class': 'form-control', 'id': 'validationCustom04', 'required': true}}) }}
+
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom05">{% trans %}Complainant category{% endtrans %}</label>
+                    {{ form_widget(case_form.caseType, {'attr': {'class': 'form-control', 'id': 'validationCustom05', 'required': true}}) }}
+                </div>
+            </div>
+            {{ form_widget(case_form.save,{'attr': {'class': 'btn btn-primary', 'type': 'submit'}} ) }}
+            {{ form_rest(case_form) }}
+        </form>
+    {{ form_end(case_form) }}
+
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+{% endblock %}
+
