@@ -6,9 +6,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8000
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Randersvej 23
+    leaseZip: 8200
+    leaseCity: Aarhus N
     feePaid: false
     caseState: submitted
     caseType: '@security-deposit-complaint-aarhus->name'
@@ -22,10 +22,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 23456789
     complainantZip: 8220
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Randersvej 119
+    leaseZip: 8220
+    leaseCity: Brabrand
     feePaid: false
     caseState: submitted
     caseType: '@security-deposit-complaint-aarhus->name'
@@ -39,10 +39,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87655678
     complainantZip: 8200
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Skejbygårdsvej 1
+    leaseZip: 8200
+    leaseCity: Aarhus N
     feePaid: false
     caseState: submitted
     caseType: '@security-deposit-complaint-aarhus->name'
@@ -57,9 +57,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8240
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Jens Baggesensvej 27
+    leaseZip: 8200
+    leaseCity: Aarhus N
     feePaid: false
     caseState: submitted
     caseType: '@security-deposit-complaint-aarhus->name'
@@ -74,9 +74,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8200
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Andevej 192
+    leaseZip: 8210
+    leaseCity: Aarhus V
     feePaid: false
     caseState: submitted
     caseType: '@maintenance-complaint-aarhus->name'
@@ -91,9 +91,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8000
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Silkeborgvej 192
+    leaseZip: 8210
+    leaseCity: Aarhus V
     feePaid: false
     caseState: submitted
     caseType: '@maintenance-complaint-aarhus->name'
@@ -108,9 +108,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8210
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Silkeborgvej 13
+    leaseZip: 8000
+    leaseCity: Aarhus C
     feePaid: false
     caseState: submitted
     caseType: '@maintenance-complaint-aarhus->name'
@@ -125,9 +125,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8000
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Holmevej 45
+    leaseZip: 8340
+    leaseCity: Malling
     feePaid: false
     caseState: submitted
     caseType: '@maintenance-complaint-aarhus->name'
@@ -143,9 +143,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantCPR: 123456-7890
     hasVacated: true
     leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
-    feePaid: false
+    leaseZip: Holmevej 29
+    leaseCity: 8000
+    feePaid: Aarhus C
     caseState: submitted
     caseType: '@rent-increase-complaint-aarhus->name'
     caseNumber: 2021-0009
@@ -159,9 +159,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8000
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Sømandsvej 2
+    leaseZip: 8240
+    leaseCity: Risskov
     feePaid: false
     caseState: submitted
     caseType: '@rent-increase-complaint-aarhus->name'
@@ -176,9 +176,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8000
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Landevej 5
+    leaseZip: 8330
+    leaseCity: Beder
     feePaid: false
     caseState: submitted
     caseType: '@rent-increase-complaint-aarhus->name'
@@ -193,9 +193,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8330
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Nyringen 5
+    leaseZip: 8200
+    leaseCity: Aarhus N
     feePaid: false
     caseState: submitted
     caseType: '@rent-increase-complaint-aarhus->name'
@@ -210,9 +210,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8210
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Nyringen 9
+    leaseZip: 8200
+    leaseCity: Aarhus N
     feePaid: false
     caseState: submitted
     caseType: '@water-heat-electricity-complaint-aarhus->name'
@@ -227,9 +227,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8210
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Næringen 52
+    leaseZip: 8200
+    leaseCity: Aarhus N
     feePaid: false
     caseState: submitted
     caseType: '@water-heat-electricity-complaint-aarhus->name'
@@ -244,9 +244,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8210
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Risskov vej 245
+    leaseZip: 8240
+    leaseCity: Risskov
     feePaid: false
     caseState: submitted
     caseType: '@water-heat-electricity-complaint-aarhus->name'
@@ -261,9 +261,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8240
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Egå vej 5
+    leaseZip: 8250
+    leaseCity: Egå
     feePaid: false
     caseState: submitted
     caseType: '@water-heat-electricity-complaint-aarhus->name'
@@ -278,9 +278,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8250
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Malling vej 98
+    leaseZip: 8340
+    leaseCity: Malling
     feePaid: false
     caseState: submitted
     caseType: '@improvement-compensation-complaint-aarhus->name'
@@ -294,10 +294,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 51638444
     complainantZip: 8340
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Malling vej 98
+    leaseZip: 8340
+    leaseCity: Malling
     feePaid: false
     caseState: submitted
     caseType: '@improvement-compensation-complaint-aarhus->name'
@@ -311,10 +311,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 63844514
     complainantZip: 8380
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Trige vej 98
+    leaseZip: 8380
+    leaseCity: Trige
     feePaid: false
     caseState: submitted
     caseType: '@improvement-compensation-complaint-aarhus->name'
@@ -328,10 +328,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 38445146
     complainantZip: 8471
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Sabro vej 37
+    leaseZip: 8471
+    leaseCity: Sabro
     feePaid: false
     caseState: submitted
     caseType: '@improvement-compensation-complaint-aarhus->name'
@@ -346,9 +346,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8471
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Sabro vej 37
+    leaseZip: 8471
+    leaseCity: Sabro
     feePaid: false
     caseState: submitted
     caseType: '@telecommunications-service-complaint-aarhus->name'
@@ -363,9 +363,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8000
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Sabro vej 37
+    leaseZip: 8471
+    leaseCity: Sabro
     feePaid: false
     caseState: submitted
     caseType: '@telecommunications-service-complaint-aarhus->name'
@@ -380,9 +380,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8000
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Sabro vej 37
+    leaseZip: 8471
+    leaseCity: Sabro
     feePaid: false
     caseState: submitted
     caseType: '@telecommunications-service-complaint-aarhus->name'
@@ -396,10 +396,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 46531444
     complainantZip: 8000
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Skolegade 32
+    leaseZip: 8000
+    leaseCity: Aarhus C
     feePaid: false
     caseState: submitted
     caseType: '@telecommunications-service-complaint-aarhus->name'
@@ -413,10 +413,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87674321
     complainantZip: 8900
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Skolevej 117
+    leaseZip: 8900
+    leaseCity: Randers C
     feePaid: false
     caseState: submitted
     caseType: '@security-deposit-complaint-randers->name'
@@ -430,10 +430,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 23476711
     complainantZip: 8900
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Skolevej 119
+    leaseZip: 8900
+    leaseCity: Randers C
     feePaid: false
     caseState: submitted
     caseType: '@security-deposit-complaint-randers->name'
@@ -447,10 +447,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87677611
     complainantZip: 8900
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Skolevej 1
+    leaseZip: 8900
+    leaseCity: Randers C
     feePaid: false
     caseState: submitted
     caseType: '@security-deposit-complaint-randers->name'
@@ -464,10 +464,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87277611
     complainantZip: 8900
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Skolevej 21
+    leaseZip: 8900
+    leaseCity: Randers C
     feePaid: false
     caseState: submitted
     caseType: '@security-deposit-complaint-randers->name'
@@ -482,9 +482,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8920
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Slotspladsen 192
+    leaseZip: 8920
+    leaseCity: Randers NV
     feePaid: false
     caseState: submitted
     caseType: '@maintenance-complaint-randers->name'
@@ -499,9 +499,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8920
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Slotspladsen 192
+    leaseZip: 8920
+    leaseCity: Randers NV
     feePaid: false
     caseState: submitted
     caseType: '@maintenance-complaint-randers->name'
@@ -516,9 +516,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8920
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Slotspladsen 13
+    leaseZip: 8920
+    leaseCity: Randers NV
     feePaid: false
     caseState: submitted
     caseType: '@maintenance-complaint-randers->name'
@@ -533,9 +533,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8920
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Snaregade 47
+    leaseZip: 8930
+    leaseCity: Randers NØ
     feePaid: false
     caseState: submitted
     caseType: '@maintenance-complaint-randers->name'
@@ -549,10 +549,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71677611
     complainantZip: 8930
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Snaregade 47
+    leaseZip: 8930
+    leaseCity: Randers NØ
     feePaid: false
     caseState: submitted
     caseType: '@rent-increase-complaint-randers->name'
@@ -567,9 +567,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8960
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Solsortvej 2
+    leaseZip: 8960
+    leaseCity: Randers SØ
     feePaid: false
     caseState: submitted
     caseType: '@rent-increase-complaint-randers->name'
@@ -583,10 +583,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 81473611
     complainantZip: 8960
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Solsortvej 2
+    leaseZip: 8960
+    leaseCity: Randers SØ
     feePaid: false
     caseState: submitted
     caseType: '@rent-increase-complaint-randers->name'
@@ -601,9 +601,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8960
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Splejservej 7
+    leaseZip: 8983
+    leaseCity: Gjerlev J
     feePaid: false
     caseState: submitted
     caseType: '@rent-increase-complaint-randers->name'
@@ -617,10 +617,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 47368111
     complainantZip: 8983
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Splejservej 7
+    leaseZip: 8983
+    leaseCity: Gjerlev J
     feePaid: false
     caseState: submitted
     caseType: '@water-heat-electricity-complaint-randers->name'
@@ -635,9 +635,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8983
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Nygade 72
+    leaseZip: 8983
+    leaseCity: Gjerlev J
     feePaid: false
     caseState: submitted
     caseType: '@water-heat-electricity-complaint-randers->name'
@@ -652,9 +652,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8983
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Nygade 247
+    leaseZip: 8983
+    leaseCity: Gjerlev J
     feePaid: false
     caseState: submitted
     caseType: '@water-heat-electricity-complaint-randers->name'
@@ -669,9 +669,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8983
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Odinsgade 7
+    leaseZip: 8981
+    leaseCity: Spentrup
     feePaid: false
     caseState: submitted
     caseType: '@water-heat-electricity-complaint-randers->name'
@@ -686,9 +686,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8981
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Odinsgade 98
+    leaseZip: 8981
+    leaseCity: Spentrup
     feePaid: false
     caseState: submitted
     caseType: '@improvement-compensation-complaint-randers->name'
@@ -703,9 +703,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8981
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Vester Alle 98
+    leaseZip: 8981
+    leaseCity: Spentrup
     feePaid: false
     caseState: submitted
     caseType: '@improvement-compensation-complaint-randers->name'
@@ -720,9 +720,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8981
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Vester Alle 37
+    leaseZip: 8981
+    leaseCity: Spentrup
     feePaid: false
     caseState: submitted
     caseType: '@improvement-compensation-complaint-randers->name'
@@ -737,9 +737,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8981
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Integade 37
+    leaseZip: 8970
+    leaseCity: Havndal
     feePaid: false
     caseState: submitted
     caseType: '@improvement-compensation-complaint-randers->name'
@@ -754,9 +754,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8970
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Integade 19
+    leaseZip: 8970
+    leaseCity: Havndal
     feePaid: false
     caseState: submitted
     caseType: '@telecommunications-service-complaint-randers->name'
@@ -771,9 +771,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8970
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Kirkegade 29
+    leaseZip: 8970
+    leaseCity: Havndal
     feePaid: false
     caseState: submitted
     caseType: '@telecommunications-service-complaint-randers->name'
@@ -788,9 +788,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainantZip: 8970
     complainantCPR: 123456-7890
     hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    leaseAddress: Kirkegade 32
+    leaseZip: 8970
+    leaseCity: Havndal
     feePaid: false
     caseState: submitted
     caseType: '@telecommunications-service-complaint-randers->name'
@@ -804,10 +804,10 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 46731411
     complainantZip: 8970
     complainantCPR: 123456-7890
-    hasVacated: true
-    leaseAddress: testAddress
-    leaseZip: testZip
-    leaseCity: testCity
+    hasVacated: false
+    leaseAddress: Kirkegade 32
+    leaseZip: 8970
+    leaseCity: Havndal
     feePaid: false
     caseState: submitted
     caseType: '@telecommunications-service-complaint-randers->name'
