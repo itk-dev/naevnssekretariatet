@@ -58,6 +58,11 @@ abstract class CaseEntity
      */
     private $caseNumber;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignedCases")
+     */
+    private $assignedTo;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -131,6 +136,18 @@ abstract class CaseEntity
     public function setCaseNumber(string $caseNumber): self
     {
         $this->caseNumber = $caseNumber;
+
+        return $this;
+    }
+
+    public function getAssignedTo(): ?User
+    {
+        return $this->assignedTo;
+    }
+
+    public function setAssignedTo(?User $assignedTo): self
+    {
+        $this->assignedTo = $assignedTo;
 
         return $this;
     }
