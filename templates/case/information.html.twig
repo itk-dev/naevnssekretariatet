@@ -86,7 +86,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputBasicInformation3">{% trans %}Complaint fee in DKK{% endtrans %}</label>
-                                    <input type="text" class="form-control" id="inputBasicInformation3" value="{{ complaintCategory.fee }}" readonly>
+                                    <input type="text" class="form-control" id="inputBasicInformation3" value="{{ case.complaintCategory.fee }}" readonly>
                                     {# <select id="inputBasicInformation3" class="form-control">
                                         <option selected>360 dkk (Standard gebyr)</option>
                                         <option>Andet gebyr</option>
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputBasicInformation4">{% trans %}Complaint category{% endtrans %}</label>
-                                    <input type="text" class="form-control" id="inputBasicInformation4" value="{{ complaintCategory.name }}" readonly>
+                                    <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.complaintCategory.name }}" readonly>
                                     {#  <select id="inputBasicInformation4" class="form-control">
                                         <option selected>Økonomisk tvist</option>
                                         <option>Anden kategori</option>

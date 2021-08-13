@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\CaseEntity;
-use App\Entity\ComplaintCategory;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
 use App\Repository\ComplaintCategoryRepository;
@@ -42,18 +41,10 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/information", name="case_information", methods={"GET"})
      */
-    public function information(CaseEntity $case, ComplaintCategoryRepository $categoryRepository): Response
+    public function information(CaseEntity $case): Response
     {
-        /** @var ComplaintCategory $complaintCategory */
-        $complaintCategory = $categoryRepository->findOneBy([
-            'board' => $case->getBoard(),
-            'municipality' => $case->getMunicipality(),
-            'name' => $case->getCaseType(),
-        ]);
-
         return $this->render('case/information.html.twig', [
             'case' => $case,
-            'complaintCategory' => $complaintCategory,
         ]);
     }
 
@@ -62,13 +53,6 @@ class CaseController extends AbstractController
      */
     public function editInformation(CaseEntity $case, ComplaintCategoryRepository $categoryRepository, Request $request): Response
     {
-        /** @var ComplaintCategory $complaintCategory */
-        $complaintCategory = $categoryRepository->findOneBy([
-            'board' => $case->getBoard(),
-            'municipality' => $case->getMunicipality(),
-            'name' => $case->getCaseType(),
-        ]);
-
         $complaintCategories = $categoryRepository->findBy([
             'board' => $case->getBoard(),
             'municipality' => $case->getMunicipality(),
@@ -87,14 +71,11 @@ class CaseController extends AbstractController
             return $this->redirectToRoute('case_information', [
                 'id' => $case->getId(),
                 'case' => $case,
-                'complaintCategory' => $complaintCategory,
             ]);
         }
 
         return $this->render('case/information_edit.html.twig', [
             'case' => $case,
-            'complaintCategory' => $complaintCategory,
-            'complaintCategories' => $complaintCategories,
             'case_form' => $form->createView(),
         ]);
     }

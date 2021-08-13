@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label >{% trans %}Complainant category{% endtrans %}</label>
-                    {{ form_widget(case_form.caseType, {'attr': {'class': 'form-control', 'required': true}}) }}
+                    {{ form_widget(case_form.complaintCategory, {'attr': {'class': 'form-control', 'required': true}}) }}
                 </div>
             </div>
             {{ form_widget(case_form.save, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}}) }}
