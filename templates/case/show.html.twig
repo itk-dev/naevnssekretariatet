@@ -31,7 +31,7 @@
         <div class="col-auto">
             {# TODO: Needs functionality on buttons #}
             <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Create representative{% endtrans %}</a>
-            <a name="" id="" class="btn btn-primary" href="{{ url('case_information_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
+            <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
             {# Moved validation buttons inline in form #}
         </div>
     </div>

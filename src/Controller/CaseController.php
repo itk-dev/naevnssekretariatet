@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\CaseEntity;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
-use App\Repository\ComplaintCategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,19 +38,19 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/information", name="case_information", methods={"GET"})
+     * @Route("/{id}", name="case_show", methods={"GET"})
      */
-    public function information(CaseEntity $case): Response
+    public function show(CaseEntity $case): Response
     {
-        return $this->render('case/information.html.twig', [
+        return $this->render('case/show.html.twig', [
             'case' => $case,
         ]);
     }
 
     /**
-     * @Route("/{id}/information/edit", name="case_information_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit", name="case_edit", methods={"GET", "POST"})
      */
-    public function editInformation(CaseEntity $case, Request $request): Response
+    public function edit(CaseEntity $case, Request $request): Response
     {
         // Todo: Handle other case types, possibly via switch on $case->getBoard()->getCaseFormType()
         $form = $this->createForm(ResidentComplaintBoardCaseType::class, $case, ['board' => $case->getBoard()]);
@@ -63,13 +62,13 @@ class CaseController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('case_information', [
+            return $this->redirectToRoute('case_show', [
                 'id' => $case->getId(),
                 'case' => $case,
             ]);
         }
 
-        return $this->render('case/information_edit.html.twig', [
+        return $this->render('case/edit.html.twig', [
             'case' => $case,
             'case_form' => $form->createView(),
         ]);
