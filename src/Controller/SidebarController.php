@@ -71,6 +71,7 @@ class SidebarController extends AbstractController
             $this->generateSubmenuItem('Notes', ['case_notes'], $caseId, $activeRoute),
             $this->generateSubmenuItem('Log', ['case_log'], $caseId, $activeRoute),
         ];
+
         return $this->render('sidebar/_submenu.html.twig', [
             'submenu_items' => $submenuItems,
         ]);
