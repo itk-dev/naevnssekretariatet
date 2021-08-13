@@ -51,13 +51,8 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/information/edit", name="case_information_edit", methods={"GET", "POST"})
      */
-    public function editInformation(CaseEntity $case, ComplaintCategoryRepository $categoryRepository, Request $request): Response
+    public function editInformation(CaseEntity $case, Request $request): Response
     {
-        $complaintCategories = $categoryRepository->findBy([
-            'board' => $case->getBoard(),
-            'municipality' => $case->getMunicipality(),
-        ]);
-
         // Todo: Handle other case types, possibly via switch on $case->getBoard()->getCaseFormType()
         $form = $this->createForm(ResidentComplaintBoardCaseType::class, $case, ['board' => $case->getBoard()]);
 
