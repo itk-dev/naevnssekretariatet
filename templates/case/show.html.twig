@@ -35,18 +35,7 @@
             {# Moved validation buttons inline in form #}
         </div>
     </div>
-    <div class="row form-inline mt-3">
-        <div class="form-group col">
-            <label for="casestatus" class="mr-2">{% trans %}Casestatus{% endtrans %}</label>
-            <select class="form-control form-control-sm" name="casestatus" id="casestatus">
-                {# TODO: Dynamicly populated with availeble statues #}
-                {# TODO: Case changes status if a new status is selected. Confirm or cancel via dialog #}
-                {% for item in casestatuses %}
-                    <option value="{{ item.name|e }}">{{ item.name|e }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
+    {% include "common/case_status.html.twig" %}
 {% endblock %}
 
 {% block content %}
