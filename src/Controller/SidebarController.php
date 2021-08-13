@@ -61,7 +61,7 @@ class SidebarController extends AbstractController
     public function renderSubmenu(UuidV4 $caseId, string $activeRoute): Response
     {
         // Ensure SubmenuItem for case_show is correctly considered active when on case_edit route
-        if ('case_edit' === $activeRoute){
+        if ('case_edit' === $activeRoute) {
             $activeRoute = 'case_show';
         }
 
