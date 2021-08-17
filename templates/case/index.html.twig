@@ -55,23 +55,6 @@
 {% endblock %}
 
 {% block content %}
-    {% set btn_group = [
-        {
-            "name": "Show case",
-            "style": "primary",
-            "icon": "eye",
-            "link": "#",
-            "tooltip": "Show case",
-        },
-        {
-            "name": "Add reminder",
-            "style": "warning",
-            "icon": "clock",
-            "link": "#",
-            "tooltip": "Add reminder",
-        },
-    ] %}
-
     <main role="main" class="col-12">
         <div class="table-responsive-sm">
             <table id="casetable" class="table table-striped table-hover">
@@ -97,7 +80,12 @@
                         <td>{{ case.complainantAddress|e }}</td>
                         <td>{{ "Udlejer"|e }}</td>
                         <td>{{ case.complainant|e }}</td>
-                        <td>{% include "common/btn_group.html.twig" with btn_group %}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                                <a href="{{ url('case_summary', {id: case.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show case{% endtrans %}</span></a>
+                                <a href="#" role="button" class="btn btn-warning" data-toggle="tooltip" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}"><i class="fas fa-clock"></i><span class="sr-only">{% trans %}Add reminder{% endtrans %}</span></a>
+                            </div>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
