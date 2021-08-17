@@ -1,0 +1,70 @@
+{% extends 'layout-with-submenu.html.twig' %}
+
+{% block title %}{% trans %}Log{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Log{% endtrans %}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    {% set tablecontents = [
+        {
+            "dateTime": "01.01.2020 - 13:37",
+            "azIdent": "AZ123456",
+            "type": "Sletning",
+            "description": "Nulla eu mi a nulla viverra fringilla iaculis nec eros. Donec volutpat venenatis molestie.",
+        },
+        {
+            "dateTime": "01.01.2020 - 13:37",
+            "azIdent": "AZ123456",
+            "type": "Ændring",
+            "description": "Nulla eu mi a nulla viverra fringilla iaculis nec eros. Donec volutpat venenatis molestie.",
+        },
+        {
+            "dateTime": "01.01.2020 - 13:37",
+            "azIdent": "AZ123456",
+            "type": "Oprettelse",
+            "description": "Nulla eu mi a nulla viverra fringilla iaculis nec eros. Donec volutpat venenatis molestie.",
+        },
+        {
+            "dateTime": "01.01.2020 - 13:37",
+            "azIdent": "-",
+            "type": "Betalingsreference",
+            "description": "1234567890",
+        }
+    ] %}
+
+    <main role="main" class="col-12 mt-3">
+        <div class="table-responsive-sm">
+            <table id="caseLogtable" class="table table-striped table-hover table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">{% trans %}Dato{% endtrans %}</th>
+                    <th scope="col">{% trans %}AZ-ident{% endtrans %}</th>
+                    <th scope="col">{% trans %}Type{% endtrans %}</th>
+                    <th scope="col">{% trans %}Description{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in tablecontents %}
+                    <tr>
+                        <td>{{ item.dateTime|e }}</td>
+                        <td>{{ item.azIdent|e }}</td>
+                        <td>{{ item.type|e }}</td>
+                        <td>{{ item.description|e }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer class="col-12 mt-3">
+        <div class="row">
+        </div>
+    </footer>
+{% endblock %}

@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
+use App\Logging\LoggableEntityInterface;
 use App\Repository\ComplaintCategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=ComplaintCategoryRepository::class)
+ * @ORM\EntityListeners({"App\Logging\EntityListener\ComplaintCategoryListener"})
  */
-class ComplaintCategory
+class ComplaintCategory implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
@@ -41,6 +45,16 @@ class ComplaintCategory
      * @ORM\JoinColumn(nullable=false)
      */
     private $municipality;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="complaintCategory")
+     */
+    private $caseEntities;
+
+    public function __construct()
+    {
+        $this->caseEntities = new ArrayCollection();
+    }
 
     public function getId(): ?UuidV4
     {
@@ -93,5 +107,48 @@ class ComplaintCategory
         $this->municipality = $municipality;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|CaseEntity[]
+     */
+    public function getCaseEntities(): Collection
+    {
+        return $this->caseEntities;
+    }
+
+    public function addCaseEntity(CaseEntity $caseEntity): self
+    {
+        if (!$this->caseEntities->contains($caseEntity)) {
+            $this->caseEntities[] = $caseEntity;
+            $caseEntity->setComplaintCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaseEntity(CaseEntity $caseEntity): self
+    {
+        if ($this->caseEntities->removeElement($caseEntity)) {
+            // set the owning side to null (unless already changed)
+            if ($caseEntity->getComplaintCategory() === $this) {
+                $caseEntity->setComplaintCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'id',
+            'name',
+        ];
     }
 }

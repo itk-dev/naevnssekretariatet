@@ -1,0 +1,359 @@
+{% extends 'layout-with-submenu.html.twig' %}
+
+{# {% set casestatuses = [
+    {
+        "name": "Case created"
+    },
+    {
+        "name": "Validated"
+    },
+    {
+        "name": "Parties hearing"
+    },
+    {
+        "name": "Case processing"
+    },
+    {
+        "name": "On agenda"
+    },
+    {
+        "name": "Decision"
+    },
+] %} #}
+
+{% block title %}{% trans %}Basic information{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Basic information{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            {# TODO: Needs functionality on buttons #}
+            <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Create representative{% endtrans %}</a>
+            <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
+            {# Moved validation buttons inline in form #}
+        </div>
+    </div>
+    {% include "common/case_status.html.twig" %}
+{% endblock %}
+
+{% block content %}
+
+    <main role="main" class="col-12">
+        {# TODO: Persist tab navigation in url #}
+        <ul class="nav nav-tabs mt-3" id="casestatusTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">{% trans %}Overview{% endtrans %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="lease-tab" data-toggle="tab" href="#lease" role="tab" aria-controls="lease" aria-selected="true">{% trans %}Lease{% endtrans %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tenant-tab" data-toggle="tab" href="#tenant" role="tab" aria-controls="tenant" aria-selected="true">{% trans %}Tenant{% endtrans %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="landlord-tab" data-toggle="tab" href="#landlord" role="tab" aria-controls="landlord" aria-selected="true">{% trans %}Landlord{% endtrans %}</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="casestatusTabContent">
+            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                <div class="row mt-3">
+                    <div class="col">
+                        <form>
+                            {# TODO: Form validation: https://getbootstrap.com/docs/4.0/components/forms/#validation #}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation1">{% trans %}Complainant{% endtrans %}</label>
+                                    <input type="text" class="form-control" id="inputBasicInformation1" value="{{ case.complainant }}" readonly>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation2">{% trans %}Date for receiving complaint{% endtrans %}</label>
+                                    <input type="date" class="form-control" id="inputBasicInformation2" value="2020-12-16" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation3">{% trans %}Complaint fee in DKK{% endtrans %}</label>
+                                    <input type="text" class="form-control" id="inputBasicInformation3" value="{{ case.complaintCategory.fee }}" readonly>
+                                    {# <select id="inputBasicInformation3" class="form-control">
+                                        <option selected>360 dkk (Standard gebyr)</option>
+                                        <option>Andet gebyr</option>
+                                    </select>#}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation4">{% trans %}Complaint category{% endtrans %}</label>
+                                    <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.complaintCategory.name }}" readonly>
+                                    {#  <select id="inputBasicInformation4" class="form-control">
+                                        <option selected>Økonomisk tvist</option>
+                                        <option>Anden kategori</option>
+                                    </select>#}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation5">{% trans %}CPR number{% endtrans %}</label>
+                                    <div class="input-group mb-3">
+                                        {# TODO: Input correct CPR when property exists #}
+                                        <input type="text" class="form-control" id="inputBasicInformation5" value="123456-7890" readonly>
+                                         {#  <div class="input-group-append">#}
+                                            {# TODO: Show status depending on validation result #}
+                                            {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="Validate CPR number"><i class="fas fa-check-circle"></i></button>
+                                            {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
+                                            {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
+                                            {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                                        {#</div>   #}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation6">{% trans %}Telephone number{% endtrans %}</label>
+                                    <input type="text" class="form-control" id="inputBasicInformation6" value="{{ case.complainantPhone }}" readonly>
+                                </div>
+                                {#  <div class="form-group col-md-4">
+                                    <label for="inputBasicInformation7">{% trans %}Property name{% endtrans %}</label>
+                                    <input type="text" class="form-control" id="inputBasicInformation7" placeholder="Dokk1">
+                                </div>#}
+                            </div>
+                            <fieldset>
+                                <legend>{% trans %}Address{% endtrans %}</legend>
+                                <div class="form-row">
+                                    <div class="form-group col-md-5">
+                                        <label for="inputBasicInformation8">{% trans %}Road{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="inputBasicInformation8" value="{{ case.complainantAddress }}" readonly>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputBasicInformation9">{% trans %}Postal code{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="inputBasicInformation9" value="{{ case.complainantPostalCode }}" readonly>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputBasicInformation10">{% trans %}City{% endtrans %}</label>
+                                        {# TODO: Update city value when such property exists #}
+                                        <input type="text" class="form-control" id="inputBasicInformation10" value="Villaby" readonly>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputBasicInformation10">{% trans %}Validate{% endtrans %}</label>
+                                        {# TODO: Show status depending on validation result #}
+                                        {# Not yet validated #} <button class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="Validate address"><i class="fas fa-check-circle"></i></button>
+                                        {# Success <button class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="Address is validated"><i class="fas fa-check-circle"></i></button>#}
+                                        {# Warning <button class="btn btn-block btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
+                                        {# Failed <button class="btn btn-block btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                                    </div>
+                                </div>
+                                <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
+                            </fieldset>
+                            <fieldset>
+                                <legend>{% trans %}Alternative address{% endtrans %}</legend>
+                                <div class="form-row">
+                                    <div class="form-group col-md-5">
+                                        <label for="inputBasicInformation11">{% trans %}Road{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="inputBasicInformation11" placeholder="Villavej 10a">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputBasicInformation12">{% trans %}Postal code{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="inputBasicInformation12" placeholder="1234">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputBasicInformation13">{% trans %}City{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="inputBasicInformation13" placeholder="Villaby">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputBasicInformation14">{% trans %}Validate{% endtrans %}</label>
+                                        {# TODO: Show status depending on validation result #}
+                                        {# Not yet validated #} <button id="inputBasicInformation14" class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="Validate address"><i class="fas fa-check-circle"></i></button>
+                                        {# Success <button id="inputBasicInformation14" class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="Address is validated"><i class="fas fa-check-circle"></i></button>#}
+                                        {# Warning <button id="inputBasicInformation14" class="btn btn-block btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
+                                        {# Failed <button id="inputBasicInformation14" class="btn btn-block btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="lease" role="tabpanel" aria-labelledby="lease-tab">
+                <div class="row mt-3">
+                    <div class="col">
+                        <form>
+                            {# TODO: Form validation: https://getbootstrap.com/docs/4.0/components/forms/#validation #}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation18">{% trans %}Property number{% endtrans %}</label>
+                                    <input type="text" class="form-control" id="inputBasicInformation18" placeholder="123546">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation19">{% trans %}Property name{% endtrans %}</label>
+                                    <input type="text" class="form-control" id="inputBasicInformation19" placeholder="Dokk1">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation20">{% trans %}Telephone number{% endtrans %}</label>
+                                    <input type="text" class="form-control" id="inputBasicInformation20" placeholder="+45 12354678">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation21">{% trans %}Property type{% endtrans %}</label>
+                                    <select id="inputBasicInformation21" class="form-control">
+                                        <option selected>Lejlighed</option>
+                                        <option>Værelse</option>
+                                        <option>Hus</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <fieldset>
+                                <legend>{% trans %}Address{% endtrans %}</legend>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputBasicInformation15">{% trans %}Road{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="inputBasicInformation15" placeholder="Villavej 10a">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputBasicInformation16">{% trans %}Postal code{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="inputBasicInformation16" placeholder="1234">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputBasicInformation17">{% trans %}City{% endtrans %}</label>
+                                        <input type="text" class="form-control" id="inputBasicInformation17" placeholder="Villaby">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tenant" role="tabpanel" aria-labelledby="tenant-tab">
+                <div class="row mt-3">
+                    <div class="col">
+                        {% set tablecontents = [
+                            {
+                                "name": "Fornavn Efternavn",
+                                "address": "Villavej 10a, 1234 Villaby",
+                                "cprNr": "123456-7890",
+                                "telephoneNr": "+45 12345678",
+                                "journalNr": "12345678"
+                            },
+                        ] %}
+
+                        {% set btn_group = [
+                            {
+                                "name": "Edit tenant",
+                                "style": "primary",
+                                "icon": "edit",
+                                "link": "#edit-tenant",
+                                "tooltip": "Edit tenant",
+                            },
+                            {
+                                "name": "Remove tenant",
+                                "style": "danger",
+                                "icon": "trash-alt",
+                                "link": "#remove-tenant",
+                                "tooltip": "Remove tenant",
+                            },
+                        ] %}
+
+                        <div class="table-responsive-sm">
+                            <table id="basicInformationTenant" class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">{% trans %}Name{% endtrans %}</th>
+                                    <th scope="col">{% trans %}Address{% endtrans %}</th>
+                                    <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                    <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
+                                    <th scope="col">{% trans %}Journal number{% endtrans %}</th>
+                                    <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in tablecontents %}
+                                    <tr>
+                                        <td><a href="#edit-tenant" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit tenant{% endtrans %} {{ item.name|e }}">{{ item.name|e }}</a></td>
+                                        <td>{{ item.address|e }}</td>
+                                        <td>{{ item.cprNr|e }}</td>
+                                        <td>{{ item.telephoneNr|e }}</td>
+                                        <td>{{ item.journalNr|e }}</td>
+                                        <td>{% include "common/btn_group.html.twig" with btn_group %}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="landlord" role="tabpanel" aria-labelledby="landlord-tab">
+                <div class="row mt-3">
+                    <div class="col">
+                        {% set tablecontents = [
+                            {
+                                "name": "Udlejer",
+                                "address": "Villavej 10a, 1234 Villaby",
+                                "cprNr": "123456-7890",
+                                "telephoneNr": "+45 12345678",
+                                "journalNr": "12345678"
+                            },
+                            {
+                                "name": "Administrator",
+                                "address": "Villavej 10a, 1234 Villaby",
+                                "cprNr": "123456-7890",
+                                "telephoneNr": "+45 12345678",
+                                "journalNr": "12345678"
+                            },
+                        ] %}
+
+                        {% set btn_group = [
+                            {
+                                "name": "Edit landlord",
+                                "style": "primary",
+                                "icon": "edit",
+                                "link": "#edit-landlord",
+                                "tooltip": "Edit landlord",
+                            },
+                            {
+                                "name": "Remove landlord",
+                                "style": "danger",
+                                "icon": "trash-alt",
+                                "link": "#remove-landlord",
+                                "tooltip": "Remove landlord",
+                            },
+                        ] %}
+
+                        <div class="table-responsive-sm">
+                            <table id="basicInformationLandlord" class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">{% trans %}Name{% endtrans %}</th>
+                                    <th scope="col">{% trans %}Address{% endtrans %}</th>
+                                    <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                    <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
+                                    <th scope="col">{% trans %}Journal number{% endtrans %}</th>
+                                    <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in tablecontents %}
+                                    <tr>
+                                        <td><a href="#edit-tenant" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit tenant{% endtrans %} {{ item.name|e }}">{{ item.name|e }}</a></td>
+                                        <td>{{ item.address|e }}</td>
+                                        <td>{{ item.cprNr|e }}</td>
+                                        <td>{{ item.telephoneNr|e }}</td>
+                                        <td>{{ item.journalNr|e }}</td>
+                                        <td>{% include "common/btn_group.html.twig" with btn_group %}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="col-12 mt-3">
+        <div class="row">
+            <div class="col-auto ml-auto">
+                {# TODO: Needs functionality on buttons #}
+                <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Create representative{% endtrans %}</a>
+                <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Edit basic information{% endtrans %}</a>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

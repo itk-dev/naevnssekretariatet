@@ -38,11 +38,6 @@ abstract class CaseEntity
     private $municipality;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $caseType;
-
-    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
@@ -57,6 +52,18 @@ abstract class CaseEntity
      * @ORM\Column(type="string", length=255)
      */
     private $caseNumber;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ComplaintCategory::class, inversedBy="caseEntities")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $complaintCategory;
 
     public function getId(): ?UuidV4
     {
@@ -83,18 +90,6 @@ abstract class CaseEntity
     public function setMunicipality(?Municipality $municipality): self
     {
         $this->municipality = $municipality;
-
-        return $this;
-    }
-
-    public function getCaseType(): ?string
-    {
-        return $this->caseType;
-    }
-
-    public function setCaseType(string $caseType): self
-    {
-        $this->caseType = $caseType;
 
         return $this;
     }
@@ -131,6 +126,30 @@ abstract class CaseEntity
     public function setCaseNumber(string $caseNumber): self
     {
         $this->caseNumber = $caseNumber;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getComplaintCategory(): ?ComplaintCategory
+    {
+        return $this->complaintCategory;
+    }
+
+    public function setComplaintCategory(?ComplaintCategory $complaintCategory): self
+    {
+        $this->complaintCategory = $complaintCategory;
 
         return $this;
     }

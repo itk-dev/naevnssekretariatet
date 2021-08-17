@@ -1,0 +1,5 @@
+<div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+    {% for item in btn_group %}
+        <a href="#" role="button" class="btn btn-{{ item.style|e }}" data-toggle="tooltip" data-placement="auto" title="{{ item.tooltip|e }}"><i class="fas fa-{{ item.icon|e }}"></i><span class="sr-only">{{ item.name|e }}</span></a>
+    {% endfor %}
+</div>

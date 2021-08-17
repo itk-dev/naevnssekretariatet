@@ -1,0 +1,150 @@
+{% extends 'layout-with-submenu.html.twig' %}
+
+{% block title %}{% trans %}Status info{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Status info{% endtrans %}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <main role="main" class="col-12 mt-3">
+        <section>
+            <h2>{% trans %}Processinformation{% endtrans %}</h2>
+            <p>{% trans %}In the section Processinformation you can see the current status{% endtrans %}</p>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>{% trans %}Current casestatus{% endtrans %}</th>
+                        <th>{% trans %}Parties hearing{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{% trans %}Initiative assigne{% endtrans %}</td>
+                        <td>{% trans %}No entry yet{% endtrans %}</td>
+                    </tr>
+                    <tr>
+                        <td>{% trans %}Last parts post{% endtrans %}</td>
+                        <td>{% trans %}No entry yet{% endtrans %}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="mt-3">
+            <h2>{% trans %}Deadlines{% endtrans %}</h2>
+            <p>{% trans %}In the section Deadlines you can see the currently active deadlines{% endtrans %}</p>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>{% trans %}Process{% endtrans %}</th>
+                        <th>{% trans %}Deadline{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Parthøringstidsfrist</td>
+                        <td>01.07.2020 - 14 dage tilbage. <a name="" id="" class="btn btn-primary float-right" href="#rescedule-deadline" role="button" data-toggle="modal" data-target="#resceduleDeadline"><i class="fas fa-calendar-alt mr-2"></i>Rescedule</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="mt-3">
+            <h2>{% trans %}Agenda{% endtrans %}</h2>
+            <div class="row">
+                <div class="col">
+                    <form class="form-inline form-row">
+                        <div class="form-group col-4 mr-2">
+                            <label for="agendaSelect" class="sr-only">Select agenda</label>
+                            <select class="form-control js-select2 w-100" name="agendaSelect" id="agendaSelect">
+                                <option>Agenda 1</option>
+                                <option>Agenda 2</option>
+                                <option>Agenda 3</option>
+                                <option>Agenda 4</option>
+                                <option>Agenda 5</option>
+                                <option>Agenda 6</option>
+                                <option>Agenda 7</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary col-auto">{% trans %}Add case to selected agenda{% endtrans %}</button>
+                    </form>
+                </div>
+            </div>
+            <h3 class="h5 mt-3">Selected agenda</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nævn</th>
+                        <th>Date</th>
+                        <th>Start time</th>
+                        <th>End time</th>
+                        <th class="text-right">Remove</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td scope="row">
+                            <form class="form-inline">
+                                <strong>Beboerklagenævn</strong>
+                                <div class="form-check ml-3">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" checked>
+                                        Besigtigelsessag
+                                    </label>
+                                </div>
+                            </form>
+                        </td>
+                        <td>2. sep. 2020</td>
+                        <td>17:00</td>
+                        <td>20:00</td>
+                        <td class="text-right"><a name="" id="" class="btn btn-danger btn-sm" href="#" role="button"><span class="sr-only">Remove from agenda</span><i class="fas fa-trash-alt"></i></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer class="col-12 mt-3">
+        <div class="row">
+        </div>
+    </footer>
+
+    {# Rescedule modal #}
+    <div class="modal fade" id="resceduleDeadline" tabindex="-1" role="dialog" aria-labelledby="resceduleDeadlineModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resceduleDeadlineModalLabel">{% trans %}Rescedule deadline{% endtrans %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="resceduleDeadlineNewDate">{% trans %}Enter a new date{% endtrans %}</label>
+                        <input type="date" class="form-control" name="resceduleDeadlineNewDate" id="resceduleDeadlineNewDate" aria-describedby="resceduleDeadlineNewDateHelp" placeholder="" required>
+                        <small id="resceduleDeadlineNewDateHelp" class="form-text text-muted">{% trans %}New date for the deadline{% endtrans %}</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="resceduleDeadlineNewDateReason">{% trans %}Describe why the date has changed{% endtrans %}</label>
+                        <textarea class="form-control" name="resceduleDeadlineNewDateReason" id="resceduleDeadlineNewDateReason" aria-describedby="resceduleDeadlineNewDateReasonHelp" rows="3" required></textarea>
+                        <small id="resceduleDeadlineNewDateReasonHelp" class="form-text text-muted">{% trans %}This information is needed for journaling purpose{% endtrans %}</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

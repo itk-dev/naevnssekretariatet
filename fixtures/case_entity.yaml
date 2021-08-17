@@ -6,7 +6,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87654321
     complainantPostalCode: 8000
     caseState: submitted
-    caseType: '@security-deposit-complaint-aarhus->name'
+    complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 2021-0001
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -18,7 +18,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 23456789
     complainantPostalCode: 8220
     caseState: submitted
-    caseType: '@security-deposit-complaint-aarhus->name'
+    complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 2021-0002
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -30,7 +30,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87655678
     complainantPostalCode: 8200
     caseState: submitted
-    caseType: '@security-deposit-complaint-aarhus->name'
+    complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 2021-0003
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -42,7 +42,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87255678
     complainantPostalCode: 8240
     caseState: submitted
-    caseType: '@security-deposit-complaint-aarhus->name'
+    complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 2021-0004
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -54,7 +54,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 61655678
     complainantPostalCode: 8200
     caseState: submitted
-    caseType: '@maintenance-complaint-aarhus->name'
+    complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 2021-0005
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -66,7 +66,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 51650678
     complainantPostalCode: 8000
     caseState: submitted
-    caseType: '@maintenance-complaint-aarhus->name'
+    complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 2021-0006
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -78,7 +78,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 51657654
     complainantPostalCode: 8210
     caseState: submitted
-    caseType: '@maintenance-complaint-aarhus->name'
+    complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 2021-0007
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -90,7 +90,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71654674
     complainantPostalCode: 8000
     caseState: submitted
-    caseType: '@maintenance-complaint-aarhus->name'
+    complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 2021-0008
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -102,7 +102,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71655674
     complainantPostalCode: 8000
     caseState: submitted
-    caseType: '@rent-increase-complaint-aarhus->name'
+    complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 2021-0009
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -114,7 +114,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71257674
     complainantPostalCode: 8000
     caseState: submitted
-    caseType: '@rent-increase-complaint-aarhus->name'
+    complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 2021-0010
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -126,7 +126,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 81453614
     complainantPostalCode: 8000
     caseState: submitted
-    caseType: '@rent-increase-complaint-aarhus->name'
+    complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 2021-0011
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -138,7 +138,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 81453614
     complainantPostalCode: 8330
     caseState: submitted
-    caseType: '@rent-increase-complaint-aarhus->name'
+    complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 2021-0012
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -150,7 +150,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 45368114
     complainantPostalCode: 8210
     caseState: submitted
-    caseType: '@water-heat-electricity-complaint-aarhus->name'
+    complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 2021-0013
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -162,7 +162,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 81144536
     complainantPostalCode: 8210
     caseState: submitted
-    caseType: '@water-heat-electricity-complaint-aarhus->name'
+    complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 2021-0014
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -174,7 +174,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 44453816
     complainantPostalCode: 8210
     caseState: submitted
-    caseType: '@water-heat-electricity-complaint-aarhus->name'
+    complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 2021-0015
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -186,7 +186,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 45381644
     complainantPostalCode: 8240
     caseState: submitted
-    caseType: '@water-heat-electricity-complaint-aarhus->name'
+    complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 2021-0016
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -198,7 +198,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 38451644
     complainantPostalCode: 8250
     caseState: submitted
-    caseType: '@improvement-compensation-complaint-aarhus->name'
+    complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 2021-0017
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -210,7 +210,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 51638444
     complainantPostalCode: 8340
     caseState: submitted
-    caseType: '@improvement-compensation-complaint-aarhus->name'
+    complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 2021-0018
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -222,7 +222,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 63844514
     complainantPostalCode: 8380
     caseState: submitted
-    caseType: '@improvement-compensation-complaint-aarhus->name'
+    complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 2021-0019
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -234,7 +234,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 38445146
     complainantPostalCode: 8471
     caseState: submitted
-    caseType: '@improvement-compensation-complaint-aarhus->name'
+    complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 2021-0020
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -246,7 +246,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 38445146
     complainantPostalCode: 8471
     caseState: submitted
-    caseType: '@telecommunications-service-complaint-aarhus->name'
+    complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 2021-0021
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -258,7 +258,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 84465314
     complainantPostalCode: 8000
     caseState: submitted
-    caseType: '@telecommunications-service-complaint-aarhus->name'
+    complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 2021-0022
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -270,7 +270,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 44465314
     complainantPostalCode: 8000
     caseState: submitted
-    caseType: '@telecommunications-service-complaint-aarhus->name'
+    complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 2021-0023
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -282,7 +282,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 46531444
     complainantPostalCode: 8000
     caseState: submitted
-    caseType: '@telecommunications-service-complaint-aarhus->name'
+    complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 2021-0024
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
@@ -294,7 +294,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87674321
     complainantPostalCode: 8900
     caseState: submitted
-    caseType: '@security-deposit-complaint-randers->name'
+    complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 2021-0001
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -306,7 +306,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 23476711
     complainantPostalCode: 8900
     caseState: submitted
-    caseType: '@security-deposit-complaint-randers->name'
+    complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 2021-0002
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -318,7 +318,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87677611
     complainantPostalCode: 8900
     caseState: submitted
-    caseType: '@security-deposit-complaint-randers->name'
+    complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 2021-0003
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -330,7 +330,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87277611
     complainantPostalCode: 8900
     caseState: submitted
-    caseType: '@security-deposit-complaint-randers->name'
+    complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 2021-0004
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -342,7 +342,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 61677611
     complainantPostalCode: 8920
     caseState: submitted
-    caseType: '@maintenance-complaint-randers->name'
+    complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 2021-0007
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -354,7 +354,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71670611
     complainantPostalCode: 8920
     caseState: submitted
-    caseType: '@maintenance-complaint-randers->name'
+    complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 2021-0006
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -366,7 +366,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71677611
     complainantPostalCode: 8920
     caseState: submitted
-    caseType: '@maintenance-complaint-randers->name'
+    complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 2021-0007
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -378,7 +378,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71674611
     complainantPostalCode: 8920
     caseState: submitted
-    caseType: '@maintenance-complaint-randers->name'
+    complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 2021-0008
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -390,7 +390,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71677611
     complainantPostalCode: 8930
     caseState: submitted
-    caseType: '@rent-increase-complaint-randers->name'
+    complaintCategory: '@rent-increase-complaint-randers'
     caseNumber: 2021-0009
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -402,7 +402,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71277611
     complainantPostalCode: 8960
     caseState: submitted
-    caseType: '@rent-increase-complaint-randers->name'
+    complaintCategory: '@rent-increase-complaint-randers'
     caseNumber: 2021-0010
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -414,7 +414,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 81473611
     complainantPostalCode: 8960
     caseState: submitted
-    caseType: '@rent-increase-complaint-randers->name'
+    complaintCategory: '@rent-increase-complaint-randers'
     caseNumber: 2021-0011
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -426,7 +426,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 81473611
     complainantPostalCode: 8960
     caseState: submitted
-    caseType: '@rent-increase-complaint-randers->name'
+    complaintCategory: '@rent-increase-complaint-randers'
     caseNumber: 2021-0012
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -438,7 +438,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 47368111
     complainantPostalCode: 8983
     caseState: submitted
-    caseType: '@water-heat-electricity-complaint-randers->name'
+    complaintCategory: '@water-heat-electricity-complaint-randers'
     caseNumber: 2021-0013
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -450,7 +450,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 81144711
     complainantPostalCode: 8983
     caseState: submitted
-    caseType: '@water-heat-electricity-complaint-randers->name'
+    complaintCategory: '@water-heat-electricity-complaint-randers'
     caseNumber: 2021-0014
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -462,7 +462,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 44473811
     complainantPostalCode: 8983
     caseState: submitted
-    caseType: '@water-heat-electricity-complaint-randers->name'
+    complaintCategory: '@water-heat-electricity-complaint-randers'
     caseNumber: 2021-0017
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -474,7 +474,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 47381611
     complainantPostalCode: 8983
     caseState: submitted
-    caseType: '@water-heat-electricity-complaint-randers->name'
+    complaintCategory: '@water-heat-electricity-complaint-randers'
     caseNumber: 2021-0016
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -486,7 +486,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 38471611
     complainantPostalCode: 8981
     caseState: submitted
-    caseType: '@improvement-compensation-complaint-randers->name'
+    complaintCategory: '@improvement-compensation-complaint-randers'
     caseNumber: 2021-0017
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -498,7 +498,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71638411
     complainantPostalCode: 8981
     caseState: submitted
-    caseType: '@improvement-compensation-complaint-randers->name'
+    complaintCategory: '@improvement-compensation-complaint-randers'
     caseNumber: 2021-0018
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -510,7 +510,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 63844711
     complainantPostalCode: 8981
     caseState: submitted
-    caseType: '@improvement-compensation-complaint-randers->name'
+    complaintCategory: '@improvement-compensation-complaint-randers'
     caseNumber: 2021-0019
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -522,7 +522,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 38447111
     complainantPostalCode: 8981
     caseState: submitted
-    caseType: '@improvement-compensation-complaint-randers->name'
+    complaintCategory: '@improvement-compensation-complaint-randers'
     caseNumber: 2021-0020
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -534,7 +534,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 38447111
     complainantPostalCode: 8970
     caseState: submitted
-    caseType: '@telecommunications-service-complaint-randers->name'
+    complaintCategory: '@telecommunications-service-complaint-randers'
     caseNumber: 2021-0021
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -546,7 +546,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 84467311
     complainantPostalCode: 8970
     caseState: submitted
-    caseType: '@telecommunications-service-complaint-randers->name'
+    complaintCategory: '@telecommunications-service-complaint-randers'
     caseNumber: 2021-0022
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -558,7 +558,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 44467311
     complainantPostalCode: 8970
     caseState: submitted
-    caseType: '@telecommunications-service-complaint-randers->name'
+    complaintCategory: '@telecommunications-service-complaint-randers'
     caseNumber: 2021-0023
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
@@ -570,7 +570,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 46731411
     complainantPostalCode: 8970
     caseState: submitted
-    caseType: '@telecommunications-service-complaint-randers->name'
+    complaintCategory: '@telecommunications-service-complaint-randers'
     caseNumber: 2021-0024
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
