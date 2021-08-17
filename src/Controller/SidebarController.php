@@ -61,15 +61,15 @@ class SidebarController extends AbstractController
     public function renderSubmenu(UuidV4 $caseId, string $activeRoute): Response
     {
         $submenuItems = [
-            $this->generateSubmenuItem('Summary', 'case_summary', $caseId, $activeRoute),
-            $this->generateSubmenuItem('Basic information', 'case_show', $caseId, $activeRoute),
-            $this->generateSubmenuItem('Status info', 'case_status', $caseId, $activeRoute),
-            $this->generateSubmenuItem('Hearing', 'case_hearing', $caseId, $activeRoute),
-            $this->generateSubmenuItem('Communication', 'case_communication', $caseId, $activeRoute),
-            $this->generateSubmenuItem('Documents', 'case_documents', $caseId, $activeRoute),
-            $this->generateSubmenuItem('Decision', 'case_decision', $caseId, $activeRoute),
-            $this->generateSubmenuItem('Notes', 'case_notes', $caseId, $activeRoute),
-            $this->generateSubmenuItem('Log', 'case_log', $caseId, $activeRoute),
+            $this->generateSubmenuItem('Summary', ['case_summary'], $caseId, $activeRoute),
+            $this->generateSubmenuItem('Basic information', ['case_show', 'case_edit'], $caseId, $activeRoute),
+            $this->generateSubmenuItem('Status info', ['case_status'], $caseId, $activeRoute),
+            $this->generateSubmenuItem('Hearing', ['case_hearing'], $caseId, $activeRoute),
+            $this->generateSubmenuItem('Communication', ['case_communication'], $caseId, $activeRoute),
+            $this->generateSubmenuItem('Documents', ['case_documents'], $caseId, $activeRoute),
+            $this->generateSubmenuItem('Decision', ['case_decision'], $caseId, $activeRoute),
+            $this->generateSubmenuItem('Notes', ['case_notes'], $caseId, $activeRoute),
+            $this->generateSubmenuItem('Log', ['case_log'], $caseId, $activeRoute),
         ];
 
         return $this->render('sidebar/_submenu.html.twig', [
@@ -77,12 +77,16 @@ class SidebarController extends AbstractController
         ]);
     }
 
-    private function generateSubmenuItem(string $name, string $route, string $caseId, $activeRoute): array
+    /**
+     * Notice that the generated link uses the first route in array of routes,
+     * when it generates the url.
+     */
+    private function generateSubmenuItem(string $name, array $routes, string $caseId, $activeRoute): array
     {
         return [
             'name' => $this->translator->trans($name, [], 'sidebar'),
-            'link' => $this->generateUrl($route, ['id' => $caseId]),
-            'active' => $activeRoute === $route,
+            'link' => $this->generateUrl($routes[0], ['id' => $caseId]),
+            'active' => in_array($activeRoute, $routes),
         ];
     }
 }

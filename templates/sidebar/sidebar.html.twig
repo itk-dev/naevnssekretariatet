@@ -15,7 +15,7 @@
             </div>
             {% block sidebarSubmenu %}
                 <div class="sidebar-sticky pt-3">
-                    <h6 class="px-3 mb-1">{% trans %}Sag{% endtrans %} {{ case.caseNumber }}</h6>
+                    <h6 class="px-3 mb-1">{% trans %}Case{% endtrans %} {{ case.caseNumber }}</h6>
                     <p class="text-muted px-3 mt-1 mb-3"><small>{{ case.complainantAddress }}</small></p>
                     <ul class="nav flex-column">
                         {{ render(controller(
