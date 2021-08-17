@@ -15,20 +15,20 @@
     },
 ] %}
 
-<div class="list-group mb-5">
+<ul class="list-group mb-5">
     {% for item in inactive_cases %}
-        <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-secondary">
+        <li class="list-group-item list-group-item-action flex-column align-items-start list-group-item-secondary">
             <div class="row">
                 <div class="col">
-                    <div class="d-flex w-100 justify-content-between">
+                    <a href="{{ item.link|e }}" class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{ item.caseid|e }}: {{ item.title|e }}</h5>
                         <span>{{ item.status|e }}</span>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-auto">
                     {% include "common/btn_group.html.twig" with btn_group %}
                 </div>
             </div>
-        </a>
+        </li>
     {% endfor %}
-</div>
+</ul>
