@@ -8,34 +8,12 @@
             <h1>{% trans %}Documents{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a name="" id="" class="btn btn-secondary" href="create" role="button">{% trans %}Create document{% endtrans %}</a>
+            <a name="" id="" class="btn btn-secondary" href="create" role="button">{% trans %}Upload document{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-
-    {% set document_table = [
-        {
-            "document_name": "Mail fra lejer",
-            "caseworker": "Sagsbehandler",
-            "created_by": "Part",
-            "create_date": "01.01.2021 13:47",
-        },
-        {
-            "document_name": "Bilag 2",
-            "caseworker": "Diverse bilag",
-            "created_by": "Part",
-            "create_date": "01.01.2021 13:47",
-        },
-        {
-            "document_name": "Huslejenævnet",
-            "caseworker": "Afsendte breve",
-            "created_by": "Part",
-            "create_date": "01.01.2021 13:47",
-        },
-
-    ] %}
 
     {% set btn_group = [
         {
@@ -68,18 +46,18 @@
             <tr>
                 <th>{% trans %}Document name{% endtrans %}</th>
                 <th>{% trans %}Document type{% endtrans %}</th>
-                <th>{% trans %}Created by{% endtrans %}</th>
-                <th>{% trans %}Created date{% endtrans %}</th>
+                <th>{% trans %}Uploaded by{% endtrans %}</th>
+                <th>{% trans %}Upload date{% endtrans %}</th>
                 <th class="text-right">{% trans %}Functions{% endtrans %}</th>
             </tr>
             </thead>
             <tbody>
-            {% for item in document_table %}
+            {% for document in documents %}
                 <tr>
-                    <td>{{ item.document_name|e }}</td>
-                    <td>{{ item.caseworker|e }}</td>
-                    <td>{{ item.created_by|e }}</td>
-                    <td>{{ item.create_date|e }}.01.2021 13:47</td>
+                    <td>{{ document.documentName|e }}</td>
+                    <td>{{ document.type|e }}</td>
+                    <td>{{ document.uploadedBy|e }}</td>
+                    <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
                     <td class="text-right">
                         {% include "common/btn_group.html.twig" with btn_group %}
                     </td>
@@ -91,7 +69,7 @@
     <footer class="col-12 mt-3">
         <div class="row">
             <div class="col-auto ml-auto">
-                <a name="" id="" class="btn btn-secondary" href="create" role="button">{% trans %}Create document{% endtrans %}</a>
+                <a name="" id="" class="btn btn-secondary" href="create" role="button">{% trans %}Upload document{% endtrans %}</a>
             </div>
         </div>
     </footer>
