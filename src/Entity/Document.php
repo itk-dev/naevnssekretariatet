@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Logging\LoggableEntityInterface;
 use App\Repository\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,8 +13,9 @@ use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
+ * @ORM\EntityListeners({"App\Logging\EntityListener\DocumentListener"})
  */
-class Document
+class Document implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
@@ -115,7 +117,7 @@ class Document
     /**
      * @return Collection|CaseEntity[]
      */
-    public function getCases(): Collection
+    public function getCaseEntities(): Collection
     {
         return $this->cases;
     }
@@ -146,5 +148,14 @@ class Document
         $this->filename = $filename;
 
         return $this;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'id',
+            'documentName',
+            'type',
+        ];
     }
 }
