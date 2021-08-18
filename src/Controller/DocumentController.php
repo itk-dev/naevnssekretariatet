@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\DocumentType;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -77,5 +78,29 @@ class DocumentController extends AbstractController
             'case' => $case,
             'document_form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{document_id}", name="case_document_delete", methods={"DELETE"})
+     * @Entity("document", expr="repository.find(document_id)")
+     * @Entity("case", expr="repository.find(id)")
+     */
+    public function delete(Request $request, Document $document, CaseEntity $case): Response
+    {
+        // Check that CSRF token is valid
+
+        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
+            // Remove document from case
+            $case->removeDocument($document);
+
+            // If document is no longer related to a case remove it completely
+            if ($document->getCases()->isEmpty()){
+                $this->entityManager->remove($document);
+            }
+
+            $this->entityManager->flush();
+        }
+
+        return $this->redirectToRoute('case_documents', ['id' => $case->getId()]);
     }
 }
