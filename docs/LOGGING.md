@@ -45,7 +45,7 @@ and therefore must be logged:
 * Create entity listener extending `AbstractRelatedToCaseListener`
 * Listen to doctrine events, eg. `postUpdate`, in entity listener
   and call `logActivity($action, $args)`
-* Add entity listener to entity
+* Add entity listener to entity and let it implement `LoggableEntityInterface`
 
 We keep the following structure:
 
