@@ -38,7 +38,7 @@
                 <label >{% trans %}Chose a file{% endtrans %}</label>
                 <!-- TODO: What kind of types do we have here? Should they be customisable? -->
                 {{ form_widget(document_form.filename, {'attr': {'type': 'file', 'class': 'form-control-file', 'aria-describedby': 'helpFileId', 'required': true}}) }}
-                <small id="helpFileId" class="form-text text-muted">{% trans %}Max file size: 10mb. Fileformats accepted: .pdf, .txt, .md, .jpg, .png, .webp{% endtrans %}</small>
+                <small id="helpFileId" class="form-text text-muted">{% trans %}Max file size: 10mb. Fileformats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls{% endtrans %}</small>
             </div>
 
             {{ form_widget(document_form.uploadDocument, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}}) }}
