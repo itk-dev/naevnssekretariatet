@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
 use App\Entity\User;
+use App\Form\CopyDocumentForm;
 use App\Form\DocumentType;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -108,4 +109,35 @@ class DocumentController extends AbstractController
 
         return $this->redirectToRoute('case_documents', ['id' => $case->getId()]);
     }
+
+    /**
+     * @Route("/copy/{document_id}", name="case_documents_copy", methods={"GET", "POST"})
+     * @Entity("document", expr="repository.find(document_id)")
+     * @Entity("case", expr="repository.find(id)")
+     */
+    public function copy(Request $request, Document $document, CaseEntity $case): Response
+    {
+        $cases = [];
+
+        $form = $this->createForm(CopyDocumentForm::class, null , ['case' => $case]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $cases = $form->get('cases')->getData();
+
+            foreach ($cases as $caseThatNeedsDoc) {
+                $caseThatNeedsDoc->addDocument($document);
+            }
+
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('case_documents', ['id' => $case->getId()]);
+        }
+
+        return $this->render('documents/copy.html.twig', [
+            'copy_document_form' => $form->createView(),
+            'case' => $case,
+        ]);
+    }
+
 }
