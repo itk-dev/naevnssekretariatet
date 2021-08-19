@@ -34,7 +34,16 @@ class DocumentController extends AbstractController
      */
     public function index(CaseEntity $case): Response
     {
-        $documents = $case->getDocuments();
+        // May contain 'deleted' documents
+        $relatedDocuments = $case->getDocuments();
+
+        $documents = [];
+
+        foreach ($relatedDocuments as $document){
+            if (!$document->getSoftDeleted()){
+                array_push($documents, $document);
+            }
+        }
 
         return $this->render('documents/index.html.twig', [
             'case' => $case,
@@ -90,13 +99,9 @@ class DocumentController extends AbstractController
         // Check that CSRF token is valid
 
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
-            // Remove document from case
-            $case->removeDocument($document);
+            // Simply just soft delete by setting soft deleted to true
 
-            // If document is no longer related to a case remove it completely
-            if ($document->getCases()->isEmpty()){
-                $this->entityManager->remove($document);
-            }
+            $document->setSoftDeleted(true);
 
             $this->entityManager->flush();
         }

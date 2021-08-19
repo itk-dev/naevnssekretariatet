@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Logging\LoggableEntityInterface;
 use App\Repository\DocumentRepository;
+use App\Traits\SoftDeletableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,6 +18,8 @@ use Symfony\Component\Uid\UuidV4;
  */
 class Document implements LoggableEntityInterface
 {
+    use SoftDeletableEntity;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
