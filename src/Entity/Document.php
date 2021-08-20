@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Logging\LoggableEntityInterface;
 use App\Repository\DocumentRepository;
-use App\Traits\SoftDeletableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,12 +13,9 @@ use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
- * @ORM\EntityListeners({"App\Logging\EntityListener\DocumentListener"})
  */
 class Document implements LoggableEntityInterface
 {
-    use SoftDeletableEntity;
-
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -50,18 +46,18 @@ class Document implements LoggableEntityInterface
     private $uploadedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=CaseEntity::class, inversedBy="documents")
-     */
-    private $cases;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $filename;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CaseDocumentRelation", mappedBy="document")
+     */
+    private $caseDocumentRelation;
+
     public function __construct()
     {
-        $this->cases = new ArrayCollection();
+        $this->caseDocumentRelation = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -117,30 +113,6 @@ class Document implements LoggableEntityInterface
         return $this;
     }
 
-    /**
-     * @return Collection|CaseEntity[]
-     */
-    public function getCaseEntities(): Collection
-    {
-        return $this->cases;
-    }
-
-    public function addCase(CaseEntity $case): self
-    {
-        if (!$this->cases->contains($case)) {
-            $this->cases[] = $case;
-        }
-
-        return $this;
-    }
-
-    public function removeCase(CaseEntity $case): self
-    {
-        $this->cases->removeElement($case);
-
-        return $this;
-    }
-
     public function getFilename(): ?string
     {
         return $this->filename;
@@ -149,6 +121,30 @@ class Document implements LoggableEntityInterface
     public function setFilename(string $filename): self
     {
         $this->filename = $filename;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaseDocumentRelation[]
+     */
+    public function getCaseDocumentRelation(): Collection
+    {
+        return $this->caseDocumentRelation;
+    }
+
+    public function addCaseDocumentRelation(CaseDocumentRelation $caseDocumentRelation): self
+    {
+        if (!$this->caseDocumentRelation->contains($caseDocumentRelation)) {
+            $this->caseDocumentRelation[] = $caseDocumentRelation;
+        }
+
+        return $this;
+    }
+
+    public function removeCaseDocumentRelation(CaseDocumentRelation $caseDocumentRelation): self
+    {
+        $this->caseDocumentRelation->removeElement($caseDocumentRelation);
 
         return $this;
     }

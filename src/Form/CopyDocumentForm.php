@@ -16,6 +16,7 @@ class CopyDocumentForm extends AbstractType
     {
         $resolver->setDefaults([
             'case' => null,
+            'suitableCases' => null,
         ]);
     }
 
@@ -23,13 +24,16 @@ class CopyDocumentForm extends AbstractType
     {
         /** @var CaseEntity $case */
         $case = $options['case'];
+        $suitableCases = $options['suitableCases'];
 
         $class = null;
+
         if ($case instanceof ResidentComplaintBoardCase){
             $class = ResidentComplaintBoardCase::class;
         }
 
         $builder->add('cases', EntityType::class, [
+            'choices' => $suitableCases,
             'class' => $class,
             'label' => 'Copy to',
             'multiple' => true,

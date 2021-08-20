@@ -2,12 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
+use App\Entity\ResidentComplaintBoardCase;
 use App\Entity\User;
+use App\Exception\FileMovingException;
 use App\Form\CopyDocumentForm;
 use App\Form\DocumentType;
+use App\Repository\CaseDocumentRelationRepository;
+use App\Service\DocumentCopyHelper;
 use App\Service\DocumentUploader;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,10 +30,15 @@ class DocumentController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var DocumentCopyHelper
+     */
+    private $copyHelper;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, DocumentCopyHelper $copyHelper)
     {
         $this->entityManager = $entityManager;
+        $this->copyHelper = $copyHelper;
     }
 
     /**
@@ -36,13 +47,13 @@ class DocumentController extends AbstractController
     public function index(CaseEntity $case): Response
     {
         // May contain 'deleted' documents
-        $relatedDocuments = $case->getDocuments();
+        $relations = $case->getCaseDocumentRelation();
 
         $documents = [];
 
-        foreach ($relatedDocuments as $document){
-            if (!$document->getSoftDeleted()){
-                array_push($documents, $document);
+        foreach ($relations as $relation){
+            if (!$relation->getSoftDeleted()){
+                array_push($documents, $relation->getDocument());
             }
         }
 
@@ -54,6 +65,7 @@ class DocumentController extends AbstractController
 
     /**
      * @Route("/create", name="case_documents_create", methods={"GET", "POST"})
+     * @throws FileMovingException
      */
     public function create(CaseEntity $case, Request $request, DocumentUploader $uploader): Response
     {
@@ -76,9 +88,12 @@ class DocumentController extends AbstractController
             $uploader = $this->getUser();
             $document->setUploadedBy($uploader->getEmail());
 
-            $document->addCase($case);
+            $relation = new CaseDocumentRelation();
+            $relation->setCase($case);
+            $relation->setDocument($document);
 
             $this->entityManager->persist($document);
+            $this->entityManager->persist($relation);
             $this->entityManager->flush();
 
             return $this->redirectToRoute('case_documents', ['id' => $case->getId()]);
@@ -95,14 +110,14 @@ class DocumentController extends AbstractController
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
-    public function delete(Request $request, Document $document, CaseEntity $case): Response
+    public function delete(Request $request, Document $document, CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
         // Check that CSRF token is valid
-
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
             // Simply just soft delete by setting soft deleted to true
 
-            $document->setSoftDeleted(true);
+            $relation = $relationRepository->findOneBy(['case' => $case, 'document' => $document]);
+            $relation->setSoftDeleted(true);
 
             $this->entityManager->flush();
         }
@@ -115,21 +130,19 @@ class DocumentController extends AbstractController
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
-    public function copy(Request $request, Document $document, CaseEntity $case): Response
+    public function copy(Request $request, Document $document, CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
-        $cases = [];
+        // Find suitable cases
+        $suitableCases = $this->copyHelper->findSuitableCases($case, $document);
 
-        $form = $this->createForm(CopyDocumentForm::class, null , ['case' => $case]);
+        $form = $this->createForm(CopyDocumentForm::class, null , ['case' => $case, 'suitableCases' => $suitableCases]);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $cases = $form->get('cases')->getData();
 
-            foreach ($cases as $caseThatNeedsDoc) {
-                $caseThatNeedsDoc->addDocument($document);
-            }
-
-            $this->entityManager->flush();
+            $this->copyHelper->handleCopyForm($cases, $document, $relationRepository);
 
             return $this->redirectToRoute('case_documents', ['id' => $case->getId()]);
         }
@@ -139,5 +152,4 @@ class DocumentController extends AbstractController
             'case' => $case,
         ]);
     }
-
 }
