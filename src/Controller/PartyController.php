@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\CaseEntity;
 use App\Entity\CasePartyRelation;
 use App\Entity\Party;
+use App\Form\AddPartyFromIndexType;
 use App\Form\PartyType;
+use App\Repository\PartyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,6 +45,41 @@ class PartyController extends AbstractController
             'add_party_form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/add_party_from_index", name="case_add_party_from_index")
+     */
+    public function addPartyFromIndex(CaseEntity $case, Request $request, PartyRepository $partyRepository): Response
+    {
+        $party = null;
+
+        $form = $this->createForm(AddPartyFromIndexType::class, $party, [
+            'party_repository' => $partyRepository,
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Party $party */
+            $party = $form->get('partyToAdd')->getData();
+
+            $relation = new CasePartyRelation();
+            $relation->setCase($case);
+            $relation->setParty($party);
+            $relation->setType($form->get('type')->getData());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($relation);
+            $em->flush();
+
+            return $this->redirectToRoute('case_show', ['id' => $case->getId()]);
+        }
+
+        return $this->render('party/add_party_from_index.html.twig', [
+            'case' => $case,
+            'add_party_form' => $form->createView(),
+        ]);
+    }
+
 
     private function handleAddPartyForm(CaseEntity $case, Party $party, $data)
     {

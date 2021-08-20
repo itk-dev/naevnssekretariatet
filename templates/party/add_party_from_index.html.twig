@@ -1,0 +1,36 @@
+{% extends 'layout-with-submenu.html.twig' %}
+
+{% block title %}{% trans %}Add Party{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Add party to case{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a name="" id="" class="btn btn-secondary" href="{{ url('case_show', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    {{ form_start(add_party_form) }}
+
+    <form class="form" >
+        <div class="col-md-12 mb-3">
+            <label >{% trans %}Party to add{% endtrans %}</label>
+            {{ form_widget(add_party_form.partyToAdd, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+        </div>
+        <div class="col-md-12 mb-3">
+            <label >{% trans %}Party type{% endtrans %}</label>
+            {{ form_widget(add_party_form.type, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+        </div>
+        <div class="col-md-12 mb-3">
+            {{ form_widget(add_party_form.save, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}}) }}
+        </div>
+        {{ form_rest(add_party_form) }}
+    </form>
+    {{ form_end(add_party_form) }}
+
+{% endblock %}

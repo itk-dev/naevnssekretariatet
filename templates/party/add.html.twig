@@ -9,7 +9,9 @@
             <h1>{% trans %}Add party to case{% endtrans %}</h1>
         </div>
         <div class="col-auto">
+            <a name="" id="" class="btn btn-primary" href="{{ url('case_add_party_from_index', {id: case.id}) }}" role="button">{% trans %}Add from index{% endtrans %}</a>
             <a name="" id="" class="btn btn-secondary" href="{{ url('case_show', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+
         </div>
     </div>
 {% endblock %}
