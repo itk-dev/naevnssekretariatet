@@ -29,7 +29,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryOnStringChange()
     {
-        $this->setUpStuff(1);
+        $this->setUpNumberOfUowCalls(1);
         $this->setUpExpects();
 
         $changeArray = [
@@ -56,7 +56,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryOnIntegerChange()
     {
-        $this->setUpStuff(1);
+        $this->setUpNumberOfUowCalls(1);
         $this->setUpExpects();
 
         $changeArray = [
@@ -83,7 +83,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryOnCreatedAtChange()
     {
-        $this->setUpStuff(1);
+        $this->setUpNumberOfUowCalls(1);
         $this->setUpExpects();
 
         $caseDateTime = new \DateTime();
@@ -112,7 +112,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryRemoveActionOnScalarTypes()
     {
-        $this->setUpStuff(2);
+        $this->setUpNumberOfUowCalls(2);
         $this->setUpExpects();
 
         $changeArray = [];
@@ -154,7 +154,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryNoChange()
     {
-        $this->setUpStuff(1);
+        $this->setUpNumberOfUowCalls(1);
         $this->setUpExpects();
 
         $changeArray = [
@@ -179,7 +179,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryException()
     {
-        $this->setUpStuff(1);
+        $this->setUpNumberOfUowCalls(1);
         $this->expectException(ItkDevLoggingException::class);
 
         $changeArray = [
@@ -223,7 +223,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
             ->willReturn($caseUuidv4);
     }
 
-    private function setUpStuff(int $numberOfUnitOfWorkCalls)
+    private function setUpNumberOfUowCalls(int $numberOfUnitOfWorkCalls)
     {
         $this->mockSecurity = $this->createMock(Security::class);
 
