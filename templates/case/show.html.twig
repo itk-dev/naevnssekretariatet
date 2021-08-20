@@ -23,6 +23,7 @@
 
 {% block title %}{% trans %}Basic information{% endtrans %}{% endblock %}
 
+
 {% block header %}
     <div class="row">
         <div class="col">
@@ -30,7 +31,7 @@
         </div>
         <div class="col-auto">
             {# TODO: Needs functionality on buttons #}
-            <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Create representative{% endtrans %}</a>
+            <a name="" id="" class="btn btn-success" href="{{ url('case_add_party', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
             <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
             {# Moved validation buttons inline in form #}
         </div>
@@ -223,15 +224,6 @@
             <div class="tab-pane fade" id="tenant" role="tabpanel" aria-labelledby="tenant-tab">
                 <div class="row mt-3">
                     <div class="col">
-                        {% set tablecontents = [
-                            {
-                                "name": "Fornavn Efternavn",
-                                "address": "Villavej 10a, 1234 Villaby",
-                                "cprNr": "123456-7890",
-                                "telephoneNr": "+45 12345678",
-                                "journalNr": "12345678"
-                            },
-                        ] %}
 
                         {% set btn_group = [
                             {
@@ -263,13 +255,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for item in tablecontents %}
+                                {% for item in tenants %}
                                     <tr>
-                                        <td><a href="#edit-tenant" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit tenant{% endtrans %} {{ item.name|e }}">{{ item.name|e }}</a></td>
+                                        <td>{{ item.name|e }}</td>
                                         <td>{{ item.address|e }}</td>
-                                        <td>{{ item.cprNr|e }}</td>
-                                        <td>{{ item.telephoneNr|e }}</td>
-                                        <td>{{ item.journalNr|e }}</td>
+                                        <td>{{ item.cpr|e }}</td>
+                                        <td>{{ item.phoneNumber|e }}</td>
+                                        <td>{{ item.journalNumber|e }}</td>
                                         <td>{% include "common/btn_group.html.twig" with btn_group %}</td>
                                     </tr>
                                 {% endfor %}
@@ -282,23 +274,6 @@
             <div class="tab-pane fade" id="landlord" role="tabpanel" aria-labelledby="landlord-tab">
                 <div class="row mt-3">
                     <div class="col">
-                        {% set tablecontents = [
-                            {
-                                "name": "Udlejer",
-                                "address": "Villavej 10a, 1234 Villaby",
-                                "cprNr": "123456-7890",
-                                "telephoneNr": "+45 12345678",
-                                "journalNr": "12345678"
-                            },
-                            {
-                                "name": "Administrator",
-                                "address": "Villavej 10a, 1234 Villaby",
-                                "cprNr": "123456-7890",
-                                "telephoneNr": "+45 12345678",
-                                "journalNr": "12345678"
-                            },
-                        ] %}
-
                         {% set btn_group = [
                             {
                                 "name": "Edit landlord",
@@ -329,13 +304,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for item in tablecontents %}
+                                {% for item in landlords %}
                                     <tr>
-                                        <td><a href="#edit-tenant" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit tenant{% endtrans %} {{ item.name|e }}">{{ item.name|e }}</a></td>
+                                        <td>{{ item.name|e }}</td>
                                         <td>{{ item.address|e }}</td>
-                                        <td>{{ item.cprNr|e }}</td>
-                                        <td>{{ item.telephoneNr|e }}</td>
-                                        <td>{{ item.journalNr|e }}</td>
+                                        <td>{{ item.cpr|e }}</td>
+                                        <td>{{ item.phoneNumber|e }}</td>
+                                        <td>{{ item.journalNumber|e }}</td>
                                         <td>{% include "common/btn_group.html.twig" with btn_group %}</td>
                                     </tr>
                                 {% endfor %}

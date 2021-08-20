@@ -1,96 +1,96 @@
 App\Entity\Party:
   party-1:
-    firstName: Anne
-    lastName: Nielsen
+    name: Anne Nielsen
     address: Nyborgvej 54, 8000 Aarhus C
     phoneNumber: 57209633
     journalNumber: 8Dw1pRDy
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-2:
-    firstName: Kirsten
-    lastName: Jensen
+    name: Kirsten Jensen
     address: Lærkevej 14, 8200 Aarhus N
     phoneNumber: 75568314
     journalNumber: W3gXJ3j0
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-3:
-    firstName: Mette
-    lastName: Hansen
+    name: Mette Hansen
     address: Birkevej 19, 8210 Aarhus V
     phoneNumber: 80264719
     journalNumber: RD1BO4UU
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-4:
-    firstName: Hanne
-    lastName: Andersen
+    name: Hanne Andersen
     address: Vibevej 20, 8220 Brabrand
     phoneNumber: 34223320
     journalNumber:
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-5:
-    firstName: Helle
-    lastName: Pedersen
+    name: Helle Pedersen
     address: Vinkelvej 94, 8230 Åbyhøj
     phoneNumber: 88466494
     journalNumber: cCjsCo8b
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-6:
-    firstName: Susanne
-    lastName: Christensen
+    name: Susanne Christensen
     address: Vestergade 81, 8240 Risskov
     phoneNumber: 71952881
     journalNumber: PxNzbIaZ
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-7:
-    firstName: Peter
-    lastName: Sørensen
+    name: Peter Sørensen
     address: Elmevej 42, 8250 Egå
     phoneNumber: 38261742
     journalNumber:
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-8:
-    firstName: Michael
-    lastName: Larsen
+    name: Michael Larsen
     address: Stationsvej 74, 8260 Viby J
     phoneNumber: 21336274
     journalNumber:
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-9:
-    firstName: Jens
-    lastName: Rasmussen
+    name: Jens Rasmussen
     address: Skovvej 24, 8270 Højbjerg
     phoneNumber: 63374224
     journalNumber: r1vvdBlg
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-10:
-    firstName: Lars
-    lastName: Jørgensen
+    name: Lars Jørgensen
     address: Nørregade 21, 8310 Tranbjerg J
     phoneNumber: 23616621
     journalNumber: 6L9fwLpS
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-11:
-    firstName: Thomas
-    lastName: Møller
+    name: Thomas Møller
     address: Drosselvej 73, 8320 Mårslet
     phoneNumber: 92209974
     journalNumber: uAo8LSBZ
     isPartOfPartIndex: true
+    cpr: 123456-7890
 
   party-12:
-    firstName: Henrik
-    lastName: Schmidt
+    name: Henrik Schmidt
     address: Skolevej 35, 8330 Beder
     phoneNumber: 23479335
     journalNumber: Qjelwawl
     isPartOfPartIndex: true
+    cpr: 123456-7890

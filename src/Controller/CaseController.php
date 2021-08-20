@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CaseEntity;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
+use App\Repository\CasePartyRelationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,10 +41,28 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}", name="case_show", methods={"GET"})
      */
-    public function show(CaseEntity $case): Response
+    public function show(CaseEntity $case, CasePartyRelationRepository $relationRepository): Response
     {
+        // Get relations from both sides
+        $tenantRelations = $relationRepository->findBy(['case' => $case, 'type' => ['Tenant', 'Representative']]);
+        $landlordRelations = $relationRepository->findBy(['case' => $case, 'type' => ['Landlord', 'Administrator']]);
+
+        // Make them into arrays
+        $tenants = [];
+        $landlords = [];
+
+        foreach ($tenantRelations as $relation){
+            array_push($tenants, $relation->getParty());
+        }
+
+        foreach ($landlordRelations as $relation){
+            array_push($landlords, $relation->getParty());
+        }
+
         return $this->render('case/show.html.twig', [
             'case' => $case,
+            'tenants' => $tenants,
+            'landlords' => $landlords,
         ]);
     }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CaseEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
@@ -64,6 +66,16 @@ abstract class CaseEntity
      * @ORM\JoinColumn(nullable=false)
      */
     private $complaintCategory;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="case")
+     */
+    private $casePartyRelation;
+
+    public function __construct()
+    {
+        $this->casePartyRelation = new ArrayCollection();
+    }
 
     public function getId(): ?UuidV4
     {
@@ -150,6 +162,30 @@ abstract class CaseEntity
     public function setComplaintCategory(?ComplaintCategory $complaintCategory): self
     {
         $this->complaintCategory = $complaintCategory;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CasePartyRelation[]
+     */
+    public function getCasePartyRelation(): Collection
+    {
+        return $this->casePartyRelation;
+    }
+
+    public function addCasePartyRelation(CasePartyRelation $casePartyRelation): self
+    {
+        if (!$this->casePartyRelation->contains($casePartyRelation)) {
+            $this->casePartyRelation[] = $casePartyRelation;
+        }
+
+        return $this;
+    }
+
+    public function removeCasePartyRelation(CasePartyRelation $casePartyRelation): self
+    {
+        $this->casePartyRelation->removeElement($casePartyRelation);
 
         return $this;
     }
