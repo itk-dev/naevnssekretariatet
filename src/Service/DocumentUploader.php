@@ -2,9 +2,13 @@
 
 namespace App\Service;
 
+use App\Entity\Document;
 use App\Exception\FileMovingException;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\HeaderUtils;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DocumentUploader
@@ -46,5 +50,19 @@ class DocumentUploader
     public function getDirectory()
     {
         return $this->documentDirectory;
+    }
+
+    public function handleDownload(Document $document): Response
+    {
+        $filepath = $this->documentDirectory.$document->getFilename();
+        $response = new BinaryFileResponse($filepath);
+        $disposition = HeaderUtils::makeDisposition(
+            HeaderUtils::DISPOSITION_ATTACHMENT,
+            $document->getFilename()
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
     }
 }

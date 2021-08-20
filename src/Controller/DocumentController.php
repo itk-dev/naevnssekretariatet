@@ -151,4 +151,16 @@ class DocumentController extends AbstractController
             'case' => $case,
         ]);
     }
+
+    /**
+     * @Route("/download/{document_id}", name="case_documents_download", methods={"GET", "POST"})
+     * @Entity("document", expr="repository.find(document_id)")
+     * @Entity("case", expr="repository.find(id)")
+     */
+    public function download(Document $document, CaseEntity $case, DocumentUploader $uploader): Response
+    {
+        $response = $uploader->handleDownload($document);
+
+        return $response;
+    }
 }

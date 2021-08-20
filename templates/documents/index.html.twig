@@ -39,8 +39,8 @@
                             <!-- Move button -->
                             <a href="{{ url("case_documents_copy", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Copy document to another case{% endtrans %}"><i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %} </span></a>
 
-                            <!-- Open button -->
-                            <a href="#" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Open document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Open document{% endtrans %} </span></a>
+                            <!-- Download button -->
+                            <a href="{{ url("case_documents_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
 
 
                         <!-- Delete button -->
