@@ -9,7 +9,6 @@ trait SoftDeletableEntity
      */
     private $softDeleted = false;
 
-
     public function getSoftDeleted(): ?bool
     {
         return $this->softDeleted;

@@ -28,7 +28,7 @@ class CopyDocumentForm extends AbstractType
 
         $class = null;
 
-        if ($case instanceof ResidentComplaintBoardCase){
+        if ($case instanceof ResidentComplaintBoardCase) {
             $class = ResidentComplaintBoardCase::class;
         }
 
@@ -41,4 +41,3 @@ class CopyDocumentForm extends AbstractType
             ->add('save', SubmitType::class, ['label' => 'Copy to Cases']);
     }
 }
-

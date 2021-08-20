@@ -26,7 +26,7 @@ class DocumentCopyHelper
         $potentialCases = [];
 
         // collect all cases of same type and within same municipality
-        if ($case instanceof ResidentComplaintBoardCase){
+        if ($case instanceof ResidentComplaintBoardCase) {
             $repository = $this->entityManager->getRepository(ResidentComplaintBoardCase::class);
             $potentialCases = $repository->findBy(['municipality' => $case->getMunicipality()]);
         }
@@ -34,10 +34,9 @@ class DocumentCopyHelper
         $relations = $document->getCaseDocumentRelation();
         $casesThatContainDocument = [];
 
-        foreach ($relations as $relation){
-
+        foreach ($relations as $relation) {
             // Ensure that documents which have soft deleted the document is an option for re-upload
-            if (!$relation->getSoftDeleted()){
+            if (!$relation->getSoftDeleted()) {
                 array_push($casesThatContainDocument, $relation->getCase());
             }
         }
@@ -48,11 +47,10 @@ class DocumentCopyHelper
     public function handleCopyForm(ArrayCollection $cases, Document $document, CaseDocumentRelationRepository $relationRepository)
     {
         foreach ($cases as $caseThatNeedsDoc) {
-
             // Determine if this case document relation already exists to avoid duplicates
             $existingRelation = $relationRepository->findOneBy(['case' => $caseThatNeedsDoc, 'document' => $document]);
 
-            if (null === $existingRelation){
+            if (null === $existingRelation) {
                 $relation = new CaseDocumentRelation();
                 $relation->setCase($caseThatNeedsDoc);
                 $relation->setDocument($document);

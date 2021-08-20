@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
-use App\Entity\ResidentComplaintBoardCase;
 use App\Entity\User;
 use App\Exception\FileMovingException;
 use App\Form\CopyDocumentForm;
@@ -13,7 +12,6 @@ use App\Form\DocumentType;
 use App\Repository\CaseDocumentRelationRepository;
 use App\Service\DocumentCopyHelper;
 use App\Service\DocumentUploader;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,8 +49,8 @@ class DocumentController extends AbstractController
 
         $documents = [];
 
-        foreach ($relations as $relation){
-            if (!$relation->getSoftDeleted()){
+        foreach ($relations as $relation) {
+            if (!$relation->getSoftDeleted()) {
                 array_push($documents, $relation->getDocument());
             }
         }
@@ -65,6 +63,7 @@ class DocumentController extends AbstractController
 
     /**
      * @Route("/create", name="case_documents_create", methods={"GET", "POST"})
+     *
      * @throws FileMovingException
      */
     public function create(CaseEntity $case, Request $request, DocumentUploader $uploader): Response
@@ -135,7 +134,7 @@ class DocumentController extends AbstractController
         // Find suitable cases
         $suitableCases = $this->copyHelper->findSuitableCases($case, $document);
 
-        $form = $this->createForm(CopyDocumentForm::class, null , ['case' => $case, 'suitableCases' => $suitableCases]);
+        $form = $this->createForm(CopyDocumentForm::class, null, ['case' => $case, 'suitableCases' => $suitableCases]);
 
         $form->handleRequest($request);
 

@@ -32,7 +32,7 @@ class DocumentType extends AbstractType
                     'Type2' => 'Type2',
                     'Type3' => 'Type3',
                     'Type4' => 'Type4',
-                ]
+                ],
             ])
             ->add('filename', FileType::class, [
                 'label' => 'Upload file',
