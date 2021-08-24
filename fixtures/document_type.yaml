@@ -1,0 +1,12 @@
+App\Entity\DocumentType:
+  document-type-1:
+    name: Lejekontrakt
+
+  document-type-2:
+    name: Film
+
+  document-type-3:
+    name: Billede
+
+  document-type-4:
+    name: Andet
