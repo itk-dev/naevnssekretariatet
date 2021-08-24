@@ -42,22 +42,13 @@ class DocumentController extends AbstractController
     /**
      * @Route("/", name="document_index", methods={"GET"})
      */
-    public function index(CaseEntity $case): Response
+    public function index(CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
-        // May contain 'deleted' documents
-        $relations = $case->getCaseDocumentRelation();
-
-        $documents = [];
-
-        foreach ($relations as $relation) {
-            if (!$relation->getSoftDeleted()) {
-                array_push($documents, $relation->getDocument());
-            }
-        }
+        $nonDeletedDocuments = $relationRepository->findNonDeletedDocuments($case);
 
         return $this->render('documents/index.html.twig', [
             'case' => $case,
-            'documents' => $documents,
+            'documents' => $nonDeletedDocuments,
         ]);
     }
 
