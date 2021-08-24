@@ -3,15 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Document;
+use App\Entity\DocumentType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class DocumentType extends AbstractType
+class DocumentForm extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -26,13 +27,9 @@ class DocumentType extends AbstractType
             ->add('documentName', null, [
                 'label' => 'Document name:',
             ])
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Type1' => 'Type1',
-                    'Type2' => 'Type2',
-                    'Type3' => 'Type3',
-                    'Type4' => 'Type4',
-                ],
+            ->add('type', EntityType::class, [
+                'class' => DocumentType::class,
+                'choice_label' => 'name',
             ])
             ->add('filename', FileType::class, [
                 'label' => 'Upload file',

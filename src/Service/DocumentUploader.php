@@ -21,7 +21,6 @@ class DocumentUploader
     private $slugger;
     private $documentDirectory;
 
-
     /**
      * @throws DocumentDirectoryException
      */
