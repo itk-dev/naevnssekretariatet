@@ -23,19 +23,15 @@ class DocumentCopyHelper
 
     public function findSuitableCases(ResidentComplaintBoardCase $case, Document $document): array
     {
-        $potentialCases = [];
-
         // collect all cases of same type and within same municipality
-        if ($case instanceof ResidentComplaintBoardCase) {
-            $repository = $this->entityManager->getRepository(ResidentComplaintBoardCase::class);
-            $potentialCases = $repository->findBy(['municipality' => $case->getMunicipality()]);
-        }
+        $repository = $this->entityManager->getRepository(get_class($case));
+        $potentialCases = $repository->findBy(['municipality' => $case->getMunicipality()]);
 
         $relations = $document->getCaseDocumentRelation();
         $casesThatContainDocument = [];
 
         foreach ($relations as $relation) {
-            // Ensure that documents which have soft deleted the document is an option for re-upload
+            // Ensure that cases which have soft deleted the document is an option for re-upload
             if (!$relation->getSoftDeleted()) {
                 array_push($casesThatContainDocument, $relation->getCase());
             }
