@@ -40,7 +40,7 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/", name="case_documents", methods={"GET"})
+     * @Route("/", name="document_index", methods={"GET"})
      */
     public function index(CaseEntity $case): Response
     {
@@ -62,7 +62,7 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="case_documents_create", methods={"GET", "POST"})
+     * @Route("/create", name="document_create", methods={"GET", "POST"})
      *
      * @throws FileMovingException
      */
@@ -95,7 +95,7 @@ class DocumentController extends AbstractController
             $this->entityManager->persist($relation);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('case_documents', ['id' => $case->getId()]);
+            return $this->redirectToRoute('document_index', ['id' => $case->getId()]);
         }
 
         return $this->render('documents/create.html.twig', [
@@ -105,7 +105,7 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/{document_id}", name="case_document_delete", methods={"DELETE"})
+     * @Route("/{document_id}", name="document_delete", methods={"DELETE"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
@@ -121,11 +121,11 @@ class DocumentController extends AbstractController
             $this->entityManager->flush();
         }
 
-        return $this->redirectToRoute('case_documents', ['id' => $case->getId()]);
+        return $this->redirectToRoute('document_index', ['id' => $case->getId()]);
     }
 
     /**
-     * @Route("/copy/{document_id}", name="case_documents_copy", methods={"GET", "POST"})
+     * @Route("/copy/{document_id}", name="document_copy", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
@@ -143,7 +143,7 @@ class DocumentController extends AbstractController
 
             $this->copyHelper->handleCopyForm($cases, $document, $relationRepository);
 
-            return $this->redirectToRoute('case_documents', ['id' => $case->getId()]);
+            return $this->redirectToRoute('document_index', ['id' => $case->getId()]);
         }
 
         return $this->render('documents/copy.html.twig', [
@@ -153,7 +153,7 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/download/{document_id}", name="case_documents_download", methods={"GET", "POST"})
+     * @Route("/download/{document_id}", name="document_download", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */

@@ -37,14 +37,14 @@
                         <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
 
                             <!-- Move button -->
-                            <a href="{{ url("case_documents_copy", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Copy document to another case{% endtrans %}"><i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %} </span></a>
+                            <a href="{{ url("document_copy", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Copy document to another case{% endtrans %}"><i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %} </span></a>
 
                             <!-- Download button -->
-                            <a href="{{ url("case_documents_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
+                            <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
 
                             <!-- Delete button -->
 
-                            <form id="myform" class="btn-group" method="post" action="{{ path('case_document_delete', {'id': case.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                            <form id="myform" class="btn-group" method="post" action="{{ path('document_delete', {'id': case.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
                                 <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
