@@ -3,7 +3,9 @@
 namespace App\Service;
 
 use App\Entity\Document;
+use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -19,8 +21,13 @@ class DocumentUploader
     private $slugger;
     private $documentDirectory;
 
-    public function __construct(SluggerInterface $slugger, $documentDirectory)
+
+    /**
+     * @throws DocumentDirectoryException
+     */
+    public function __construct(SluggerInterface $slugger, string $documentDirectory, Filesystem $filesystem)
     {
+        $this->checkDocumentDirectory($documentDirectory, $filesystem);
         $this->slugger = $slugger;
         $this->documentDirectory = $documentDirectory;
     }
@@ -47,7 +54,7 @@ class DocumentUploader
         return $newFilename;
     }
 
-    public function getDirectory()
+    public function getDirectory(): string
     {
         return $this->documentDirectory;
     }
@@ -64,5 +71,16 @@ class DocumentUploader
         $response->headers->set('Content-Disposition', $disposition);
 
         return $response;
+    }
+
+    /**
+     * @throws DocumentDirectoryException
+     */
+    private function checkDocumentDirectory(string $documentDirectory, Filesystem $filesystem)
+    {
+        if (!$filesystem->exists($documentDirectory)) {
+            $message = sprintf('Document directory %s does not exist.', $documentDirectory);
+            throw new DocumentDirectoryException($message);
+        }
     }
 }
