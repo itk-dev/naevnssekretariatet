@@ -35,7 +35,8 @@ class Document implements LoggableEntityInterface
     private $type;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $uploadedBy;
 
@@ -89,12 +90,12 @@ class Document implements LoggableEntityInterface
         return $this;
     }
 
-    public function getUploadedBy(): ?string
+    public function getUploadedBy(): ?User
     {
         return $this->uploadedBy;
     }
 
-    public function setUploadedBy(string $uploadedBy): self
+    public function setUploadedBy(?User $uploadedBy): self
     {
         $this->uploadedBy = $uploadedBy;
 

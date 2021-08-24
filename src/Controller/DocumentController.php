@@ -76,7 +76,7 @@ class DocumentController extends AbstractController
 
             /** @var User $uploader */
             $uploader = $this->getUser();
-            $document->setUploadedBy($uploader->getEmail());
+            $document->setUploadedBy($uploader);
 
             $relation = new CaseDocumentRelation();
             $relation->setCase($case);

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Logging\LoggableEntityInterface;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
@@ -11,7 +12,7 @@ use Symfony\Component\Uid\UuidV4;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User implements UserInterface
+class User implements UserInterface, LoggableEntityInterface
 {
     /**
      * @ORM\Id
@@ -155,5 +156,19 @@ class User implements UserInterface
         $this->favoriteMunicipality = $favoriteMunicipality;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'id',
+            'name',
+            'email',
+        ];
     }
 }
