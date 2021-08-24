@@ -13,15 +13,14 @@
     </div>
 
     {{ form_start(copy_document_form) }}
-    <form class="form" >
-        <div class="form-row">
-            <div class="col-md-2 mb-3">
-                <label >{% trans %}Cases{% endtrans %}</label>
-                {{ form_widget(copy_document_form.cases, {'attr': {'class': 'form-control', 'required': true}}) }}
-            </div>
+    <div class="form-row">
+        <div class="col-md-2 mb-3">
+            <label >{% trans %}Cases{% endtrans %}</label>
+            {{ form_widget(copy_document_form.cases, {'attr': {'class': 'form-control', 'required': true}}) }}
         </div>
-        {{ form_widget(copy_document_form.save, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}}) }}
-        {{ form_rest(copy_document_form) }}
-    </form>
+    </div>
+    {{ form_widget(copy_document_form.save, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}}) }}
+    {{ form_rest(copy_document_form) }}
+
     {{ form_end(copy_document_form) }}
 {% endblock %}
