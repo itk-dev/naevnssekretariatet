@@ -18,33 +18,4 @@ class CaseDocumentRelationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, CaseDocumentRelation::class);
     }
-
-    // /**
-    //  * @return CaseDocumentRelation[] Returns an array of CaseDocumentRelation objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?CaseDocumentRelation
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
