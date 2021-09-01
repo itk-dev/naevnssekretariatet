@@ -108,6 +108,8 @@ class DocumentController extends AbstractController
 
             $relation = $relationRepository->findOneBy(['case' => $case, 'document' => $document]);
             $relation->setSoftDeleted(true);
+            $dateTime = new \DateTime('NOW');
+            $relation->setSoftDeletedAt($dateTime);
 
             $this->entityManager->flush();
         }
