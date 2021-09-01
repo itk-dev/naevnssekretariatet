@@ -63,6 +63,31 @@ abstract class CaseEntity
      */
     private $assignedTo;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainant;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainantAddress;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainantZip;
+
+    /**
+     * @ORM\Column(type="string", length=255, options={"default": "submitted"})
+     */
+    private $caseState = 'submitted';
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainantCPR;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -148,6 +173,66 @@ abstract class CaseEntity
     public function setAssignedTo(?User $assignedTo): self
     {
         $this->assignedTo = $assignedTo;
+
+        return $this;
+    }
+
+    public function getComplainant(): ?string
+    {
+        return $this->complainant;
+    }
+
+    public function setComplainant(?string $complainant): self
+    {
+        $this->complainant = $complainant;
+
+        return $this;
+    }
+
+    public function getComplainantAddress(): ?string
+    {
+        return $this->complainantAddress;
+    }
+
+    public function setComplainantAddress(?string $complainantAddress): self
+    {
+        $this->complainantAddress = $complainantAddress;
+
+        return $this;
+    }
+
+    public function getComplainantZip(): ?string
+    {
+        return $this->complainantZip;
+    }
+
+    public function setComplainantZip(?string $complainantZip): self
+    {
+        $this->complainantZip = $complainantZip;
+
+        return $this;
+    }
+
+    public function getCaseState(): ?string
+    {
+        return $this->caseState;
+    }
+
+    public function setCaseState(string $caseState): self
+    {
+        $this->caseState = $caseState;
+
+        return $this;
+    }
+
+    public function getComplainantCPR(): ?string
+    {
+        return $this->complainantCPR;
+    }
+
+    public function setComplainantCPR(string $complainantCPR): self
+    {
+        $this->complainantCPR = $complainantCPR;
 
         return $this;
     }
