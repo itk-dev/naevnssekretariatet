@@ -3,9 +3,9 @@
 This being a case management system means we have to be cautious
 when deleting data. In fact, we want to avoid actual deletion of
 documents, board members etc, as citizen at any point can ask
-for access to records (Danish: aktindsigt). 
+for access to records (Danish: aktindsigt).
 
-For this reason we introduce the `SoftDeletableEntity` trait. 
+For this reason we introduce the `SoftDeletableEntity` trait.
 
 ## Useful links
 
