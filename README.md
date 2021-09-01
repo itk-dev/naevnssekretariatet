@@ -57,7 +57,7 @@ To get a local copy up and running follow these simple steps.
 5. Build assets
 
    ```sh
-   docker run -v ${PWD}:/app itkdev/yarn:latest encore dev
+   docker run -v ${PWD}:/app itkdev/yarn:14 encore dev
    ```
 
 6. Run database migrations
