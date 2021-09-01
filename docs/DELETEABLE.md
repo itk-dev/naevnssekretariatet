@@ -16,11 +16,14 @@ For this reason we introduce the `SoftDeletableEntity` trait.
 The idea behind the `SoftDeletableEntity` trait is very simple. Rather than deleting
 data we add a boolean property called `softDeleted`, which is then
 `true` or `false` depending on whether it is considered deleted or not.
+It also holds a `softDeletedAt` property.
 
 ```php
 <?php
 
 namespace App\Traits;
+
+use Doctrine\ORM\Mapping as ORM;
 
 trait SoftDeletableEntity
 {
@@ -28,6 +31,23 @@ trait SoftDeletableEntity
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
     private $softDeleted = false;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $softDeletedAt;
+
+    public function setSoftDeletedAt(\DateTime $softDeletedAt = null): self
+    {
+        $this->softDeletedAt = $softDeletedAt;
+
+        return $this;
+    }
+
+    public function getSoftDeletedAt(): ?\DateTime
+    {
+        return $this->softDeletedAt;
+    }
 
     public function getSoftDeleted(): ?bool
     {
