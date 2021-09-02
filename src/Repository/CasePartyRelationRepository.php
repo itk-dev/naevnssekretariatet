@@ -19,17 +19,6 @@ class CasePartyRelationRepository extends ServiceEntityRepository
         parent::__construct($registry, CasePartyRelation::class);
     }
 
-    public function findLatestCaseByMunicipality(Municipality $municipality): ?CaseEntity
-    {
-        return $this->createQueryBuilder('c')
-            ->where('c.municipality = :municipality')
-            ->setParameter('municipality', $municipality->getId()->toBinary())
-            ->orderBy('c.createdAt', 'DESC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
     public function findTenants($case): ?array
     {
         return $this->createQueryBuilder('r')
