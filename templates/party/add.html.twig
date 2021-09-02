@@ -9,7 +9,7 @@
             <h1>{% trans %}Add party to case{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a name="" id="" class="btn btn-primary" href="{{ url('case_add_party_from_index', {id: case.id}) }}" role="button">{% trans %}Add from index{% endtrans %}</a>
+            <a name="" id="" class="btn btn-primary" href="{{ url('party_add_from_index', {id: case.id}) }}" role="button">{% trans %}Add from index{% endtrans %}</a>
             <a name="" id="" class="btn btn-secondary" href="{{ url('case_show', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
 
         </div>
@@ -44,7 +44,7 @@
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label >{% trans %}Journal number{% endtrans %}</label>
-                {{ form_widget(add_party_form.journalNumber, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+                {{ form_widget(add_party_form.journalNumber, {'attr': {'type': 'text','class': 'form-control', 'required': false}}) }}
             </div>
             <div class="col-md-6 mb-3">
                 <label >{% trans %}Type{% endtrans %}</label>

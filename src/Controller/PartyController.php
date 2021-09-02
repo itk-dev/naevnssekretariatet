@@ -32,7 +32,7 @@ class PartyController extends AbstractController
     }
 
     /**
-     * @Route("/add", name="case_add_party")
+     * @Route("/add", name="party_add")
      */
     public function addParty(CaseEntity $case, Request $request): Response
     {
@@ -60,7 +60,7 @@ class PartyController extends AbstractController
     }
 
     /**
-     * @Route("/add_party_from_index", name="case_add_party_from_index")
+     * @Route("/add_party_from_index", name="party_add_from_index")
      */
     public function addPartyFromIndex(CaseEntity $case, CasePartyRelationRepository $relationRepository, PartyRepository $partyRepository, Request $request): Response
     {
@@ -89,7 +89,7 @@ class PartyController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{party_id}", name="case_party_edit")
+     * @Route("/edit/{party_id}", name="party_edit")
      * @Entity("party", expr="repository.find(party_id)")
      * @Entity("case", expr="repository.find(id)")
      */

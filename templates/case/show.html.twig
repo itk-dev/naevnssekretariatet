@@ -31,7 +31,7 @@
         </div>
         <div class="col-auto">
             {# TODO: Needs functionality on buttons #}
-            <a name="" id="" class="btn btn-success" href="{{ url('case_add_party', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
+            <a name="" id="" class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
             <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
             {# Moved validation buttons inline in form #}
         </div>
@@ -315,7 +315,7 @@
                                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
 
                                                 <!-- Edit button -->
-                                                <a href="{{ url("case_party_edit", {id: case.id, party_id: party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+                                                <a href="{{ url("party_edit", {id: case.id, party_id: party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
 
                                                 <!-- Delete button -->
 
@@ -340,7 +340,7 @@
         <div class="row">
             <div class="col-auto ml-auto">
                 {# TODO: Needs functionality on buttons #}
-                <a name="" id="" class="btn btn-success" href="{{ url('case_add_party', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
+                <a name="" id="" class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
                 <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
             </div>
         </div>
