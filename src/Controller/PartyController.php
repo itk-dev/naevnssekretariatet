@@ -9,10 +9,10 @@ use App\Form\AddPartyFromIndexType;
 use App\Form\PartyFormType;
 use App\Repository\CasePartyRelationRepository;
 use App\Repository\PartyRepository;
+use App\Service\PartyHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,34 +22,37 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PartyController extends AbstractController
 {
-
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var PartyHelper
+     */
+    private $partyHelper;
 
-    public function __construct(EntityManagerInterface $entityManger)
+    public function __construct(EntityManagerInterface $entityManger, PartyHelper $partyHelper)
     {
         $this->entityManager = $entityManger;
+        $this->partyHelper = $partyHelper;
     }
 
     /**
      * @Route("/add", name="case_add_party")
      */
-
     public function addParty(CaseEntity $case, Request $request): Response
     {
         $party = new Party();
 
-        $form = $this->createForm(PartyFormType::class, null , [
-            'party_action' => 'Add'
+        $form = $this->createForm(PartyFormType::class, null, [
+            'party_action' => 'Add',
         ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $this->handleAddPartyForm($case, $party, $data);
+            $this->partyHelper->handleAddPartyForm($case, $party, $data);
 
             return $this->redirectToRoute('case_show', [
                 'id' => $case->getId(),
@@ -65,26 +68,22 @@ class PartyController extends AbstractController
     /**
      * @Route("/add_party_from_index", name="case_add_party_from_index")
      */
-    public function addPartyFromIndex(CaseEntity $case, Request $request, PartyRepository $partyRepository): Response
+    public function addPartyFromIndex(CaseEntity $case, CasePartyRelationRepository $relationRepository, PartyRepository $partyRepository, Request $request): Response
     {
         $party = null;
 
+        // Make sure we only get the option of adding parties that are not already added
+        $partyChoices = $this->partyHelper->findPartyIndexChoices($case);
+
         $form = $this->createForm(AddPartyFromIndexType::class, $party, [
-            'party_repository' => $partyRepository,
+            'party_choices' => $partyChoices,
         ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Party $party */
-            $party = $form->get('partyToAdd')->getData();
+            $data = $form->getData();
 
-            $relation = new CasePartyRelation();
-            $relation->setCase($case);
-            $relation->setParty($party);
-            $relation->setType($form->get('type')->getData());
-
-            $this->entityManager->persist($relation);
-            $this->entityManager->flush();
+            $this->partyHelper->handleAddPartyFromIndex($case, $data);
 
             return $this->redirectToRoute('case_show', ['id' => $case->getId()]);
         }
@@ -107,23 +106,15 @@ class PartyController extends AbstractController
         ]);
 
         /** @var CasePartyRelation $relation */
-        $relation = $relationRepository->findOneBy(['case' => $case,'party' => $party]);
+        $relation = $relationRepository->findOneBy(['case' => $case, 'party' => $party]);
 
-        $form = $this->setUpFormData($party, $relation, $form);
+        $form = $this->partyHelper->setUpFormData($party, $relation, $form);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $data = $form->getData();
 
-            $party->setName($data['name']);
-            $party->setCpr($data['cpr']);
-            $party->setAddress($data['address']);
-            $party->setPhoneNumber($data['phoneNumber']);
-            $party->setJournalNumber($data['journalNumber']);
-            $relation->setType($data['type']);
-
-            $this->entityManager->flush();
+            $this->partyHelper->handleEditParty($party, $relation, $data);
 
             return $this->redirectToRoute('case_show', [
                 'id' => $case->getId(),
@@ -137,39 +128,20 @@ class PartyController extends AbstractController
         ]);
     }
 
-
-    private function handleAddPartyForm(CaseEntity $case, Party $party, $data)
+    /**
+     * @Route("/delete/{party_id}", name="party_delete", methods={"DELETE"})
+     * @Entity("party", expr="repository.find(party_id)")
+     * @Entity("case", expr="repository.find(id)")
+     */
+    public function delete(Request $request, Party $party, CaseEntity $case, CasePartyRelationRepository $relationRepository): Response
     {
-        $party->setName($data['name']);
-        $party->setCpr($data['cpr']);
-        $party->setAddress($data['address']);
-        $party->setPhoneNumber($data['phoneNumber']);
-        $party->setJournalNumber($data['journalNumber']);
+        // Check that CSRF token is valid
+        if ($this->isCsrfTokenValid('delete'.$party->getId(), $request->request->get('_token'))) {
+            // Simply just soft delete by setting soft deleted to true
 
-        // Do not add to part index from here
-        $party->setIsPartOfPartIndex(false);
+            $this->partyHelper->handleDeleteParty($case, $party);
+        }
 
-        $this->entityManager->persist($party);
-
-        $relation = new CasePartyRelation();
-        $relation->setCase($case);
-        $relation->setParty($party);
-        $relation->setType($data['type']);
-
-        $this->entityManager->persist($relation);
-
-        $this->entityManager->flush();
-    }
-
-    private function setUpFormData(Party $party, CasePartyRelation $relation, FormInterface $form): FormInterface
-    {
-        $form->get('name')->setData($party->getName());
-        $form->get('cpr')->setData($party->getCpr());
-        $form->get('address')->setData($party->getAddress());
-        $form->get('phoneNumber')->setData($party->getPhoneNumber());
-        $form->get('journalNumber')->setData($party->getJournalNumber());
-        $form->get('type')->setData($relation->getType());
-
-        return $form;
+        return $this->redirectToRoute('case_show', ['id' => $case->getId()]);
     }
 }

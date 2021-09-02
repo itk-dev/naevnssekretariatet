@@ -93,7 +93,7 @@ abstract class AbstractEntityListener
                 continue;
             }
 
-            if ($changedValue instanceof PersistentCollection){
+            if ($changedValue instanceof PersistentCollection) {
                 continue;
             }
 
@@ -112,7 +112,7 @@ abstract class AbstractEntityListener
         $logEntry->setAction($action);
 
         $user = $this->security->getUser();
-        if ($user){
+        if ($user) {
             $logEntry->setUser($user->getUsername());
         } else {
             $logEntry->setUser('Fixtures');

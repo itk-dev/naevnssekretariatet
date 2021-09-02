@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Logging\LoggableEntityInterface;
 use App\Repository\PartyRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Uid\UuidV4;
@@ -57,7 +56,6 @@ class Party implements LoggableEntityInterface
      * @ORM\Column(type="string", length=255)
      */
     private $cpr;
-
 
     public function getId(): ?UuidV4
     {

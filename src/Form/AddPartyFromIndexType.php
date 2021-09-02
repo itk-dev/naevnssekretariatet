@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Party;
-use App\Repository\PartyRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -15,15 +14,12 @@ class AddPartyFromIndexType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setRequired('party_repository');
+        $resolver->setRequired('party_choices');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var PartyRepository $partyRepository */
-        $partyRepository = $options['party_repository'];
-
-        $choices = $partyRepository->findBy(['isPartOfPartIndex' => true]);
+        $choices = $options['party_choices'];
 
         $builder
             ->add('partyToAdd', EntityType::class, [

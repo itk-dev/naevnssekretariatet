@@ -44,18 +44,20 @@ class CaseController extends AbstractController
     public function show(CaseEntity $case, CasePartyRelationRepository $relationRepository): Response
     {
         // Get relations from both sides
-        $tenantRelations = $relationRepository->findBy(['case' => $case, 'type' => ['Tenant', 'Representative']]);
-        $landlordRelations = $relationRepository->findBy(['case' => $case, 'type' => ['Landlord', 'Administrator']]);
+        $tenantRelations = $relationRepository
+            ->findBy(['case' => $case, 'type' => ['Tenant', 'Representative'], 'softDeleted' => false]);
+        $landlordRelations = $relationRepository
+            ->findBy(['case' => $case, 'type' => ['Landlord', 'Administrator'], 'softDeleted' => false]);
 
         // Make them into arrays
         $tenants = [];
         $landlords = [];
 
-        foreach ($tenantRelations as $relation){
+        foreach ($tenantRelations as $relation) {
             array_push($tenants, $relation->getParty());
         }
 
-        foreach ($landlordRelations as $relation){
+        foreach ($landlordRelations as $relation) {
             array_push($landlords, $relation->getParty());
         }
 

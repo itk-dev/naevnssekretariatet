@@ -13,14 +13,9 @@ class CasePartyRelationListener extends AbstractEntityListener
         parent::__construct($security);
     }
 
-    public function preRemove(CasePartyRelation $relation, LifecycleEventArgs $args)
-    {
-        $this->logActivity('Removed party', $args);
-    }
-
     public function postUpdate(CasePartyRelation $relation, LifecycleEventArgs $args)
     {
-        $this->logActivity('Updated party type', $args);
+        $this->logActivity('Updated party relation', $args);
     }
 
     public function postPersist(CasePartyRelation $relation, LifecycleEventArgs $args)

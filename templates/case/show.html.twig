@@ -319,11 +319,11 @@
 
                                                 <!-- Delete button -->
 
-{#                                                <form id="myform" class="btn-group" method="post" action="{{ path('case_document_delete', {'id': case.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">#}
-{#                                                    <input type="hidden" name="_method" value="DELETE">#}
-{#                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">#}
-{#                                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>#}
-{#                                                </form>#}
+                                                <form id="myform" class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party.id) }}">
+                                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Logging\LoggableEntityInterface;
+use App\Traits\SoftDeletableEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Uid\UuidV4;
@@ -14,6 +15,7 @@ use Symfony\Component\Uid\UuidV4;
  */
 class CasePartyRelation implements LoggableEntityInterface
 {
+    use SoftDeletableEntity;
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)

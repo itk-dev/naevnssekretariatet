@@ -22,7 +22,7 @@ class PartyListener extends AbstractEntityListener
 
     public function postUpdate(Party $party, LifecycleEventArgs $args)
     {
-        $this->logActivity('Update', $args);
+        $this->logActivity('Update party', $args);
     }
 
     public function logActivity(string $action, LifecycleEventArgs $args): void

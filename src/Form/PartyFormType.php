@@ -2,12 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Party;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +20,7 @@ class PartyFormType extends AbstractType
     {
         /** @var string $partyRepository */
         $action = $options['party_action'];
-        $label = $action . ' Party';
+        $label = $action.' Party';
 
         $builder
             ->add('name')
