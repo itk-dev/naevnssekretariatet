@@ -152,7 +152,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
         $this->assertPropertiesOfLogEntry($logEntry);
     }
 
-    public function testCreateLogEntryNoChange()
+    public function testCreateLogEntryValueChangedToNull()
     {
         $this->setUpNumberOfUowCalls(1);
         $this->setUpExpects();
@@ -172,7 +172,9 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
-        $this->expectedDataArray = [];
+        $this->expectedDataArray = [
+            'subboard' => ''
+        ];
 
         $this->assertPropertiesOfLogEntry($logEntry);
     }
