@@ -60,9 +60,9 @@ abstract class AbstractEntityListener
                 $changedValue = $value[1];
             }
 
-            // We do not log properties with value null
-            // todo determine if we should
+            // In case a nullable property is edited to null we must log this
             if (null === $changedValue) {
+                $dataArray[$key] = '';
                 continue;
             }
 

@@ -2,22 +2,36 @@
 
 namespace App\Form;
 
+use App\Entity\Party;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PartyType extends AbstractType
+class PartyFormType extends AbstractType
 {
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setRequired('party_action');
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var string $partyRepository */
+        $action = $options['party_action'];
+        $label = $action . ' Party';
+
         $builder
             ->add('name')
             ->add('cpr')
             ->add('address')
             ->add('phoneNumber', IntegerType::class)
-            ->add('journalNumber')
+            ->add('journalNumber', null, [
+                'required' => false,
+            ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'Tenant' => 'Tenant',
@@ -26,6 +40,7 @@ class PartyType extends AbstractType
                     'Landlord (administrator)' => 'Administrator',
                 ],
             ])
-            ->add('save', SubmitType::class, ['label' => 'Add Party']);
+            //->add('isPartOfPartIndex')
+            ->add('save', SubmitType::class, ['label' => $label]);
     }
 }

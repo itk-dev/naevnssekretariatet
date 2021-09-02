@@ -304,14 +304,28 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for item in landlords %}
+                                {% for party in landlords %}
                                     <tr>
-                                        <td>{{ item.name|e }}</td>
-                                        <td>{{ item.address|e }}</td>
-                                        <td>{{ item.cpr|e }}</td>
-                                        <td>{{ item.phoneNumber|e }}</td>
-                                        <td>{{ item.journalNumber|e }}</td>
-                                        <td>{% include "common/btn_group.html.twig" with btn_group %}</td>
+                                        <td>{{ party.name|e }}</td>
+                                        <td>{{ party.address|e }}</td>
+                                        <td>{{ party.cpr|e }}</td>
+                                        <td>{{ party.phoneNumber|e }}</td>
+                                        <td>{{ party.journalNumber|e }}</td>
+                                        <td class="text-right">
+                                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+
+                                                <!-- Edit button -->
+                                                <a href="{{ url("case_party_edit", {id: case.id, party_id: party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+
+                                                <!-- Delete button -->
+
+{#                                                <form id="myform" class="btn-group" method="post" action="{{ path('case_document_delete', {'id': case.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">#}
+{#                                                    <input type="hidden" name="_method" value="DELETE">#}
+{#                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">#}
+{#                                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>#}
+{#                                                </form>#}
+                                            </div>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
