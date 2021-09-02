@@ -173,7 +173,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
         $this->expectedDataArray = [
-            'subboard' => ''
+            'subboard' => '',
         ];
 
         $this->assertPropertiesOfLogEntry($logEntry);
