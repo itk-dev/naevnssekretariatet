@@ -10,7 +10,6 @@ use App\Form\PartyFormType;
 use App\Repository\CasePartyRelationRepository;
 use App\Repository\PartyRepository;
 use App\Service\PartyHelper;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,17 +22,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class PartyController extends AbstractController
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
      * @var PartyHelper
      */
     private $partyHelper;
 
-    public function __construct(EntityManagerInterface $entityManger, PartyHelper $partyHelper)
+    public function __construct(PartyHelper $partyHelper)
     {
-        $this->entityManager = $entityManger;
         $this->partyHelper = $partyHelper;
     }
 
