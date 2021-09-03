@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="tOkp2Lz" resname="Documents">
+              <source>Documents</source>
+              <target>Dokumentoversigt</target>
+            </trans-unit>
+            <trans-unit id="rG6XhAb" resname="Create document">
+              <source>Create document</source>
+              <target>Opret dokument</target>
+            </trans-unit>
+            <trans-unit id="OAs1gv3" resname="Document name">
+              <source>Document name</source>
+              <target>Dokument navn</target>
+            </trans-unit>
+            <trans-unit id="W4H3DVm" resname="Document type">
+              <source>Document type</source>
+              <target>Dokument type</target>
+            </trans-unit>
+            <trans-unit id="N0zZ0iD" resname="Created by">
+              <source>Created by</source>
+              <target>Oprettet af</target>
+            </trans-unit>
+            <trans-unit id="yl0jOnQ" resname="Created date">
+              <source>Created date</source>
+              <target>Oprettelses dato</target>
+            </trans-unit>
+            <trans-unit id="delC5bN" resname="Functions">
+              <source>Functions</source>
+              <target>Handlinger</target>
+            </trans-unit>
+            <trans-unit id="VYJLaab" resname="Create new document">
+              <source>Create new document</source>
+              <target>Opret nyt dokument</target>
+            </trans-unit>
+            <trans-unit id="GXZu1sy" resname="Cancel">
+              <source>Cancel</source>
+              <target>Annuller</target>
+            </trans-unit>
+            <trans-unit id="3Qrnpcv" resname="Save changes">
+              <source>Save changes</source>
+              <target>Opret dokument</target>
+            </trans-unit>
+            <trans-unit id="wgscFcd" resname="Select a document type">
+              <source>Select a document type</source>
+              <target>Vælg dokument type</target>
+            </trans-unit>
+            <trans-unit id="apXUKzK" resname="Chose a file">
+              <source>Chose a file</source>
+              <target>Vælg en fil</target>
+            </trans-unit>
+            <trans-unit id="haiQlJe" resname="Max file size: 10mb. Fileformats accepted: .pdf, .txt, .md, .jpg, .png, .webp">
+              <source>Max file size: 10mb. Fileformats accepted: .pdf, .txt, .md, .jpg, .png, .webp</source>
+              <target>Max fil størrelse: 10mb. Accepterede filformater: .pdf, .txt, .md, .jpg, .png, .webp</target>
+            </trans-unit>
+    </body>
+  </file>
+</xliff>
