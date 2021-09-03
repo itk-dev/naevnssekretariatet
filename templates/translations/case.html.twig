@@ -1,0 +1,13 @@
+{% block _translation %}
+
+    {% trans_default_domain 'case' %}
+    {# Help the translation extractor #}
+
+    {{ 'Created by'|trans }}
+    {{ 'Date created'|trans }}
+    {{ 'Last changed'|trans }}
+    {{ 'Assigned to'|trans }}
+    {{ 'Board'|trans }}
+    {{ 'Municipality'|trans }}
+
+{% endblock %}

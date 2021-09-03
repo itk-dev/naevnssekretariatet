@@ -1,3 +1,5 @@
+{% set boardlabel = 'All boards' %}
+
 {% set formselects = [
     {
         "label": "Select board",
@@ -33,6 +35,8 @@
 
 {% extends 'layout.html.twig' %}
 
+{% trans_default_domain 'case' %}
+
 {% block title %}{% trans %}Cases{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -42,7 +46,7 @@
             <div class="form-group col">
                 <label class="sr-only" for="{{ item.id|e }}">{{ item.label|e }}</label>
                 <select class="form-control" name="{{ item.id|e }}" id="{{ item.id|e }}">
-                    <option value="all">{{ item.name|e }}</option>
+                    <option value="all">{{ item.name | trans([], 'case_index') }}</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                 </select>

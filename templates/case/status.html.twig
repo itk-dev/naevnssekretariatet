@@ -1,5 +1,7 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% trans_default_domain 'case' %}
+
 {% block title %}{% trans %}Status info{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -51,7 +53,7 @@
                     <tbody>
                     <tr>
                         <td>Parthøringstidsfrist</td>
-                        <td>01.07.2020 - 14 dage tilbage. <a name="" id="" class="btn btn-primary float-right" href="#rescedule-deadline" role="button" data-toggle="modal" data-target="#resceduleDeadline"><i class="fas fa-calendar-alt mr-2"></i>Rescedule</a></td>
+                        <td>01.07.2020 - 14 dage tilbage. <a name="" id="" class="btn btn-primary float-right" href="#reschedule-deadline" role="button" data-toggle="modal" data-target="#rescheduleDeadline"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -78,16 +80,16 @@
                     </form>
                 </div>
             </div>
-            <h3 class="h5 mt-3">Selected agenda</h3>
+            <h3 class="h5 mt-3">{% trans %}Selected agenda{% endtrans %}</h3>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Nævn</th>
-                        <th>Date</th>
-                        <th>Start time</th>
-                        <th>End time</th>
-                        <th class="text-right">Remove</th>
+                        <th>{% trans %}Board{% endtrans %}</th>
+                        <th>{% trans %}Date{% endtrans %}</th>
+                        <th>{% trans %}Start time{% endtrans %}</th>
+                        <th>{% trans %}End time{% endtrans %}</th>
+                        <th class="text-right">{% trans %}Remove{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -106,7 +108,9 @@
                         <td>2. sep. 2020</td>
                         <td>17:00</td>
                         <td>20:00</td>
-                        <td class="text-right"><a name="" id="" class="btn btn-danger btn-sm" href="#" role="button"><span class="sr-only">Remove from agenda</span><i class="fas fa-trash-alt"></i></a></td>
+                        <td class="text-right">
+                            <a href="#" role="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove from agenda{% endtrans %}"><i class="fas fa-trash-alt"></i><span class="sr-only">{% trans %}Remove from agenda{% endtrans %} </span></a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -118,31 +122,31 @@
         </div>
     </footer>
 
-    {# Rescedule modal #}
-    <div class="modal fade" id="resceduleDeadline" tabindex="-1" role="dialog" aria-labelledby="resceduleDeadlineModalLabel" aria-hidden="true">
+    {# Reschedule modal #}
+    <div class="modal fade" id="rescheduleDeadline" tabindex="-1" role="dialog" aria-labelledby="rescheduleDeadlineModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="resceduleDeadlineModalLabel">{% trans %}Rescedule deadline{% endtrans %}</h5>
+                    <h5 class="modal-title" id="rescheduleDeadlineModalLabel">{% trans %}Reschedule deadline{% endtrans %}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><i class="fas fa-times"></i></span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="resceduleDeadlineNewDate">{% trans %}Enter a new date{% endtrans %}</label>
-                        <input type="date" class="form-control" name="resceduleDeadlineNewDate" id="resceduleDeadlineNewDate" aria-describedby="resceduleDeadlineNewDateHelp" placeholder="" required>
-                        <small id="resceduleDeadlineNewDateHelp" class="form-text text-muted">{% trans %}New date for the deadline{% endtrans %}</small>
+                        <label for="rescheduleDeadlineNewDate">{% trans %}Enter a new date{% endtrans %}</label>
+                        <input type="date" class="form-control" name="rescheduleDeadlineNewDate" id="rescheduleDeadlineNewDate" aria-describedby="rescheduleDeadlineNewDateHelp" placeholder="" required>
+                        <small id="rescheduleDeadlineNewDateHelp" class="form-text text-muted">{% trans %}New date for the deadline{% endtrans %}</small>
                     </div>
                     <div class="form-group">
-                        <label for="resceduleDeadlineNewDateReason">{% trans %}Describe why the date has changed{% endtrans %}</label>
-                        <textarea class="form-control" name="resceduleDeadlineNewDateReason" id="resceduleDeadlineNewDateReason" aria-describedby="resceduleDeadlineNewDateReasonHelp" rows="3" required></textarea>
-                        <small id="resceduleDeadlineNewDateReasonHelp" class="form-text text-muted">{% trans %}This information is needed for journaling purpose{% endtrans %}</small>
+                        <label for="rescheduleDeadlineNewDateReason">{% trans %}Describe why the date has changed{% endtrans %}</label>
+                        <textarea class="form-control" name="rescheduleDeadlineNewDateReason" id="rescheduleDeadlineNewDateReason" aria-describedby="rescheduleDeadlineNewDateReasonHelp" rows="3" required></textarea>
+                        <small id="rescheduleDeadlineNewDateReasonHelp" class="form-text text-muted">{% trans %}This information is needed for journaling purpose{% endtrans %}</small>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                    <button type="button" class="btn btn-primary">{% trans %}Save changes{% endtrans%}</button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,7 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% trans_default_domain 'case' %}
+
 {# {% set casestatuses = [
     {
         "name": "Case created"
@@ -98,7 +100,7 @@
                                         <input type="text" class="form-control" id="inputBasicInformation5" value="123456-7890" readonly>
                                          {#  <div class="input-group-append">#}
                                             {# TODO: Show status depending on validation result #}
-                                            {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="Validate CPR number"><i class="fas fa-check-circle"></i></button>
+                                            {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate CPR number'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
                                             {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
                                             {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
                                             {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
@@ -133,7 +135,7 @@
                                     <div class="form-group col-md-2">
                                         <label for="inputBasicInformation10">{% trans %}Validate{% endtrans %}</label>
                                         {# TODO: Show status depending on validation result #}
-                                        {# Not yet validated #} <button class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="Validate address"><i class="fas fa-check-circle"></i></button>
+                                        {# Not yet validated #} <button class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate address'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
                                         {# Success <button class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="Address is validated"><i class="fas fa-check-circle"></i></button>#}
                                         {# Warning <button class="btn btn-block btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
                                         {# Failed <button class="btn btn-block btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
@@ -159,7 +161,7 @@
                                     <div class="form-group col-md-2">
                                         <label for="inputBasicInformation14">{% trans %}Validate{% endtrans %}</label>
                                         {# TODO: Show status depending on validation result #}
-                                        {# Not yet validated #} <button id="inputBasicInformation14" class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="Validate address"><i class="fas fa-check-circle"></i></button>
+                                        {# Not yet validated #} <button id="inputBasicInformation14" class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate address'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
                                         {# Success <button id="inputBasicInformation14" class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="Address is validated"><i class="fas fa-check-circle"></i></button>#}
                                         {# Warning <button id="inputBasicInformation14" class="btn btn-block btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
                                         {# Failed <button id="inputBasicInformation14" class="btn btn-block btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}

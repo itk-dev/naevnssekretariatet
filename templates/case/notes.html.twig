@@ -1,5 +1,7 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% trans_default_domain 'case' %}
+
 {% block title %}{% trans %}Notes{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -17,7 +19,7 @@
             <div class="card card-body">
                 <div class="row">
                     <div class="col">
-                        <h2 class="h5">Add a quick note</h2>
+                        <h2 class="h5">{% trans %}Add a quick note{% endtrans %}</h2>
                     </div>
                     <div class="col-auto ml-auto">
                         <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
