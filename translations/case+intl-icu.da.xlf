@@ -521,6 +521,26 @@
         <source>Validate address</source>
         <target>Valider adresse</target>
       </trans-unit>
+      <trans-unit id="e8e6PXM" resname="All boards">
+        <source>All boards</source>
+        <target>Alle nævn</target>
+      </trans-unit>
+      <trans-unit id="evTT2NC" resname="All casestatuses">
+        <source>All casestatuses</source>
+        <target>Alle sagsstatusser</target>
+      </trans-unit>
+      <trans-unit id="3FHPkV8" resname="All deadlines">
+        <source>All deadlines</source>
+        <target>Alle tidsfrister</target>
+      </trans-unit>
+      <trans-unit id="7_43pVW" resname="All responsible users">
+        <source>All responsible users</source>
+        <target>Alle sagsbehandlere</target>
+      </trans-unit>
+      <trans-unit id="XCTPL8W" resname="All municipalities">
+        <source>All municipalities</source>
+        <target>Alle kommuner</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
