@@ -41,6 +41,34 @@
         <source>Decision</source>
         <target>Afgørelse</target>
       </trans-unit>
+      <trans-unit id="uKM1DKQ" resname="Assign case to user">
+        <source>Assign case to user</source>
+        <target>Tildel sagsbehandler</target>
+      </trans-unit>
+      <trans-unit id="zVZoA78" resname="Add reminder">
+        <source>Add reminder</source>
+        <target>Tilføj påmindelse</target>
+      </trans-unit>
+      <trans-unit id="n7k1aJR" resname="Edit case">
+        <source>Edit case</source>
+        <target>Rediger sag</target>
+      </trans-unit>
+      <trans-unit id="MY1S7iA" resname="Copy document to another case">
+        <source>Copy document to another case</source>
+        <target>Kopier dokument til anden sag</target>
+      </trans-unit>
+      <trans-unit id="B_k8nqL" resname="Open document">
+        <source>Open document</source>
+        <target>Åben dokument</target>
+      </trans-unit>
+      <trans-unit id="BPbQmqh" resname="Delete document">
+        <source>Delete document</source>
+        <target>Slet dokument</target>
+      </trans-unit>
+      <trans-unit id="HxNTsFX" resname="Edit reminder">
+        <source>Edit reminder</source>
+        <target>Rediger påmindelse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
