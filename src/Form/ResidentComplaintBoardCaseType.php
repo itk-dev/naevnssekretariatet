@@ -39,7 +39,7 @@ class ResidentComplaintBoardCaseType extends AbstractType
                 ],
                 'choice_label' => 'name',
             ])
-            ->add('save', SubmitType::class, ['label' => 'Submit changes'])
+            ->add('save', SubmitType::class)
         ;
     }
 }

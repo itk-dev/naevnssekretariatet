@@ -1,5 +1,7 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% trans_default_domain 'case' %}
+
 {% block title %}{% trans %}Communication{% endtrans %}{% endblock %}
 
 {% set decisionlink = "/case/" ~ case.id ~ "/documents" %}
@@ -39,7 +41,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="all-messages" role="tabpanel" aria-labelledby="all-messages-tab">
 
-                <h2 class="h5 mt-3">All messages</h2>
+                <h2 class="h5 mt-3">{% trans %}All messages{% endtrans %}</h2>
 
                 <div class="accordion mt-3" id="accordionAllMessages">
                     <div class="card">
@@ -159,12 +161,12 @@
             </div>
 
             <div class="tab-pane" id="phone-notes" role="tabpanel" aria-labelledby="phone-notes-tab">
-                <h2 class="h5 mt-3">Phone notes</h2>
+                <h2 class="h5 mt-3">{% trans %}Phone notes{% endtrans %}</h2>
                 <p>{% trans %}No messages in this category{% endtrans %}</p>
             </div>
 
             <div class="tab-pane" id="parties-messages" role="tabpanel" aria-labelledby="parties-messages-tab">
-                <h2 class="h5 mt-3">Parties messages</h2>
+                <h2 class="h5 mt-3">{% trans %}Parties messages{% endtrans %}</h2>
                 <div class="accordion mt-3" id="accordionPartiesMessages">
                     <div class="card">
                         <div class="card-header" id="headingOne">
@@ -281,7 +283,7 @@
                 </div>
             </div>
             <div class="tab-pane" id="citizens-messages" role="tabpanel" aria-labelledby="citizens-messages-tab">
-                <h2 class="h5 mt-3">Citizens messages</h2>
+                <h2 class="h5 mt-3">{% trans %}Citizens messages{% endtrans %}</h2>
                 <p>{% trans %}No messages in this category{% endtrans %}</p>
             </div>
         </div>
@@ -300,7 +302,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createPhoneNoteModalLabel">Create new phone note</h5>
+                    <h5 class="modal-title" id="createPhoneNoteModalLabel">{% trans %}Create new phone note{% endtrans %}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -317,13 +319,13 @@
                         <small id="helpId" class="form-text text-muted">{% trans %}Subject of the call{% endtrans %}</small>
                     </div>
                     <div class="form-group">
-                        <label for="">Message</label>
+                        <label for="">{% trans %}Message{% endtrans %}</label>
                         <textarea class="form-control" name="" id="" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                    <button type="button" class="btn btn-success">{% trans %}Save changes{% endtrans %}</button>
                 </div>
             </div>
         </div>
