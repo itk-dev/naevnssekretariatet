@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="ImnkQgY" resname="List functions">
+        <source>List functions</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="caxx7lp" resname="Caseprogress">
+        <source>Caseprogress</source>
+        <target>Sagsforløb</target>
+      </trans-unit>
+      <trans-unit id="Vrfp2Fu" resname="Casestatus">
+        <source>Casestatus</source>
+        <target>Sagsstatus</target>
+      </trans-unit>
+      <trans-unit id="oDg.PGf" resname="Case created">
+        <source>Case created</source>
+        <target>Sag oprettet</target>
+      </trans-unit>
+      <trans-unit id="7quc1EI" resname="Validated">
+        <source>Validated</source>
+        <target>Valideret</target>
+      </trans-unit>
+      <trans-unit id="b4JB5A4" resname="Parties hearing">
+        <source>Parties hearing</source>
+        <target>Partshøring</target>
+      </trans-unit>
+      <trans-unit id="uRtRw3C" resname="Case processing">
+        <source>Case processing</source>
+        <target>Sagsbehandling</target>
+      </trans-unit>
+      <trans-unit id="xdGur.z" resname="On agenda">
+        <source>On agenda</source>
+        <target>Dagsorden</target>
+      </trans-unit>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target>Afgørelse</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
