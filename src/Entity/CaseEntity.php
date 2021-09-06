@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CaseEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
@@ -64,6 +66,16 @@ abstract class CaseEntity
      * @ORM\JoinColumn(nullable=false)
      */
     private $complaintCategory;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Note::class, mappedBy="caseEntity")
+     */
+    private $notes;
+
+    public function __construct()
+    {
+        $this->notes = new ArrayCollection();
+    }
 
     public function getId(): ?UuidV4
     {
@@ -150,6 +162,36 @@ abstract class CaseEntity
     public function setComplaintCategory(?ComplaintCategory $complaintCategory): self
     {
         $this->complaintCategory = $complaintCategory;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setCaseEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getCaseEntity() === $this) {
+                $note->setCaseEntity(null);
+            }
+        }
 
         return $this;
     }
