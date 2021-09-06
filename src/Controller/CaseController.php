@@ -115,16 +115,6 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/notes", name="case_notes", methods={"GET"})
-     */
-    public function notes(CaseEntity $case): Response
-    {
-        return $this->render('case/notes.html.twig', [
-            'case' => $case,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/log", name="case_log", methods={"GET"})
      */
     public function log(CaseEntity $case): Response
