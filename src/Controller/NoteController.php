@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\NoteType;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,9 +34,16 @@ class NoteController extends AbstractController
     /**
      * @Route("/{id}/notes", name="case_notes", methods={"GET", "POST"})
      */
-    public function index(CaseEntity $case, NoteRepository $repository, Request $request): Response
+    public function index(CaseEntity $case, PaginatorInterface $paginator, NoteRepository $repository, Request $request): Response
     {
-        $notes = $repository->findBy(['caseEntity' => $case], ['createdAt' => 'ASC']);
+        $noteQuery = $repository->getNotesQueryByCase($case);
+
+        $pagination = $paginator->paginate(
+            $noteQuery, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+        $pagination->setCustomParameters(['align' => 'center']);
 
         $note = new Note();
 
@@ -57,8 +65,8 @@ class NoteController extends AbstractController
 
         return $this->render('case/notes.html.twig', [
             'note_form' => $form->createView(),
+            'pagination' => $pagination,
             'case' => $case,
-            'notes' => $notes,
         ]);
     }
 
