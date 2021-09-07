@@ -23,7 +23,6 @@ class NoteType extends AbstractType
         $builder
             ->add('subject')
             ->add('content', TextareaType::class)
-            ->add('create', SubmitType::class, ['label' => 'Create note'])
         ;
     }
 }

@@ -68,7 +68,7 @@ class SidebarController extends AbstractController
             $this->generateSubmenuItem('Communication', ['case_communication'], $caseId, $activeRoute),
             $this->generateSubmenuItem('Documents', ['case_documents'], $caseId, $activeRoute),
             $this->generateSubmenuItem('Decision', ['case_decision'], $caseId, $activeRoute),
-            $this->generateSubmenuItem('Notes', ['case_notes'], $caseId, $activeRoute),
+            $this->generateSubmenuItem('Notes', ['case_notes', 'note_edit'], $caseId, $activeRoute),
             $this->generateSubmenuItem('Log', ['case_log'], $caseId, $activeRoute),
         ];
 
