@@ -34,7 +34,6 @@ class AddPartyFromIndexType extends AbstractType
                     'Landlord' => 'Landlord',
                     'Landlord (administrator)' => 'Administrator',
                 ],
-            ])
-            ->add('save', SubmitType::class, ['label' => 'Add Party']);
+            ]);
     }
 }

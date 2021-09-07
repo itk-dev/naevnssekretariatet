@@ -16,40 +16,39 @@
 {% endblock %}
 
 {% block content %}
-
-    {{ form_start(edit_party_form) }}
-    <div class="form-row">
-        <div class="col-md-6 mb-3">
-            <label >{% trans %}Name{% endtrans %}</label>
-            {{ form_widget(edit_party_form.name, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(edit_party_form) }}
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label >{% trans %}Name{% endtrans %}</label>
+                {{ form_widget(edit_party_form.name, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label >{% trans %}CPR{% endtrans %}</label>
+                {{ form_widget(edit_party_form.cpr, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+            </div>
         </div>
-        <div class="col-md-6 mb-3">
-            <label >{% trans %}CPR{% endtrans %}</label>
-            {{ form_widget(edit_party_form.cpr, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label >{% trans %}Address{% endtrans %}</label>
+                {{ form_widget(edit_party_form.address, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label >{% trans %}Phone number{% endtrans %}</label>
+                {{ form_widget(edit_party_form.phoneNumber, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+            </div>
         </div>
-    </div>
-    <div class="form-row">
-        <div class="col-md-6 mb-3">
-            <label >{% trans %}Address{% endtrans %}</label>
-            {{ form_widget(edit_party_form.address, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label >{% trans %}Journal number{% endtrans %}</label>
+                {{ form_widget(edit_party_form.journalNumber, {'attr': {'type': 'text','class': 'form-control', 'required': false}}) }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label >{% trans %}Type{% endtrans %}</label>
+                {{ form_widget(edit_party_form.type, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+            </div>
         </div>
-        <div class="col-md-6 mb-3">
-            <label >{% trans %}Phone number{% endtrans %}</label>
-            {{ form_widget(edit_party_form.phoneNumber, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-md-6 mb-3">
-            <label >{% trans %}Journal number{% endtrans %}</label>
-            {{ form_widget(edit_party_form.journalNumber, {'attr': {'type': 'text','class': 'form-control', 'required': false}}) }}
-        </div>
-        <div class="col-md-6 mb-3">
-            <label >{% trans %}Type{% endtrans %}</label>
-            {{ form_widget(edit_party_form.type, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
-        </div>
-    </div>
-    {{ form_widget(edit_party_form.save, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}}) }}
-    {{ form_rest(edit_party_form) }}
-    {{ form_end(edit_party_form) }}
-
+        <button class="btn btn-primary float-right mt-3">{{ button_label|default('Edit party') }}</button>
+        {{ form_end(edit_party_form) }}
+    </main>
 {% endblock %}

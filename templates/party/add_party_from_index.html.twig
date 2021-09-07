@@ -14,20 +14,17 @@
 {% endblock %}
 
 {% block content %}
-
-    {{ form_start(add_party_form) }}
-    <div class="col-md-12 mb-3">
-        <label >{% trans %}Party to add{% endtrans %}</label>
-        {{ form_widget(add_party_form.partyToAdd, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
-    </div>
-    <div class="col-md-12 mb-3">
-        <label >{% trans %}Party type{% endtrans %}</label>
-        {{ form_widget(add_party_form.type, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
-    </div>
-    <div class="col-md-12 mb-3">
-        {{ form_widget(add_party_form.save, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}}) }}
-    </div>
-    {{ form_rest(add_party_form) }}
-    {{ form_end(add_party_form) }}
-
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(add_party_form) }}
+        <div>
+            <label >{% trans %}Party to add{% endtrans %}</label>
+            {{ form_widget(add_party_form.partyToAdd, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+        </div>
+        <div>
+            <label >{% trans %}Party type{% endtrans %}</label>
+            {{ form_widget(add_party_form.type, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+        </div>
+        <button class="btn btn-success float-right mt-3">{{ button_label|default('Add party') }}</button>
+        {{ form_end(add_party_form) }}
+    </main>
 {% endblock %}

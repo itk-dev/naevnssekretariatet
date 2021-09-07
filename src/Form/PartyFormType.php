@@ -11,17 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartyFormType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setRequired('party_action');
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var string $partyRepository */
-        $action = $options['party_action'];
-        $label = $action.' Party';
-
         $builder
             ->add('name')
             ->add('cpr')
@@ -37,8 +28,6 @@ class PartyFormType extends AbstractType
                     'Landlord' => 'Landlord',
                     'Landlord (administrator)' => 'Administrator',
                 ],
-            ])
-            //->add('isPartOfPartIndex')
-            ->add('save', SubmitType::class, ['label' => $label]);
+            ]);
     }
 }

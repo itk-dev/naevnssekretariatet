@@ -38,9 +38,7 @@ class PartyController extends AbstractController
     {
         $party = new Party();
 
-        $form = $this->createForm(PartyFormType::class, null, [
-            'party_action' => 'Add',
-        ]);
+        $form = $this->createForm(PartyFormType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -95,9 +93,7 @@ class PartyController extends AbstractController
      */
     public function edit(CaseEntity $case, Party $party, CasePartyRelationRepository $relationRepository, Request $request): Response
     {
-        $form = $this->createForm(PartyFormType::class, null, [
-            'party_action' => 'Edit',
-        ]);
+        $form = $this->createForm(PartyFormType::class);
 
         /** @var CasePartyRelation $relation */
         $relation = $relationRepository->findOneBy(['case' => $case, 'party' => $party]);
