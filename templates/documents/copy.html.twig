@@ -11,16 +11,16 @@
             <a name="" id="" class="btn btn-secondary" href="{{ url('document_index', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
         </div>
     </div>
+{% endblock %}
 
-    {{ form_start(copy_document_form) }}
-    <div class="form-row">
-        <div class="col-md-2 mb-3">
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(copy_document_form) }}
+        <div>
             <label >{% trans %}Cases{% endtrans %}</label>
             {{ form_widget(copy_document_form.cases, {'attr': {'class': 'form-control', 'required': true}}) }}
         </div>
-    </div>
-    {{ form_widget(copy_document_form.save, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}}) }}
-    {{ form_rest(copy_document_form) }}
-
-    {{ form_end(copy_document_form) }}
+        <button class="btn btn-success float-right mt-3">{{ button_label|default('Copy') }}</button>
+        {{ form_end(copy_document_form) }}
+    </main>
 {% endblock %}

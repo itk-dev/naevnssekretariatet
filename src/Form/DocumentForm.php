@@ -51,7 +51,6 @@ class DocumentForm extends AbstractType
                     ]),
                 ],
             ])
-            ->add('uploadDocument', SubmitType::class, ['label' => 'Upload file'])
         ;
     }
 }
