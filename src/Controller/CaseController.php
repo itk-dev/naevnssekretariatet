@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CaseEntity;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
+use App\Repository\NoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,10 +31,13 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/summary", name="case_summary", methods={"GET"})
      */
-    public function summary(CaseEntity $case): Response
+    public function summary(CaseEntity $case, NoteRepository $noteRepository): Response
     {
+        $notes = $noteRepository->findMostRecentNotesByCase($case, 4);
+
         return $this->render('case/summary.html.twig', [
             'case' => $case,
+            'notes' => $notes,
         ]);
     }
 
