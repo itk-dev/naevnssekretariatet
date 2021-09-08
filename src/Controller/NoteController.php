@@ -85,12 +85,16 @@ class NoteController extends AbstractController
             $note->setCaseEntity($case);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('case_notes', ['id' => $case->getId()]);
+            return $this->redirectToRoute('case_notes', [
+                'id' => $case->getId(),
+                'noteShown' => $note->getId()->__toString(),
+            ]);
         }
 
         return $this->render('notes/edit.html.twig', [
             'note_form' => $form->createView(),
             'case' => $case,
+            'note' => $note,
         ]);
     }
 

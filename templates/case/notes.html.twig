@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="{{ collapse|e }}" class="collapse" aria-labelledby="{{ header|e }}" data-parent="#accordionAllMessages">
+                        <div id="{{ collapse|e }}" class="collapse {% if note.id == app.request.query.get('noteShown')  %} show {% endif %}" aria-labelledby="{{ header|e }}" data-parent="#accordionAllMessages">
                             <div class="card-body">
                                 <p>{{ note.content|e }}</p>
                             </div>

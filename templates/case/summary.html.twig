@@ -144,7 +144,8 @@
                     <div class="col">
                         <div class="list-group">
                             {% for note in notes %}
-                                <a href="#" class="list-group-item list-group-item-action">
+                                {% set noteId = note.id|e %}
+                                <a href="{{ url("case_notes", {id: case.id, 'noteShown': noteId}) }}" class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
                                         <span class="mr-3">{{ note.createdAt|date('d/m/Y') }}</span>
                                         <p class="mb-1">{{ note.subject|e }}</p>

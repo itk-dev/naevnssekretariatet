@@ -8,7 +8,8 @@
             <h1>{% trans %}Edit note{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a class="btn btn-secondary" href="{{ url('case_notes', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+            {% set noteId = note.id|e %}
+            <a class="btn btn-secondary" href="{{ url('case_notes', {id: case.id, 'noteShown': noteId}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
