@@ -19,14 +19,23 @@
                     <div class="col">
                         <h2 class="h5">Add a quick note</h2>
                     </div>
+                    <!-- Variables to ensure shown or not shown via query string -->
+                    {% if app.request.query.get('showQuickNote') %}
+                        {% set collapseValue = "show" %}
+                        {% set shouldBeExpanded = "true" %}
+                    {% else %}
+                        {% set collapseValue = "" %}
+                        {% set shouldBeExpanded = "false" %}
+                    {% endif %}
+
                     <div class="col-auto ml-auto">
-                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="{{ shouldBeExpanded }}" aria-controls="collapseExample">
                             <span class="hide">{% trans %}Hide quick note{% endtrans %}</span>
                             <span class="show">{% trans %}Show quick note{% endtrans %}</span>
                         </button>
                     </div>
                 </div>
-                <div class="collapse" id="collapseExample">
+                <div class="collapse {{ collapseValue }}" id="collapseExample">
                     {{ form_start(note_form) }}
                     <div class="form-group">
                         <label >{% trans %}Subject{% endtrans %}</label>
