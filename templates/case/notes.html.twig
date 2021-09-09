@@ -70,7 +70,7 @@
                                     </h2>
                                 </div>
                                 <div class="col-auto ml-auto">
-                                    <p class="pt-2">Af {{ note.createdBy|e}}</p>
+                                    <p class="pt-2">{% trans %}By{% endtrans %} {{ note.createdBy|e}}</p>
                                 </div>
                                 <div class="col-auto">
                                     <p class="pt-2">{{ note.createdAt|date('d/m/Y H:i') }}</p>
