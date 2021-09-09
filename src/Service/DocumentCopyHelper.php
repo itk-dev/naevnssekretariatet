@@ -3,8 +3,8 @@
 namespace App\Service;
 
 use App\Entity\CaseDocumentRelation;
+use App\Entity\CaseEntity;
 use App\Entity\Document;
-use App\Entity\ResidentComplaintBoardCase;
 use App\Repository\CaseDocumentRelationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +21,7 @@ class DocumentCopyHelper
         $this->entityManager = $entityManager;
     }
 
-    public function findSuitableCases(ResidentComplaintBoardCase $case, Document $document): array
+    public function findSuitableCases(CaseEntity $case, Document $document): array
     {
         // collect all cases of same type and within same municipality
         $repository = $this->entityManager->getRepository(get_class($case));
