@@ -46,7 +46,7 @@ class DocumentForm extends AbstractType
                             'image/png',
                             'video/mp4',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'Please upload a valid document',
                     ]),
                 ],
             ])
