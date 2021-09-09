@@ -34,8 +34,6 @@ class DocumentUploader
     /**
      * Uploads document.
      *
-     * @param UploadedFile $file
-     * @return string
      * @throws FileMovingException
      */
     public function upload(UploadedFile $file): string
@@ -67,9 +65,6 @@ class DocumentUploader
 
     /**
      * Downloads document.
-     *
-     * @param Document $document
-     * @return Response
      */
     public function handleDownload(Document $document): Response
     {
@@ -88,8 +83,6 @@ class DocumentUploader
     /**
      * Ensures document directory exists.
      *
-     * @param string $documentDirectory
-     * @param Filesystem $filesystem
      * @throws DocumentDirectoryException
      */
     private function checkDocumentDirectory(string $documentDirectory, Filesystem $filesystem)

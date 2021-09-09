@@ -23,10 +23,6 @@ class DocumentCopyHelper
 
     /**
      * Finds suitable cases to copy document to.
-     *
-     * @param CaseEntity $case
-     * @param Document $document
-     * @return array
      */
     public function findSuitableCases(CaseEntity $case, Document $document): array
     {
@@ -49,10 +45,6 @@ class DocumentCopyHelper
 
     /**
      * Copies document to cases.
-     *
-     * @param ArrayCollection $cases
-     * @param Document $document
-     * @param CaseDocumentRelationRepository $relationRepository
      */
     public function handleCopyForm(ArrayCollection $cases, Document $document, CaseDocumentRelationRepository $relationRepository)
     {
