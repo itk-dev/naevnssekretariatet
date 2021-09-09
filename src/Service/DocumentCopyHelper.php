@@ -21,9 +21,16 @@ class DocumentCopyHelper
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * Finds suitable cases to copy document to.
+     *
+     * @param CaseEntity $case
+     * @param Document $document
+     * @return array
+     */
     public function findSuitableCases(CaseEntity $case, Document $document): array
     {
-        // collect all cases of same type and within same municipality
+        // Collect all cases of same type and within same municipality
         $repository = $this->entityManager->getRepository(get_class($case));
         $potentialCases = $repository->findBy(['municipality' => $case->getMunicipality()]);
 
@@ -40,6 +47,13 @@ class DocumentCopyHelper
         return array_diff($potentialCases, $casesThatContainDocument);
     }
 
+    /**
+     * Copies document to cases.
+     *
+     * @param ArrayCollection $cases
+     * @param Document $document
+     * @param CaseDocumentRelationRepository $relationRepository
+     */
     public function handleCopyForm(ArrayCollection $cases, Document $document, CaseDocumentRelationRepository $relationRepository)
     {
         foreach ($cases as $caseThatNeedsDoc) {

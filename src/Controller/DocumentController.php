@@ -150,7 +150,7 @@ class DocumentController extends AbstractController
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
-    public function download(Document $document, CaseEntity $case, DocumentUploader $uploader): Response
+    public function download(Document $document, DocumentUploader $uploader): Response
     {
         $response = $uploader->handleDownload($document);
 
