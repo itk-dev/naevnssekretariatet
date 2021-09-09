@@ -23,7 +23,7 @@ class CaseDocumentRelationRepository extends ServiceEntityRepository
     /**
      * Finds non-deleted documents for provided case.
      */
-    public function findNonDeletedDocuments(CaseEntity $caseEntity): array
+    public function findNonDeletedDocumentsByCase(CaseEntity $caseEntity): array
     {
         $relations = $caseEntity->getCaseDocumentRelation();
 

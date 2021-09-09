@@ -44,7 +44,7 @@ class DocumentController extends AbstractController
      */
     public function index(CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
-        $nonDeletedDocuments = $relationRepository->findNonDeletedDocuments($case);
+        $nonDeletedDocuments = $relationRepository->findNonDeletedDocumentsByCase($case);
 
         return $this->render('documents/index.html.twig', [
             'case' => $case,
