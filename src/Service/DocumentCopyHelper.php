@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
-use App\Repository\CaseDocumentRelationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -46,20 +45,14 @@ class DocumentCopyHelper
     /**
      * Copies document to cases.
      */
-    public function handleCopyForm(ArrayCollection $cases, Document $document, CaseDocumentRelationRepository $relationRepository)
+    public function handleCopyForm(ArrayCollection $cases, Document $document)
     {
+        // Cases have already been filtering via findSuitableCases, so simply create new relations
         foreach ($cases as $caseThatNeedsDoc) {
-            // Determine if this case document relation already exists to avoid duplicates
-            $existingRelation = $relationRepository->findOneBy(['case' => $caseThatNeedsDoc, 'document' => $document]);
-
-            if (null === $existingRelation) {
-                $relation = new CaseDocumentRelation();
-                $relation->setCase($caseThatNeedsDoc);
-                $relation->setDocument($document);
-                $this->entityManager->persist($relation);
-            } else {
-                $existingRelation->setSoftDeleted(false);
-            }
+            $relation = new CaseDocumentRelation();
+            $relation->setCase($caseThatNeedsDoc);
+            $relation->setDocument($document);
+            $this->entityManager->persist($relation);
             $this->entityManager->flush();
         }
     }

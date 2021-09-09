@@ -134,7 +134,7 @@ class DocumentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $cases = $form->get('cases')->getData();
 
-            $this->copyHelper->handleCopyForm($cases, $document, $relationRepository);
+            $this->copyHelper->handleCopyForm($cases, $document);
 
             return $this->redirectToRoute('document_index', ['id' => $case->getId()]);
         }
