@@ -69,6 +69,34 @@
         <source>Edit reminder</source>
         <target>Rediger påmindelse</target>
       </trans-unit>
+      <trans-unit id="NLf8qgh" resname="Assign user">
+        <source>Assign user</source>
+        <target>Tildel Sagsbehandler</target>
+      </trans-unit>
+      <trans-unit id="2_1xXCk" resname="Edit tenant">
+        <source>Edit tenant</source>
+        <target>Rediger lejer</target>
+      </trans-unit>
+      <trans-unit id="v4VUkeW" resname="Remove tenant">
+        <source>Remove tenant</source>
+        <target>Fjern lejer</target>
+      </trans-unit>
+      <trans-unit id="BwnSm5w" resname="Edit landlord">
+        <source>Edit landlord</source>
+        <target>Rediger udlejer</target>
+      </trans-unit>
+      <trans-unit id="IsnsS1O" resname="Remove landlord">
+        <source>Remove landlord</source>
+        <target>Fjern udlejer</target>
+      </trans-unit>
+      <trans-unit id="KZ5gTM." resname="Edit note">
+        <source>Edit note</source>
+        <target>Rediger note</target>
+      </trans-unit>
+      <trans-unit id="uA5PRCM" resname="Delete note">
+        <source>Delete note</source>
+        <target>Fjern note</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -149,6 +149,10 @@
         <source>Default Deadline(days)</source>
         <target>Standard tidsfrist(dage)</target>
       </trans-unit>
+      <trans-unit id="3iE04Og" resname="Back to the website">
+        <source>Back to the website</source>
+        <target>Tilbage til overblik</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
