@@ -1,0 +1,7 @@
+App\Entity\Agenda:
+  agenda-1:
+    board: '@resident-complaint-board-aarhus'
+    date: <(new \DateTime('2014-02-02'))>
+    start: '17.00'
+    end: '21.00'
+    status: 'åben'

@@ -41,10 +41,10 @@
                 <tbody>
                 {% for agenda in agendas %}
                     <tr>
-                        <td>Nævnet</td>
-                        <td>Datoen</td>
-                        <td>Fra</td>
-                        <td>Til</td>
+                        <td>{{ agenda.board|e }}</td>
+                        <td>{{ agenda.date|date('j F Y') }}</td>
+                        <td>{{ agenda.start|e }}</td>
+                        <td>{{ agenda.end|e }}</td>
                         <td>Nogle nævnsmedlemmer</td>
                         <td class="text-right">
                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
