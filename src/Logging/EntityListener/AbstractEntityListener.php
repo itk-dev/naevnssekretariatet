@@ -69,6 +69,11 @@ abstract class AbstractEntityListener
                 continue;
             }
 
+            // Logging is done on case level, no need to log case 'twice'
+            if ($changedValue instanceof CaseEntity) {
+                continue;
+            }
+
             $message = sprintf('Unhandled property %s of type %s.', $key, get_class($changedValue));
             throw new ItkDevLoggingException($message);
         }

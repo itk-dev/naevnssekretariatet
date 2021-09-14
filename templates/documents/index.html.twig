@@ -10,59 +10,12 @@
             <h1>{% trans %}Documents{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a name="" id="" class="btn btn-secondary" href="create" role="button">{% trans %}Create document{% endtrans %}</a>
+            <a name="" id="" class="btn btn-success" href="create" role="button">{% trans %}Upload document{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-
-    {% set document_table = [
-        {
-            "document_name": "Mail fra lejer",
-            "caseworker": "Sagsbehandler",
-            "created_by": "Part",
-            "create_date": "01.01.2021 13:47",
-        },
-        {
-            "document_name": "Bilag 2",
-            "caseworker": "Diverse bilag",
-            "created_by": "Part",
-            "create_date": "01.01.2021 13:47",
-        },
-        {
-            "document_name": "Huslejenævnet",
-            "caseworker": "Afsendte breve",
-            "created_by": "Part",
-            "create_date": "01.01.2021 13:47",
-        },
-
-    ] %}
-
-    {% set btn_group = [
-        {
-            "name": "Copy document to another case",
-            "style": "secondary",
-            "icon": "copy",
-            "link": "#",
-            "tooltip": "Copy document to another case",
-        },
-        {
-            "name": "Open document",
-            "style": "primary",
-            "icon": "file-alt",
-            "link": "#",
-            "tooltip": "Open document",
-        },
-        {
-            "name": "Delete document",
-            "style": "danger",
-            "icon": "trash-alt",
-            "link": "#",
-            "tooltip": "Delete document",
-        },
-    ] %}
-
     <main role="main" class="col-12 mt-3">
         <div class="table-responsive-sm"></div>
         <table class="table table-striped">
@@ -70,20 +23,35 @@
             <tr>
                 <th>{% trans %}Document name{% endtrans %}</th>
                 <th>{% trans %}Document type{% endtrans %}</th>
-                <th>{% trans %}Created by{% endtrans %}</th>
-                <th>{% trans %}Created date{% endtrans %}</th>
+                <th>{% trans %}Uploaded by{% endtrans %}</th>
+                <th>{% trans %}Upload date{% endtrans %}</th>
                 <th class="text-right">{% trans %}Functions{% endtrans %}</th>
             </tr>
             </thead>
             <tbody>
-            {% for item in document_table %}
+            {% for document in documents %}
                 <tr>
-                    <td>{{ item.document_name|e }}</td>
-                    <td>{{ item.caseworker|e }}</td>
-                    <td>{{ item.created_by|e }}</td>
-                    <td>{{ item.create_date|e }}.01.2021 13:47</td>
+                    <td>{{ document.documentName|e }}</td>
+                    <td>{{ document.type|e }}</td>
+                    <td>{{ document.uploadedBy|e }}</td>
+                    <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
                     <td class="text-right">
-                        {% include "common/btn_group.html.twig" with btn_group %}
+                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+
+                            <!-- Move button -->
+                            <a href="{{ url("document_copy", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Copy document to another case{% endtrans %}"><i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %} </span></a>
+
+                            <!-- Download button -->
+                            <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
+
+                            <!-- Delete button -->
+
+                            <form id="myform" class="btn-group" method="post" action="{{ path('document_delete', {'id': case.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
+                                <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
@@ -93,7 +61,7 @@
     <footer class="col-12 mt-3">
         <div class="row">
             <div class="col-auto ml-auto">
-                <a name="" id="" class="btn btn-secondary" href="create" role="button">{% trans %}Create document{% endtrans %}</a>
+                <a name="" id="" class="btn btn-success" href="create" role="button">{% trans %}Upload document{% endtrans %}</a>
             </div>
         </div>
     </footer>
