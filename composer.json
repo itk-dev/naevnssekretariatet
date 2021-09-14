@@ -67,7 +67,7 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.18",
+        "friendsofphp/php-cs-fixer": "^3.1",
         "hautelook/alice-bundle": "^2.8",
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
@@ -112,7 +112,7 @@
             "@auto-scripts"
         ],
         "check-coding-standards/php-cs-fixer": [
-            "php-cs-fixer --config=.php_cs.dist fix --dry-run"
+            "php-cs-fixer --config=.php-cs-fixer.dist.php fix --dry-run"
         ],
         "check-coding-standards/twigcs": [
             "twigcs templates"
@@ -122,7 +122,7 @@
             "@check-coding-standards/twigcs"
         ],
         "apply-coding-standards/php-cs-fixer": [
-            "php-cs-fixer --config=.php_cs.dist fix"
+            "php-cs-fixer --config=.php-cs-fixer.dist.php fix"
         ],
         "apply-coding-standards": [
             "@apply-coding-standards/php-cs-fixer"
