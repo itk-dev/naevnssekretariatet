@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="OYGiucH" resname="Communication">
+        <source>Communication</source>
+        <target>Kommunikation</target>
+      </trans-unit>
+      <trans-unit id="NxmQBC4" resname="Create decision">
+        <source>Create decision</source>
+        <target>Opret afgørelse</target>
+      </trans-unit>
+      <trans-unit id="y7CuPON" resname="Create phone note">
+        <source>Create phone note</source>
+        <target>Opret telefonnotat</target>
+      </trans-unit>
+      <trans-unit id="Xrj2VXd" resname="All messages">
+        <source>All messages</source>
+        <target>Alle beskeder</target>
+      </trans-unit>
+      <trans-unit id="KBHEj2q" resname="Phone notes">
+        <source>Phone notes</source>
+        <target>Telefonnotater</target>
+      </trans-unit>
+      <trans-unit id="qW8Wo5t" resname="Parties messages">
+        <source>Parties messages</source>
+        <target>Partsindlæg</target>
+      </trans-unit>
+      <trans-unit id="SqIT50M" resname="Citizens messages">
+        <source>Citizens messages</source>
+        <target>Borgerbeskeder</target>
+      </trans-unit>
+      <trans-unit id="GP3VSbL" resname="New">
+        <source>New</source>
+        <target>Ny</target>
+      </trans-unit>
+      <trans-unit id="sqOqYCd" resname="Answer">
+        <source>Answer</source>
+        <target>Svar</target>
+      </trans-unit>
+      <trans-unit id="QXTH4IP" resname="Answer on behalf of part">
+        <source>Answer on behalf of part</source>
+        <target>Svar på partens vejne</target>
+      </trans-unit>
+      <trans-unit id="2uKLqSc" resname="No messages in this category">
+        <source>No messages in this category</source>
+        <target>Ingen beskeder</target>
+      </trans-unit>
+      <trans-unit id="IYGXaTQ" resname="From">
+        <source>From</source>
+        <target>Fra</target>
+      </trans-unit>
+      <trans-unit id="NIXobK." resname="Who is the call from">
+        <source>Who is the call from</source>
+        <target>Hvem opkaldet er fra</target>
+      </trans-unit>
+      <trans-unit id="aJcSg4Q" resname="Subject">
+        <source>Subject</source>
+        <target>Emne</target>
+      </trans-unit>
+      <trans-unit id="ZZEV7w4" resname="Subject of the call">
+        <source>Subject of the call</source>
+        <target>Opkaldets emne</target>
+      </trans-unit>
+      <trans-unit id="HFStsFh" resname="Create new phone note">
+        <source>Create new phone note</source>
+        <target>Opret nyt telefonnotat</target>
+      </trans-unit>
+      <trans-unit id="L3dmip3" resname="Message">
+        <source>Message</source>
+        <target>Besked</target>
+      </trans-unit>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target>Afgørelse</target>
+      </trans-unit>
+      <trans-unit id="xFeYYs7" resname="Send decision">
+        <source>Send decision</source>
+        <target>Send afgørelse</target>
+      </trans-unit>
+      <trans-unit id="Kc9JLnb" resname="Select a letter template">
+        <source>Select a letter template</source>
+        <target>Vælg en brev skabelon</target>
+      </trans-unit>
+      <trans-unit id="5ZiVth6" resname="Use letter templates to create standardized letters">
+        <source>Use letter templates to create standardized letters</source>
+        <target>Brug brev skabelon til at skabe standard breve </target>
+      </trans-unit>
+      <trans-unit id="n1OzYSt" resname="Select recipient(s)">
+        <source>Select recipient(s)</source>
+        <target>Vælg modtager(e)</target>
+      </trans-unit>
+      <trans-unit id="PmMrn5P" resname="Select who should recieve the letter">
+        <source>Select who should recieve the letter</source>
+        <target>Vælg hvem der skal modtage brevet</target>
+      </trans-unit>
+      <trans-unit id="mJ94Xuh" resname="Should describe the essence of the letter">
+        <source>Should describe the essence of the letter</source>
+        <target>Bør beskrive essensen af brevet</target>
+      </trans-unit>
+      <trans-unit id="Y03hFHd" resname="Attachments">
+        <source>Attachments</source>
+        <target>Vedhæftede filer</target>
+      </trans-unit>
+      <trans-unit id="Do.Wbv4" resname="Attatch files to the letter">
+        <source>Attatch files to the letter</source>
+        <target>Vedhæft fil</target>
+      </trans-unit>
+      <trans-unit id="R70pB1_" resname="Content">
+        <source>Content</source>
+        <target>Indhold i brevet</target>
+      </trans-unit>
+      <trans-unit id="bAksnKA" resname="Basic information">
+        <source>Basic information</source>
+        <target>Stamoplysninger</target>
+      </trans-unit>
+      <trans-unit id="b6JxRT_" resname="Cancel edit">
+        <source>Cancel edit</source>
+        <target>Annuller</target>
+      </trans-unit>
+      <trans-unit id="1LKCjo7" resname="Complainant">
+        <source>Complainant</source>
+        <target>Klager</target>
+      </trans-unit>
+      <trans-unit id="10nq6fg" resname="Complainant address">
+        <source>Complainant address</source>
+        <target>Klagers adresse</target>
+      </trans-unit>
+      <trans-unit id="NOBF55P" resname="Complainant phone number">
+        <source>Complainant phone number</source>
+        <target>Klagers telefonnummer</target>
+      </trans-unit>
+      <trans-unit id="KWST_ym" resname="Complainant postal code">
+        <source>Complainant postal code</source>
+        <target>Klagers postnummer</target>
+      </trans-unit>
+      <trans-unit id="Auee2PY" resname="Complainant category">
+        <source>Complainant category</source>
+        <target>Klagekategori</target>
+      </trans-unit>
+      <trans-unit id="A8h1npn" resname="Hearing">
+        <source>Hearing</source>
+        <target>Partshøring</target>
+      </trans-unit>
+      <trans-unit id="x1Ufxf3" resname="End Hearing">
+        <source>End Hearing</source>
+        <target>Afslut partshøring</target>
+      </trans-unit>
+      <trans-unit id="4_DYGl8" resname="Complaints have nothing more to add">
+        <source>Complaints have nothing more to add</source>
+        <target>Klager har ikke mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="Fo04Zda" resname="Counterparty has no more to add">
+        <source>Counterparty has no more to add</source>
+        <target>Modpart har ikke mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="Ikm9UD7" resname="Cases">
+        <source>Cases</source>
+        <target>Sager</target>
+      </trans-unit>
+      <trans-unit id="7xc8BDd" resname="Casenumber">
+        <source>Casenumber</source>
+        <target>Sagsnr.</target>
+      </trans-unit>
+      <trans-unit id="SaPHHYy" resname="Complaint category">
+        <source>Complaint category</source>
+        <target>Sagstype</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="b8s43ch" resname="Deadline">
+        <source>Deadline</source>
+        <target>Tidsfrist</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Adresse</target>
+      </trans-unit>
+      <trans-unit id="OAd9aCc" resname="Landlord">
+        <source>Landlord</source>
+        <target>Udlejer</target>
+      </trans-unit>
+      <trans-unit id="4jlp0oT" resname="Tenant">
+        <source>Tenant</source>
+        <target>Lejer</target>
+      </trans-unit>
+      <trans-unit id="yANxAwL" resname="Function">
+        <source>Function</source>
+        <target>Handling</target>
+      </trans-unit>
+      <trans-unit id="DhTdmrK" resname="Show case">
+        <source>Show case</source>
+        <target>Vis sag</target>
+      </trans-unit>
+      <trans-unit id="ImnkQgY" resname="List functions">
+        <source>List functions</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="zVZoA78" resname="Add reminder">
+        <source>Add reminder</source>
+        <target>Tilføj påmindelse</target>
+      </trans-unit>
+      <trans-unit id="IeSesrK" resname="Log">
+        <source>Log</source>
+        <target>Log</target>
+      </trans-unit>
+      <trans-unit id="rDm9OIj" resname="Dato">
+        <source>Dato</source>
+        <target>Dato</target>
+      </trans-unit>
+      <trans-unit id="6jRHZCk" resname="AZ-ident">
+        <source>AZ-ident</source>
+        <target>AZ-ident</target>
+      </trans-unit>
+      <trans-unit id="uq3fcPt" resname="Type">
+        <source>Type</source>
+        <target>Type</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Beskrivelse</target>
+      </trans-unit>
+      <trans-unit id="inUlsUk" resname="Notes">
+        <source>Notes</source>
+        <target>Noter</target>
+      </trans-unit>
+      <trans-unit id="y181RZk" resname="Create new note">
+        <source>Create new note</source>
+        <target>Opret ny note</target>
+      </trans-unit>
+      <trans-unit id="Myd0kC4" resname="Hide quick note">
+        <source>Hide quick note</source>
+        <target>Fjern opret note</target>
+      </trans-unit>
+      <trans-unit id="_CT5F_I" resname="Show quick note">
+        <source>Show quick note</source>
+        <target>Vis opret note</target>
+      </trans-unit>
+      <trans-unit id="VK5uJNs" resname="Add a descriptive subject for ease of finding the note later on">
+        <source>Add a descriptive subject for ease of finding the note later on</source>
+        <target>Tilføj et beskrivende emne for lettere at kunne finde noten senere</target>
+      </trans-unit>
+      <trans-unit id="0psjY1J" resname="Note content">
+        <source>Note content</source>
+        <target>Note indhold</target>
+      </trans-unit>
+      <trans-unit id="ZQHhztj" resname="Save note">
+        <source>Save note</source>
+        <target>Opret note</target>
+      </trans-unit>
+      <trans-unit id="vvGWCAh" resname="List of existion notes">
+        <source>List of existion notes</source>
+        <target>Overblik over noter på sagen</target>
+      </trans-unit>
+      <trans-unit id="cezsiM6" resname="All notes">
+        <source>All notes</source>
+        <target>Alle noter</target>
+      </trans-unit>
+      <trans-unit id="ndqry5I" resname="Add a quick note">
+        <source>Add a quick note</source>
+        <target>Tilføj en note</target>
+      </trans-unit>
+      <trans-unit id="DiWTxj9" resname="Create representative">
+        <source>Create representative</source>
+        <target>Opret repræsentant</target>
+      </trans-unit>
+      <trans-unit id="xf9bYTI" resname="Edit basic information">
+        <source>Edit basic information</source>
+        <target>Ændre stamoplysninger</target>
+      </trans-unit>
+      <trans-unit id="1LHqVwj" resname="Overview">
+        <source>Overview</source>
+        <target>Oversigt</target>
+      </trans-unit>
+      <trans-unit id="p4np4F7" resname="Lease">
+        <source>Lease</source>
+        <target>Lejemål</target>
+      </trans-unit>
+      <trans-unit id="VmP9so5" resname="Date for receiving complaint">
+        <source>Date for receiving complaint</source>
+        <target>Klage modtaget</target>
+      </trans-unit>
+      <trans-unit id=".UpoVLi" resname="Complaint fee in DKK">
+        <source>Complaint fee in DKK</source>
+        <target>klagegebyr</target>
+      </trans-unit>
+      <trans-unit id="WQvNeqY" resname="CPR number">
+        <source>CPR number</source>
+        <target>CPR nummber</target>
+      </trans-unit>
+      <trans-unit id="MAUEDTa" resname="Telephone number">
+        <source>Telephone number</source>
+        <target>Klagers telefonnummer</target>
+      </trans-unit>
+      <trans-unit id="oi4LH8P" resname="Road">
+        <source>Road</source>
+        <target>Vej</target>
+      </trans-unit>
+      <trans-unit id="rlPOqCK" resname="Postal code">
+        <source>Postal code</source>
+        <target>Postnummer</target>
+      </trans-unit>
+      <trans-unit id=".DP3Mkb" resname="City">
+        <source>City</source>
+        <target>By</target>
+      </trans-unit>
+      <trans-unit id="QGEau92" resname="Validate">
+        <source>Validate</source>
+        <target>Valider</target>
+      </trans-unit>
+      <trans-unit id="b5G97Vo" resname="Validate the legitimacy of the address by pressing the validate button">
+        <source>Validate the legitimacy of the address by pressing the validate button</source>
+        <target>Valider adressen ved at klikke på valider knappen</target>
+      </trans-unit>
+      <trans-unit id="MpAtaJD" resname="Alternative address">
+        <source>Alternative address</source>
+        <target>Alternativ adresse</target>
+      </trans-unit>
+      <trans-unit id="povv.af" resname="Property number">
+        <source>Property number</source>
+        <target>Ejendomsnummer</target>
+      </trans-unit>
+      <trans-unit id="Nm5f9MJ" resname="Property name">
+        <source>Property name</source>
+        <target>Ejendoms kaldenavn</target>
+      </trans-unit>
+      <trans-unit id="R9DJka7" resname="Property type">
+        <source>Property type</source>
+        <target>Boligtype</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Navn</target>
+      </trans-unit>
+      <trans-unit id="9gcREM5" resname="Journal number">
+        <source>Journal number</source>
+        <target>Journalnr.</target>
+      </trans-unit>
+      <trans-unit id="2_1xXCk" resname="Edit tenant">
+        <source>Edit tenant</source>
+        <target>Rediger lejer</target>
+      </trans-unit>
+      <trans-unit id="4n3Tx2Z" resname="Status info">
+        <source>Status info</source>
+        <target>Status oplysninger</target>
+      </trans-unit>
+      <trans-unit id="P4Mfiij" resname="Processinformation">
+        <source>Processinformation</source>
+        <target>Processinformation</target>
+      </trans-unit>
+      <trans-unit id="FMLkHtb" resname="In the section Processinformation you can see the current status">
+        <source>In the section Processinformation you can see the current status</source>
+        <target>Her vises sagens aktuelle status - herunder hvem der har initiativet: sagsbehandler eller parterne.</target>
+      </trans-unit>
+      <trans-unit id="Cz2n9yX" resname="Current casestatus">
+        <source>Current casestatus</source>
+        <target>Aktuel sagsstatus</target>
+      </trans-unit>
+      <trans-unit id="b4JB5A4" resname="Parties hearing">
+        <source>Parties hearing</source>
+        <target>Partshøring</target>
+      </trans-unit>
+      <trans-unit id="m.0YbeZ" resname="Initiative assigne">
+        <source>Initiative assigne</source>
+        <target>Hvem har initiativet</target>
+      </trans-unit>
+      <trans-unit id="b1Hpu29" resname="No entry yet">
+        <source>No entry yet</source>
+        <target>Ingen post endnu</target>
+      </trans-unit>
+      <trans-unit id="6YB4rkh" resname="Last parts post">
+        <source>Last parts post</source>
+        <target>Sidste partsindlæg</target>
+      </trans-unit>
+      <trans-unit id="av9fm0I" resname="Deadlines">
+        <source>Deadlines</source>
+        <target>Tidsfrister</target>
+      </trans-unit>
+      <trans-unit id="zBB31Sp" resname="In the section Deadlines you can see the currently active deadlines">
+        <source>In the section Deadlines you can see the currently active deadlines</source>
+        <target>Her vises aktive tidsfrister samt hvor lang tid der resterer før tidsfristen overskrides. Tidsfristen ligger hos personen der har initiativet. </target>
+      </trans-unit>
+      <trans-unit id="4IO9g_n" resname="Process">
+        <source>Process</source>
+        <target>Process</target>
+      </trans-unit>
+      <trans-unit id="D99IX1v" resname="Agenda">
+        <source>Agenda</source>
+        <target>Dagsorden</target>
+      </trans-unit>
+      <trans-unit id="r7_xSJO" resname="Add case to selected agenda">
+        <source>Add case to selected agenda</source>
+        <target>Tilføj sag til dagsorden</target>
+      </trans-unit>
+      <trans-unit id="5fhyS2t" resname="Enter a new date">
+        <source>Enter a new date</source>
+        <target>Vælg en ny dato</target>
+      </trans-unit>
+      <trans-unit id="sgJa9ii" resname="New date for the deadline">
+        <source>New date for the deadline</source>
+        <target>Ny dag for tidsfrist</target>
+      </trans-unit>
+      <trans-unit id="uasmRr0" resname="Describe why the date has changed">
+        <source>Describe why the date has changed</source>
+        <target>Hvorfor skal tidsfristen ændres</target>
+      </trans-unit>
+      <trans-unit id="Uz3lvy0" resname="This information is needed for journaling purpose">
+        <source>This information is needed for journaling purpose</source>
+        <target>Denne information skal bruges i forbindelse med logging</target>
+      </trans-unit>
+      <trans-unit id="dKps013" resname="Selected agenda">
+        <source>Selected agenda</source>
+        <target>Valgt dagsorden</target>
+      </trans-unit>
+      <trans-unit id="SBbL.XS" resname="Board">
+        <source>Board</source>
+        <target>Nævn</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Dato</target>
+      </trans-unit>
+      <trans-unit id="ur6d2oU" resname="Start time">
+        <source>Start time</source>
+        <target>Start tidspunkt</target>
+      </trans-unit>
+      <trans-unit id="LkYAal7" resname="End time">
+        <source>End time</source>
+        <target>Slut tidspunkt</target>
+      </trans-unit>
+      <trans-unit id="w4EvxKy" resname="Remove">
+        <source>Remove</source>
+        <target>Fjern</target>
+      </trans-unit>
+      <trans-unit id="3Qrnpcv" resname="Save changes">
+        <source>Save changes</source>
+        <target>Gem ændringer</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target>Anuller</target>
+      </trans-unit>
+      <trans-unit id="pqgEMbA" resname="Reschedule">
+        <source>Reschedule</source>
+        <target>Ændre tidsfrist</target>
+      </trans-unit>
+      <trans-unit id="xNa3ck9" resname="Reschedule deadline">
+        <source>Reschedule deadline</source>
+        <target>Ændre tidsfrist</target>
+      </trans-unit>
+      <trans-unit id="J6Y6.ic" resname="Remove from agenda">
+        <source>Remove from agenda</source>
+        <target>Fjern fra dagsorden</target>
+      </trans-unit>
+      <trans-unit id="M4PGNGw" resname="Casesummary">
+        <source>Casesummary</source>
+        <target>Sagsopsummering</target>
+      </trans-unit>
+      <trans-unit id="FfhuJO0" resname="Case">
+        <source>Case</source>
+        <target>Sag</target>
+      </trans-unit>
+      <trans-unit id="aBtQgag" resname="Move case">
+        <source>Move case</source>
+        <target>Flyt sag</target>
+      </trans-unit>
+      <trans-unit id="FalviH0" resname="Delete case">
+        <source>Delete case</source>
+        <target>Slet sag</target>
+      </trans-unit>
+      <trans-unit id="bKEupox" resname="Caseinfo">
+        <source>Caseinfo</source>
+        <target>Sagsinfo</target>
+      </trans-unit>
+      <trans-unit id=".h9LxTI" resname="Latest communication">
+        <source>Latest communication</source>
+        <target>Seneste kommunikation</target>
+      </trans-unit>
+      <trans-unit id="MoPVoWp" resname="Latest notes">
+        <source>Latest notes</source>
+        <target>Seneste noter</target>
+      </trans-unit>
+      <trans-unit id="Xaj3_8K" resname="Back to list">
+        <source>Back to list</source>
+        <target>Tilbage til listen</target>
+      </trans-unit>
+      <trans-unit id="N0zZ0iD" resname="Created by">
+        <source>Created by</source>
+        <target>Oprettet af</target>
+      </trans-unit>
+      <trans-unit id="_pH3Yo6" resname="Date created">
+        <source>Date created</source>
+        <target>Oprettelses dato</target>
+      </trans-unit>
+      <trans-unit id="2MVnCtm" resname="Last changed">
+        <source>Last changed</source>
+        <target>Senest redigeret</target>
+      </trans-unit>
+      <trans-unit id="CO5FZaJ" resname="Assigned to">
+        <source>Assigned to</source>
+        <target>Aktuel sagsbehandler</target>
+      </trans-unit>
+      <trans-unit id="5vSuyiT" resname="Municipality">
+        <source>Municipality</source>
+        <target>Kommune</target>
+      </trans-unit>
+      <trans-unit id="FV_BbAQ" resname="Submit">
+        <source>Submit</source>
+        <target>Gem ændringer</target>
+      </trans-unit>
+      <trans-unit id="1gLIib9" resname="Validate CPR number">
+        <source>Validate CPR number</source>
+        <target>Valider CPR nummer</target>
+      </trans-unit>
+      <trans-unit id="Iyyo8M8" resname="Validate address">
+        <source>Validate address</source>
+        <target>Valider adresse</target>
+      </trans-unit>
+      <trans-unit id="e8e6PXM" resname="All boards">
+        <source>All boards</source>
+        <target>Alle nævn</target>
+      </trans-unit>
+      <trans-unit id="evTT2NC" resname="All casestatuses">
+        <source>All casestatuses</source>
+        <target>Alle sagsstatusser</target>
+      </trans-unit>
+      <trans-unit id="3FHPkV8" resname="All deadlines">
+        <source>All deadlines</source>
+        <target>Alle tidsfrister</target>
+      </trans-unit>
+      <trans-unit id="7_43pVW" resname="All responsible users">
+        <source>All responsible users</source>
+        <target>Alle sagsbehandlere</target>
+      </trans-unit>
+      <trans-unit id="XCTPL8W" resname="All municipalities">
+        <source>All municipalities</source>
+        <target>Alle kommuner</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

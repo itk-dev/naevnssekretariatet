@@ -1,5 +1,7 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% trans_default_domain 'case' %}
+
 {% set createdate = case.createdAt|date('d/m/Y') %}
 {% set updatedate = case.updatedAt|date('d/m/Y') %}
 
@@ -99,7 +101,7 @@
             <div class="row">
                 {% for item in caseinfo %}
                     <div class="col">
-                        <label for="{{ item.label|e }}">{{ item.label|e }}</label>
+                        <label for="{{ item.label|e }}">{{ item.label|trans([], 'case', 'da') }}</label>
                         <p class="m-0" id="{{ item.label|e }}"><strong>{{ item.value|e }}</strong></p>
                     </div>
                 {% endfor %}
@@ -135,7 +137,7 @@
                         <h2 id="section_latest_notes">{% trans %}Latest notes{% endtrans %}</h2>
                     </div>
                     <div class="col-auto">
-                        <a name="" id="" class="btn btn-success float-right" href={{ url("case_notes", {id: case.id}) }} role="button">Create new note</a>
+                        <a name="" id="" class="btn btn-success float-right" href={{ url("case_notes", {id: case.id}) }} role="button">{% trans %}Create new note{% endtrans %}</a>
                     </div>
                 </div>
                 <div class="row">

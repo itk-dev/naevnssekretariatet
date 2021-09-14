@@ -1,12 +1,12 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__)
     ->exclude(['var', 'node_modules'])
-;
+    ->in(__DIR__);
 
-return PhpCsFixer\Config::create()
-    ->setRules([
+$config = new PhpCsFixer\Config();
+
+return $config->setRules([
         '@Symfony' => true,
     ])
     ->setFinder($finder)

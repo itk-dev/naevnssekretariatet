@@ -20,22 +20,22 @@ class SidebarController extends AbstractController
     {
         $menuItems = [
             $this->generateMenuItem(
-                'Dashboard',
-                'Go to dashboard',
+                $this->translator->trans('Dashboard', [], 'sidebar'),
+                $this->translator->trans('Go to dashboard', [], 'sidebar'),
                 'default',
                 'tachometer-alt',
                 $activeRoute
             ),
             $this->generateMenuItem(
-                'Case list',
-                'Go to list of cases',
+                $this->translator->trans('Case list', [], 'sidebar'),
+                $this->translator->trans('Go to list of cases', [], 'sidebar'),
                 'case_index',
                 'list',
                 $activeRoute
             ),
             $this->generateMenuItem(
-                'Settings',
-                'Go to settings',
+                $this->translator->trans('Settings', [], 'sidebar'),
+                $this->translator->trans('Go to settings', [], 'sidebar'),
                 'admin',
                 'cog',
                 $activeRoute
@@ -61,15 +61,15 @@ class SidebarController extends AbstractController
     public function renderSubmenu(UuidV4 $caseId, string $activeRoute): Response
     {
         $submenuItems = [
-            $this->generateSubmenuItem('Summary', ['case_summary'], $caseId, $activeRoute),
-            $this->generateSubmenuItem('Basic information', ['case_show', 'case_edit'], $caseId, $activeRoute),
-            $this->generateSubmenuItem('Status info', ['case_status'], $caseId, $activeRoute),
-            $this->generateSubmenuItem('Hearing', ['case_hearing'], $caseId, $activeRoute),
-            $this->generateSubmenuItem('Communication', ['case_communication'], $caseId, $activeRoute),
-            $this->generateSubmenuItem('Documents', ['document_index', 'document_create', 'document_copy'], $caseId, $activeRoute),
-            $this->generateSubmenuItem('Decision', ['case_decision'], $caseId, $activeRoute),
-            $this->generateSubmenuItem('Notes', ['case_notes'], $caseId, $activeRoute),
-            $this->generateSubmenuItem('Log', ['case_log'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Summary', [], 'sidebar'), ['case_summary'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Basic Information', [], 'sidebar'), ['case_show', 'case_edit'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Status Info', [], 'sidebar'), ['case_status'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['case_communication'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['case_documents'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Decision', [], 'sidebar'), ['case_decision'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Notes', [], 'sidebar'), ['case_notes'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Log', [], 'sidebar'), ['case_log'], $caseId, $activeRoute),
         ];
 
         return $this->render('sidebar/_submenu.html.twig', [
