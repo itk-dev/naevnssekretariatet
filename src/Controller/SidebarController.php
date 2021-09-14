@@ -84,6 +84,19 @@ class SidebarController extends AbstractController
         ]);
     }
 
+    public function renderAgendaSubmenu(UuidV4 $agendaId, string $activeRoute): Response
+    {
+        $submenuItems = [
+            $this->generateSubmenuItem($this->translator->trans('Agenda', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Protocol', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
+        ];
+
+        return $this->render('sidebar/_submenu.html.twig', [
+            'submenu_items' => $submenuItems,
+        ]);
+    }
+
     /**
      * Notice that the generated link uses the first route in array of routes,
      * when it generates the url.
