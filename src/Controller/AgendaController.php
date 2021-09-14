@@ -36,4 +36,13 @@ class AgendaController extends AbstractController
             'favorite_municipality' => $favoriteMunicipality,
         ]);
     }
+
+    /**
+     * @Route("/create", name="agenda_create", methods={"GET", "POST"})
+     */
+    public function create(): Response
+    {
+        return $this->render('agenda/create.html.twig', [
+        ]);
+    }
 }
