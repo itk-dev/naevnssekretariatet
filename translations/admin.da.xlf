@@ -5,7 +5,7 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="3bqLM8Q" resname="dashboard">
+      <trans-unit id="Zs2WiKK" resname="dashboard">
         <source>dashboard</source>
         <target>Indstillinger</target>
       </trans-unit>
@@ -148,6 +148,10 @@
       <trans-unit id="juBm4s0" resname="Default Deadline(days)">
         <source>Default Deadline(days)</source>
         <target>Standard tidsfrist(dage)</target>
+      </trans-unit>
+      <trans-unit id="3iE04Og" resname="Back to the website">
+        <source>Back to the website</source>
+        <target>Tilbage til overblik</target>
       </trans-unit>
     </body>
   </file>

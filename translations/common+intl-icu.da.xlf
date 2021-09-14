@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="ImnkQgY" resname="List functions">
+        <source>List functions</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="caxx7lp" resname="Caseprogress">
+        <source>Caseprogress</source>
+        <target>Sagsforløb</target>
+      </trans-unit>
+      <trans-unit id="Vrfp2Fu" resname="Casestatus">
+        <source>Casestatus</source>
+        <target>Sagsstatus</target>
+      </trans-unit>
+      <trans-unit id="oDg.PGf" resname="Case created">
+        <source>Case created</source>
+        <target>Sag oprettet</target>
+      </trans-unit>
+      <trans-unit id="7quc1EI" resname="Validated">
+        <source>Validated</source>
+        <target>Valideret</target>
+      </trans-unit>
+      <trans-unit id="b4JB5A4" resname="Parties hearing">
+        <source>Parties hearing</source>
+        <target>Partshøring</target>
+      </trans-unit>
+      <trans-unit id="uRtRw3C" resname="Case processing">
+        <source>Case processing</source>
+        <target>Sagsbehandling</target>
+      </trans-unit>
+      <trans-unit id="xdGur.z" resname="On agenda">
+        <source>On agenda</source>
+        <target>Dagsorden</target>
+      </trans-unit>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target>Afgørelse</target>
+      </trans-unit>
+      <trans-unit id="uKM1DKQ" resname="Assign case to user">
+        <source>Assign case to user</source>
+        <target>Tildel sagsbehandler</target>
+      </trans-unit>
+      <trans-unit id="zVZoA78" resname="Add reminder">
+        <source>Add reminder</source>
+        <target>Tilføj påmindelse</target>
+      </trans-unit>
+      <trans-unit id="n7k1aJR" resname="Edit case">
+        <source>Edit case</source>
+        <target>Rediger sag</target>
+      </trans-unit>
+      <trans-unit id="MY1S7iA" resname="Copy document to another case">
+        <source>Copy document to another case</source>
+        <target>Kopier dokument til anden sag</target>
+      </trans-unit>
+      <trans-unit id="B_k8nqL" resname="Open document">
+        <source>Open document</source>
+        <target>Åben dokument</target>
+      </trans-unit>
+      <trans-unit id="BPbQmqh" resname="Delete document">
+        <source>Delete document</source>
+        <target>Slet dokument</target>
+      </trans-unit>
+      <trans-unit id="HxNTsFX" resname="Edit reminder">
+        <source>Edit reminder</source>
+        <target>Rediger påmindelse</target>
+      </trans-unit>
+      <trans-unit id="NLf8qgh" resname="Assign user">
+        <source>Assign user</source>
+        <target>Tildel Sagsbehandler</target>
+      </trans-unit>
+      <trans-unit id="2_1xXCk" resname="Edit tenant">
+        <source>Edit tenant</source>
+        <target>Rediger lejer</target>
+      </trans-unit>
+      <trans-unit id="v4VUkeW" resname="Remove tenant">
+        <source>Remove tenant</source>
+        <target>Fjern lejer</target>
+      </trans-unit>
+      <trans-unit id="BwnSm5w" resname="Edit landlord">
+        <source>Edit landlord</source>
+        <target>Rediger udlejer</target>
+      </trans-unit>
+      <trans-unit id="IsnsS1O" resname="Remove landlord">
+        <source>Remove landlord</source>
+        <target>Fjern udlejer</target>
+      </trans-unit>
+      <trans-unit id="KZ5gTM." resname="Edit note">
+        <source>Edit note</source>
+        <target>Rediger note</target>
+      </trans-unit>
+      <trans-unit id="uA5PRCM" resname="Delete note">
+        <source>Delete note</source>
+        <target>Fjern note</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

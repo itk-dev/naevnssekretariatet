@@ -1,72 +1,72 @@
 App\Entity\ComplaintCategory:
   security-deposit-complaint-aarhus:
-    name: Security deposit complaint
+    name: Depositums sag
     fee: 199
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
 
   security-deposit-complaint-randers:
-    name: Security deposit complaint
+    name: Depositums sag
     fee: 219
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
 
   maintenance-complaint-aarhus:
-    name: Maintenance complaint
+    name: Vedligeholdelses sag
     fee: 179
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
 
   maintenance-complaint-randers:
-    name: Maintenance complaint
+    name: Vedligeholdelses sag
     fee: 189
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
 
   rent-increase-complaint-aarhus:
-    name: Rent Increase complaint
+    name: Lejeforhøjelser
     fee: 201
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
 
   rent-increase-complaint-randers:
-    name: Rent Increase complaint
+    name: Lejeforhøjelser
     fee: 211
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
 
   water-heat-electricity-complaint-aarhus:
-    name: Water-, heat- and electricity complaint
+    name: Vand-, varme- og elregnskaber
     fee: 179
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
 
   water-heat-electricity-complaint-randers:
-    name: Water-, heat- and electricity complaint
+    name: Vand-, varme- og elregnskaber
     fee: 189
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
 
   improvement-compensation-complaint-aarhus:
-    name: Lease improvement compensation complaint
+    name: Vedligeholdelse og istandsættelse ved fraflytning
     fee: 270
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
 
   improvement-compensation-complaint-randers:
-    name: Lease improvement compensation complaint
+    name: Vedligeholdelse og istandsættelse ved fraflytning
     fee: 270
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
 
   telecommunications-service-complaint-aarhus:
-    name: Shared antenna and telecommunications service complaint
+    name: Betaling for fællesantenne og adgang til teletjeneste
     fee: 159
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
 
   telecommunications-service-complaint-randers:
-    name: Shared antenna and telecommunications service complaint
+    name: Betaling for fællesantenne og adgang til teletjeneste
     fee: 230
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'

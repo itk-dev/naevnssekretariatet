@@ -1,3 +1,5 @@
+{% trans_default_domain 'common' %}
+
 {% set caseprogress = [
     {
         "name": "Case created"
@@ -34,7 +36,7 @@
             <div class="row mt-1">
                 {% for item in caseprogress %}
                     <div class="col">
-                        <p class="m-0">{{ item.name|e }}<i class="fas fa-angle-right ml-1 mt-1 float-right"></i></p>
+                        <p class="m-0">{{ item.name|trans([], 'common', 'da') }}<i class="fas fa-angle-right ml-1 mt-1 float-right"></i></p>
                     </div>
                 {% endfor %}
             </div>
