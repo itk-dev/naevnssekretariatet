@@ -1,6 +1,6 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
-{% trans_default_domain 'note' %}
+{% trans_default_domain 'notes' %}
 
 {% block title %}{% trans %}Edit note{% endtrans %}{% endblock %}
 
@@ -11,7 +11,7 @@
         </div>
         <div class="col-auto">
             {% set note_id = note.id|e %}
-            <a class="btn btn-secondary" href="{{ url('case_notes', {id: case.id, 'noteShown': note_id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+            <a class="btn btn-secondary" href="{{ url('note_index', {id: case.id, 'noteShown': note_id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
@@ -28,7 +28,7 @@
             <label for="">{% trans %}Note content{% endtrans %}</label>
             {{ form_widget(note_form.content, {'attr': {'type': 'textarea','class': 'form-control', 'rows': 3}}) }}
         </div>
-        <button class="btn btn-primary float-right">{{ button_label|default('Upload'|trans([], 'note', 'da')) }}</button>
+        <button class="btn btn-primary float-right">{{ button_label|default('Upload'|trans([], 'notes', 'da')) }}</button>
         {{ form_rest(note_form) }}
     </main>
 {% endblock %}

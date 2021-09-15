@@ -31,7 +31,7 @@ class NoteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/notes", name="case_notes", methods={"GET", "POST"})
+     * @Route("/{id}/notes", name="note_index", methods={"GET", "POST"})
      */
     public function index(CaseEntity $case, PaginatorInterface $paginator, NoteRepository $repository, Request $request): Response
     {
@@ -59,10 +59,10 @@ class NoteController extends AbstractController
             $this->entityManager->persist($note);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('case_notes', ['id' => $case->getId()]);
+            return $this->redirectToRoute('note_index', ['id' => $case->getId()]);
         }
 
-        return $this->render('case/notes.html.twig', [
+        return $this->render('notes/index.html.twig', [
             'note_form' => $form->createView(),
             'pagination' => $pagination,
             'case' => $case,
@@ -83,7 +83,7 @@ class NoteController extends AbstractController
             $note->setCaseEntity($case);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('case_notes', [
+            return $this->redirectToRoute('note_index', [
                 'id' => $case->getId(),
                 'noteShown' => $note->getId()->__toString(),
             ]);
@@ -109,6 +109,6 @@ class NoteController extends AbstractController
             $this->entityManager->flush();
         }
 
-        return $this->redirectToRoute('case_notes', ['id' => $case->getId()]);
+        return $this->redirectToRoute('note_index', ['id' => $case->getId()]);
     }
 }
