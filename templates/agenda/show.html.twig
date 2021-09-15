@@ -18,6 +18,72 @@
 {% endblock %}
 
 {% block content %}
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(agenda_form) }}
+        <div class="form-row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">{% trans %}Board{% endtrans %}</label>
+                    {{ form_widget(agenda_form.board, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">{% trans %}Select recipient(s) {% endtrans %}</label>
+                    {{ form_widget(agenda_form.status, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="">{% trans %}Remarks{% endtrans %}</label>
+            {{ form_widget(agenda_form.remarks, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">{% trans %}Date{% endtrans %}</label>
+                    {{ form_widget(agenda_form.date) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">{% trans %}From{% endtrans %}</label>
+                    {{ form_widget(agenda_form.start, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">{% trans %}To{% endtrans %}</label>
+                    {{ form_widget(agenda_form.end, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary float-right">{{ button_label|default('Save changes') }}</button>
+            </div>
+        </div>
+        {{ form_end(agenda_form) }}
+
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>{% trans %}Agenda items{% endtrans %}</h6>
+                    {# TODO: Needs functionality on button #}
+                    <a name="" id="" class="btn btn-success btn-sm" style="float: right;" href="#" role="button">{% trans %}Add agenda item{% endtrans %}</a>
+                    <hr style="width:100%">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>{% trans %}Board members{% endtrans %}</h6>
+                    {# TODO: Needs functionality on button #}
+                    <a name="" id="" class="btn btn-success btn-sm" href="#" style="float: right;" role="button">{% trans %}Add board member{% endtrans %}</a>
+                    <hr style="width:100%">
+                </div>
+            </div>
+        </div>
+    </main>
+
 
     <footer class="col-12 mt-3">
         <div class="row">

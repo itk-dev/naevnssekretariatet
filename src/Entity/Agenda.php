@@ -6,8 +6,8 @@ use App\Repository\AgendaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\UuidV4;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
+use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=AgendaRepository::class)
@@ -51,6 +51,11 @@ class Agenda
      * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="agendas")
      */
     private $boardmembers;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $remarks;
 
     public function __construct()
     {
@@ -142,6 +147,18 @@ class Agenda
     public function removeBoardmember(BoardMember $boardmember): self
     {
         $this->boardmembers->removeElement($boardmember);
+
+        return $this;
+    }
+
+    public function getRemarks(): ?string
+    {
+        return $this->remarks;
+    }
+
+    public function setRemarks(?string $remarks): self
+    {
+        $this->remarks = $remarks;
 
         return $this;
     }

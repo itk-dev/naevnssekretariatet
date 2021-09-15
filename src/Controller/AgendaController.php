@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Agenda;
 use App\Entity\User;
+use App\Form\AgendaType;
 use App\Repository\AgendaRepository;
 use App\Repository\MunicipalityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -82,9 +83,23 @@ class AgendaController extends AbstractController
     /**
      * @Route("/{id}/show", name="agenda_show", methods={"GET", "POST"})
      */
-    public function show(Agenda $agenda): Response
+    public function show(Agenda $agenda, Request $request): Response
     {
+        $form = $this->createForm(AgendaType::class, $agenda);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $agenda = $form->getData();
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('agenda_show', [
+                'id' => $agenda->getId(),
+                'agenda' => $agenda,
+            ]);
+        }
+
         return $this->render('agenda/show.html.twig', [
+            'agenda_form' => $form->createView(),
             'agenda' => $agenda,
         ]);
     }
