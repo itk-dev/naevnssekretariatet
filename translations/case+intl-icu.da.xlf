@@ -541,6 +541,30 @@
         <source>All municipalities</source>
         <target>Alle kommuner</target>
       </trans-unit>
+      <trans-unit id="_UiT6nQ" resname="List of existing notes">
+        <source>List of existing notes</source>
+        <target>Liste af noter</target>
+      </trans-unit>
+      <trans-unit id="ElRmuCH" resname="By">
+        <source>By</source>
+        <target>Af</target>
+      </trans-unit>
+      <trans-unit id="KZ5gTM." resname="Edit note">
+        <source>Edit note</source>
+        <target>Rediger note</target>
+      </trans-unit>
+      <trans-unit id="REE8PZe" resname="Are you sure you want to delete this item?">
+        <source>Are you sure you want to delete this item?</source>
+        <target>Er du sikker på at du vil slette dette element?</target>
+      </trans-unit>
+      <trans-unit id="uA5PRCM" resname="Delete note">
+        <source>Delete note</source>
+        <target>Slet note</target>
+      </trans-unit>
+      <trans-unit id="J_zRY64" resname="Create note">
+        <source>Create note</source>
+        <target>Opret note</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
