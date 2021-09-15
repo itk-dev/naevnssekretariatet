@@ -66,7 +66,7 @@ class SidebarController extends AbstractController
             $this->generateSubmenuItem($this->translator->trans('Status Info', [], 'sidebar'), ['case_status'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['case_communication'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['document_index'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['document_index', 'document_create', 'document_copy'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Decision', [], 'sidebar'), ['case_decision'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Notes', [], 'sidebar'), ['case_notes'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Log', [], 'sidebar'), ['case_log'], $caseId, $activeRoute),

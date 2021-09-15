@@ -1,5 +1,7 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% trans_default_domain 'documents' %}
+
 {% block title %}{% trans %}Copy document to other cases{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -20,7 +22,7 @@
             <label >{% trans %}Cases{% endtrans %}</label>
             {{ form_widget(copy_document_form.cases, {'attr': {'class': 'form-control', 'required': true}}) }}
         </div>
-        <button class="btn btn-success float-right mt-3">{{ button_label|default('Copy') }}</button>
+        <button class="btn btn-success float-right mt-3">{{ button_label|default('Copy'|trans([], 'documents', 'da')) }}</button>
         {{ form_end(copy_document_form) }}
     </main>
 {% endblock %}
