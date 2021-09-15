@@ -23,21 +23,21 @@
                     </div>
                     <!-- Variables to ensure shown or not shown via query string -->
                     {% if app.request.query.get('showQuickNote') %}
-                        {% set collapseValue = "show" %}
-                        {% set shouldBeExpanded = "true" %}
+                        {% set collapse_value = "show" %}
+                        {% set should_be_expanded = "true" %}
                     {% else %}
-                        {% set collapseValue = "" %}
-                        {% set shouldBeExpanded = "false" %}
+                        {% set collapse_value = "" %}
+                        {% set should_be_expanded = "false" %}
                     {% endif %}
 
                     <div class="col-auto ml-auto">
-                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="{{ shouldBeExpanded }}" aria-controls="collapseExample">
+                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="{{ should_be_expanded }}" aria-controls="collapseExample">
                             <span class="hide">{% trans %}Hide quick note{% endtrans %}</span>
                             <span class="show">{% trans %}Show quick note{% endtrans %}</span>
                         </button>
                     </div>
                 </div>
-                <div class="collapse {{ collapseValue }}" id="collapseExample">
+                <div class="collapse {{ collapse_value }}" id="collapseExample">
                     {{ form_start(note_form) }}
                     <div class="form-group">
                         <label >{% trans %}Subject{% endtrans %}</label>
@@ -72,7 +72,7 @@
                                     </h2>
                                 </div>
                                 <div class="col-auto ml-auto">
-                                    <p class="pt-2">{% trans %}By{% endtrans %} {{ note.createdBy|e}}</p>
+                                    <p class="pt-2">{% trans %}By{% endtrans %} {{ note.createdBy|e }}</p>
                                 </div>
                                 <div class="col-auto">
                                     <p class="pt-2">{{ note.updatedAt|date('d/m/Y H:i') }}</p>
@@ -100,7 +100,7 @@
                 {% endfor %}
             </div>
             <div>
-                {{ knp_pagination_render(pagination)}}
+                {{ knp_pagination_render(pagination) }}
             </div>
         </section>
     </main>

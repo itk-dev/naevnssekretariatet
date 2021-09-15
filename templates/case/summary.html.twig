@@ -52,25 +52,6 @@
     },
 ] %}
 
-{% set casenotes = [
-    {
-        "date": "19/01/2019",
-        "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
-    },
-    {
-        "date": "19/01/2019",
-        "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
-    },
-    {
-        "date": "19/01/2019",
-        "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
-    },
-    {
-        "date": "19/01/2019",
-        "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
-    },
-] %}
-
 {% block title %}{% trans %}Casesummary{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -144,8 +125,8 @@
                     <div class="col">
                         <div class="list-group">
                             {% for note in notes %}
-                                {% set noteId = note.id|e %}
-                                <a href="{{ url("case_notes", {id: case.id, 'noteShown': noteId}) }}" class="list-group-item list-group-item-action">
+                                {% set note_id = note.id|e %}
+                                <a href="{{ url("case_notes", {id: case.id, 'noteShown': note_id}) }}" class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
                                         <span class="mr-3">{{ note.createdAt|date('d/m/Y') }}</span>
                                         <p class="mb-1 text-truncate">{{ note.subject|e }}</p>

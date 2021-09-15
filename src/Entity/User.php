@@ -162,6 +162,7 @@ class User implements UserInterface, LoggableEntityInterface
     {
         return $this->name;
     }
+
     public function getLoggableProperties(): array
     {
         return [
