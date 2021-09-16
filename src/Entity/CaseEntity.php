@@ -71,12 +71,12 @@ abstract class CaseEntity
      * @ORM\OneToMany(targetEntity="CaseDocumentRelation", mappedBy="case")
      */
     private $caseDocumentRelation;
-  
+
     /**
      * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="case")
      */
     private $casePartyRelation;
-  
+
     public function __construct()
     {
         $this->casePartyRelation = new ArrayCollection();
@@ -171,8 +171,8 @@ abstract class CaseEntity
 
         return $this;
     }
-    
-     /**
+
+    /**
      * @return Collection|CaseDocumentRelation[]
      */
     public function getCaseDocumentRelation(): Collection
@@ -195,7 +195,7 @@ abstract class CaseEntity
 
         return $this;
     }
-  
+
     /**
      * @return Collection|CasePartyRelation[]
      */

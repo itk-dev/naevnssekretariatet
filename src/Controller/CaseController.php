@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\CaseEntity;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
-use App\Repository\CasePartyRelationRepository;
 use App\Service\CaseHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +45,7 @@ class CaseController extends AbstractController
     {
         $data = $casePartyHelper->getRelevantTemplateAndPartiesByCase($case);
 
-        return $this->render((string)$data['template'], [
+        return $this->render((string) $data['template'], [
             'case' => $case,
             'complainants' => $data['complainants'],
             'counterparties' => $data['counterparties'],
