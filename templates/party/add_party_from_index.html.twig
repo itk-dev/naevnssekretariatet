@@ -1,5 +1,8 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% trans_default_domain 'party' %}
+
+
 {% block title %}{% trans %}Add Party{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -24,7 +27,7 @@
             <label >{% trans %}Party type{% endtrans %}</label>
             {{ form_widget(add_party_form.type, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
         </div>
-        <button class="btn btn-success float-right mt-3">{{ button_label|default('Add party') }}</button>
+        <button class="btn btn-success float-right mt-3">{{ button_label|default('Add party'|trans([], 'party', 'da')) }}</button>
         {{ form_end(add_party_form) }}
     </main>
 {% endblock %}

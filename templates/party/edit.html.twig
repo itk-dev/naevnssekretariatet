@@ -1,5 +1,7 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
+{% trans_default_domain 'party' %}
+
 {% block title %}{% trans %}Edit Party{% endtrans %}{% endblock %}
 
 
@@ -48,7 +50,7 @@
                 {{ form_widget(edit_party_form.type, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
             </div>
         </div>
-        <button class="btn btn-primary float-right mt-3">{{ button_label|default('Edit party') }}</button>
+        <button class="btn btn-primary float-right mt-3">{{ button_label|default('Edit party'|trans([], 'party', 'da')) }}</button>
         {{ form_end(edit_party_form) }}
     </main>
 {% endblock %}
