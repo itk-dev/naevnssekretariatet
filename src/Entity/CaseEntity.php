@@ -72,6 +72,11 @@ abstract class CaseEntity
      */
     private $caseDocumentRelation;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $currentPlace;
+
     public function __construct()
     {
         $this->caseDocumentRelation = new ArrayCollection();
@@ -193,5 +198,17 @@ abstract class CaseEntity
     public function __toString()
     {
         return $this->caseNumber;
+    }
+
+    public function getCurrentPlace(): ?string
+    {
+        return $this->currentPlace;
+    }
+
+    public function setCurrentPlace(string $currentPlace): self
+    {
+        $this->currentPlace = $currentPlace;
+
+        return $this;
     }
 }
