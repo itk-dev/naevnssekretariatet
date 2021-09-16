@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="FfhuJO0" resname="Case">
+        <source>Case</source>
+        <target>Sag</target>
+      </trans-unit>
+      <trans-unit id="Z7aWRoY" resname="Dashboard">
+        <source>Dashboard</source>
+        <target>Sagsoverblik</target>
+      </trans-unit>
+      <trans-unit id="8IXuhlc" resname="Go to dashboard">
+        <source>Go to dashboard</source>
+        <target>Gå til sagsoverblik</target>
+      </trans-unit>
+      <trans-unit id="bl1nlIU" resname="Case list">
+        <source>Case list</source>
+        <target>Sagsliste</target>
+      </trans-unit>
+      <trans-unit id="qmTFevH" resname="Go to list of cases">
+        <source>Go to list of cases</source>
+        <target>Gå til sagsliste</target>
+      </trans-unit>
+      <trans-unit id="dKiDoDe" resname="Settings">
+        <source>Settings</source>
+        <target>Indstillinger</target>
+      </trans-unit>
+      <trans-unit id="BLpLZWy" resname="Go to settings">
+        <source>Go to settings</source>
+        <target>Gå til indstillinger</target>
+      </trans-unit>
+      <trans-unit id="jnapSsg" resname="Summary">
+        <source>Summary</source>
+        <target>Sagsopsummering</target>
+      </trans-unit>
+      <trans-unit id="0JSzNNg" resname="Basic Information">
+        <source>Basic Information</source>
+        <target>Stamoplysninger</target>
+      </trans-unit>
+      <trans-unit id="qiq3kKb" resname="Status Info">
+        <source>Status Info</source>
+        <target>Statusoplysninger</target>
+      </trans-unit>
+      <trans-unit id="A8h1npn" resname="Hearing">
+        <source>Hearing</source>
+        <target>Partshøring</target>
+      </trans-unit>
+      <trans-unit id="OYGiucH" resname="Communication">
+        <source>Communication</source>
+        <target>Kommunikation</target>
+      </trans-unit>
+      <trans-unit id="tOkp2Lz" resname="Documents">
+        <source>Documents</source>
+        <target>Dokumentoversigt</target>
+      </trans-unit>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target>Afgørelse</target>
+      </trans-unit>
+      <trans-unit id="inUlsUk" resname="Notes">
+        <source>Notes</source>
+        <target>Noter</target>
+      </trans-unit>
+      <trans-unit id="IeSesrK" resname="Log">
+        <source>Log</source>
+        <target>Log</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

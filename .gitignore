@@ -10,7 +10,9 @@
 
 ###> friendsofphp/php-cs-fixer ###
 /.php_cs
+/.php-cs-fixer.php
 /.php_cs.cache
+/.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
 
 ###> symfony/phpunit-bridge ###
@@ -34,4 +36,9 @@ yarn-error.log
 ###> idea
 /.idea/
 ###< idea
+
+###> document uploads
+upload/documents/
+### <document uploads
+
 build

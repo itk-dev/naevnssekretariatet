@@ -7,6 +7,7 @@ parameters:
     locale: '%env(DEFAULT_LOCALE)%'
     site_name: '%env(SITE_NAME)%'
     site_url: '%env(SITE_URL)%'
+    document_upload_directory: '%kernel.project_dir%/upload/documents/'
 
 services:
     # default configuration for services in *this* file
@@ -42,3 +43,7 @@ services:
     App\Logging\EntityListener\:
         resource: '../src/Logging/EntityListener/'
         tags: ['doctrine.orm.entity_listener']
+
+    App\Service\DocumentUploader:
+        arguments:
+            $documentDirectory: '%document_upload_directory%'

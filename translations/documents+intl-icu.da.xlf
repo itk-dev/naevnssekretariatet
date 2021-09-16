@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="tOkp2Lz" resname="Documents">
+        <source>Documents</source>
+        <target>Dokumentoversigt</target>
+      </trans-unit>
+      <trans-unit id="rG6XhAb" resname="Create document">
+        <source>Create document</source>
+        <target>Opret dokument</target>
+      </trans-unit>
+      <trans-unit id="OAs1gv3" resname="Document name">
+        <source>Document name</source>
+        <target>Dokument navn</target>
+      </trans-unit>
+      <trans-unit id="W4H3DVm" resname="Document type">
+        <source>Document type</source>
+        <target>Dokument type</target>
+      </trans-unit>
+      <trans-unit id="N0zZ0iD" resname="Created by">
+        <source>Created by</source>
+        <target>Oprettet af</target>
+      </trans-unit>
+      <trans-unit id="yl0jOnQ" resname="Created date">
+        <source>Created date</source>
+        <target>Oprettelses dato</target>
+      </trans-unit>
+      <trans-unit id="delC5bN" resname="Functions">
+        <source>Functions</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="VYJLaab" resname="Create new document">
+        <source>Create new document</source>
+        <target>Opret nyt dokument</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Annuller</target>
+      </trans-unit>
+      <trans-unit id="3Qrnpcv" resname="Save changes">
+        <source>Save changes</source>
+        <target>Opret dokument</target>
+      </trans-unit>
+      <trans-unit id="wgscFcd" resname="Select a document type">
+        <source>Select a document type</source>
+        <target>Vælg dokument type</target>
+      </trans-unit>
+      <trans-unit id="apXUKzK" resname="Chose a file">
+        <source>Chose a file</source>
+        <target>Vælg en fil</target>
+      </trans-unit>
+      <trans-unit id="UHrmcab" resname="Upload document">
+        <source>Upload document</source>
+        <target>Opret dokument</target>
+      </trans-unit>
+      <trans-unit id="p9p3rZy" resname="Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
+        <source>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
+        <target>Max fil størrelse: 10mb. Accepterede filformater: .pdf, .txt, .md, .jpg, .png, .webp</target>
+      </trans-unit>
+      <trans-unit id="Hl9Om1x" resname="Uploaded by">
+        <source>Uploaded by</source>
+        <target>Oprettet af</target>
+      </trans-unit>
+      <trans-unit id="rArhFm_" resname="Upload date">
+        <source>Upload date</source>
+        <target>Dato</target>
+      </trans-unit>
+      <trans-unit id="ImnkQgY" resname="List functions">
+        <source>List functions</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="MY1S7iA" resname="Copy document to another case">
+        <source>Copy document to another case</source>
+        <target>Kopier dokument til anden sag</target>
+      </trans-unit>
+      <trans-unit id="niUK_XT" resname="Download document">
+        <source>Download document</source>
+        <target>Download dokument</target>
+      </trans-unit>
+      <trans-unit id="REE8PZe" resname="Are you sure you want to delete this item?">
+        <source>Are you sure you want to delete this item?</source>
+        <target>Er du sikker på at du vil slette dette element?</target>
+      </trans-unit>
+      <trans-unit id="BPbQmqh" resname="Delete document">
+        <source>Delete document</source>
+        <target>Slet dokument</target>
+      </trans-unit>
+      <trans-unit id="NvpfsgY" resname="Copy document to other cases">
+        <source>Copy document to other cases</source>
+        <target>Kopier dokument til anden sag</target>
+      </trans-unit>
+      <trans-unit id="bAksnKA" resname="Basic information">
+        <source>Basic information</source>
+        <target>Kopier dokument</target>
+      </trans-unit>
+      <trans-unit id="Ikm9UD7" resname="Cases">
+        <source>Cases</source>
+        <target>Sager</target>
+      </trans-unit>
+      <trans-unit id="4h_TXxH" resname="Copy">
+        <source>Copy</source>
+        <target>Kopier</target>
+      </trans-unit>
+      <trans-unit id="eA.VRbI" resname="Provide a recognizable name for the document">
+        <source>Provide a recognizable name for the document</source>
+        <target>Angiv et genkendeligt navn til dokumentet</target>
+      </trans-unit>
+      <trans-unit id="KmdBDvj" resname="Provide a document type">
+        <source>Provide a document type</source>
+        <target>Angiv en dokumenttype</target>
+      </trans-unit>
+      <trans-unit id="hl6J3nj" resname="Upload">
+        <source>Upload</source>
+        <target>Opret</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

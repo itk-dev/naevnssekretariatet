@@ -68,13 +68,19 @@ abstract class CaseEntity
     private $complaintCategory;
 
     /**
+     * @ORM\OneToMany(targetEntity="CaseDocumentRelation", mappedBy="case")
+     */
+    private $caseDocumentRelation;
+  
+    /**
      * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="case")
      */
     private $casePartyRelation;
-
+  
     public function __construct()
     {
         $this->casePartyRelation = new ArrayCollection();
+        $this->caseDocumentRelation = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -165,7 +171,31 @@ abstract class CaseEntity
 
         return $this;
     }
+    
+     /**
+     * @return Collection|CaseDocumentRelation[]
+     */
+    public function getCaseDocumentRelation(): Collection
+    {
+        return $this->caseDocumentRelation;
+    }
 
+    public function addCaseDocumentRelation(CaseDocumentRelation $caseDocumentRelation): self
+    {
+        if (!$this->caseDocumentRelation->contains($caseDocumentRelation)) {
+            $this->caseDocumentRelation[] = $caseDocumentRelation;
+        }
+
+        return $this;
+    }
+
+    public function removeCaseDocumentRelation(CaseDocumentRelation $caseDocumentRelation): self
+    {
+        $this->caseDocumentRelation->removeElement($caseDocumentRelation);
+
+        return $this;
+    }
+  
     /**
      * @return Collection|CasePartyRelation[]
      */

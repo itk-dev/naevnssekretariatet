@@ -1,6 +1,8 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
-{% block title %}{% trans %}Edit Basic information{% endtrans %}{% endblock %}
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Edit basic information{% endtrans %}{% endblock %}
 
 {% block header %}
     <div class="row">
@@ -9,7 +11,7 @@
         </div>
         <div class="col-auto">
             {# TODO: Need functionality on save changes button #}
-            <a name="" id="" class="btn btn-secondary" href="{{ url('case_show', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+            <a name="" id="" class="btn btn-secondary" href="{{ url('case_show', {id: case.id}) }}" role="button">{% trans %}Cancel edit{% endtrans %}</a>
         </div>
     </div>
 
@@ -40,7 +42,7 @@
                     {{ form_widget(case_form.complaintCategory, {'attr': {'class': 'form-control', 'required': true}}) }}
                 </div>
             </div>
-            {{ form_widget(case_form.save, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}}) }}
+            {{ form_widget(case_form.save, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}, 'label': 'Submit'|trans([], 'case', 'da')}) }}
             {{ form_rest(case_form) }}
         </form>
     {{ form_end(case_form) }}
