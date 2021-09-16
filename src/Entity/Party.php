@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Logging\LoggableEntityInterface;
 use App\Repository\PartyRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
@@ -9,8 +10,9 @@ use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=PartyRepository::class)
+ * @ORM\EntityListeners({"App\Logging\EntityListener\PartyListener"})
  */
-class Party
+class Party implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
@@ -19,16 +21,6 @@ class Party
      * @ORM\CustomIdGenerator(class=UuidV4Generator::class)
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -50,33 +42,24 @@ class Party
      */
     private $isPartOfPartIndex;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="party")
+     */
+    private $casePartyRelation;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $cpr;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): self
-    {
-        $this->lastName = $lastName;
-
-        return $this;
     }
 
     public function getAddress(): ?string
@@ -123,6 +106,46 @@ class Party
     public function setIsPartOfPartIndex(bool $isPartOfPartIndex): self
     {
         $this->isPartOfPartIndex = $isPartOfPartIndex;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'name',
+            'CPR',
+            'address',
+            'phoneNumber',
+            'journalNumber',
+        ];
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCpr(): ?string
+    {
+        return $this->cpr;
+    }
+
+    public function setCpr(string $cpr): self
+    {
+        $this->cpr = $cpr;
 
         return $this;
     }

@@ -6,6 +6,7 @@ use App\Entity\CaseEntity;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
+use App\Service\CaseHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,10 +45,14 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}", name="case_show", methods={"GET"})
      */
-    public function show(CaseEntity $case): Response
+    public function show(CaseEntity $case, CaseHelper $casePartyHelper): Response
     {
-        return $this->render('case/show.html.twig', [
+        $data = $casePartyHelper->getRelevantTemplateAndPartiesByCase($case);
+
+        return $this->render((string) $data['template'], [
             'case' => $case,
+            'complainants' => $data['complainants'],
+            'counterparties' => $data['counterparties'],
         ]);
     }
 

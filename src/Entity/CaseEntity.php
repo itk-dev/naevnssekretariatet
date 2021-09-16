@@ -73,12 +73,18 @@ abstract class CaseEntity
     private $caseDocumentRelation;
 
     /**
+     * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="case")
+     */
+    private $casePartyRelation;
+  
+    /**
      * @ORM\OneToMany(targetEntity=Note::class, mappedBy="caseEntity")
      */
     private $notes;
 
     public function __construct()
     {
+        $this->casePartyRelation = new ArrayCollection();
         $this->caseDocumentRelation = new ArrayCollection();
         $this->notes = new ArrayCollection();
     }
@@ -229,5 +235,29 @@ abstract class CaseEntity
     public function __toString()
     {
         return $this->caseNumber;
+    }
+  
+    /**
+     * @return Collection|CasePartyRelation[]
+     */
+    public function getCasePartyRelation(): Collection
+    {
+        return $this->casePartyRelation;
+    }
+
+    public function addCasePartyRelation(CasePartyRelation $casePartyRelation): self
+    {
+        if (!$this->casePartyRelation->contains($casePartyRelation)) {
+            $this->casePartyRelation[] = $casePartyRelation;
+        }
+
+        return $this;
+    }
+
+    public function removeCasePartyRelation(CasePartyRelation $casePartyRelation): self
+    {
+        $this->casePartyRelation->removeElement($casePartyRelation);
+
+        return $this;
     }
 }
