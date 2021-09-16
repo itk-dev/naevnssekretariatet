@@ -1,26 +1,5 @@
 {% extends 'layout-with-submenu.html.twig' %}
 
-{# {% set casestatuses = [
-    {
-        "name": "Case created"
-    },
-    {
-        "name": "Validated"
-    },
-    {
-        "name": "Parties hearing"
-    },
-    {
-        "name": "Case processing"
-    },
-    {
-        "name": "On agenda"
-    },
-    {
-        "name": "Decision"
-    },
-] %} #}
-
 {% block title %}{% trans %}Basic information{% endtrans %}{% endblock %}
 
 
@@ -237,7 +216,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for party in tenants %}
+                                {% for party in complainants %}
                                     <tr>
                                         <td>{{ party.name|e }}</td>
                                         <td>{{ party.address|e }}</td>
@@ -283,7 +262,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for party in landlords %}
+                                {% for party in counterparties %}
                                     <tr>
                                         <td>{{ party.name|e }}</td>
                                         <td>{{ party.address|e }}</td>
