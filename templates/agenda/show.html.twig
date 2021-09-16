@@ -12,7 +12,7 @@
         <div class="col-auto">
             {# TODO: Needs functionality on buttons #}
             <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Publish to boardmembers{% endtrans %}</a>
-            <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Save changes{% endtrans %}</a>
+{#            <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Save changes{% endtrans %}</a>#}
         </div>
     </div>
 {% endblock %}
@@ -58,27 +58,59 @@
                     {{ form_widget(agenda_form.end, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div>
-                <button class="btn btn-primary float-right">{{ button_label|default('Save changes') }}</button>
-            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary float-right">{{ button_label|default('Save changes') }}</button>
         </div>
         {{ form_end(agenda_form) }}
 
+
         <div class="form-row">
-            <div class="col-md-6">
+            <div class="col-md-7 mt-5">
                 <div class="form-group">
-                    <h6>{% trans %}Agenda items{% endtrans %}</h6>
-                    {# TODO: Needs functionality on button #}
+                    <label for="">{% trans %}Agenda items{% endtrans %}</label>
                     <a name="" id="" class="btn btn-success btn-sm" style="float: right;" href="#" role="button">{% trans %}Add agenda item{% endtrans %}</a>
                     <hr style="width:100%">
                 </div>
             </div>
-            <div class="col-md-6">
+
+            {% set boardmembers = [
+                {
+                    "name": "Jacob Jul Jørgensen",
+                    "position": "Fuldmægtig i nævn"
+                },
+                {
+                    "name": "Jette Jespersen",
+                    "position": "Fuldmægtig i nævn"
+                },
+                {
+                    "name": "Jeppe Andersen",
+                    "position": "Fuldmægtig i nævn"
+                },
+                {
+                    "name": "Birthe Jensen",
+                    "position": "Fuldmægtig i nævn"
+                },
+                {
+                    "name": "Katarina Nielsen",
+                    "position": "Fuldmægtig i nævn"
+                },
+                {
+                    "name": "Jens Kristian Olsen",
+                    "position": "Fuldmægtig i nævn"
+                },
+            ] %}
+            <div class="col-md-5 mt-5">
                 <div class="form-group">
-                    <h6>{% trans %}Board members{% endtrans %}</h6>
-                    {# TODO: Needs functionality on button #}
+                    <label for="">{% trans %}Boardmembers{% endtrans %}</label>
                     <a name="" id="" class="btn btn-success btn-sm" href="#" style="float: right;" role="button">{% trans %}Add board member{% endtrans %}</a>
                     <hr style="width:100%">
+                    {% for boardmember in boardmembers %}
+                        <div>
+                            <p class="m-0 mt-2">{{ boardmember.name|e }}</p>
+                            <p class="m-0" style="font-size:15px; opacity: 0.5">{{ boardmember.position|e }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -89,7 +121,7 @@
         <div class="row">
             <div class="col-auto ml-auto">
                 {# TODO: Needs functionality on buttons #}
-                <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Save changes{% endtrans %}</a>
+{#                <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Save changes{% endtrans %}</a>#}
             </div>
         </div>
     </footer>
