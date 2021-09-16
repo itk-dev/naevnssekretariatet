@@ -6,7 +6,7 @@ use App\Entity\CaseEntity;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Repository\CasePartyRelationRepository;
 
-class CasePartyHelper
+class CaseHelper
 {
     /**
      * @var CasePartyRelationRepository
