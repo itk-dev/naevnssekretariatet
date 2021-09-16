@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/case")
+ * @Route("/case/{id}/notes")
  */
 class NoteController extends AbstractController
 {
@@ -31,7 +31,7 @@ class NoteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/notes", name="note_index", methods={"GET", "POST"})
+     * @Route("", name="note_index", methods={"GET", "POST"})
      */
     public function index(CaseEntity $case, PaginatorInterface $paginator, NoteRepository $repository, Request $request): Response
     {
@@ -70,7 +70,7 @@ class NoteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/notes/{note_id}/edit", name="note_edit", methods={"GET", "POST"})
+     * @Route("/{note_id}/edit", name="note_edit", methods={"GET", "POST"})
      * @Entity("note", expr="repository.find(note_id)")
      * @Entity("case", expr="repository.find(id)")
      */
@@ -97,7 +97,7 @@ class NoteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/notes/{note_id}/delete", name="note_delete", methods={"DELETE"})
+     * @Route("/{note_id}/delete", name="note_delete", methods={"DELETE"})
      * @Entity("note", expr="repository.find(note_id)")
      * @Entity("case", expr="repository.find(id)")
      */
