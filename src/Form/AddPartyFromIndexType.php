@@ -29,10 +29,11 @@ class AddPartyFromIndexType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'Tenant' => 'Tenant',
-                    'Tentant (representative)' => 'Representative',
+                    'Tenant (representative)' => 'Representative',
                     'Landlord' => 'Landlord',
                     'Landlord (administrator)' => 'Administrator',
                 ],
+                'translation_domain' => 'party',
             ]);
     }
 }

@@ -36,17 +36,8 @@ class CaseHelper
                 break;
         }
 
-        // Make them into arrays
-        $complainants = [];
-        $counterparties = [];
-
-        foreach ($complainantRelations as $relation) {
-            array_push($complainants, $relation->getParty());
-        }
-
-        foreach ($counterpartyRelations as $relation) {
-            array_push($counterparties, $relation->getParty());
-        }
+        $complainants = array_map(function($relation) { return $relation->getParty();}, $complainantRelations);
+        $counterparties = array_map(function($relation) { return $relation->getParty();}, $counterpartyRelations);
 
         return ['template' => $templatePath, 'complainants' => $complainants, 'counterparties' => $counterparties];
     }

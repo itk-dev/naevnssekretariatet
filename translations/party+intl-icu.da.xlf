@@ -65,6 +65,22 @@
         <source>Edit party</source>
         <target>Rediger part</target>
       </trans-unit>
+      <trans-unit id="4jlp0oT" resname="Tenant">
+        <source>Tenant</source>
+        <target>Lejer</target>
+      </trans-unit>
+      <trans-unit id="v2RstjN" resname="Tenant (representative)">
+        <source>Tenant (representative)</source>
+        <target>Lejer (repræsentant)</target>
+      </trans-unit>
+      <trans-unit id="OAd9aCc" resname="Landlord">
+        <source>Landlord</source>
+        <target>Udlejer</target>
+      </trans-unit>
+      <trans-unit id="V0JdMfg" resname="Landlord (administrator)">
+        <source>Landlord (administrator)</source>
+        <target>Udlejer (administrator)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
