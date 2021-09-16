@@ -36,8 +36,8 @@ class CaseHelper
                 break;
         }
 
-        $complainants = array_map(function($relation) { return $relation->getParty();}, $complainantRelations);
-        $counterparties = array_map(function($relation) { return $relation->getParty();}, $counterpartyRelations);
+        $complainants = array_map(function ($relation) { return $relation->getParty(); }, $complainantRelations);
+        $counterparties = array_map(function ($relation) { return $relation->getParty(); }, $counterpartyRelations);
 
         return ['template' => $templatePath, 'complainants' => $complainants, 'counterparties' => $counterparties];
     }
