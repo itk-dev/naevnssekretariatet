@@ -76,7 +76,7 @@ abstract class CaseEntity
      * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="case")
      */
     private $casePartyRelation;
-  
+
     /**
      * @ORM\OneToMany(targetEntity=Note::class, mappedBy="caseEntity")
      */
@@ -236,7 +236,7 @@ abstract class CaseEntity
     {
         return $this->caseNumber;
     }
-  
+
     /**
      * @return Collection|CasePartyRelation[]
      */
