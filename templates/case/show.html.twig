@@ -2,28 +2,8 @@
 
 {% trans_default_domain 'case' %}
 
-{# {% set casestatuses = [
-    {
-        "name": "Case created"
-    },
-    {
-        "name": "Validated"
-    },
-    {
-        "name": "Parties hearing"
-    },
-    {
-        "name": "Case processing"
-    },
-    {
-        "name": "On agenda"
-    },
-    {
-        "name": "Decision"
-    },
-] %} #}
-
 {% block title %}{% trans %}Basic information{% endtrans %}{% endblock %}
+
 
 {% block header %}
     <div class="row">
@@ -32,7 +12,7 @@
         </div>
         <div class="col-auto">
             {# TODO: Needs functionality on buttons #}
-            <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Create representative{% endtrans %}</a>
+            <a name="" id="" class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
             <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
             {# Moved validation buttons inline in form #}
         </div>
@@ -225,33 +205,6 @@
             <div class="tab-pane fade" id="tenant" role="tabpanel" aria-labelledby="tenant-tab">
                 <div class="row mt-3">
                     <div class="col">
-                        {% set tablecontents = [
-                            {
-                                "name": "Fornavn Efternavn",
-                                "address": "Villavej 10a, 1234 Villaby",
-                                "cprNr": "123456-7890",
-                                "telephoneNr": "+45 12345678",
-                                "journalNr": "12345678"
-                            },
-                        ] %}
-
-                        {% set btn_group = [
-                            {
-                                "name": "Edit tenant",
-                                "style": "primary",
-                                "icon": "edit",
-                                "link": "#edit-tenant",
-                                "tooltip": "Edit tenant",
-                            },
-                            {
-                                "name": "Remove tenant",
-                                "style": "danger",
-                                "icon": "trash-alt",
-                                "link": "#remove-tenant",
-                                "tooltip": "Remove tenant",
-                            },
-                        ] %}
-
                         <div class="table-responsive-sm">
                             <table id="basicInformationTenant" class="table table-striped table-hover">
                                 <thead>
@@ -265,14 +218,28 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for item in tablecontents %}
+                                {% for party in complainants %}
                                     <tr>
-                                        <td><a href="#edit-tenant" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit tenant{% endtrans %} {{ item.name|e }}">{{ item.name|e }}</a></td>
-                                        <td>{{ item.address|e }}</td>
-                                        <td>{{ item.cprNr|e }}</td>
-                                        <td>{{ item.telephoneNr|e }}</td>
-                                        <td>{{ item.journalNr|e }}</td>
-                                        <td>{% include "common/btn_group.html.twig" with btn_group %}</td>
+                                        <td>{{ party.name|e }}</td>
+                                        <td>{{ party.address|e }}</td>
+                                        <td>{{ party.cpr|e }}</td>
+                                        <td>{{ party.phoneNumber|e }}</td>
+                                        <td>{{ party.journalNumber|e }}</td>
+                                        <td class="text-right">
+                                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+
+                                                <!-- Edit button -->
+                                                <a href="{{ url("party_edit", {id: case.id, party_id: party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+
+                                                <!-- Delete button -->
+
+                                                <form id="myform" class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party.id) }}">
+                                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -284,40 +251,6 @@
             <div class="tab-pane fade" id="landlord" role="tabpanel" aria-labelledby="landlord-tab">
                 <div class="row mt-3">
                     <div class="col">
-                        {% set tablecontents = [
-                            {
-                                "name": "Udlejer",
-                                "address": "Villavej 10a, 1234 Villaby",
-                                "cprNr": "123456-7890",
-                                "telephoneNr": "+45 12345678",
-                                "journalNr": "12345678"
-                            },
-                            {
-                                "name": "Administrator",
-                                "address": "Villavej 10a, 1234 Villaby",
-                                "cprNr": "123456-7890",
-                                "telephoneNr": "+45 12345678",
-                                "journalNr": "12345678"
-                            },
-                        ] %}
-
-                        {% set btn_group = [
-                            {
-                                "name": "Edit landlord",
-                                "style": "primary",
-                                "icon": "edit",
-                                "link": "#edit-landlord",
-                                "tooltip": "Edit landlord",
-                            },
-                            {
-                                "name": "Remove landlord",
-                                "style": "danger",
-                                "icon": "trash-alt",
-                                "link": "#remove-landlord",
-                                "tooltip": "Remove landlord",
-                            },
-                        ] %}
-
                         <div class="table-responsive-sm">
                             <table id="basicInformationLandlord" class="table table-striped table-hover">
                                 <thead>
@@ -331,14 +264,28 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for item in tablecontents %}
+                                {% for party in counterparties %}
                                     <tr>
-                                        <td><a href="#edit-tenant" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit tenant{% endtrans %} {{ item.name|e }}">{{ item.name|e }}</a></td>
-                                        <td>{{ item.address|e }}</td>
-                                        <td>{{ item.cprNr|e }}</td>
-                                        <td>{{ item.telephoneNr|e }}</td>
-                                        <td>{{ item.journalNr|e }}</td>
-                                        <td>{% include "common/btn_group.html.twig" with btn_group %}</td>
+                                        <td>{{ party.name|e }}</td>
+                                        <td>{{ party.address|e }}</td>
+                                        <td>{{ party.cpr|e }}</td>
+                                        <td>{{ party.phoneNumber|e }}</td>
+                                        <td>{{ party.journalNumber|e }}</td>
+                                        <td class="text-right">
+                                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+
+                                                <!-- Edit button -->
+                                                <a href="{{ url("party_edit", {id: case.id, party_id: party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+
+                                                <!-- Delete button -->
+
+                                                <form id="myform" class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party.id) }}">
+                                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -353,8 +300,8 @@
         <div class="row">
             <div class="col-auto ml-auto">
                 {# TODO: Needs functionality on buttons #}
-                <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Create representative{% endtrans %}</a>
-                <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Edit basic information{% endtrans %}</a>
+                <a name="" id="" class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
+                <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
             </div>
         </div>
     </footer>
