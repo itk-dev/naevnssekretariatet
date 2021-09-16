@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class BoardCrudController extends AbstractCrudController
@@ -55,5 +56,7 @@ class BoardCrudController extends AbstractCrudController
             ->hideOnForm()
         ;
         yield IntegerField::new('defaultDeadline', 'Default Deadline(days)');
+
+        yield TextareaField::new('statuses', 'Statuses');
     }
 }
