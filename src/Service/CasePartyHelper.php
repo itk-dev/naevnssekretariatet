@@ -19,12 +19,12 @@ class CasePartyHelper
     }
 
     /**
-     * Returns array containing relevant party arrays.
+     * Returns array containing relevant template path and party arrays.
      *
      * @param CaseEntity $case
      * @return array[]
      */
-    public function getRelevantPartiesByCase(CaseEntity $case): array
+    public function getRelevantTemplateAndPartiesByCase(CaseEntity $case): array
     {
         switch (get_class($case)){
             case ResidentComplaintBoardCase::class:
@@ -33,6 +33,7 @@ class CasePartyHelper
                     ->findBy(['case' => $case, 'type' => ['Tenant', 'Representative'], 'softDeleted' => false]);
                 $counterpartyRelations = $this->relationRepository
                     ->findBy(['case' => $case, 'type' => ['Landlord', 'Administrator'], 'softDeleted' => false]);
+                $templatePath = "case/show.html.twig";
                 break;
         }
 
@@ -48,6 +49,6 @@ class CasePartyHelper
             array_push($counterparties, $relation->getParty());
         }
 
-        return array('complainants' => $complainants, 'counterparties' => $counterparties);
+        return array('template' => $templatePath, 'complainants' => $complainants, 'counterparties' => $counterparties);
     }
 }

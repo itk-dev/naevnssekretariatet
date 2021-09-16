@@ -42,14 +42,14 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}", name="case_show", methods={"GET"})
      */
-    public function show(CaseEntity $case, CasePartyHelper $casePartyHelper, CasePartyRelationRepository $relationRepository): Response
+    public function show(CaseEntity $case, CasePartyHelper $casePartyHelper): Response
     {
-        $parties = $casePartyHelper->getRelevantPartiesByCase($case);
+        $data = $casePartyHelper->getRelevantTemplateAndPartiesByCase($case);
 
-        return $this->render('case/show.html.twig', [
+        return $this->render((string)$data['template'], [
             'case' => $case,
-            'complainants' => $parties['complainants'],
-            'counterparties' => $parties['counterparties'],
+            'complainants' => $data['complainants'],
+            'counterparties' => $data['counterparties'],
         ]);
     }
 
