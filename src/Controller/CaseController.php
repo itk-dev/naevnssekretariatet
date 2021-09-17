@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\CaseEntity;
+use App\Form\CaseStatusForm;
+use App\Form\Model\CaseStatusFormModel;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
+use App\Service\WorkflowService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,9 +31,9 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/summary", name="case_summary", methods={"GET"})
+     * @Route("/{id}/summary", name="case_summary", methods={"GET", "POST"})
      */
-    public function summary(CaseEntity $case): Response
+    public function summary(CaseEntity $case, WorkflowService $workflowService, Request $request): Response
     {
         return $this->render('case/summary.html.twig', [
             'case' => $case,
@@ -75,12 +78,38 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/status", name="case_status", methods={"GET"})
+     * @Route("/{id}/status", name="case_status", methods={"GET", "POST"})
      */
-    public function status(CaseEntity $case): Response
+    public function status(CaseEntity $case, WorkflowService $workflowService, Request $request): Response
     {
+        $workflow = $workflowService->getWorkflowForCase($case);
+
+        $caseStatus = new CaseStatusFormModel();
+        $caseStatus->setStatus($case->getCurrentPlace());
+        $caseStatusForm = $this->createForm(
+            CaseStatusForm::class,
+            $caseStatus,
+            [
+                'available_statuses' => $workflowService->getPlaceChoicesForCase($case, $workflow),
+            ]
+        );
+
+        $caseStatusForm->handleRequest($request);
+        if ($caseStatusForm->isSubmitted() && $caseStatusForm->isValid()) {
+            $workflow->apply($case, $caseStatus->getStatus());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($case);
+            $em->flush();
+
+            return $this->redirectToRoute('case_status', [
+                'id' => $case->getId(),
+                'case' => $case,
+            ]);
+        }
+
         return $this->render('case/status.html.twig', [
             'case' => $case,
+            'case_status_form' => $caseStatusForm->createView(),
         ]);
     }
 

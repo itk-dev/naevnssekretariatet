@@ -1,26 +1,5 @@
 {% trans_default_domain 'common' %}
 
-{% set caseprogress = [
-    {
-        "name": "Case created"
-    },
-    {
-        "name": "Validated"
-    },
-    {
-        "name": "Parties hearing"
-    },
-    {
-        "name": "Case processing"
-    },
-    {
-        "name": "On agenda"
-    },
-    {
-        "name": "Decision"
-    },
-] %}
-
 <section area-labelledby="section_caseprogress" class="mt-5">
     <div class="row">
         <div class="col">
@@ -31,12 +10,12 @@
         <div class="col">
             <div class="progress">
                 {# TODO: Needs functionality on buttons #}
-                <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" role="progressbar" style="width: {{ progress }}%" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div class="row mt-1">
-                {% for item in caseprogress %}
+                {% for place in places %}
                     <div class="col">
-                        <p class="m-0">{{ item.name|trans([], 'common', 'da') }}<i class="fas fa-angle-right ml-1 mt-1 float-right"></i></p>
+                        <p class="m-0">{{ place|trans([], 'common', 'da') }}<i class="fas fa-angle-right ml-1 mt-1 float-right"></i></p>
                     </div>
                 {% endfor %}
             </div>
