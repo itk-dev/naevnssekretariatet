@@ -68,8 +68,8 @@ class WorkflowService
             }
 
             foreach ($previousKeys as $previousKey) {
-                $nextPlace = $places[$previousKey];
-                $transitions[] = new Transition($place.'_'.$nextPlace, $place, $nextPlace);
+                $previousPlace = $places[$previousKey];
+                $transitions[] = new Transition($place.'_'.$previousPlace, $place, $previousPlace);
             }
         }
 
