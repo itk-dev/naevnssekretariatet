@@ -4,33 +4,75 @@ App\Entity\Board:
     municipality: '@municipality-aarhus'
     caseFormType: ResidentComplaintBoardCaseType
     defaultDeadline: 14
+    statuses: |-
+      Oprettet
+      Valideret
+      Partshøring
+      Sagsbehandling
+      Dagsorden
+      Afgørelse
 
   resident-complaint-board-randers:
     name: Beboerklagenævnet Randers
     municipality: '@municipality-randers'
     caseFormType: ResidentComplaintBoardCaseType
     defaultDeadline: 10
+    statuses: |-
+      Oprettet
+      Valideret
+      Partshøring
+      Sagsbehandling
+      Dagsorden
+      Afgørelse
 
   rent-board-aarhus:
     name: Huslejenævnet Aarhus
     municipality: '@municipality-aarhus'
     caseFormType: RentBoardCaseType
     defaultDeadline: 14
+    statuses: |-
+      Oprettet
+      Valideret
+      Partshøring
+      Sagsbehandling
+      Dagsorden
+      Afgørelse
 
   rent-board-randers:
     name: Huslejenævnet Randers
     municipality: '@municipality-randers'
     caseFormType: RentBoardCaseType
     defaultDeadline: 10
+    statuses: |-
+      Oprettet
+      Valideret
+      Partshøring
+      Sagsbehandling
+      Dagsorden
+      Afgørelse
 
   fence-board-aarhus:
     name: Hegsnævnet Aarhus
     municipality: '@municipality-aarhus'
     caseFormType: FenceBoardCaseType
     defaultDeadline: 14
+    statuses: |-
+      Oprettet
+      Valideret
+      Partshøring
+      Sagsbehandling
+      Dagsorden
+      Afgørelse
 
   fence-board-randers:
     name: Hegnsnævnet Randers
     municipality: '@municipality-randers'
     caseFormType: FenceBoardCaseType
     defaultDeadline: 10
+    statuses: |-
+      Oprettet
+      Valideret
+      Partshøring
+      Sagsbehandling
+      Dagsorden
+      Afgørelse
