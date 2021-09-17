@@ -77,8 +77,14 @@ abstract class CaseEntity
      */
     private $currentPlace;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="case")
+     */
+    private $casePartyRelation;
+
     public function __construct()
     {
+        $this->casePartyRelation = new ArrayCollection();
         $this->caseDocumentRelation = new ArrayCollection();
     }
 
@@ -195,9 +201,28 @@ abstract class CaseEntity
         return $this;
     }
 
-    public function __toString()
+    /**
+     * @return Collection|CasePartyRelation[]
+     */
+    public function getCasePartyRelation(): Collection
     {
-        return $this->caseNumber;
+        return $this->casePartyRelation;
+    }
+
+    public function addCasePartyRelation(CasePartyRelation $casePartyRelation): self
+    {
+        if (!$this->casePartyRelation->contains($casePartyRelation)) {
+            $this->casePartyRelation[] = $casePartyRelation;
+        }
+
+        return $this;
+    }
+
+    public function removeCasePartyRelation(CasePartyRelation $casePartyRelation): self
+    {
+        $this->casePartyRelation->removeElement($casePartyRelation);
+
+        return $this;
     }
 
     public function getCurrentPlace(): ?string
