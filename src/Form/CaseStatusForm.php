@@ -34,6 +34,8 @@ class CaseStatusForm extends AbstractType
             'label' => $this->translator->trans('Change case status', [], 'case'),
             'placeholder' => $this->translator->trans('Choose new case status', [], 'case'),
         ]);
-        $builder->add('Gem', SubmitType::class);
+        $builder->add('submit', SubmitType::class, [
+            'label' => $this->translator->trans('Change status', [], 'case'),
+        ]);
     }
 }
