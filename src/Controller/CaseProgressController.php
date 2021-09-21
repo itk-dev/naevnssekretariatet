@@ -20,7 +20,10 @@ class CaseProgressController extends AbstractController
     {
         $workflow = $this->workflowService->getWorkflowForCase($case);
         $places = $workflow->getDefinition()->getPlaces();
-        $currentIndex = array_search($case->getCurrentPlace(), array_keys($places));
+
+        // We add 1 to the index, to make the progress bar show which current status
+        // the case is in.
+        $currentIndex = array_search($case->getCurrentPlace(), array_keys($places)) + 1;
         $progress = floor($currentIndex / sizeof($places) * 100);
 
         return $this->render('common/case_progress.html.twig', [
