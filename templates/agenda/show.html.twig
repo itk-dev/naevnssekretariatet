@@ -66,12 +66,73 @@
 
 
         <div class="form-row">
+
+            {% set agendas = [
+                {
+                    "start": "13.00",
+                    "duration": "1 time",
+                    "title": "Fremstilling af sag v. nævnsmedlem",
+                    "location": "Mødelokale M2.4",
+                    "documents": []
+                },
+                {
+                    "start": "13.00",
+                    "duration": "1 time",
+                    "title": "Besigtigelse",
+                    "location": "Hack Kampmanns Plads 2, 8000 Aarhus C",
+                    "documents": [
+                    {
+                        "name": "Mail fra lejer",
+                    },
+                    {
+                        "name": "Bilag 2",
+                    },
+                    {
+                        "name": "Huslegenævnet",
+                    },
+                    {
+                        "name": "Bilag 3",
+                    }
+                ]
+                },
+                {
+                    "start": "13.00",
+                    "duration": "1 time",
+                    "title": "Besigtigelse",
+                    "location": "Europaplads 21a 2. tv, 8000 Aarhus C",
+                    "documents": []
+                },
+                {
+                    "start": "18.30",
+                    "duration": "30 min",
+                    "title": "Afgørelse",
+                    "location": "Mødelokale M2.4",
+                    "documents": []
+                }
+            ] %}
             <div class="col-md-7 mt-5">
-                <div class="form-group">
+                <div class="form-group" style="height:100%; width:100%; overflow: hidden;">
                     <label for="">{% trans %}Agenda items{% endtrans %}</label>
                     <a name="" id="" class="btn btn-success btn-sm" style="float: right;" href="#" role="button">{% trans %}Add agenda item{% endtrans %}</a>
                     <hr style="width:100%">
+                    {% for agenda in agendas %}
+                        <div style="height:20%; width:100%; overflow: hidden;">
+                            <div class="form-group" style="float: left;width:25%;">
+                                <p class="m-0 mt-2">{{ agenda.start|e }}</p>
+                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ agenda.duration|e }}</p>
+                            </div>
+                            <div class="form-group" style="float: left;width:50%;">
+                                <p class="m-0 mt-2">{{ agenda.title|e }}</p>
+                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ agenda.location|e }}</p>
+                            </div>
+                            <div class="form-group" style="float: left;width:25%;">
+                                <a name="" id="" class="btn btn-danger btn-sm" style="float: right;" href="#" role="button">{% trans %}Rem{% endtrans %}</a>
+                                <a name="" id="" class="btn btn-primary btn-sm" style="float: right;" href="#" role="button">{% trans %}Add{% endtrans %}</a>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
+
             </div>
 
             {% set boardmembers = [
@@ -100,7 +161,7 @@
                     "position": "Fuldmægtig i nævn"
                 },
             ] %}
-            <div class="col-md-5 mt-5">
+            <div class="col-md-4 mt-5 ml-5">
                 <div class="form-group">
                     <label for="">{% trans %}Boardmembers{% endtrans %}</label>
                     <a name="" id="" class="btn btn-success btn-sm" href="#" style="float: right;" role="button">{% trans %}Add board member{% endtrans %}</a>
