@@ -74,7 +74,7 @@
                 </thead>
                 <tbody>
                 {% for case in cases %}
-                    <tr class="{% if case.caseState == "submitted" %}table-primary{% endif %} ">
+                    <tr>
                         <td><a href="{{ url('case_summary', {id: case.id}) }}" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ case.casenumber|e }}">{{ case.casenumber|e }}</a></td>
                         <td>{{ case.complaintCategory.name|e }}</td>
                         <td>{{ case.casestate|e }}</td>
