@@ -553,6 +553,18 @@
         <source>Delete party</source>
         <target>Slet part</target>
       </trans-unit>
+      <trans-unit id="Ed8eDPL" resname="Change case status">
+        <source>Change case status</source>
+        <target>Skift sagsstatus</target>
+      </trans-unit>
+      <trans-unit id="Txox_es" resname="Choose new case status">
+        <source>Choose new case status</source>
+        <target>Vælg ny sagsstatus</target>
+      </trans-unit>
+      <trans-unit id="rfb6h3u" resname="Change status">
+        <source>Change status</source>
+        <target>Skift status</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

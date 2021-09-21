@@ -73,6 +73,11 @@ abstract class CaseEntity
     private $caseDocumentRelation;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $currentPlace;
+
+    /**
      * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="case")
      */
     private $casePartyRelation;
@@ -216,6 +221,18 @@ abstract class CaseEntity
     public function removeCasePartyRelation(CasePartyRelation $casePartyRelation): self
     {
         $this->casePartyRelation->removeElement($casePartyRelation);
+
+        return $this;
+    }
+
+    public function getCurrentPlace(): ?string
+    {
+        return $this->currentPlace;
+    }
+
+    public function setCurrentPlace(string $currentPlace): self
+    {
+        $this->currentPlace = $currentPlace;
 
         return $this;
     }

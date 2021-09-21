@@ -10,6 +10,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0001
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-2:
     size: 53
@@ -22,6 +23,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0002
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-3:
     size: 55
@@ -34,6 +36,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0003
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-4:
     size: 61
@@ -46,6 +49,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0004
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-5:
     size: 78
@@ -58,6 +62,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0005
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-6:
     size: 87
@@ -70,6 +75,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0006
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-7:
     size: 84
@@ -82,6 +88,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0007
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-8:
     size: 84
@@ -94,6 +101,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0008
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-9:
     size: 121
@@ -106,6 +114,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0009
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-10:
     size: 101
@@ -118,6 +127,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0010
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-11:
     size: 83
@@ -130,6 +140,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0011
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-12:
     size: 45
@@ -142,6 +153,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0012
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-13:
     size: 76
@@ -154,6 +166,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0013
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-14:
     size: 67
@@ -166,6 +179,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0014
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-15:
     size: 56
@@ -178,6 +192,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0015
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-16:
     size: 76
@@ -190,6 +205,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0016
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-17:
     size: 44
@@ -202,6 +218,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0017
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-18:
     size: 62
@@ -214,6 +231,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0018
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-19:
     size: 98
@@ -226,6 +244,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0019
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-20:
     size: 44
@@ -238,6 +257,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0020
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-21:
     size: 55
@@ -250,6 +270,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0021
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-22:
     size: 66
@@ -262,6 +283,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0022
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-23:
     size: 81
@@ -274,6 +296,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0023
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-aarhus-24:
     size: 34
@@ -286,6 +309,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0024
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
+    currentPlace: Oprettet
 
   test-case-randers-1:
     size: 51
@@ -298,6 +322,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0001
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-2:
     size: 73
@@ -310,6 +335,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0002
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-3:
     size: 77
@@ -322,6 +348,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0003
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-4:
     size: 61
@@ -334,6 +361,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0004
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-5:
     size: 78
@@ -346,6 +374,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0007
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-6:
     size: 87
@@ -358,6 +387,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0006
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-7:
     size: 84
@@ -370,6 +400,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0007
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-8:
     size: 84
@@ -382,6 +413,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0008
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-9:
     size: 121
@@ -394,6 +426,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0009
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-10:
     size: 101
@@ -406,6 +439,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0010
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-11:
     size: 83
@@ -418,6 +452,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0011
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-12:
     size: 47
@@ -430,6 +465,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0012
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-13:
     size: 76
@@ -442,6 +478,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0013
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-14:
     size: 67
@@ -454,6 +491,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0014
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-15:
     size: 76
@@ -466,6 +504,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0017
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-16:
     size: 76
@@ -478,6 +517,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0016
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-17:
     size: 44
@@ -490,6 +530,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0017
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-18:
     size: 62
@@ -502,6 +543,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0018
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-19:
     size: 98
@@ -514,6 +556,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0019
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-20:
     size: 44
@@ -526,6 +569,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0020
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-21:
     size: 77
@@ -538,6 +582,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0021
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-22:
     size: 66
@@ -550,6 +595,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0022
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-23:
     size: 81
@@ -562,6 +608,7 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0023
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
+    currentPlace: Oprettet
 
   test-case-randers-24:
     size: 34
@@ -574,4 +621,4 @@ App\Entity\ResidentComplaintBoardCase:
     caseNumber: 2021-0024
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
-
+    currentPlace: Oprettet
