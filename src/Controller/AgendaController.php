@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Agenda;
 use App\Entity\User;
+use App\Form\AgendaAddBoardMemberType;
 use App\Form\AgendaCreateType;
 use App\Form\AgendaType;
 use App\Repository\AgendaRepository;
 use App\Repository\MunicipalityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpCsFixer\Console\Report\FixReport\ReportSummary;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,6 +105,9 @@ class AgendaController extends AbstractController
      */
     public function show(Agenda $agenda, Request $request): Response
     {
+
+        $boardMembers = $agenda->getBoardmembers();
+
         $form = $this->createForm(AgendaType::class, $agenda);
 
         $form->handleRequest($request);
@@ -118,6 +123,43 @@ class AgendaController extends AbstractController
 
         return $this->render('agenda/show.html.twig', [
             'agenda_form' => $form->createView(),
+            'agenda' => $agenda,
+            'boardMembers' => $boardMembers,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/add-board-member", name="agenda_add_board_member", methods={"GET", "POST"})
+     */
+    public function addBoardMember(Agenda $agenda, Request $request): Response
+    {
+        $allBoardMembers = $agenda->getSubBoard()->getBoardMembers()->toArray();
+        $currentBoardMembersOnAgenda = $agenda->getBoardmembers()->toArray();
+        $choices = array_diff($allBoardMembers, $currentBoardMembersOnAgenda);
+
+        $form = $this->createForm(AgendaAddBoardMemberType::class, [], [
+            'board_member_choices' => $choices,
+        ] );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $addedBoardMembers = $form->get('boardMemberToAdd')->getData();
+
+            foreach ($addedBoardMembers as $addedBoardMember){
+                $agenda->addBoardmember($addedBoardMember);
+            }
+
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('agenda_show', [
+                'agenda' => $agenda,
+                'id' => $agenda->getId(),
+            ]);
+        }
+
+        return $this->render('agenda/add_board_member.html.twig', [
+            'agenda_add_board_member_form' => $form->createView(),
             'agenda' => $agenda,
         ]);
     }

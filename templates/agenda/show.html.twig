@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="form-row">
             <button class="btn btn-primary float-right">{{ button_label|default('Save changes') }}</button>
         </div>
         {{ form_end(agenda_form) }}
@@ -135,41 +135,16 @@
 
             </div>
 
-            {% set boardmembers = [
-                {
-                    "name": "Jacob Jul Jørgensen",
-                    "position": "Fuldmægtig i nævn"
-                },
-                {
-                    "name": "Jette Jespersen",
-                    "position": "Fuldmægtig i nævn"
-                },
-                {
-                    "name": "Jeppe Andersen",
-                    "position": "Fuldmægtig i nævn"
-                },
-                {
-                    "name": "Birthe Jensen",
-                    "position": "Fuldmægtig i nævn"
-                },
-                {
-                    "name": "Katarina Nielsen",
-                    "position": "Fuldmægtig i nævn"
-                },
-                {
-                    "name": "Jens Kristian Olsen",
-                    "position": "Fuldmægtig i nævn"
-                },
-            ] %}
             <div class="col-md-4 mt-5 ml-5">
                 <div class="form-group">
                     <label for="">{% trans %}Boardmembers{% endtrans %}</label>
-                    <a name="" id="" class="btn btn-success btn-sm" href="#" style="float: right;" role="button">{% trans %}Add board member{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-success btn-sm" href="{{ url('agenda_add_board_member', {id: agenda.id}) }}" style="float: right;" role="button">{% trans %}Add board member{% endtrans %}</a>
                     <hr style="width:100%">
-                    {% for boardmember in boardmembers %}
+                    {% for boardMember in boardMembers %}
                         <div>
-                            <p class="m-0 mt-2">{{ boardmember.name|e }}</p>
-                            <p class="m-0" style="font-size:15px; opacity: 0.5">{{ boardmember.position|e }}</p>
+                            <p class="m-0 mt-2">{{ boardMember.name|e }}</p>
+                            {# TODO: Display boardmember title once it has been added to boardmember entity #}
+                            <p class="m-0" style="font-size:15px; opacity: 0.5">Fulmægtig i nævn</p>
                         </div>
                     {% endfor %}
                 </div>
