@@ -43,7 +43,7 @@
       </trans-unit>
       <trans-unit id="Myd0kC4" resname="Hide quick note">
         <source>Hide quick note</source>
-        <target>Fjern opret note</target>
+        <target>Skjul opret note</target>
       </trans-unit>
       <trans-unit id="_CT5F_I" resname="Show quick note">
         <source>Show quick note</source>
