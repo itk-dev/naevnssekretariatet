@@ -23,11 +23,6 @@ class Agenda
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Board::class)
-     */
-    private $board;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $date;
@@ -57,6 +52,12 @@ class Agenda
      */
     private $remarks;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=SubBoard::class, inversedBy="agendas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $subBoard;
+
     public function __construct()
     {
         $this->boardmembers = new ArrayCollection();
@@ -65,18 +66,6 @@ class Agenda
     public function getId(): ?UuidV4
     {
         return $this->id;
-    }
-
-    public function getBoard(): ?Board
-    {
-        return $this->board;
-    }
-
-    public function setBoard(?Board $board): self
-    {
-        $this->board = $board;
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -159,6 +148,18 @@ class Agenda
     public function setRemarks(?string $remarks): self
     {
         $this->remarks = $remarks;
+
+        return $this;
+    }
+
+    public function getSubBoard(): ?SubBoard
+    {
+        return $this->subBoard;
+    }
+
+    public function setSubBoard(?SubBoard $subBoard): self
+    {
+        $this->subBoard = $subBoard;
 
         return $this;
     }

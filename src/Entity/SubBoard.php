@@ -49,10 +49,16 @@ class SubBoard
      */
     private $caseEntities;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Agenda::class, mappedBy="subBoard")
+     */
+    private $agendas;
+
     public function __construct()
     {
         $this->boardMembers = new ArrayCollection();
         $this->caseEntities = new ArrayCollection();
+        $this->agendas = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -155,6 +161,36 @@ class SubBoard
             // set the owning side to null (unless already changed)
             if ($caseEntity->getSubboard() === $this) {
                 $caseEntity->setSubboard(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Agenda[]
+     */
+    public function getAgendas(): Collection
+    {
+        return $this->agendas;
+    }
+
+    public function addAgenda(Agenda $agenda): self
+    {
+        if (!$this->agendas->contains($agenda)) {
+            $this->agendas[] = $agenda;
+            $agenda->setSubBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgenda(Agenda $agenda): self
+    {
+        if ($this->agendas->removeElement($agenda)) {
+            // set the owning side to null (unless already changed)
+            if ($agenda->getSubBoard() === $this) {
+                $agenda->setSubBoard(null);
             }
         }
 

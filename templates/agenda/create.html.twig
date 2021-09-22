@@ -19,8 +19,8 @@
     <main role="main" class="col-12 mt-3">
         {{ form_start(agenda_create_form) }}
         <div class="mb-3">
-            <label >{% trans %}Board{% endtrans %}</label>
-            {{ form_widget(agenda_create_form.board, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
+            <label >{% trans %}Sub board{% endtrans %}</label>
+            {{ form_widget(agenda_create_form.subBoard, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
         </div>
         <div class="mb-3">
             <label >{% trans %}Date{% endtrans %}</label>
