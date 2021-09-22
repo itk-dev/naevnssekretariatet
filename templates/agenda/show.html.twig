@@ -142,6 +142,11 @@
                     <hr style="width:100%">
                     {% for boardMember in boardMembers %}
                         <div>
+                            <form id="myform" method="post" action="{{ path('agenda_board_member_remove', {'id': agenda.id, 'board_member_id': boardMember.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to remove this board member?{% endtrans %}');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('remove' ~ boardMember.id) }}">
+                                <button class="btn btn-danger btn-sm" style="float: right;" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove board member{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                            </form>
                             <p class="m-0 mt-2">{{ boardMember.name|e }}</p>
                             {# TODO: Display boardmember title once it has been added to boardmember entity #}
                             <p class="m-0" style="font-size:15px; opacity: 0.5">Fulmægtig i nævn</p>

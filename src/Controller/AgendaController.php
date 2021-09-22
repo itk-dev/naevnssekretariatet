@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agenda;
+use App\Entity\BoardMember;
 use App\Entity\User;
 use App\Form\AgendaAddBoardMemberType;
 use App\Form\AgendaCreateType;
@@ -10,6 +11,7 @@ use App\Form\AgendaType;
 use App\Repository\AgendaRepository;
 use App\Repository\MunicipalityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -159,5 +161,23 @@ class AgendaController extends AbstractController
             'agenda_add_board_member_form' => $form->createView(),
             'agenda' => $agenda,
         ]);
+    }
+
+    /**
+     * @Route("/{id}/show/{board_member_id}", name="agenda_board_member_remove", methods={"DELETE"})
+     * @Entity("boardMember", expr="repository.find(board_member_id)")
+     * @Entity("agenda", expr="repository.find(id)")
+     */
+    public function removeBoardMember(Request $request, BoardMember $boardMember, Agenda $agenda): Response
+    {
+        // Check that CSRF token is valid
+        if ($this->isCsrfTokenValid('remove'.$boardMember->getId(), $request->request->get('_token'))) {
+            // Simply just soft delete by setting soft deleted to true
+
+            $agenda->removeBoardmember($boardMember);
+            $this->entityManager->flush();
+        }
+
+        return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
     }
 }
