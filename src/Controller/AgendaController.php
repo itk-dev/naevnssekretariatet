@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Agenda;
 use App\Entity\User;
+use App\Form\AgendaCreateType;
 use App\Form\AgendaType;
 use App\Repository\AgendaRepository;
 use App\Repository\MunicipalityRepository;
@@ -57,13 +58,30 @@ class AgendaController extends AbstractController
     /**
      * @Route("/create", name="agenda_create", methods={"GET", "POST"})
      */
-    public function create(): Response
+    public function create(Request $request): Response
     {
         $agenda = new Agenda();
-        $this->entityManager->persist($agenda);
-        $this->entityManager->flush();
 
-        return $this->redirectToRoute('agenda_index');
+        $form = $this->createForm(AgendaCreateType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $agenda = $form->getData();
+
+            $this->entityManager->persist($agenda);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('agenda_show', [
+                'agenda' => $agenda,
+                'id' => $agenda->getId(),
+            ]);
+        }
+
+        return $this->render('agenda/create.html.twig', [
+            'agenda_create_form' => $form->createView(),
+        ]);
     }
 
     /**
