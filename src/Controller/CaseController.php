@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\CaseEntity;
+use App\Form\CaseEntityType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
 use App\Service\CaseHelper;
+use App\Service\CaseManager;
 use App\Service\WorkflowService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,6 +40,32 @@ class CaseController extends AbstractController
     {
         return $this->render('case/summary.html.twig', [
             'case' => $case,
+        ]);
+    }
+
+    /**
+     * @Route("/new", name="case_new", methods={"GET", "POST"})
+     */
+    public function new(Request $request, CaseManager $caseManager): Response
+    {
+        $form = $this->createForm(CaseEntityType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $caseEntity = $caseManager->newCase(
+                $form->get('caseEntity')->getData(),
+                $form->get('board')->getData()
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($caseEntity);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('case_show', ['id' => $caseEntity->getId()]);
+        }
+
+        return $this->render('case/new.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 

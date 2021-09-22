@@ -15,7 +15,7 @@
         {# TODO: Link to Create new  #}
         <a class="btn btn-sm btn-success d-block dropdown-toggle mb-2 mb-lg-0" href="#" id="create-new" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opret ny</a>
         <div class="dropdown-menu" aria-labelledby="create-new">
-            <a class="dropdown-item" href="#">Ny sag</a>
+            <a class="dropdown-item" href="{{ path('case_new') }}">{{ 'Ny sag'|trans({}, 'case') }}</a>
             <a class="dropdown-item" href="#">Ny dagsorden</a>
         </div>
     </li>
