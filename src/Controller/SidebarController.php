@@ -87,7 +87,7 @@ class SidebarController extends AbstractController
     public function renderAgendaSubmenu(UuidV4 $agendaId, string $activeRoute): Response
     {
         $submenuItems = [
-            $this->generateSubmenuItem($this->translator->trans('Agenda', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Agenda', [], 'sidebar'), ['agenda_show', 'agenda_add_board_member'], $agendaId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Protocol', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
         ];
