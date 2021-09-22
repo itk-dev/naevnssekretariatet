@@ -10,7 +10,6 @@ use App\Form\AgendaType;
 use App\Repository\AgendaRepository;
 use App\Repository\MunicipalityRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpCsFixer\Console\Report\FixReport\ReportSummary;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,7 +68,6 @@ class AgendaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $agenda = $form->getData();
 
             $this->entityManager->persist($agenda);
@@ -105,7 +103,6 @@ class AgendaController extends AbstractController
      */
     public function show(Agenda $agenda, Request $request): Response
     {
-
         $boardMembers = $agenda->getBoardmembers();
 
         $form = $this->createForm(AgendaType::class, $agenda);
@@ -139,14 +136,14 @@ class AgendaController extends AbstractController
 
         $form = $this->createForm(AgendaAddBoardMemberType::class, [], [
             'board_member_choices' => $choices,
-        ] );
+        ]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $addedBoardMembers = $form->get('boardMemberToAdd')->getData();
 
-            foreach ($addedBoardMembers as $addedBoardMember){
+            foreach ($addedBoardMembers as $addedBoardMember) {
                 $agenda->addBoardmember($addedBoardMember);
             }
 
