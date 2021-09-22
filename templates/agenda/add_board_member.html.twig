@@ -22,20 +22,6 @@
             <label >{% trans %}Board members{% endtrans %}</label>
             {{ form_widget(agenda_add_board_member_form.boardMemberToAdd, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}
         </div>
-{#        <div class="mb-3">#}
-{#            <label >{% trans %}Date{% endtrans %}</label>#}
-{#            {{ form_widget(agenda_create_form.date, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}#}
-{#        </div>#}
-{#        <div class="form-row">#}
-{#            <div class="col-md-6 mb-3">#}
-{#                <label >{% trans %}Start time{% endtrans %}</label>#}
-{#                {{ form_widget(agenda_create_form.start, {'attr': {'type': 'date','class': 'form-control', 'required': true}}) }}#}
-{#            </div>#}
-{#            <div class="col-md-6 mb-3">#}
-{#                <label >{% trans %}End time{% endtrans %}</label>#}
-{#                {{ form_widget(agenda_create_form.end, {'attr': {'type': 'text','class': 'form-control', 'required': true}}) }}#}
-{#            </div>#}
-{#        </div>#}
         <button class="btn btn-success float-right">{{ button_label|default('Add board members'|trans([], 'agenda', 'da')) }}</button>
         {{ form_end(agenda_add_board_member_form) }}
     </main>
