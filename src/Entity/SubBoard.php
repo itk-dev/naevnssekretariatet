@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Logging\LoggableEntityInterface;
 use App\Repository\SubBoardRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +13,7 @@ use Symfony\Component\Uid\UuidV4;
 /**
  * @ORM\Entity(repositoryClass=SubBoardRepository::class)
  */
-class SubBoard
+class SubBoard implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
@@ -159,5 +160,12 @@ class SubBoard
         }
 
         return $this;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'name',
+        ];
     }
 }
