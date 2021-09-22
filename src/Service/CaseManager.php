@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Entity\Board;
+use App\Entity\CaseEntity;
 use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
 
@@ -12,9 +14,15 @@ class CaseManager
      */
     private $caseRepository;
 
-    public function __construct(CaseEntityRepository $caseRepository)
+    /**
+     * @var WorkflowService
+     */
+    private $workflowService;
+
+    public function __construct(CaseEntityRepository $caseRepository, WorkflowService $workflowService)
     {
         $this->caseRepository = $caseRepository;
+        $this->workflowService = $workflowService;
     }
 
     public function generateCaseNumber(Municipality $municipality): string
@@ -50,5 +58,19 @@ class CaseManager
         $incrementedCounter = $counter + 1;
 
         return str_pad(strval($incrementedCounter), 4, '0', STR_PAD_LEFT);
+    }
+
+    public function newCase(CaseEntity $caseEntity, Board $board): CaseEntity
+    {
+        $caseEntity->setCaseNumber(
+            $this->generateCaseNumber($board->getMunicipality())
+        );
+        $caseEntity->setBoard($board);
+        $caseEntity->setMunicipality($board->getMunicipality());
+
+        $workflow = $this->workflowService->getWorkflowForCase($caseEntity);
+        $workflow->getMarking($caseEntity);
+
+        return $caseEntity;
     }
 }
