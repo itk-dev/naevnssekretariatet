@@ -62,6 +62,11 @@ class Board implements LoggableEntityInterface
      */
     private $defaultDeadline;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $statuses;
+
     public function __construct()
     {
         $this->subBoards = new ArrayCollection();
@@ -225,5 +230,17 @@ class Board implements LoggableEntityInterface
             'caseFormType',
             'defaultDeadline',
         ];
+    }
+
+    public function getStatuses(): ?string
+    {
+        return $this->statuses;
+    }
+
+    public function setStatuses(string $statuses): self
+    {
+        $this->statuses = $statuses;
+
+        return $this;
     }
 }

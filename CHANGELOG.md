@@ -39,6 +39,7 @@ MunicipalityListener, BoardListener and their tests.
   uploaded documents in document index.
 - [TVIST1-185](https://jira.itkdev.dk/browse/TVIST1-185): Added ability to 'soft' delete documents.
 - [TVIST1-186](https://jira.itkdev.dk/browse/TVIST1-186): Added ability to copy documents to other cases.
+- [TVIST1-126](https://jira.itkdev.dk/browse/TVIST1-126): Adding workflows for cases.
 - [TVIST1-227](https://jira.itkdev.dk/browse/TVIST1-227): Added ability to create, edit and remove notes.
 
 ### Changed

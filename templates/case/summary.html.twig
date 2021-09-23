@@ -71,7 +71,9 @@
 {% block content %}
 
     <main role="main" class="col-12">
-        {% include "common/case_progress.html.twig" %}
+        {{ render(controller(
+            'App\\Controller\\CaseProgressController::renderCaseProgressBar', {case: case}
+        )) }}
 
         <section area-labelledby="section_caseinfo" class="mt-5">
             <div class="row">
