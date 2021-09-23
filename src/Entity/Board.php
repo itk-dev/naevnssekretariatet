@@ -37,11 +37,6 @@ class Board implements LoggableEntityInterface
     private $municipality;
 
     /**
-     * @ORM\OneToMany(targetEntity=SubBoard::class, mappedBy="mainBoard")
-     */
-    private $subBoards;
-
-    /**
      * @ORM\OneToMany(targetEntity=ComplaintCategory::class, mappedBy="board")
      */
     private $complaintCategories;
@@ -69,7 +64,6 @@ class Board implements LoggableEntityInterface
 
     public function __construct()
     {
-        $this->subBoards = new ArrayCollection();
         $this->complaintCategories = new ArrayCollection();
         $this->caseEntities = new ArrayCollection();
     }
@@ -106,36 +100,6 @@ class Board implements LoggableEntityInterface
     public function __toString()
     {
         return $this->name;
-    }
-
-    /**
-     * @return Collection|SubBoard[]
-     */
-    public function getSubBoards(): Collection
-    {
-        return $this->subBoards;
-    }
-
-    public function addSubBoard(SubBoard $subBoard): self
-    {
-        if (!$this->subBoards->contains($subBoard)) {
-            $this->subBoards[] = $subBoard;
-            $subBoard->setMainBoard($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSubBoard(SubBoard $subBoard): self
-    {
-        if ($this->subBoards->removeElement($subBoard)) {
-            // set the owning side to null (unless already changed)
-            if ($subBoard->getMainBoard() === $this) {
-                $subBoard->setMainBoard(null);
-            }
-        }
-
-        return $this;
     }
 
     /**

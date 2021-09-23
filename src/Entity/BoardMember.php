@@ -31,11 +31,6 @@ class BoardMember
      */
     private $municipality;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=SubBoard::class, inversedBy="boardMembers")
-     */
-    private $board;
-
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -61,18 +56,6 @@ class BoardMember
     public function setMunicipality(?Municipality $municipality): self
     {
         $this->municipality = $municipality;
-
-        return $this;
-    }
-
-    public function getBoard(): ?SubBoard
-    {
-        return $this->board;
-    }
-
-    public function setBoard(?SubBoard $board): self
-    {
-        $this->board = $board;
 
         return $this;
     }
