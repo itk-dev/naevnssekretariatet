@@ -7,6 +7,7 @@ use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
+use App\Repository\NoteRepository;
 use App\Service\CaseHelper;
 use App\Service\WorkflowService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,10 +35,13 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/summary", name="case_summary", methods={"GET", "POST"})
      */
-    public function summary(CaseEntity $case, WorkflowService $workflowService, Request $request): Response
+    public function summary(CaseEntity $case, NoteRepository $noteRepository, WorkflowService $workflowService, Request $request): Response
     {
+        $notes = $noteRepository->findMostRecentNotesByCase($case, 4);
+
         return $this->render('case/summary.html.twig', [
             'case' => $case,
+            'notes' => $notes,
         ]);
     }
 
@@ -144,16 +148,6 @@ class CaseController extends AbstractController
     public function decision(CaseEntity $case): Response
     {
         return $this->render('case/decision.html.twig', [
-            'case' => $case,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/notes", name="case_notes", methods={"GET"})
-     */
-    public function notes(CaseEntity $case): Response
-    {
-        return $this->render('case/notes.html.twig', [
             'case' => $case,
         ]);
     }
