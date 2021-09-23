@@ -20,7 +20,7 @@
     {{ form_start(document_form) }}
     <div>
         <label >{% trans %}Document name{% endtrans %}</label>
-        {{ form_widget(document_form.documentName, {'attr': {'type': 'text','class': 'form-control', 'aria-describedby': 'helpNameId', 'required': true}}) }}
+        {{ form_widget(document_form.documentName, {'attr': {'type': 'text', 'class': 'form-control', 'aria-describedby': 'helpNameId', 'required': true}}) }}
         <small id="helpNameId" class="form-text text-muted">{% trans %}Provide a recognizable name for the document{% endtrans %}</small>
     </div>
 

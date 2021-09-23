@@ -21,12 +21,12 @@
         {{ form_start(note_form) }}
         <div class="form-group">
             <label >{% trans %}Subject{% endtrans %}</label>
-            {{ form_widget(note_form.subject, {'attr': {'type': 'text','class': 'form-control', 'aria-describedby': 'helpName'}}) }}
+            {{ form_widget(note_form.subject, {'attr': {'type': 'text', 'class': 'form-control', 'aria-describedby': 'helpName'}}) }}
             <small id="helpId" class="form-text text-muted">{% trans %}Add a descriptive subject for ease of finding the note later on{% endtrans %}</small>
         </div>
         <div class="form-group">
             <label for="">{% trans %}Note content{% endtrans %}</label>
-            {{ form_widget(note_form.content, {'attr': {'type': 'textarea','class': 'form-control', 'rows': 3}}) }}
+            {{ form_widget(note_form.content, {'attr': {'type': 'textarea', 'class': 'form-control', 'rows': 3}}) }}
         </div>
         <button class="btn btn-primary float-right">{{ button_label|default('Edit note'|trans([], 'notes', 'da')) }}</button>
         {{ form_rest(note_form) }}
