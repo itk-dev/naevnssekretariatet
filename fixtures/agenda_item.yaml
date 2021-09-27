@@ -1,0 +1,8 @@
+App\Entity\AgendaManuelItem:
+  agenda-manuel-item1:
+    startTime: 19:00
+    endTime: 20:00
+    meetingPoint: Møde lokale M3.8
+    title: Fremstilling af agenda
+    description: Fremstilling af agenda og hvad der ellers skal laves på mødet.
+    agenda: '@agenda-1'
