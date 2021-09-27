@@ -67,7 +67,7 @@
 
         <div class="form-row">
 
-            {% set agendas = [
+            {% set agenda_items = [
                 {
                     "start": "13.00",
                     "duration": "1 time",
@@ -113,17 +113,17 @@
             <div class="col-md-7 mt-5">
                 <div class="form-group" style="height:100%; width:100%; overflow: hidden;">
                     <label for="">{% trans %}Agenda items{% endtrans %}</label>
-                    <a name="" id="" class="btn btn-success btn-sm" style="float: right;" href="#" role="button">{% trans %}Add agenda item{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-success btn-sm" style="float: right;" href="{{ url('agenda_item_create', {id: agenda.id}) }}" role="button">{% trans %}Add agenda item{% endtrans %}</a>
                     <hr style="width:100%">
-                    {% for agenda in agendas %}
+                    {% for agenda_item in agenda_items %}
                         <div style="height:20%; width:100%; overflow: hidden;">
                             <div class="form-group" style="float: left;width:25%;">
-                                <p class="m-0 mt-2">{{ agenda.start|e }}</p>
-                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ agenda.duration|e }}</p>
+                                <p class="m-0 mt-2">{{ agenda_item.start|e }}</p>
+                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ agenda_item.duration|e }}</p>
                             </div>
                             <div class="form-group" style="float: left;width:50%;">
-                                <p class="m-0 mt-2">{{ agenda.title|e }}</p>
-                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ agenda.location|e }}</p>
+                                <p class="m-0 mt-2">{{ agenda_item.title|e }}</p>
+                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ agenda_item.location|e }}</p>
                             </div>
                             <div class="form-group" style="float: left;width:25%;">
                                 <a name="" id="" class="btn btn-danger btn-sm" style="float: right;" href="#" role="button">{% trans %}Rem{% endtrans %}</a>
