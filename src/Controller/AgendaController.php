@@ -106,6 +106,7 @@ class AgendaController extends AbstractController
     public function show(Agenda $agenda, Request $request): Response
     {
         $boardMembers = $agenda->getBoardmembers();
+        $agendaItems = $agenda->getAgendaItems();
 
         $form = $this->createForm(AgendaType::class, $agenda);
 
@@ -124,6 +125,7 @@ class AgendaController extends AbstractController
             'agenda_form' => $form->createView(),
             'agenda' => $agenda,
             'boardMembers' => $boardMembers,
+            'agendaItems' => $agendaItems,
         ]);
     }
 

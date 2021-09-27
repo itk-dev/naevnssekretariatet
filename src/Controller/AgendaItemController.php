@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Agenda;
+use App\Entity\AgendaItem;
 use App\Form\AgendaItemType;
 use App\Service\AgendaItemHelper;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +22,15 @@ class AgendaItemController extends AbstractController
      * @var AgendaItemHelper
      */
     private $agendaItemHelper;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
 
-    public function __construct(AgendaItemHelper $agendaItemHelper)
+    public function __construct(AgendaItemHelper $agendaItemHelper, EntityManagerInterface $entityManager)
     {
         $this->agendaItemHelper = $agendaItemHelper;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -35,6 +43,7 @@ class AgendaItemController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $newAgendaItem = $this->agendaItemHelper->handleAgendaItemForm($form);
+            $agenda->addAgendaItem($newAgendaItem);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($newAgendaItem);
@@ -46,6 +55,25 @@ class AgendaItemController extends AbstractController
         return $this->render('agenda_item/new.html.twig', [
             'agenda_item_create_form' => $form->createView(),
             'agenda' => $agenda,
+        ]);
+    }
+
+    /**
+     * @Route("/{agenda_item_id}", name="agenda_item_delete", methods={"DELETE"})
+     * @Entity("agenda", expr="repository.find(id)")
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     */
+    public function delete(Request $request, Agenda $agenda, AgendaItem $agendaItem): Response
+    {
+        // Check that CSRF token is valid
+        if ($this->isCsrfTokenValid('delete'.$agendaItem->getId(), $request->request->get('_token'))) {
+            $this->entityManager->remove($agendaItem);
+            $this->entityManager->flush();
+        }
+
+        return $this->redirectToRoute('agenda_show', [
+            'agenda' => $agenda,
+            'id' => $agenda->getId(),
         ]);
     }
 }

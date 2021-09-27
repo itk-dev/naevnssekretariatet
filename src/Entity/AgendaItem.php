@@ -38,6 +38,12 @@ abstract class AgendaItem
      */
     private $meetingPoint;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Agenda::class, inversedBy="agendaItems")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $agenda;
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -75,6 +81,18 @@ abstract class AgendaItem
     public function setMeetingPoint(string $meetingPoint): self
     {
         $this->meetingPoint = $meetingPoint;
+
+        return $this;
+    }
+
+    public function getAgenda(): ?Agenda
+    {
+        return $this->agenda;
+    }
+
+    public function setAgenda(?Agenda $agenda): self
+    {
+        $this->agenda = $agenda;
 
         return $this;
     }

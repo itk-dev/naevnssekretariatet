@@ -58,9 +58,15 @@ class Agenda
      */
     private $subBoard;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AgendaItem::class, mappedBy="agenda")
+     */
+    private $agendaItems;
+
     public function __construct()
     {
         $this->boardmembers = new ArrayCollection();
+        $this->agendaItems = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -160,6 +166,36 @@ class Agenda
     public function setSubBoard(?SubBoard $subBoard): self
     {
         $this->subBoard = $subBoard;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AgendaItem[]
+     */
+    public function getAgendaItems(): Collection
+    {
+        return $this->agendaItems;
+    }
+
+    public function addAgendaItem(AgendaItem $agendaItem): self
+    {
+        if (!$this->agendaItems->contains($agendaItem)) {
+            $this->agendaItems[] = $agendaItem;
+            $agendaItem->setAgenda($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgendaItem(AgendaItem $agendaItem): self
+    {
+        if ($this->agendaItems->removeElement($agendaItem)) {
+            // set the owning side to null (unless already changed)
+            if ($agendaItem->getAgenda() === $this) {
+                $agendaItem->setAgenda(null);
+            }
+        }
 
         return $this;
     }
