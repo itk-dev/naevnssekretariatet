@@ -39,6 +39,7 @@ class AgendaCaseItemType extends AbstractType
             ])
             ->add('inspection', CheckboxType::class, [
                 'label' => $this->translator->trans('Inspection', [], 'agenda_item'),
+                'required' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans('Create agenda item', [], 'agenda_item'),
