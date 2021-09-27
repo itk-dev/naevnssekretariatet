@@ -69,7 +69,7 @@
             <section aria-labelledby="section_agenda_items" class="col-md-7 mt-5 mt-md-0">
                 <div class="row">
                     <div class="col">
-                        <h4 id="asection_agenda_items">{% trans %}Agenda items{% endtrans %}</h4>
+                        <h4 id="section_agenda_items">{% trans %}Agenda items{% endtrans %}</h4>
                     </div>
                     <div class="col-auto">
                         <a name="" id="" class="btn btn-success btn-sm" href="{{ url('agenda_item_create', {id: agenda.id}) }}" role="button">{% trans %}Add agenda item{% endtrans %}</a>
@@ -84,9 +84,9 @@
                                     <div class="row">
                                         <div class="col">
                                             <p class="m-0 mt-2">{{ agenda_item.startTime|e }}</p>
-                                            <p class="m-0" style="font-size:15px; opacity: 0.5">To be implemented</p>
+                                            <p class="m-0" style="font-size:15px; opacity: 0.5">To do</p>
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col-md-7 text-truncate">
                                             <p class="m-0 mt-2">{{ agenda_item.title|e }}</p>
                                             <p class="m-0" style="font-size:15px; opacity: 0.5">{{ agenda_item.meetingPoint|e }}</p>
                                         </div>
