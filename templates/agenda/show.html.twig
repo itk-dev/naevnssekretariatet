@@ -84,7 +84,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <p class="m-0 mt-2">{{ agenda_item.startTime|e }}</p>
-                                            <p class="m-0" style="font-size:15px; opacity: 0.5">To do</p>
+{#                                            <p class="m-0" style="font-size:15px; opacity: 0.5">To do</p>#}
                                         </div>
                                         <div class="col-md-7 text-truncate">
                                             <p class="m-0 mt-2">{{ agenda_item.title|e }}</p>
@@ -94,7 +94,7 @@
                                             <section class="col-md-12 mt-5 mt-md-0">
                                                 <div class="row mt-2">
                                                     <div>
-                                                        <a href="#" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit agenda item{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit agenda item{% endtrans %} </span></a>
+                                                        <a href="{{ url('agenda_item_edit', {id: agenda.id, agenda_item_id: agenda_item.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit agenda item{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit agenda item{% endtrans %} </span></a>
                                                     </div>
                                                     <div class="ml-2">
                                                         <form id="myform" method="post" action="{{ path('agenda_item_delete', {'id': agenda.id, 'agenda_item_id': agenda_item.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">

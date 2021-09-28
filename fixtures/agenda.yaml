@@ -1,7 +1,7 @@
 App\Entity\Agenda:
   agenda-1:
     subBoard: '@subboard-aarhus-nordre'
-    date: <(new \DateTime('2014-02-02'))>
+    date: <(new \DateTime('2021-10-11'))>
     start: '17.00'
     end: '21.00'
     status: 'åben'

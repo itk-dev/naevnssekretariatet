@@ -3,10 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Agenda;
+use App\Entity\AgendaCaseItem;
 use App\Entity\AgendaItem;
+use App\Entity\AgendaManuelItem;
+use App\Form\AgendaCaseItemType;
 use App\Form\AgendaItemType;
+use App\Form\AgendaManuelItemType;
 use App\Service\AgendaItemHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,18 +47,42 @@ class AgendaItemController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $newAgendaItem = $this->agendaItemHelper->handleAgendaItemForm($form);
+            $newAgendaItem = $this->agendaItemHelper->handleCreateAgendaItemForm($form);
             $agenda->addAgendaItem($newAgendaItem);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($newAgendaItem);
-            $entityManager->flush();
+            $this->entityManager->persist($newAgendaItem);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
         }
 
         return $this->render('agenda_item/new.html.twig', [
             'agenda_item_create_form' => $form->createView(),
+            'agenda' => $agenda,
+        ]);
+    }
+
+    /**
+     * @Route("/{agenda_item_id}/edit", name="agenda_item_edit", methods={"GET", "POST"})
+     * @Entity("agenda", expr="repository.find(id)")
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     * @throws Exception
+     */
+    public function edit(Request $request, Agenda $agenda, AgendaItem $agendaItem): Response
+    {
+        $formClass = $this->agendaItemHelper->getFormType($agendaItem);
+        $form = $this->createForm($formClass);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->agendaItemHelper->handleEditAgendaItemForm($agendaItem, $form);
+
+            return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
+        }
+
+        return $this->render('agenda_item/edit.html.twig', [
+            'agenda_item_edit_form' => $form->createView(),
             'agenda' => $agenda,
         ]);
     }

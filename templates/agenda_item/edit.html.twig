@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'agenda_item' %}
+
+{% block title %}{% trans %}Edit agenda item{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Edit agenda item{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a name="" id="" class="btn btn-secondary" href="{{ url('agenda_show', {id: agenda.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <main role="main" class="col-12 mt-3">
+        {{ form(agenda_item_edit_form) }}
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
