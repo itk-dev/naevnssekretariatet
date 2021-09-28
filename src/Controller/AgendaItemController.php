@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaItem;
 use App\Form\AgendaItemType;
+use App\Service\AgendaItemHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -19,12 +20,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class AgendaItemController extends AbstractController
 {
     /**
+     * @var AgendaItemHelper
+     */
+    private $agendaItemHelper;
+    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(AgendaItemHelper $agendaItemHelper, EntityManagerInterface $entityManager)
     {
+        $this->agendaItemHelper = $agendaItemHelper;
         $this->entityManager = $entityManager;
     }
 
