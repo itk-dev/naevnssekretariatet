@@ -43,4 +43,13 @@ class AgendaCaseItem extends AgendaItem
 
         return $this;
     }
+
+    public function getTitle()
+    {
+        if ($this->getInspection()){
+            return 'Besigtigelse ' . $this->getCaseEntity()->getCaseNumber();
+        } else {
+            return 'Drøftelse ' . $this->getCaseEntity()->getCaseNumber();
+        }
+    }
 }

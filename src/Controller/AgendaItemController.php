@@ -47,10 +47,9 @@ class AgendaItemController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $newAgendaItem = $this->agendaItemHelper->handleCreateAgendaItemForm($form);
-            $agenda->addAgendaItem($newAgendaItem);
-
-            $this->entityManager->persist($newAgendaItem);
+            $agendaItem = $form->get('agendaItem')->getData();
+            $agenda->addAgendaItem($agendaItem);
+            $this->entityManager->persist($agendaItem);
             $this->entityManager->flush();
 
             return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
@@ -71,12 +70,12 @@ class AgendaItemController extends AbstractController
     public function edit(Request $request, Agenda $agenda, AgendaItem $agendaItem): Response
     {
         $formClass = $this->agendaItemHelper->getFormType($agendaItem);
-        $form = $this->createForm($formClass);
+        $form = $this->createForm($formClass, $agendaItem);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->agendaItemHelper->handleEditAgendaItemForm($agendaItem, $form);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
         }
