@@ -182,4 +182,24 @@ class AgendaController extends AbstractController
 
         return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
     }
+
+    /**
+     * @Route("/{id}/inspection", name="agenda_inspection", methods={"GET"})
+     */
+    public function inspection(Agenda $agenda): Response
+    {
+        return $this->render('agenda/inspection.html.twig', [
+            'agenda' => $agenda,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/protocol", name="agenda_protocol", methods={"GET"})
+     */
+    public function protocol(Agenda $agenda): Response
+    {
+        return $this->render('agenda/protocol.html.twig', [
+            'agenda' => $agenda,
+        ]);
+    }
 }
