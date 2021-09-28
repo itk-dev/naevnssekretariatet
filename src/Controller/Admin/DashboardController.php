@@ -83,10 +83,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Complaint category', '', ComplaintCategory::class);
         yield MenuItem::linkToCrud('Municipality', '', Municipality::class);
         yield MenuItem::linkToCrud('Board', '', Board::class);
-        yield MenuItem::linkToCrud('BoardRole', '', BoardRole::class);
+        yield MenuItem::linkToCrud('Board roles', '', BoardRole::class);
         yield MenuItem::linkToCrud('Boardmember', '', BoardMember::class);
         yield MenuItem::linkToCrud('Part Index', '', Party::class);
-        yield MenuItem::linkToCrud('Document Types', '', DocumentType::class);
+        yield MenuItem::linkToCrud('Document types', '', DocumentType::class);
         yield MenuItem::linkToCrud('User Settings', '', User::class)
             ->setAction('edit')
             ->setEntityId($this->getUser()->getId())
