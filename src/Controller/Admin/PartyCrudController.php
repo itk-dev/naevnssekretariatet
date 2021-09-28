@@ -27,15 +27,15 @@ class PartyCrudController extends AbstractCrudController
             ->setPageTitle('new', 'Add party')
             ->setEntityLabelInSingular('Party')
             ->setEntityLabelInPlural('Parties')
-            ->setSearchFields(['firstName', 'lastName'])
-            ->setDefaultSort(['firstName' => 'ASC'])
+            ->setSearchFields(['name'])
+            ->setDefaultSort(['name' => 'ASC'])
         ;
     }
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new('firstName', 'First name');
-        yield TextField::new('lastName', 'Last name');
+        yield TextField::new('name', 'Name');
+        yield TextField::new('cpr', 'CPR');
         yield TextField::new('address', 'Address');
         yield TextField::new('phoneNumber', 'Phone number');
         yield TextField::new('journalNumber', 'Journal number');

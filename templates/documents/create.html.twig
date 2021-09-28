@@ -4,52 +4,38 @@
 
 {% block title %}{% trans %}Documents{% endtrans %}{% endblock %}
 
-{% set backlink = "/case/" ~ case.id ~ "/documents" %}
-
 {% block header %}
     <div class="row">
         <div class="col">
-            <h1>{% trans %}Create new document{% endtrans %}</h1>
+            <h1>{% trans %}Upload document{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a name="" id="" class="btn btn-secondary" href={{ backlink }} role="button">{% trans %}Cancel{% endtrans %}</a>
-            <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Save changes{% endtrans %}</a>
+            <a name="" id="" class="btn btn-secondary" href="{{ url('document_index', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-
     <main role="main" class="col-12 mt-3">
-        <form action="">
-            <div class="form-group">
-                <label for="">{% trans %}Document name{% endtrans %}</label>
-                <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-                <small id="helpId" class="form-text text-muted">Provide a recognizable name for the document</small>
-            </div>
-            <div class="form-group">
-                <label for="">{% trans %}Select a document type{% endtrans %}</label>
-                <select class="form-control" name="" id="">
-                    <!-- TODO: What kind of types do we have here? Should they be qustomisable? -->
-                    <option>Type 1</option>
-                    <option>Type 2</option>
-                    <option>Type 3</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="">{% trans %}Chose a file{% endtrans %}</label>
-                <input type="file" class="form-control-file" name="" id="" placeholder="" aria-describedby="fileHelpId">
-                <!-- TODO: Make sure to write out correct size and fileformats -->
-                <small id="fileHelpId" class="form-text text-muted">{% trans %}Max file size: 10mb. Fileformats accepted: .pdf, .txt, .md, .jpg, .png, .webp{% endtrans %}</small>
-            </div>
-        </form>
+    {{ form_start(document_form) }}
+    <div>
+        <label >{% trans %}Document name{% endtrans %}</label>
+        {{ form_widget(document_form.documentName, {'attr': {'type': 'text', 'class': 'form-control', 'aria-describedby': 'helpNameId', 'required': true}}) }}
+        <small id="helpNameId" class="form-text text-muted">{% trans %}Provide a recognizable name for the document{% endtrans %}</small>
+    </div>
+
+    <div>
+        <label >{% trans %}Select a document type{% endtrans %}</label>
+        {{ form_widget(document_form.type, {'attr': {'class': 'form-control', 'aria-describedby': 'helpTypeId', 'required': true}}) }}
+        <small id="helpTypeId" class="form-text text-muted">{% trans %}Provide a document type{% endtrans %}</small>
+    </div>
+
+    <div>
+        <label >{% trans %}Chose a file{% endtrans %}</label>
+        {{ form_widget(document_form.filename, {'attr': {'type': 'file', 'class': 'form-control-file', 'aria-describedby': 'helpFileId', 'required': true}}) }}
+        <small id="helpFileId" class="form-text text-muted">{% trans %}Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls{% endtrans %}</small>
+    </div>
+    <button class="btn btn-success float-right">{{ button_label|default('Upload'|trans([], 'documents', 'da')) }}</button>
+    {{ form_rest(document_form) }}
     </main>
-    <footer class="col-12 mt-3">
-        <div class="row">
-            <div class="col-auto ml-auto">
-                <a name="" id="" class="btn btn-secondary" href={{ backlink }} role="button">{% trans %}Cancel{% endtrans %}</a>
-                <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Save changes{% endtrans %}</a>
-            </div>
-        </div>
-    </footer>
 {% endblock %}

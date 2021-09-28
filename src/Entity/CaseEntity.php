@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CaseEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
@@ -64,6 +66,33 @@ abstract class CaseEntity
      * @ORM\JoinColumn(nullable=false)
      */
     private $complaintCategory;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CaseDocumentRelation", mappedBy="case")
+     */
+    private $caseDocumentRelation;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $currentPlace;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="case")
+     */
+    private $casePartyRelation;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Note::class, mappedBy="caseEntity")
+     */
+    private $notes;
+
+    public function __construct()
+    {
+        $this->casePartyRelation = new ArrayCollection();
+        $this->caseDocumentRelation = new ArrayCollection();
+        $this->notes = new ArrayCollection();
+    }
 
     public function getId(): ?UuidV4
     {
@@ -152,5 +181,100 @@ abstract class CaseEntity
         $this->complaintCategory = $complaintCategory;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|CaseDocumentRelation[]
+     */
+    public function getCaseDocumentRelation(): Collection
+    {
+        return $this->caseDocumentRelation;
+    }
+
+    public function addCaseDocumentRelation(CaseDocumentRelation $caseDocumentRelation): self
+    {
+        if (!$this->caseDocumentRelation->contains($caseDocumentRelation)) {
+            $this->caseDocumentRelation[] = $caseDocumentRelation;
+        }
+
+        return $this;
+    }
+
+    public function removeCaseDocumentRelation(CaseDocumentRelation $caseDocumentRelation): self
+    {
+        $this->caseDocumentRelation->removeElement($caseDocumentRelation);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setCaseEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getCaseEntity() === $this) {
+                $note->setCaseEntity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CasePartyRelation[]
+     */
+    public function getCasePartyRelation(): Collection
+    {
+        return $this->casePartyRelation;
+    }
+
+    public function addCasePartyRelation(CasePartyRelation $casePartyRelation): self
+    {
+        if (!$this->casePartyRelation->contains($casePartyRelation)) {
+            $this->casePartyRelation[] = $casePartyRelation;
+        }
+
+        return $this;
+    }
+
+    public function removeCasePartyRelation(CasePartyRelation $casePartyRelation): self
+    {
+        $this->casePartyRelation->removeElement($casePartyRelation);
+
+        return $this;
+    }
+
+    public function getCurrentPlace(): ?string
+    {
+        return $this->currentPlace;
+    }
+
+    public function setCurrentPlace(string $currentPlace): self
+    {
+        $this->currentPlace = $currentPlace;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->caseNumber;
     }
 }

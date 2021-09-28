@@ -9,6 +9,9 @@
         <div class="col">
             <h1>{% trans %}Status info{% endtrans %}</h1>
         </div>
+        <div class="col">
+            {{ form(case_status_form) }}
+        </div>
     </div>
 {% endblock %}
 
@@ -23,7 +26,7 @@
                     <thead class="thead-inverse">
                     <tr>
                         <th>{% trans %}Current casestatus{% endtrans %}</th>
-                        <th>{% trans %}Parties hearing{% endtrans %}</th>
+                        <th>{{ case.currentPlace }}</th>
                     </tr>
                     </thead>
                     <tbody>

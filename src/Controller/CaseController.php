@@ -3,8 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\CaseEntity;
+use App\Form\CaseStatusForm;
+use App\Form\Model\CaseStatusFormModel;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
+use App\Repository\NoteRepository;
+use App\Service\CaseHelper;
+use App\Service\WorkflowService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,22 +33,29 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/summary", name="case_summary", methods={"GET"})
+     * @Route("/{id}/summary", name="case_summary", methods={"GET", "POST"})
      */
-    public function summary(CaseEntity $case): Response
+    public function summary(CaseEntity $case, NoteRepository $noteRepository, WorkflowService $workflowService, Request $request): Response
     {
+        $notes = $noteRepository->findMostRecentNotesByCase($case, 4);
+
         return $this->render('case/summary.html.twig', [
             'case' => $case,
+            'notes' => $notes,
         ]);
     }
 
     /**
      * @Route("/{id}", name="case_show", methods={"GET"})
      */
-    public function show(CaseEntity $case): Response
+    public function show(CaseEntity $case, CaseHelper $casePartyHelper): Response
     {
-        return $this->render('case/show.html.twig', [
+        $data = $casePartyHelper->getRelevantTemplateAndPartiesByCase($case);
+
+        return $this->render((string) $data['template'], [
             'case' => $case,
+            'complainants' => $data['complainants'],
+            'counterparties' => $data['counterparties'],
         ]);
     }
 
@@ -75,12 +87,38 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/status", name="case_status", methods={"GET"})
+     * @Route("/{id}/status", name="case_status", methods={"GET", "POST"})
      */
-    public function status(CaseEntity $case): Response
+    public function status(CaseEntity $case, WorkflowService $workflowService, Request $request): Response
     {
+        $workflow = $workflowService->getWorkflowForCase($case);
+
+        $caseStatus = new CaseStatusFormModel();
+        $caseStatus->setStatus($case->getCurrentPlace());
+        $caseStatusForm = $this->createForm(
+            CaseStatusForm::class,
+            $caseStatus,
+            [
+                'available_statuses' => $workflowService->getPlaceChoicesForCase($case, $workflow),
+            ]
+        );
+
+        $caseStatusForm->handleRequest($request);
+        if ($caseStatusForm->isSubmitted() && $caseStatusForm->isValid()) {
+            $workflow->apply($case, $caseStatus->getStatus());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($case);
+            $em->flush();
+
+            return $this->redirectToRoute('case_status', [
+                'id' => $case->getId(),
+                'case' => $case,
+            ]);
+        }
+
         return $this->render('case/status.html.twig', [
             'case' => $case,
+            'case_status_form' => $caseStatusForm->createView(),
         ]);
     }
 
@@ -110,16 +148,6 @@ class CaseController extends AbstractController
     public function decision(CaseEntity $case): Response
     {
         return $this->render('case/decision.html.twig', [
-            'case' => $case,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/notes", name="case_notes", methods={"GET"})
-     */
-    public function notes(CaseEntity $case): Response
-    {
-        return $this->render('case/notes.html.twig', [
             'case' => $case,
         ]);
     }

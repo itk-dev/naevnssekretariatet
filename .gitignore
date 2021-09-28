@@ -36,4 +36,9 @@ yarn-error.log
 ###> idea
 /.idea/
 ###< idea
+
+###> document uploads
+upload/documents/
+### <document uploads
+
 build

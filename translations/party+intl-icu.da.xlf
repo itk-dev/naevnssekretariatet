@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="Z5lRFSr" resname="Add Party">
+        <source>Add Party</source>
+        <target>Tilføj part</target>
+      </trans-unit>
+      <trans-unit id="1T_iYlF" resname="Add party to case">
+        <source>Add party to case</source>
+        <target>Tilføj part til sag</target>
+      </trans-unit>
+      <trans-unit id="u51nSoI" resname="Add from index">
+        <source>Add from index</source>
+        <target>Tilføj fra partskartotek</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Annuller</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Navn</target>
+      </trans-unit>
+      <trans-unit id="7rTCvQD" resname="CPR">
+        <source>CPR</source>
+        <target>CPR nummer</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Adresse</target>
+      </trans-unit>
+      <trans-unit id="MG8bsgZ" resname="Phone number">
+        <source>Phone number</source>
+        <target>Telefon nummer</target>
+      </trans-unit>
+      <trans-unit id="9gcREM5" resname="Journal number">
+        <source>Journal number</source>
+        <target>Journal nummer</target>
+      </trans-unit>
+      <trans-unit id="uq3fcPt" resname="Type">
+        <source>Type</source>
+        <target>Type</target>
+      </trans-unit>
+      <trans-unit id="v7KnF3u" resname="Add party">
+        <source>Add party</source>
+        <target>Tilføj part</target>
+      </trans-unit>
+      <trans-unit id="JyaAlOn" resname="Party to add">
+        <source>Party to add</source>
+        <target>Part</target>
+      </trans-unit>
+      <trans-unit id="sqSFiwS" resname="Party type">
+        <source>Party type</source>
+        <target>Type</target>
+      </trans-unit>
+      <trans-unit id="2P77Crs" resname="Edit Party">
+        <source>Edit Party</source>
+        <target>Rediger part</target>
+      </trans-unit>
+      <trans-unit id="6kE0Yr5" resname="Edit party">
+        <source>Edit party</source>
+        <target>Rediger part</target>
+      </trans-unit>
+      <trans-unit id="4jlp0oT" resname="Tenant">
+        <source>Tenant</source>
+        <target>Lejer</target>
+      </trans-unit>
+      <trans-unit id="v2RstjN" resname="Tenant (representative)">
+        <source>Tenant (representative)</source>
+        <target>Lejer (repræsentant)</target>
+      </trans-unit>
+      <trans-unit id="OAd9aCc" resname="Landlord">
+        <source>Landlord</source>
+        <target>Udlejer</target>
+      </trans-unit>
+      <trans-unit id="V0JdMfg" resname="Landlord (administrator)">
+        <source>Landlord (administrator)</source>
+        <target>Udlejer (administrator)</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

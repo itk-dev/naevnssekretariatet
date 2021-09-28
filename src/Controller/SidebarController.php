@@ -69,13 +69,13 @@ class SidebarController extends AbstractController
     {
         $submenuItems = [
             $this->generateSubmenuItem($this->translator->trans('Summary', [], 'sidebar'), ['case_summary'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Basic Information', [], 'sidebar'), ['case_show', 'case_edit'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Basic Information', [], 'sidebar'), ['case_show', 'case_edit', 'party_add', 'party_add_from_index', 'party_edit'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Status Info', [], 'sidebar'), ['case_status'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['case_communication'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['case_documents'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['document_index', 'document_create', 'document_copy'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Decision', [], 'sidebar'), ['case_decision'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Notes', [], 'sidebar'), ['case_notes'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Notes', [], 'sidebar'), ['note_index', 'note_edit'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Log', [], 'sidebar'), ['case_log'], $caseId, $activeRoute),
         ];
 

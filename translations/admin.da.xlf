@@ -153,6 +153,10 @@
         <source>Back to the website</source>
         <target>Tilbage til overblik</target>
       </trans-unit>
+      <trans-unit id="tcO5B6P" resname="Statuses">
+        <source>Statuses</source>
+        <target>Statusser</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
