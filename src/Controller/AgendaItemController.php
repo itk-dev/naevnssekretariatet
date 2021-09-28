@@ -55,6 +55,7 @@ class AgendaItemController extends AbstractController
      * @Route("/{agenda_item_id}/edit", name="agenda_item_edit", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     *
      * @throws Exception
      */
     public function edit(Request $request, Agenda $agenda, AgendaItem $agendaItem): Response
@@ -64,7 +65,6 @@ class AgendaItemController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->entityManager->flush();
 
             return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);

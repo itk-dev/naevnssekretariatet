@@ -46,10 +46,10 @@ class AgendaCaseItem extends AgendaItem
 
     public function getTitle()
     {
-        if ($this->getInspection()){
-            return 'Besigtigelse ' . $this->getCaseEntity()->getCaseNumber();
+        if ($this->getInspection()) {
+            return 'Besigtigelse '.$this->getCaseEntity()->getCaseNumber();
         } else {
-            return 'Drøftelse ' . $this->getCaseEntity()->getCaseNumber();
+            return 'Drøftelse '.$this->getCaseEntity()->getCaseNumber();
         }
     }
 }
