@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BoardMemberRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Uid\UuidV4;
@@ -31,6 +33,16 @@ class BoardMember
      */
     private $municipality;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=BoardRole::class, mappedBy="boardMembers")
+     */
+    private $boardRoles;
+
+    public function __construct()
+    {
+        $this->boardRoles = new ArrayCollection();
+    }
+
     public function getId(): ?UuidV4
     {
         return $this->id;
@@ -56,6 +68,33 @@ class BoardMember
     public function setMunicipality(?Municipality $municipality): self
     {
         $this->municipality = $municipality;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BoardRole[]
+     */
+    public function getBoardRoles(): Collection
+    {
+        return $this->boardRoles;
+    }
+
+    public function addBoardRole(BoardRole $boardRole): self
+    {
+        if (!$this->boardRoles->contains($boardRole)) {
+            $this->boardRoles[] = $boardRole;
+            $boardRole->addBoardMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoardRole(BoardRole $boardRole): self
+    {
+        if ($this->boardRoles->removeElement($boardRole)) {
+            $boardRole->removeBoardMember($this);
+        }
 
         return $this;
     }

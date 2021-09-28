@@ -62,10 +62,16 @@ class Board implements LoggableEntityInterface
      */
     private $statuses;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BoardRole::class, mappedBy="board")
+     */
+    private $boardRoles;
+
     public function __construct()
     {
         $this->complaintCategories = new ArrayCollection();
         $this->caseEntities = new ArrayCollection();
+        $this->boardRoles = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -204,6 +210,36 @@ class Board implements LoggableEntityInterface
     public function setStatuses(string $statuses): self
     {
         $this->statuses = $statuses;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BoardRole[]
+     */
+    public function getBoardRoles(): Collection
+    {
+        return $this->boardRoles;
+    }
+
+    public function addBoardRole(BoardRole $boardRole): self
+    {
+        if (!$this->boardRoles->contains($boardRole)) {
+            $this->boardRoles[] = $boardRole;
+            $boardRole->setBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoardRole(BoardRole $boardRole): self
+    {
+        if ($this->boardRoles->removeElement($boardRole)) {
+            // set the owning side to null (unless already changed)
+            if ($boardRole->getBoard() === $this) {
+                $boardRole->setBoard(null);
+            }
+        }
 
         return $this;
     }
