@@ -24,12 +24,18 @@ class AgendaManuelItemType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => AgendaManuelItem::class,
-            'board' => null,
+            'isCreateContext' => false,
         ]);
+
+        $resolver->setAllowedTypes('isCreateContext', 'bool');
+
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $isCreateContext = $options['isCreateContext'];
+
         $builder
             ->add('startTime', TextType::class, [
                 'label' => $this->translator->trans('Start time', [], 'agenda_item'),
@@ -45,9 +51,16 @@ class AgendaManuelItemType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'label' => $this->translator->trans('Description', [], 'agenda_item'),
-            ])
-            ->add('submit', SubmitType::class, [
+            ]);
+
+        if (!$isCreateContext) {
+            $builder->add('submit', SubmitType::class, [
+                'label' => $this->translator->trans('Update agenda item', [], 'agenda_item'),
+            ]);
+        } else {
+            $builder->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans('Create agenda item', [], 'agenda_item'),
             ]);
+        }
     }
 }
