@@ -24,8 +24,8 @@ class AgendaItemType extends AbstractType
     {
         $builder->add('type', ChoiceType::class, [
             'choices' => [
-                'caseItem' => $this->translator->trans('Case item', [], 'agenda_item'),
-                'manuelItem' => $this->translator->trans('Manuel item', [], 'agenda_item'),
+                'Case Inspection Item' => $this->translator->trans('Case item', [], 'agenda_item'),
+                'Manuel Item' => $this->translator->trans('Manuel item', [], 'agenda_item'),
             ],
             'placeholder' => $this->translator->trans('Choose an agenda item type', [], 'agenda_item'),
         ]);
@@ -45,7 +45,9 @@ class AgendaItemType extends AbstractType
                         throw new \Exception($message);
                 }
 
-                $form->add('agendaItem', $formClass);
+                $form->add('agendaItem', $formClass, [
+                    'isCreateContext' => true,
+                ]);
             } else {
                 $form->add('agendaItem', HiddenType::class);
             }

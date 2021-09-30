@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agenda;
+use App\Entity\AgendaCaseItem;
 use App\Entity\AgendaItem;
 use App\Form\AgendaItemType;
 use App\Service\AgendaItemHelper;
@@ -66,14 +67,25 @@ class AgendaItemController extends AbstractController
      */
     public function edit(Request $request, Agenda $agenda, AgendaItem $agendaItem): Response
     {
+
         $formClass = $this->agendaItemHelper->getFormType($agendaItem);
-        $form = $this->createForm($formClass, $agendaItem);
+
+        $options = [];
+
+        if(get_class($agendaItem) === AgendaCaseItem::class) {
+            $options['relevantCase'] = $agendaItem->getCaseEntity();
+        }
+
+        $form = $this->createForm($formClass, $agendaItem, $options);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
+            return $this->redirectToRoute('agenda_item_edit', [
+                'id' => $agenda->getId(),
+                'agenda_item_id' => $agendaItem->getId(),
+            ]);
         }
 
         return $this->render('agenda_item/edit.html.twig', [
