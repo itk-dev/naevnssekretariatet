@@ -72,8 +72,11 @@ class AgendaItemController extends AbstractController
 
         $options = [];
 
+        $isManuelItem = true;
+
         if(get_class($agendaItem) === AgendaCaseItem::class) {
             $options['relevantCase'] = $agendaItem->getCaseEntity();
+            $isManuelItem = false;
         }
 
         $form = $this->createForm($formClass, $agendaItem, $options);
@@ -91,6 +94,8 @@ class AgendaItemController extends AbstractController
         return $this->render('agenda_item/edit.html.twig', [
             'agenda_item_edit_form' => $form->createView(),
             'agenda' => $agenda,
+            'agendaItem' => $agendaItem,
+            'isManuelItem' => $isManuelItem,
         ]);
     }
 

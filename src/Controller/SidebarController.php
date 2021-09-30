@@ -97,6 +97,30 @@ class SidebarController extends AbstractController
         ]);
     }
 
+    public function renderAgendaCaseItemSubmenu(UuidV4 $agendaId, UuidV4 $agendaItemId, string $activeRoute): Response
+    {
+        $submenuItems = [
+            $this->generateAgendaItemSubmenuItem($this->translator->trans('Agenda item', [], 'sidebar'), ['agenda_item_edit'], $agendaId, $agendaItemId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Back to agenda', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
+        ];
+
+        return $this->render('sidebar/_submenu.html.twig', [
+            'submenu_items' => $submenuItems,
+        ]);
+    }
+
+    public function renderAgendaManuelItemSubmenu(UuidV4 $agendaId, UuidV4 $agendaItemId, string $activeRoute): Response
+    {
+        $submenuItems = [
+            $this->generateAgendaItemSubmenuItem($this->translator->trans('Agenda item', [], 'sidebar'), ['agenda_item_edit'], $agendaId, $agendaItemId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Back to agenda', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
+        ];
+
+        return $this->render('sidebar/_submenu.html.twig', [
+            'submenu_items' => $submenuItems,
+        ]);
+    }
+
     /**
      * Notice that the generated link uses the first route in array of routes,
      * when it generates the url.
@@ -106,6 +130,15 @@ class SidebarController extends AbstractController
         return [
             'name' => $this->translator->trans($name, [], 'sidebar'),
             'link' => $this->generateUrl($routes[0], ['id' => $caseId]),
+            'active' => in_array($activeRoute, $routes),
+        ];
+    }
+
+    private function generateAgendaItemSubmenuItem(string $name, array $routes, string $agendaId, string $agendaItemId, $activeRoute): array
+    {
+        return [
+            'name' => $this->translator->trans($name, [], 'sidebar'),
+            'link' => $this->generateUrl($routes[0], ['id' => $agendaId, 'agenda_item_id' => $agendaItemId]),
             'active' => in_array($activeRoute, $routes),
         ];
     }
