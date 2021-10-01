@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -35,11 +36,17 @@ class AgendaManuelItemType extends AbstractType
         $isCreateContext = $options['isCreateContext'];
 
         $builder
-            ->add('startTime', TextType::class, [
+            ->add('startTime', TimeType::class, [
                 'label' => $this->translator->trans('Start time', [], 'agenda_item'),
+                'input'  => 'datetime',
+                'widget' => 'single_text',
+                'input_format' => 'H:i',
             ])
-            ->add('endTime', TextType::class, [
+            ->add('endTime', TimeType::class, [
                 'label' => $this->translator->trans('End time', [], 'agenda_item'),
+                'input'  => 'datetime',
+                'widget' => 'single_text',
+                'input_format' => 'H:i',
             ])
             ->add('meetingPoint', TextType::class, [
                 'label' => $this->translator->trans('Meeting point', [], 'agenda_item'),

@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -39,14 +40,20 @@ class AgendaType extends AbstractType
                 'required' => false,
             ])
             ->add('date', DateTimeType::class, [
+                'input'  => 'datetime',
                 'widget' => 'single_text',
-                'html5' => false,
-                'format' => 'dd-MM-yyyy',
-                'attr' => ['class' => 'form-control js-datetimepicker'],
-                //'format' => 'j F y'
+                'input_format' => 'dd-MM-yyyy',
             ])
-            ->add('start')
-            ->add('end')
+            ->add('start', TimeType::class, [
+                'input'  => 'datetime',
+                'widget' => 'single_text',
+                'input_format' => 'H:i',
+            ])
+            ->add('end', TimeType::class, [
+                'input'  => 'datetime',
+                'widget' => 'single_text',
+                'input_format' => 'H:i',
+            ])
         ;
     }
 }

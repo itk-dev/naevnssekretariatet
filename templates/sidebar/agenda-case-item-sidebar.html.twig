@@ -17,7 +17,7 @@
             </div>
             {% block sidebarSubmenu %}
                 <div class="sidebar-sticky pt-3">
-                    <h6 class="px-3 mb-1">{% trans %}Agenda item{% endtrans %} {{ agendaItem.startTime|e }}-{{ agendaItem.endTime|e }}</h6>
+                    <h6 class="px-3 mb-1">{% trans %}Agenda item{% endtrans %} {{ agendaItem.startTime|date('H:i') }}-{{ agendaItem.endTime|date('H:i') }}</h6>
                     <p class="text-muted px-3 mt-1 mb-3"><small>{{ agendaItem.meetingPoint }}</small></p>
                     <ul class="nav flex-column">
                         {{ render(controller(

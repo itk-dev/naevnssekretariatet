@@ -7,6 +7,7 @@ use App\Entity\SubBoard;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,13 +28,20 @@ class AgendaCreateType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('date', DateTimeType::class, [
+                'input'  => 'datetime',
                 'widget' => 'single_text',
-//                'html5' => false,
-//                'attr' => ['class' => 'js-datepicker'],
-//                'format' => 'dd-MM-yyyy',
+                'input_format' => 'dd-MM-yyyy',
             ])
-            ->add('start')
-            ->add('end')
+            ->add('start', TimeType::class, [
+                'input'  => 'datetime',
+                'widget' => 'single_text',
+                'input_format' => 'H:i',
+            ])
+            ->add('end', TimeType::class, [
+                'input'  => 'datetime',
+                'widget' => 'single_text',
+                'input_format' => 'H:i',
+            ])
         ;
     }
 }

@@ -23,17 +23,17 @@ class Agenda
     private $id;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $date;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $start;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $end;
 
@@ -86,24 +86,24 @@ class Agenda
         return $this;
     }
 
-    public function getStart(): ?string
+    public function getStart(): ?\DateTimeInterface
     {
         return $this->start;
     }
 
-    public function setStart(?string $start): self
+    public function setStart(?\DateTimeInterface $start): self
     {
         $this->start = $start;
 
         return $this;
     }
 
-    public function getEnd(): ?string
+    public function getEnd(): ?\DateTimeInterface
     {
         return $this->end;
     }
 
-    public function setEnd(?string $end): self
+    public function setEnd(?\DateTimeInterface $end): self
     {
         $this->end = $end;
 

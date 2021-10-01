@@ -83,7 +83,7 @@
                                 <section class="col-md-12 mt-5 mt-md-0">
                                     <div class="row">
                                         <div class="col">
-                                            <p class="m-0 mt-2">{{ agenda_item.startTime|e }}</p>
+                                            <p class="m-0 mt-2">{{ agenda_item.startTime|date('H:i') }}</p>
 {#                                            <p class="m-0" style="font-size:15px; opacity: 0.5">To do</p>#}
                                         </div>
                                         <div class="col-md-7 text-truncate">

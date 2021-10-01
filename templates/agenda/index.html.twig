@@ -43,8 +43,8 @@
                     <tr>
                         <td>{{ agenda.subBoard|e }}</td>
                         <td>{{ agenda.date|date('j F Y') }}</td>
-                        <td>{{ agenda.start|e }}</td>
-                        <td>{{ agenda.end|e }}</td>
+                        <td>{{ agenda.start|date('H:i') }}</td>
+                        <td>{{ agenda.end|date('H:i') }}</td>
                         <td>Nogle nævnsmedlemmer</td>
                         <td class="text-right">
                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
