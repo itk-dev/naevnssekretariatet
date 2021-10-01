@@ -10,11 +10,10 @@ use App\Form\AgendaManuelItemType;
 
 class AgendaItemHelper
 {
-
     public function getFormType(AgendaItem $agendaItem): ?string
     {
         $formClass = null;
-        switch (get_class($agendaItem)){
+        switch (get_class($agendaItem)) {
             case AgendaCaseItem::class:
                 $formClass = AgendaCaseItemType::class;
                 break;

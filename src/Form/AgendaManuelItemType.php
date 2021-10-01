@@ -28,12 +28,10 @@ class AgendaManuelItemType extends AbstractType
         ]);
 
         $resolver->setAllowedTypes('isCreateContext', 'bool');
-
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $isCreateContext = $options['isCreateContext'];
 
         $builder

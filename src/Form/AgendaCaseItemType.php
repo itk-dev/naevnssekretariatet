@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\AgendaCaseItem;
-use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
 use App\Repository\CaseDocumentRelationRepository;
@@ -42,12 +41,10 @@ class AgendaCaseItemType extends AbstractType
         ]);
 
         $resolver->setAllowedTypes('isCreateContext', 'bool');
-
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $isCreateContext = $options['isCreateContext'];
 
         if (!$isCreateContext) {
@@ -77,7 +74,7 @@ class AgendaCaseItemType extends AbstractType
                 'label' => $this->translator->trans('Inspection', [], 'agenda_item'),
                 'required' => false,
             ]);
-        if (!$isCreateContext){
+        if (!$isCreateContext) {
             $builder->add('documents', EntityType::class, [
                 'class' => Document::class,
                 'choices' => $documents,
@@ -95,6 +92,5 @@ class AgendaCaseItemType extends AbstractType
                     'label' => $this->translator->trans('Create agenda item', [], 'agenda_item'),
                 ]);
         }
-
     }
 }

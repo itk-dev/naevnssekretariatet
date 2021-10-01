@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
 use App\Entity\AgendaItem;
+use App\Entity\CasePresentation;
 use App\Form\AgendaItemType;
+use App\Form\CasePresentationType;
 use App\Service\AgendaItemHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -67,14 +69,13 @@ class AgendaItemController extends AbstractController
      */
     public function edit(Request $request, Agenda $agenda, AgendaItem $agendaItem): Response
     {
-
         $formClass = $this->agendaItemHelper->getFormType($agendaItem);
 
         $options = [];
 
         $isManuelItem = true;
 
-        if(get_class($agendaItem) === AgendaCaseItem::class) {
+        if (AgendaCaseItem::class === get_class($agendaItem)) {
             $options['relevantCase'] = $agendaItem->getCaseEntity();
             $isManuelItem = false;
         }
@@ -96,6 +97,46 @@ class AgendaItemController extends AbstractController
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
             'isManuelItem' => $isManuelItem,
+        ]);
+    }
+
+    /**
+     * @Route("/{agenda_item_id}/presentation", name="agenda_item_presentation", methods={"GET", "POST"})
+     * @Entity("agenda", expr="repository.find(id)")
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     */
+    public function presentation(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem): Response
+    {
+        // We are guaranteed this to be an AgendaCaseItem
+
+        if (null !== $agendaItem->getPresentation()) {
+            $casePresentation = $agendaItem->getPresentation();
+        } else {
+            $casePresentation = new CasePresentation();
+        }
+
+        $form = $this->createForm(CasePresentationType::class, $casePresentation);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $casePresentation = $form->getData();
+
+            // TODO: possibly save this on the case in form of a document?
+            // Should this be done when agenda is published?
+            $agendaItem->setPresentation($casePresentation);
+
+            $this->entityManager->persist($casePresentation);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('agenda_item_presentation', [
+                'id' => $agenda->getId(),
+                'agenda_item_id' => $agendaItem->getId(),
+            ]);
+        }
+
+        return $this->render('agenda_item/presentation.html.twig', [
+            'case_presentation_form' => $form->createView(),
+            'agenda' => $agenda,
+            'agendaItem' => $agendaItem,
         ]);
     }
 
