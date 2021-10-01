@@ -200,7 +200,7 @@ class AgendaController extends AbstractController
 
         return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
     }
-    
+
     /**
      * @Route("/{id}/protocol", name="agenda_protocol", methods={"GET"})
      */

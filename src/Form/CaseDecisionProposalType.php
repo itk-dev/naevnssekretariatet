@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\CasePresentation;
+use App\Entity\CaseDecisionProposal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class CasePresentationType extends AbstractType
+class CaseDecisionProposalType extends AbstractType
 {
     /**
      * @var TranslatorInterface
@@ -25,19 +25,19 @@ class CasePresentationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => CasePresentation::class,
+            'data_class' => CaseDecisionProposal::class,
         ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('presentation', TextareaType::class, [
-                'label' => $this->translator->trans('Presentation', [], 'agenda_item'),
-                'attr' => ['rows' => 6],
+            ->add('decisionProposal', TextareaType::class, [
+                'label' => $this->translator->trans('Decision proposal', [], 'agenda_item'),
+                'attr' => ['rows' => 10],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('Update presentation', [], 'agenda_item'),
+                'label' => $this->translator->trans('Update proposal', [], 'agenda_item'),
             ]);
     }
 }

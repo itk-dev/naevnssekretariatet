@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
 use App\Entity\AgendaItem;
+use App\Entity\CaseDecisionProposal;
 use App\Entity\CasePresentation;
 use App\Form\AgendaItemType;
+use App\Form\CaseDecisionProposalType;
 use App\Form\CasePresentationType;
 use App\Form\InspectionLetterType;
 use App\Service\AgendaItemHelper;
@@ -140,7 +142,6 @@ class AgendaItemController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/{agenda_item_id}/presentation", name="agenda_item_presentation", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
@@ -176,6 +177,46 @@ class AgendaItemController extends AbstractController
 
         return $this->render('agenda_item/presentation.html.twig', [
             'case_presentation_form' => $form->createView(),
+            'agenda' => $agenda,
+            'agendaItem' => $agendaItem,
+        ]);
+    }
+
+    /**
+     * @Route("/{agenda_item_id}/decision-proposal", name="agenda_item_decision_proposal", methods={"GET", "POST"})
+     * @Entity("agenda", expr="repository.find(id)")
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     */
+    public function decisionProposal(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem): Response
+    {
+        // We are guaranteed this to be an AgendaCaseItem
+
+        if (null !== $agendaItem->getDecisionProposal()) {
+            $decisionProposal = $agendaItem->getDecisionProposal();
+        } else {
+            $decisionProposal = new CaseDecisionProposal();
+        }
+
+        $form = $this->createForm(CaseDecisionProposalType::class, $decisionProposal);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $decisionProposal = $form->getData();
+
+            // TODO: possibly save this on the case in form of a document?
+            // Should this be done when agenda is published?
+            $agendaItem->setDecisionProposal($decisionProposal);
+
+            $this->entityManager->persist($decisionProposal);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('agenda_item_decision_proposal', [
+                'id' => $agenda->getId(),
+                'agenda_item_id' => $agendaItem->getId(),
+            ]);
+        }
+
+        return $this->render('agenda_item/decision_proposal.html.twig', [
+            'decision_proposal_form' => $form->createView(),
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
         ]);

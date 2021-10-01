@@ -32,6 +32,11 @@ class AgendaCaseItem extends AgendaItem
      */
     private $presentation;
 
+    /**
+     * @ORM\OneToOne(targetEntity=CaseDecisionProposal::class, cascade={"persist", "remove"})
+     */
+    private $decisionProposal;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -102,6 +107,18 @@ class AgendaCaseItem extends AgendaItem
     public function setPresentation(?CasePresentation $presentation): self
     {
         $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getDecisionProposal(): ?CaseDecisionProposal
+    {
+        return $this->decisionProposal;
+    }
+
+    public function setDecisionProposal(?CaseDecisionProposal $decisionProposal): self
+    {
+        $this->decisionProposal = $decisionProposal;
 
         return $this;
     }

@@ -27,7 +27,7 @@ class InspectionLetterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('recipients', null,  [
+            ->add('recipients', null, [
                 'label' => $this->translator->trans('Select recipients', [], 'agenda_item'),
             ])
             ->add('subject', TextType::class, [
@@ -67,6 +67,5 @@ class InspectionLetterType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans('Send inspection letter', [], 'agenda_item'),
             ]);
-        ;
     }
 }
