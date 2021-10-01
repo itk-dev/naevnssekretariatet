@@ -8,6 +8,7 @@ use App\Entity\AgendaItem;
 use App\Entity\CasePresentation;
 use App\Form\AgendaItemType;
 use App\Form\CasePresentationType;
+use App\Form\InspectionLetterType;
 use App\Service\AgendaItemHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -120,7 +121,20 @@ class AgendaItemController extends AbstractController
      */
     public function inspectionLetter(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem): Response
     {
+        $form = $this->createForm(InspectionLetterType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('agenda_item_edit', [
+                'id' => $agenda->getId(),
+                'agenda_item_id' => $agendaItem->getId(),
+            ]);
+        }
+
         return $this->render('agenda_item/inspection_letter.html.twig', [
+            'inspection_letter_form' => $form->createView(),
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
         ]);
