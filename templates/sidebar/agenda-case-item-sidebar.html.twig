@@ -24,6 +24,7 @@
                             'App\\Controller\\SidebarController::renderAgendaCaseItemSubmenu', {
                                 agendaId: agenda.id,
                                 agendaItemId: agendaItem.id,
+                                isInspection: agendaItem.inspection,
                                 activeRoute: app.request.get('_route')
                             }
                         )) }}

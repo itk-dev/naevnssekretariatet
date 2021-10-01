@@ -96,15 +96,19 @@ class SidebarController extends AbstractController
         ]);
     }
 
-    public function renderAgendaCaseItemSubmenu(UuidV4 $agendaId, UuidV4 $agendaItemId, string $activeRoute): Response
+    public function renderAgendaCaseItemSubmenu(UuidV4 $agendaId, UuidV4 $agendaItemId, bool $isInspection, string $activeRoute): Response
     {
         $submenuItems = [
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Agenda item', [], 'sidebar'), ['agenda_item_edit'], $agendaId, $agendaItemId, $activeRoute),
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['agenda_item_presentation'], $agendaId, $agendaItemId, $activeRoute),
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['agenda_item_decision_proposal'], $agendaId, $agendaItemId, $activeRoute),
-            $this->generateAgendaItemSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_item_inspection', 'agenda_item_inspection_letter'], $agendaId, $agendaItemId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Back to agenda', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
         ];
+
+        if ($isInspection) {
+            array_push($submenuItems, $this->generateAgendaItemSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_item_inspection', 'agenda_item_inspection_letter'], $agendaId, $agendaItemId, $activeRoute));
+        }
+
+        array_push($submenuItems, $this->generateSubmenuItem($this->translator->trans('Back to agenda', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute));
 
         return $this->render('sidebar/_submenu.html.twig', [
             'submenu_items' => $submenuItems,
