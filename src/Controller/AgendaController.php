@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agenda;
+use App\Entity\AgendaItem;
 use App\Entity\BoardMember;
 use App\Entity\User;
 use App\Form\AgendaAddBoardMemberType;
@@ -10,7 +11,9 @@ use App\Form\AgendaCreateType;
 use App\Form\AgendaType;
 use App\Repository\AgendaRepository;
 use App\Repository\MunicipalityRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,11 +105,26 @@ class AgendaController extends AbstractController
 
     /**
      * @Route("/{id}/show", name="agenda_show", methods={"GET", "POST"})
+     *
+     * @throws Exception
      */
     public function show(Agenda $agenda, Request $request): Response
     {
         $boardMembers = $agenda->getBoardmembers();
-        $agendaItems = $agenda->getAgendaItems();
+        $agendaItems = $agenda->getAgendaItems()->toArray();
+
+        if (!empty($agendaItems)) {
+            usort($agendaItems, function (AgendaItem $a, AgendaItem $b) {
+                $ad = new DateTime($a->getStartTime()->format('H:i'));
+                $bd = new DateTime($b->getStartTime()->format('H:i'));
+
+                if ($ad === $bd) {
+                    return 0;
+                }
+
+                return $ad < $bd ? -1 : 1;
+            });
+        }
 
         $form = $this->createForm(AgendaType::class, $agenda);
 

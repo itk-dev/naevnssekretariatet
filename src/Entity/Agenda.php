@@ -60,6 +60,7 @@ class Agenda
 
     /**
      * @ORM\OneToMany(targetEntity=AgendaItem::class, mappedBy="agenda")
+     * @ORM\OrderBy({"startTime" = "ASC"})
      */
     private $agendaItems;
 

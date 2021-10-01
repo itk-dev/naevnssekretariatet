@@ -40,17 +40,17 @@ class AgendaType extends AbstractType
                 'required' => false,
             ])
             ->add('date', DateTimeType::class, [
-                'input'  => 'datetime',
+                'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'dd-MM-yyyy',
             ])
             ->add('start', TimeType::class, [
-                'input'  => 'datetime',
+                'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
             ])
             ->add('end', TimeType::class, [
-                'input'  => 'datetime',
+                'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
             ])

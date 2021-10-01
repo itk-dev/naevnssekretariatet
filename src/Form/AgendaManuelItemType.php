@@ -38,13 +38,13 @@ class AgendaManuelItemType extends AbstractType
         $builder
             ->add('startTime', TimeType::class, [
                 'label' => $this->translator->trans('Start time', [], 'agenda_item'),
-                'input'  => 'datetime',
+                'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
             ])
             ->add('endTime', TimeType::class, [
                 'label' => $this->translator->trans('End time', [], 'agenda_item'),
-                'input'  => 'datetime',
+                'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
             ])
