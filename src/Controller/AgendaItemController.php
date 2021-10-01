@@ -101,6 +101,33 @@ class AgendaItemController extends AbstractController
     }
 
     /**
+     * @Route("/{agenda_item_id}/inspection", name="agenda_item_inspection", methods={"GET"})
+     * @Entity("agenda", expr="repository.find(id)")
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     */
+    public function inspection(Agenda $agenda, AgendaCaseItem $agendaItem): Response
+    {
+        return $this->render('agenda_item/inspection.html.twig', [
+            'agenda' => $agenda,
+            'agendaItem' => $agendaItem,
+        ]);
+    }
+
+    /**
+     * @Route("/{agenda_item_id}/inspection-letter", name="agenda_item_inspection_letter", methods={"GET", "POST"})
+     * @Entity("agenda", expr="repository.find(id)")
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     */
+    public function inspectionLetter(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem): Response
+    {
+        return $this->render('agenda_item/inspection_letter.html.twig', [
+            'agenda' => $agenda,
+            'agendaItem' => $agendaItem,
+        ]);
+    }
+
+
+    /**
      * @Route("/{agenda_item_id}/presentation", name="agenda_item_presentation", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")

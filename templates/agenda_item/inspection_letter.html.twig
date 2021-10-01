@@ -1,0 +1,31 @@
+{% extends 'layout-with-agenda-case-item-submenu.html.twig' %}
+
+{% trans_default_domain 'agenda_item' %}
+
+{% block title %}{% trans %}Inspection letter{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Inspection letter{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            {# TODO: Needs functionality on buttons #}
+            <a name="" id="" class="btn btn-secondary" href="{{ url('agenda_item_inspection', {id: agenda.id, agenda_item_id: agendaItem.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+
+    <footer class="col-12 mt-3">
+        <div class="row">
+            <div class="col-auto ml-auto">
+                {# TODO: Needs functionality on buttons #}
+                <a name="" id="" class="btn btn-secondary" href="{{ url('agenda_item_inspection', {id: agenda.id, agenda_item_id: agendaItem.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
