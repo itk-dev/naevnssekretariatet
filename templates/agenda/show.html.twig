@@ -12,148 +12,163 @@
         <div class="col-auto">
             {# TODO: Needs functionality on buttons #}
             <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Publish to boardmembers{% endtrans %}</a>
-{#            <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Save changes{% endtrans %}</a>#}
+            {#            <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Save changes{% endtrans %}</a>#}
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
     <main role="main" class="col-12 mt-3">
-        {{ form_start(agenda_form) }}
-        <div class="form-row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">{% trans %}Sub board{% endtrans %}</label>
-                    {{ form_widget(agenda_form.subBoard, {'attr': {'class': 'form-control'}}) }}
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">{% trans %}Select recipient(s) {% endtrans %}</label>
-                    {{ form_widget(agenda_form.status, {'attr': {'class': 'form-control'}}) }}
-                </div>
+    {{ form_start(agenda_form) }}
+    <div class="form-row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">{% trans %}Sub board{% endtrans %}</label>
+                {{ form_widget(agenda_form.subBoard, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
-        <div>
-            <label for="">{% trans %}Remarks{% endtrans %}</label>
-            {{ form_widget(agenda_form.remarks, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">{% trans %}Select recipient(s) {% endtrans %}</label>
+                {{ form_widget(agenda_form.status, {'attr': {'class': 'form-control'}}) }}
+            </div>
         </div>
+    </div>
+    <div>
+        <label for="">{% trans %}Remarks{% endtrans %}</label>
+        {{ form_widget(agenda_form.remarks, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+    </div>
 
-        <div class="form-row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">{% trans %}Date{% endtrans %}</label>
-                    {{ form_widget(agenda_form.date) }}
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">{% trans %}From{% endtrans %}</label>
-                    {{ form_widget(agenda_form.start, {'attr': {'class': 'form-control'}}) }}
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">{% trans %}To{% endtrans %}</label>
-                    {{ form_widget(agenda_form.end, {'attr': {'class': 'form-control'}}) }}
-                </div>
+    <div class="form-row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">{% trans %}Date{% endtrans %}</label>
+                {{ form_widget(agenda_form.date) }}
             </div>
         </div>
-        <div class="form-row">
-            <button class="btn btn-primary float-right">{{ button_label|default('Save changes') }}</button>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">{% trans %}From{% endtrans %}</label>
+                {{ form_widget(agenda_form.start, {'attr': {'class': 'form-control'}}) }}
+            </div>
         </div>
-        {{ form_end(agenda_form) }}
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">{% trans %}To{% endtrans %}</label>
+                {{ form_widget(agenda_form.end, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <button class="btn btn-primary float-right">{{ button_label|default('Save changes') }}</button>
+    </div>
+    {{ form_end(agenda_form) }}
 
 
-        <div class="row mt-md-5">
-            <section aria-labelledby="section_agenda_items" class="col-md-7 mt-5 mt-md-0">
-                <div class="row">
-                    <div class="col">
-                        <h4 id="section_agenda_items">{% trans %}Agenda items{% endtrans %}</h4>
-                    </div>
-                    <div class="col-auto">
-                        <a name="" id="" class="btn btn-success btn-sm" href="{{ url('agenda_item_create', {id: agenda.id}) }}" role="button">{% trans %}Add agenda item{% endtrans %}</a>
-                    </div>
-                    <hr style="width:95%">
+    <div class="row mt-md-5">
+        <section aria-labelledby="section_agenda_items" class="col-md-7 mt-5 mt-md-0">
+            <div class="row">
+                <div class="col">
+                    <h4 id="section_agenda_items">{% trans %}Agenda items{% endtrans %}</h4>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="list-group">
-                            {% for agenda_item in agendaItems %}
-                                <section class="col-md-12 mt-5 mt-md-0">
-                                    <div class="row">
-                                        <div class="col">
-                                            <p class="m-0 mt-2">{{ agenda_item.startTime|date('H:i') }}</p>
-{#                                            <p class="m-0" style="font-size:15px; opacity: 0.5">To do</p>#}
-                                        </div>
-                                        <div class="col-md-7 text-truncate">
-                                            <p class="m-0 mt-2">{{ agenda_item.title|e }}</p>
-                                            <p class="m-0" style="font-size:15px; opacity: 0.5">{{ agenda_item.meetingPoint|e }}</p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <section class="col-md-12 mt-5 mt-md-0">
-                                                <div class="row mt-2">
-                                                    <div>
-                                                        <a href="{{ url('agenda_item_edit', {id: agenda.id, agenda_item_id: agenda_item.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit agenda item{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit agenda item{% endtrans %} </span></a>
-                                                    </div>
-                                                    <div class="ml-2">
-                                                        <form id="myform" method="post" action="{{ path('agenda_item_delete', {'id': agenda.id, 'agenda_item_id': agenda_item.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ agenda_item.id) }}">
-                                                            <button class="btn btn-danger btn-sm" style="float: right;" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete agenda item{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                        </div>
+                <div class="col-auto">
+                    <a name="" id="" class="btn btn-success btn-sm" href="{{ url('agenda_item_create', {id: agenda.id}) }}" role="button">{% trans %}Add agenda item{% endtrans %}</a>
+                </div>
+                <hr style="width:95%">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="list-group">
+                        {% for agenda_item in agendaItems %}
+                            <section class="col-md-12 mt-5 mt-md-0">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="m-0 mt-2">{{ agenda_item.startTime|date('H:i') }}</p>
+                                        {% set difference = date(agenda_item.endTime).diff(date(agenda_item.startTime)) %}
+                                        {% set diffHours = difference.h %}
+                                        {% set diffMinutes = difference.i %}
+                                        {% if diffMinutes == 0 %}
+                                            {% if diffHours == 1 %}
+                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diffHours }} {% trans %}hour{% endtrans %}</p>
+                                            {% else %}
+                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diffHours }} {% trans %}hours{% endtrans %}</p>
+                                            {% endif %}
+                                        {% else %}
+                                            {% if diffHours == 0 %}
+                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diffMinutes }} {% trans %}minutes{% endtrans %}</p>
+                                            {% else %}
+                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diffHours }}:{{ diffMinutes }}</p>
+                                            {% endif %}
+                                        {% endif %}
                                     </div>
-                                </section>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section aria-labelledby="section_board_members" class="col-md-5 mt-5 mt-md-0">
-                <div class="row">
-                    <div class="col">
-                        <h4 id="section_board_members">{% trans %}Board members{% endtrans %}</h4>
-                    </div>
-                    <div class="col-auto">
-                        <a name="" id="" class="btn btn-success btn-sm" href="{{ url('agenda_add_board_member', {id: agenda.id}) }}" role="button">{% trans %}Add board member{% endtrans %}</a>
-                    </div>
-                    <hr style="width:95%">
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="list-group">
-                            {% for board_member in boardMembers %}
-                                <section class="col-md-12 mt-5 mt-md-0">
-                                    <div class="row">
-                                        <div class="col">
-                                            <p class="m-0 mt-2">{{ board_member.name|e }}</p>
-                                            {# TODO: Display boardmember title once it has been added to boardmember entity #}
-                                            <p class="m-0" style="font-size:15px; opacity: 0.5">Fulmægtig i nævn</p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <section class="col-md-12 mt-5 mt-md-0">
-                                                <div class="row mt-2">
-                                                    <div class="ml-2">
-                                                        <form id="myform" method="post" action="{{ path('agenda_board_member_remove', {'id': agenda.id, 'board_member_id': board_member.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to remove this board member?{% endtrans %}');">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token" value="{{ csrf_token('remove' ~ board_member.id) }}">
-                                                            <button class="btn btn-danger btn-sm" style="float: right;" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove board member{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                        </div>
+                                    <div class="col-md-7 text-truncate">
+                                        <p class="m-0 mt-2">{{ agenda_item.title|e }}</p>
+                                        <p class="m-0" style="font-size:15px; opacity: 0.5">{{ agenda_item.meetingPoint|e }}</p>
                                     </div>
-                                </section>
-                            {% endfor %}
-                        </div>
+                                    <div class="col-auto">
+                                        <section class="col-md-12 mt-5 mt-md-0">
+                                            <div class="row mt-2">
+                                                <div>
+                                                    <a href="{{ url('agenda_item_edit', {id: agenda.id, agenda_item_id: agenda_item.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit agenda item{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit agenda item{% endtrans %} </span></a>
+                                                </div>
+                                                <div class="ml-2">
+                                                    <form id="myform" method="post" action="{{ path('agenda_item_delete', {'id': agenda.id, 'agenda_item_id': agenda_item.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ agenda_item.id) }}">
+                                                        <button class="btn btn-danger btn-sm" style="float: right;" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete agenda item{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </section>
+                        {% endfor %}
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
+
+        <section aria-labelledby="section_board_members" class="col-md-5 mt-5 mt-md-0">
+            <div class="row">
+                <div class="col">
+                    <h4 id="section_board_members">{% trans %}Board members{% endtrans %}</h4>
+                </div>
+                <div class="col-auto">
+                    <a name="" id="" class="btn btn-success btn-sm" href="{{ url('agenda_add_board_member', {id: agenda.id}) }}" role="button">{% trans %}Add board member{% endtrans %}</a>
+                </div>
+                <hr style="width:95%">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="list-group">
+                        {% for board_member in boardMembers %}
+                            <section class="col-md-12 mt-5 mt-md-0">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="m-0 mt-2">{{ board_member.name|e }}</p>
+                                        {# TODO: Display boardmember title once it has been added to boardmember entity #}
+                                        <p class="m-0" style="font-size:15px; opacity: 0.5">Fulmægtig i nævn</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <section class="col-md-12 mt-5 mt-md-0">
+                                            <div class="row mt-2">
+                                                <div class="ml-2">
+                                                    <form id="myform" method="post" action="{{ path('agenda_board_member_remove', {'id': agenda.id, 'board_member_id': board_member.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to remove this board member?{% endtrans %}');">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('remove' ~ board_member.id) }}">
+                                                        <button class="btn btn-danger btn-sm" style="float: right;" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove board member{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </section>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 {% endblock %}
