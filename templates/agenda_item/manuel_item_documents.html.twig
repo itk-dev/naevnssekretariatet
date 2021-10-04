@@ -1,0 +1,57 @@
+{% extends 'layout-with-agenda-manuel-item-submenu.html.twig' %}
+
+{% trans_default_domain 'documents' %}
+
+{% block title %}{% trans %}Documents{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row mt-1 mb-3">
+        <div class="col">
+            <h1>{% trans %}Documents{% endtrans %}</h1>
+            <p class="text-muted"><small>{% trans %}Upload and remove documents{% endtrans %}</small></p>
+        </div>
+        <div class="col-auto">
+            <a name="" id="" class="btn btn-success" href="{{ url('agenda_item_upload_document', {id: agenda.id, agenda_item_id: agendaItem.id}) }}" role="button">{% trans %}Upload document{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+ {% block content %}
+     <main role="main" class="col-12 mt-3">
+         <div class="table-responsive-sm"></div>
+         <table class="table table-striped">
+             <thead>
+             <tr>
+                 <th>{% trans %}Document name{% endtrans %}</th>
+                 <th>{% trans %}Document type{% endtrans %}</th>
+                 <th>{% trans %}Uploaded by{% endtrans %}</th>
+                 <th>{% trans %}Upload date{% endtrans %}</th>
+                 <th class="text-right">{% trans %}Functions{% endtrans %}</th>
+             </tr>
+             </thead>
+             <tbody>
+             {% for document in documents %}
+                 <tr>
+                     <td>{{ document.documentName|e }}</td>
+                     <td>{{ document.type|e }}</td>
+                     <td>{{ document.uploadedBy|e }}</td>
+                     <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
+                     <td class="text-right">
+                         <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                             <!-- Download button -->
+                             <a href="{{ url("agenda_item_manuel_document_download", {id: agenda.id, agenda_item_id: agendaItem.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
+
+                             <!-- Delete button -->
+
+                             <form id="myform" class="btn-group" method="post" action="{{ path('agenda_item_manuel_document_delete', {'id': agenda.id, 'agenda_item_id': agendaItem.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                 <input type="hidden" name="_method" value="DELETE">
+                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
+                                 <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                             </form>
+                         </div>
+                     </td>
+                 </tr>
+             {% endfor %}
+             </tbody>
+         </table>
+     </main>
+ {% endblock %}
