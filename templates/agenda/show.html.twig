@@ -85,19 +85,19 @@
                                     <div class="col">
                                         <p class="m-0 mt-2">{{ agenda_item.startTime|date('H:i') }}</p>
                                         {% set difference = date(agenda_item.endTime).diff(date(agenda_item.startTime)) %}
-                                        {% set diffHours = difference.h %}
-                                        {% set diffMinutes = difference.i %}
-                                        {% if diffMinutes == 0 %}
-                                            {% if diffHours == 1 %}
-                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diffHours }} {% trans %}hour{% endtrans %}</p>
+                                        {% set diff_hours = difference.h %}
+                                        {% set diff_minutes = difference.i %}
+                                        {% if diff_minutes == 0 %}
+                                            {% if diff_hours == 1 %}
+                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diff_hours }} {% trans %}hour{% endtrans %}</p>
                                             {% else %}
-                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diffHours }} {% trans %}hours{% endtrans %}</p>
+                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diff_hours }} {% trans %}hours{% endtrans %}</p>
                                             {% endif %}
                                         {% else %}
-                                            {% if diffHours == 0 %}
-                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diffMinutes }} {% trans %}minutes{% endtrans %}</p>
+                                            {% if diff_hours == 0 %}
+                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diff_minutes }} {% trans %}minutes{% endtrans %}</p>
                                             {% else %}
-                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diffHours }}:{{ diffMinutes }}</p>
+                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diff_hours }}:{{ diff_minutes }}</p>
                                             {% endif %}
                                         {% endif %}
                                     </div>

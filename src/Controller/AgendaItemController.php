@@ -76,11 +76,11 @@ class AgendaItemController extends AbstractController
 
         $options = [];
 
-        $isManuelItem = true;
+        $twigLayout = 'layout-with-agenda-manuel-item-submenu.html.twig';
 
         if (AgendaCaseItem::class === get_class($agendaItem)) {
             $options['relevantCase'] = $agendaItem->getCaseEntity();
-            $isManuelItem = false;
+            $twigLayout = 'layout-with-agenda-case-item-submenu.html.twig';
         }
 
         $form = $this->createForm($formClass, $agendaItem, $options);
@@ -99,7 +99,7 @@ class AgendaItemController extends AbstractController
             'agenda_item_edit_form' => $form->createView(),
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
-            'isManuelItem' => $isManuelItem,
+            'layout' => $twigLayout,
         ]);
     }
 
