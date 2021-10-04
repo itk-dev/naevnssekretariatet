@@ -1,5 +1,6 @@
 App\Entity\AgendaCaseItem:
   agenda-case-item1:
+    title: Drøftelse af 2021-0001
     startTime: <(new \DateTime('17:00'))>
     endTime: <(new \DateTime('18:00'))>
     meetingPoint: Møde lokale M3.8

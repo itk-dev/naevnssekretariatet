@@ -56,6 +56,9 @@ class AgendaCaseItemType extends AbstractType
         }
 
         $builder
+            ->add('title', TextType::class, [
+                'label' => $this->translator->trans('Title', [], 'agenda_item'),
+            ])
             ->add('startTime', TimeType::class, [
                 'label' => $this->translator->trans('Start time', [], 'agenda_item'),
                 'input' => 'datetime',

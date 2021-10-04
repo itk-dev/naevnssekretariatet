@@ -37,6 +37,11 @@ class AgendaCaseItem extends AgendaItem
      */
     private $decisionProposal;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -68,11 +73,7 @@ class AgendaCaseItem extends AgendaItem
 
     public function getTitle()
     {
-        if ($this->getInspection()) {
-            return 'Besigtigelse '.$this->getCaseEntity()->getCaseNumber();
-        } else {
-            return 'Drøftelse '.$this->getCaseEntity()->getCaseNumber();
-        }
+        return $this->title;
     }
 
     /**
@@ -119,6 +120,13 @@ class AgendaCaseItem extends AgendaItem
     public function setDecisionProposal(?CaseDecisionProposal $decisionProposal): self
     {
         $this->decisionProposal = $decisionProposal;
+
+        return $this;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }
