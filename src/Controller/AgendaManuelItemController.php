@@ -46,7 +46,7 @@ class AgendaManuelItemController extends AbstractController
     {
         $documents = $agendaItem->getDocuments();
 
-        return $this->render('agenda_item/manuel_item_documents.html.twig', [
+        return $this->render('agenda_manuel_item/documents.html.twig', [
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
             'documents' => $documents,
@@ -95,7 +95,7 @@ class AgendaManuelItemController extends AbstractController
             ]);
         }
 
-        return $this->render('agenda_item/manuel_item_document_upload.html.twig', [
+        return $this->render('agenda_manuel_item/document_upload.html.twig', [
             'document_form' => $form->createView(),
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,

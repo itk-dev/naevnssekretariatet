@@ -41,7 +41,7 @@ class AgendaCaseItemController extends AbstractController
      */
     public function inspection(Agenda $agenda, AgendaCaseItem $agendaItem): Response
     {
-        return $this->render('agenda_item/inspection.html.twig', [
+        return $this->render('agenda_case_item/inspection.html.twig', [
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
         ]);
@@ -58,15 +58,15 @@ class AgendaCaseItemController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->flush();
+            //TODO: Add logic for sending letter
 
-            return $this->redirectToRoute('agenda_item_edit', [
+            return $this->redirectToRoute('agenda_case_item_inspection_letter', [
                 'id' => $agenda->getId(),
                 'agenda_item_id' => $agendaItem->getId(),
             ]);
         }
 
-        return $this->render('agenda_item/inspection_letter.html.twig', [
+        return $this->render('agenda_case_item/inspection_letter.html.twig', [
             'inspection_letter_form' => $form->createView(),
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
@@ -102,13 +102,13 @@ class AgendaCaseItemController extends AbstractController
             $this->entityManager->persist($casePresentation);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('agenda_item_presentation', [
+            return $this->redirectToRoute('agenda_case_item_presentation', [
                 'id' => $agenda->getId(),
                 'agenda_item_id' => $agendaItem->getId(),
             ]);
         }
 
-        return $this->render('agenda_item/presentation.html.twig', [
+        return $this->render('agenda_case_item/presentation.html.twig', [
             'case_presentation_form' => $form->createView(),
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
@@ -142,13 +142,13 @@ class AgendaCaseItemController extends AbstractController
             $this->entityManager->persist($decisionProposal);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('agenda_item_decision_proposal', [
+            return $this->redirectToRoute('agenda_case_item_decision_proposal', [
                 'id' => $agenda->getId(),
                 'agenda_item_id' => $agendaItem->getId(),
             ]);
         }
 
-        return $this->render('agenda_item/decision_proposal.html.twig', [
+        return $this->render('agenda_case_item/decision_proposal.html.twig', [
             'decision_proposal_form' => $form->createView(),
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
@@ -164,7 +164,7 @@ class AgendaCaseItemController extends AbstractController
     {
         $documents = $agendaItem->getDocuments();
 
-        return $this->render('agenda_item/case_item_documents.html.twig', [
+        return $this->render('agenda_case_item/documents.html.twig', [
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
             'documents' => $documents,
@@ -207,7 +207,7 @@ class AgendaCaseItemController extends AbstractController
             }
         }
 
-        return $this->render('agenda_item/case_item_attach_documents.html.twig', [
+        return $this->render('agenda_case_item/documents_attach.html.twig', [
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
             'documents' => $availableDocuments,

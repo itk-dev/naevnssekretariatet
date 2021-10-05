@@ -39,7 +39,7 @@
                     <td class="text-right">
                         <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
                             <!-- Download button -->
-                            <a href="{{ url("agenda_item_manuel_document_download", {id: agenda.id, agenda_item_id: agendaItem.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
+                            <a href="{{ url("agenda_manuel_item_document_download", {id: agenda.id, agenda_item_id: agendaItem.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
 
                             <!-- Delete button -->
 
