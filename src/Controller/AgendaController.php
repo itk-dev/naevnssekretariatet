@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Agenda;
 use App\Entity\AgendaItem;
+use App\Entity\AgendaProtocol;
 use App\Entity\BoardMember;
 use App\Entity\User;
 use App\Form\AgendaAddBoardMemberType;
 use App\Form\AgendaCreateType;
+use App\Form\AgendaProtocolType;
 use App\Form\AgendaType;
 use App\Repository\AgendaRepository;
 use App\Repository\MunicipalityRepository;
@@ -202,11 +204,39 @@ class AgendaController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/protocol", name="agenda_protocol", methods={"GET"})
+     * @Route("/{id}/protocol", name="agenda_protocol", methods={"GET", "POST"})
      */
-    public function protocol(Agenda $agenda): Response
+    public function protocol(Request $request, Agenda $agenda): Response
     {
+        // We are guaranteed this to be an AgendaCaseItem
+
+        if (null !== $agenda->getProtocol()) {
+            $agendaProtocol = $agenda->getProtocol();
+        } else {
+            $agendaProtocol = new AgendaProtocol();
+        }
+
+        $form = $this->createForm(AgendaProtocolType::class, $agendaProtocol);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var AgendaProtocol $casePresentation */
+            $agendaProtocol = $form->getData();
+
+            // TODO: possibly save this on the case in form of a document?
+            // Should this be done when agenda is published?
+            $agenda->setProtocol($agendaProtocol);
+
+            $this->entityManager->persist($agendaProtocol);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('agenda_protocol', [
+                'id' => $agenda->getId(),
+            ]);
+        }
+
         return $this->render('agenda/protocol.html.twig', [
+            'protocol_form' => $form->createView(),
             'agenda' => $agenda,
         ]);
     }

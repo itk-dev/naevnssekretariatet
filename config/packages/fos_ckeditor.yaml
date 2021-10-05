@@ -12,6 +12,8 @@ fos_ck_editor:
             colorButton_colors: 'ff0000'
             colorButton_enableMore: false
             colorButton_enableAutomatic: true
+#            removePlugins: ['elementspath']
+
     toolbars:
         configs:
             editor:

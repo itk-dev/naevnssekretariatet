@@ -64,6 +64,11 @@ class Agenda
      */
     private $agendaItems;
 
+    /**
+     * @ORM\OneToOne(targetEntity=AgendaProtocol::class, cascade={"persist", "remove"})
+     */
+    private $protocol;
+
     public function __construct()
     {
         $this->boardmembers = new ArrayCollection();
@@ -197,6 +202,18 @@ class Agenda
                 $agendaItem->setAgenda(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProtocol(): ?AgendaProtocol
+    {
+        return $this->protocol;
+    }
+
+    public function setProtocol(?AgendaProtocol $protocol): self
+    {
+        $this->protocol = $protocol;
 
         return $this;
     }
