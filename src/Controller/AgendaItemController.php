@@ -65,7 +65,7 @@ class AgendaItemController extends AbstractController
      *
      * @throws Exception
      */
-    public function edit(Request $request, Agenda $agenda, AgendaItem $agendaItem): Response
+    public function edit(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
     {
         $formClass = $this->agendaItemHelper->getFormType($agendaItem);
 
@@ -103,7 +103,7 @@ class AgendaItemController extends AbstractController
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
-    public function delete(Request $request, Agenda $agenda, AgendaItem $agendaItem): Response
+    public function delete(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
     {
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$agendaItem->getId(), $request->request->get('_token'))) {

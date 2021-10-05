@@ -38,7 +38,7 @@ class AgendaManuelItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/documents", name="agenda_item_manuel_documents", methods={"GET"})
+     * @Route("/{agenda_item_id}/documents", name="agenda_manuel_item_documents", methods={"GET"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
@@ -54,14 +54,14 @@ class AgendaManuelItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/documents/upload", name="agenda_item_upload_document", methods={"GET", "POST"})
+     * @Route("/{agenda_item_id}/documents/upload", name="agenda_manuel_item_upload_document", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      *
      * @throws DocumentDirectoryException
      * @throws FileMovingException
      */
-    public function uploadDocument(Request $request, Agenda $agenda, AgendaManuelItem $agendaItem): Response
+    public function uploadDocument(Agenda $agenda, AgendaManuelItem $agendaItem, Request $request): Response
     {
         $this->documentUploader->specifyDirectory('/agenda_item_documents/');
 
@@ -89,7 +89,7 @@ class AgendaManuelItemController extends AbstractController
             $this->entityManager->persist($document);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('agenda_item_manuel_documents', [
+            return $this->redirectToRoute('agenda_manuel_item_documents', [
                 'id' => $agenda->getId(),
                 'agenda_item_id' => $agendaItem->getId(),
             ]);
@@ -103,7 +103,7 @@ class AgendaManuelItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/documents/download/{document_id}", name="agenda_item_manuel_document_download", methods={"GET", "POST"})
+     * @Route("/{agenda_item_id}/documents/download/{document_id}", name="agenda_manuel_item_document_download", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      *
      * @throws DocumentDirectoryException
@@ -117,12 +117,12 @@ class AgendaManuelItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/documents/delete/{document_id}", name="agenda_item_manuel_document_delete", methods={"DELETE"})
+     * @Route("/{agenda_item_id}/documents/delete/{document_id}", name="agenda_manuel_item_document_delete", methods={"DELETE"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
-    public function documentDelete(Request $request, Agenda $agenda, AgendaManuelItem $agendaItem, Document $document): Response
+    public function documentDelete(Agenda $agenda, AgendaManuelItem $agendaItem, Document $document, Request $request): Response
     {
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
@@ -131,7 +131,7 @@ class AgendaManuelItemController extends AbstractController
             $this->entityManager->flush();
         }
 
-        return $this->redirectToRoute('agenda_item_manuel_documents', [
+        return $this->redirectToRoute('agenda_manuel_item_documents', [
             'id' => $agenda->getId(),
             'agenda_item_id' => $agendaItem->getId(),
         ]);

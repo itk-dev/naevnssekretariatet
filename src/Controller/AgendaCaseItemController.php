@@ -35,7 +35,7 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/inspection", name="agenda_item_inspection", methods={"GET"})
+     * @Route("/{agenda_item_id}/inspection", name="agenda_case_item_inspection", methods={"GET"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
@@ -48,11 +48,11 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/inspection-letter", name="agenda_item_inspection_letter", methods={"GET", "POST"})
+     * @Route("/{agenda_item_id}/inspection-letter", name="agenda_case_item_inspection_letter", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
-    public function inspectionLetter(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem): Response
+    public function inspectionLetter(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
         $form = $this->createForm(InspectionLetterType::class);
 
@@ -74,11 +74,11 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/presentation", name="agenda_item_presentation", methods={"GET", "POST"})
+     * @Route("/{agenda_item_id}/presentation", name="agenda_case_item_presentation", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
-    public function presentation(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem): Response
+    public function presentation(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
         // We are guaranteed this to be an AgendaCaseItem
 
@@ -116,11 +116,11 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/decision-proposal", name="agenda_item_decision_proposal", methods={"GET", "POST"})
+     * @Route("/{agenda_item_id}/decision-proposal", name="agenda_case_item_decision_proposal", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
-    public function decisionProposal(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem): Response
+    public function decisionProposal(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
         // We are guaranteed this to be an AgendaCaseItem
 
@@ -156,7 +156,7 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/case/documents", name="agenda_item_case_document", methods={"GET", "POST"})
+     * @Route("/{agenda_item_id}/case/documents", name="agenda_case_item_document", methods={"GET", "POST"})
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
@@ -172,20 +172,20 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/case/documents/select", name="agenda_item_case_document_attach", methods={"GET", "POST"})
+     * @Route("/{agenda_item_id}/case/documents/select", name="agenda_case_item_document_attach", methods={"GET", "POST"})
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
-    public function selectDocuments(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem, CaseDocumentRelationRepository $caseDocumentRelationRepository, DocumentRepository $documentRepository): Response
+    public function selectDocuments(Agenda $agenda, AgendaCaseItem $agendaItem, CaseDocumentRelationRepository $relationRepository, DocumentRepository $documentRepository, Request $request): Response
     {
         $case = $agendaItem->getCaseEntity();
 
-        $caseDocuments = $caseDocumentRelationRepository->findNonDeletedDocumentsByCase($case);
+        $caseDocuments = $relationRepository->findNonDeletedDocumentsByCase($case);
         $agendaItemDocuments = $agendaItem->getDocuments()->toArray();
 
         $availableDocuments = array_diff($caseDocuments, $agendaItemDocuments);
 
-        $query = [];
+        $query = null;
 
         // TODO: Can adversary write own query string and cause issues?
         parse_str($request->getQueryString(), $query);
@@ -200,7 +200,7 @@ class AgendaCaseItemController extends AbstractController
                 }
                 $this->entityManager->flush();
 
-                return $this->redirectToRoute('agenda_item_case_document', [
+                return $this->redirectToRoute('agenda_case_item_document', [
                     'id' => $agenda->getId(),
                     'agenda_item_id' => $agendaItem->getId(),
                 ]);
@@ -215,12 +215,12 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/case/documents/delete/{document_id}", name="agenda_item_case_document_delete", methods={"DELETE"})
+     * @Route("/{agenda_item_id}/case/documents/delete/{document_id}", name="agenda_case_item_document_delete", methods={"DELETE"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
-    public function caseAgendaDocumentDelete(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem, Document $document): Response
+    public function caseAgendaDocumentDelete(Agenda $agenda, AgendaCaseItem $agendaItem, Document $document, Request $request): Response
     {
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
@@ -228,7 +228,7 @@ class AgendaCaseItemController extends AbstractController
             $this->entityManager->flush();
         }
 
-        return $this->redirectToRoute('agenda_item_case_document', [
+        return $this->redirectToRoute('agenda_case_item_document', [
             'id' => $agenda->getId(),
             'agenda_item_id' => $agendaItem->getId(),
         ]);

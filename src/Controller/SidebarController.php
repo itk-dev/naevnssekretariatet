@@ -100,13 +100,13 @@ class SidebarController extends AbstractController
     {
         $submenuItems = [
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Agenda item', [], 'sidebar'), ['agenda_item_edit'], $agendaId, $agendaItemId, $activeRoute),
-            $this->generateAgendaItemSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['agenda_item_case_document', 'agenda_item_case_document_attach'], $agendaId, $agendaItemId, $activeRoute),
-            $this->generateAgendaItemSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['agenda_item_presentation'], $agendaId, $agendaItemId, $activeRoute),
-            $this->generateAgendaItemSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['agenda_item_decision_proposal'], $agendaId, $agendaItemId, $activeRoute),
+            $this->generateAgendaItemSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['agenda_case_item_document', 'agenda_case_item_document_attach'], $agendaId, $agendaItemId, $activeRoute),
+            $this->generateAgendaItemSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['agenda_case_item_presentation'], $agendaId, $agendaItemId, $activeRoute),
+            $this->generateAgendaItemSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['agenda_case_item_decision_proposal'], $agendaId, $agendaItemId, $activeRoute),
         ];
 
         if ($isInspection) {
-            array_push($submenuItems, $this->generateAgendaItemSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_item_inspection', 'agenda_item_inspection_letter'], $agendaId, $agendaItemId, $activeRoute));
+            array_push($submenuItems, $this->generateAgendaItemSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_case_item_inspection', 'agenda_case_item_inspection_letter'], $agendaId, $agendaItemId, $activeRoute));
         }
 
         array_push($submenuItems, $this->generateSubmenuItem($this->translator->trans('Back to agenda', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute));
@@ -120,7 +120,7 @@ class SidebarController extends AbstractController
     {
         $submenuItems = [
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Agenda item', [], 'sidebar'), ['agenda_item_edit'], $agendaId, $agendaItemId, $activeRoute),
-            $this->generateAgendaItemSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['agenda_item_manuel_documents', 'agenda_item_upload_document'], $agendaId, $agendaItemId, $activeRoute),
+            $this->generateAgendaItemSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['agenda_manuel_item_documents', 'agenda_item_upload_document'], $agendaId, $agendaItemId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Back to agenda', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
         ];
 
