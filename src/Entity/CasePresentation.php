@@ -21,7 +21,7 @@ class CasePresentation
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $presentation;
 
@@ -35,7 +35,7 @@ class CasePresentation
         return $this->presentation;
     }
 
-    public function setPresentation(string $presentation): self
+    public function setPresentation(?string $presentation): self
     {
         $this->presentation = $presentation;
 

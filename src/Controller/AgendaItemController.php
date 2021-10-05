@@ -172,8 +172,10 @@ class AgendaItemController extends AbstractController
         }
 
         $form = $this->createForm(CasePresentationType::class, $casePresentation);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var CasePresentation $casePresentation */
             $casePresentation = $form->getData();
 
             // TODO: possibly save this on the case in form of a document?
