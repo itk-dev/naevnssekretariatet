@@ -21,7 +21,7 @@ class CaseDecisionProposal
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $decisionProposal;
 
@@ -35,7 +35,7 @@ class CaseDecisionProposal
         return $this->decisionProposal;
     }
 
-    public function setDecisionProposal(string $decisionProposal): self
+    public function setDecisionProposal(?string $decisionProposal): self
     {
         $this->decisionProposal = $decisionProposal;
 

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\CaseDecisionProposal;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -32,9 +33,13 @@ class CaseDecisionProposalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('decisionProposal', TextareaType::class, [
+            ->add('decisionProposal', CKEditorType::class, [
                 'label' => $this->translator->trans('Decision proposal', [], 'agenda_item'),
-                'attr' => ['rows' => 10],
+                'attr' => ['rows' => 6],
+                'config' => [
+                    'uiColor' => '#ffffff',
+                    'toolbar' => 'editor',
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans('Update proposal', [], 'agenda_item'),

@@ -33,7 +33,6 @@ class CasePresentationType extends AbstractType
     {
         $builder
             ->add('presentation', CKEditorType::class, [
-                'required' => false,
                 'label' => $this->translator->trans('Presentation', [], 'agenda_item'),
                 'attr' => ['rows' => 6],
                 'config' => [
