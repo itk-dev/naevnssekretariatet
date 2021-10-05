@@ -49,7 +49,7 @@ class AgendaCaseItemType extends AbstractType
     {
         $isCreateContext = $options['isCreateContext'];
 
-        if($isCreateContext) {
+        if ($isCreateContext) {
             /** @var Board $board */
             $board = $options['board']->getMainBoard();
 

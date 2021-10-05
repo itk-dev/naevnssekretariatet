@@ -185,8 +185,7 @@ class AgendaCaseItemController extends AbstractController
 
         $availableDocuments = array_diff($caseDocuments, $agendaItemDocuments);
 
-        if ($request->getMethod() === 'POST')
-        {
+        if ('POST' === $request->getMethod()) {
             $docs = $request->request->get('documents');
 
             if (null !== $docs) {
