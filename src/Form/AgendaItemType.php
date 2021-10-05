@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AgendaItemType extends AbstractType
@@ -20,8 +21,17 @@ class AgendaItemType extends AbstractType
         $this->translator = $translator;
     }
 
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'board' => null,
+        ]);
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $board = $options['board'];
+
         $builder->add('type', ChoiceType::class, [
             'choices' => [
                 'Case Inspection Item' => $this->translator->trans('Case item', [], 'agenda_item'),
@@ -30,7 +40,7 @@ class AgendaItemType extends AbstractType
             'placeholder' => $this->translator->trans('Choose an agenda item type', [], 'agenda_item'),
         ]);
 
-        $formModifier = function (FormInterface $form, string $type = null) {
+        $formModifier = function (FormInterface $form, string $type = null) use ($board) {
             if (null != $type) {
                 $formClass = null;
                 switch ($type) {
@@ -46,6 +56,7 @@ class AgendaItemType extends AbstractType
                 }
 
                 $form->add('agendaItem', $formClass, [
+                    'board' => $board,
                     'isCreateContext' => true,
                 ]);
             } else {

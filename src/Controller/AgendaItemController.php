@@ -40,7 +40,9 @@ class AgendaItemController extends AbstractController
      */
     public function create(Agenda $agenda, Request $request): Response
     {
-        $form = $this->createForm(AgendaItemType::class);
+        $form = $this->createForm(AgendaItemType::class, null, [
+            'board' => $agenda->getSubBoard(),
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Board;
 use App\Entity\CaseEntity;
 use App\Entity\Municipality;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -18,6 +19,16 @@ class CaseEntityRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CaseEntity::class);
+    }
+
+    public function findCasesByBoard(Board $board): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.board = :board')
+            ->setParameter('board', $board->getId()->toBinary())
+            ->orderBy('c.caseNumber', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     public function findLatestCaseByMunicipality(Municipality $municipality): ?CaseEntity

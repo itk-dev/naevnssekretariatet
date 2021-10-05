@@ -3,9 +3,9 @@
 namespace App\Form;
 
 use App\Entity\AgendaCaseItem;
+use App\Entity\Board;
 use App\Entity\CaseEntity;
-use App\Entity\Document;
-use App\Repository\CaseDocumentRelationRepository;
+use App\Repository\CaseEntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -23,14 +23,14 @@ class AgendaCaseItemType extends AbstractType
      */
     private $translator;
     /**
-     * @var CaseDocumentRelationRepository
+     * @var CaseEntityRepository
      */
-    private $relationRepository;
+    private $caseRepository;
 
-    public function __construct(CaseDocumentRelationRepository $relationRepository, TranslatorInterface $translator)
+    public function __construct(CaseEntityRepository $caseRepository, TranslatorInterface $translator)
     {
         $this->translator = $translator;
-        $this->relationRepository = $relationRepository;
+        $this->caseRepository = $caseRepository;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -39,6 +39,7 @@ class AgendaCaseItemType extends AbstractType
             'data_class' => AgendaCaseItem::class,
             'isCreateContext' => false,
             'relevantCase' => null,
+            'board' => null,
         ]);
 
         $resolver->setAllowedTypes('isCreateContext', 'bool');
@@ -48,11 +49,11 @@ class AgendaCaseItemType extends AbstractType
     {
         $isCreateContext = $options['isCreateContext'];
 
-        if (!$isCreateContext) {
-            /** @var CaseEntity $case */
-            $case = $options['relevantCase'];
+        if($isCreateContext) {
+            /** @var Board $board */
+            $board = $options['board']->getMainBoard();
 
-            $documents = $this->relationRepository->findNonDeletedDocumentsByCase($case);
+            $cases = $this->caseRepository->findCasesByBoard($board);
         }
 
         $builder
@@ -73,25 +74,31 @@ class AgendaCaseItemType extends AbstractType
             ])
             ->add('meetingPoint', TextType::class, [
                 'label' => $this->translator->trans('Meeting point', [], 'agenda_item'),
-            ])
-            ->add('caseEntity', EntityType::class, [
+            ]);
+
+        if ($isCreateContext) {
+            $builder->add('caseEntity', EntityType::class, [
                 'class' => CaseEntity::class,
+                'choices' => $cases,
                 'choice_label' => 'caseNumber',
                 'label' => $this->translator->trans('Case', [], 'agenda_item'),
                 'placeholder' => $this->translator->trans('Choose a case', [], 'agenda_item'),
-            ])
-            ->add('inspection', CheckboxType::class, [
+            ]);
+        } else {
+            $builder->add('caseEntity', EntityType::class, [
+                'class' => CaseEntity::class,
+                'choice_label' => 'caseNumber',
+                'label' => $this->translator->trans('Case', [], 'agenda_item'),
+                'disabled' => true,
+            ]);
+        }
+
+        $builder->add('inspection', CheckboxType::class, [
                 'label' => $this->translator->trans('Inspection', [], 'agenda_item'),
                 'required' => false,
-            ]);
+        ]);
+
         if (!$isCreateContext) {
-//            $builder->add('documents', EntityType::class, [
-//                'class' => Document::class,
-//                'choices' => $documents,
-//                'label' => $this->translator->trans('Documents', [], 'agenda_item'),
-//                'expanded' => true,
-//                'multiple' => true,
-//            ]);
             $builder
                 ->add('submit', SubmitType::class, [
                     'label' => $this->translator->trans('Update agenda item', [], 'agenda_item'),
