@@ -185,26 +185,22 @@ class AgendaCaseItemController extends AbstractController
 
         $availableDocuments = array_diff($caseDocuments, $agendaItemDocuments);
 
-        $query = null;
+        if ($request->getMethod() === 'POST')
+        {
+            $docs = $request->request->get('documents');
 
-        // TODO: Can adversary write own query string and cause issues?
-        parse_str($request->getQueryString(), $query);
-
-        if (!empty($query)) {
-            // TODO: possibly try/catch
-            $documentIds = $query['documents'];
-            if (!empty($documentIds)) {
-                foreach ($documentIds as $documentId) {
+            if (null !== $docs) {
+                foreach ($docs as $documentId) {
                     $documentToAdd = $documentRepository->findOneBy(['id' => $documentId]);
                     $agendaItem->addDocument($documentToAdd);
                 }
                 $this->entityManager->flush();
-
-                return $this->redirectToRoute('agenda_case_item_document', [
-                    'id' => $agenda->getId(),
-                    'agenda_item_id' => $agendaItem->getId(),
-                ]);
             }
+
+            return $this->redirectToRoute('agenda_case_item_document', [
+                'id' => $agenda->getId(),
+                'agenda_item_id' => $agendaItem->getId(),
+            ]);
         }
 
         return $this->render('agenda_case_item/documents_attach.html.twig', [
