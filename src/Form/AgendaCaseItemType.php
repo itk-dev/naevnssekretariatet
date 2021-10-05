@@ -85,13 +85,13 @@ class AgendaCaseItemType extends AbstractType
                 'required' => false,
             ]);
         if (!$isCreateContext) {
-            $builder->add('documents', EntityType::class, [
-                'class' => Document::class,
-                'choices' => $documents,
-                'label' => $this->translator->trans('Documents', [], 'agenda_item'),
-                'expanded' => true,
-                'multiple' => true,
-            ]);
+//            $builder->add('documents', EntityType::class, [
+//                'class' => Document::class,
+//                'choices' => $documents,
+//                'label' => $this->translator->trans('Documents', [], 'agenda_item'),
+//                'expanded' => true,
+//                'multiple' => true,
+//            ]);
             $builder
                 ->add('submit', SubmitType::class, [
                     'label' => $this->translator->trans('Update agenda item', [], 'agenda_item'),

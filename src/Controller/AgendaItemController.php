@@ -17,6 +17,8 @@ use App\Form\CaseDecisionProposalType;
 use App\Form\CasePresentationType;
 use App\Form\DocumentForm;
 use App\Form\InspectionLetterType;
+use App\Repository\CaseDocumentRelationRepository;
+use App\Repository\DocumentRepository;
 use App\Service\AgendaItemHelper;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -348,6 +350,85 @@ class AgendaItemController extends AbstractController
         }
 
         return $this->redirectToRoute('agenda_item_manuel_documents', [
+            'id' => $agenda->getId(),
+            'agenda_item_id' => $agendaItem->getId(),
+        ]);
+    }
+
+    /**
+     * @Route("/{agenda_item_id}/case/documents", name="agenda_item_case_document", methods={"GET", "POST"})
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     * @Entity("agenda", expr="repository.find(id)")
+     */
+    public function caseItemDocuments(Agenda $agenda, AgendaCaseItem $agendaItem): Response
+    {
+        $documents = $agendaItem->getDocuments();
+
+        return $this->render('agenda_item/case_item_documents.html.twig', [
+            'agenda' => $agenda,
+            'agendaItem' => $agendaItem,
+            'documents' => $documents,
+        ]);
+    }
+
+    /**
+     * @Route("/{agenda_item_id}/case/documents/select", name="agenda_item_case_document_attach", methods={"GET", "POST"})
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     * @Entity("agenda", expr="repository.find(id)")
+     */
+    public function selectDocuments(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem, CaseDocumentRelationRepository $caseDocumentRelationRepository, DocumentRepository $documentRepository): Response
+    {
+        $case = $agendaItem->getCaseEntity();
+
+        $caseDocuments = $caseDocumentRelationRepository->findNonDeletedDocumentsByCase($case);
+        $agendaItemDocuments = $agendaItem->getDocuments()->toArray();
+
+        $availableDocuments = array_diff($caseDocuments, $agendaItemDocuments);
+
+        $query = [];
+
+        // TODO: Adversary possibly write own query string and cause issues?
+        parse_str($request->getQueryString(), $query);
+
+        if (!empty($query)) {
+            // TODO: possibly try/catch
+            $documentIds = $query['documents'];
+            if (!empty($documentIds)) {
+                foreach ($documentIds as $documentId) {
+                    $documentToAdd = $documentRepository->findOneBy(['id' => $documentId]);
+                    $agendaItem->addDocument($documentToAdd);
+                }
+                $this->entityManager->flush();
+
+                return $this->redirectToRoute('agenda_item_case_document', [
+                    'id' => $agenda->getId(),
+                    'agenda_item_id' => $agendaItem->getId(),
+                ]);
+            }
+        }
+
+        return $this->render('agenda_item/case_item_attach_documents.html.twig', [
+            'agenda' => $agenda,
+            'agendaItem' => $agendaItem,
+            'documents' => $availableDocuments,
+        ]);
+    }
+
+    /**
+     * @Route("/{agenda_item_id}/case/documents/delete/{document_id}", name="agenda_item_case_document_delete", methods={"DELETE"})
+     * @Entity("document", expr="repository.find(document_id)")
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     * @Entity("agenda", expr="repository.find(id)")
+     */
+    public function casedAgendaDocumentDelete(Request $request, Agenda $agenda, AgendaCaseItem $agendaItem, Document $document): Response
+    {
+        // Check that CSRF token is valid
+        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
+            $agendaItem->removeDocument($document);
+            $this->entityManager->flush();
+        }
+
+        return $this->redirectToRoute('agenda_item_case_document', [
             'id' => $agenda->getId(),
             'agenda_item_id' => $agendaItem->getId(),
         ]);

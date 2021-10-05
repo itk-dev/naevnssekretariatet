@@ -100,6 +100,7 @@ class SidebarController extends AbstractController
     {
         $submenuItems = [
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Agenda item', [], 'sidebar'), ['agenda_item_edit'], $agendaId, $agendaItemId, $activeRoute),
+            $this->generateAgendaItemSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['agenda_item_case_document', 'agenda_item_case_document_attach'], $agendaId, $agendaItemId, $activeRoute),
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['agenda_item_presentation'], $agendaId, $agendaItemId, $activeRoute),
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['agenda_item_decision_proposal'], $agendaId, $agendaItemId, $activeRoute),
         ];

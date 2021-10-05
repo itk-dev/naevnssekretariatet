@@ -1,0 +1,60 @@
+{% extends 'layout-with-agenda-case-item-submenu.html.twig' %}
+
+{% trans_default_domain 'agenda_item' %}
+
+{% block title %}{% trans %}Attach documents{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Attach documents{% endtrans %}</h1>
+            <p class="text-muted"><small>{% trans %}Attach documents to agenda item{% endtrans %}</small></p>
+        </div>
+        <div class="col-auto">
+            <a name="" id="" class="btn btn-secondary" href="{{ url('agenda_item_case_document', {id: agenda.id, agenda_item_id: agendaItem.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        <form>
+            <div class="table-responsive-sm"></div>
+            <table class="table table-striped border">
+                <thead>
+                <tr>
+                    <th>{% trans %}Document name{% endtrans %}</th>
+                    <th>{% trans %}Document type{% endtrans %}</th>
+                    <th>{% trans %}Uploaded by{% endtrans %}</th>
+                    <th>{% trans %}Upload date{% endtrans %}</th>
+                    <th class="text-right">{% trans %}Functions{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for document in documents %}
+                    <tr>
+
+                        <td>{{ document.documentName|e }}</td>
+                        <td>{{ document.type|e }}</td>
+                        <td>{{ document.uploadedBy|e }}</td>
+                        <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
+                        <td class="text-right">
+                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                                <!-- Download button -->
+                                <div class="form-check">
+                                    <input type="checkbox" name="documents[]" class="form-check-input" id="exampleCheck1" value="{{ document.id }}">
+                                    <label class="form-check-label" for="exampleCheck1">{% trans %}Attach{% endtrans %}</label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <form method="post" action="{{ path('agenda_item_case_document_attach', {'id': agenda.id, 'agenda_item_id': agendaItem.id}) }}">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </form>
+    </main>
+{% endblock %}
