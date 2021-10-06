@@ -1,0 +1,24 @@
+App\Entity\BoardRole:
+  resident-complaint-board-aarhus-role-formand:
+    board: '@resident-complaint-board-aarhus'
+    title: Formand
+
+  resident-complaint-board-aarhus-role-formand-suppleant:
+    board: '@resident-complaint-board-aarhus'
+    title: Formand suppleant
+
+  resident-complaint-board-aarhus-role-udlejerrepraesentant:
+    board: '@resident-complaint-board-aarhus'
+    title: Udlejerrepraesentant
+
+  resident-complaint-board-aarhus-role-udlejerrepraesentant-suppleant:
+    board: '@resident-complaint-board-aarhus'
+    title: Udlejerrepraesentant suppleant
+
+  resident-complaint-board-aarhus-role-lejerrepraesentant:
+    board: '@resident-complaint-board-aarhus'
+    title: Lejerrepraesentant
+
+  resident-complaint-board-aarhus-role-lejerrepraesentant-suppleant:
+    board: '@resident-complaint-board-aarhus'
+    title: Lejerrepraesentant suppleant

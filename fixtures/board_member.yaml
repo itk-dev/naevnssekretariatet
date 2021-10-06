@@ -2,39 +2,49 @@ App\Entity\BoardMember:
   board-member-1:
     name: William Oscar
     municipality: '@municipality-aarhus'
+    boardRoles: ['@resident-complaint-board-aarhus-role-formand']
 
   board-member-2:
     name: Alfred Oliver
     municipality: '@municipality-aarhus'
+    boardRoles: [ '@resident-complaint-board-aarhus-role-formand' ]
 
   board-member-3:
     name: Carl Lucas
     municipality: '@municipality-aarhus'
+    boardRoles: [ '@resident-complaint-board-aarhus-role-formand-suppleant' ]
 
   board-member-4:
     name: Noah Valdemar
     municipality: '@municipality-aarhus'
+    boardRoles: [ '@resident-complaint-board-aarhus-role-formand-suppleant' ]
 
   board-member-5:
     name: Malthe Aksel
     municipality: '@municipality-aarhus'
+    boardRoles: [ '@resident-complaint-board-aarhus-role-udlejerrepraesentant' ]
 
   board-member-6:
     name: Elias Emil
     municipality: '@municipality-aarhus'
+    boardRoles: [ '@resident-complaint-board-aarhus-role-udlejerrepraesentant' ]
 
   board-member-7:
     name: Arthur August
     municipality: '@municipality-aarhus'
+    boardRoles: [ '@resident-complaint-board-aarhus-role-udlejerrepraesentant-suppleant' ]
 
   board-member-8:
     name: Magnus Victor
     municipality: '@municipality-aarhus'
+    boardRoles: [ '@resident-complaint-board-aarhus-role-udlejerrepraesentant-suppleant' ]
 
   board-member-9:
     name: Viggo Felix
     municipality: '@municipality-aarhus'
+    boardRoles: [ '@resident-complaint-board-aarhus-role-lejerrepraesentant' ]
 
   board-member-10:
     name: Anton Alexander
     municipality: '@municipality-aarhus'
+    boardRoles: [ '@resident-complaint-board-aarhus-role-lejerrepraesentant-suppleant' ]
