@@ -8,6 +8,7 @@ use App\Entity\AgendaProtocol;
 use App\Entity\BoardMember;
 use App\Entity\User;
 use App\Form\AgendaAddBoardMemberType;
+use App\Form\AgendaBroadcastType;
 use App\Form\AgendaCreateType;
 use App\Form\AgendaProtocolType;
 use App\Form\AgendaType;
@@ -94,7 +95,7 @@ class AgendaController extends AbstractController
     /**
      * @Route("/{id}", name="agenda_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Agenda $agenda): Response
+    public function delete(Agenda $agenda, Request $request): Response
     {
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$agenda->getId(), $request->request->get('_token'))) {
@@ -190,7 +191,7 @@ class AgendaController extends AbstractController
      * @Entity("boardMember", expr="repository.find(board_member_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
-    public function removeBoardMember(Request $request, BoardMember $boardMember, Agenda $agenda): Response
+    public function removeBoardMember(Agenda $agenda, BoardMember $boardMember, Request $request): Response
     {
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('remove'.$boardMember->getId(), $request->request->get('_token'))) {
@@ -206,7 +207,7 @@ class AgendaController extends AbstractController
     /**
      * @Route("/{id}/protocol", name="agenda_protocol", methods={"GET", "POST"})
      */
-    public function protocol(Request $request, Agenda $agenda): Response
+    public function protocol(Agenda $agenda, Request $request): Response
     {
         // We are guaranteed this to be an AgendaCaseItem
 
@@ -237,6 +238,28 @@ class AgendaController extends AbstractController
 
         return $this->render('agenda/protocol.html.twig', [
             'protocol_form' => $form->createView(),
+            'agenda' => $agenda,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/broadcast", name="agenda_broadcast", methods={"GET", "POST"})
+     */
+    public function broadcastAgenda(Agenda $agenda, Request $request): Response
+    {
+        $form = $this->createForm(AgendaBroadcastType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // TODO: Logic for sending broadcast
+            // For now it simply redirect to same route
+            return $this->redirectToRoute('agenda_broadcast', [
+                'id' => $agenda->getId(),
+            ]);
+        }
+
+        return $this->render('agenda/broadcast.html.twig', [
+            'broadcast_form' => $form->createView(),
             'agenda' => $agenda,
         ]);
     }
