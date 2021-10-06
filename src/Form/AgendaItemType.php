@@ -46,19 +46,21 @@ class AgendaItemType extends AbstractType
                 switch ($type) {
                     case 'Case item':
                         $formClass = AgendaCaseItemType::class;
+                        $form->add('agendaItem', $formClass, [
+                            'board' => $board,
+                            'isCreateContext' => true,
+                        ]);
                         break;
                     case 'Manuel item':
                         $formClass = AgendaManuelItemType::class;
+                        $form->add('agendaItem', $formClass, [
+                            'isCreateContext' => true,
+                        ]);
                         break;
                     default:
                         $message = 'Type was not chosen correctly';
                         throw new \Exception($message);
                 }
-
-                $form->add('agendaItem', $formClass, [
-                    'board' => $board,
-                    'isCreateContext' => true,
-                ]);
             } else {
                 $form->add('agendaItem', HiddenType::class);
             }

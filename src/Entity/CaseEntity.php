@@ -46,11 +46,6 @@ abstract class CaseEntity
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SubBoard::class, inversedBy="caseEntities")
-     */
-    private $subboard;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $caseNumber;
@@ -131,18 +126,6 @@ abstract class CaseEntity
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getSubboard(): ?SubBoard
-    {
-        return $this->subboard;
-    }
-
-    public function setSubboard(?SubBoard $subboard): self
-    {
-        $this->subboard = $subboard;
 
         return $this;
     }

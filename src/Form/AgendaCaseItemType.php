@@ -51,7 +51,7 @@ class AgendaCaseItemType extends AbstractType
 
         if ($isCreateContext) {
             /** @var Board $board */
-            $board = $options['board']->getMainBoard();
+            $board = $options['board'];
 
             $cases = $this->caseRepository->findCasesByBoard($board);
         }

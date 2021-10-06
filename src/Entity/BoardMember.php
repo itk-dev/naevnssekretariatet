@@ -34,9 +34,9 @@ class BoardMember
     private $municipality;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SubBoard::class, inversedBy="boardMembers")
+     * @ORM\ManyToMany(targetEntity=BoardRole::class, mappedBy="boardMembers")
      */
-    private $board;
+    private $boardRoles;
 
     /**
      * @ORM\ManyToMany(targetEntity=Agenda::class, mappedBy="boardmembers")
@@ -45,6 +45,7 @@ class BoardMember
 
     public function __construct()
     {
+        $this->boardRoles = new ArrayCollection();
         $this->agendas = new ArrayCollection();
     }
 
@@ -77,14 +78,29 @@ class BoardMember
         return $this;
     }
 
-    public function getBoard(): ?SubBoard
+    /**
+     * @return Collection|BoardRole[]
+     */
+    public function getBoardRoles(): Collection
     {
-        return $this->board;
+        return $this->boardRoles;
     }
 
-    public function setBoard(?SubBoard $board): self
+    public function addBoardRole(BoardRole $boardRole): self
     {
-        $this->board = $board;
+        if (!$this->boardRoles->contains($boardRole)) {
+            $this->boardRoles[] = $boardRole;
+            $boardRole->addBoardMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoardRole(BoardRole $boardRole): self
+    {
+        if ($this->boardRoles->removeElement($boardRole)) {
+            $boardRole->removeBoardMember($this);
+        }
 
         return $this;
     }

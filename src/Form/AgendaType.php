@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Agenda;
-use App\Entity\SubBoard;
+use App\Entity\Board;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,8 +25,8 @@ class AgendaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('subBoard', EntityType::class, [
-                'class' => SubBoard::class,
+            ->add('board', EntityType::class, [
+                'class' => Board::class,
                 'choice_label' => 'name',
             ])
             ->add('status', ChoiceType::class, [

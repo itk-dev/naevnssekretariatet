@@ -37,11 +37,6 @@ class Board implements LoggableEntityInterface
     private $municipality;
 
     /**
-     * @ORM\OneToMany(targetEntity=SubBoard::class, mappedBy="mainBoard")
-     */
-    private $subBoards;
-
-    /**
      * @ORM\OneToMany(targetEntity=ComplaintCategory::class, mappedBy="board")
      */
     private $complaintCategories;
@@ -67,11 +62,22 @@ class Board implements LoggableEntityInterface
      */
     private $statuses;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BoardRole::class, mappedBy="board")
+     */
+    private $boardRoles;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Agenda::class, mappedBy="board")
+     */
+    private $agendas;
+
     public function __construct()
     {
-        $this->subBoards = new ArrayCollection();
         $this->complaintCategories = new ArrayCollection();
         $this->caseEntities = new ArrayCollection();
+        $this->boardRoles = new ArrayCollection();
+        $this->agendas = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -106,36 +112,6 @@ class Board implements LoggableEntityInterface
     public function __toString()
     {
         return $this->name;
-    }
-
-    /**
-     * @return Collection|SubBoard[]
-     */
-    public function getSubBoards(): Collection
-    {
-        return $this->subBoards;
-    }
-
-    public function addSubBoard(SubBoard $subBoard): self
-    {
-        if (!$this->subBoards->contains($subBoard)) {
-            $this->subBoards[] = $subBoard;
-            $subBoard->setMainBoard($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSubBoard(SubBoard $subBoard): self
-    {
-        if ($this->subBoards->removeElement($subBoard)) {
-            // set the owning side to null (unless already changed)
-            if ($subBoard->getMainBoard() === $this) {
-                $subBoard->setMainBoard(null);
-            }
-        }
-
-        return $this;
     }
 
     /**
@@ -240,6 +216,66 @@ class Board implements LoggableEntityInterface
     public function setStatuses(string $statuses): self
     {
         $this->statuses = $statuses;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BoardRole[]
+     */
+    public function getBoardRoles(): Collection
+    {
+        return $this->boardRoles;
+    }
+
+    public function addBoardRole(BoardRole $boardRole): self
+    {
+        if (!$this->boardRoles->contains($boardRole)) {
+            $this->boardRoles[] = $boardRole;
+            $boardRole->setBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoardRole(BoardRole $boardRole): self
+    {
+        if ($this->boardRoles->removeElement($boardRole)) {
+            // set the owning side to null (unless already changed)
+            if ($boardRole->getBoard() === $this) {
+                $boardRole->setBoard(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Agenda[]
+     */
+    public function getAgendas(): Collection
+    {
+        return $this->agendas;
+    }
+
+    public function addAgenda(Agenda $agenda): self
+    {
+        if (!$this->agendas->contains($agenda)) {
+            $this->agendas[] = $agenda;
+            $agenda->setBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgenda(Agenda $agenda): self
+    {
+        if ($this->agendas->removeElement($agenda)) {
+            // set the owning side to null (unless already changed)
+            if ($agenda->getBoard() === $this) {
+                $agenda->setBoard(null);
+            }
+        }
 
         return $this;
     }

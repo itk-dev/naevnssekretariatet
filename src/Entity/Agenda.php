@@ -52,11 +52,11 @@ class Agenda
      */
     private $remarks;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=SubBoard::class, inversedBy="agendas")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $subBoard;
+//    /**
+//     * @ORM\ManyToOne(targetEntity=SubBoard::class, inversedBy="agendas")
+//     * @ORM\JoinColumn(nullable=false)
+//     */
+//    private $subBoard;
 
     /**
      * @ORM\OneToMany(targetEntity=AgendaItem::class, mappedBy="agenda")
@@ -68,6 +68,12 @@ class Agenda
      * @ORM\OneToOne(targetEntity=AgendaProtocol::class, cascade={"persist", "remove"})
      */
     private $protocol;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="agendas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $board;
 
     public function __construct()
     {
@@ -164,17 +170,17 @@ class Agenda
         return $this;
     }
 
-    public function getSubBoard(): ?SubBoard
-    {
-        return $this->subBoard;
-    }
-
-    public function setSubBoard(?SubBoard $subBoard): self
-    {
-        $this->subBoard = $subBoard;
-
-        return $this;
-    }
+//    public function getSubBoard(): ?SubBoard
+//    {
+//        return $this->subBoard;
+//    }
+//
+//    public function setSubBoard(?SubBoard $subBoard): self
+//    {
+//        $this->subBoard = $subBoard;
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection|AgendaItem[]
@@ -214,6 +220,18 @@ class Agenda
     public function setProtocol(?AgendaProtocol $protocol): self
     {
         $this->protocol = $protocol;
+
+        return $this;
+    }
+
+    public function getBoard(): ?Board
+    {
+        return $this->board;
+    }
+
+    public function setBoard(?Board $board): self
+    {
+        $this->board = $board;
 
         return $this;
     }

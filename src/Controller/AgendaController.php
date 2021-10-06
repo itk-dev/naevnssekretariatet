@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Agenda;
-use App\Entity\AgendaItem;
 use App\Entity\AgendaProtocol;
 use App\Entity\BoardMember;
 use App\Entity\User;
@@ -14,7 +13,7 @@ use App\Form\AgendaProtocolType;
 use App\Form\AgendaType;
 use App\Repository\AgendaRepository;
 use App\Repository\MunicipalityRepository;
-use DateTime;
+use App\Service\AgendaHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -111,23 +110,11 @@ class AgendaController extends AbstractController
      *
      * @throws Exception
      */
-    public function show(Agenda $agenda, Request $request): Response
+    public function show(Agenda $agenda, AgendaHelper $agendaHelper, Request $request): Response
     {
         $boardMembers = $agenda->getBoardmembers();
-        $agendaItems = $agenda->getAgendaItems()->toArray();
 
-        if (!empty($agendaItems)) {
-            usort($agendaItems, function (AgendaItem $a, AgendaItem $b) {
-                $ad = new DateTime($a->getStartTime()->format('H:i'));
-                $bd = new DateTime($b->getStartTime()->format('H:i'));
-
-                if ($ad === $bd) {
-                    return 0;
-                }
-
-                return $ad < $bd ? -1 : 1;
-            });
-        }
+        $sortedAgendaItems = $agendaHelper->sortAgendaItemsAccordingToStart($agenda->getAgendaItems()->toArray());
 
         $form = $this->createForm(AgendaType::class, $agenda);
 
@@ -146,21 +133,19 @@ class AgendaController extends AbstractController
             'agenda_form' => $form->createView(),
             'agenda' => $agenda,
             'boardMembers' => $boardMembers,
-            'agendaItems' => $agendaItems,
+            'agendaItems' => $sortedAgendaItems,
         ]);
     }
 
     /**
      * @Route("/{id}/add-board-member", name="agenda_add_board_member", methods={"GET", "POST"})
      */
-    public function addBoardMember(Agenda $agenda, Request $request): Response
+    public function addBoardMember(Agenda $agenda, AgendaHelper $agendaHelper, Request $request): Response
     {
-        $allBoardMembers = $agenda->getSubBoard()->getBoardMembers()->toArray();
-        $currentBoardMembersOnAgenda = $agenda->getBoardmembers()->toArray();
-        $choices = array_diff($allBoardMembers, $currentBoardMembersOnAgenda);
+        $availableBoardMembers = $agendaHelper->findAvailableBoardMembers($agenda);
 
         $form = $this->createForm(AgendaAddBoardMemberType::class, [], [
-            'board_member_choices' => $choices,
+            'board_member_choices' => $availableBoardMembers,
         ]);
 
         $form->handleRequest($request);
