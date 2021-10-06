@@ -157,6 +157,30 @@
         <source>Statuses</source>
         <target>Statusser</target>
       </trans-unit>
+      <trans-unit id="BqtkKHS" resname="Board role">
+        <source>Board role</source>
+        <target>Nævnsrolle</target>
+      </trans-unit>
+      <trans-unit id="yn5gqY6" resname="Board roles">
+        <source>Board roles</source>
+        <target>Nævnsroller</target>
+      </trans-unit>
+      <trans-unit id="I9P6k6w" resname="Add board role">
+        <source>Add board role</source>
+        <target>Tilføj nævnsrolle</target>
+      </trans-unit>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="W4H3DVm" resname="Document type">
+        <source>Document type</source>
+        <target>Dokumenttype</target>
+      </trans-unit>
+      <trans-unit id="n8ctBXR" resname="Document types">
+        <source>Document types</source>
+        <target>Dokumenttyper</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
