@@ -28,6 +28,7 @@ class AgendaType extends AbstractType
             ->add('board', EntityType::class, [
                 'class' => Board::class,
                 'choice_label' => 'name',
+                'disabled' => true,
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
