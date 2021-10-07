@@ -12,6 +12,7 @@ use App\Form\AgendaCreateType;
 use App\Form\AgendaProtocolType;
 use App\Form\AgendaType;
 use App\Repository\AgendaRepository;
+use App\Repository\BoardMemberRepository;
 use App\Repository\MunicipalityRepository;
 use App\Service\AgendaHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Uid\UuidV4;
 
 /**
  * @Route("/agenda")
@@ -109,10 +111,18 @@ class AgendaController extends AbstractController
      * @Route("/{id}/show", name="agenda_show", methods={"GET", "POST"})
      *
      * @throws Exception
+     * @throws \Doctrine\DBAL\Driver\Exception
      */
-    public function show(Agenda $agenda, AgendaHelper $agendaHelper, Request $request): Response
+    public function show(Agenda $agenda, AgendaHelper $agendaHelper, BoardMemberRepository $memberRepository, Request $request): Response
     {
-        $boardMembers = $agenda->getBoardmembers();
+        $memberTriplesWithBinaryId = $memberRepository->getMembersAndRolesByAgenda($agenda);
+
+        $memberTriplesWithUuid = [];
+        foreach ($memberTriplesWithBinaryId as $memberTriple) {
+            $uuid = UuidV4::fromString($memberTriple['id']);
+            $memberTriple['id'] = $uuid->__toString();
+            array_push($memberTriplesWithUuid, $memberTriple);
+        }
 
         $sortedAgendaItems = $agendaHelper->sortAgendaItemsAccordingToStart($agenda->getAgendaItems()->toArray());
 
@@ -132,7 +142,7 @@ class AgendaController extends AbstractController
         return $this->render('agenda/show.html.twig', [
             'agenda_form' => $form->createView(),
             'agenda' => $agenda,
-            'boardMembers' => $boardMembers,
+            'boardMemberTriple' => $memberTriplesWithUuid,
             'agendaItems' => $sortedAgendaItems,
         ]);
     }

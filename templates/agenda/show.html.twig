@@ -147,13 +147,13 @@
             <div class="row">
                 <div class="col">
                     <div class="list-group">
-                        {% for board_member in boardMembers %}
+                        {% for board_member in boardMemberTriple %}
                             <section class="col-md-12 mt-5 mt-md-0">
                                 <div class="row">
                                     <div class="col">
                                         <p class="m-0 mt-2">{{ board_member.name|e }}</p>
                                         {# TODO: Display boardmember title once it has been added to boardmember entity #}
-                                        <p class="m-0" style="font-size:15px; opacity: 0.5">Fulmægtig i nævn</p>
+                                        <p class="m-0" style="font-size:15px; opacity: 0.5">{{ board_member.title|e }}</p>
                                     </div>
                                     <div class="col-auto">
                                         <section class="col-md-12 mt-5 mt-md-0">

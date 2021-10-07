@@ -9,16 +9,16 @@ App\Entity\BoardRole:
 
   resident-complaint-board-aarhus-role-udlejerrepraesentant:
     board: '@resident-complaint-board-aarhus'
-    title: Udlejerrepraesentant
+    title: Udlejerrepræsentant
 
   resident-complaint-board-aarhus-role-udlejerrepraesentant-suppleant:
     board: '@resident-complaint-board-aarhus'
-    title: Udlejerrepraesentant suppleant
+    title: Udlejerrepræsentant suppleant
 
   resident-complaint-board-aarhus-role-lejerrepraesentant:
     board: '@resident-complaint-board-aarhus'
-    title: Lejerrepraesentant
+    title: Lejerrepræsentant
 
   resident-complaint-board-aarhus-role-lejerrepraesentant-suppleant:
     board: '@resident-complaint-board-aarhus'
-    title: Lejerrepraesentant suppleant
+    title: Lejerrepræsentant suppleant
