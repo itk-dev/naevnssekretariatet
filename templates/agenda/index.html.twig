@@ -34,7 +34,7 @@
                     <th scope="col">{% trans %}Date{% endtrans %}</th>
                     <th scope="col">{% trans %}From{% endtrans %}</th>
                     <th scope="col">{% trans %}To{% endtrans %}</th>
-                    <th scope="col">{% trans %}Boardmember{% endtrans %}</th>
+                    <th scope="col">{% trans %}Status{% endtrans %}</th>
                     <th class="text-right" scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
                 </tr>
                 </thead>
@@ -45,7 +45,7 @@
                         <td>{{ agenda.date|date('j F Y') }}</td>
                         <td>{{ agenda.start|date('H:i') }}</td>
                         <td>{{ agenda.end|date('H:i') }}</td>
-                        <td>Nogle nævnsmedlemmer</td>
+                        <td>{{ agenda.status|e }}</td>
                         <td class="text-right">
                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
                                 <!-- Show button -->
