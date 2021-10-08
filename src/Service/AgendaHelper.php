@@ -31,8 +31,8 @@ class AgendaHelper
     {
         if (!empty($agendaItems)) {
             usort($agendaItems, function (AgendaItem $a, AgendaItem $b) {
-                $ad = new DateTime($a->getStartTime()->format('H:i'));
-                $bd = new DateTime($b->getStartTime()->format('H:i'));
+                $ad = $a->getStartTime()->format('H:i');
+                $bd = $b->getStartTime()->format('H:i');
 
                 if ($ad === $bd) {
                     return 0;
