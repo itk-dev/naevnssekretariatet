@@ -37,7 +37,7 @@ class SidebarController extends AbstractController
                 $this->translator->trans('Agenda list', [], 'sidebar'),
                 $this->translator->trans('Go to list of agendas', [], 'sidebar'),
                 'agenda_index',
-                'list-check',
+                'list-alt',
                 $activeRoute
             ),
             $this->generateMenuItem(
