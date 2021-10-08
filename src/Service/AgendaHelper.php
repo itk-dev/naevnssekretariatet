@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Agenda;
 use App\Entity\AgendaItem;
 use App\Entity\BoardRole;
-use DateTime;
 
 class AgendaHelper
 {
