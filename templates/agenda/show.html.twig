@@ -10,9 +10,7 @@
             <h1>{% trans %}Agenda{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            {# TODO: Needs functionality on buttons #}
-            <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Publish to boardmembers{% endtrans %}</a>
-            {#            <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Save changes{% endtrans %}</a>#}
+            <a name="" id=""  {% if agenda.isPublished %} class="btn btn-success disabled" {% else %} class="btn btn-success" {% endif %} href="{{ url('agenda_publish', {id: agenda.id}) }}" role="button">{% trans %}Publish to boardmembers{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}

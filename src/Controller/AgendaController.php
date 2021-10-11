@@ -286,4 +286,17 @@ class AgendaController extends AbstractController
             'agenda' => $agenda,
         ]);
     }
+
+    /**
+     * @Route("/{id}/publish", name="agenda_publish", methods={"GET", "POST"})
+     */
+    public function publishAgenda(Agenda $agenda): Response
+    {
+        $agenda->setIsPublished(true);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('agenda_broadcast', [
+            'id' => $agenda->getId(),
+        ]);
+    }
 }
