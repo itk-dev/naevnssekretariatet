@@ -234,4 +234,9 @@ class Agenda
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return 'Agenda '.$this->getDate()->format('d/m/y');
+    }
 }

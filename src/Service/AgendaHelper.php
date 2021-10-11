@@ -26,6 +26,24 @@ class AgendaHelper
         return array_diff($allBoardMembers, $currentBoardMembersOnAgenda);
     }
 
+    public function sortAgendasAccordingToDate(array $agendas): array
+    {
+        if (!empty($agendas)) {
+            usort($agendas, function (Agenda $a, Agenda $b) {
+                $ad = $a->getDate()->getTimestamp();
+                $bd = $b->getDate()->getTimestamp();
+
+                if ($ad === $bd) {
+                    return 0;
+                }
+
+                return $ad < $bd ? -1 : 1;
+            });
+        }
+
+        return $agendas;
+    }
+
     public function sortAgendaItemsAccordingToStart(array $agendaItems): array
     {
         if (!empty($agendaItems)) {

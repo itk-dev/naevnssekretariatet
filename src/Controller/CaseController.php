@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\CaseEntity;
+use App\Form\CaseAgendaSelectType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Form\ResidentComplaintBoardCaseType;
+use App\Repository\AgendaRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
+use App\Service\AgendaHelper;
 use App\Service\CaseHelper;
 use App\Service\WorkflowService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,7 +92,7 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/status", name="case_status", methods={"GET", "POST"})
      */
-    public function status(CaseEntity $case, WorkflowService $workflowService, Request $request): Response
+    public function status(CaseEntity $case, AgendaHelper $agendaHelper, AgendaRepository $agendaRepository, WorkflowService $workflowService, Request $request): Response
     {
         $workflow = $workflowService->getWorkflowForCase($case);
 
@@ -116,9 +119,31 @@ class CaseController extends AbstractController
             ]);
         }
 
+        $board = $case->getBoard();
+
+        $agendas = $agendaRepository->findBy([
+            'board' => $board,
+            'status' => 'Open',
+        ]);
+
+        $agendas = $agendaHelper->sortAgendasAccordingToDate($agendas);
+
+        $agendaForm = $this->createForm(CaseAgendaSelectType::class, null, [
+            'agendas' => $agendas,
+        ]);
+
+        $agendaForm->handleRequest($request);
+        if ($agendaForm->isSubmitted() && $agendaForm->isValid()) {
+            // TODO: redirect to create case item
+            $agenda = $agendaForm->get('agenda')->getData();
+
+            return $this->redirectToRoute('agenda_item_create', ['id' => $agenda->getId()]);
+        }
+
         return $this->render('case/status.html.twig', [
             'case' => $case,
             'case_status_form' => $caseStatusForm->createView(),
+            'agenda_form' => $agendaForm->createView(),
         ]);
     }
 
