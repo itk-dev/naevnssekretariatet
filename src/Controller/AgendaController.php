@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\AgendaAddBoardMemberType;
 use App\Form\AgendaBroadcastType;
 use App\Form\AgendaCreateType;
+use App\Form\AgendaFilterType;
 use App\Form\AgendaProtocolType;
 use App\Form\AgendaType;
 use App\Repository\AgendaRepository;
@@ -17,8 +18,11 @@ use App\Repository\MunicipalityRepository;
 use App\Service\AgendaHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Knp\Component\Pager\PaginatorInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,7 +47,7 @@ class AgendaController extends AbstractController
     /**
      * @Route("/", name="agenda_index", methods={"GET"})
      */
-    public function index(AgendaRepository $agendaRepository, MunicipalityRepository $municipalityRepository, Security $security): Response
+    public function index(AgendaRepository $agendaRepository, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, FormFactoryInterface $formFactory, MunicipalityRepository $municipalityRepository, Request $request, Security $security): Response
     {
         // Get current User
         /** @var User $user */
@@ -53,15 +57,39 @@ class AgendaController extends AbstractController
         // null is fine as it is only used for selecting an option
         $favoriteMunicipality = $user->getFavoriteMunicipality();
 
+        $filterBuilder = $agendaRepository->createQueryBuilder('a');
+
+        $filterForm = $this->createForm(AgendaFilterType::class, null, [
+            'municipality' => $favoriteMunicipality,
+        ]);
+
+        if ($request->query->has($filterForm->getName())) {
+            $filterForm->submit($request->query->get($filterForm->getName()));
+            $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
+        }
+
+        // Add sortable fields.
+        $filterBuilder->leftJoin('a.board', 'board');
+        $filterBuilder->addSelect('partial board.{id,name}');
+
+        $query = $filterBuilder->getQuery();
+
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+
         // Get municipalities
         $municipalities = $municipalityRepository->findAll();
 
         $agendas = $agendaRepository->findAll();
 
         return $this->render('agenda/index.html.twig', [
+            'filter_form' => $filterForm->createView(),
             'municipalities' => $municipalities,
             'favorite_municipality' => $favoriteMunicipality,
-            'agendas' => $agendas,
+            'pagination' => $pagination,
         ]);
     }
 

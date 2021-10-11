@@ -182,6 +182,9 @@
     "league/oauth2-client": {
         "version": "2.6.0"
     },
+    "lexik/form-filter-bundle": {
+        "version": "v7.0.0"
+    },
     "monolog/monolog": {
         "version": "2.2.0"
     },
