@@ -82,11 +82,17 @@ abstract class CaseEntity
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AgendaCaseItem::class, mappedBy="caseEntity")
+     */
+    private $agendaCaseItems;
+
     public function __construct()
     {
         $this->casePartyRelation = new ArrayCollection();
         $this->caseDocumentRelation = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->agendaCaseItems = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -259,5 +265,35 @@ abstract class CaseEntity
     public function __toString()
     {
         return $this->caseNumber;
+    }
+
+    /**
+     * @return Collection|AgendaCaseItem[]
+     */
+    public function getAgendaCaseItems(): Collection
+    {
+        return $this->agendaCaseItems;
+    }
+
+    public function addAgendaCaseItem(AgendaCaseItem $agendaCaseItem): self
+    {
+        if (!$this->agendaCaseItems->contains($agendaCaseItem)) {
+            $this->agendaCaseItems[] = $agendaCaseItem;
+            $agendaCaseItem->setCaseEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgendaCaseItem(AgendaCaseItem $agendaCaseItem): self
+    {
+        if ($this->agendaCaseItems->removeElement($agendaCaseItem)) {
+            // set the owning side to null (unless already changed)
+            if ($agendaCaseItem->getCaseEntity() === $this) {
+                $agendaCaseItem->setCaseEntity(null);
+            }
+        }
+
+        return $this;
     }
 }

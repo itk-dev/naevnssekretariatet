@@ -18,7 +18,7 @@ class AgendaCaseItem extends AgendaItem
     private $inspection = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CaseEntity::class)
+     * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="agendaCaseItems")
      */
     private $caseEntity;
 
