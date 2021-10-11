@@ -93,17 +93,16 @@ class AgendaCaseItemType extends AbstractType
             ]);
         }
 
-        $builder->add('inspection', CheckboxType::class, [
-                'label' => $this->translator->trans('Inspection', [], 'agenda_item'),
-                'required' => false,
-        ]);
-
         if (!$isCreateContext) {
             $builder
                 ->add('submit', SubmitType::class, [
                     'label' => $this->translator->trans('Update agenda item', [], 'agenda_item'),
                 ]);
         } else {
+            $builder->add('inspection', CheckboxType::class, [
+                'label' => $this->translator->trans('Inspection', [], 'agenda_item'),
+                'required' => false,
+            ]);
             $builder
                 ->add('submit', SubmitType::class, [
                     'label' => $this->translator->trans('Create agenda item', [], 'agenda_item'),

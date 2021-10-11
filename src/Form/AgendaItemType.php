@@ -34,7 +34,7 @@ class AgendaItemType extends AbstractType
 
         $builder->add('type', ChoiceType::class, [
             'choices' => [
-                'Case Inspection Item' => $this->translator->trans('Case item', [], 'agenda_item'),
+                'Case Item' => $this->translator->trans('Case item', [], 'agenda_item'),
                 'Manuel Item' => $this->translator->trans('Manuel item', [], 'agenda_item'),
             ],
             'placeholder' => $this->translator->trans('Choose an agenda item type', [], 'agenda_item'),
