@@ -126,10 +126,9 @@ class CaseController extends AbstractController
             'status' => 'Open',
         ]);
 
-        $agendaItemsWithCase = $case->getAgendaCaseItems()->toArray();
-        $agendasWithCase = array_map(function ($agendaCaseItem) {
+        $agendasWithCase = $case->getAgendaCaseItems()->map(function ($agendaCaseItem) {
             return $agendaCaseItem->getAgenda();
-        }, $agendaItemsWithCase);
+        });
 
         $hasActiveAgenda = $caseHelper->hasActiveAgenda($case);
 
