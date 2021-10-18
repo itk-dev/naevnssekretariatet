@@ -6,6 +6,7 @@ use App\Entity\AgendaCaseItem;
 use App\Entity\Board;
 use App\Entity\CaseEntity;
 use App\Repository\CaseEntityRepository;
+use App\Service\CaseHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -26,11 +27,16 @@ class AgendaCaseItemType extends AbstractType
      * @var CaseEntityRepository
      */
     private $caseRepository;
+    /**
+     * @var CaseHelper
+     */
+    private $caseHelper;
 
-    public function __construct(CaseEntityRepository $caseRepository, TranslatorInterface $translator)
+    public function __construct(CaseEntityRepository $caseRepository, CaseHelper $caseHelper, TranslatorInterface $translator)
     {
         $this->translator = $translator;
         $this->caseRepository = $caseRepository;
+        $this->caseHelper = $caseHelper;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -53,7 +59,9 @@ class AgendaCaseItemType extends AbstractType
             /** @var Board $board */
             $board = $options['board'];
 
-            $cases = $this->caseRepository->findCasesByBoard($board);
+            $casesWithBoard = $this->caseRepository->findCasesByBoard($board);
+
+            $casesWithBoardAndWithoutActiveAgenda = $this->caseHelper->removeCasesWithActiveAgenda($casesWithBoard);
         }
 
         $builder
@@ -79,7 +87,7 @@ class AgendaCaseItemType extends AbstractType
         if ($isCreateContext) {
             $builder->add('caseEntity', EntityType::class, [
                 'class' => CaseEntity::class,
-                'choices' => $cases,
+                'choices' => $casesWithBoardAndWithoutActiveAgenda,
                 'choice_label' => 'caseNumber',
                 'label' => $this->translator->trans('Case', [], 'agenda_item'),
                 'placeholder' => $this->translator->trans('Choose a case', [], 'agenda_item'),

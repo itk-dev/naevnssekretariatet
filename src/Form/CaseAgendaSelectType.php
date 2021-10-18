@@ -22,14 +22,19 @@ class CaseAgendaSelectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            'hasActiveAgenda' => null,
             'agendas' => null,
         ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $hasActiveAgenda = $options['hasActiveAgenda'];
         $agendas = $options['agendas'];
 
+        if ($hasActiveAgenda) {
+            return;
+        }
         $builder
             ->add('agenda', EntityType::class, [
                 'class' => Agenda::class,

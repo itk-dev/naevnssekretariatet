@@ -41,4 +41,38 @@ class CaseHelper
 
         return ['template' => $templatePath, 'complainants' => $complainants, 'counterparties' => $counterparties];
     }
+
+    /**
+     * Takes as input array of cases and removes cases that are assigned active agenda.
+     *
+     * @return array[]
+     */
+    public function removeCasesWithActiveAgenda(array $cases): array
+    {
+        $casesWithoutActiveAgenda = [];
+        foreach ($cases as $case) {
+            if (!$this->hasActiveAgenda($case)) {
+                array_push($casesWithoutActiveAgenda, $case);
+            }
+        }
+
+        return $casesWithoutActiveAgenda;
+    }
+
+    /**
+     * Checks if case has active agenda.
+     */
+    public function hasActiveAgenda(CaseEntity $case): bool
+    {
+        $agendaCaseItems = $case->getAgendaCaseItems();
+
+        foreach ($agendaCaseItems as $agendaCaseItem) {
+            $agenda = $agendaCaseItem->getAgenda();
+            if ('Open' === $agenda->getStatus() || 'Full' === $agenda->getStatus()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
