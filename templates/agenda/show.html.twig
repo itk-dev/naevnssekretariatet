@@ -91,6 +91,12 @@
                                             {% else %}
                                                 <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diff_hours }} {% trans %}hours{% endtrans %}</p>
                                             {% endif %}
+                                        {% elseif diff_minutes < 10 %}
+                                            {% if diff_hours == 0 %}
+                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diff_minutes }} {% trans %}minutes{% endtrans %}</p>
+                                            {% else %}
+                                                <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diff_hours }}:0{{ diff_minutes }}</p>
+                                            {% endif %}
                                         {% else %}
                                             {% if diff_hours == 0 %}
                                                 <p class="m-0" style="font-size:15px; opacity: 0.5">{{ diff_minutes }} {% trans %}minutes{% endtrans %}</p>
