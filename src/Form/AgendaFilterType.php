@@ -43,9 +43,6 @@ class AgendaFilterType extends AbstractType
 
         $boards = [];
 
-//        var_dump($municipality);
-//        die(__FILE__);
-
         foreach ($municipality->getBoards()->toArray() as $board) {
             $boards[$board->getName()] = $board;
         }

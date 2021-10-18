@@ -42,7 +42,7 @@ class CaseAgendaSelectType extends AbstractType
                 'label' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('Add case to agenda', [], 'case_status'),
+                'label' => $this->translator->trans('Add case to agenda', [], 'case'),
             ])
         ;
     }

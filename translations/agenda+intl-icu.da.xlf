@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target>Skabelon</target>
+      </trans-unit>
+      <trans-unit id="0RVtB8p" resname="Select a template">
+        <source>Select a template</source>
+        <target>Vælg en skabelon</target>
+      </trans-unit>
+      <trans-unit id="Q3rqYqW" resname="Contents">
+        <source>Contents</source>
+        <target>Indhold</target>
+      </trans-unit>
+      <trans-unit id="WXAMe6v" resname="Broadcast agenda">
+        <source>Broadcast agenda</source>
+        <target>Offentliggør dagsorden</target>
+      </trans-unit>
+      <trans-unit id="e8e6PXM" resname="All boards">
+        <source>All boards</source>
+        <target>Alle nævn</target>
+      </trans-unit>
+      <trans-unit id="juVzI6b" resname="All statuses">
+        <source>All statuses</source>
+        <target>Alle statusser</target>
+      </trans-unit>
+      <trans-unit id="ibK3J7n" resname="Add Board Member">
+        <source>Add Board Member</source>
+        <target>Tilføj nævnsmedlem</target>
+      </trans-unit>
+      <trans-unit id="aT1zKYZ" resname="Add board members">
+        <source>Add board members</source>
+        <target>Tilføj nævnsmedlem</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Annuller</target>
+      </trans-unit>
+      <trans-unit id="gQdrNoD" resname="Board members">
+        <source>Board members</source>
+        <target>Nævnsmedlemmer</target>
+      </trans-unit>
+      <trans-unit id="2imLS2a" resname="Broadcast agenda to involved parties and board members">
+        <source>Broadcast agenda to involved parties and board members</source>
+        <target>Offentliggør dagsorden til parter og nævnsmedlemmer</target>
+      </trans-unit>
+      <trans-unit id=".jGkAV9" resname="Create agenda">
+        <source>Create agenda</source>
+        <target>Opret dagsorden</target>
+      </trans-unit>
+      <trans-unit id="SBbL.XS" resname="Board">
+        <source>Board</source>
+        <target>Nævn</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Dato</target>
+      </trans-unit>
+      <trans-unit id="ur6d2oU" resname="Start time">
+        <source>Start time</source>
+        <target>Start</target>
+      </trans-unit>
+      <trans-unit id="LkYAal7" resname="End time">
+        <source>End time</source>
+        <target>Slut</target>
+      </trans-unit>
+      <trans-unit id="JSimpPh" resname="Create Agenda">
+        <source>Create Agenda</source>
+        <target>Opret dagsorden</target>
+      </trans-unit>
+      <trans-unit id="eJdVxL_" resname="Agendas">
+        <source>Agendas</source>
+        <target>Dagsordner</target>
+      </trans-unit>
+      <trans-unit id="jh2Un_v" resname="Show for">
+        <source>Show for</source>
+        <target>Vis for</target>
+      </trans-unit>
+      <trans-unit id="IYGXaTQ" resname="From">
+        <source>From</source>
+        <target>Fra kl.</target>
+      </trans-unit>
+      <trans-unit id="9LBu9tP" resname="To">
+        <source>To</source>
+        <target>Til kl.</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="yANxAwL" resname="Function">
+        <source>Function</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="ImnkQgY" resname="List functions">
+        <source>List functions</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="87gIr9x" resname="Show agenda">
+        <source>Show agenda</source>
+        <target>Vis dagsorden</target>
+      </trans-unit>
+      <trans-unit id="6sGDqLd" resname="Delete agenda">
+        <source>Delete agenda</source>
+        <target>Slet dagsorden</target>
+      </trans-unit>
+      <trans-unit id="zwiDND9" resname="Protocol">
+        <source>Protocol</source>
+        <target>Protokol</target>
+      </trans-unit>
+      <trans-unit id="vBvpeM8" resname="Create or update protocol">
+        <source>Create or update protocol</source>
+        <target>Opret eller rediger protokol</target>
+      </trans-unit>
+      <trans-unit id="D99IX1v" resname="Agenda">
+        <source>Agenda</source>
+        <target>Dagsorden</target>
+      </trans-unit>
+      <trans-unit id="p8Pk0Cg" resname="Publish to boardmembers">
+        <source>Publish to boardmembers</source>
+        <target>Offentliggør til nævnsmedlemmer</target>
+      </trans-unit>
+      <trans-unit id="n1OzYSt" resname="Select recipient(s)">
+        <source>Select recipient(s)</source>
+        <target>__Select recipient(s)</target>
+      </trans-unit>
+      <trans-unit id="tQJcc1A" resname="Remarks">
+        <source>Remarks</source>
+        <target>Bemærkninger</target>
+      </trans-unit>
+      <trans-unit id="Jjiov6p" resname="Agenda items">
+        <source>Agenda items</source>
+        <target>Dagsordenspunkter</target>
+      </trans-unit>
+      <trans-unit id="XykeDOE" resname="Add agenda item">
+        <source>Add agenda item</source>
+        <target>Tilføj dagsordenspunkt</target>
+      </trans-unit>
+      <trans-unit id="msCt1HX" resname="hour">
+        <source>hour</source>
+        <target>time</target>
+      </trans-unit>
+      <trans-unit id="QEMUsfS" resname="hours">
+        <source>hours</source>
+        <target>timer</target>
+      </trans-unit>
+      <trans-unit id="kOY9hfo" resname="minutes">
+        <source>minutes</source>
+        <target>minutter</target>
+      </trans-unit>
+      <trans-unit id="0Tfukb2" resname="Edit agenda item">
+        <source>Edit agenda item</source>
+        <target>Rediger dagsordenspunkt</target>
+      </trans-unit>
+      <trans-unit id="UrT2D2X" resname="Delete agenda item">
+        <source>Delete agenda item</source>
+        <target>Slet dagsordenspunkt</target>
+      </trans-unit>
+      <trans-unit id="2xwNT7m" resname="Add board member">
+        <source>Add board member</source>
+        <target>Tilføj nævnsmedlem</target>
+      </trans-unit>
+      <trans-unit id="rbBwCvg" resname="Are you sure you want to remove this board member?">
+        <source>Are you sure you want to remove this board member?</source>
+        <target>Er du sikker på at du vil fjerne dette nævnsmedlem?</target>
+      </trans-unit>
+      <trans-unit id="rcJDFlz" resname="Remove board member">
+        <source>Remove board member</source>
+        <target>Fjern nævnsmedlem</target>
+      </trans-unit>
+      <trans-unit id="qSBJaOC" resname="Are you sure you want to delete this agenda item?">
+        <source>Are you sure you want to delete this agenda item?</source>
+        <target>Er du sikker på at du vil slette dette dagsordenspunkt?</target>
+      </trans-unit>
+      <trans-unit id="iCPdjqj" resname="Are you sure you want to delete this agenda?">
+        <source>Are you sure you want to delete this agenda?</source>
+        <target>Er du sikker på at du vil slette denne agenda?</target>
+      </trans-unit>
+      <trans-unit id="0oMbcMS" resname="Agenda protocol">
+        <source>Agenda protocol</source>
+        <target>Dagsordens protokol</target>
+      </trans-unit>
+      <trans-unit id="pQ4GNsi" resname="Update protocol">
+        <source>Update protocol</source>
+        <target>Opdater protokol</target>
+      </trans-unit>
+      <trans-unit id="3Qrnpcv" resname="Save changes">
+        <source>Save changes</source>
+        <target>Gem rettelser</target>
+      </trans-unit>
+      <trans-unit id="Y44kn0o" resname="Filter">
+        <source>Filter</source>
+        <target>Filtrer</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

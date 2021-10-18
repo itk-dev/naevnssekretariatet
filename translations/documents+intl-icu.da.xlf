@@ -117,6 +117,14 @@
         <source>Upload</source>
         <target>Opret</target>
       </trans-unit>
+      <trans-unit id="sZy9p79" resname="Upload documents">
+        <source>Upload documents</source>
+        <target>Opret dokumenter</target>
+      </trans-unit>
+      <trans-unit id="LqCaMFb" resname="Upload and remove documents">
+        <source>Upload and remove documents</source>
+        <target>Opret og slet dokumenter</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

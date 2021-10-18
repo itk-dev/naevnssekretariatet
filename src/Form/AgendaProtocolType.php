@@ -33,7 +33,7 @@ class AgendaProtocolType extends AbstractType
     {
         $builder
             ->add('protocol', CKEditorType::class, [
-                'label' => $this->translator->trans('Agenda protocol', [], 'agenda_item'),
+                'label' => $this->translator->trans('Agenda protocol', [], 'agenda'),
                 'attr' => ['rows' => 6],
                 'config' => [
                     'uiColor' => '#ffffff',
@@ -41,7 +41,7 @@ class AgendaProtocolType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('Update protocol', [], 'agenda_item'),
+                'label' => $this->translator->trans('Update protocol', [], 'agenda'),
             ]);
     }
 }

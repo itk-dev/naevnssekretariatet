@@ -569,6 +569,18 @@
         <source>Change status</source>
         <target>Skift status</target>
       </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Rediger</target>
+      </trans-unit>
+      <trans-unit id="87gIr9x" resname="Show agenda">
+        <source>Show agenda</source>
+        <target>Vis dagsorden</target>
+      </trans-unit>
+      <trans-unit id="fO9Nehv" resname="Add case to agenda">
+        <source>Add case to agenda</source>
+        <target>Tilføj til dagsorden</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

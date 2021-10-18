@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="ur6d2oU" resname="Start time">
+        <source>Start time</source>
+        <target>Start</target>
+      </trans-unit>
+      <trans-unit id="LkYAal7" resname="End time">
+        <source>End time</source>
+        <target>Slut</target>
+      </trans-unit>
+      <trans-unit id="8IGDBZ." resname="Meeting point">
+        <source>Meeting point</source>
+        <target>Mødested</target>
+      </trans-unit>
+      <trans-unit id="FfhuJO0" resname="Case">
+        <source>Case</source>
+        <target>Sag</target>
+      </trans-unit>
+      <trans-unit id="IDse2Dv" resname="Choose a case">
+        <source>Choose a case</source>
+        <target>Vælg en sag</target>
+      </trans-unit>
+      <trans-unit id="3Ea4lHS" resname="Update agenda item">
+        <source>Update agenda item</source>
+        <target>Opdater dagsordenspunkt</target>
+      </trans-unit>
+      <trans-unit id="bk_hPaS" resname="Inspection">
+        <source>Inspection</source>
+        <target>Besigtigelse</target>
+      </trans-unit>
+      <trans-unit id="El6ck4x" resname="Create agenda item">
+        <source>Create agenda item</source>
+        <target>Opret dagsordenspunkt</target>
+      </trans-unit>
+      <trans-unit id="76dPuI." resname="Case item">
+        <source>Case item</source>
+        <target>Sagspunkt</target>
+      </trans-unit>
+      <trans-unit id="kJQeeS6" resname="Manuel item">
+        <source>Manuel item</source>
+        <target>Manuelt punkt</target>
+      </trans-unit>
+      <trans-unit id="N3ftXJv" resname="Choose an agenda item type">
+        <source>Choose an agenda item type</source>
+        <target>Vælg dagsordenspunkt type</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Beskrivelse</target>
+      </trans-unit>
+      <trans-unit id="0oMbcMS" resname="Agenda protocol">
+        <source>Agenda protocol</source>
+        <target>defdef</target>
+      </trans-unit>
+      <trans-unit id="pQ4GNsi" resname="Update protocol">
+        <source>Update protocol</source>
+        <target>defdef</target>
+      </trans-unit>
+      <trans-unit id="hAA_WCr" resname="Decision proposal">
+        <source>Decision proposal</source>
+        <target>Beslutningsforslag</target>
+      </trans-unit>
+      <trans-unit id="0MdgX5D" resname="Update proposal">
+        <source>Update proposal</source>
+        <target>Opdater forslag</target>
+      </trans-unit>
+      <trans-unit id="XV7hV3U" resname="Presentation">
+        <source>Presentation</source>
+        <target>Sagsfremstilling</target>
+      </trans-unit>
+      <trans-unit id="r2boMju" resname="Update presentation">
+        <source>Update presentation</source>
+        <target>Opdater sagsfremstilling</target>
+      </trans-unit>
+      <trans-unit id="1xOGbPf" resname="Select recipients">
+        <source>Select recipients</source>
+        <target>Vælg modtagere</target>
+      </trans-unit>
+      <trans-unit id="aJcSg4Q" resname="Subject">
+        <source>Subject</source>
+        <target>Emne</target>
+      </trans-unit>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target>Skabelon</target>
+      </trans-unit>
+      <trans-unit id="Q3rqYqW" resname="Contents">
+        <source>Contents</source>
+        <target>Indhold</target>
+      </trans-unit>
+      <trans-unit id="IZ8kQJx" resname="Attach document(s)">
+        <source>Attach document(s)</source>
+        <target>Vedhæft dokumente(r)</target>
+      </trans-unit>
+      <trans-unit id="oTm2FLZ" resname="Send inspection letter">
+        <source>Send inspection letter</source>
+        <target>Send besigtigelsesbrev</target>
+      </trans-unit>
+      <trans-unit id="AJ22aOK" resname="Create or update case decision proposal">
+        <source>Create or update case decision proposal</source>
+        <target>Opret eller opdater sagsafgørelses forslag</target>
+      </trans-unit>
+      <trans-unit id="quiZwMg" resname="Attached documents">
+        <source>Attached documents</source>
+        <target>Vedhæftede dokumenter</target>
+      </trans-unit>
+      <trans-unit id="QWB8PiK" resname="Documents that are already attached to agenda item">
+        <source>Documents that are already attached to agenda item</source>
+        <target>Dokumenter som allerede er vedhæftet dagsordenspunktet</target>
+      </trans-unit>
+      <trans-unit id="1BCknPB" resname="Attach documents">
+        <source>Attach documents</source>
+        <target>Vedhæft dokumenter</target>
+      </trans-unit>
+      <trans-unit id="OAs1gv3" resname="Document name">
+        <source>Document name</source>
+        <target>Dokument navn</target>
+      </trans-unit>
+      <trans-unit id="W4H3DVm" resname="Document type">
+        <source>Document type</source>
+        <target>Dokument type</target>
+      </trans-unit>
+      <trans-unit id="Hl9Om1x" resname="Uploaded by">
+        <source>Uploaded by</source>
+        <target>Oprettet af</target>
+      </trans-unit>
+      <trans-unit id="rArhFm_" resname="Upload date">
+        <source>Upload date</source>
+        <target>Dato</target>
+      </trans-unit>
+      <trans-unit id="delC5bN" resname="Functions">
+        <source>Functions</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="ImnkQgY" resname="List functions">
+        <source>List functions</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="REE8PZe" resname="Are you sure you want to delete this item?">
+        <source>Are you sure you want to delete this item?</source>
+        <target>Er du sikker på at du vil fjerne dette dokument?</target>
+      </trans-unit>
+      <trans-unit id="BPbQmqh" resname="Delete document">
+        <source>Delete document</source>
+        <target>Fjern dokument</target>
+      </trans-unit>
+      <trans-unit id="Ly_F.v2" resname="Attach documents to agenda item">
+        <source>Attach documents to agenda item</source>
+        <target>Vedhæft dokumenter til dagsordenspunkt</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Annuller</target>
+      </trans-unit>
+      <trans-unit id="1Aat4pW" resname="Attach">
+        <source>Attach</source>
+        <target>Vedhæft</target>
+      </trans-unit>
+      <trans-unit id="m3ypDwa" resname="Inspection case">
+        <source>Inspection case</source>
+        <target>Besigtigelsessag</target>
+      </trans-unit>
+      <trans-unit id="AZ84Cld" resname="Send message to parties regarding inspection">
+        <source>Send message to parties regarding inspection</source>
+        <target>Send besked til parter vedrørende besigtigelse</target>
+      </trans-unit>
+      <trans-unit id="OI8Dt5w" resname="Create inspection letter">
+        <source>Create inspection letter</source>
+        <target>Opret besigtigelsesbrev</target>
+      </trans-unit>
+      <trans-unit id="OAd9aCc" resname="Landlord">
+        <source>Landlord</source>
+        <target>Udlejer</target>
+      </trans-unit>
+      <trans-unit id="Aksk8Gv" resname="Letter sent">
+        <source>Letter sent</source>
+        <target>Sendt brev</target>
+      </trans-unit>
+      <trans-unit id="HoVoqCw" resname="Recipients">
+        <source>Recipients</source>
+        <target>Modtagere</target>
+      </trans-unit>
+      <trans-unit id="L3W2Ssk" resname="Choices">
+        <source>Choices</source>
+        <target>Valgmuligheder</target>
+      </trans-unit>
+      <trans-unit id="ak5D7v9" resname="Show letter">
+        <source>Show letter</source>
+        <target>Vis brev</target>
+      </trans-unit>
+      <trans-unit id="4jlp0oT" resname="Tenant">
+        <source>Tenant</source>
+        <target>Lejer</target>
+      </trans-unit>
+      <trans-unit id="0CeFT6c" resname="Inspection letter">
+        <source>Inspection letter</source>
+        <target>Besigtigelsesbrev</target>
+      </trans-unit>
+      <trans-unit id="QISCbyx" resname="Case presentation">
+        <source>Case presentation</source>
+        <target>Sagsfremstilling</target>
+      </trans-unit>
+      <trans-unit id="iJHUG10" resname="Create or update case presentation">
+        <source>Create or update case presentation</source>
+        <target>Opret eller opdater sagsfremstilling</target>
+      </trans-unit>
+      <trans-unit id="0dUuar9" resname="Agenda item">
+        <source>Agenda item</source>
+        <target>Dagsordenspunkt</target>
+      </trans-unit>
+      <trans-unit id="0Tfukb2" resname="Edit agenda item">
+        <source>Edit agenda item</source>
+        <target>Rediger dagsordenspunkt</target>
+      </trans-unit>
+      <trans-unit id="QuUbfCR" resname="Case decision proposal">
+        <source>Case decision proposal</source>
+        <target>Sagsafgørelses forslag</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

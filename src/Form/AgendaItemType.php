@@ -32,32 +32,36 @@ class AgendaItemType extends AbstractType
     {
         $board = $options['board'];
 
+        $caseItemTranslated = $this->translator->trans('Case item', [], 'agenda_item');
+        $manuelItemTranslated = $this->translator->trans('Manuel item', [], 'agenda_item');
+
         $builder->add('type', ChoiceType::class, [
             'choices' => [
-                'Case Item' => $this->translator->trans('Case item', [], 'agenda_item'),
-                'Manuel Item' => $this->translator->trans('Manuel item', [], 'agenda_item'),
+                $caseItemTranslated => $caseItemTranslated,
+                $manuelItemTranslated => $manuelItemTranslated,
             ],
             'placeholder' => $this->translator->trans('Choose an agenda item type', [], 'agenda_item'),
         ]);
 
-        $formModifier = function (FormInterface $form, string $type = null) use ($board) {
+        $formModifier = function (FormInterface $form, string $type = null) use ($manuelItemTranslated, $caseItemTranslated, $board) {
             if (null != $type) {
                 $formClass = null;
                 switch ($type) {
-                    case 'Case item':
+                    case $caseItemTranslated:
                         $formClass = AgendaCaseItemType::class;
                         $form->add('agendaItem', $formClass, [
                             'board' => $board,
                             'isCreateContext' => true,
                         ]);
                         break;
-                    case 'Manuel item':
+                    case $manuelItemTranslated:
                         $formClass = AgendaManuelItemType::class;
                         $form->add('agendaItem', $formClass, [
                             'isCreateContext' => true,
                         ]);
                         break;
                     default:
+                        var_dump($type);
                         $message = 'Type was not chosen correctly';
                         throw new \Exception($message);
                 }

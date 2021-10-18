@@ -36,6 +36,12 @@ class AgendaManuelItemType extends AbstractType
         $isCreateContext = $options['isCreateContext'];
 
         $builder
+            ->add('title', TextType::class, [
+                'label' => $this->translator->trans('Title', [], 'agenda_item'),
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => $this->translator->trans('Description', [], 'agenda_item'),
+            ])
             ->add('startTime', TimeType::class, [
                 'label' => $this->translator->trans('Start time', [], 'agenda_item'),
                 'input' => 'datetime',
@@ -50,12 +56,6 @@ class AgendaManuelItemType extends AbstractType
             ])
             ->add('meetingPoint', TextType::class, [
                 'label' => $this->translator->trans('Meeting point', [], 'agenda_item'),
-            ])
-            ->add('title', TextType::class, [
-                'label' => $this->translator->trans('Title', [], 'agenda_item'),
-            ])
-            ->add('description', TextareaType::class, [
-                'label' => $this->translator->trans('Description', [], 'agenda_item'),
             ]);
 
         if (!$isCreateContext) {
