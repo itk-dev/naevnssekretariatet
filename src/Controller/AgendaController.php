@@ -22,7 +22,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,23 +37,26 @@ class AgendaController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var Security
+     */
+    private $security;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, Security $security)
     {
         $this->entityManager = $entityManager;
+        $this->security = $security;
     }
 
     /**
      * @Route("/", name="agenda_index", methods={"GET"})
      */
-    public function index(AgendaRepository $agendaRepository, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, FormFactoryInterface $formFactory, MunicipalityRepository $municipalityRepository, Request $request, Security $security): Response
+    public function index(AgendaRepository $agendaRepository, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityRepository $municipalityRepository, Request $request): Response
     {
         // Get current User
         /** @var User $user */
-        $user = $security->getUser();
-
-        // Get favorite municipality
-        // null is fine as it is only used for selecting an option
+        $user = $this->security->getUser();
+        // TODO: null is not fine
         $favoriteMunicipality = $user->getFavoriteMunicipality();
 
         $filterBuilder = $agendaRepository->createQueryBuilder('a');
@@ -72,6 +74,10 @@ class AgendaController extends AbstractController
         $filterBuilder->leftJoin('a.board', 'board');
         $filterBuilder->addSelect('partial board.{id,name}');
 
+        // Only get agendas under favorite municipality
+        $filterBuilder->andWhere('board.municipality = :municipality')
+            ->setParameter('municipality', $favoriteMunicipality->getId()->toBinary());
+
         $query = $filterBuilder->getQuery();
 
         $pagination = $paginator->paginate(
@@ -82,8 +88,6 @@ class AgendaController extends AbstractController
 
         // Get municipalities
         $municipalities = $municipalityRepository->findAll();
-
-        $agendas = $agendaRepository->findAll();
 
         return $this->render('agenda/index.html.twig', [
             'filter_form' => $filterForm->createView(),
@@ -98,9 +102,17 @@ class AgendaController extends AbstractController
      */
     public function create(Request $request): Response
     {
+        // Get current User
+        /** @var User $user */
+        $user = $this->security->getUser();
+
+        $favoriteMunicipality = $user->getFavoriteMunicipality();
+
         $agenda = new Agenda();
 
-        $form = $this->createForm(AgendaCreateType::class);
+        $form = $this->createForm(AgendaCreateType::class, $agenda, [
+            'municipality' => $favoriteMunicipality,
+        ]);
 
         $form->handleRequest($request);
 

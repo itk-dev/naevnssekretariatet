@@ -17,14 +17,24 @@ class AgendaCreateType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Agenda::class,
+            'municipality' => null,
         ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $municipality = $options['municipality'];
+
+        $boards = [];
+
+        foreach ($municipality->getBoards()->toArray() as $board) {
+            $boards[$board->getName()] = $board;
+        }
+
         $builder
             ->add('board', EntityType::class, [
                 'class' => Board::class,
+                'choices' => $boards,
                 'choice_label' => 'name',
             ])
             ->add('date', DateType::class, [
