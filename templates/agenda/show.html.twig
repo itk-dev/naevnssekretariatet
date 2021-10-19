@@ -120,6 +120,7 @@
                                                 <div>
                                                     <a href="{{ url('agenda_item_edit', {id: agenda.id, agenda_item_id: agenda_item.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit agenda item{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit agenda item{% endtrans %} </span></a>
                                                 </div>
+                                                {% if not isFinished %}
                                                 <div class="ml-2">
                                                     <form id="myform" method="post" action="{{ path('agenda_item_delete', {'id': agenda.id, 'agenda_item_id': agenda_item.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this agenda item?{% endtrans %}');">
                                                         <input type="hidden" name="_method" value="DELETE">
@@ -127,6 +128,7 @@
                                                         <button class="btn btn-danger btn-sm" style="float: right;" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete agenda item{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
                                                     </form>
                                                 </div>
+                                                {% endif %}
                                             </div>
                                         </section>
                                     </div>

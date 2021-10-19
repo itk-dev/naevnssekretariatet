@@ -197,6 +197,22 @@
         <source>Filter</source>
         <target>Filtrer</target>
       </trans-unit>
+      <trans-unit id="7Qd.PYE" resname="Open">
+        <source>Open</source>
+        <target>Åben</target>
+      </trans-unit>
+      <trans-unit id="AI2sttH" resname="Full">
+        <source>Full</source>
+        <target>Fuld</target>
+      </trans-unit>
+      <trans-unit id="eAT3p5q" resname="Finished">
+        <source>Finished</source>
+        <target>Afsluttet</target>
+      </trans-unit>
+      <trans-unit id="VxoboO2" resname="Not-closed">
+        <source>Not-closed</source>
+        <target>Ikke afsluttet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

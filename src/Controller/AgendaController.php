@@ -16,6 +16,7 @@ use App\Repository\AgendaRepository;
 use App\Repository\BoardMemberRepository;
 use App\Repository\MunicipalityRepository;
 use App\Service\AgendaHelper;
+use App\Service\AgendaStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
@@ -155,6 +156,11 @@ class AgendaController extends AbstractController
      */
     public function show(Agenda $agenda, AgendaHelper $agendaHelper, BoardMemberRepository $memberRepository, Request $request): Response
     {
+        $isFinished = false;
+        if (AgendaStatus::Finished === $agenda->getStatus()) {
+            $isFinished = true;
+        }
+
         $memberTriplesWithBinaryId = $memberRepository->getMembersAndRolesByAgenda($agenda);
 
         $memberTriplesWithUuid = [];
@@ -184,6 +190,7 @@ class AgendaController extends AbstractController
             'agenda' => $agenda,
             'boardMemberTriple' => $memberTriplesWithUuid,
             'agendaItems' => $sortedAgendaItems,
+            'isFinished' => $isFinished,
         ]);
     }
 

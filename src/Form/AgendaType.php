@@ -13,9 +13,20 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AgendaType extends AbstractType
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -33,9 +44,9 @@ class AgendaType extends AbstractType
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
-                    AgendaStatus::Open => AgendaStatus::Open,
-                    AgendaStatus::Full => AgendaStatus::Full,
-                    AgendaStatus::Finished => AgendaStatus::Finished,
+                    $this->translator->trans('Open', [], 'agenda') => AgendaStatus::Open,
+                    $this->translator->trans('Full', [], 'agenda') => AgendaStatus::Full,
+                    $this->translator->trans('Finished', [], 'agenda') => AgendaStatus::Finished,
                 ],
             ])
             ->add('remarks', TextareaType::class, [

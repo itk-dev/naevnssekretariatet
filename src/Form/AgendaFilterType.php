@@ -66,8 +66,6 @@ class AgendaFilterType extends AbstractType
                     // expression parameters
                     // Added ->getId()->toBinary() to handle Uuid
                     $parameters = [$paramName => $values['value']->getId()->toBinary()]; // [ name => value ]
-                    // or if you need to define the parameter's type
-                    // $parameters = array($paramName => array($values['value'], \PDO::PARAM_STR)); // [ name => [value, type] ]
 
                     return $filterQuery->createCondition($expression, $parameters);
                 },
@@ -78,13 +76,32 @@ class AgendaFilterType extends AbstractType
                 'input_format' => 'dd-MM-yyyy',
             ])
             ->add('status', Filters\ChoiceFilterType::class, [
-            'choices' => [
-                AgendaStatus::Open => AgendaStatus::Open,
-                AgendaStatus::Full => AgendaStatus::Full,
-                AgendaStatus::Finished => AgendaStatus::Finished,
-            ],
-            'label' => false,
-            'placeholder' => $this->translator->trans('All statuses', [], 'agenda'),
-        ]);
+                'choices' => [
+                    $this->translator->trans('Open', [], 'agenda') => AgendaStatus::Open,
+                    $this->translator->trans('Full', [], 'agenda') => AgendaStatus::Full,
+                    $this->translator->trans('Finished', [], 'agenda') => AgendaStatus::Finished,
+                    $this->translator->trans('Not-closed', [], 'agenda') => 'Not-closed',
+                ],
+                'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
+                    if (empty($values['value'])) {
+                        return null;
+                    }
+
+                    $paramName = sprintf('p_%s', str_replace('.', '_', $field));
+
+                    // Handle not finished separately
+                    if ('Not-closed' === $values['value']) {
+                        $expression = $filterQuery->getExpr()->neq($field, ':'.$paramName);
+                        $parameters = [$paramName => AgendaStatus::Finished];
+                    } else {
+                        $expression = $filterQuery->getExpr()->eq($field, ':'.$paramName);
+                        $parameters = [$paramName => $values['value']];
+                    }
+
+                    return $filterQuery->createCondition($expression, $parameters);
+                },
+                'label' => false,
+                'placeholder' => $this->translator->trans('All statuses', [], 'agenda'),
+            ]);
     }
 }
