@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-
 abstract class AgendaStatus
 {
     public const Open = 1;
