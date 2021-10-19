@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Agenda;
 use App\Entity\Board;
+use App\Service\AgendaStatus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -32,9 +33,9 @@ class AgendaType extends AbstractType
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
-                    'Open' => 'Open',
-                    'Full' => 'Full',
-                    'Finished' => 'Finished',
+                    AgendaStatus::Open => AgendaStatus::Open,
+                    AgendaStatus::Full => AgendaStatus::Full,
+                    AgendaStatus::Finished => AgendaStatus::Finished,
                 ],
             ])
             ->add('remarks', TextareaType::class, [

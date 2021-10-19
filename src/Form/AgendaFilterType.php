@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Municipality;
+use App\Service\AgendaStatus;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use Symfony\Component\Form\AbstractType;
@@ -78,9 +79,9 @@ class AgendaFilterType extends AbstractType
             ])
             ->add('status', Filters\ChoiceFilterType::class, [
             'choices' => [
-                'Open' => 'Open',
-                'Full' => 'Full',
-                'Finished' => 'Finished',
+                AgendaStatus::Open => AgendaStatus::Open,
+                AgendaStatus::Full => AgendaStatus::Full,
+                AgendaStatus::Finished => AgendaStatus::Finished,
             ],
             'label' => false,
             'placeholder' => $this->translator->trans('All statuses', [], 'agenda'),

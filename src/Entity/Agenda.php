@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AgendaRepository;
+use App\Service\AgendaStatus;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,7 +41,7 @@ class Agenda
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $status = 'Open';
+    private $status = AgendaStatus::Open;
 
     /**
      * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="agendas")

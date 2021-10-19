@@ -68,7 +68,7 @@ class CaseHelper
 
         foreach ($agendaCaseItems as $agendaCaseItem) {
             $agenda = $agendaCaseItem->getAgenda();
-            if ('Open' === $agenda->getStatus() || 'Full' === $agenda->getStatus()) {
+            if (AgendaStatus::Open === $agenda->getStatus() || AgendaStatus::Full === $agenda->getStatus()) {
                 return true;
             }
         }

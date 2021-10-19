@@ -4,81 +4,81 @@ App\Entity\Agenda:
     date: <(new \DateTime('2021-10-11'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Open'
+    status: 'Åben'
 
   agenda-2:
     board: '@resident-complaint-board-aarhus'
     date: <(new \DateTime('2021-10-11'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Full'
+    status: 'Fuld'
 
   agenda-3:
     board: '@resident-complaint-board-aarhus'
     date: <(new \DateTime('2021-10-12'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Open'
+    status: 'Åben'
 
   agenda-4:
     board: '@resident-complaint-board-aarhus'
     date: <(new \DateTime('2021-10-13'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Full'
+    status: 'Fuld'
 
   agenda-5:
     board: '@rent-board-aarhus'
     date: <(new \DateTime('2021-10-14'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Open'
+    status: 'Åben'
 
   agenda-6:
     board: '@fence-board-aarhus'
     date: <(new \DateTime('2021-11-11'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Full'
+    status: 'Fuld'
 
   agenda-7:
     board: '@rent-board-aarhus'
     date: <(new \DateTime('2021-11-12'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Open'
+    status: 'Åben'
 
   agenda-8:
     board: '@fence-board-aarhus'
     date: <(new \DateTime('2021-11-13'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Open'
+    status: 'Åben'
 
   agenda-9:
     board: '@resident-complaint-board-aarhus'
     date: <(new \DateTime('2021-12-11'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Open'
+    status: 'Åben'
 
   agenda-10:
     board: '@rent-board-aarhus'
     date: <(new \DateTime('2021-12-15'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Open'
+    status: 'Åben'
 
   agenda-11:
     board: '@resident-complaint-board-aarhus'
     date: <(new \DateTime('2021-12-05'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Open'
+    status: 'Åben'
 
   agenda-12:
     board: '@rent-board-aarhus'
     date: <(new \DateTime('2021-10-07'))>
     start: <(new \DateTime('17:00'))>
     end: <(new \DateTime('21:00'))>
-    status: 'Open'
+    status: 'Åben'
