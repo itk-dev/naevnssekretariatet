@@ -123,7 +123,7 @@
       </trans-unit>
       <trans-unit id="p8Pk0Cg" resname="Publish to boardmembers">
         <source>Publish to boardmembers</source>
-        <target>Offentliggør til nævnsmedlemmer</target>
+        <target>Publisér til nævnsmedlemmer</target>
       </trans-unit>
       <trans-unit id="n1OzYSt" resname="Select recipient(s)">
         <source>Select recipient(s)</source>
