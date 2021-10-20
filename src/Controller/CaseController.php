@@ -11,6 +11,7 @@ use App\Repository\AgendaRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
 use App\Service\AgendaHelper;
+use App\Service\AgendaStatus;
 use App\Service\CaseHelper;
 use App\Service\WorkflowService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -123,7 +124,7 @@ class CaseController extends AbstractController
 
         $availableOpenAgendas = $agendaRepository->findBy([
             'board' => $board,
-            'status' => 'Open',
+            'status' => AgendaStatus::Open,
         ]);
 
         $agendasWithCase = $case->getAgendaCaseItems()->map(function ($agendaCaseItem) {
