@@ -63,7 +63,7 @@ class AgendaController extends AbstractController
         // Check if session contains active municipality
         if ($session->has('active_municipality')) {
             $activeMunicipality = $municipalityRepository->findOneBy(['id' => $session->get('active_municipality')]);
-        } elseif (null !== $user->getFavoriteMunicipality() ) {
+        } elseif (null !== $user->getFavoriteMunicipality()) {
             $activeMunicipality = $user->getFavoriteMunicipality();
         } else {
             $activeMunicipality = $municipalityRepository->findOneBy([]);

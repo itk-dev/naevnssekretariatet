@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Municipality;
-use App\Repository\MunicipalityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -45,7 +44,7 @@ class MunicipalitySelectorType extends AbstractType
 
         $builder->add('municipality', ChoiceType::class, [
             'choices' => $municipalities,
-            'choice_label' => function(?Municipality $municipality) {
+            'choice_label' => function (?Municipality $municipality) {
                 return $municipality->getName();
             },
             'label' => $this->translator->trans('Show for', [], 'agenda'),
