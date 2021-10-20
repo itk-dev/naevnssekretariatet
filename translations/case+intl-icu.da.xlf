@@ -581,6 +581,10 @@
         <source>Add case to agenda</source>
         <target>Tilføj til dagsorden</target>
       </trans-unit>
+      <trans-unit id="r6Y2tp2" resname="No current active agenda available">
+        <source>No current active agenda available</source>
+        <target>Ingen aktive dagsordner til stede</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

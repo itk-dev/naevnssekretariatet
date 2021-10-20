@@ -127,6 +127,12 @@ class CaseController extends AbstractController
             'status' => AgendaStatus::Open,
         ]);
 
+        $hasOpenAgenda = true;
+
+        if (0 === sizeof($availableOpenAgendas)) {
+            $hasOpenAgenda = false;
+        }
+
         $agendasWithCase = $case->getAgendaCaseItems()->map(function ($agendaCaseItem) {
             return $agendaCaseItem->getAgenda();
         });
@@ -152,6 +158,7 @@ class CaseController extends AbstractController
             'case' => $case,
             'case_status_form' => $caseStatusForm->createView(),
             'hasActiveAgenda' => $hasActiveAgenda,
+            'hasOpenAgenda' => $hasOpenAgenda,
             'agenda_form' => $agendaForm->createView(),
             'agendas_with_case' => $agendasWithCase,
         ]);
