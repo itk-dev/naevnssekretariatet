@@ -88,7 +88,9 @@ class AgendaCaseItemType extends AbstractType
             $builder->add('caseEntity', EntityType::class, [
                 'class' => CaseEntity::class,
                 'choices' => $casesWithBoardAndWithoutActiveAgenda,
-                'choice_label' => 'caseNumber',
+                'choice_label' => function ($caseEntity) {
+                    return $caseEntity->getCaseNumber().' - '.$caseEntity->getComplaintCategory()->getName().' - '.$caseEntity->getComplainantAddress();
+                },
                 'label' => $this->translator->trans('Case', [], 'agenda_item'),
                 'placeholder' => $this->translator->trans('Choose a case', [], 'agenda_item'),
             ]);
