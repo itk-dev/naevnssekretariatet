@@ -225,6 +225,7 @@ class AgendaController extends AbstractController
 
         $form = $this->createForm(AgendaAddBoardMemberType::class, [], [
             'board_member_choices' => $availableBoardMembers,
+            'board' => $agenda->getBoard(),
         ]);
 
         $form->handleRequest($request);
