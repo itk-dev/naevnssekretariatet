@@ -98,18 +98,20 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% for agenda in agendas_with_case %}
                     <tr>
-                        {% for agenda in agendas_with_case %}
+
                             <td>{{ agenda.board.name|e }}</td>
                             <td>{{ agenda.date|date('j M Y') }}</td>
                             <td>{{ agenda.start|date('H:i') }}</td>
                             <td>{{ agenda.end|date('H:i') }}</td>
-                            <td>{{ agenda.status|e }}</td>
+                            <td>{{ agenda.status|trans({}, 'agenda_status') }}</td>
                             <td class="text-right">
                                 <a href="{{ url('agenda_show', {id: agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
                             </td>
-                        {% endfor %}
+
                     </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
