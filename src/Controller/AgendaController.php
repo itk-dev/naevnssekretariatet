@@ -12,6 +12,7 @@ use App\Form\AgendaCreateType;
 use App\Form\AgendaFilterType;
 use App\Form\AgendaProtocolType;
 use App\Form\AgendaType;
+use App\Form\MunicipalitySelectorType;
 use App\Repository\AgendaRepository;
 use App\Repository\BoardMemberRepository;
 use App\Repository\MunicipalityRepository;
@@ -25,6 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Uid\UuidV4;
@@ -50,20 +52,43 @@ class AgendaController extends AbstractController
     }
 
     /**
-     * @Route("/", name="agenda_index", methods={"GET"})
+     * @Route("/", name="agenda_index", methods={"GET", "POST"})
      */
-    public function index(AgendaRepository $agendaRepository, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityRepository $municipalityRepository, Request $request): Response
+    public function index(AgendaRepository $agendaRepository, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityRepository $municipalityRepository, Request $request, SessionInterface $session): Response
     {
         // Get current User
         /** @var User $user */
         $user = $this->security->getUser();
-        // TODO: null is not fine
-        $favoriteMunicipality = $user->getFavoriteMunicipality();
+
+        // Check if session contains active municipality
+        if ($session->has('active_municipality')) {
+            $activeMunicipality = $municipalityRepository->findOneBy(['id' => $session->get('active_municipality')]);
+        } elseif (null !== $user->getFavoriteMunicipality() ) {
+            $activeMunicipality = $user->getFavoriteMunicipality();
+        } else {
+            $activeMunicipality = $municipalityRepository->findOneBy([]);
+        }
+
+        $municipalities = $municipalityRepository->findAll();
+
+        $municipalityForm = $this->createForm(MunicipalitySelectorType::class, null, [
+            'municipalities' => $municipalities,
+            'active_municipality' => $activeMunicipality,
+        ]);
+
+        $municipalityForm->handleRequest($request);
+        if ($municipalityForm->isSubmitted()) {
+            $municipality = $municipalityForm->get('municipality')->getData();
+
+            $session->set('active_municipality', $municipality->getId());
+
+            return $this->redirectToRoute('agenda_index');
+        }
 
         $filterBuilder = $agendaRepository->createQueryBuilder('a');
 
         $filterForm = $this->createForm(AgendaFilterType::class, null, [
-            'municipality' => $favoriteMunicipality,
+            'municipality' => $activeMunicipality,
         ]);
 
         if ($request->query->has($filterForm->getName())) {
@@ -77,7 +102,7 @@ class AgendaController extends AbstractController
 
         // Only get agendas under favorite municipality
         $filterBuilder->andWhere('board.municipality = :municipality')
-            ->setParameter('municipality', $favoriteMunicipality->getId()->toBinary());
+            ->setParameter('municipality', $activeMunicipality->getId()->toBinary());
 
         $query = $filterBuilder->getQuery();
 
@@ -87,14 +112,11 @@ class AgendaController extends AbstractController
             10 /*limit per page*/
         );
 
-        // Get municipalities
-        $municipalities = $municipalityRepository->findAll();
-
         return $this->render('agenda/index.html.twig', [
             'filter_form' => $filterForm->createView(),
             'municipalities' => $municipalities,
-            'favorite_municipality' => $favoriteMunicipality,
             'pagination' => $pagination,
+            'municipality_form' => $municipalityForm->createView(),
         ]);
     }
 

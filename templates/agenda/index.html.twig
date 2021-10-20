@@ -13,16 +13,10 @@
             <a name="" id="" class="btn btn-success" href="create" role="button">{% trans %}Create agenda{% endtrans %}</a>
         </div>
     </div>
-    <div class="form-group col-md-2">
-        <label for="municipality">{% trans %}Show for{% endtrans %}</label>
-        <select class="form-control" name="municipality" id="municipality">
-            {% if municipalities|length > 0 %}
-                {% for municipality in municipalities %}
-                    {# Todo: Update page according to selected municipality #}
-                    <option value=municipality {% if municipality == favorite_municipality %} selected="selected" {% endif %} >{{ municipality.name }}</option>
-                {% endfor %}
-            {% endif %}
-        </select>
+    <div class="row">
+        <div class="col-3">
+            {{ form(municipality_form) }}
+        </div>
     </div>
 {% endblock %}
 

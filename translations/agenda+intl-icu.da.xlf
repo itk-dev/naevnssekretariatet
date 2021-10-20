@@ -213,6 +213,10 @@
         <source>Not-closed</source>
         <target>Ikke afsluttet</target>
       </trans-unit>
+      <trans-unit id="smYKhqC" resname="Change municipality">
+        <source>Change municipality</source>
+        <target>Ændr kommune</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
