@@ -8,7 +8,6 @@ use App\Entity\AgendaItem;
 use App\Form\AgendaItemType;
 use App\Service\AgendaHelper;
 use App\Service\AgendaItemHelper;
-use App\Service\AgendaStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;

@@ -70,6 +70,5 @@ class AgendaType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans('Save changes', [], 'agenda'),
             ]);
-        ;
     }
 }
