@@ -64,55 +64,90 @@
         </section>
         <section class="mt-3">
             <h2>{% trans %}Agenda{% endtrans %}</h2>
+{#            {% if hasActiveAgenda == false %}#}
+{#                {% if hasOpenAgenda == true %}#}
+{#                    <div class="row">#}
+{#                        <div class="col row ml-1">#}
+{#                            {{ form_start(agenda_form.agenda, {'attr': {'class': 'form-inline form-row'}}) }}#}
+{#                            <div class="form-group col-4 mr-5">#}
+{#                                {{ form_widget(agenda_form.agenda) }}#}
+{#                            </div>#}
+{#                            <div class="col-auto">#}
+{#                                {{ form_widget(agenda_form.submit) }}#}
+{#                            </div>#}
+{#                            {{ form_end(agenda_form) }}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% else %}#}
+{#                    {% trans %}No current active agenda available{% endtrans %}#}
+{#                {% endif %}#}
+{#            {% endif %}#}
 
-            {% if hasActiveAgenda == false %}
-                {% if hasOpenAgenda == true %}
-                    <div class="row">
-                        <div class="col row ml-1">
-                            {{ form_start(agenda_form.agenda, {'attr': {'class': 'form-inline form-row'}}) }}
-                            <div class="form-group col-4 mr-5">
-                                {{ form_widget(agenda_form.agenda) }}
-                            </div>
-                            <div class="col-auto">
-                                {{ form_widget(agenda_form.submit) }}
-                            </div>
-                            {{ form_end(agenda_form) }}
-                        </div>
+                <h3 class="h5 mt-3">{% trans %}Active agenda{% endtrans %}</h3>
+                {% if active_agenda|length > 0 %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>{% trans %}Board{% endtrans %}</th>
+                                <th>{% trans %}Date{% endtrans %}</th>
+                                <th>{% trans %}Start time{% endtrans %}</th>
+                                <th>{% trans %}End time{% endtrans %}</th>
+                                <th>{% trans %}Status{% endtrans %}</th>
+                                <th class="text-right">{% trans %}Edit{% endtrans %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for agenda in active_agenda %}
+                                <tr>
+                                    <td>{{ agenda.board.name|e }}</td>
+                                    <td>{{ agenda.date|date('j M Y') }}</td>
+                                    <td>{{ agenda.start|date('H:i') }}</td>
+                                    <td>{{ agenda.end|date('H:i') }}</td>
+                                    <td>{{ agenda.status|trans({}, 'agenda_status') }}</td>
+                                    <td class="text-right">
+                                        <a href="{{ url('agenda_show', {id: agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 {% else %}
-                    {% trans %}No current active agenda available{% endtrans %}
+                    {% trans %}Case is not assigned any non-finished agenda{% endtrans %}
                 {% endif %}
 
-            {% endif %}
-            <h3 class="h5 mt-3">{% trans %}Selected agenda{% endtrans %}</h3>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>{% trans %}Board{% endtrans %}</th>
-                        <th>{% trans %}Date{% endtrans %}</th>
-                        <th>{% trans %}Start time{% endtrans %}</th>
-                        <th>{% trans %}End time{% endtrans %}</th>
-                        <th>{% trans %}Status{% endtrans %}</th>
-                        <th class="text-right">{% trans %}Edit{% endtrans %}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for agenda in agendas_with_case %}
+            {% if finished_agendas|length > 0 %}
+                <h3 class="h5 mt-3">{% trans %}Finished agendas{% endtrans %}</h3>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
                         <tr>
-                            <td>{{ agenda.board.name|e }}</td>
-                            <td>{{ agenda.date|date('j M Y') }}</td>
-                            <td>{{ agenda.start|date('H:i') }}</td>
-                            <td>{{ agenda.end|date('H:i') }}</td>
-                            <td>{{ agenda.status|trans({}, 'agenda_status') }}</td>
-                            <td class="text-right">
-                                <a href="{{ url('agenda_show', {id: agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
-                            </td>
+                            <th>{% trans %}Board{% endtrans %}</th>
+                            <th>{% trans %}Date{% endtrans %}</th>
+                            <th>{% trans %}Start time{% endtrans %}</th>
+                            <th>{% trans %}End time{% endtrans %}</th>
+                            <th>{% trans %}Status{% endtrans %}</th>
+                            <th class="text-right">{% trans %}Edit{% endtrans %}</th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                        {% for agenda in finished_agendas %}
+                            <tr>
+                                <td>{{ agenda.board.name|e }}</td>
+                                <td>{{ agenda.date|date('j M Y') }}</td>
+                                <td>{{ agenda.start|date('H:i') }}</td>
+                                <td>{{ agenda.end|date('H:i') }}</td>
+                                <td>{{ agenda.status|trans({}, 'agenda_status') }}</td>
+                                <td class="text-right">
+                                    <a href="{{ url('agenda_show', {id: agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
         </section>
     </main>
     <footer class="col-12 mt-3">

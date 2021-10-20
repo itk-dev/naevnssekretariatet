@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Agenda;
 use App\Entity\CaseEntity;
 use App\Form\CaseAgendaSelectType;
 use App\Form\CaseStatusForm;
@@ -120,47 +121,60 @@ class CaseController extends AbstractController
             ]);
         }
 
-        $board = $case->getBoard();
-
-        $availableOpenAgendas = $agendaRepository->findBy([
-            'board' => $board,
-            'status' => AgendaStatus::Open,
-        ]);
-
-        $hasOpenAgenda = true;
-
-        if (0 === sizeof($availableOpenAgendas)) {
-            $hasOpenAgenda = false;
-        }
+//        $board = $case->getBoard();
+//
+//        $availableOpenAgendas = $agendaRepository->findBy([
+//            'board' => $board,
+//            'status' => AgendaStatus::Open,
+//        ]);
+//
+//        $hasOpenAgenda = true;
+//
+//        if (0 === sizeof($availableOpenAgendas)) {
+//            $hasOpenAgenda = false;
+//        }
 
         $agendasWithCase = $case->getAgendaCaseItems()->map(function ($agendaCaseItem) {
             return $agendaCaseItem->getAgenda();
         });
 
-        $hasActiveAgenda = $caseHelper->hasActiveAgenda($case);
+//        var_dump($agendasWithCase);
+//        die(__FILE__);
 
-        $availableOpenAgendas = $agendaHelper->sortAgendasAccordingToDate($availableOpenAgendas);
+        $agendaCollections = $agendasWithCase->partition(function ($key, $value) {
+            return AgendaStatus::Finished === $value->getStatus();
+        });
 
-        $agendaForm = $this->createForm(CaseAgendaSelectType::class, null, [
-            'hasActiveAgenda' => $hasActiveAgenda,
-            'agendas' => $availableOpenAgendas,
-        ]);
+        $finishedAgendas = $agendaCollections[0];
 
-        $agendaForm->handleRequest($request);
-        if ($agendaForm->isSubmitted() && $agendaForm->isValid()) {
-            // TODO: redirect to create case item
-            $agenda = $agendaForm->get('agenda')->getData();
+        // Should only be a single agenda
+        $activeAgenda = $agendaCollections[1];
 
-            return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
-        }
+//        $hasActiveAgenda = $caseHelper->hasActiveAgenda($case);
+//
+//        $availableOpenAgendas = $agendaHelper->sortAgendasAccordingToDate($availableOpenAgendas);
+//
+//        $agendaForm = $this->createForm(CaseAgendaSelectType::class, null, [
+//            'hasActiveAgenda' => $hasActiveAgenda,
+//            'agendas' => $availableOpenAgendas,
+//        ]);
+//
+//        $agendaForm->handleRequest($request);
+//        if ($agendaForm->isSubmitted() && $agendaForm->isValid()) {
+//            // TODO: redirect to create case item
+//            $agenda = $agendaForm->get('agenda')->getData();
+//
+//            return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
+//        }
 
         return $this->render('case/status.html.twig', [
             'case' => $case,
             'case_status_form' => $caseStatusForm->createView(),
-            'hasActiveAgenda' => $hasActiveAgenda,
-            'hasOpenAgenda' => $hasOpenAgenda,
-            'agenda_form' => $agendaForm->createView(),
-            'agendas_with_case' => $agendasWithCase,
+//            'hasActiveAgenda' => $hasActiveAgenda,
+//            'hasOpenAgenda' => $hasOpenAgenda,
+//            'agenda_form' => $agendaForm->createView(),
+            'active_agenda' => $activeAgenda,
+            'finished_agendas' => $finishedAgendas,
         ]);
     }
 
