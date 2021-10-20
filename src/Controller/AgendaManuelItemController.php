@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use App\Form\DocumentForm;
+use App\Service\AgendaHelper;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -42,7 +43,7 @@ class AgendaManuelItemController extends AbstractController
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
-    public function document(Agenda $agenda, AgendaManuelItem $agendaItem): Response
+    public function document(Agenda $agenda, AgendaHelper $agendaHelper, AgendaManuelItem $agendaItem): Response
     {
         $documents = $agendaItem->getDocuments();
 
@@ -50,6 +51,7 @@ class AgendaManuelItemController extends AbstractController
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
             'documents' => $documents,
+            'isFinishedAgenda' => $agendaHelper->isFinishedAgenda($agenda),
         ]);
     }
 

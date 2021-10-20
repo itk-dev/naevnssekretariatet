@@ -11,7 +11,7 @@
             <p class="text-muted"><small>{% trans %}Send message to parties regarding inspection{% endtrans %}</small></p>
         </div>
         <div class="col-auto">
-            <a name="" id="" class="btn btn-success" href="{{ url('agenda_case_item_inspection_letter', {id: agenda.id, agenda_item_id: agendaItem.id}) }}" role="button">{% trans %}Create inspection letter{% endtrans %}</a>
+            <a name="" id="" class="btn btn-success {% if isFinishedAgenda %} disabled {% endif %}" href="{{ url('agenda_case_item_inspection_letter', {id: agenda.id, agenda_item_id: agendaItem.id}) }}" role="button">{% trans %}Create inspection letter{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
@@ -94,7 +94,7 @@
     <footer class="col-12 mt-3">
         <div class="row">
             <div class="col-auto ml-auto">
-                <a name="" id="" class="btn btn-success" href="{{ url('agenda_case_item_inspection_letter', {id: agenda.id, agenda_item_id: agendaItem.id}) }}" role="button">{% trans %}Create inspection letter{% endtrans %}</a>
+                <a name="" id="" class="btn btn-success {% if isFinishedAgenda %} disabled {% endif %}" href="{{ url('agenda_case_item_inspection_letter', {id: agenda.id, agenda_item_id: agendaItem.id}) }}" role="button">{% trans %}Create inspection letter{% endtrans %}</a>
             </div>
         </div>
     </footer>

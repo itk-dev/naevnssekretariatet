@@ -10,7 +10,7 @@
             <h1>{% trans %}Agenda{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a name="" id=""  {% if agenda.isPublished %} class="btn btn-success disabled" {% else %} class="btn btn-success" {% endif %} href="{{ url('agenda_publish', {id: agenda.id}) }}" role="button">{% trans %}Publish to boardmembers{% endtrans %}</a>
+            <a name="" id="" class="btn btn-success {% if agenda.isPublished == true or isFinished == true %} disabled {% endif %}" href="{{ url('agenda_publish', {id: agenda.id}) }}" role="button">{% trans %}Publish to boardmembers{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="form-row">
-        <button class="btn btn-primary float-right">{% trans %}Save changes{% endtrans %}</button>
+        {{ form_widget(agenda_form.submit) }}
     </div>
     {{ form_end(agenda_form) }}
 
@@ -70,7 +70,7 @@
                     <h5 id="section_agenda_items">{% trans %}Agenda items{% endtrans %}</h5>
                 </div>
                 <div class="col-auto">
-                    <a name="" id="" class="btn btn-success btn-sm" href="{{ url('agenda_item_create', {id: agenda.id}) }}" role="button">{% trans %}Add agenda item{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-success btn-sm {% if isFinished %} disabled {% endif %}" href="{{ url('agenda_item_create', {id: agenda.id}) }}" role="button">{% trans %}Add agenda item{% endtrans %}</a>
                 </div>
                 <hr style="width:95%">
             </div>
@@ -146,7 +146,7 @@
                     <h5 id="section_board_members">{% trans %}Board members{% endtrans %}</h5>
                 </div>
                 <div class="col-auto">
-                    <a name="" id="" class="btn btn-success btn-sm" href="{{ url('agenda_add_board_member', {id: agenda.id}) }}" role="button">{% trans %}Add board member{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-success btn-sm {% if isFinished %} disabled {% endif %}" href="{{ url('agenda_add_board_member', {id: agenda.id}) }}" role="button">{% trans %}Add board member{% endtrans %}</a>
                 </div>
                 <hr style="width:95%">
             </div>
@@ -165,11 +165,13 @@
                                         <section class="col-md-12 mt-5 mt-md-0">
                                             <div class="row mt-2">
                                                 <div class="ml-2">
+                                                    {% if not isFinished %}
                                                     <form id="myform" method="post" action="{{ path('agenda_board_member_remove', {'id': agenda.id, 'board_member_id': board_member.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to remove this board member?{% endtrans %}');">
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <input type="hidden" name="_token" value="{{ csrf_token('remove' ~ board_member.id) }}">
                                                         <button class="btn btn-danger btn-sm" style="float: right;" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove board member{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
                                                     </form>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </section>

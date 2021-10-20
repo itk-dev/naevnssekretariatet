@@ -61,4 +61,22 @@ class AgendaHelper
 
         return $agendaItems;
     }
+
+    public function createAgendaStatusDependentOptions(Agenda $agenda): array
+    {
+        $options = [];
+
+        if (AgendaStatus::Finished == $agenda->getStatus()) {
+            $options = [
+                'disabled' => true,
+            ];
+        }
+
+        return $options;
+    }
+
+    public function isFinishedAgenda(Agenda $agenda): bool
+    {
+        return AgendaStatus::Finished == $agenda->getStatus();
+    }
 }

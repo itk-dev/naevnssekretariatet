@@ -6,7 +6,9 @@ use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
 use App\Entity\AgendaItem;
 use App\Form\AgendaItemType;
+use App\Service\AgendaHelper;
 use App\Service\AgendaItemHelper;
+use App\Service\AgendaStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -67,7 +69,7 @@ class AgendaItemController extends AbstractController
      *
      * @throws Exception
      */
-    public function edit(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
+    public function edit(Agenda $agenda, AgendaHelper $agendaHelper, AgendaItem $agendaItem, Request $request): Response
     {
         $formClass = $this->agendaItemHelper->getFormType($agendaItem);
 
@@ -78,6 +80,10 @@ class AgendaItemController extends AbstractController
         if (AgendaCaseItem::class === get_class($agendaItem)) {
             $options['relevantCase'] = $agendaItem->getCaseEntity();
             $twigLayout = 'layout-with-agenda-case-item-submenu.html.twig';
+        }
+
+        if ($agendaHelper->isFinishedAgenda($agenda)) {
+            $options['disabled'] = true;
         }
 
         $form = $this->createForm($formClass, $agendaItem, $options);

@@ -12,6 +12,7 @@ use App\Form\CasePresentationType;
 use App\Form\InspectionLetterType;
 use App\Repository\CaseDocumentRelationRepository;
 use App\Repository\DocumentRepository;
+use App\Service\AgendaHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,9 +29,14 @@ class AgendaCaseItemController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var AgendaHelper
+     */
+    private $agendaHelper;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(AgendaHelper $agendaHelper, EntityManagerInterface $entityManager)
     {
+        $this->agendaHelper = $agendaHelper;
         $this->entityManager = $entityManager;
     }
 
@@ -44,6 +50,7 @@ class AgendaCaseItemController extends AbstractController
         return $this->render('agenda_case_item/inspection.html.twig', [
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
+            'isFinishedAgenda' => $this->agendaHelper->isFinishedAgenda($agenda),
         ]);
     }
 
@@ -88,7 +95,9 @@ class AgendaCaseItemController extends AbstractController
             $casePresentation = new CasePresentation();
         }
 
-        $form = $this->createForm(CasePresentationType::class, $casePresentation);
+        $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
+
+        $form = $this->createForm(CasePresentationType::class, $casePresentation, $agendaOptions);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -130,7 +139,9 @@ class AgendaCaseItemController extends AbstractController
             $decisionProposal = new CaseDecisionProposal();
         }
 
-        $form = $this->createForm(CaseDecisionProposalType::class, $decisionProposal);
+        $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
+
+        $form = $this->createForm(CaseDecisionProposalType::class, $decisionProposal, $agendaOptions);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $decisionProposal = $form->getData();
@@ -168,6 +179,7 @@ class AgendaCaseItemController extends AbstractController
             'agenda' => $agenda,
             'agendaItem' => $agendaItem,
             'documents' => $documents,
+            'isFinishedAgenda' => $this->agendaHelper->isFinishedAgenda($agenda),
         ]);
     }
 

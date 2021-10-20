@@ -44,9 +44,14 @@ class AgendaController extends AbstractController
      * @var Security
      */
     private $security;
+    /**
+     * @var AgendaHelper
+     */
+    private $agendaHelper;
 
-    public function __construct(EntityManagerInterface $entityManager, Security $security)
+    public function __construct(AgendaHelper $agendaHelper, EntityManagerInterface $entityManager, Security $security)
     {
+        $this->agendaHelper = $agendaHelper;
         $this->entityManager = $entityManager;
         $this->security = $security;
     }
@@ -176,10 +181,10 @@ class AgendaController extends AbstractController
      * @throws Exception
      * @throws \Doctrine\DBAL\Driver\Exception
      */
-    public function show(Agenda $agenda, AgendaHelper $agendaHelper, BoardMemberRepository $memberRepository, Request $request): Response
+    public function show(Agenda $agenda, BoardMemberRepository $memberRepository, Request $request): Response
     {
         $isFinished = false;
-        if (AgendaStatus::Finished === $agenda->getStatus()) {
+        if (AgendaStatus::Finished == $agenda->getStatus()) {
             $isFinished = true;
         }
 
@@ -192,9 +197,11 @@ class AgendaController extends AbstractController
             array_push($memberTriplesWithUuid, $memberTriple);
         }
 
-        $sortedAgendaItems = $agendaHelper->sortAgendaItemsAccordingToStart($agenda->getAgendaItems()->toArray());
+        $sortedAgendaItems = $this->agendaHelper->sortAgendaItemsAccordingToStart($agenda->getAgendaItems()->toArray());
 
-        $form = $this->createForm(AgendaType::class, $agenda);
+        $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
+
+        $form = $this->createForm(AgendaType::class, $agenda, $agendaOptions);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -282,7 +289,9 @@ class AgendaController extends AbstractController
             $agendaProtocol = new AgendaProtocol();
         }
 
-        $form = $this->createForm(AgendaProtocolType::class, $agendaProtocol);
+        $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
+
+        $form = $this->createForm(AgendaProtocolType::class, $agendaProtocol, $agendaOptions);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -312,7 +321,9 @@ class AgendaController extends AbstractController
      */
     public function broadcastAgenda(Agenda $agenda, Request $request): Response
     {
-        $form = $this->createForm(AgendaBroadcastType::class);
+        $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
+
+        $form = $this->createForm(AgendaBroadcastType::class, null, $agendaOptions);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
