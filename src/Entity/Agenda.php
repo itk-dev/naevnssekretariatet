@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Logging\LoggableEntityInterface;
 use App\Repository\AgendaRepository;
 use App\Service\AgendaStatus;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,7 +14,7 @@ use Symfony\Component\Uid\UuidV4;
 /**
  * @ORM\Entity(repositoryClass=AgendaRepository::class)
  */
-class Agenda
+class Agenda implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
@@ -239,5 +240,15 @@ class Agenda
     public function __toString()
     {
         return 'Agenda '.$this->getDate()->format('d/m/y');
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'date',
+            'start',
+            'end',
+            'status',
+        ];
     }
 }
