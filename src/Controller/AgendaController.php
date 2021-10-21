@@ -17,6 +17,7 @@ use App\Repository\AgendaRepository;
 use App\Repository\BoardMemberRepository;
 use App\Repository\MunicipalityRepository;
 use App\Service\AgendaHelper;
+use App\Service\AgendaStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
@@ -102,7 +103,7 @@ class AgendaController extends AbstractController
             $filterForm->submit([
                 'board' => '',
                 'date' => '',
-                'status' => 'Not-closed',
+                'status' => AgendaStatus::Not_closed,
             ]);
         }
         $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
