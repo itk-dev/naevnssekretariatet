@@ -351,7 +351,7 @@
       </trans-unit>
       <trans-unit id="P4Mfiij" resname="Processinformation">
         <source>Processinformation</source>
-        <target>Processinformation</target>
+        <target>Procesinformation</target>
       </trans-unit>
       <trans-unit id="FMLkHtb" resname="In the section Processinformation you can see the current status">
         <source>In the section Processinformation you can see the current status</source>
@@ -411,7 +411,7 @@
       </trans-unit>
       <trans-unit id="Uz3lvy0" resname="This information is needed for journaling purpose">
         <source>This information is needed for journaling purpose</source>
-        <target>Denne information skal bruges i forbindelse med logging</target>
+        <target>Denne information skal bruges i forbindelse med jorunalisering</target>
       </trans-unit>
       <trans-unit id="dKps013" resname="Selected agenda">
         <source>Selected agenda</source>
@@ -583,7 +583,19 @@
       </trans-unit>
       <trans-unit id="r6Y2tp2" resname="No current active agenda available">
         <source>No current active agenda available</source>
-        <target>Ingen aktive dagsordner til stede</target>
+        <target>Ingen aktive dagsordener til stede</target>
+      </trans-unit>
+      <trans-unit id="3TV2EFD" resname="Active agenda">
+        <source>Active agenda</source>
+        <target>Aktiv dagsorden</target>
+      </trans-unit>
+      <trans-unit id="if6qtSh" resname="Case is not assigned any non-finished agenda">
+        <source>Case is not assigned any non-finished agenda</source>
+        <target>Sagen er ikke tilknyttet nogen aktiv dagsorden</target>
+      </trans-unit>
+      <trans-unit id="PXLSwjw" resname="Finished agendas">
+        <source>Finished agendas</source>
+        <target>Afsluttede dagsordener</target>
       </trans-unit>
     </body>
   </file>
