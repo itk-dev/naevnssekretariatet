@@ -84,7 +84,7 @@
 {#            {% endif %}#}
 
                 <h3 class="h5 mt-3">{% trans %}Active agenda{% endtrans %}</h3>
-                {% if active_agenda|length > 0 %}
+                {% if active_agendas|length > 0 %}
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -98,15 +98,20 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for agenda in active_agenda %}
+                            {% for active_agenda in active_agendas %}
                                 <tr>
-                                    <td>{{ agenda.board.name|e }}</td>
-                                    <td>{{ agenda.date|date('j M Y') }}</td>
-                                    <td>{{ agenda.start|date('H:i') }}</td>
-                                    <td>{{ agenda.end|date('H:i') }}</td>
-                                    <td>{{ agenda.status|trans({}, 'agenda_status') }}</td>
+                                    <td>
+                                        {{ active_agenda.agenda.board.name|e }}
+                                        {% if active_agenda.isInspection %}
+                                            <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ active_agenda.agenda.date|date('j M Y') }}</td>
+                                    <td>{{ active_agenda.agenda.start|date('H:i') }}</td>
+                                    <td>{{ active_agenda.agenda.end|date('H:i') }}</td>
+                                    <td>{{ active_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
                                     <td class="text-right">
-                                        <a href="{{ url('agenda_show', {id: agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                        <a href="{{ url('agenda_show', {id: active_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -132,15 +137,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for agenda in finished_agendas %}
+                        {% for finished_agenda in finished_agendas %}
                             <tr>
-                                <td>{{ agenda.board.name|e }}</td>
-                                <td>{{ agenda.date|date('j M Y') }}</td>
-                                <td>{{ agenda.start|date('H:i') }}</td>
-                                <td>{{ agenda.end|date('H:i') }}</td>
-                                <td>{{ agenda.status|trans({}, 'agenda_status') }}</td>
+                                <td>
+                                    {{ finished_agenda.agenda.board.name|e }}
+                                    {% if finished_agenda.isInspection %}
+                                        <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ finished_agenda.agenda.date|date('j M Y') }}</td>
+                                <td>{{ finished_agenda.agenda.start|date('H:i') }}</td>
+                                <td>{{ finished_agenda.agenda.end|date('H:i') }}</td>
+                                <td>{{ finished_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
                                 <td class="text-right">
-                                    <a href="{{ url('agenda_show', {id: agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                    <a href="{{ url('agenda_show', {id: finished_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
                                 </td>
                             </tr>
                         {% endfor %}

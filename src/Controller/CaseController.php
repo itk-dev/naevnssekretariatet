@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agenda;
+use App\Entity\AgendaCaseItem;
 use App\Entity\CaseEntity;
 use App\Form\CaseAgendaSelectType;
 use App\Form\CaseStatusForm;
@@ -134,21 +135,23 @@ class CaseController extends AbstractController
 //            $hasOpenAgenda = false;
 //        }
 
-        $agendasWithCase = $case->getAgendaCaseItems()->map(function ($agendaCaseItem) {
-            return $agendaCaseItem->getAgenda();
-        });
+        // Extract agenda and whether the AgendaCaseItem with current case is an inspection item
+        $activeAgendas = [];
+        $finishedAgendas = [];
 
-//        var_dump($agendasWithCase);
-//        die(__FILE__);
-
-        $agendaCollections = $agendasWithCase->partition(function ($key, $value) {
-            return AgendaStatus::Finished === $value->getStatus();
-        });
-
-        $finishedAgendas = $agendaCollections[0];
-
-        // Should only be a single agenda
-        $activeAgenda = $agendaCollections[1];
+        foreach ($case->getAgendaCaseItems() as $agendaCaseItem) {
+            if (AgendaStatus::Finished === $agendaCaseItem->getAgenda()->getStatus()) {
+                array_push($finishedAgendas, [
+                    'agenda' => $agendaCaseItem->getAgenda(),
+                    'isInspection' => $agendaCaseItem->getInspection(),
+                ]);
+            } else {
+                array_push($activeAgendas, [
+                    'agenda' => $agendaCaseItem->getAgenda(),
+                    'isInspection' => $agendaCaseItem->getInspection(),
+                ]);
+            }
+        }
 
 //        $hasActiveAgenda = $caseHelper->hasActiveAgenda($case);
 //
@@ -173,7 +176,7 @@ class CaseController extends AbstractController
 //            'hasActiveAgenda' => $hasActiveAgenda,
 //            'hasOpenAgenda' => $hasOpenAgenda,
 //            'agenda_form' => $agendaForm->createView(),
-            'active_agenda' => $activeAgenda,
+            'active_agendas' => $activeAgendas,
             'finished_agendas' => $finishedAgendas,
         ]);
     }
