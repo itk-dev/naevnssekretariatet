@@ -97,8 +97,15 @@ class AgendaController extends AbstractController
 
         if ($request->query->has($filterForm->getName())) {
             $filterForm->submit($request->query->get($filterForm->getName()));
-            $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
+        } else {
+            // Default filter
+            $filterForm->submit([
+                'board' => '',
+                'date' => '',
+                'status' => 'Not-closed',
+            ]);
         }
+        $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
 
         // Add sortable fields.
         $filterBuilder->leftJoin('a.board', 'board');
