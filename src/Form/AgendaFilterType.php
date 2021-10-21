@@ -80,7 +80,7 @@ class AgendaFilterType extends AbstractType
                     $this->translator->trans('Open', [], 'agenda') => AgendaStatus::Open,
                     $this->translator->trans('Full', [], 'agenda') => AgendaStatus::Full,
                     $this->translator->trans('Finished', [], 'agenda') => AgendaStatus::Finished,
-                    $this->translator->trans('Not-closed', [], 'agenda') => AgendaStatus::Not_closed,
+                    $this->translator->trans('Not-closed', [], 'agenda') => AgendaStatus::Not_finished,
                 ],
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                     if (empty($values['value'])) {
@@ -90,7 +90,7 @@ class AgendaFilterType extends AbstractType
                     $paramName = sprintf('p_%s', str_replace('.', '_', $field));
 
                     // Handle not finished separately
-                    if (AgendaStatus::Not_closed === $values['value']) {
+                    if (AgendaStatus::Not_finished === $values['value']) {
                         $expression = $filterQuery->getExpr()->neq($field, ':'.$paramName);
                         $parameters = [$paramName => AgendaStatus::Finished];
                     } else {

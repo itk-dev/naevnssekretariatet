@@ -103,7 +103,7 @@ class AgendaController extends AbstractController
             $filterForm->submit([
                 'board' => '',
                 'date' => '',
-                'status' => AgendaStatus::Not_closed,
+                'status' => AgendaStatus::Not_finished,
             ]);
         }
         $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
