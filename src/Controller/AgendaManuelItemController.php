@@ -24,6 +24,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AgendaManuelItemController extends AbstractController
 {
     /**
+     * @var AgendaHelper
+     */
+    private $agendaHelper;
+    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
@@ -32,8 +36,9 @@ class AgendaManuelItemController extends AbstractController
      */
     private $documentUploader;
 
-    public function __construct(DocumentUploader $documentUploader, EntityManagerInterface $entityManager)
+    public function __construct(AgendaHelper $agendaHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager)
     {
+        $this->agendaHelper = $agendaHelper;
         $this->documentUploader = $documentUploader;
         $this->entityManager = $entityManager;
     }
@@ -65,6 +70,8 @@ class AgendaManuelItemController extends AbstractController
      */
     public function uploadDocument(Agenda $agenda, AgendaManuelItem $agendaItem, Request $request): Response
     {
+        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+
         $this->documentUploader->specifyDirectory('/agenda_item_documents/');
 
         // Create new document and its form
@@ -72,7 +79,7 @@ class AgendaManuelItemController extends AbstractController
         $form = $this->createForm(DocumentForm::class, $document);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             // Extract filename and handle it
             // Users will only see document name, not filename
             $file = $form->get('filename')->getData();
@@ -126,8 +133,10 @@ class AgendaManuelItemController extends AbstractController
      */
     public function documentDelete(Agenda $agenda, AgendaManuelItem $agendaItem, Document $document, Request $request): Response
     {
+        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+
         // Check that CSRF token is valid
-        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token')) && !$isFinishedAgenda) {
             $agendaItem->removeDocument($document);
             $this->entityManager->remove($document);
             $this->entityManager->flush();

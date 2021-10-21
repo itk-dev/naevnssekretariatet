@@ -22,6 +22,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AgendaItemController extends AbstractController
 {
     /**
+     * @var AgendaHelper
+     */
+    private $agendaHelper;
+    /**
      * @var AgendaItemHelper
      */
     private $agendaItemHelper;
@@ -30,8 +34,9 @@ class AgendaItemController extends AbstractController
      */
     private $entityManager;
 
-    public function __construct(AgendaItemHelper $agendaItemHelper, EntityManagerInterface $entityManager)
+    public function __construct(AgendaHelper $agendaHelper, AgendaItemHelper $agendaItemHelper, EntityManagerInterface $entityManager)
     {
+        $this->agendaHelper = $agendaHelper;
         $this->agendaItemHelper = $agendaItemHelper;
         $this->entityManager = $entityManager;
     }
@@ -68,7 +73,7 @@ class AgendaItemController extends AbstractController
      *
      * @throws Exception
      */
-    public function edit(Agenda $agenda, AgendaHelper $agendaHelper, AgendaItem $agendaItem, Request $request): Response
+    public function edit(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
     {
         $formClass = $this->agendaItemHelper->getFormType($agendaItem);
 
@@ -81,14 +86,16 @@ class AgendaItemController extends AbstractController
             $twigLayout = 'layout-with-agenda-case-item-submenu.html.twig';
         }
 
-        if ($agendaHelper->isFinishedAgenda($agenda)) {
+        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+
+        if ($isFinishedAgenda) {
             $options['disabled'] = true;
         }
 
         $form = $this->createForm($formClass, $agendaItem, $options);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             $this->entityManager->flush();
 
             return $this->redirectToRoute('agenda_item_edit', [
@@ -112,8 +119,10 @@ class AgendaItemController extends AbstractController
      */
     public function delete(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
     {
+        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+
         // Check that CSRF token is valid
-        if ($this->isCsrfTokenValid('delete'.$agendaItem->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$agendaItem->getId(), $request->request->get('_token')) && !$isFinishedAgenda) {
             $this->entityManager->remove($agendaItem);
             $this->entityManager->flush();
         }

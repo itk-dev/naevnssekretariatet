@@ -61,10 +61,12 @@ class AgendaCaseItemController extends AbstractController
      */
     public function inspectionLetter(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
+        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+
         $form = $this->createForm(InspectionLetterType::class);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             //TODO: Add logic for sending letter
 
             return $this->redirectToRoute('agenda_case_item_inspection_letter', [
@@ -89,6 +91,8 @@ class AgendaCaseItemController extends AbstractController
     {
         // We are guaranteed this to be an AgendaCaseItem
 
+        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+
         if (null !== $agendaItem->getPresentation()) {
             $casePresentation = $agendaItem->getPresentation();
         } else {
@@ -100,7 +104,7 @@ class AgendaCaseItemController extends AbstractController
         $form = $this->createForm(CasePresentationType::class, $casePresentation, $agendaOptions);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             /** @var CasePresentation $casePresentation */
             $casePresentation = $form->getData();
 
@@ -133,6 +137,8 @@ class AgendaCaseItemController extends AbstractController
     {
         // We are guaranteed this to be an AgendaCaseItem
 
+        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+
         if (null !== $agendaItem->getDecisionProposal()) {
             $decisionProposal = $agendaItem->getDecisionProposal();
         } else {
@@ -142,8 +148,9 @@ class AgendaCaseItemController extends AbstractController
         $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
 
         $form = $this->createForm(CaseDecisionProposalType::class, $decisionProposal, $agendaOptions);
+
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             $decisionProposal = $form->getData();
 
             // TODO: possibly save this on the case in form of a document?
@@ -190,6 +197,8 @@ class AgendaCaseItemController extends AbstractController
      */
     public function selectDocuments(Agenda $agenda, AgendaCaseItem $agendaItem, CaseDocumentRelationRepository $relationRepository, DocumentRepository $documentRepository, Request $request): Response
     {
+        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+
         $case = $agendaItem->getCaseEntity();
 
         $caseDocuments = $relationRepository->findNonDeletedDocumentsByCase($case);
@@ -197,7 +206,7 @@ class AgendaCaseItemController extends AbstractController
 
         $availableDocuments = array_diff($caseDocuments, $agendaItemDocuments);
 
-        if ('POST' === $request->getMethod()) {
+        if ('POST' === $request->getMethod() && !$isFinishedAgenda) {
             $docs = $request->request->get('documents');
 
             if (null !== $docs) {
@@ -229,8 +238,10 @@ class AgendaCaseItemController extends AbstractController
      */
     public function caseAgendaDocumentDelete(Agenda $agenda, AgendaCaseItem $agendaItem, Document $document, Request $request): Response
     {
+        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+
         // Check that CSRF token is valid
-        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token')) && !$isFinishedAgenda) {
             $agendaItem->removeDocument($document);
             $this->entityManager->flush();
         }
