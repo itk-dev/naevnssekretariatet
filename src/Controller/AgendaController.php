@@ -18,6 +18,7 @@ use App\Repository\BoardMemberRepository;
 use App\Repository\MunicipalityRepository;
 use App\Service\AgendaHelper;
 use App\Service\AgendaStatus;
+use App\Service\MunicipalityHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,7 +27,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Uid\UuidV4;
@@ -59,20 +59,9 @@ class AgendaController extends AbstractController
     /**
      * @Route("/", name="agenda_index", methods={"GET", "POST"})
      */
-    public function index(AgendaRepository $agendaRepository, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityRepository $municipalityRepository, Request $request, SessionInterface $session): Response
+    public function index(AgendaRepository $agendaRepository, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, Request $request): Response
     {
-        // Get current User
-        /** @var User $user */
-        $user = $this->security->getUser();
-
-        // Check if session contains active municipality
-        if ($session->has('active_municipality')) {
-            $activeMunicipality = $municipalityRepository->findOneBy(['id' => $session->get('active_municipality')]);
-        } elseif (null !== $user->getFavoriteMunicipality()) {
-            $activeMunicipality = $user->getFavoriteMunicipality();
-        } else {
-            $activeMunicipality = $municipalityRepository->findOneBy([]);
-        }
+        $activeMunicipality = $municipalityHelper->getActiveMunicipality();
 
         $municipalities = $municipalityRepository->findAll();
 
@@ -85,11 +74,12 @@ class AgendaController extends AbstractController
         if ($municipalityForm->isSubmitted()) {
             $municipality = $municipalityForm->get('municipality')->getData();
 
-            $session->set('active_municipality', $municipality->getId());
+            $municipalityHelper->setActiveMunicipalitySession($municipality);
 
             return $this->redirectToRoute('agenda_index');
         }
 
+        // Setup filter and pagination
         $filterBuilder = $agendaRepository->createQueryBuilder('a');
 
         $filterForm = $this->createForm(AgendaFilterType::class, null, [
@@ -112,7 +102,7 @@ class AgendaController extends AbstractController
         $filterBuilder->leftJoin('a.board', 'board');
         $filterBuilder->addSelect('partial board.{id,name}');
 
-        // Only get agendas under favorite municipality
+        // Only get agendas under active municipality
         $filterBuilder->andWhere('board.municipality = :municipality')
             ->setParameter('municipality', $activeMunicipality->getId()->toBinary());
 
@@ -135,18 +125,12 @@ class AgendaController extends AbstractController
     /**
      * @Route("/create", name="agenda_create", methods={"GET", "POST"})
      */
-    public function create(Request $request): Response
+    public function create(MunicipalityHelper $municipalityHelper, Request $request): Response
     {
-        // Get current User
-        /** @var User $user */
-        $user = $this->security->getUser();
-
-        $favoriteMunicipality = $user->getFavoriteMunicipality();
-
         $agenda = new Agenda();
 
         $form = $this->createForm(AgendaCreateType::class, $agenda, [
-            'municipality' => $favoriteMunicipality,
+            'municipality' => $municipalityHelper->getActiveMunicipality(),
         ]);
 
         $form->handleRequest($request);
@@ -196,12 +180,13 @@ class AgendaController extends AbstractController
 
         $memberTriplesWithBinaryId = $memberRepository->getMembersAndRolesByAgenda($agenda);
 
-        $memberTriplesWithUuid = [];
-        foreach ($memberTriplesWithBinaryId as $memberTriple) {
+        // Convert id into UuidV4
+        $memberTriplesWithUuid = array_map(function ($memberTriple) {
             $uuid = UuidV4::fromString($memberTriple['id']);
             $memberTriple['id'] = $uuid->__toString();
-            array_push($memberTriplesWithUuid, $memberTriple);
-        }
+
+            return $memberTriple;
+        }, $memberTriplesWithBinaryId);
 
         $sortedAgendaItems = $this->agendaHelper->sortAgendaItemsAccordingToStart($agenda->getAgendaItems()->toArray());
 
