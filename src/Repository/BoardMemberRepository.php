@@ -22,6 +22,8 @@ class BoardMemberRepository extends ServiceEntityRepository
     }
 
     /**
+     * Gets members and their roles by agenda.
+     *
      * @throws Exception
      * @throws \Doctrine\DBAL\Exception
      */

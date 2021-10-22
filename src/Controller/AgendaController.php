@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaProtocol;
 use App\Entity\BoardMember;
-use App\Entity\User;
 use App\Form\AgendaAddBoardMemberType;
 use App\Form\AgendaBroadcastType;
 use App\Form\AgendaCreateType;
