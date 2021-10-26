@@ -43,22 +43,18 @@ class BoardCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Name')
-            ->setPermission('ROLE_SUPER_ADMIN')
         ;
         yield AssociationField::new('municipality', 'Municipality')
-            ->setPermission('ROLE_SUPER_ADMIN')
         ;
         yield ChoiceField::new('caseFormType', 'Case Form Type')
             ->setChoices([
                 'Resident complaint form' => 'ResidentComplaintBoardCaseType',
             ])
             ->setRequired('true')
-            ->setPermission('ROLE_SUPER_ADMIN')
         ;
         yield IntegerField::new('defaultDeadline', 'Default Deadline(days)');
 
         yield TextareaField::new('statuses', 'Statuses')
-            ->setPermission('ROLE_SUPER_ADMIN')
         ;
     }
 }

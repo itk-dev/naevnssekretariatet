@@ -10,7 +10,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 
@@ -39,7 +38,6 @@ class PartyCrudController extends AbstractCrudController
         yield TextField::new('address', 'Address');
         yield TextField::new('phoneNumber', 'Phone number');
         yield TextField::new('journalNumber', 'Journal number');
-        yield BooleanField::new('isPartOfPartIndex', 'Add to part index');
     }
 
     /**
