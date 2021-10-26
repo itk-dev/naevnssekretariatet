@@ -4,22 +4,12 @@ namespace App\Service;
 
 use App\Entity\Agenda;
 use App\Entity\AgendaItem;
-use App\Entity\BoardRole;
 
 class AgendaHelper
 {
     public function findAvailableBoardMembers(Agenda $agenda): array
     {
-        /** @var BoardRole[] $allBoardRoles */
-        $allBoardRoles = $agenda->getBoard()->getBoardRoles()->toArray();
-
-        $allBoardMembers = [];
-
-        foreach ($allBoardRoles as $boardRole) {
-            foreach ($boardRole->getBoardMembers() as $boardMember) {
-                array_push($allBoardMembers, $boardMember);
-            }
-        }
+        $allBoardMembers = $agenda->getBoard()->getBoardMembers()->toArray();
 
         $currentBoardMembersOnAgenda = $agenda->getBoardmembers()->toArray();
 

@@ -35,11 +35,6 @@ class Municipality implements LoggableEntityInterface
     private $boards;
 
     /**
-     * @ORM\OneToMany(targetEntity=BoardMember::class, mappedBy="municipality")
-     */
-    private $boardMembers;
-
-    /**
      * @ORM\OneToMany(targetEntity=ComplaintCategory::class, mappedBy="municipality")
      */
     private $complaintCategories;
@@ -52,7 +47,6 @@ class Municipality implements LoggableEntityInterface
     public function __construct()
     {
         $this->boards = new ArrayCollection();
-        $this->boardMembers = new ArrayCollection();
         $this->complaintCategories = new ArrayCollection();
         $this->caseEntities = new ArrayCollection();
     }
@@ -107,36 +101,6 @@ class Municipality implements LoggableEntityInterface
     public function __toString()
     {
         return $this->name;
-    }
-
-    /**
-     * @return Collection|BoardMember[]
-     */
-    public function getBoardMembers(): Collection
-    {
-        return $this->boardMembers;
-    }
-
-    public function addBoardMember(BoardMember $boardMember): self
-    {
-        if (!$this->boardMembers->contains($boardMember)) {
-            $this->boardMembers[] = $boardMember;
-            $boardMember->setMunicipality($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBoardMember(BoardMember $boardMember): self
-    {
-        if ($this->boardMembers->removeElement($boardMember)) {
-            // set the owning side to null (unless already changed)
-            if ($boardMember->getMunicipality() === $this) {
-                $boardMember->setMunicipality(null);
-            }
-        }
-
-        return $this;
     }
 
     /**
