@@ -82,11 +82,17 @@ abstract class CaseEntity
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="caseEntity")
+     */
+    private $reminders;
+
     public function __construct()
     {
         $this->casePartyRelation = new ArrayCollection();
         $this->caseDocumentRelation = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->reminders = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -259,5 +265,35 @@ abstract class CaseEntity
     public function __toString()
     {
         return $this->caseNumber;
+    }
+
+    /**
+     * @return Collection|Reminder[]
+     */
+    public function getReminders(): Collection
+    {
+        return $this->reminders;
+    }
+
+    public function addReminder(Reminder $reminder): self
+    {
+        if (!$this->reminders->contains($reminder)) {
+            $this->reminders[] = $reminder;
+            $reminder->setCaseEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReminder(Reminder $reminder): self
+    {
+        if ($this->reminders->removeElement($reminder)) {
+            // set the owning side to null (unless already changed)
+            if ($reminder->getCaseEntity() === $this) {
+                $reminder->setCaseEntity(null);
+            }
+        }
+
+        return $this;
     }
 }
