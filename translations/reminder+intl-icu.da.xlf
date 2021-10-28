@@ -77,6 +77,14 @@
         <source>No active reminders</source>
         <target>Ingen aktive påmindelser</target>
       </trans-unit>
+      <trans-unit id="7r3SSnf" resname="Confirm">
+        <source>Confirm</source>
+        <target>Bekræft</target>
+      </trans-unit>
+      <trans-unit id="HxNTsFX" resname="Edit reminder">
+        <source>Edit reminder</source>
+        <target>Rediger påmindelse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
