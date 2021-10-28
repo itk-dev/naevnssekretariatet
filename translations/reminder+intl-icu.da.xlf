@@ -85,6 +85,10 @@
         <source>Edit reminder</source>
         <target>Rediger påmindelse</target>
       </trans-unit>
+      <trans-unit id="UNZUdHa" resname="Are you sure you want to complete this reminder?">
+        <source>Are you sure you want to complete this reminder?</source>
+        <target>Er du sikker på at du vil markere denne påmindelse som udført og derved fjerne den?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
