@@ -2,16 +2,16 @@
 
 {% trans_default_domain 'dashboard' %}
 
-{% set reached_reminders = [
-    {
-        "link": "#",
-        "caseid": "2206",
-        "title": "Remember to add signed documents",
-        "description": "Here is a casesummery id tincidunt massa quam quis nunc.",
-        "status": "Closed",
-        "date": "2. sep 2020"
-    },
-] %}
+{#{% set reached_reminders = [#}
+{#    {#}
+{#        "link": "#",#}
+{#        "caseid": "2206",#}
+{#        "title": "Remember to add signed documents",#}
+{#        "description": "Here is a casesummery id tincidunt massa quam quis nunc.",#}
+{#        "status": "Closed",#}
+{#        "date": "2. sep 2020"#}
+{#    },#}
+{#] %}#}
 
 {% set unassigned_cases = [
     {
@@ -43,20 +43,20 @@
     },
 ] %}
 
-{% set upcomming_reminders = [
-    {
-        "link": "#",
-        "caseid": "2207",
-        "title": "Remember to check payment",
-        "date": "5. sep 2020"
-    },
-    {
-        "link": "#",
-        "caseid": "2207",
-        "title": "Remember to add to hearing",
-        "date": "6. sep 2020"
-    },
-] %}
+{#{% set upcomming_reminders = [#}
+{#    {#}
+{#        "link": "#",#}
+{#        "caseid": "2207",#}
+{#        "title": "Remember to check payment",#}
+{#        "date": "5. sep 2020"#}
+{#    },#}
+{#    {#}
+{#        "link": "#",#}
+{#        "caseid": "2207",#}
+{#        "title": "Remember to add to hearing",#}
+{#        "date": "6. sep 2020"#}
+{#    },#}
+{#] %}#}
 
 {% block title %}{% trans %}Dashboard{% endtrans %}{% endblock %}
 
@@ -80,7 +80,7 @@
 {% block content %}
     <main role="main" class="col-md-9">
         <h2 class="h3"><i class="fas fa-clock mr-2"></i>{% trans %}Cases with reached reminders{% endtrans %}</h2>
-        {% include "dashboard/_reached_reminders.html.twig" with reached_reminders %}
+        {% include "dashboard/_reached_reminders.html.twig" with exceeded_reminders %}
         <h2 class="h3"><i class="fas fa-user-plus mr-2"></i>{% trans %}Unassigned cases{% endtrans %}</h2>
         {% include "dashboard/_unassigned_cases.html.twig" with unassigned_cases %}
         <div class="row mb-5">
@@ -128,10 +128,10 @@
                 </select>
             </div>
             {% if upcoming_reminders|length > 0 %}
-                {% for reminderData in upcoming_reminders %}
-                    <h3 class="h4">{{ reminderData.weekday|e }}</h3>
+                {% for key, value in upcoming_reminders %}
+                    <h3 class="h4">{{ key|e|date('l') }}</h3>
                     <div class="list-group mb-3">
-                        {% for reminder in reminderData.reminders %}
+                        {% for reminder in value %}
                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">
                                 <div class="d-flex w-100 justify-content-between">
                                     <small>{{ reminder.date|date("d/m/Y") }}</small>

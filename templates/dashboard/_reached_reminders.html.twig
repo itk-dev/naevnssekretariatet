@@ -1,30 +1,30 @@
-{% set btn_group = [
-    {
-        "name": "Edit reminder",
-        "style": "warning",
-        "icon": "pen",
-        "link": "#",
-        "tooltip": "Edit reminder",
-    },
-] %}
+{#{% set btn_group = [#}
+{#    {#}
+{#        "name": "Edit reminder",#}
+{#        "style": "warning",#}
+{#        "icon": "pen",#}
+{#        "link": "#",#}
+{#        "tooltip": "Edit reminder",#}
+{#    },#}
+{#] %}#}
 
 <ul class="list-group mb-5">
-    {% for item in reached_reminders %}
+    {% for reminder in exceeded_reminders %}
         <li class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning">
             <div class="row">
                 <div class="col">
-                    <a href="{{ item.link|e }}" class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ item.caseid|e }}: {{ item.title|e }}</h5>
-                        <span>{{ item.date|e }}</span>
+                    <a href="#" class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{% trans %}Case{% endtrans %}: {{ reminder.caseEntity.caseNumber|e }}</h5>
+                        <span>{{ reminder.date|date('d/m/Y') }}</span>
                     </a>
                     <div class="d-flex w-100 justify-content-between">
-                        <p class="mb-0">{{ item.description|e }}</p>
-                        <p class="mb-0">{{ item.status|e }}</p>
+                        <p class="mb-0">{{ reminder.content|e }}</p>
+                        <p class="mb-0">{{ reminder.status|trans({}, 'reminder') }}</p>
                     </div>
                 </div>
-                <div class="col-auto">
-                    {% include "common/btn_group.html.twig" with btn_group %}
-                </div>
+{#                <div class="col-auto">#}
+{#                    {% include "common/btn_group.html.twig" with btn_group %}#}
+{#                </div>#}
             </div>
         </li>
     {% endfor %}

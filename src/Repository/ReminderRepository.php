@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Reminder;
+use App\Entity\User;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,5 +19,40 @@ class ReminderRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Reminder::class);
+    }
+
+    public function findRemindersWithinWeekByUser(User $user)
+    {
+        $from = new DateTime('today');
+        $to = new DateTime('today');
+        $to->modify('+1 week');
+
+        $result = $this->createQueryBuilder('r')
+            ->where('r.createdBy = :user')
+            ->setParameter('user', $user->getId()->toBinary())
+            ->andWhere('r.date BETWEEN :from AND :to')
+            ->setParameter('from', $from)
+            ->setParameter('to', $to)
+            ->orderBy('r.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
+    public function findExceededRemindersByUser(User $user)
+    {
+        $today = new DateTime('today');
+
+        $result = $this->createQueryBuilder('r')
+            ->where('r.createdBy = :user')
+            ->setParameter('user', $user->getId()->toBinary())
+            ->andWhere('r.date < :today')
+            ->setParameter('today', $today)
+            ->orderBy('r.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
     }
 }
