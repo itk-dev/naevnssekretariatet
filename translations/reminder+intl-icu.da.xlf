@@ -65,6 +65,18 @@
         <source>Close</source>
         <target>Annuller</target>
       </trans-unit>
+      <trans-unit id="uCDKt07" resname="active reminders">
+        <source>active reminders</source>
+        <target>aktive påmindelser</target>
+      </trans-unit>
+      <trans-unit id="S5sqsW3" resname="active reminder">
+        <source>active reminder</source>
+        <target>aktiv påmindelse</target>
+      </trans-unit>
+      <trans-unit id="NWWysNz" resname="No active reminders">
+        <source>No active reminders</source>
+        <target>Ingen aktive påmindelser</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

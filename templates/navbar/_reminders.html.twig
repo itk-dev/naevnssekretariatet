@@ -1,0 +1,9 @@
+{% trans_default_domain 'reminder' %}
+
+{% if active_reminders > 1 %}
+    <a class="btn btn-sm btn-warning d-block mb-2 mb-lg-0" href="{{ url("reminder_index") }}">{{ active_reminders|e }} {% trans %}active reminders{% endtrans %}</a>
+{% elseif active_reminders == 1  %}
+    <a class="btn btn-sm btn-warning d-block mb-2 mb-lg-0" href="{{ url("reminder_index") }}">{{ active_reminders|e }} {% trans %}active reminder{% endtrans %}</a>
+{% else %}
+    <a class="btn btn-sm btn-primary d-block mb-2 mb-lg-0" href="{{ url("reminder_index") }}">{% trans %}No active reminders{% endtrans %}</a>
+{% endif %}
