@@ -76,7 +76,7 @@ class ReminderController extends AbstractController
             return $this->redirectToRoute('case_index');
         }
 
-        return $this->render('reminder/new.html.twig', [
+        return $this->render('reminder/_new.html.twig', [
             'reminder_form' => $reminderForm->createView(),
             'case' => $case,
         ]);
