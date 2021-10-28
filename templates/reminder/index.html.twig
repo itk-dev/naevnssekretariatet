@@ -35,10 +35,12 @@
                         <td>{{ reminder.content|e }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
-                                <a href="{{ url('reminder_complete', {id: reminder.id}) }}" role="button" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Mark as completed{% endtrans %}"><i class="fas fa-check-circle"></i><span class="sr-only">{% trans %}Mark as completed{% endtrans %} </span></a>
+                                <a href="{{ url('reminder_complete', {id: reminder.id}) }}" role="button" class="btn btn-success" data-toggle="tooltip" data-placement="auto" title="{% trans %}Mark as completed{% endtrans %}"><i class="fas fa-check-circle"></i><span class="sr-only">{% trans %}Mark as completed{% endtrans %} </span></a>
+                                <a href="" role="button" class="btn btn-primary" data-toggle="modal" data-target="#reminder_edit{{ reminder.id }}" data-placement="auto" title="{% trans %}Edit reminder{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit reminder{% endtrans %}</span></a>
                             </div>
                         </td>
                     </tr>
+                    {{ render(controller('App\\Controller\\ReminderController:editReminder', {id: reminder.id})) }}
                 {% endfor %}
                 </tbody>
             </table>

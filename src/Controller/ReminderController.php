@@ -64,6 +64,7 @@ class ReminderController extends AbstractController
             /** @var Reminder $reminder */
             $reminder = $reminderForm->getData();
             $reminder->setCaseEntity($case);
+            // TODO: What if date is current date?
             $reminder->setStatus(ReminderStatus::Pending);
 
             /** @var User $user */
@@ -91,5 +92,31 @@ class ReminderController extends AbstractController
         $this->entityManager->flush();
 
         return $this->redirectToRoute('reminder_index');
+    }
+
+    /**
+     * @Route("/reminder/edit/{id}", name="reminder_edit", methods={"GET", "POST"})
+     */
+    public function editReminder(Reminder $reminder, Request $request): Response
+    {
+        $reminderForm = $this->createForm(ReminderType::class, $reminder);
+
+        $reminderForm->handleRequest($request);
+
+        if ($reminderForm->isSubmitted() && $reminderForm->isValid()) {
+            /** @var Reminder $reminder */
+            $reminder = $reminderForm->getData();
+            // TODO: What if it is still same date and just content edit
+            $reminder->setStatus(ReminderStatus::Pending);
+
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('reminder_index');
+        }
+
+        return $this->render('reminder/_edit.html.twig', [
+            'reminder_form' => $reminderForm->createView(),
+            'reminder' => $reminder,
+        ]);
     }
 }
