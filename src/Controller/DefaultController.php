@@ -6,6 +6,7 @@ use App\Entity\Municipality;
 use App\Entity\User;
 use App\Repository\MunicipalityRepository;
 use App\Security\OpenIdConfigurationProvider;
+use App\Service\ReminderHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,11 +20,13 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="default")
      */
-    public function index(MunicipalityRepository $municipalityRepository, Security $security): Response
+    public function index(MunicipalityRepository $municipalityRepository, ReminderHelper $reminderHelper, Security $security): Response
     {
         // Get current User
         /** @var User $user */
         $user = $security->getUser();
+
+        $upcomingReminders = $reminderHelper->getUpcomingRemindersByUser($user);
 
         // Get favorite municipality
         // null is fine as it is only used for selecting an option
@@ -35,6 +38,7 @@ class DefaultController extends AbstractController
         return $this->render('dashboard/index.html.twig', [
             'municipalities' => $municipalities,
             'favorite_municipality' => $favoriteMunicipality,
+            'upcoming_reminders' => $upcomingReminders,
         ]);
     }
 

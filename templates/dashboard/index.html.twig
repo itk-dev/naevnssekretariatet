@@ -127,30 +127,36 @@
                     <option value="30-days">{% trans %}Next 30 days{% endtrans %}</option>
                 </select>
             </div>
-            <h3 class="h4">{% trans %}Monday{% endtrans %}</h3>
-            <div class="list-group mb-3">
-                {% for item in upcomming_reminders %}
-                    <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">
-                        <div class="d-flex w-100 justify-content-between">
-                            <small>{{ item.date|e }}</small>
-                            <small>{{ item.caseid|e }}</small>
-                        </div>
-                        <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ item.title|e }}</span>
-                    </a>
+            {% if upcoming_reminders|length > 0 %}
+                {% for reminderData in upcoming_reminders %}
+                    <h3 class="h4">{{ reminderData.weekday|e }}</h3>
+                    <div class="list-group mb-3">
+                        {% for reminder in reminderData.reminders %}
+                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <small>{{ reminder.date|date("d/m/Y") }}</small>
+                                    <small>{{ reminder.caseEntity.caseNumber|e }}</small>
+                                </div>
+                                <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ reminder.content|e }}</span>
+                            </a>
+                        {% endfor %}
+                    </div>
                 {% endfor %}
-            </div>
-            <h3 class="h4">{% trans %}Wedensday{% endtrans %}</h3>
-            <div class="list-group mb-3">
-                {% for item in upcomming_reminders %}
-                    <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">
-                        <div class="d-flex w-100 justify-content-between">
-                            <small>{{ item.date|e }}</small>
-                            <small>{{ item.caseid|e }}</small>
-                        </div>
-                        <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ item.title|e }}</span>
-                    </a>
-                {% endfor %}
-            </div>
+            {% else %}
+                {% trans %}No reminders within the week.{% endtrans %}
+            {% endif %}
+{#            <h3 class="h4">{% trans %}Monday{% endtrans %}</h3>#}
+{#            <div class="list-group mb-3">#}
+{#                {% for item in upcomming_reminders %}#}
+{#                    <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">#}
+{#                        <div class="d-flex w-100 justify-content-between">#}
+{#                            <small>{{ item.date|e }}</small>#}
+{#                            <small>{{ item.caseid|e }}</small>#}
+{#                        </div>#}
+{#                        <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ item.title|e }}</span>#}
+{#                    </a>#}
+{#                {% endfor %}#}
+{#            </div>#}
         </div>
     </aside>
 {% endblock %}
