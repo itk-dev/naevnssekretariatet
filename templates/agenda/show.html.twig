@@ -10,6 +10,17 @@
             <h1>{% trans %}Agenda{% endtrans %}</h1>
         </div>
         <div class="col-auto">
+            {% if 3 == agenda.status %}
+                <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete finished agenda{% endtrans %}">{% trans %}Delete agenda{% endtrans %}</button>
+            {% elseif agenda.agendaItems|length > 0 %}
+                <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete agenda containing agenda items{% endtrans %}">{% trans %}Delete agenda{% endtrans %}</button>
+            {% else %}
+                <form id="myform" class="btn" method="post" action="{{ path('agenda_delete', {'id': agenda.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this agenda?{% endtrans %}');">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ agenda.id) }}">
+                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete agenda{% endtrans %}">{% trans %}Delete agenda{% endtrans %}</button>
+                </form>
+            {% endif %}
             <a name="" id="" class="btn btn-success {% if agenda.isPublished == true or isFinished == true %} disabled {% endif %}" href="{{ url('agenda_publish', {id: agenda.id}) }}" role="button">{% trans %}Publish to boardmembers{% endtrans %}</a>
         </div>
     </div>

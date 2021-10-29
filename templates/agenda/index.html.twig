@@ -61,7 +61,11 @@
                                 <!-- Show button -->
                                 <a href="{{ url('agenda_show', {id: agenda.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %}</span></a>
                                 <!-- Delete button -->
-                                {% if 3 != agenda.status %}
+                                {% if 3 == agenda.status %}
+                                    <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete finished agenda{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                {% elseif agenda.agendaItems|length > 0 %}
+                                    <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete agenda containing agenda items{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                {% else %}
                                 <form id="myform" class="btn-group" method="post" action="{{ path('agenda_delete', {'id': agenda.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this agenda?{% endtrans %}');">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ agenda.id) }}">

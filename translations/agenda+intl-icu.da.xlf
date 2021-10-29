@@ -217,6 +217,14 @@
         <source>Change municipality</source>
         <target>Ændr kommune</target>
       </trans-unit>
+      <trans-unit id=".PmDXnU" resname="Cannot delete finished agenda">
+        <source>Cannot delete finished agenda</source>
+        <target>Kan ikke slette afsluttet dagsorden</target>
+      </trans-unit>
+      <trans-unit id="btyCbcw" resname="Cannot delete agenda containing agenda items">
+        <source>Cannot delete agenda containing agenda items</source>
+        <target>Kan ikke slette dagsorden der indeholder et eller flere dagsordenspunkter</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
