@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Form\ReminderType;
 use App\Repository\ReminderRepository;
 use App\Service\ReminderHelper;
-use App\Service\ReminderStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,13 +22,18 @@ class ReminderController extends AbstractController
      */
     private $entityManager;
     /**
+     * @var ReminderHelper
+     */
+    private $reminderHelper;
+    /**
      * @var Security
      */
     private $security;
 
-    public function __construct(EntityManagerInterface $entityManager, Security $security)
+    public function __construct(EntityManagerInterface $entityManager, ReminderHelper $reminderHelper, Security $security)
     {
         $this->entityManager = $entityManager;
+        $this->reminderHelper = $reminderHelper;
         $this->security = $security;
     }
 
@@ -65,8 +69,7 @@ class ReminderController extends AbstractController
             /** @var Reminder $reminder */
             $reminder = $reminderForm->getData();
             $reminder->setCaseEntity($case);
-            // TODO: What if date is current date?
-            $reminder->setStatus(ReminderStatus::Pending);
+            $reminder->setStatus($this->reminderHelper->getStatusByDate($reminder->getDate()));
 
             /** @var User $user */
             $user = $this->security->getUser();
@@ -98,7 +101,7 @@ class ReminderController extends AbstractController
     /**
      * @Route("/reminder/edit/{id}", name="reminder_edit", methods={"GET", "POST"})
      */
-    public function editReminder(Reminder $reminder, ReminderHelper $reminderHelper, Request $request): Response
+    public function editReminder(Reminder $reminder, Request $request): Response
     {
         $reminderForm = $this->createForm(ReminderType::class, $reminder);
 
@@ -108,7 +111,7 @@ class ReminderController extends AbstractController
             /** @var Reminder $reminder */
             $reminder = $reminderForm->getData();
             // TODO: What if it is still same date and just content edit
-            $reminder->setStatus($reminderHelper->getStatusByDate($reminder->getDate()));
+            $reminder->setStatus($this->reminderHelper->getStatusByDate($reminder->getDate()));
 
             $this->entityManager->flush();
 
