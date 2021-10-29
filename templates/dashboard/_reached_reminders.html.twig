@@ -13,10 +13,17 @@
         <li class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning">
             <div class="row">
                 <div class="col">
-                    <a href="#" class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{% trans %}Case{% endtrans %}: {{ reminder.caseEntity.caseNumber|e }}</h5>
+{#                    <a href="#" class="d-flex w-100 justify-content-between">#}
+{#                        <h5 class="mb-1">{% trans %}Case{% endtrans %}: {{ reminder.caseEntity.caseNumber|e }}</h5>#}
+{#                        <span>{{ reminder.date|date('d/m/Y') }}</span>#}
+{#                    </a>#}
+                    <div class="d-flex w-10 justify-content-between">
+                        <a href="{{ url('case_summary', {id: reminder.caseEntity.id}) }}" class="h5">
+                            {% trans %}Case{% endtrans %}: {{ reminder.caseEntity.caseNumber|e }}
+                        </a>
+{#                        <h5 class="mb-1">{% trans %}Case{% endtrans %}: {{ reminder.caseEntity.caseNumber|e }}</h5>#}
                         <span>{{ reminder.date|date('d/m/Y') }}</span>
-                    </a>
+                    </div>
                     <div class="d-flex w-100 justify-content-between">
                         <p class="mb-0">{{ reminder.content|e }}</p>
                         <p class="mb-0">{{ reminder.status|trans({}, 'reminder') }}</p>

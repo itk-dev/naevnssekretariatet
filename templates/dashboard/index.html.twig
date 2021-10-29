@@ -79,10 +79,14 @@
 
 {% block content %}
     <main role="main" class="col-md-9">
-        <h2 class="h3"><i class="fas fa-clock mr-2"></i>{% trans %}Cases with reached reminders{% endtrans %}</h2>
-        {% include "dashboard/_reached_reminders.html.twig" with exceeded_reminders %}
-        <h2 class="h3"><i class="fas fa-user-plus mr-2"></i>{% trans %}Unassigned cases{% endtrans %}</h2>
-        {% include "dashboard/_unassigned_cases.html.twig" with unassigned_cases %}
+        {% if exceeded_reminders|length > 0 %}
+            <h2 class="h3"><i class="fas fa-clock mr-2"></i>{% trans %}Cases with reached reminders{% endtrans %}</h2>
+            {% include "dashboard/_reached_reminders.html.twig" with exceeded_reminders %}
+        {% endif %}
+        {% if unassigned_cases|length > 0 %}
+            <h2 class="h3"><i class="fas fa-user-plus mr-2"></i>{% trans %}Unassigned cases{% endtrans %}</h2>
+            {% include "dashboard/_unassigned_cases.html.twig" with unassigned_cases %}
+        {% endif %}
         <div class="row mb-5">
             <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
                 <h2 class="h3"><i class="fas fa-list mr-2"></i>{% trans %}My cases{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
@@ -129,7 +133,7 @@
             </div>
             {% if upcoming_reminders|length > 0 %}
                 {% for key, value in upcoming_reminders %}
-                    <h3 class="h4">{{ key|e|date('l') }}</h3>
+                    <h3 class="h4">{{ key|date('l') }}</h3>
                     <div class="list-group mb-3">
                         {% for reminder in value %}
                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">
@@ -137,7 +141,8 @@
                                     <small>{{ reminder.date|date("d/m/Y") }}</small>
                                     <small>{{ reminder.caseEntity.caseNumber|e }}</small>
                                 </div>
-                                <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ reminder.content|e }}</span>
+{#                                <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ reminder.content|e }}</span>#}
+                                <span class="text-dark">{{ reminder.content|e }}</span>
                             </a>
                         {% endfor %}
                     </div>

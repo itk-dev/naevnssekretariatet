@@ -43,7 +43,7 @@
       </trans-unit>
       <trans-unit id="8X9Zsqy" resname="Mark as completed">
         <source>Mark as completed</source>
-        <target>Marker som afsluttet</target>
+        <target>Marker som udført</target>
       </trans-unit>
       <trans-unit id="a4ayc.8" resname="1">
         <source>1</source>
@@ -55,7 +55,7 @@
       </trans-unit>
       <trans-unit id="TgdAhWK" resname="3">
         <source>3</source>
-        <target>Afsluttet</target>
+        <target>Overskredet</target>
       </trans-unit>
       <trans-unit id="kZ4nGjm" resname="Create reminder">
         <source>Create reminder</source>

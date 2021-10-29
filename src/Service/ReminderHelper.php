@@ -27,13 +27,15 @@ class ReminderHelper
     public function updateStatuses(): bool
     {
         // Todo: Consider leap days and daylight saving
+
+        // Handle pending => active transition
         $currentDate = new DateTime('today');
 
-        $reminders = $this->reminderRepository->findBy([
+        $pendingReminders = $this->reminderRepository->findBy([
             'status' => ReminderStatus::Pending,
         ]);
 
-        foreach ($reminders as $reminder) {
+        foreach ($pendingReminders as $reminder) {
             $isToday = 0 === $currentDate->diff($reminder->getDate())->days;
 
             // Todo: Only do this for dates that have not yet been reached.
@@ -43,7 +45,22 @@ class ReminderHelper
             }
         }
 
-        return false;
+        // Handle active => exceeded transition
+        $activeReminders = $this->reminderRepository->findBy([
+            'status' => ReminderStatus::Active,
+        ]);
+
+        foreach ($activeReminders as $reminder) {
+            $reminderDate = $reminder->getDate();
+            $isExceeded = ($reminderDate < $currentDate) && (0 !== $currentDate->diff($reminderDate)->days);
+
+            if ($isExceeded) {
+                $reminder->setStatus(ReminderStatus::Exceeded);
+                $this->entityManager->flush();
+            }
+        }
+
+        return true;
     }
 
     public function getRemindersWithinWeekByUserGroupedByDay(User $user): array
@@ -59,5 +76,18 @@ class ReminderHelper
         }
 
         return $remindersGroupedByDate;
+    }
+
+    public function getStatusByDate(\DateTimeInterface $reminderDate): int
+    {
+        $today = new DateTime('today');
+
+        if ($reminderDate > $today) {
+            return ReminderStatus::Pending;
+        } elseif ($reminderDate < $today) {
+            return ReminderStatus::Exceeded;
+        } else {
+            return ReminderStatus::Active;
+        }
     }
 }
