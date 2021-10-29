@@ -95,36 +95,6 @@
         {% include "dashboard/_inactive_cases.html.twig" with inactive_cases %}
     </main>
     <aside role="aside" class="col-md-3">
-        <div class="rounded-sm ">
-            <h2 class="h3">{% trans %}Upcomming reminders{% endtrans %}</h2>
-            <div class="form-group">
-                <label for="upcomming-reminders" class="sr-only">{% trans %}Select period{% endtrans %}</label>
-                <select class="form-control form-control-sm" name="upcomming-reminders" id="upcomming-reminders">
-                    <option value="7-days">{% trans %}Next 7 days{% endtrans %}</option>
-                    <option value="14-days">{% trans %}Next 14 days{% endtrans %}</option>
-                    <option value="30-days">{% trans %}Next 30 days{% endtrans %}</option>
-                </select>
-            </div>
-            {% if upcoming_reminders|length > 0 %}
-                {% for key, value in upcoming_reminders %}
-                    <h3 class="h4">{{ key|date('l') }}</h3>
-                    <div class="list-group mb-3">
-                        {% for reminder in value %}
-                            <li class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning">
-                                <div class="d-flex w-100 justify-content-between" title="{% trans %}Show case{% endtrans %}">
-                                    <small>{{ reminder.date|date("d/m/Y") }}</small>
-                                    <a href="{{ url('case_summary', {id: reminder.caseEntity.id}) }}">
-                                        {{ reminder.caseEntity.caseNumber|e }}
-                                    </a>
-                                </div>
-                                <span class="text-dark">{{ reminder.content|e }}</span>
-                            </li>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            {% else %}
-                {% trans %}No reminders within the week.{% endtrans %}
-            {% endif %}
-        </div>
+        {% include "dashboard/_upcoming_reminders.html.twig" with upcoming_reminders %}
     </aside>
 {% endblock %}
