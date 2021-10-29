@@ -33,7 +33,7 @@ class NavbarController extends AbstractController
         $user = $this->security->getUser();
 
         $activeReminders = $user->getReminders()->filter(function (Reminder $reminder) {
-            return ReminderStatus::Active === $reminder->getStatus();
+            return ReminderStatus::Pending !== $reminder->getStatus();
         });
 
         return $this->render('navbar/_reminders.html.twig', [

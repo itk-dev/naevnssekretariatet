@@ -136,32 +136,21 @@
                     <h3 class="h4">{{ key|date('l') }}</h3>
                     <div class="list-group mb-3">
                         {% for reminder in value %}
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">
-                                <div class="d-flex w-100 justify-content-between">
+                            <li class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning">
+                                <div class="d-flex w-100 justify-content-between" title="{% trans %}Show case{% endtrans %}">
                                     <small>{{ reminder.date|date("d/m/Y") }}</small>
-                                    <small>{{ reminder.caseEntity.caseNumber|e }}</small>
+                                    <a href="{{ url('case_summary', {id: reminder.caseEntity.id}) }}">
+                                        {{ reminder.caseEntity.caseNumber|e }}
+                                    </a>
                                 </div>
-{#                                <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ reminder.content|e }}</span>#}
                                 <span class="text-dark">{{ reminder.content|e }}</span>
-                            </a>
+                            </li>
                         {% endfor %}
                     </div>
                 {% endfor %}
             {% else %}
                 {% trans %}No reminders within the week.{% endtrans %}
             {% endif %}
-{#            <h3 class="h4">{% trans %}Monday{% endtrans %}</h3>#}
-{#            <div class="list-group mb-3">#}
-{#                {% for item in upcomming_reminders %}#}
-{#                    <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">#}
-{#                        <div class="d-flex w-100 justify-content-between">#}
-{#                            <small>{{ item.date|e }}</small>#}
-{#                            <small>{{ item.caseid|e }}</small>#}
-{#                        </div>#}
-{#                        <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ item.title|e }}</span>#}
-{#                    </a>#}
-{#                {% endfor %}#}
-{#            </div>#}
         </div>
     </aside>
 {% endblock %}
