@@ -30,4 +30,7 @@
     {% else %}
         {% trans %}No reminders within the week.{% endtrans %}
     {% endif %}
+    <a href="{{ url('reminder_index') }}">
+        {% trans %}See all reminders{% endtrans %}
+    </a>
 </div>
