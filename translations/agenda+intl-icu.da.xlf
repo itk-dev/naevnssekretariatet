@@ -225,6 +225,10 @@
         <source>Cannot delete agenda containing agenda items</source>
         <target>Kan ikke slette dagsorden der indeholder et eller flere dagsordenspunkter</target>
       </trans-unit>
+      <trans-unit id="2u52BrM" resname="Reset">
+        <source>Reset</source>
+        <target>Nulstil</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
