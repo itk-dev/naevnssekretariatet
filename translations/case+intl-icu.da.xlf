@@ -597,6 +597,18 @@
         <source>Finished agendas</source>
         <target>Afsluttede dagsordener</target>
       </trans-unit>
+      <trans-unit id="bUeEpQr" resname="Is ready for agenda">
+        <source>Is ready for agenda</source>
+        <target>Klar til dagsorden</target>
+      </trans-unit>
+      <trans-unit id="HwnSsUt" resname="Should be inspected">
+        <source>Should be inspected</source>
+        <target>Skal besigtiges</target>
+      </trans-unit>
+      <trans-unit id="KUyOOJ4" resname="Agenda status">
+        <source>Agenda status</source>
+        <target>Dagsordens status</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
