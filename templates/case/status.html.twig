@@ -125,7 +125,7 @@
                                     <td>{{ active_agenda.agenda.end|date('H:i') }}</td>
                                     <td>{{ active_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
                                     <td class="text-right">
-                                        <a href="{{ url('agenda_show', {id: active_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                        <a href="{{ url('agenda_show', {id: active_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -164,7 +164,7 @@
                                 <td>{{ finished_agenda.agenda.end|date('H:i') }}</td>
                                 <td>{{ finished_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
                                 <td class="text-right">
-                                    <a href="{{ url('agenda_show', {id: finished_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                    <a href="{{ url('agenda_show', {id: finished_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
                                 </td>
                             </tr>
                         {% endfor %}
