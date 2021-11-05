@@ -23,7 +23,7 @@ class BoardCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->setPermission(Action::EDIT, 'ROLE_ADMINISTRATION')
+            ->setPermission(Action::EDIT, 'ROLE_SUPER_ADMIN')
             ->setPermission(Action::DELETE, 'ROLE_SUPER_ADMIN')
             ->setPermission(Action::NEW, 'ROLE_SUPER_ADMIN')
             ;
