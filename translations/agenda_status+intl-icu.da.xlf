@@ -15,6 +15,10 @@
       </trans-unit>
       <trans-unit id="TgdAhWK" resname="3">
         <source>3</source>
+        <target>Klar</target>
+      </trans-unit>
+      <trans-unit id="SyJ3d9T" resname="4">
+        <source>4</source>
         <target>Afsluttet</target>
       </trans-unit>
     </body>

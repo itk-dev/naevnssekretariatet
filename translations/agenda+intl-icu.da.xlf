@@ -45,10 +45,6 @@
         <source>Board members</source>
         <target>Nævnsmedlemmer</target>
       </trans-unit>
-      <trans-unit id="2imLS2a" resname="Broadcast agenda to involved parties and board members">
-        <source>Broadcast agenda to involved parties and board members</source>
-        <target>Offentliggør dagsorden til parter og nævnsmedlemmer</target>
-      </trans-unit>
       <trans-unit id=".jGkAV9" resname="Create agenda">
         <source>Create agenda</source>
         <target>Opret dagsorden</target>
@@ -232,6 +228,18 @@
       <trans-unit id="QJJPB.A" resname="Show agenda item">
         <source>Show agenda item</source>
         <target>Vis dagsordenspunkt</target>
+      </trans-unit>
+      <trans-unit id="X6eqxTd" resname="Ready">
+        <source>Ready</source>
+        <target>Klar</target>
+      </trans-unit>
+      <trans-unit id="0bvdoe6" resname="Send notice to board members informing them that they now has access to the agenda.">
+        <source>Send notice to board members informing them that they now has access to the agenda.</source>
+        <target>Send besked til nævnsmedlemmer med besked om, at de nu har adgang til dagsordenen.</target>
+      </trans-unit>
+      <trans-unit id="7UP_NFQ" resname="Agenda must have status: ready, before being able to send notice to board members.">
+        <source>Agenda must have status: ready, before being able to send notice to board members.</source>
+        <target>Dagsordenen skal have status: Klar, før du kan sende besked omkring adgang til nævnsmedlemmer.</target>
       </trans-unit>
     </body>
   </file>
