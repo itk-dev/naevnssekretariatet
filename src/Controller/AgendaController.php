@@ -113,6 +113,8 @@ class AgendaController extends AbstractController
             10 /*limit per page*/
         );
 
+        $pagination->setCustomParameters(['align' => 'center']);
+
         return $this->render('agenda/index.html.twig', [
             'filter_form' => $filterForm->createView(),
             'municipalities' => $municipalities,
