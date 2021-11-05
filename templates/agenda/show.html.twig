@@ -118,9 +118,13 @@
                                     </div>
                                     <div class="col-md-7 text-truncate">
                                         <p class="m-0 mt-2">
-                                            {{ agenda_item.title|e }}
-                                            {% if agenda_item.inspection is defined and agenda_item.inspection == true %}
-                                            <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                            {% if agenda_item.caseEntity is defined %}
+                                                {{ agenda_item.caseEntity.caseNumber|e }}
+                                                {% if agenda_item.inspection is defined and agenda_item.inspection == true %}
+                                                <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                                {% endif %}
+                                            {% else %}
+                                                {{ agenda_item.title|e }}
                                             {% endif %}
                                         </p>
                                         <p class="m-0" style="font-size:15px; opacity: 0.5">{{ agenda_item.meetingPoint|e }}</p>
