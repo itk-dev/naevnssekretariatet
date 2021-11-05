@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
 use App\Entity\CaseEntity;
-use App\Form\CaseAgendaSelectType;
+use App\Form\CaseAgendaStatusType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Form\ResidentComplaintBoardCaseType;
@@ -97,6 +97,8 @@ class CaseController extends AbstractController
      */
     public function status(CaseEntity $case, AgendaHelper $agendaHelper, AgendaRepository $agendaRepository, CaseHelper $caseHelper, WorkflowService $workflowService, Request $request): Response
     {
+        $em = $this->getDoctrine()->getManager();
+
         $workflow = $workflowService->getWorkflowForCase($case);
 
         $caseStatus = new CaseStatusFormModel();
@@ -112,7 +114,6 @@ class CaseController extends AbstractController
         $caseStatusForm->handleRequest($request);
         if ($caseStatusForm->isSubmitted() && $caseStatusForm->isValid()) {
             $workflow->apply($case, $caseStatus->getStatus());
-            $em = $this->getDoctrine()->getManager();
             $em->persist($case);
             $em->flush();
 
@@ -122,18 +123,17 @@ class CaseController extends AbstractController
             ]);
         }
 
-//        $board = $case->getBoard();
-//
-//        $availableOpenAgendas = $agendaRepository->findBy([
-//            'board' => $board,
-//            'status' => AgendaStatus::Open,
-//        ]);
-//
-//        $hasOpenAgenda = true;
-//
-//        if (0 === sizeof($availableOpenAgendas)) {
-//            $hasOpenAgenda = false;
-//        }
+        $caseAgendaStatusForm = $this->createForm(CaseAgendaStatusType::class, $case);
+
+        $caseAgendaStatusForm->handleRequest($request);
+        if ($caseAgendaStatusForm->isSubmitted() && $caseAgendaStatusForm->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('case_status', [
+                'id' => $case->getId(),
+                'case' => $case,
+            ]);
+        }
 
         // Extract agenda and whether the AgendaCaseItem with current case is an inspection item
         $activeAgendas = [];
@@ -173,6 +173,7 @@ class CaseController extends AbstractController
         return $this->render('case/status.html.twig', [
             'case' => $case,
             'case_status_form' => $caseStatusForm->createView(),
+            'case_agenda_status_form' => $caseAgendaStatusForm->createView(),
 //            'hasActiveAgenda' => $hasActiveAgenda,
 //            'hasOpenAgenda' => $hasOpenAgenda,
 //            'agenda_form' => $agendaForm->createView(),

@@ -21,11 +21,13 @@ class CaseEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, CaseEntity::class);
     }
 
-    public function findCasesByBoard(Board $board): array
+    public function findCasesByBoardAndIsReadyForAgenda(Board $board): array
     {
         return $this->createQueryBuilder('c')
             ->where('c.board = :board')
             ->setParameter('board', $board->getId()->toBinary())
+            ->andwhere('c.isReadyForAgenda = :isReadyForAgendaCheck')
+            ->setParameter('isReadyForAgendaCheck', 1)
             ->orderBy('c.caseNumber', 'ASC')
             ->getQuery()
             ->getResult();

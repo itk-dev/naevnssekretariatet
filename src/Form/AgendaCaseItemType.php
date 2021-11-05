@@ -9,7 +9,6 @@ use App\Repository\CaseEntityRepository;
 use App\Service\CaseHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
@@ -59,7 +58,7 @@ class AgendaCaseItemType extends AbstractType
             /** @var Board $board */
             $board = $options['board'];
 
-            $casesWithBoard = $this->caseRepository->findCasesByBoard($board);
+            $casesWithBoard = $this->caseRepository->findCasesByBoardAndIsReadyForAgenda($board);
 
             $casesWithBoardAndWithoutActiveAgenda = $this->caseHelper->removeCasesWithActiveAgenda($casesWithBoard);
         }
@@ -89,7 +88,18 @@ class AgendaCaseItemType extends AbstractType
                 'class' => CaseEntity::class,
                 'choices' => $casesWithBoardAndWithoutActiveAgenda,
                 'choice_label' => function ($caseEntity) {
-                    return $caseEntity->getCaseNumber().' - '.$caseEntity->getComplaintCategory()->getName().' - '.$caseEntity->getComplainantAddress();
+                    $caseNumber = $caseEntity->getCaseNumber();
+                    $isInspection = $caseEntity->getShouldBeInspected();
+                    $complaint = $caseEntity->getComplaintCategory()->getName();
+                    $address = $caseEntity->getComplainantAddress();
+
+                    if ($isInspection) {
+                        $label = $caseNumber.' - '.$this->translator->trans('Inspection', [], 'agenda_item').' - '.$complaint.' - '.$address;
+                    } else {
+                        $label = $caseNumber.' - '.$complaint.' - '.$address;
+                    }
+
+                    return $label;
                 },
                 'label' => $this->translator->trans('Case', [], 'agenda_item'),
                 'placeholder' => $this->translator->trans('Choose a case', [], 'agenda_item'),
@@ -109,10 +119,6 @@ class AgendaCaseItemType extends AbstractType
                     'label' => $this->translator->trans('Update agenda item', [], 'agenda_item'),
                 ]);
         } else {
-            $builder->add('inspection', CheckboxType::class, [
-                'label' => $this->translator->trans('Inspection', [], 'agenda_item'),
-                'required' => false,
-            ]);
             $builder
                 ->add('submit', SubmitType::class, [
                     'label' => $this->translator->trans('Create agenda item', [], 'agenda_item'),

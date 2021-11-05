@@ -11,6 +11,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
 
   test-case-aarhus-2:
     size: 53
@@ -63,6 +64,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
 
   test-case-aarhus-6:
     size: 87
@@ -115,6 +117,8 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
+    isReadyForAgenda: true
 
   test-case-aarhus-10:
     size: 101
@@ -128,6 +132,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    isReadyForAgenda: true
 
   test-case-aarhus-11:
     size: 83
@@ -154,6 +159,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
 
   test-case-aarhus-13:
     size: 76
@@ -167,6 +173,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    isReadyForAgenda: true
 
   test-case-aarhus-14:
     size: 67
@@ -193,6 +200,8 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
+    isReadyForAgenda: true
 
   test-case-aarhus-16:
     size: 76
@@ -206,6 +215,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
 
   test-case-aarhus-17:
     size: 44
@@ -245,6 +255,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
 
   test-case-aarhus-20:
     size: 44
@@ -310,6 +321,8 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
+    isReadyForAgenda: true
 
   test-case-randers-1:
     size: 51
@@ -323,6 +336,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    isReadyForAgenda: true
 
   test-case-randers-2:
     size: 73
@@ -349,6 +363,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    isReadyForAgenda: true
 
   test-case-randers-4:
     size: 61
@@ -375,6 +390,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    isReadyForAgenda: true
 
   test-case-randers-6:
     size: 87

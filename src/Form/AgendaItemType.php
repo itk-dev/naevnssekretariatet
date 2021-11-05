@@ -61,7 +61,6 @@ class AgendaItemType extends AbstractType
                         ]);
                         break;
                     default:
-                        var_dump($type);
                         $message = 'Type was not chosen correctly';
                         throw new \Exception($message);
                 }

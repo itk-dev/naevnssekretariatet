@@ -87,6 +87,16 @@ abstract class CaseEntity
      */
     private $agendaCaseItems;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $isReadyForAgenda = false;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $shouldBeInspected = false;
+
     public function __construct()
     {
         $this->casePartyRelation = new ArrayCollection();
@@ -293,6 +303,30 @@ abstract class CaseEntity
                 $agendaCaseItem->setCaseEntity(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsReadyForAgenda(): ?bool
+    {
+        return $this->isReadyForAgenda;
+    }
+
+    public function setIsReadyForAgenda(bool $isReadyForAgenda): self
+    {
+        $this->isReadyForAgenda = $isReadyForAgenda;
+
+        return $this;
+    }
+
+    public function getShouldBeInspected(): ?bool
+    {
+        return $this->shouldBeInspected;
+    }
+
+    public function setShouldBeInspected(bool $shouldBeInspected): self
+    {
+        $this->shouldBeInspected = $shouldBeInspected;
 
         return $this;
     }
