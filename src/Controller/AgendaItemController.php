@@ -52,11 +52,12 @@ class AgendaItemController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var AgendaCaseItem $agendaItem */
             $agendaItem = $form->get('agendaItem')->getData();
 
-            if ($agendaItem->getCaseEntity()->getShouldBeInspected()) {
-                $agendaItem->setInspection(true);
+            if (AgendaCaseItem::class === get_class($agendaItem)) {
+                if ($agendaItem->getCaseEntity()->getShouldBeInspected()) {
+                    $agendaItem->setInspection(true);
+                }
             }
 
             $agenda->addAgendaItem($agendaItem);
