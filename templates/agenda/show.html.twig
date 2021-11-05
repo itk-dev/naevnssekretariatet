@@ -133,7 +133,7 @@
                                         <section class="col-md-12 mt-5 mt-md-0">
                                             <div class="row mt-2">
                                                 <div>
-                                                    <a href="{{ url('agenda_item_edit', {id: agenda.id, agenda_item_id: agenda_item.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit agenda item{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit agenda item{% endtrans %} </span></a>
+                                                    <a href="{{ url('agenda_item_edit', {id: agenda.id, agenda_item_id: agenda_item.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda item{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda item{% endtrans %} </span></a>
                                                 </div>
                                                 {% if not isFinished %}
                                                 <div class="ml-2">

@@ -229,6 +229,10 @@
         <source>Reset</source>
         <target>Nulstil</target>
       </trans-unit>
+      <trans-unit id="QJJPB.A" resname="Show agenda item">
+        <source>Show agenda item</source>
+        <target>Vis dagsordenspunkt</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

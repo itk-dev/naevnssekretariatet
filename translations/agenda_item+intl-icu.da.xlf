@@ -225,6 +225,10 @@
         <source>Case decision proposal</source>
         <target>Sagsafgørelses forslag</target>
       </trans-unit>
+      <trans-unit id="FV_BbAQ" resname="Submit">
+        <source>Submit</source>
+        <target>Indsend</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
