@@ -6,6 +6,7 @@ use App\Entity\Board;
 use App\Entity\BoardMember;
 use App\Entity\BoardRole;
 use App\Entity\ComplaintCategory;
+use App\Entity\MailTemplate;
 use App\Entity\Municipality;
 use App\Entity\Party;
 use App\Entity\UploadedDocumentType;
@@ -90,6 +91,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Part Index', '', Party::class);
         yield MenuItem::linkToCrud('Document types', '', UploadedDocumentType::class);
         yield MenuItem::linkToCrud('Log', '', LogEntry::class);
+        yield MenuItem::linkToCrud('Mail templates', '', MailTemplate::class);
         yield MenuItem::linkToCrud('User Settings', '', User::class)
             ->setAction('edit')
             ->setEntityId($this->getUser()->getId())

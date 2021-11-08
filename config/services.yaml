@@ -17,6 +17,7 @@ services:
         bind:
             $leeway: '%env(LEEWAY)%'
 
+
             $bbrHelperOptions:
                 datafordeler_api_username: '%env(DATAFORDELER_API_USERNAME)%'
                 datafordeler_api_password: '%env(DATAFORDELER_API_PASSWORD)%'
@@ -45,11 +46,21 @@ services:
                             address:
                         address:
 
+
             $loginControllerOptions:
                 # Must match firewall name in packages/security.yaml
                 firewall_name: main
                 # End time of “Remember my choice” cookie.
                 cookie_end_time: '+1 month'
+
+            $mailTemplateHelperConfig:
+                upload_destination: '%kernel.project_dir%/files/mail-templates'
+                # This value must match vich_uploader.mappings.mail_templates.upload_destination
+                template_file_directory: '%kernel.project_dir%/files/mail-templates'
+                http_client_options:
+                    base_uri: '%env(COLLABORA_API_BASE_URL)%'
+                    verify_peer: false
+                    verify_host: false
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

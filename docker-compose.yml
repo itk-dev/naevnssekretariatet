@@ -37,6 +37,7 @@ services:
       - DOCKER_HOST_DOMAIN=${COMPOSE_DOMAIN}
       - COMPOSER_VERSION=2
     depends_on:
+      - libreoffice
       - mariadb
     volumes:
       - .:/app:delegated
@@ -65,3 +66,17 @@ services:
     ports:
       - "1025"
       - "8025"
+
+  # https://sdk.collaboraonline.com/docs/installation/CODE_Docker_image.html
+  collabora:
+    image: collabora/code
+    networks:
+      - app
+    # environment:
+    #   extra_params: '--o:net.post_allow.host= --o:net.post_allow.host[0]=::ffff:172.[0-9]+.[0-9]+.[0-9]+'
+    volumes:
+      # https://sdk.collaboraonline.com/docs/installation/CODE_Docker_image.html#use-the-configuration-file-directly
+      - ${PWD}/.docker/collabora/config:/config
+    ports:
+      - '9980'
+    restart: always
