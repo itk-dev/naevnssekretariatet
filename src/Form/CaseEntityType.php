@@ -10,14 +10,26 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CaseEntityType extends AbstractType
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('board', EntityType::class, [
             'class' => Board::class,
-            'placeholder' => 'Choose a board',
+            'label' => $this->translator->trans('Board', [], 'case'),
+            'placeholder' => $this->translator->trans('Choose a board', [], 'case'),
         ]);
 
         $formModifier = function (FormInterface $form, Board $board = null) {

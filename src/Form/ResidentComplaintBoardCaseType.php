@@ -8,7 +8,9 @@ use App\Entity\ResidentComplaintBoardCase;
 use App\Entity\SubBoard;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -39,16 +41,30 @@ class ResidentComplaintBoardCaseType extends AbstractType
             ->add('subboard', EntityType::class, [
                 'class' => SubBoard::class,
                 'choices' => $board->getSubBoards(),
+                'label' => $this->translator->trans('Sub board', [], 'case'),
+                'placeholder' => $this->translator->trans('Choose a sub board board', [], 'case'),
             ])
-            ->add('complainant')
-            ->add('complainantPhone')
-            ->add('complainantAddress')
-            ->add('complainantPostalCode')
+            ->add('complainant', TextType::class, [
+                'label' => $this->translator->trans('Complainant', [], 'case'),
+            ])
+            ->add('complainantPhone', TextType::class, [
+                'label' => $this->translator->trans('Complainant phone', [], 'case'),
+            ])
+            ->add('complainantAddress', TextType::class, [
+                'label' => $this->translator->trans('Complainant address', [], 'case'),
+            ])
+            ->add('complainantPostalCode', TextType::class, [
+                'label' => $this->translator->trans('Complainant postal code', [], 'case'),
+            ])
             ->add('complaintCategory', EntityType::class, [
                 'class' => ComplaintCategory::class,
                 'choices' => $board->getComplaintCategories(),
+                'label' => $this->translator->trans('Complaint category', [], 'case'),
+                'placeholder' => $this->translator->trans('Select a complaint category', [], 'case'),
             ])
-            ->add('size')
+            ->add('size', IntegerType::class, [
+                'label' => $this->translator->trans('Size', [], 'case'),
+            ])
             ->add('save', SubmitType::class, [
                 'label' => $this->translator->trans('Create Case', [], 'case'),
                 'attr' => ['class' => 'btn btn-success float-right'],
