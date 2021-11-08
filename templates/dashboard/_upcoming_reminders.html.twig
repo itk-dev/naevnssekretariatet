@@ -2,14 +2,6 @@
 
 <div class="rounded-sm ">
     <h2 class="h3">{% trans %}Upcomming reminders{% endtrans %}</h2>
-{#    <div class="form-group">#}
-{#        <label for="upcomming-reminders" class="sr-only">{% trans %}Select period{% endtrans %}</label>#}
-{#        <select class="form-control form-control-sm" name="upcomming-reminders" id="upcomming-reminders">#}
-{#            <option value="7-days">{% trans %}Next 7 days{% endtrans %}</option>#}
-{#            <option value="14-days">{% trans %}Next 14 days{% endtrans %}</option>#}
-{#            <option value="30-days">{% trans %}Next 30 days{% endtrans %}</option>#}
-{#        </select>#}
-{#    </div>#}
     {% if upcoming_reminders|length > 0 %}
         {% for key, value in upcoming_reminders %}
             <h3 class="h4">{{ key|date('l')|trans({}, 'reminder') }}</h3>

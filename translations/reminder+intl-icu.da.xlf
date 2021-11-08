@@ -143,7 +143,7 @@
       </trans-unit>
       <trans-unit id="RGQGnCA" resname="No reminders within the week.">
         <source>No reminders within the week.</source>
-        <target>Ingen påmindelser i den kommende uge</target>
+        <target>Ingen påmindelser i den kommende uge.</target>
       </trans-unit>
       <trans-unit id="SD1HV9p" resname="See all reminders">
         <source>See all reminders</source>
