@@ -38,16 +38,10 @@ class ResidentComplaintBoardCaseType extends AbstractType
         $board = $options['board'];
 
         $builder
-            ->add('subboard', EntityType::class, [
-                'class' => SubBoard::class,
-                'choices' => $board->getSubBoards(),
-                'label' => $this->translator->trans('Sub board', [], 'case'),
-                'placeholder' => $this->translator->trans('Choose a sub board board', [], 'case'),
-            ])
             ->add('complainant', TextType::class, [
                 'label' => $this->translator->trans('Complainant', [], 'case'),
             ])
-            ->add('complainantPhone', TextType::class, [
+            ->add('complainantPhone', IntegerType::class, [
                 'label' => $this->translator->trans('Complainant phone', [], 'case'),
             ])
             ->add('complainantAddress', TextType::class, [
