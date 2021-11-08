@@ -46,11 +46,6 @@ abstract class CaseEntity
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SubBoard::class, inversedBy="caseEntities")
-     */
-    private $subboard;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $caseNumber;
@@ -82,10 +77,16 @@ abstract class CaseEntity
      */
     private $casePartyRelation;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Note::class, mappedBy="caseEntity")
+     */
+    private $notes;
+
     public function __construct()
     {
         $this->casePartyRelation = new ArrayCollection();
         $this->caseDocumentRelation = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -125,18 +126,6 @@ abstract class CaseEntity
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getSubboard(): ?SubBoard
-    {
-        return $this->subboard;
-    }
-
-    public function setSubboard(?SubBoard $subboard): self
-    {
-        $this->subboard = $subboard;
 
         return $this;
     }
@@ -197,6 +186,36 @@ abstract class CaseEntity
     public function removeCaseDocumentRelation(CaseDocumentRelation $caseDocumentRelation): self
     {
         $this->caseDocumentRelation->removeElement($caseDocumentRelation);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setCaseEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getCaseEntity() === $this) {
+                $note->setCaseEntity(null);
+            }
+        }
 
         return $this;
     }
