@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Entity\ResidentComplaintBoardCase;
-use App\Entity\SubBoard;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
