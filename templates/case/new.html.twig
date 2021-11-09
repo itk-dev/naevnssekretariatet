@@ -17,7 +17,10 @@
 
 {% block content %}
     <main role="main" class="col-12">
-        {{ form(form) }}
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button class="btn btn-success float-right" type="submit" name="submit">{% trans %}Create case{% endtrans %}</button>
+        {{ form_end(form) }}
     </main>
 {% endblock %}
 

@@ -51,6 +51,7 @@ class BoardCrudController extends AbstractCrudController
         yield ChoiceField::new('caseFormType', 'Case Form Type')
             ->setChoices([
                 'Resident complaint form' => 'ResidentComplaintBoardCaseType',
+                'Rent board complaint form' => 'RentBoardCaseType',
             ])
             ->setRequired('true')
             ->hideOnForm()

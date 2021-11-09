@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\CaseEntity;
+use App\Entity\RentBoardCase;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Repository\CasePartyRelationRepository;
 
@@ -26,6 +27,7 @@ class CaseHelper
     public function getRelevantTemplateAndPartiesByCase(CaseEntity $case): array
     {
         switch (get_class($case)) {
+            case RentBoardCase::class:
             case ResidentComplaintBoardCase::class:
                 // Get relations from both sides
                 $complainantRelations = $this->relationRepository
