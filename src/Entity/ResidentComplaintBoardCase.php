@@ -11,67 +11,88 @@ use Doctrine\ORM\Mapping as ORM;
 class ResidentComplaintBoardCase extends CaseEntity
 {
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $size;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $complainant;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $complainantAddress;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
+     */
+    private $leaseSize;
+
+    /**
+     * @ORM\Column(type="integer")
      */
     private $complainantPhone;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="boolean")
      */
-    private $complainantPostalCode;
+    private $hasVacated;
 
     /**
-     * @ORM\Column(type="string", length=255, options={"default": "submitted"})
+     * @ORM\Column(type="string", length=255)
      */
-    private $caseState = 'submitted';
+    private $leaseStreetNameAndNumber;
 
-    public function getSize(): ?int
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $leaseZip;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $leaseCity;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $leaseStarted;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $leaseAgreedRent;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $leaseInteriorMaintenance;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $leaseRegulatedRent;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $leaseRentAtCollectionTime;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $leaseSecurityDeposit;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $previousCasesAtLease;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $prepaidRent;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $feePaid;
+
+    public function getLeaseSize(): ?int
     {
-        return $this->size;
+        return $this->leaseSize;
     }
 
-    public function setSize(?int $size): self
+    public function setLeaseSize(?int $leaseSize): self
     {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    public function getComplainant(): ?string
-    {
-        return $this->complainant;
-    }
-
-    public function setComplainant(?string $complainant): self
-    {
-        $this->complainant = $complainant;
-
-        return $this;
-    }
-
-    public function getComplainantAddress(): ?string
-    {
-        return $this->complainantAddress;
-    }
-
-    public function setComplainantAddress(?string $complainantAddress): self
-    {
-        $this->complainantAddress = $complainantAddress;
+        $this->leaseSize = $leaseSize;
 
         return $this;
     }
@@ -88,26 +109,158 @@ class ResidentComplaintBoardCase extends CaseEntity
         return $this;
     }
 
-    public function getComplainantPostalCode(): ?string
+    public function getHasVacated(): ?bool
     {
-        return $this->complainantPostalCode;
+        return $this->hasVacated;
     }
 
-    public function setComplainantPostalCode(?string $complainantPostalCode): self
+    public function setHasVacated(bool $hasVacated): self
     {
-        $this->complainantPostalCode = $complainantPostalCode;
+        $this->hasVacated = $hasVacated;
 
         return $this;
     }
 
-    public function getCaseState(): ?string
+    public function getLeaseStreetNameAndNumber(): ?string
     {
-        return $this->caseState;
+        return $this->leaseStreetNameAndNumber;
     }
 
-    public function setCaseState(string $caseState): self
+    public function setLeaseStreetNameAndNumber(string $leaseStreetNameAndNumber): self
     {
-        $this->caseState = $caseState;
+        $this->leaseStreetNameAndNumber = $leaseStreetNameAndNumber;
+
+        return $this;
+    }
+
+    public function getLeaseZip(): ?string
+    {
+        return $this->leaseZip;
+    }
+
+    public function setLeaseZip(string $leaseZip): self
+    {
+        $this->leaseZip = $leaseZip;
+
+        return $this;
+    }
+
+    public function getLeaseCity(): ?string
+    {
+        return $this->leaseCity;
+    }
+
+    public function setLeaseCity(string $leaseCity): self
+    {
+        $this->leaseCity = $leaseCity;
+
+        return $this;
+    }
+
+    public function getLeaseStarted(): ?\DateTimeInterface
+    {
+        return $this->leaseStarted;
+    }
+
+    public function setLeaseStarted(?\DateTimeInterface $leaseStarted): self
+    {
+        $this->leaseStarted = $leaseStarted;
+
+        return $this;
+    }
+
+    public function getLeaseAgreedRent(): ?int
+    {
+        return $this->leaseAgreedRent;
+    }
+
+    public function setLeaseAgreedRent(?int $leaseAgreedRent): self
+    {
+        $this->leaseAgreedRent = $leaseAgreedRent;
+
+        return $this;
+    }
+
+    public function getLeaseInteriorMaintenance(): ?string
+    {
+        return $this->leaseInteriorMaintenance;
+    }
+
+    public function setLeaseInteriorMaintenance(?string $leaseInteriorMaintenance): self
+    {
+        $this->leaseInteriorMaintenance = $leaseInteriorMaintenance;
+
+        return $this;
+    }
+
+    public function getLeaseRegulatedRent(): ?int
+    {
+        return $this->leaseRegulatedRent;
+    }
+
+    public function setLeaseRegulatedRent(?int $leaseRegulatedRent): self
+    {
+        $this->leaseRegulatedRent = $leaseRegulatedRent;
+
+        return $this;
+    }
+
+    public function getLeaseRentAtCollectionTime(): ?int
+    {
+        return $this->leaseRentAtCollectionTime;
+    }
+
+    public function setLeaseRentAtCollectionTime(?int $leaseRentAtCollectionTime): self
+    {
+        $this->leaseRentAtCollectionTime = $leaseRentAtCollectionTime;
+
+        return $this;
+    }
+
+    public function getLeaseSecurityDeposit(): ?int
+    {
+        return $this->leaseSecurityDeposit;
+    }
+
+    public function setLeaseSecurityDeposit(?int $leaseSecurityDeposit): self
+    {
+        $this->leaseSecurityDeposit = $leaseSecurityDeposit;
+
+        return $this;
+    }
+
+    public function getPreviousCasesAtLease(): ?string
+    {
+        return $this->previousCasesAtLease;
+    }
+
+    public function setPreviousCasesAtLease(?string $previousCasesAtLease): self
+    {
+        $this->previousCasesAtLease = $previousCasesAtLease;
+
+        return $this;
+    }
+
+    public function getPrepaidRent(): ?int
+    {
+        return $this->prepaidRent;
+    }
+
+    public function setPrepaidRent(?int $prepaidRent): self
+    {
+        $this->prepaidRent = $prepaidRent;
+
+        return $this;
+    }
+
+    public function getFeePaid(): ?bool
+    {
+        return $this->feePaid;
+    }
+
+    public function setFeePaid(bool $feePaid): self
+    {
+        $this->feePaid = $feePaid;
 
         return $this;
     }

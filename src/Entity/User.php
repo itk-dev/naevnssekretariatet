@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Logging\LoggableEntityInterface;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -46,6 +48,16 @@ class User implements UserInterface, LoggableEntityInterface
      * @ORM\ManyToOne(targetEntity=Municipality::class)
      */
     private $favoriteMunicipality;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="assignedTo")
+     */
+    private $assignedCases;
+
+    public function __construct()
+    {
+        $this->assignedCases = new ArrayCollection();
+    }
 
     public function getId(): ?UuidV4
     {
@@ -161,6 +173,36 @@ class User implements UserInterface, LoggableEntityInterface
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|CaseEntity[]
+     */
+    public function getAssignedCases(): Collection
+    {
+        return $this->assignedCases;
+    }
+
+    public function addAssignedCase(CaseEntity $assignedCase): self
+    {
+        if (!$this->assignedCases->contains($assignedCase)) {
+            $this->assignedCases[] = $assignedCase;
+            $assignedCase->setAssignedTo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedCase(CaseEntity $assignedCase): self
+    {
+        if ($this->assignedCases->removeElement($assignedCase)) {
+            // set the owning side to null (unless already changed)
+            if ($assignedCase->getAssignedTo() === $this) {
+                $assignedCase->setAssignedTo(null);
+            }
+        }
+
+        return $this;
     }
 
     public function getLoggableProperties(): array
