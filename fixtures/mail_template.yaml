@@ -6,7 +6,8 @@ App\Entity\MailTemplate:
       This is the first mail template.
 
       Use it to notify people of a decision.
-    templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>
+    # @see \DataFixtures\Faker\Provider\FileUploadProvider
+    templateFilename: <uploadFile(mail_template/mail_template_decision_001.docx, templateFile, App\Entity\MailTemplate)>
 
   mail-template-inspection-letter-001:
     type: inspection_letter

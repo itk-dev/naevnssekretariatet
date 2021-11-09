@@ -83,7 +83,7 @@
       </trans-unit>
       <trans-unit id="Kc9JLnb" resname="Select a letter template">
         <source>Select a letter template</source>
-        <target>Vælg en brev skabelon</target>
+        <target state="translated">Vælg en brevskabelon</target>
       </trans-unit>
       <trans-unit id="5ZiVth6" resname="Use letter templates to create standardized letters">
         <source>Use letter templates to create standardized letters</source>

@@ -48,7 +48,8 @@ class MailTemplate
 
     /**
      * @Vich\UploadableField(mapping="mail_templates", fileNameProperty="templateFilename")
-     * @Assert\File(mimeTypes = {"application/vnd.openxmlformats-officedocument.wordprocessingml.document"})
+     * @todo validate that the file is a Word document
+     * @ Assert\File(mimeTypes = {"application/vnd.openxmlformats-officedocument.wordprocessingml.document"})
      *
      * @var File
      */

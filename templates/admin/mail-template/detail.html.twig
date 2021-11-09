@@ -6,6 +6,7 @@
     <div class="mail-template--preview">
         <a class="btn btn-secondary" href="{{ path('admin_mail_template_template_file', {id: entity.primaryKeyValue}) }}">{{ 'Show template file'|trans }}</a>
         <a class="btn btn-primary" href="{{ path('admin_mail_template_preview', {id: entity.primaryKeyValue}) }}">{{ 'Preview template'|trans }}</a>
+        <a class="btn btn-primary" href="{{ path('admin_mail_template_data', {id: entity.primaryKeyValue}) }}">{{ 'Preview template data'|trans }}</a>
         <a class="btn btn-primary" href="{{ path('admin_mail_template_preview', {id: entity.primaryKeyValue, with_data: true}) }}">{{ 'Preview template with data'|trans }}</a>
     </div>
 {% endblock %}

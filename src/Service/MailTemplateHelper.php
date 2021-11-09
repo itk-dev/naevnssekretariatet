@@ -4,6 +4,9 @@ namespace App\Service;
 
 use App\Entity\MailTemplate;
 use App\Entity\Party;
+use App\Entity\ResidentComplaintBoardCase;
+use App\Repository\CaseEntityRepository;
+use App\Repository\MailTemplateRepository;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpClient\Exception\ClientException;
@@ -14,6 +17,16 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class MailTemplateHelper
 {
+    /**
+     * @var MailTemplateRepository
+     */
+    private $mailTemplateRepository;
+
+    /**
+     * @var CaseEntityRepository
+     */
+    private $caseEntityRepository;
+
     /**
      * The config.
      *
@@ -31,8 +44,10 @@ class MailTemplateHelper
      */
     private $filesystem;
 
-    public function __construct(SerializerInterface $serializer, Filesystem $filesystem, array $mailTemplateHelperConfig)
+    public function __construct(MailTemplateRepository $mailTemplateRepository, CaseEntityRepository $caseEntityRepository, SerializerInterface $serializer, Filesystem $filesystem, array $mailTemplateHelperConfig)
     {
+        $this->mailTemplateRepository = $mailTemplateRepository;
+        $this->caseEntityRepository = $caseEntityRepository;
         $this->serializer = $serializer;
         $this->filesystem = $filesystem;
         $this->config = $mailTemplateHelperConfig;
@@ -48,12 +63,21 @@ class MailTemplateHelper
     public function getPreviewEntity(MailTemplate $mailTemplate)
     {
         switch ($mailTemplate->getType()) {
+            case 'decision':
+                return $this->caseEntityRepository->findOneBy([]);
+
             case 'inspection_letter':
-                return (new Party())
-                    ->setName(__METHOD__);
+                return $this->caseEntityRepository->findOneBy([]);
         }
 
         throw new \InvalidArgumentException(sprintf('Cannot get preview entity for mail template %s of type %s', $mailTemplate->getName(), $mailTemplate->getType()));
+    }
+
+    public function getTemplateData(MailTemplate $mailTemplate, $entity): array
+    {
+        $templateFileName = $this->getTemplateFile($mailTemplate);
+        $templateProcessor = new TemplateProcessor($templateFileName);
+        return $this->getValues($entity, $templateProcessor);
     }
 
     /**
@@ -97,6 +121,10 @@ class MailTemplateHelper
     public function getTemplateFile(MailTemplate $mailTemplate): string
     {
         return rtrim($this->config['template_file_directory'] ?? '', '/').'/'.$mailTemplate->getTemplateFilename();
+    }
+
+    public function getTemplates(string $type): array {
+        return $this->mailTemplateRepository->findBy(['type' => $type]);
     }
 
     /**

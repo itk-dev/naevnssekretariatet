@@ -6,6 +6,7 @@ use App\Entity\MailTemplate;
 use App\Service\MailTemplateHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\MimeTypes;
@@ -27,6 +28,18 @@ class MailTemplateController extends AbstractController
         $mimeType = (new MimeTypes())->guessMimeType($fileName);
 
         return new BinaryFileResponse($fileName, 200, ['content-type' => $mimeType]);
+    }
+
+    /**
+     * @Route("/data/{id}", name="data")
+     */
+    public function data(MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper): Response
+    {
+        // @todo error handling.
+        $entity = $mailTemplateHelper->getPreviewEntity($mailTemplate);
+        $data = $mailTemplateHelper->getTemplateData($mailTemplate, $entity);
+
+        return new JsonResponse($data);
     }
 
     /**

@@ -23,12 +23,11 @@
             <div class="form-row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">{% trans %}Select a letter template{% endtrans %}</label>
-                        <select class="form-control js-select2" name="" id="">
-                            <!-- TODO: List templates fom settings -->
-                            <option>Template 1</option>
-                            <option>Template 2</option>
-                            <option>Template 3</option>
+                        <label for="mail-template">{% trans %}Select a letter template{% endtrans %}</label>
+                        <select class="form-control js-select2" name="" id="mail-template">
+                            {% for mail_template in mail_templates %}
+                                <option>{{ mail_template.name }}</option>
+                            {% endfor %}
                         </select>
                         <small id="helpId1" class="form-text text-muted">{% trans %}Use letter templates to create standardized letters{% endtrans %}</small>
                     </div>

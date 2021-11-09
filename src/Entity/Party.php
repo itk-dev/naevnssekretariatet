@@ -5,8 +5,8 @@ namespace App\Entity;
 use App\Logging\LoggableEntityInterface;
 use App\Repository\PartyRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=PartyRepository::class)
