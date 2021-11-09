@@ -6,11 +6,11 @@ App\Entity\MailTemplate:
       This is the first mail template.
 
       Use it to notify people of a decision.
-    templateFilename: decision-001.docx
+    templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>
 
   mail-template-inspection-letter-001:
     type: inspection_letter
     name: Inspection letter 001
     description: |-
       Use it to notify people of a decision.
-    templateFilename: inspection-001.docx
+    templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>
