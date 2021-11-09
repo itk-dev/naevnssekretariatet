@@ -77,8 +77,10 @@ class ResidentComplaintBoardCaseType extends AbstractType
                 'label' => $this->translator->trans('Complaint category', [], 'case'),
                 'placeholder' => $this->translator->trans('Select a complaint category', [], 'case'),
             ])
-
-
+            ->add('feePaid', CheckboxType::class, [
+                'label' => $this->translator->trans('Fee paid', [], 'case'),
+                'required' => false,
+            ])
             ->add('leaseStarted', DateType::class, [
                 'widget' => 'single_text',
                 'input_format' => 'dd-MM-yyyy',
