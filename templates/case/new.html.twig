@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Create new Case{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Create new Case{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12">
+        {{ form(form) }}
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('case_new') }}
+{% endblock %}
