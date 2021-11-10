@@ -3,8 +3,6 @@
 namespace App\Service;
 
 use App\Entity\MailTemplate;
-use App\Entity\Party;
-use App\Entity\ResidentComplaintBoardCase;
 use App\Repository\CaseEntityRepository;
 use App\Repository\MailTemplateRepository;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -77,6 +75,7 @@ class MailTemplateHelper
     {
         $templateFileName = $this->getTemplateFile($mailTemplate);
         $templateProcessor = new TemplateProcessor($templateFileName);
+
         return $this->getValues($entity, $templateProcessor);
     }
 
@@ -123,7 +122,8 @@ class MailTemplateHelper
         return rtrim($this->config['template_file_directory'] ?? '', '/').'/'.$mailTemplate->getTemplateFilename();
     }
 
-    public function getTemplates(string $type): array {
+    public function getTemplates(string $type): array
+    {
         return $this->mailTemplateRepository->findBy(['type' => $type]);
     }
 
