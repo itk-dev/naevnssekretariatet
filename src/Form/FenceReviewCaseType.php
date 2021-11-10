@@ -83,9 +83,15 @@ class FenceReviewCaseType extends AbstractType
             ])
             ->add('conditions', TextareaType::class, [
                 'label' => $this->translator->trans('Conditions', [], 'case'),
+                'attr' => [
+                    'rows' => 8,
+                ],
             ])
             ->add('complainantClaim', TextareaType::class, [
                 'label' => $this->translator->trans('Claim', [], 'case'),
+                'attr' => [
+                    'rows' => 6,
+                ],
             ])
         ;
     }

@@ -15,11 +15,6 @@ class TwigExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @param string $camelCaseString
-     *
-     * @return string
-     */
     public function camelCaseToUnderscore(string $camelCaseString): string
     {
         $result = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $camelCaseString));

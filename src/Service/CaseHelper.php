@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\CaseEntity;
+use App\Entity\FenceReviewCase;
 use App\Entity\RentBoardCase;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Repository\CasePartyRelationRepository;
@@ -29,6 +30,7 @@ class CaseHelper
         switch (get_class($case)) {
             case RentBoardCase::class:
             case ResidentComplaintBoardCase::class:
+            case FenceReviewCase::class:
                 // Get relations from both sides
                 $complainantRelations = $this->relationRepository
                     ->findBy(['case' => $case, 'type' => ['Tenant', 'Representative'], 'softDeleted' => false]);
