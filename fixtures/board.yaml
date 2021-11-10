@@ -54,7 +54,7 @@ App\Entity\Board:
   fence-board-aarhus:
     name: Hegsnævnet Aarhus
     municipality: '@municipality-aarhus'
-    caseFormType: FenceBoardCaseType
+    caseFormType: FenceReviewCaseType
     defaultDeadline: 14
     statuses: |-
       Oprettet
@@ -67,7 +67,7 @@ App\Entity\Board:
   fence-board-randers:
     name: Hegnsnævnet Randers
     municipality: '@municipality-randers'
-    caseFormType: FenceBoardCaseType
+    caseFormType: FenceReviewCaseType
     defaultDeadline: 10
     statuses: |-
       Oprettet

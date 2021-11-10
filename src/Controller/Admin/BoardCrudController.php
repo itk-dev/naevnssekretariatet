@@ -52,6 +52,7 @@ class BoardCrudController extends AbstractCrudController
             ->setChoices([
                 'Resident complaint form' => 'ResidentComplaintBoardCaseType',
                 'Rent board complaint form' => 'RentBoardCaseType',
+                'Fence review form' => 'FenceReviewCaseType',
             ])
             ->setRequired('true')
             ->hideOnForm()

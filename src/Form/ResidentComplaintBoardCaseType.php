@@ -11,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -119,10 +118,6 @@ class ResidentComplaintBoardCaseType extends AbstractType
                 'label' => $this->translator->trans('Prepaid rent', [], 'case'),
                 'required' => false,
             ])
-//            ->add('save', SubmitType::class, [
-//                'label' => $this->translator->trans('Create Case', [], 'case'),
-//                'attr' => ['class' => 'btn btn-success float-right'],
-//            ])
         ;
     }
 }
