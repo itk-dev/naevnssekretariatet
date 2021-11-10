@@ -1,3 +1,5 @@
+{% trans_default_domain 'case' %}
+
 <main role="main" class="col-12">
     {# TODO: Persist tab navigation in url #}
     <ul class="nav nav-tabs mt-3" id="casestatusTab" role="tablist">
@@ -5,13 +7,13 @@
             <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">{% trans %}Overview{% endtrans %}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="claim-tab" data-toggle="tab" href="#claim" role="tab" aria-controls="claim" aria-selected="true">{% trans %}Claim{% endtrans %}</a>
+            <a class="nav-link" id="claim-tab" data-toggle="tab" href="#claim" role="tab" aria-controls="claim" aria-selected="true">{% trans %}Condition{% endtrans %}</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="tenant-tab" data-toggle="tab" href="#tenant" role="tab" aria-controls="tenant" aria-selected="true">{% trans %}Complainant{% endtrans %}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="landlord-tab" data-toggle="tab" href="#landlord" role="tab" aria-controls="landlord" aria-selected="true">{% trans %}Neighbour{% endtrans %}</a>
+            <a class="nav-link" id="landlord-tab" data-toggle="tab" href="#landlord" role="tab" aria-controls="landlord" aria-selected="true">{% trans %}Counterpart{% endtrans %}</a>
         </li>
     </ul>
     <div class="tab-content" id="casestatusTabContent">
@@ -69,14 +71,14 @@
                             <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
                         </fieldset>
                         <fieldset>
-                            <legend>{% trans %}Neighbour{% endtrans %}</legend>
+                            <legend>{% trans %}Counterpart{% endtrans %}</legend>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="inputBasicInformation8">{% trans %}Neighbour name{% endtrans %}</label>
+                                    <label for="inputBasicInformation8">{% trans %}Counterpart name{% endtrans %}</label>
                                     <input type="text" class="form-control" id="inputBasicInformation8" value="{{ case.accused }}" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="inputBasicInformation9">{% trans %}Neighbour CPR{% endtrans %}</label>
+                                    <label for="inputBasicInformation9">{% trans %}Counterpart CPR{% endtrans %}</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" id="inputBasicInformation9" value="{{ case.accusedCPR }}" readonly>
                                         {# TODO: Show status depending on validation result #}
