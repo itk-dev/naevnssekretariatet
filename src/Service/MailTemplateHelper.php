@@ -5,6 +5,8 @@ namespace App\Service;
 use App\Entity\MailTemplate;
 use App\Repository\CaseEntityRepository;
 use App\Repository\MailTemplateRepository;
+use PhpOffice\PhpWord\Element\AbstractElement;
+use PhpOffice\PhpWord\Element\TextRun;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpClient\Exception\ClientException;
@@ -90,7 +92,13 @@ class MailTemplateHelper
         // https://phpword.readthedocs.io/en/latest/templates-processing.html
         $templateProcessor = new TemplateProcessor($templateFileName);
         $values = $this->getValues($entity, $templateProcessor);
-        $templateProcessor->setValues($values);
+        foreach ($values as $name => $value) {
+            if ($value instanceof AbstractElement) {
+                $templateProcessor->setComplexValue($name, $value);
+            } else {
+                $templateProcessor->setValue($name, $value);
+            }
+        }
         $processedFileName = $templateProcessor->save();
 
         $client = HttpClient::create($this->config['http_client_options']);
@@ -136,26 +144,64 @@ class MailTemplateHelper
      */
     private function getValues(?object $entity, TemplateProcessor $templateProcessor)
     {
-        if (null !== $entity) {
+        $placeHolders = $templateProcessor->getVariables();
+
+        if (null === $entity) {
+            // We don't have any data; highlight placeholders with colored markers.
+            $values = array_combine(
+                $placeHolders,
+                array_map(static function ($name) {
+                    $marker = new TextRun();
+                    $marker->addText('${'.$name.'}', ['bgColor' => 'FFFF99']);
+
+                    return $marker;
+                }, $placeHolders)
+            );
+        } else {
             // Serialize to csv to flatten array values and get keys separated by `.`, i.e.
             //   ['name' => ['given' => 'Anders', 'family' => 'And']]
             // will be converted to
             //   ['name.given' => 'Anders', 'name.family' => 'And']
             $csv = $this->serializer->serialize($entity, 'csv', ['groups' => ['mail_template']]);
+            // We now have a csv string with two lines (the first is the header) that we split and parse.
             [$header, $row] = array_map('str_getcsv', explode(PHP_EOL, $csv, 2));
             $values = array_combine($header, $row);
-        } else {
-            $values = array_combine(
-                $templateProcessor->getVariables(),
-                array_map(static function ($name) {
-                    return '${'.$name.'}';
-                }, $templateProcessor->getVariables())
-            );
+        }
+
+        // Add some default values.
+        $values['now'] = (new \DateTimeImmutable('now'))->format(\DateTimeImmutable::ATOM);
+        $values['today'] = (new \DateTimeImmutable('today'))->format(\DateTimeImmutable::ATOM);
+
+        foreach ($placeHolders as $placeHolder) {
+            if (preg_match('/^(?P<key>[^:]+):(?P<format>.+)$/', $placeHolder, $matches)) {
+                [, $key, $format] = $matches;
+                if (isset($values[$key])) {
+                    $values[$placeHolder] = $this->formatValue($values[$key], $format);
+                }
+            }
         }
 
         // Set empty string values for all template variables without a value.
         $values += array_map(static function ($count) { return ''; }, $templateProcessor->getVariableCount());
 
         return $values;
+    }
+
+    /**
+     * Format a value.
+     */
+    private function formatValue(string $value, string $format): string
+    {
+        try {
+            $date = new \DateTimeImmutable($value);
+            $formatter = new \IntlDateFormatter(\Locale::getDefault(), \IntlDateFormatter::NONE, \IntlDateFormatter::NONE);
+            // https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
+            $formatter->setPattern($format);
+
+            return $formatter->format($date);
+        } catch (\Exception $exception) {
+        }
+
+        return $value;
     }
 }
