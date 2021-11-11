@@ -121,10 +121,6 @@
         <source>Sunday</source>
         <target>Søndag</target>
       </trans-unit>
-      <trans-unit id="B.oBnYX" resname="Upcomming reminders">
-        <source>Upcomming reminders</source>
-        <target>Kommende påmindelser</target>
-      </trans-unit>
       <trans-unit id="vk88k.W" resname="Select period">
         <source>Select period</source>
         <target>Vælg tidsperiode</target>
@@ -148,6 +144,10 @@
       <trans-unit id="SD1HV9p" resname="See all reminders">
         <source>See all reminders</source>
         <target>Se alle påmindelser</target>
+      </trans-unit>
+      <trans-unit id="LKg12el" resname="Upcoming reminders">
+        <source>Upcoming reminders</source>
+        <target>Kommende påmindelser</target>
       </trans-unit>
     </body>
   </file>

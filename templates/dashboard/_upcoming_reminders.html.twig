@@ -1,12 +1,12 @@
 {% trans_default_domain 'reminder' %}
 
 <div class="rounded-sm ">
-    <h2 class="h3">{% trans %}Upcomming reminders{% endtrans %}</h2>
+    <h2 class="h3">{% trans %}Upcoming reminders{% endtrans %}</h2>
     {% if upcoming_reminders|length > 0 %}
-        {% for key, value in upcoming_reminders %}
-            <h3 class="h4">{{ key|date('l')|trans({}, 'reminder') }}</h3>
+        {% for date, reminders in upcoming_reminders %}
+            <h3 class="h4">{{ date|date('l')|trans({}, 'reminder') }}</h3>
             <div class="list-group mb-3">
-                {% for reminder in value %}
+                {% for reminder in reminders %}
                     <li class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning">
                         <div class="d-flex w-100 justify-content-between" title="{% trans %}Show case{% endtrans %}">
                             <small>{{ reminder.date|date("d/m/Y") }}</small>
