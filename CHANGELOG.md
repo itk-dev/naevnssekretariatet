@@ -46,6 +46,7 @@ MunicipalityListener, BoardListener and their tests.
 
 ### Changed
 - [NSEK-138](https://jira.itkdev.dk/browse/NSEK-138): Updating Cypress to 6.5.0 so the same version is used project wide.
+- [TVIST1-144](https://jira.itkdev.dk/browse/TVIST1-144): Switched to `itk-dev/openid-connect-bundle` for AD and CLI login.
 
 ### Fixed
 - [NSEK-104](https://jira.itkdev.dk/browse/NSEK-104): Added missing database variables to .env file.

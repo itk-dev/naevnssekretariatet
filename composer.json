@@ -32,6 +32,7 @@
         "easycorp/easyadmin-bundle": "^3.2",
         "friendsoftwig/twigcs": "^5.0",
         "gedmo/doctrine-extensions": "^3.0",
+        "itk-dev/openid-connect-bundle": "^1.0",
         "knplabs/knp-paginator-bundle": "^5.6",
         "league/oauth2-client": "^2.6",
         "phpdocumentor/reflection-docblock": "^5.2",
