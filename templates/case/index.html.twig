@@ -89,7 +89,7 @@
                             </div>
                         </td>
                     </tr>
-                    {{ render(controller('App\\Controller\\ReminderController:newReminder', {id: case.id})) }}
+                    {{ render(controller('App\\Controller\\ReminderController:new', {id: case.id})) }}
                 {% endfor %}
                 </tbody>
             </table>

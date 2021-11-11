@@ -41,7 +41,7 @@
                             </div>
                         </td>
                     </tr>
-                    {{ render(controller('App\\Controller\\ReminderController:editReminder', {id: reminder.id})) }}
+                    {{ render(controller('App\\Controller\\ReminderController:edit', {id: reminder.id})) }}
                 {% endfor %}
                 </tbody>
             </table>

@@ -57,7 +57,7 @@ class ReminderController extends AbstractController
     /**
      * @Route("/reminder/create/{id}", name="reminder_create", methods={"GET", "POST"})
      */
-    public function newReminder(CaseEntity $case, Request $request): Response
+    public function new(CaseEntity $case, Request $request): Response
     {
         $reminder = new Reminder();
 
@@ -90,7 +90,7 @@ class ReminderController extends AbstractController
     /**
      * @Route("/reminder/complete/{id}", name="reminder_complete")
      */
-    public function completeReminder(Reminder $reminder): Response
+    public function complete(Reminder $reminder): Response
     {
         $this->entityManager->remove($reminder);
         $this->entityManager->flush();
@@ -101,7 +101,7 @@ class ReminderController extends AbstractController
     /**
      * @Route("/reminder/edit/{id}", name="reminder_edit", methods={"GET", "POST"})
      */
-    public function editReminder(Reminder $reminder, Request $request): Response
+    public function edit(Reminder $reminder, Request $request): Response
     {
         $reminderForm = $this->createForm(ReminderType::class, $reminder);
 
