@@ -80,6 +80,11 @@ class User implements UserInterface, LoggableEntityInterface
         return $this;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return $this->getUsername();
+    }
+
     /**
      * A visual identifier that represents this user.
      *
