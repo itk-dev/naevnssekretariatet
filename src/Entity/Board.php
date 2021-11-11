@@ -67,6 +67,16 @@ class Board implements LoggableEntityInterface
      */
     private $boardRoles;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $complainantPartyTypes;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $counterPartyTypes;
+
     public function __construct()
     {
         $this->complaintCategories = new ArrayCollection();
@@ -240,6 +250,30 @@ class Board implements LoggableEntityInterface
                 $boardRole->setBoard(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getComplainantPartyTypes(): ?string
+    {
+        return $this->complainantPartyTypes;
+    }
+
+    public function setComplainantPartyTypes(string $complainantPartyTypes): self
+    {
+        $this->complainantPartyTypes = $complainantPartyTypes;
+
+        return $this;
+    }
+
+    public function getCounterPartyTypes(): ?string
+    {
+        return $this->counterPartyTypes;
+    }
+
+    public function setCounterPartyTypes(string $counterPartyTypes): self
+    {
+        $this->counterPartyTypes = $counterPartyTypes;
 
         return $this;
     }
