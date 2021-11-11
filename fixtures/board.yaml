@@ -11,6 +11,12 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
+    complainantPartyTypes: |-
+      Lejer
+      Lejer repræsentant
+    counterPartyTypes: |-
+      Udlejer
+      Udlejer administrator
 
   resident-complaint-board-randers:
     name: Beboerklagenævnet Randers
@@ -24,6 +30,12 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
+    complainantPartyTypes: |-
+      Lejer
+      Lejer repræsentant
+    counterPartyTypes: |-
+      Udlejer
+      Udlejer administrator
 
   rent-board-aarhus:
     name: Huslejenævnet Aarhus
@@ -37,6 +49,12 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
+    complainantPartyTypes: |-
+      Lejer
+      Lejer repræsentant
+    counterPartyTypes: |-
+      Udlejer
+      Udlejer administrator
 
   rent-board-randers:
     name: Huslejenævnet Randers
@@ -50,6 +68,12 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
+    complainantPartyTypes: |-
+      Lejer
+      Lejer repræsentant
+    counterPartyTypes: |-
+      Udlejer
+      Udlejer administrator
 
   fence-board-aarhus:
     name: Hegsnævnet Aarhus
@@ -63,6 +87,12 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
+    complainantPartyTypes: |-
+      Klager
+      Klager repræsentant
+    counterPartyTypes: |-
+      Modpart
+      Modpart repræsentant
 
   fence-board-randers:
     name: Hegnsnævnet Randers
@@ -76,3 +106,9 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
+    complainantPartyTypes: |-
+      Klager
+      Klager repræsentant
+    counterPartyTypes: |-
+      Modpart
+      Modpart repræsentant
