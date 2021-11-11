@@ -5,6 +5,8 @@ namespace App\Command;
 use App\Service\ReminderHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class UpdateReminderCommand extends Command
@@ -26,16 +28,21 @@ class UpdateReminderCommand extends Command
     {
         $this
             ->setDescription(self::$defaultDescription)
+            ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Runs the reminder status update logic but prints changes rather than applying them.')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $hasUpdated = $this->reminderHelper->updateStatuses();
-        if ($hasUpdated) {
-            return Command::SUCCESS;
-        } else {
-            return Command::FAILURE;
-        }
+        $output->setVerbosity(128);
+        $logger = new ConsoleLogger($output);
+
+        $this->reminderHelper->setLogger($logger);
+
+        $isDryRun = $input->getOption('dry-run');
+
+        $this->reminderHelper->updateStatuses($isDryRun);
+
+        return Command::SUCCESS;
     }
 }

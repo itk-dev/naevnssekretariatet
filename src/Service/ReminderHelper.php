@@ -6,9 +6,12 @@ use App\Entity\User;
 use App\Repository\ReminderRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
-class ReminderHelper
+class ReminderHelper implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
     /**
      * @var EntityManagerInterface
      */
@@ -24,12 +27,14 @@ class ReminderHelper
         $this->reminderRepository = $reminderRepository;
     }
 
-    public function updateStatuses(): bool
+    public function updateStatuses(bool $dryRun)
     {
         // Todo: Consider leap days and daylight saving
 
         // Handle pending => active transition
         $currentDate = new DateTime('today');
+
+        $this->logger->info('Today: '.$currentDate->format('d/m/Y'));
 
         $pendingReminders = $this->reminderRepository->findBy([
             'status' => ReminderStatus::Pending,
@@ -38,10 +43,13 @@ class ReminderHelper
         foreach ($pendingReminders as $reminder) {
             $isToday = 0 === $currentDate->diff($reminder->getDate())->days;
 
-            // Todo: Only do this for dates that have not yet been reached.
             if ($isToday) {
-                $reminder->setStatus(ReminderStatus::Active);
-                $this->entityManager->flush();
+                $this->logger->info('Changing reminder with date: '.$reminder->getDate()->format('d/m/Y').' from status Pending to Active');
+
+                if (!$dryRun) {
+                    $reminder->setStatus(ReminderStatus::Active);
+                    $this->entityManager->flush();
+                }
             }
         }
 
@@ -55,12 +63,14 @@ class ReminderHelper
             $isExceeded = ($reminderDate < $currentDate) && (0 !== $currentDate->diff($reminderDate)->days);
 
             if ($isExceeded) {
-                $reminder->setStatus(ReminderStatus::Exceeded);
-                $this->entityManager->flush();
+                $this->logger->info('Changing reminder with date: '.$reminder->getDate()->format('d/m/Y').' from status Active to Exceeded');
+
+                if (!$dryRun) {
+                    $reminder->setStatus(ReminderStatus::Exceeded);
+                    $this->entityManager->flush();
+                }
             }
         }
-
-        return true;
     }
 
     public function getRemindersWithinWeekByUserGroupedByDay(User $user): array
