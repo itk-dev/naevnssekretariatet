@@ -55,4 +55,17 @@ class ReminderRepository extends ServiceEntityRepository
 
         return $result;
     }
+
+    public function findRemindersWithDifferentStatusByUser(int $status, User $user)
+    {
+        $result = $this->createQueryBuilder('r')
+            ->where('r.status != :status')
+            ->setParameter('status', $status)
+            ->andWhere('r.createdBy = :user')
+            ->setParameter('user', $user->getId()->toBinary())
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
 }

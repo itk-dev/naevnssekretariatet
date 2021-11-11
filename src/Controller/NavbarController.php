@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Reminder;
 use App\Entity\User;
+use App\Repository\ReminderRepository;
 use App\Service\ReminderStatus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NavbarController extends AbstractController
 {
@@ -17,14 +16,14 @@ class NavbarController extends AbstractController
      */
     private $security;
     /**
-     * @var TranslatorInterface
+     * @var ReminderRepository
      */
-    private $translator;
+    private $reminderRepository;
 
-    public function __construct(Security $security, TranslatorInterface $translator)
+    public function __construct(Security $security, ReminderRepository $reminderRepository)
     {
         $this->security = $security;
-        $this->translator = $translator;
+        $this->reminderRepository = $reminderRepository;
     }
 
     public function renderReminders(): Response
@@ -32,9 +31,7 @@ class NavbarController extends AbstractController
         /** @var User $user */
         $user = $this->security->getUser();
 
-        $activeReminders = $user->getReminders()->filter(function (Reminder $reminder) {
-            return ReminderStatus::Pending !== $reminder->getStatus();
-        });
+        $activeReminders = $this->reminderRepository->findRemindersWithDifferentStatusByUser(ReminderStatus::Pending, $user);
 
         return $this->render('navbar/_reminders.html.twig', [
             'active_reminders' => sizeof($activeReminders),
