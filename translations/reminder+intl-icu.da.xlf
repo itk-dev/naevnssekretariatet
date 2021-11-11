@@ -149,6 +149,10 @@
         <source>Upcoming reminders</source>
         <target>Kommende påmindelser</target>
       </trans-unit>
+      <trans-unit id="zPXv6o4" resname="active_reminders_plural">
+        <source>active_reminders_plural</source>
+        <target>{count, plural, =0 {Ingen aktive påmindelser} one {1 aktiv påmindelse} other {# aktive påmindelser}}</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
