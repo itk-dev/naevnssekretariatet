@@ -209,9 +209,9 @@ class AgendaController extends AbstractController
         return $this->render('agenda/show.html.twig', [
             'agenda_form' => $form->createView(),
             'agenda' => $agenda,
-            'boardMemberTriple' => $memberTriplesWithUuid,
-            'agendaItems' => $sortedAgendaItems,
-            'isFinished' => $isFinishedAgenda,
+            'board_member_triple' => $memberTriplesWithUuid,
+            'agenda_items' => $sortedAgendaItems,
+            'is_finished' => $isFinishedAgenda,
         ]);
     }
 

@@ -49,8 +49,8 @@ class AgendaCaseItemController extends AbstractController
     {
         return $this->render('agenda_case_item/inspection.html.twig', [
             'agenda' => $agenda,
-            'agendaItem' => $agendaItem,
-            'isFinishedAgenda' => $this->agendaHelper->isFinishedAgenda($agenda),
+            'agenda_item' => $agendaItem,
+            'is_finished_agenda' => $this->agendaHelper->isFinishedAgenda($agenda),
         ]);
     }
 
@@ -78,7 +78,7 @@ class AgendaCaseItemController extends AbstractController
         return $this->render('agenda_case_item/inspection_letter.html.twig', [
             'inspection_letter_form' => $form->createView(),
             'agenda' => $agenda,
-            'agendaItem' => $agendaItem,
+            'agenda_item' => $agendaItem,
         ]);
     }
 
@@ -118,7 +118,7 @@ class AgendaCaseItemController extends AbstractController
         return $this->render('agenda_case_item/presentation.html.twig', [
             'case_presentation_form' => $form->createView(),
             'agenda' => $agenda,
-            'agendaItem' => $agendaItem,
+            'agenda_item' => $agendaItem,
         ]);
     }
 
@@ -157,7 +157,7 @@ class AgendaCaseItemController extends AbstractController
         return $this->render('agenda_case_item/decision_proposal.html.twig', [
             'decision_proposal_form' => $form->createView(),
             'agenda' => $agenda,
-            'agendaItem' => $agendaItem,
+            'agenda_item' => $agendaItem,
         ]);
     }
 
@@ -172,9 +172,9 @@ class AgendaCaseItemController extends AbstractController
 
         return $this->render('agenda_case_item/documents.html.twig', [
             'agenda' => $agenda,
-            'agendaItem' => $agendaItem,
+            'agenda_item' => $agendaItem,
             'documents' => $documents,
-            'isFinishedAgenda' => $this->agendaHelper->isFinishedAgenda($agenda),
+            'is_finished_agenda' => $this->agendaHelper->isFinishedAgenda($agenda),
         ]);
     }
 
@@ -197,7 +197,7 @@ class AgendaCaseItemController extends AbstractController
         if ($request->isMethod('GET') || $isFinishedAgenda) {
             return $this->render('agenda_case_item/documents_attach.html.twig', [
                 'agenda' => $agenda,
-                'agendaItem' => $agendaItem,
+                'agenda_item' => $agendaItem,
                 'documents' => $availableDocuments,
             ]);
         }

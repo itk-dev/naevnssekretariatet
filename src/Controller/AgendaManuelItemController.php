@@ -54,9 +54,9 @@ class AgendaManuelItemController extends AbstractController
 
         return $this->render('agenda_manuel_item/documents.html.twig', [
             'agenda' => $agenda,
-            'agendaItem' => $agendaItem,
+            'agenda_item' => $agendaItem,
             'documents' => $documents,
-            'isFinishedAgenda' => $agendaHelper->isFinishedAgenda($agenda),
+            'is_finished_agenda' => $agendaHelper->isFinishedAgenda($agenda),
         ]);
     }
 
@@ -107,7 +107,7 @@ class AgendaManuelItemController extends AbstractController
         return $this->render('agenda_manuel_item/document_upload.html.twig', [
             'document_form' => $form->createView(),
             'agenda' => $agenda,
-            'agendaItem' => $agendaItem,
+            'agenda_item' => $agendaItem,
         ]);
     }
 

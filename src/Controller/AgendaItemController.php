@@ -114,7 +114,7 @@ class AgendaItemController extends AbstractController
         return $this->render('agenda_item/edit.html.twig', [
             'agenda_item_edit_form' => $form->createView(),
             'agenda' => $agenda,
-            'agendaItem' => $agendaItem,
+            'agenda_item' => $agendaItem,
             'layout' => $twigLayout,
         ]);
     }
