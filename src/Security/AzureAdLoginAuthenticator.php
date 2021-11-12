@@ -9,6 +9,7 @@ use ItkDev\OpenIdConnect\Security\OpenIdConfigurationProvider;
 use ItkDev\OpenIdConnectBundle\Security\OpenIdLoginAuthenticator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -30,12 +31,12 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
      */
     private $router;
 
-    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository, OpenIdConfigurationProvider $provider, SessionInterface $session, UrlGeneratorInterface $router, int $leeway = 0)
+    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository, OpenIdConfigurationProvider $provider, RequestStack $requestStack, UrlGeneratorInterface $router, int $leeway = 0)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
         $this->router = $router;
-        parent::__construct($provider, $session, $leeway);
+        parent::__construct($provider, $requestStack->getSession(), $leeway);
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
