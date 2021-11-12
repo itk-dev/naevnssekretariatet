@@ -51,7 +51,6 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-{#                    <th scope="col">{% trans %}Board{% endtrans %}</th>#}
                     <th{% if pagination.isSorted('a.Board') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Board'|trans({}, 'agenda'), 'board.name') }}
                     </th>

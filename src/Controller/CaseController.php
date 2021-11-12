@@ -153,30 +153,10 @@ class CaseController extends AbstractController
             }
         }
 
-//        $hasActiveAgenda = $caseHelper->hasActiveAgenda($case);
-//
-//        $availableOpenAgendas = $agendaHelper->sortAgendasAccordingToDate($availableOpenAgendas);
-//
-//        $agendaForm = $this->createForm(CaseAgendaSelectType::class, null, [
-//            'hasActiveAgenda' => $hasActiveAgenda,
-//            'agendas' => $availableOpenAgendas,
-//        ]);
-//
-//        $agendaForm->handleRequest($request);
-//        if ($agendaForm->isSubmitted() && $agendaForm->isValid()) {
-//            // TODO: redirect to create case item
-//            $agenda = $agendaForm->get('agenda')->getData();
-//
-//            return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
-//        }
-
         return $this->render('case/status.html.twig', [
             'case' => $case,
             'case_status_form' => $caseStatusForm->createView(),
             'case_agenda_status_form' => $caseAgendaStatusForm->createView(),
-//            'hasActiveAgenda' => $hasActiveAgenda,
-//            'hasOpenAgenda' => $hasOpenAgenda,
-//            'agenda_form' => $agendaForm->createView(),
             'active_agendas' => $activeAgendas,
             'finished_agendas' => $finishedAgendas,
         ]);

@@ -89,8 +89,6 @@ class AgendaCaseItemController extends AbstractController
      */
     public function presentation(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
-        // We are guaranteed this to be an AgendaCaseItem
-
         $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
 
         if (null !== $agendaItem->getPresentation()) {
@@ -135,8 +133,6 @@ class AgendaCaseItemController extends AbstractController
      */
     public function decisionProposal(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
-        // We are guaranteed this to be an AgendaCaseItem
-
         $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
 
         if (null !== $agendaItem->getDecisionProposal()) {

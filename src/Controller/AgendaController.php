@@ -274,8 +274,6 @@ class AgendaController extends AbstractController
      */
     public function protocol(Agenda $agenda, Request $request): Response
     {
-        // We are guaranteed this to be an AgendaCaseItem
-
         if (null !== $agenda->getProtocol()) {
             $agendaProtocol = $agenda->getProtocol();
         } else {

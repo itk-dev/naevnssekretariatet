@@ -78,24 +78,6 @@
                 </div>
             </div>
             {{ form_end(case_agenda_status_form) }}
-{#            {% if hasActiveAgenda == false %}#}
-{#                {% if hasOpenAgenda == true %}#}
-{#                    <div class="row">#}
-{#                        <div class="col row ml-1">#}
-{#                            {{ form_start(agenda_form.agenda, {'attr': {'class': 'form-inline form-row'}}) }}#}
-{#                            <div class="form-group col-4 mr-5">#}
-{#                                {{ form_widget(agenda_form.agenda) }}#}
-{#                            </div>#}
-{#                            <div class="col-auto">#}
-{#                                {{ form_widget(agenda_form.submit) }}#}
-{#                            </div>#}
-{#                            {{ form_end(agenda_form) }}#}
-{#                        </div>#}
-{#                    </div>#}
-{#                {% else %}#}
-{#                    {% trans %}No current active agenda available{% endtrans %}#}
-{#                {% endif %}#}
-{#            {% endif %}#}
 
                 <h3 class="h5 mt-3">{% trans %}Active agenda{% endtrans %}</h3>
                 {% if active_agendas|length > 0 %}
