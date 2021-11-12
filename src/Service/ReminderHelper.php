@@ -27,15 +27,20 @@ class ReminderHelper implements LoggerAwareInterface
         $this->reminderRepository = $reminderRepository;
     }
 
+    /**
+     * Inspects reminders with status pending and active checking
+     * if their status should be updated to active and exceeded respectively.
+     *
+     * @param bool $dryRun
+     */
     public function updateStatuses(bool $dryRun)
     {
-        // Todo: Consider leap days and daylight saving
-
         // Handle pending => active transition
         $currentDate = new DateTime('today');
 
         $this->logger->info('Today: '.$currentDate->format('d/m/Y'));
 
+        // Handle pending => active status transition
         $pendingReminders = $this->reminderRepository->findBy([
             'status' => ReminderStatus::PENDING,
         ]);
@@ -53,7 +58,7 @@ class ReminderHelper implements LoggerAwareInterface
             }
         }
 
-        // Handle active => exceeded transition
+        // Handle active => exceeded status transition
         $activeReminders = $this->reminderRepository->findBy([
             'status' => ReminderStatus::ACTIVE,
         ]);
