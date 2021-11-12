@@ -91,11 +91,7 @@ class AgendaCaseItemController extends AbstractController
     {
         $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
 
-        if (null !== $agendaItem->getPresentation()) {
-            $casePresentation = $agendaItem->getPresentation();
-        } else {
-            $casePresentation = new CasePresentation();
-        }
+        $casePresentation = $agendaItem->getPresentation() ?? new CasePresentation();
 
         $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
 
@@ -135,11 +131,7 @@ class AgendaCaseItemController extends AbstractController
     {
         $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
 
-        if (null !== $agendaItem->getDecisionProposal()) {
-            $decisionProposal = $agendaItem->getDecisionProposal();
-        } else {
-            $decisionProposal = new CaseDecisionProposal();
-        }
+        $decisionProposal = $agendaItem->getDecisionProposal() ?? new CaseDecisionProposal();
 
         $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
 
@@ -202,27 +194,29 @@ class AgendaCaseItemController extends AbstractController
 
         $availableDocuments = array_diff($caseDocuments, $agendaItemDocuments);
 
-        if ('POST' === $request->getMethod() && !$isFinishedAgenda) {
-            $docs = $request->request->get('documents');
-
-            if (null !== $docs) {
-                foreach ($docs as $documentId) {
-                    $documentToAdd = $documentRepository->findOneBy(['id' => $documentId]);
-                    $agendaItem->addDocument($documentToAdd);
-                }
-                $this->entityManager->flush();
-            }
-
-            return $this->redirectToRoute('agenda_case_item_document', [
-                'id' => $agenda->getId(),
-                'agenda_item_id' => $agendaItem->getId(),
+        if ($request->isMethod('GET') || $isFinishedAgenda) {
+            return $this->render('agenda_case_item/documents_attach.html.twig', [
+                'agenda' => $agenda,
+                'agendaItem' => $agendaItem,
+                'documents' => $availableDocuments,
             ]);
         }
 
-        return $this->render('agenda_case_item/documents_attach.html.twig', [
-            'agenda' => $agenda,
-            'agendaItem' => $agendaItem,
-            'documents' => $availableDocuments,
+        $documentIds = $request->request->get('documents');
+
+        if (null !== $documentIds) {
+            $documents = $documentRepository->findMany($documentIds);
+
+            foreach ($documents as $document) {
+                $agendaItem->addDocument($document);
+            }
+
+            $this->entityManager->flush();
+        }
+
+        return $this->redirectToRoute('agenda_case_item_document', [
+            'id' => $agenda->getId(),
+            'agenda_item_id' => $agendaItem->getId(),
         ]);
     }
 

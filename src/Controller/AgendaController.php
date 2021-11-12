@@ -274,11 +274,7 @@ class AgendaController extends AbstractController
      */
     public function protocol(Agenda $agenda, Request $request): Response
     {
-        if (null !== $agenda->getProtocol()) {
-            $agendaProtocol = $agenda->getProtocol();
-        } else {
-            $agendaProtocol = new AgendaProtocol();
-        }
+        $agendaProtocol = $agenda->getProtocol() ?? new AgendaProtocol();
 
         $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
 

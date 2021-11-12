@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Document;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @method Document|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,5 +18,16 @@ class DocumentRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Document::class);
+    }
+
+    public function findMany(array $ids): array
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.id IN (:ids)')
+            ->setParameter('ids', array_map(function ($id) {
+                return Uuid::fromString($id)->toBinary();
+            }, $ids))
+            ->getQuery()
+            ->getResult();
     }
 }
