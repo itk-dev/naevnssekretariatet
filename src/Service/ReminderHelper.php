@@ -37,17 +37,17 @@ class ReminderHelper implements LoggerAwareInterface
         $this->logger->info('Today: '.$currentDate->format('d/m/Y'));
 
         $pendingReminders = $this->reminderRepository->findBy([
-            'status' => ReminderStatus::Pending,
+            'status' => ReminderStatus::PENDING,
         ]);
 
         foreach ($pendingReminders as $reminder) {
             $isToday = 0 === $currentDate->diff($reminder->getDate())->days;
 
             if ($isToday) {
-                $this->logger->info('Changing reminder with date: '.$reminder->getDate()->format('d/m/Y').' from status Pending to Active');
+                $this->logger->info('Changing reminder with date: '.$reminder->getDate()->format('d/m/Y').' from status PENDING to ACTIVE');
 
                 if (!$dryRun) {
-                    $reminder->setStatus(ReminderStatus::Active);
+                    $reminder->setStatus(ReminderStatus::ACTIVE);
                     $this->entityManager->flush();
                 }
             }
@@ -55,7 +55,7 @@ class ReminderHelper implements LoggerAwareInterface
 
         // Handle active => exceeded transition
         $activeReminders = $this->reminderRepository->findBy([
-            'status' => ReminderStatus::Active,
+            'status' => ReminderStatus::ACTIVE,
         ]);
 
         foreach ($activeReminders as $reminder) {
@@ -63,10 +63,10 @@ class ReminderHelper implements LoggerAwareInterface
             $isExceeded = ($reminderDate < $currentDate) && (0 !== $currentDate->diff($reminderDate)->days);
 
             if ($isExceeded) {
-                $this->logger->info('Changing reminder with date: '.$reminder->getDate()->format('d/m/Y').' from status Active to Exceeded');
+                $this->logger->info('Changing reminder with date: '.$reminder->getDate()->format('d/m/Y').' from status ACTIVE to EXCEEDED');
 
                 if (!$dryRun) {
-                    $reminder->setStatus(ReminderStatus::Exceeded);
+                    $reminder->setStatus(ReminderStatus::EXCEEDED);
                     $this->entityManager->flush();
                 }
             }
@@ -93,11 +93,11 @@ class ReminderHelper implements LoggerAwareInterface
         $today = new DateTime('today');
 
         if ($reminderDate > $today) {
-            return ReminderStatus::Pending;
+            return ReminderStatus::PENDING;
         } elseif ($reminderDate < $today) {
-            return ReminderStatus::Exceeded;
+            return ReminderStatus::EXCEEDED;
         } else {
-            return ReminderStatus::Active;
+            return ReminderStatus::ACTIVE;
         }
     }
 }

@@ -4,9 +4,9 @@
     {# Help the translation extractor #}
 
     {# Statuses #}
-    {{ 1|trans }}
-    {{ 2|trans }}
-    {{ 3|trans }}
+    {{ constant('ReminderStatus::PENDING')|trans }}
+    {{ constant('ReminderStatus::ACTIVE')|trans }}
+    {{ constant('ReminderStatus::EXCEEDED')|trans }}
 
     {# Weekday #}
     {{ 'Monday'|trans }}

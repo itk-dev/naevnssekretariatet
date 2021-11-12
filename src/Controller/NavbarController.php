@@ -31,7 +31,7 @@ class NavbarController extends AbstractController
         /** @var User $user */
         $user = $this->security->getUser();
 
-        $activeReminders = $this->reminderRepository->findRemindersWithDifferentStatusByUser(ReminderStatus::Pending, $user);
+        $activeReminders = $this->reminderRepository->findRemindersWithDifferentStatusByUser(ReminderStatus::PENDING, $user);
 
         return $this->render('navbar/_reminders.html.twig', [
             'active_reminders' => sizeof($activeReminders),
