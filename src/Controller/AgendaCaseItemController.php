@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/agenda/{id}/item")
+ * @Route("/agenda/{id}/item/{agenda_item_id}")
  */
 class AgendaCaseItemController extends AbstractController
 {
@@ -41,7 +41,7 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/inspection", name="agenda_case_item_inspection", methods={"GET"})
+     * @Route("/inspection", name="agenda_case_item_inspection", methods={"GET"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
@@ -54,7 +54,7 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/inspection-letter", name="agenda_case_item_inspection_letter", methods={"GET", "POST"})
+     * @Route("/inspection-letter", name="agenda_case_item_inspection_letter", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
@@ -82,7 +82,7 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/presentation", name="agenda_case_item_presentation", methods={"GET", "POST"})
+     * @Route("/presentation", name="agenda_case_item_presentation", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
@@ -122,7 +122,7 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/decision-proposal", name="agenda_case_item_decision_proposal", methods={"GET", "POST"})
+     * @Route("/decision-proposal", name="agenda_case_item_decision_proposal", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
@@ -161,7 +161,7 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/case/documents", name="agenda_case_item_document", methods={"GET", "POST"})
+     * @Route("/case/documents", name="agenda_case_item_document", methods={"GET", "POST"})
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
@@ -177,7 +177,7 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/case/documents/select", name="agenda_case_item_document_attach", methods={"GET", "POST"})
+     * @Route("/case/documents/select", name="agenda_case_item_document_attach", methods={"GET", "POST"})
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
@@ -217,7 +217,7 @@ class AgendaCaseItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/case/documents/delete/{document_id}", name="agenda_case_item_document_delete", methods={"DELETE"})
+     * @Route("/case/documents/delete/{document_id}", name="agenda_case_item_document_delete", methods={"DELETE"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
