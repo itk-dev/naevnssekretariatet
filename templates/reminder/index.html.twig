@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'reminder' %}
+
+{% block title %}{% trans %}Reminders{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Reminders{% endtrans %}</h1>
+            <p class="text-muted"><small>{% trans %}Here you can see a list of your own personal reminders and manage them.{% endtrans %}</small></p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12">
+        <div class="table-responsive-sm">
+            <table id="casetable" class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">{% trans %}Casenumber{% endtrans %}</th>
+                    <th scope="col">{% trans %}Status{% endtrans %}</th>
+                    <th scope="col">{% trans %}Date{% endtrans %}</th>
+                    <th scope="col">{% trans %}Content{% endtrans %}</th>
+                    <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for reminder in reminders %}
+                    <tr>
+                        <td>{{ reminder.caseEntity.caseNumber|e }}</td>
+                        <td>{{ reminder.status|trans({}, 'reminder') }}</td>
+                        <td>{{ reminder.date|date('j F Y') }}</td>
+                        <td>{{ reminder.content|e }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                                <a href="{{ url('reminder_complete', {id: reminder.caseEntity.id, reminder_id: reminder.id}) }}" role="button" onclick="return confirm('{% trans %}Are you sure you want to complete this reminder?{% endtrans %}');" class="btn btn-success" data-toggle="tooltip" data-placement="auto" title="{% trans %}Mark as completed{% endtrans %}"><i class="fas fa-check-circle"></i><span class="sr-only">{% trans %}Mark as completed{% endtrans %} </span></a>
+                                <a href="" role="button" class="btn btn-warning" data-toggle="modal" data-target="#reminder_edit{{ reminder.id }}" data-placement="auto" title="{% trans %}Edit reminder{% endtrans %}"><i class="fas fa-pen"></i><span class="sr-only">{% trans %}Edit reminder{% endtrans %}</span></a>
+                                <a href="{{ url('case_summary', {id: reminder.caseEntity.id}) }}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ reminder.caseEntity.casenumber|e }}"><i class="fas fa-file-alt"></i><span class="sr-only">"{% trans %}Show case{% endtrans %} {{ reminder.caseEntity.casenumber|e }}"</span></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {{ render(controller(
+                        'App\\Controller\\CaseReminderController:edit', {
+                            id: reminder.caseEntity.id,
+                            reminder_id: reminder.id
+                            }
+                        )) }}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+{% endblock %}

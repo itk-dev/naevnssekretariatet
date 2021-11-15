@@ -85,10 +85,11 @@
                         <td>
                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
                                 <a href="{{ url('case_summary', {id: case.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show case{% endtrans %}</span></a>
-                                <a href="#" role="button" class="btn btn-warning" data-toggle="tooltip" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}"><i class="fas fa-clock"></i><span class="sr-only">{% trans %}Add reminder{% endtrans %}</span></a>
+                                <a href="" role="button" class="btn btn-warning" data-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}"><i class="fas fa-clock"></i><span class="sr-only">{% trans %}Add reminder{% endtrans %}</span></a>
                             </div>
                         </td>
                     </tr>
+                    {{ render(controller('App\\Controller\\CaseReminderController:new', {id: case.id})) }}
                 {% endfor %}
                 </tbody>
             </table>

@@ -57,34 +57,6 @@
         <source>Cases opened more than 30 days ago</source>
         <target>Sager der ikke har været åbnet længe</target>
       </trans-unit>
-      <trans-unit id="B.oBnYX" resname="Upcomming reminders">
-        <source>Upcomming reminders</source>
-        <target>Kommende påmindelser</target>
-      </trans-unit>
-      <trans-unit id="vk88k.W" resname="Select period">
-        <source>Select period</source>
-        <target>Vælg tidsperiode</target>
-      </trans-unit>
-      <trans-unit id="UqfaRgF" resname="Next 7 days">
-        <source>Next 7 days</source>
-        <target>De næste 7 dage</target>
-      </trans-unit>
-      <trans-unit id="qcydPfe" resname="Next 14 days">
-        <source>Next 14 days</source>
-        <target>De næste 14 dage</target>
-      </trans-unit>
-      <trans-unit id="ycRLTHH" resname="Next 30 days">
-        <source>Next 30 days</source>
-        <target>De næste 30 dage</target>
-      </trans-unit>
-      <trans-unit id="agDfwdy" resname="Monday">
-        <source>Monday</source>
-        <target>Mandag</target>
-      </trans-unit>
-      <trans-unit id="fGR.XU4" resname="Wedensday">
-        <source>Wedensday</source>
-        <target>Onsdag</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>
