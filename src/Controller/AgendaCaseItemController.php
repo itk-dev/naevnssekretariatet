@@ -90,7 +90,7 @@ class AgendaCaseItemController extends AbstractController
     {
         $casePresentation = $agendaItem->getPresentation() ?? new CasePresentation();
 
-        $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
+        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
 
         $form = $this->createForm(CasePresentationType::class, $casePresentation, $agendaOptions);
 
@@ -130,7 +130,7 @@ class AgendaCaseItemController extends AbstractController
     {
         $decisionProposal = $agendaItem->getDecisionProposal() ?? new CaseDecisionProposal();
 
-        $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
+        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
 
         $form = $this->createForm(CaseDecisionProposalType::class, $decisionProposal, $agendaOptions);
 

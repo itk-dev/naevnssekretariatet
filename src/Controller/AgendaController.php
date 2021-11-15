@@ -181,7 +181,7 @@ class AgendaController extends AbstractController
 
         $sortedAgendaItems = $this->agendaHelper->sortAgendaItemsAccordingToStart($agenda->getAgendaItems()->toArray());
 
-        $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
+        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
 
         $form = $this->createForm(AgendaType::class, $agenda, $agendaOptions);
 
@@ -265,7 +265,7 @@ class AgendaController extends AbstractController
     {
         $agendaProtocol = $agenda->getProtocol() ?? new AgendaProtocol();
 
-        $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
+        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
 
         $form = $this->createForm(AgendaProtocolType::class, $agendaProtocol, $agendaOptions);
 
@@ -299,7 +299,7 @@ class AgendaController extends AbstractController
      */
     public function broadcastAgenda(Agenda $agenda, Request $request): Response
     {
-        $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
+        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
 
         $form = $this->createForm(AgendaBroadcastType::class, null, $agendaOptions);
 

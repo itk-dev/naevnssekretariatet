@@ -19,15 +19,15 @@ class AgendaHelper
     public function sortAgendasAccordingToDate(array $agendas): array
     {
         if (!empty($agendas)) {
-            usort($agendas, function (Agenda $a, Agenda $b) {
-                $ad = $a->getDate()->getTimestamp();
-                $bd = $b->getDate()->getTimestamp();
+            usort($agendas, function (Agenda $agendaOne, Agenda $agendaTwo) {
+                $agendaOneTimestamp = $agendaOne->getDate()->getTimestamp();
+                $agendaTwoTimestamp = $agendaTwo->getDate()->getTimestamp();
 
-                if ($ad === $bd) {
+                if ($agendaOneTimestamp === $agendaTwoTimestamp) {
                     return 0;
                 }
 
-                return $ad < $bd ? -1 : 1;
+                return $agendaOneTimestamp < $agendaTwoTimestamp ? -1 : 1;
             });
         }
 
@@ -37,30 +37,26 @@ class AgendaHelper
     public function sortAgendaItemsAccordingToStart(array $agendaItems): array
     {
         if (!empty($agendaItems)) {
-            usort($agendaItems, function (AgendaItem $a, AgendaItem $b) {
-                $ad = $a->getStartTime()->format('H:i');
-                $bd = $b->getStartTime()->format('H:i');
+            usort($agendaItems, function (AgendaItem $itemOne, AgendaItem $itemTwo) {
+                $itemOneStartTime = $itemOne->getStartTime()->format('H:i');
+                $itemTwoStartTime = $itemTwo->getStartTime()->format('H:i');
 
-                if ($ad === $bd) {
+                if ($itemOneStartTime === $itemTwoStartTime) {
                     return 0;
                 }
 
-                return $ad < $bd ? -1 : 1;
+                return $itemOneStartTime < $itemTwoStartTime ? -1 : 1;
             });
         }
 
         return $agendaItems;
     }
 
-    public function createAgendaStatusDependentOptions(Agenda $agenda): array
+    public function getFormOptionsForAgenda(Agenda $agenda): array
     {
         $options = [];
 
-        if ($agenda->isFinished()) {
-            $options = [
-                'disabled' => true,
-            ];
-        }
+        $options['disabled'] = $agenda->isFinished();
 
         return $options;
     }
