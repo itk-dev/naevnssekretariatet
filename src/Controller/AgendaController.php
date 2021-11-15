@@ -27,7 +27,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Uid\UuidV4;
 
 /**
@@ -40,19 +39,14 @@ class AgendaController extends AbstractController
      */
     private $entityManager;
     /**
-     * @var Security
-     */
-    private $security;
-    /**
      * @var AgendaHelper
      */
     private $agendaHelper;
 
-    public function __construct(AgendaHelper $agendaHelper, EntityManagerInterface $entityManager, Security $security)
+    public function __construct(AgendaHelper $agendaHelper, EntityManagerInterface $entityManager)
     {
         $this->agendaHelper = $agendaHelper;
         $this->entityManager = $entityManager;
-        $this->security = $security;
     }
 
     /**
@@ -92,7 +86,7 @@ class AgendaController extends AbstractController
             $filterForm->submit([
                 'board' => '',
                 'date' => '',
-                'status' => AgendaStatus::Not_finished,
+                'status' => AgendaStatus::NOT_FINISHED,
             ]);
         }
         $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
@@ -158,10 +152,8 @@ class AgendaController extends AbstractController
      */
     public function delete(Agenda $agenda, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         // Check that CSRF token is valid
-        if ($this->isCsrfTokenValid('delete'.$agenda->getId(), $request->request->get('_token')) && !$isFinishedAgenda) {
+        if ($this->isCsrfTokenValid('delete'.$agenda->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $this->entityManager->remove($agenda);
             $this->entityManager->flush();
         }
@@ -177,8 +169,6 @@ class AgendaController extends AbstractController
      */
     public function show(Agenda $agenda, BoardMemberRepository $memberRepository, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         $memberTriplesWithBinaryId = $memberRepository->getMembersAndRolesByAgenda($agenda);
 
         // Convert id into UuidV4
@@ -194,6 +184,8 @@ class AgendaController extends AbstractController
         $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
 
         $form = $this->createForm(AgendaType::class, $agenda, $agendaOptions);
+
+        $isFinishedAgenda = $agenda->isFinished();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
@@ -211,7 +203,6 @@ class AgendaController extends AbstractController
             'agenda' => $agenda,
             'board_member_triple' => $memberTriplesWithUuid,
             'agenda_items' => $sortedAgendaItems,
-            'is_finished' => $isFinishedAgenda,
         ]);
     }
 
@@ -227,7 +218,7 @@ class AgendaController extends AbstractController
             'board' => $agenda->getBoard(),
         ]);
 
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+        $isFinishedAgenda = $agenda->isFinished();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
@@ -258,10 +249,8 @@ class AgendaController extends AbstractController
      */
     public function removeBoardMember(Agenda $agenda, BoardMember $boardMember, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         // Check that CSRF token is valid
-        if ($this->isCsrfTokenValid('remove'.$boardMember->getId(), $request->request->get('_token')) && !$isFinishedAgenda) {
+        if ($this->isCsrfTokenValid('remove'.$boardMember->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $agenda->removeBoardmember($boardMember);
             $this->entityManager->flush();
         }
@@ -280,7 +269,7 @@ class AgendaController extends AbstractController
 
         $form = $this->createForm(AgendaProtocolType::class, $agendaProtocol, $agendaOptions);
 
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+        $isFinishedAgenda = $agenda->isFinished();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
@@ -314,10 +303,10 @@ class AgendaController extends AbstractController
 
         $form = $this->createForm(AgendaBroadcastType::class, null, $agendaOptions);
 
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
+        $isFinishedAgenda = $agenda->isFinished();
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
+        if ($form->isSubmitted() && $form->isValid() && $isFinishedAgenda) {
             // TODO: Logic for sending broadcast
             // For now it simply redirect to same route
             return $this->redirectToRoute('agenda_broadcast', [

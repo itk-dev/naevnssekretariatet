@@ -50,7 +50,6 @@ class AgendaCaseItemController extends AbstractController
         return $this->render('agenda_case_item/inspection.html.twig', [
             'agenda' => $agenda,
             'agenda_item' => $agendaItem,
-            'is_finished_agenda' => $this->agendaHelper->isFinishedAgenda($agenda),
         ]);
     }
 
@@ -61,9 +60,9 @@ class AgendaCaseItemController extends AbstractController
      */
     public function inspectionLetter(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         $form = $this->createForm(InspectionLetterType::class);
+
+        $isFinishedAgenda = $agenda->isFinished();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
@@ -89,13 +88,13 @@ class AgendaCaseItemController extends AbstractController
      */
     public function presentation(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         $casePresentation = $agendaItem->getPresentation() ?? new CasePresentation();
 
         $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
 
         $form = $this->createForm(CasePresentationType::class, $casePresentation, $agendaOptions);
+
+        $isFinishedAgenda = $agenda->isFinished();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
@@ -129,13 +128,13 @@ class AgendaCaseItemController extends AbstractController
      */
     public function decisionProposal(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         $decisionProposal = $agendaItem->getDecisionProposal() ?? new CaseDecisionProposal();
 
         $agendaOptions = $this->agendaHelper->createAgendaStatusDependentOptions($agenda);
 
         $form = $this->createForm(CaseDecisionProposalType::class, $decisionProposal, $agendaOptions);
+
+        $isFinishedAgenda = $agenda->isFinished();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
@@ -174,7 +173,6 @@ class AgendaCaseItemController extends AbstractController
             'agenda' => $agenda,
             'agenda_item' => $agendaItem,
             'documents' => $documents,
-            'is_finished_agenda' => $this->agendaHelper->isFinishedAgenda($agenda),
         ]);
     }
 
@@ -185,8 +183,6 @@ class AgendaCaseItemController extends AbstractController
      */
     public function selectDocuments(Agenda $agenda, AgendaCaseItem $agendaItem, CaseDocumentRelationRepository $relationRepository, DocumentRepository $documentRepository, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         $case = $agendaItem->getCaseEntity();
 
         $caseDocuments = $relationRepository->findNonDeletedDocumentsByCase($case);
@@ -194,7 +190,7 @@ class AgendaCaseItemController extends AbstractController
 
         $availableDocuments = array_diff($caseDocuments, $agendaItemDocuments);
 
-        if ($request->isMethod('GET') || $isFinishedAgenda) {
+        if ($request->isMethod('GET') || $agenda->isFinished()) {
             return $this->render('agenda_case_item/documents_attach.html.twig', [
                 'agenda' => $agenda,
                 'agenda_item' => $agendaItem,
@@ -228,10 +224,8 @@ class AgendaCaseItemController extends AbstractController
      */
     public function caseAgendaDocumentDelete(Agenda $agenda, AgendaCaseItem $agendaItem, Document $document, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         // Check that CSRF token is valid
-        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token')) && !$isFinishedAgenda) {
+        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $agendaItem->removeDocument($document);
             $this->entityManager->flush();
         }

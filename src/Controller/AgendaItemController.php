@@ -6,7 +6,6 @@ use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
 use App\Entity\AgendaItem;
 use App\Form\AgendaItemType;
-use App\Service\AgendaHelper;
 use App\Service\AgendaItemHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -22,10 +21,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class AgendaItemController extends AbstractController
 {
     /**
-     * @var AgendaHelper
-     */
-    private $agendaHelper;
-    /**
      * @var AgendaItemHelper
      */
     private $agendaItemHelper;
@@ -34,9 +29,8 @@ class AgendaItemController extends AbstractController
      */
     private $entityManager;
 
-    public function __construct(AgendaHelper $agendaHelper, AgendaItemHelper $agendaItemHelper, EntityManagerInterface $entityManager)
+    public function __construct(AgendaItemHelper $agendaItemHelper, EntityManagerInterface $entityManager)
     {
-        $this->agendaHelper = $agendaHelper;
         $this->agendaItemHelper = $agendaItemHelper;
         $this->entityManager = $entityManager;
     }
@@ -50,8 +44,10 @@ class AgendaItemController extends AbstractController
             'board' => $agenda->getBoard(),
         ]);
 
+        $isFinishedAgenda = $agenda->isFinished();
+
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             $agendaItem = $form->get('agendaItem')->getData();
 
             if (AgendaCaseItem::class === get_class($agendaItem)) {
@@ -93,13 +89,13 @@ class AgendaItemController extends AbstractController
             $twigLayout = 'layout-with-agenda-case-item-submenu.html.twig';
         }
 
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
-        if ($isFinishedAgenda) {
+        if ($agenda->isFinished()) {
             $options['disabled'] = true;
         }
 
         $form = $this->createForm($formClass, $agendaItem, $options);
+
+        $isFinishedAgenda = $agenda->isFinished();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
@@ -126,10 +122,8 @@ class AgendaItemController extends AbstractController
      */
     public function delete(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         // Check that CSRF token is valid
-        if ($this->isCsrfTokenValid('delete'.$agendaItem->getId(), $request->request->get('_token')) && !$isFinishedAgenda) {
+        if ($this->isCsrfTokenValid('delete'.$agendaItem->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $this->entityManager->remove($agendaItem);
             $this->entityManager->flush();
         }

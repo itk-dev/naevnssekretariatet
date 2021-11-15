@@ -9,7 +9,6 @@ use App\Entity\User;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use App\Form\DocumentForm;
-use App\Service\AgendaHelper;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -24,10 +23,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class AgendaManuelItemController extends AbstractController
 {
     /**
-     * @var AgendaHelper
-     */
-    private $agendaHelper;
-    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
@@ -36,9 +31,8 @@ class AgendaManuelItemController extends AbstractController
      */
     private $documentUploader;
 
-    public function __construct(AgendaHelper $agendaHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager)
+    public function __construct(DocumentUploader $documentUploader, EntityManagerInterface $entityManager)
     {
-        $this->agendaHelper = $agendaHelper;
         $this->documentUploader = $documentUploader;
         $this->entityManager = $entityManager;
     }
@@ -48,7 +42,7 @@ class AgendaManuelItemController extends AbstractController
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
-    public function document(Agenda $agenda, AgendaHelper $agendaHelper, AgendaManuelItem $agendaItem): Response
+    public function document(Agenda $agenda, AgendaManuelItem $agendaItem): Response
     {
         $documents = $agendaItem->getDocuments();
 
@@ -56,7 +50,6 @@ class AgendaManuelItemController extends AbstractController
             'agenda' => $agenda,
             'agenda_item' => $agendaItem,
             'documents' => $documents,
-            'is_finished_agenda' => $agendaHelper->isFinishedAgenda($agenda),
         ]);
     }
 
@@ -70,13 +63,13 @@ class AgendaManuelItemController extends AbstractController
      */
     public function uploadDocument(Agenda $agenda, AgendaManuelItem $agendaItem, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         $this->documentUploader->specifyDirectory('/agenda_item_documents/');
 
         // Create new document and its form
         $document = new Document();
         $form = $this->createForm(DocumentForm::class, $document);
+
+        $isFinishedAgenda = $agenda->isFinished();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
@@ -133,10 +126,8 @@ class AgendaManuelItemController extends AbstractController
      */
     public function documentDelete(Agenda $agenda, AgendaManuelItem $agendaItem, Document $document, Request $request): Response
     {
-        $isFinishedAgenda = $this->agendaHelper->isFinishedAgenda($agenda);
-
         // Check that CSRF token is valid
-        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token')) && !$isFinishedAgenda) {
+        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $agendaItem->removeDocument($document);
             $this->entityManager->remove($document);
             $this->entityManager->flush();

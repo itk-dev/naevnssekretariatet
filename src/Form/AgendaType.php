@@ -45,10 +45,10 @@ class AgendaType extends AbstractType
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
-                    $this->translator->trans('Open', [], 'agenda') => AgendaStatus::Open,
-                    $this->translator->trans('Full', [], 'agenda') => AgendaStatus::Full,
-                    $this->translator->trans('Ready', [], 'agenda') => AgendaStatus::Ready,
-                    $this->translator->trans('Finished', [], 'agenda') => AgendaStatus::Finished,
+                    $this->translator->trans('Open', [], 'agenda') => AgendaStatus::OPEN,
+                    $this->translator->trans('Full', [], 'agenda') => AgendaStatus::FULL,
+                    $this->translator->trans('Ready', [], 'agenda') => AgendaStatus::READY,
+                    $this->translator->trans('Finished', [], 'agenda') => AgendaStatus::FINISHED,
                 ],
             ])
             ->add('remarks', TextareaType::class, [

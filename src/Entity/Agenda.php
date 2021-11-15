@@ -42,7 +42,7 @@ class Agenda implements LoggableEntityInterface
     /**
      * @ORM\Column(type="integer", length=255, nullable=true)
      */
-    private $status = AgendaStatus::Open;
+    private $status = AgendaStatus::OPEN;
 
     /**
      * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="agendas")
@@ -250,5 +250,15 @@ class Agenda implements LoggableEntityInterface
             'end',
             'status',
         ];
+    }
+
+    public function isReady(): bool
+    {
+        return AgendaStatus::READY === $this->status;
+    }
+
+    public function isFinished(): bool
+    {
+        return AgendaStatus::FINISHED === $this->status;
     }
 }

@@ -15,7 +15,7 @@
 
 {% block content %}
     <main role="main" class="col-12 mt-3">
-        {% if 3 == agenda.status %}
+        {% if agenda.isReady() %}
             {{ form(broadcast_form) }}
         {% else %}
             <p>{% trans %}Agenda must have status: ready, before being able to send notice to board members.{% endtrans %}</p>

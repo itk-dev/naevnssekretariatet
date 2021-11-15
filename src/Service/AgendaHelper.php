@@ -56,17 +56,12 @@ class AgendaHelper
     {
         $options = [];
 
-        if (AgendaStatus::Finished === $agenda->getStatus()) {
+        if ($agenda->isFinished()) {
             $options = [
                 'disabled' => true,
             ];
         }
 
         return $options;
-    }
-
-    public function isFinishedAgenda(Agenda $agenda): bool
-    {
-        return AgendaStatus::Finished === $agenda->getStatus();
     }
 }
