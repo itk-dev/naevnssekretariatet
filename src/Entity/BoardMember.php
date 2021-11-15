@@ -42,6 +42,12 @@ class BoardMember
      */
     private $boards;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="boardMembers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $municipality;
+
     public function __construct()
     {
         $this->boardRoles = new ArrayCollection();
@@ -145,6 +151,18 @@ class BoardMember
     public function removeBoard(Board $board): self
     {
         $this->boards->removeElement($board);
+
+        return $this;
+    }
+
+    public function getMunicipality(): ?Municipality
+    {
+        return $this->municipality;
+    }
+
+    public function setMunicipality(?Municipality $municipality): self
+    {
+        $this->municipality = $municipality;
 
         return $this;
     }

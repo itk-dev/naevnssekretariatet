@@ -1,50 +1,60 @@
 App\Entity\BoardMember:
   board-member-1:
     name: William Oscar
+    municipality: '@municipality-aarhus'
     boards: ['@resident-complaint-board-aarhus']
     boardRoles: ['@resident-complaint-board-aarhus-role-chairman']
 
   board-member-2:
     name: Alfred Oliver
+    municipality: '@municipality-aarhus'
     boards: ['@resident-complaint-board-aarhus']
     boardRoles: [ '@resident-complaint-board-aarhus-role-chairman' ]
 
   board-member-3:
     name: Carl Lucas
+    municipality: '@municipality-aarhus'
     boards: ['@resident-complaint-board-aarhus']
     boardRoles: [ '@resident-complaint-board-aarhus-role-chairman-alternate' ]
 
   board-member-4:
     name: Noah Valdemar
+    municipality: '@municipality-aarhus'
     boards: ['@resident-complaint-board-aarhus']
     boardRoles: [ '@resident-complaint-board-aarhus-role-chairman-alternate' ]
 
   board-member-5:
     name: Malthe Aksel
+    municipality: '@municipality-aarhus'
     boards: ['@resident-complaint-board-aarhus']
     boardRoles: [ '@resident-complaint-board-aarhus-role-landlord-representative' ]
 
   board-member-6:
     name: Elias Emil
+    municipality: '@municipality-aarhus'
     boards: ['@resident-complaint-board-aarhus']
     boardRoles: [ '@resident-complaint-board-aarhus-role-landlord-representative' ]
 
   board-member-7:
     name: Arthur August
+    municipality: '@municipality-aarhus'
     boards: ['@resident-complaint-board-aarhus']
     boardRoles: [ '@resident-complaint-board-aarhus-role-landlord-representative-alternate' ]
 
   board-member-8:
     name: Magnus Victor
+    municipality: '@municipality-aarhus'
     boards: ['@resident-complaint-board-aarhus']
     boardRoles: [ '@resident-complaint-board-aarhus-role-landlord-representative-alternate' ]
 
   board-member-9:
     name: Viggo Felix
+    municipality: '@municipality-aarhus'
     boards: ['@resident-complaint-board-aarhus']
     boardRoles: [ '@resident-complaint-board-aarhus-role-tenant-representative' ]
 
   board-member-10:
     name: Anton Alexander
+    municipality: '@municipality-aarhus'
     boards: ['@resident-complaint-board-aarhus']
     boardRoles: [ '@resident-complaint-board-aarhus-role-tenant-representative-alternate' ]
