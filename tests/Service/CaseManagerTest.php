@@ -6,11 +6,13 @@ use App\Entity\CaseEntity;
 use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
 use App\Service\CaseManager;
+use App\Service\WorkflowService;
 use PHPUnit\Framework\TestCase;
 
 class CaseManagerTest extends TestCase
 {
     private $mockCaseRepository;
+    private $mockWorkflowService;
     private $caseManager;
 
     protected function setUp(): void
@@ -18,8 +20,12 @@ class CaseManagerTest extends TestCase
         parent::setUp();
 
         $this->mockCaseRepository = $this->createMock(CaseEntityRepository::class);
+        $this->mockWorkflowService = $this->createMock(WorkflowService::class);
 
-        $this->caseManager = new CaseManager($this->mockCaseRepository);
+        $this->caseManager = new CaseManager(
+            $this->mockCaseRepository,
+            $this->mockWorkflowService
+        );
     }
 
     public function testGenerateCaseNumberFirstCase()

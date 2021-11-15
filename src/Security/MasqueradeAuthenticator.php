@@ -26,7 +26,7 @@ class MasqueradeAuthenticator extends AbstractGuardAuthenticator
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        return new RedirectResponse('/login');
+        return new RedirectResponse('/opendidconnect/login');
     }
 
     public function supports(Request $request)

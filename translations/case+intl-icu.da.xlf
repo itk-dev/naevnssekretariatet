@@ -287,7 +287,7 @@
       </trans-unit>
       <trans-unit id=".UpoVLi" resname="Complaint fee in DKK">
         <source>Complaint fee in DKK</source>
-        <target>klagegebyr</target>
+        <target>Klagegebyr</target>
       </trans-unit>
       <trans-unit id="WQvNeqY" resname="CPR number">
         <source>CPR number</source>
@@ -568,6 +568,38 @@
       <trans-unit id="rfb6h3u" resname="Change status">
         <source>Change status</source>
         <target>Skift status</target>
+      </trans-unit>
+      <trans-unit id="af_SUi6" resname="Choose a board">
+        <source>Choose a board</source>
+        <target>Vælg et nævn</target>
+      </trans-unit>
+      <trans-unit id="_TefpIO" resname="Sub board">
+        <source>Sub board</source>
+        <target>Undernævn</target>
+      </trans-unit>
+      <trans-unit id="1UAwgie" resname="Choose a sub board board">
+        <source>Choose a sub board board</source>
+        <target>Vælg et undernævn</target>
+      </trans-unit>
+      <trans-unit id="j1Jgg.v" resname="Complainant phone">
+        <source>Complainant phone</source>
+        <target>Klagers telefonnummer</target>
+      </trans-unit>
+      <trans-unit id="Xzo8ESE" resname="Select a complaint category">
+        <source>Select a complaint category</source>
+        <target>Vælg en klagetype</target>
+      </trans-unit>
+      <trans-unit id="GvhRkHM" resname="Size">
+        <source>Size</source>
+        <target>Leje størrelse</target>
+      </trans-unit>
+      <trans-unit id="tA9IUrc" resname="Create Case">
+        <source>Create Case</source>
+        <target>Opret sag</target>
+      </trans-unit>
+      <trans-unit id="bPuFPO8" resname="Create new Case">
+        <source>Create new Case</source>
+        <target>Opret ny sag</target>
       </trans-unit>
     </body>
   </file>
