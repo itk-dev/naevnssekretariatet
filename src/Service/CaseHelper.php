@@ -33,9 +33,11 @@ class CaseHelper
             case FenceReviewCase::class:
                 // Get relations from both sides
                 $complainantRelations = $this->relationRepository
-                    ->findBy(['case' => $case, 'type' => ['Tenant', 'Representative'], 'softDeleted' => false]);
+                    ->findBy(['case' => $case, 'type' => ['Tenant', 'Representative'], 'softDeleted' => false])
+                ;
                 $counterpartyRelations = $this->relationRepository
-                    ->findBy(['case' => $case, 'type' => ['Landlord', 'Administrator'], 'softDeleted' => false]);
+                    ->findBy(['case' => $case, 'type' => ['Landlord', 'Administrator'], 'softDeleted' => false])
+                ;
                 $templatePath = 'case/show.html.twig';
                 break;
         }

@@ -30,15 +30,18 @@ class UserCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle('edit', 'Edit user information');
+            ->setPageTitle('edit', 'Edit user information')
+        ;
     }
 
     public function configureFields(string $pageName): iterable
     {
         yield EmailField::new('email', 'Email')
-            ->setFormTypeOptions(['disabled' => true]);
+            ->setFormTypeOptions(['disabled' => true])
+        ;
         yield TextField::new('name', 'Name')
-            ->setFormTypeOptions(['disabled' => true]);
+            ->setFormTypeOptions(['disabled' => true])
+        ;
         yield AssociationField::new('favoriteMunicipality', 'Favorite municipality');
     }
 }

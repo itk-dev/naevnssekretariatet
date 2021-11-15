@@ -43,7 +43,8 @@ class AbstractListenerCreateLogEntryTest extends TestCase
             ->expects($this->once())
             ->method('getEntityChangeSet')
             ->with($this->mockCase)
-            ->willReturn($changeArray);
+            ->willReturn($changeArray)
+        ;
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
@@ -70,7 +71,8 @@ class AbstractListenerCreateLogEntryTest extends TestCase
             ->expects($this->once())
             ->method('getEntityChangeSet')
             ->with($this->mockCase)
-            ->willReturn($changeArray);
+            ->willReturn($changeArray)
+        ;
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
@@ -99,7 +101,8 @@ class AbstractListenerCreateLogEntryTest extends TestCase
             ->expects($this->once())
             ->method('getEntityChangeSet')
             ->with($this->mockCase)
-            ->willReturn($changeArray);
+            ->willReturn($changeArray)
+        ;
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
@@ -120,13 +123,15 @@ class AbstractListenerCreateLogEntryTest extends TestCase
         $this->mockEntityManager
             ->expects($this->exactly(2))
             ->method('getUnitOfWork')
-            ->willReturn($this->mockUnitOfWork);
+            ->willReturn($this->mockUnitOfWork)
+        ;
 
         $this->mockUnitOfWork
             ->expects($this->once())
             ->method('getEntityChangeSet')
             ->with($this->mockCase)
-            ->willReturn($changeArray);
+            ->willReturn($changeArray)
+        ;
 
         $mockStringKey = 'someMockStringKey';
         $mockStringValue = 'someMockStringValue';
@@ -143,7 +148,8 @@ class AbstractListenerCreateLogEntryTest extends TestCase
             ->expects($this->once())
             ->method('getOriginalEntityData')
             ->with($this->mockCase)
-            ->willReturn($originalDataArray);
+            ->willReturn($originalDataArray)
+        ;
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
@@ -168,7 +174,8 @@ class AbstractListenerCreateLogEntryTest extends TestCase
             ->expects($this->once())
             ->method('getEntityChangeSet')
             ->with($this->mockCase)
-            ->willReturn($changeArray);
+            ->willReturn($changeArray)
+        ;
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
 
@@ -194,7 +201,8 @@ class AbstractListenerCreateLogEntryTest extends TestCase
             ->expects($this->once())
             ->method('getEntityChangeSet')
             ->with($this->mockCase)
-            ->willReturn($changeArray);
+            ->willReturn($changeArray)
+        ;
 
         $logEntry = $this->mockListener->createLogEntry($this->testAction, $this->mockCase, $this->mockArgs);
     }
@@ -206,14 +214,16 @@ class AbstractListenerCreateLogEntryTest extends TestCase
         $this->mockSecurity
             ->expects($this->once())
             ->method('getUser')
-            ->willReturn($mockUser);
+            ->willReturn($mockUser)
+        ;
 
         $this->mockUsername = 'TestUser';
 
         $mockUser
             ->expects($this->once())
             ->method('getUsername')
-            ->willReturn($this->mockUsername);
+            ->willReturn($this->mockUsername)
+        ;
 
         $caseUuidv4 = new UuidV4();
 
@@ -222,7 +232,8 @@ class AbstractListenerCreateLogEntryTest extends TestCase
         $this->mockCase
             ->expects($this->exactly(2))
             ->method('getId')
-            ->willReturn($caseUuidv4);
+            ->willReturn($caseUuidv4)
+        ;
     }
 
     private function setUpNumberOfUowCalls(int $numberOfUnitOfWorkCalls)
@@ -233,7 +244,8 @@ class AbstractListenerCreateLogEntryTest extends TestCase
             ->setMethodsExcept(['createLogEntry'])
             ->enableOriginalConstructor()
             ->setConstructorArgs([$this->mockSecurity])
-            ->getMock();
+            ->getMock()
+        ;
 
         $this->testAction = 'TestAction';
         $this->mockCase = $this->createMock(CaseEntity::class);
@@ -244,19 +256,22 @@ class AbstractListenerCreateLogEntryTest extends TestCase
         $this->mockArgs
             ->expects($this->once())
             ->method('getEntityManager')
-            ->willReturn($this->mockEntityManager);
+            ->willReturn($this->mockEntityManager)
+        ;
 
         $this->mockArgs
             ->expects($this->once())
             ->method('getObject')
-            ->willReturn($this->mockCase);
+            ->willReturn($this->mockCase)
+        ;
 
         $this->mockUnitOfWork = $this->createMock(UnitOfWork::class);
 
         $this->mockEntityManager
             ->expects($this->exactly($numberOfUnitOfWorkCalls))
             ->method('getUnitOfWork')
-            ->willReturn($this->mockUnitOfWork);
+            ->willReturn($this->mockUnitOfWork)
+        ;
 
         $this->expectedDataArray = [];
     }

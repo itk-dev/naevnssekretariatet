@@ -34,6 +34,7 @@ class AddPartyFromIndexType extends AbstractType
                     'Landlord (administrator)' => 'Administrator',
                 ],
                 'translation_domain' => 'party',
-            ]);
+            ])
+        ;
     }
 }

@@ -30,10 +30,12 @@ class BoardMemberCrudController extends AbstractCrudController
     {
         yield TextField::new('name', 'Name');
         yield AssociationField::new('municipality', 'Municipality')
-            ->setRequired(true);
+            ->setRequired(true)
+        ;
         yield AssociationField::new('boardRoles', 'BoardRole')
             ->setFormTypeOptions([
                 'by_reference' => false,
-            ]);
+            ])
+        ;
     }
 }

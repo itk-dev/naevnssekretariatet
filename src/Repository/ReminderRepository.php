@@ -35,7 +35,8 @@ class ReminderRepository extends ServiceEntityRepository
             ->setParameter('to', $to)
             ->orderBy('r.date', 'ASC')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
         return $result;
     }
@@ -51,7 +52,8 @@ class ReminderRepository extends ServiceEntityRepository
             ->setParameter('today', $today)
             ->orderBy('r.date', 'ASC')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
         return $result;
     }
@@ -64,7 +66,8 @@ class ReminderRepository extends ServiceEntityRepository
             ->andWhere('r.createdBy = :user')
             ->setParameter('user', $user->getId()->toBinary())
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
         return $result;
     }
