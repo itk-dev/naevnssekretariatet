@@ -32,18 +32,28 @@ class BoardMemberRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
 
         $sql = '
-            select m.id, m.name, br.title
-            from board_member m
-            join board_role_board_member brbm on brbm.board_member_id = m.id
-            join board_role br on brbm.board_role_id = br.id
-            join agenda_board_member abm on abm.board_member_id = m.id
-            join agenda a on abm.agenda_id = a.id
-            where a.id = :agenda_id
+            SELECT m.id,
+                   m.name,
+                   br.title
+            FROM   board_member m
+                   JOIN board_role_board_member brbm
+                     ON brbm.board_member_id = m.id
+                   JOIN board_role br
+                     ON brbm.board_role_id = br.id
+                   JOIN agenda_board_member abm
+                     ON abm.board_member_id = m.id
+                   JOIN agenda a
+                     ON abm.agenda_id = a.id
+            WHERE  a.id = :agenda_id 
         ';
 
         $stmt = $em->getConnection()->prepare($sql);
 
-        return $stmt->executeQuery([':agenda_id' => $agenda->getId()->toBinary()])->fetchAllAssociative();
+        return $stmt->executeQuery(
+            [
+                ':agenda_id' => $agenda->getId()->toBinary(),
+            ]
+        )->fetchAllAssociative();
     }
 
     public function getAvailableBoardMembersByAgenda(Agenda $agenda): array

@@ -30,6 +30,16 @@ class MunicipalityHelper
         $this->session = $session;
     }
 
+    /**
+     * Finds municipality considered 'most' active from list below.
+     *
+     * First is considered 'most' active.
+     *
+     * Session
+     * Favorite municipality User setting
+     * Any municipality
+     * Null
+     */
     public function getActiveMunicipality(): ?Municipality
     {
         /** @var User $user */

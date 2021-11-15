@@ -27,7 +27,7 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->where('c.board = :board')
             ->setParameter('board', $board->getId()->toBinary())
             ->andwhere('c.isReadyForAgenda = :isReadyForAgendaCheck')
-            ->setParameter('isReadyForAgendaCheck', 1)
+            ->setParameter('isReadyForAgendaCheck', true)
             ->orderBy('c.caseNumber', 'ASC')
             ->getQuery()
             ->getResult();
