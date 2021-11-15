@@ -81,7 +81,7 @@ abstract class CaseEntity
      * @ORM\OneToMany(targetEntity=Note::class, mappedBy="caseEntity")
      */
     private $notes;
-  
+
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignedCases")
      */
@@ -116,7 +116,7 @@ abstract class CaseEntity
      * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="caseEntity")
      */
     private $reminders;
-  
+
     public function __construct()
     {
         $this->casePartyRelation = new ArrayCollection();

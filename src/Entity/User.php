@@ -50,15 +50,9 @@ class User implements UserInterface, LoggableEntityInterface
     private $favoriteMunicipality;
 
     /**
-
      * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="assignedTo")
      */
     private $assignedCases;
-
-    public function __construct()
-    {
-        $this->assignedCases = new ArrayCollection();
-    }
 
     /**
      * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="createdBy")
@@ -67,6 +61,7 @@ class User implements UserInterface, LoggableEntityInterface
 
     public function __construct()
     {
+        $this->assignedCases = new ArrayCollection();
         $this->reminders = new ArrayCollection();
     }
 
