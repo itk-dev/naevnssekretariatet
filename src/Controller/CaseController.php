@@ -140,7 +140,7 @@ class CaseController extends AbstractController
         $finishedAgendas = [];
 
         foreach ($case->getAgendaCaseItems() as $agendaCaseItem) {
-            if (AgendaStatus::Finished === $agendaCaseItem->getAgenda()->getStatus()) {
+            if (AgendaStatus::FINISHED === $agendaCaseItem->getAgenda()->getStatus()) {
                 array_push($finishedAgendas, [
                     'agenda' => $agendaCaseItem->getAgenda(),
                     'isInspection' => $agendaCaseItem->getInspection(),

@@ -12,6 +12,7 @@ use App\Form\AgendaFilterType;
 use App\Form\AgendaProtocolType;
 use App\Form\AgendaType;
 use App\Form\MunicipalitySelectorType;
+use App\Repository\AgendaItemRepository;
 use App\Repository\AgendaRepository;
 use App\Repository\BoardMemberRepository;
 use App\Repository\MunicipalityRepository;
@@ -167,7 +168,7 @@ class AgendaController extends AbstractController
      * @throws Exception
      * @throws \Doctrine\DBAL\Driver\Exception
      */
-    public function show(Agenda $agenda, BoardMemberRepository $memberRepository, Request $request): Response
+    public function show(Agenda $agenda, AgendaItemRepository $agendaItemRepository, BoardMemberRepository $memberRepository, Request $request): Response
     {
         $memberTriplesWithBinaryId = $memberRepository->getMembersAndRolesByAgenda($agenda);
 
@@ -179,7 +180,7 @@ class AgendaController extends AbstractController
             return $memberTriple;
         }, $memberTriplesWithBinaryId);
 
-        $sortedAgendaItems = $this->agendaHelper->sortAgendaItemsAccordingToStart($agenda->getAgendaItems()->toArray());
+        $sortedAgendaItems = $agendaItemRepository->findAscendingAgendaItemsByAgenda($agenda);
 
         $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
 
