@@ -210,9 +210,9 @@ class AgendaController extends AbstractController
     /**
      * @Route("/{id}/add-board-member", name="agenda_add_board_member", methods={"GET", "POST"})
      */
-    public function addBoardMember(Agenda $agenda, Request $request): Response
+    public function addBoardMember(Agenda $agenda, BoardMemberRepository $memberRepository, Request $request): Response
     {
-        $availableBoardMembers = $this->agendaHelper->findAvailableBoardMembers($agenda);
+        $availableBoardMembers = $memberRepository->getAvailableBoardMembersByAgenda($agenda);
 
         $form = $this->createForm(AgendaAddBoardMemberType::class, [], [
             'board_member_choices' => $availableBoardMembers,

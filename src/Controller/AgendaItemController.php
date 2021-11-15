@@ -51,9 +51,9 @@ class AgendaItemController extends AbstractController
             $agendaItem = $form->get('agendaItem')->getData();
 
             if (AgendaCaseItem::class === get_class($agendaItem)) {
-                if ($agendaItem->getCaseEntity()->getShouldBeInspected()) {
-                    $agendaItem->setInspection(true);
-                }
+                $agendaItem->setInspection(
+                    $agendaItem->getCaseEntity()->getShouldBeInspected()
+                );
             }
 
             $agenda->addAgendaItem($agendaItem);
