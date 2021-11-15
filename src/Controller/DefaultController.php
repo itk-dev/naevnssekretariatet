@@ -6,7 +6,6 @@ use App\Entity\Municipality;
 use App\Entity\User;
 use App\Repository\MunicipalityRepository;
 use App\Repository\ReminderRepository;
-use App\Security\OpenIdConfigurationProvider;
 use App\Service\ReminderHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

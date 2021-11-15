@@ -30,8 +30,6 @@ class ReminderHelper implements LoggerAwareInterface
     /**
      * Inspects reminders with status pending and active checking
      * if their status should be updated to active and exceeded respectively.
-     *
-     * @param bool $dryRun
      */
     public function updateStatuses(bool $dryRun)
     {
