@@ -16,38 +16,8 @@
     </div>
 
     {{ form_start(case_form) }}
-        <form class="form" >
-            <div class="form-row">
-                <div class="col-md-4 mb-3">
-                    <label >{% trans %}Complainant{% endtrans %}</label>
-                    {{ form_widget(case_form.complainant, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label >{% trans %}Complainant address{% endtrans %}</label>
-                    {{ form_widget(case_form.complainantAddress, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label >{% trans %}Size{% endtrans %}</label>
-                    {{ form_widget(case_form.size, {'attr': {'class': 'form-control', 'required': true}}) }}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="col-md-4 mb-3">
-                    <label >{% trans %}Complainant phone number{% endtrans %}</label>
-                    {{ form_widget(case_form.complainantPhone, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label >{% trans %}Complainant postal code{% endtrans %}</label>
-                    {{ form_widget(case_form.complainantPostalCode, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label >{% trans %}Complainant category{% endtrans %}</label>
-                    {{ form_widget(case_form.complaintCategory, {'attr': {'class': 'form-control', 'required': true}}) }}
-                </div>
-            </div>
-            {{ form_widget(case_form.save, {'attr': {'class': 'btn btn-primary', 'type': 'submit'}, 'label': 'Submit'|trans([], 'case', 'da')}) }}
-            {{ form_rest(case_form) }}
-        </form>
+    {{ form_rest(case_form) }}
+    <button class="btn btn-primary float-right" type="submit" name="submit">{% trans %}Submit{% endtrans %}</button>
     {{ form_end(case_form) }}
 {% endblock %}
 

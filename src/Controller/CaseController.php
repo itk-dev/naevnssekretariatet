@@ -6,7 +6,6 @@ use App\Entity\CaseEntity;
 use App\Form\CaseEntityType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
-use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
 use App\Service\CaseHelper;
@@ -93,7 +92,7 @@ class CaseController extends AbstractController
     public function edit(CaseEntity $case, Request $request): Response
     {
         // Todo: Handle other case types, possibly via switch on $case->getBoard()->getCaseFormType()
-        $form = $this->createForm(ResidentComplaintBoardCaseType::class, $case, ['board' => $case->getBoard()]);
+        $form = $this->createForm('App\\Form\\'.$case->getBoard()->getCaseFormType(), $case, ['board' => $case->getBoard()]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

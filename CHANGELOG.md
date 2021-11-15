@@ -44,6 +44,7 @@ MunicipalityListener, BoardListener and their tests.
 - [TVIST1-322](https://jira.itkdev.dk/browse/TVIST1-322): Replaced SubBoard entity by BoardRole entity.
 - [TVIST1-306](https://jira.itkdev.dk/browse/TVIST1-306): Adding handling of case creation.
 - [TVIST1-359](https://jira.itkdev.dk/browse/TVIST1-359): Added Case reminders.
+- [TVIST1-238](https://jira.itkdev.dk/browse/TVIST1-238): Added RentBoardCase and FenceReviewCase.
 
 ### Changed
 - [NSEK-138](https://jira.itkdev.dk/browse/NSEK-138): Updating Cypress to 6.5.0 so the same version is used project wide.

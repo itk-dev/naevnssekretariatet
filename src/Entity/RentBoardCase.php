@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ResidentComplaintBoardCaseRepository;
+use App\Repository\RentBoardCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ResidentComplaintBoardCaseRepository::class)
+ * @ORM\Entity(repositoryClass=RentBoardCaseRepository::class)
  */
-class ResidentComplaintBoardCase extends CaseEntity
+class RentBoardCase extends CaseEntity
 {
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -84,6 +84,11 @@ class ResidentComplaintBoardCase extends CaseEntity
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $feePaid;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $leaseType;
 
     public function getLeaseSize(): ?int
     {
@@ -261,6 +266,18 @@ class ResidentComplaintBoardCase extends CaseEntity
     public function setFeePaid(bool $feePaid): self
     {
         $this->feePaid = $feePaid;
+
+        return $this;
+    }
+
+    public function getLeaseType(): ?string
+    {
+        return $this->leaseType;
+    }
+
+    public function setLeaseType(string $leaseType): self
+    {
+        $this->leaseType = $leaseType;
 
         return $this;
     }

@@ -14,7 +14,7 @@ use Symfony\Component\Uid\UuidV4;
  * @ORM\Entity(repositoryClass=CaseEntityRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"caseEntity" = "CaseEntity", "residentComplaintBoardCase" = "ResidentComplaintBoardCase"})
+ * @ORM\DiscriminatorMap({"caseEntity" = "CaseEntity", "residentComplaintBoardCase" = "ResidentComplaintBoardCase", "rentBoardCase" = "RentBoardCase", "fenceReviewCase" = "FenceReviewCase"})
  * @ORM\EntityListeners({"App\Logging\EntityListener\CaseListener"})
  */
 abstract class CaseEntity
@@ -81,6 +81,36 @@ abstract class CaseEntity
      * @ORM\OneToMany(targetEntity=Note::class, mappedBy="caseEntity")
      */
     private $notes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignedCases")
+     */
+    private $assignedTo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainant;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainantStreetNameAndNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainantZip;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainantCity;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainantCPR;
 
     /**
      * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="caseEntity")
@@ -258,6 +288,78 @@ abstract class CaseEntity
     public function setCurrentPlace(string $currentPlace): self
     {
         $this->currentPlace = $currentPlace;
+
+        return $this;
+    }
+
+    public function getAssignedTo(): ?User
+    {
+        return $this->assignedTo;
+    }
+
+    public function setAssignedTo(?User $assignedTo): self
+    {
+        $this->assignedTo = $assignedTo;
+
+        return $this;
+    }
+
+    public function getComplainant(): ?string
+    {
+        return $this->complainant;
+    }
+
+    public function setComplainant(?string $complainant): self
+    {
+        $this->complainant = $complainant;
+
+        return $this;
+    }
+
+    public function getComplainantStreetNameAndNumber(): ?string
+    {
+        return $this->complainantStreetNameAndNumber;
+    }
+
+    public function setComplainantStreetNameAndNumber(?string $complainantStreetNameAndNumber): self
+    {
+        $this->complainantStreetNameAndNumber = $complainantStreetNameAndNumber;
+
+        return $this;
+    }
+
+    public function getComplainantZip(): ?string
+    {
+        return $this->complainantZip;
+    }
+
+    public function setComplainantZip(?string $complainantZip): self
+    {
+        $this->complainantZip = $complainantZip;
+
+        return $this;
+    }
+
+    public function getComplainantCity(): ?string
+    {
+        return $this->complainantCity;
+    }
+
+    public function setComplainantCity(?string $complainantCity): self
+    {
+        $this->complainantCity = $complainantCity;
+
+        return $this;
+    }
+
+    public function getComplainantCPR(): ?string
+    {
+        return $this->complainantCPR;
+    }
+
+    public function setComplainantCPR(string $complainantCPR): self
+    {
+        $this->complainantCPR = $complainantCPR;
 
         return $this;
     }

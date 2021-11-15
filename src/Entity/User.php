@@ -50,12 +50,18 @@ class User implements UserInterface, LoggableEntityInterface
     private $favoriteMunicipality;
 
     /**
+     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="assignedTo")
+     */
+    private $assignedCases;
+
+    /**
      * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="createdBy")
      */
     private $reminders;
 
     public function __construct()
     {
+        $this->assignedCases = new ArrayCollection();
         $this->reminders = new ArrayCollection();
     }
 
@@ -173,6 +179,36 @@ class User implements UserInterface, LoggableEntityInterface
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|CaseEntity[]
+     */
+    public function getAssignedCases(): Collection
+    {
+        return $this->assignedCases;
+    }
+
+    public function addAssignedCase(CaseEntity $assignedCase): self
+    {
+        if (!$this->assignedCases->contains($assignedCase)) {
+            $this->assignedCases[] = $assignedCase;
+            $assignedCase->setAssignedTo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedCase(CaseEntity $assignedCase): self
+    {
+        if ($this->assignedCases->removeElement($assignedCase)) {
+            // set the owning side to null (unless already changed)
+            if ($assignedCase->getAssignedTo() === $this) {
+                $assignedCase->setAssignedTo(null);
+            }
+        }
+
+        return $this;
     }
 
     public function getLoggableProperties(): array

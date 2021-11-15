@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Board;
 use App\Entity\ComplaintCategory;
-use App\Entity\ResidentComplaintBoardCase;
+use App\Entity\RentBoardCase;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ResidentComplaintBoardCaseType extends AbstractType
+class RentBoardCaseType extends AbstractType
 {
     private $translator;
 
@@ -28,7 +28,7 @@ class ResidentComplaintBoardCaseType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ResidentComplaintBoardCase::class,
+            'data_class' => RentBoardCase::class,
             'board' => null,
         ]);
     }
@@ -69,6 +69,13 @@ class ResidentComplaintBoardCaseType extends AbstractType
             ])
             ->add('leaseCity', TextType::class, [
                 'label' => $this->translator->trans('Lease city', [], 'case'),
+            ])
+            ->add('leaseType', ChoiceType::class, [
+                'choices' => [
+                    $this->translator->trans('Big', [], 'case') => $this->translator->trans('Big', [], 'case'),
+                    $this->translator->trans('Small', [], 'case') => $this->translator->trans('Small', [], 'case'),
+                ],
+                'label' => $this->translator->trans('Lease type', [], 'case'),
             ])
             ->add('complaintCategory', EntityType::class, [
                 'class' => ComplaintCategory::class,
