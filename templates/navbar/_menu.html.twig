@@ -22,8 +22,7 @@
         </div>
     </li>
     <li class="nav-item">
-        {# TODO: Show active reminders and link to alle reminders  #}
-        <a class="btn btn-sm btn-warning d-block mb-2 mb-lg-0" href="#">1 påmindelse</a>
+        {{ render(controller('App\\Controller\\NavbarController::renderReminders')) }}
     </li>
     <li class="nav-item dropdown">
         {# TODO: Show name and avatar for active user and link to Settings/User  #}
