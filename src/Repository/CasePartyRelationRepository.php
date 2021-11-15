@@ -27,6 +27,7 @@ class CasePartyRelationRepository extends ServiceEntityRepository
             ->andWhere('r.type = :tenant')
             ->setParameter('tenant', 'Tenant')
             ->getQuery()
-            ->execute();
+            ->execute()
+        ;
     }
 }

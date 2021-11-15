@@ -36,7 +36,8 @@ class CaseManagerTest extends TestCase
             ->expects($this->once())
             ->method('findLatestCaseByMunicipality')
             ->with($mockMunicipality)
-            ->willReturn(null);
+            ->willReturn(null)
+        ;
 
         $date = new \DateTime();
         $year = $date->format('Y');
@@ -58,14 +59,16 @@ class CaseManagerTest extends TestCase
             ->expects($this->once())
             ->method('findLatestCaseByMunicipality')
             ->with($mockMunicipality)
-            ->willReturn($mockCase);
+            ->willReturn($mockCase)
+        ;
 
         $mockDate = $this->createMock(\DateTime::class);
 
         $mockCase
             ->expects($this->once())
             ->method('getCreatedAt')
-            ->willReturn($mockDate);
+            ->willReturn($mockDate)
+        ;
 
         $currentDate = new \DateTime();
         $currentYear = $currentDate->format('Y');
@@ -78,7 +81,8 @@ class CaseManagerTest extends TestCase
             ->expects($this->once())
             ->method('format')
             ->with('Y')
-            ->willReturn($previousYear);
+            ->willReturn($previousYear)
+        ;
 
         $actual = $this->caseManager->generateCaseNumber($mockMunicipality);
 

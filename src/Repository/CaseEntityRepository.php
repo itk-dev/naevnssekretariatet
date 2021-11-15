@@ -28,6 +28,7 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->orderBy('c.createdAt', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getOneOrNullResult()
+        ;
     }
 }

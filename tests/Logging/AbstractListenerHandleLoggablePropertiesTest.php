@@ -23,7 +23,8 @@ class AbstractListenerHandleLoggablePropertiesTest extends TestCase
             ->setMethodsExcept(['handleLoggableEntities'])
             ->enableOriginalConstructor()
             ->setConstructorArgs([$mockSecurity])
-            ->getMock();
+            ->getMock()
+        ;
     }
 
     public function testHandleLoggablePropertiesException()
@@ -35,7 +36,8 @@ class AbstractListenerHandleLoggablePropertiesTest extends TestCase
         $mockEntity
             ->expects($this->exactly(1))
             ->method('getLoggableProperties')
-            ->willReturn(['testProperty']);
+            ->willReturn(['testProperty'])
+        ;
 
         $this->mockListener->handleLoggableEntities($mockEntity);
     }
@@ -52,7 +54,8 @@ class AbstractListenerHandleLoggablePropertiesTest extends TestCase
         $mockMunicipality
             ->expects($this->once())
             ->method('getLoggableProperties')
-            ->willReturn($loggableProperties);
+            ->willReturn($loggableProperties)
+        ;
 
         $mockMunicipalityID = $this->createMock(UuidV4::class);
 
@@ -61,12 +64,14 @@ class AbstractListenerHandleLoggablePropertiesTest extends TestCase
         $mockMunicipality
             ->expects($this->once())
             ->method('getId')
-            ->willReturn($mockMunicipalityID);
+            ->willReturn($mockMunicipalityID)
+        ;
 
         $mockMunicipality
             ->expects($this->once())
             ->method('getName')
-            ->willReturn($mockMunicipalityName);
+            ->willReturn($mockMunicipalityName)
+        ;
 
         $result = $this->mockListener->handleLoggableEntities($mockMunicipality);
 

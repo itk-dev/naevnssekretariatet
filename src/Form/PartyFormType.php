@@ -27,6 +27,7 @@ class PartyFormType extends AbstractType
                     'Landlord (administrator)' => 'Administrator',
                 ],
                 'translation_domain' => 'party',
-            ]);
+            ])
+        ;
     }
 }

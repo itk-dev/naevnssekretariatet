@@ -18,7 +18,8 @@ class AbstractRelatedToCaseListenerTest extends TestCase
         $mockListener = $this->getMockBuilder(AbstractRelatedToCaseListener::class)
             ->setMethodsExcept(['logActivity'])
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
 
         $mockMunicipality = $this->createMock(Municipality::class);
 
@@ -33,7 +34,8 @@ class AbstractRelatedToCaseListenerTest extends TestCase
         $mockMunicipality
             ->expects($this->once())
             ->method('getCaseEntities')
-            ->willReturn($caseCollection);
+            ->willReturn($caseCollection)
+        ;
 
         $testAction = 'TestAction';
 
@@ -44,12 +46,14 @@ class AbstractRelatedToCaseListenerTest extends TestCase
         $mockArgs
             ->expects($this->once())
             ->method('getEntityManager')
-            ->willReturn($mockEntityManager);
+            ->willReturn($mockEntityManager)
+        ;
 
         $mockArgs
             ->expects($this->once())
             ->method('getObject')
-            ->willReturn($mockMunicipality);
+            ->willReturn($mockMunicipality)
+        ;
 
         $mockLogEntryOne = $this->createMock(LogEntry::class);
         $mockLogEntryTwo = $this->createMock(LogEntry::class);
@@ -64,16 +68,19 @@ class AbstractRelatedToCaseListenerTest extends TestCase
             ->willReturnOnConsecutiveCalls(
                 $mockLogEntryOne,
                 $mockLogEntryTwo
-            );
+            )
+        ;
 
         $mockEntityManager
             ->expects($this->exactly(2))
             ->method('persist')
-            ->withConsecutive([$mockLogEntryOne], [$mockLogEntryTwo]);
+            ->withConsecutive([$mockLogEntryOne], [$mockLogEntryTwo])
+        ;
 
         $mockEntityManager
             ->expects($this->once())
-            ->method('flush');
+            ->method('flush')
+        ;
 
         $mockListener->logActivity($testAction, $mockArgs);
     }
