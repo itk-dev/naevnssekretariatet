@@ -10,7 +10,6 @@ use App\Entity\Document;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CasePresentationType;
 use App\Form\InspectionLetterType;
-use App\Repository\CaseDocumentRelationRepository;
 use App\Repository\DocumentRepository;
 use App\Service\AgendaHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -181,14 +180,9 @@ class AgendaCaseItemController extends AbstractController
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
-    public function selectDocuments(Agenda $agenda, AgendaCaseItem $agendaItem, CaseDocumentRelationRepository $relationRepository, DocumentRepository $documentRepository, Request $request): Response
+    public function selectDocuments(Agenda $agenda, AgendaCaseItem $agendaItem, DocumentRepository $documentRepository, Request $request): Response
     {
-        $case = $agendaItem->getCaseEntity();
-
-        $caseDocuments = $relationRepository->findNonDeletedDocumentsByCase($case);
-        $agendaItemDocuments = $agendaItem->getDocuments()->toArray();
-
-        $availableDocuments = array_diff($caseDocuments, $agendaItemDocuments);
+        $availableDocuments = $documentRepository->getAvailableDocumentsForAgendaItem($agendaItem);
 
         if ($request->isMethod('GET') || $agenda->isFinished()) {
             return $this->render('agenda_case_item/documents_attach.html.twig', [
