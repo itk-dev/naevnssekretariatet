@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/agenda/{id}/item")
  */
-class AgendaManuelItemController extends AbstractController
+class AgendaManuelItemDocumentController extends AbstractController
 {
     /**
      * @var EntityManagerInterface
@@ -42,7 +42,7 @@ class AgendaManuelItemController extends AbstractController
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
-    public function document(Agenda $agenda, AgendaManuelItem $agendaItem): Response
+    public function documents(Agenda $agenda, AgendaManuelItem $agendaItem): Response
     {
         $documents = $agendaItem->getDocuments();
 
@@ -61,7 +61,7 @@ class AgendaManuelItemController extends AbstractController
      * @throws DocumentDirectoryException
      * @throws FileMovingException
      */
-    public function uploadDocument(Agenda $agenda, AgendaManuelItem $agendaItem, Request $request): Response
+    public function documentUpload(Agenda $agenda, AgendaManuelItem $agendaItem, Request $request): Response
     {
         $this->documentUploader->specifyDirectory('/agenda_item_documents/');
 
@@ -110,7 +110,7 @@ class AgendaManuelItemController extends AbstractController
      *
      * @throws DocumentDirectoryException
      */
-    public function download(Document $document, DocumentUploader $uploader): Response
+    public function documentDownload(Document $document, DocumentUploader $uploader): Response
     {
         $uploader->specifyDirectory('/agenda_item_documents/');
         $response = $uploader->handleDownload($document);
