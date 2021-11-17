@@ -30,6 +30,7 @@ abstract class CaseEntity
     /**
      * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="caseEntities")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"mail_template"})
      */
     private $board;
 
@@ -43,6 +44,7 @@ abstract class CaseEntity
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"mail_template"})
      */
     private $createdAt;
 
