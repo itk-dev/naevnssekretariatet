@@ -206,12 +206,15 @@ class CaseController extends AbstractController
             $this->addFlash('error', $translator->trans('Cannot get address for BBR-Meddelelse', [], 'case'));
         } else {
             try {
-                return $this->redirect($bbrHelper->getBBRMeddelelseUrl($address));
+                return $this->redirect($bbrHelper->getBBRMeddelelseUrl($address, $_format));
             } catch (\Exception $exception) {
                 $this->addFlash('error', $translator->trans('Cannot get url for BBR-Meddelelse', [], 'case'));
             }
         }
 
-        return $this->redirectToRoute('case_show', ['id' => $case->getId()]);
+        // Send user back to where he came from.
+        $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+        return $this->redirect($redirectUrl);
     }
 }
