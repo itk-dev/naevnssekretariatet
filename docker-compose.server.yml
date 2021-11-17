@@ -48,6 +48,7 @@ services:
   # https://sdk.collaboraonline.com/docs/installation/CODE_Docker_image.html
   collabora:
     image: collabora/code
+    restart: unless-stopped
     networks:
       - app
     # environment:
@@ -57,4 +58,3 @@ services:
       - ${PWD}/.docker/collabora/config:/config
     ports:
       - '9980'
-    restart: always

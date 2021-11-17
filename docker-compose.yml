@@ -79,4 +79,3 @@ services:
       - ${PWD}/.docker/collabora/config:/config
     ports:
       - '9980'
-    restart: always
