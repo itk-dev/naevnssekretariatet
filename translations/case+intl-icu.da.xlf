@@ -793,6 +793,14 @@
         <source>Show BBR-Meddelelse for lease</source>
         <target state="translated">Vis BBR-Meddelelse for lejemål</target>
       </trans-unit>
+      <trans-unit id="kDdu5xg" resname="Cannot get address for BBR-Meddelelse">
+        <source>Cannot get address for BBR-Meddelelse</source>
+        <target state="translated">Adresse for BBR-Meddelelse ikke fundet</target>
+      </trans-unit>
+      <trans-unit id="WsxYcLd" resname="Cannot get url for BBR-Meddelelse">
+        <source>Cannot get url for BBR-Meddelelse</source>
+        <target state="translated">Url til BBR-Meddelelse ikke fundet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/case")
@@ -198,16 +199,16 @@ class CaseController extends AbstractController
      *     }
      * )
      */
-    public function bbrMeddelelse(CaseEntity $case, BBRHelper $bbrHelper, string $addressType, string $_format): Response
+    public function bbrMeddelelse(Request $request, TranslatorInterface $translator, CaseEntity $case, BBRHelper $bbrHelper, string $addressType, string $_format): Response
     {
         $address = $case->getFormattedAddress($addressType);
         if (null === $address) {
-            $this->addFlash('error', 'Cannot get address');
+            $this->addFlash('error', $translator->trans('Cannot get address for BBR-Meddelelse', [], 'case'));
         } else {
             try {
                 return $this->redirect($bbrHelper->getBBRMeddelelseUrl($address));
             } catch (\Exception $exception) {
-                $this->addFlash('error', 'Cannot get url for BBR-meddelelse');
+                $this->addFlash('error', $translator->trans('Cannot get url for BBR-Meddelelse', [], 'case'));
             }
         }
 
