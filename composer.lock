@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ece8c1af52a23b8219a8246f30dccfad",
+    "content-hash": "9c838a6488896c7c543eb3b4ec0208dc",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -9587,7 +9587,8 @@
                 "Symfony"
             ],
             "support": {
-                "source": "https://github.com/theofidry/AliceBundle/tree/2.9.0"
+                "source": "https://github.com/theofidry/AliceBundle/tree/2.9.0",
+                "issues": "https://github.com/theofidry/AliceBundle/issues"
             },
             "funding": [
                 {
@@ -10716,7 +10717,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2.5",
+        "php": "^8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*"
