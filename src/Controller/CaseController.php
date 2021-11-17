@@ -8,6 +8,7 @@ use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
+use App\Service\BBRHelper;
 use App\Service\CaseHelper;
 use App\Service\CaseManager;
 use App\Service\WorkflowService;
@@ -187,5 +188,29 @@ class CaseController extends AbstractController
         return $this->render('case/log.html.twig', [
             'case' => $case,
         ]);
+    }
+
+    /**
+     * @Route("/{id}/bbr-meddelelse/{addressType}.{_format}", name="case_bbr_meddelelse", methods={"GET"},
+     *     format="pdf",
+     *     requirements={
+     *         "_format": "pdf",
+     *     }
+     * )
+     */
+    public function bbrMeddelelse(CaseEntity $case, BBRHelper $bbrHelper, string $addressType, string $_format): Response
+    {
+        $address = $case->getFormattedAddress($addressType);
+        if (null === $address) {
+            $this->addFlash('error', 'Cannot get address');
+        } else {
+            try {
+                return $this->redirect($bbrHelper->getBBRMeddelelseUrl($address));
+            } catch (\Exception $exception) {
+                $this->addFlash('error', 'Cannot get url for BBR-meddelelse');
+            }
+        }
+
+        return $this->redirectToRoute('case_show', ['id' => $case->getId()]);
     }
 }
