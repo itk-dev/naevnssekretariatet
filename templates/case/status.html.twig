@@ -97,17 +97,17 @@
                             {% for active_agenda in active_agendas %}
                                 <tr>
                                     <td>
-                                        {{ active_agenda.agenda.board.name|e }}
-                                        {% if active_agenda.isInspection %}
+                                        {{ active_agenda.board_name|e }}
+                                        {% if active_agenda.case_should_be_inspected %}
                                             <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
                                         {% endif %}
                                     </td>
-                                    <td>{{ active_agenda.agenda.date|date('j M Y') }}</td>
-                                    <td>{{ active_agenda.agenda.start|date('H:i') }}</td>
-                                    <td>{{ active_agenda.agenda.end|date('H:i') }}</td>
-                                    <td>{{ active_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
+                                    <td>{{ active_agenda.agenda_date|date('j M Y') }}</td>
+                                    <td>{{ active_agenda.agenda_start|date('H:i') }}</td>
+                                    <td>{{ active_agenda.agenda_end|date('H:i') }}</td>
+                                    <td>{{ active_agenda.agenda_status|trans({}, 'agenda_status') }}</td>
                                     <td class="text-right">
-                                        <a href="{{ url('agenda_show', {id: active_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                        <a href="{{ url('agenda_show', {id: active_agenda.agenda_id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -136,17 +136,17 @@
                         {% for finished_agenda in finished_agendas %}
                             <tr>
                                 <td>
-                                    {{ finished_agenda.agenda.board.name|e }}
-                                    {% if finished_agenda.isInspection %}
+                                    {{ finished_agenda.board_name|e }}
+                                    {% if finished_agenda.case_should_be_inspected %}
                                         <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
                                     {% endif %}
                                 </td>
-                                <td>{{ finished_agenda.agenda.date|date('j M Y') }}</td>
-                                <td>{{ finished_agenda.agenda.start|date('H:i') }}</td>
-                                <td>{{ finished_agenda.agenda.end|date('H:i') }}</td>
-                                <td>{{ finished_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
+                                <td>{{ finished_agenda.agenda_date|date('j M Y') }}</td>
+                                <td>{{ finished_agenda.agenda_start|date('H:i') }}</td>
+                                <td>{{ finished_agenda.agenda_end|date('H:i') }}</td>
+                                <td>{{ finished_agenda.agenda_status|trans({}, 'agenda_status') }}</td>
                                 <td class="text-right">
-                                    <a href="{{ url('agenda_show', {id: finished_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                    <a href="{{ url('agenda_show', {id: finished_agenda.agenda_id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
                                 </td>
                             </tr>
                         {% endfor %}

@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Agenda;
-use App\Entity\AgendaCaseItem;
 use App\Entity\CaseEntity;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseStatusForm;
@@ -13,13 +11,13 @@ use App\Repository\AgendaRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
 use App\Service\AgendaHelper;
-use App\Service\AgendaStatus;
 use App\Service\CaseHelper;
 use App\Service\WorkflowService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Uid\UuidV4;
 
 /**
  * @Route("/case")
@@ -135,30 +133,23 @@ class CaseController extends AbstractController
             ]);
         }
 
-        // Extract agenda and whether the AgendaCaseItem with current case is an inspection item
-        $activeAgendas = [];
-        $finishedAgendas = [];
+        $activeAgendaData = $agendaRepository->getActiveAgendaDataByCase($case);
+        $finishedAgendaData = $agendaRepository->getFinishedAgendaDataByCase($case);
 
-        foreach ($case->getAgendaCaseItems() as $agendaCaseItem) {
-            if (AgendaStatus::FINISHED === $agendaCaseItem->getAgenda()->getStatus()) {
-                array_push($finishedAgendas, [
-                    'agenda' => $agendaCaseItem->getAgenda(),
-                    'isInspection' => $agendaCaseItem->getInspection(),
-                ]);
-            } else {
-                array_push($activeAgendas, [
-                    'agenda' => $agendaCaseItem->getAgenda(),
-                    'isInspection' => $agendaCaseItem->getInspection(),
-                ]);
-            }
+        foreach ($activeAgendaData as &$agenda) {
+            $agenda['agenda_id'] = UuidV4::fromString($agenda['agenda_id'])->__toString();
+        }
+
+        foreach ($finishedAgendaData as &$agenda) {
+            $agenda['agenda_id'] = UuidV4::fromString($agenda['agenda_id'])->__toString();
         }
 
         return $this->render('case/status.html.twig', [
             'case' => $case,
             'case_status_form' => $caseStatusForm->createView(),
             'case_agenda_status_form' => $caseAgendaStatusForm->createView(),
-            'active_agendas' => $activeAgendas,
-            'finished_agendas' => $finishedAgendas,
+            'active_agendas' => $activeAgendaData,
+            'finished_agendas' => $finishedAgendaData,
         ]);
     }
 
