@@ -789,6 +789,10 @@
         <source>Lease address</source>
         <target>Lejemålets adresse</target>
       </trans-unit>
+      <trans-unit id="qd76FPI" resname="Show BBR-Meddelelse for lease">
+        <source>Show BBR-Meddelelse for lease</source>
+        <target state="translated">Vis BBR-Meddelelse for lejemål</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
-                        <a href="{{ path('case_bbr_meddelelse', {id: case.id, addressType: 'lease'}) }}">{{ 'Show BBR-Meddelelse for lease'|trans }}</a>
+                        <p><a href="{{ path('case_bbr_meddelelse', {id: case.id, addressType: 'lease'}) }}">{% trans %}Show BBR-Meddelelse for lease{% endtrans %}</a></p>
                     </fieldset>
                     <fieldset>
                         <legend>{% trans %}Lease information{% endtrans %}</legend>
