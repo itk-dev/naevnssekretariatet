@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class BbrMeddelelseCommand extends Command
+class BBRMeddelelseCommand extends Command
 {
     protected static $defaultName = 'app:bbr:meddelelse';
     protected static $defaultDescription = 'Get url to “BBR-medelelse';
