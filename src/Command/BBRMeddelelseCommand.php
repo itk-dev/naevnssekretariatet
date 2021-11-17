@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class BBRMeddelelseCommand extends Command
 {
-    protected static $defaultName = 'app:bbr:meddelelse';
+    protected static $defaultName = 'tvist1:bbr:meddelelse-url';
     protected static $defaultDescription = 'Get url to “BBR-medelelse';
 
     private BBRHelper $bbrHelper;
