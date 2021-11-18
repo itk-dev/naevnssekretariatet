@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\BoardMember;
+use App\Exception\BoardMemberRoleException;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,6 +30,11 @@ class AgendaAddBoardMemberType extends AbstractType
                     $roles = $boardMember->getBoardRoles()->filter(function ($role) use ($board) {
                         return $role->getBoard() === $board;
                     });
+
+                    if (1 != sizeof($roles)) {
+                        $message = sprintf('Board member: %s, is assigned %s roles on board %s.', $boardMember->getName(), sizeof($roles), $board->getName());
+                        throw new BoardMemberRoleException($message);
+                    }
                     // TODO: Some sort of check on size of roles - should just be one element
                     return $boardMember->getName().' - '.$roles->current()->getTitle();
                 },
