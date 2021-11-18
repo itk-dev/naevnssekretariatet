@@ -16,4 +16,22 @@ $(() => {
     }
     this.href = url.toString()
   })
+
+  const bbr = window.BBR ?? {}
+  console.debug({bbr})
+  const bbrLeaseDataUrl = bbr.lease?.data_url ?? null
+  if (null === bbrLeaseDataUrl) {
+      $('#bbr-data-lease').html(bbr.messages?.['Error loading BBR data'] ?? 'Error loading BBR data')
+  } else {
+    // Load BBR data
+    $.ajax(bbrLeaseDataUrl)
+      .done(function(data) {
+        if (data.rendered) {
+          $('#bbr-data-lease').html(data.rendered)
+        }
+      })
+      .fail(function(jqXHR, textStatus, errorThrown ) {
+        $('#bbr-data-lease').html(bbr.messages?.['Error loading BBR data'] ?? 'Error loading BBR data')
+      });
+  }
 })

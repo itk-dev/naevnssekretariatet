@@ -119,8 +119,21 @@
                             </div>
                         </div>
                         <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
-                        <p><a data-referer-query-name="referer" href="{{ path('case_bbr_meddelelse', {id: case.id, addressType: 'lease'}) }}">{% trans %}Show BBR-Meddelelse for lease{% endtrans %}</a></p>
                     </fieldset>
+
+                    <fieldset>
+                        <legend>{% trans %}BBR information{% endtrans %}</legend>
+
+                        {{ dump(case.bbrData|default({})) }}
+
+                        <div id="bbr-data-lease">{% trans %}Loading BBR data …{% endtrans %}</div>
+                        <script>
+                         var BBR = {{ bbr_config|default({})|json_encode|raw }};
+                        </script>
+
+                        <p><a data-referer-query-name="referer" href="{{ path('case_bbr_meddelelse', {id: case.id, addressType: 'lease'}) }}">{% trans %}Show BBR-Meddelelse for lease (PDF){% endtrans %}</a></p>
+                    </fieldset>
+
                     <fieldset>
                         <legend>{% trans %}Lease information{% endtrans %}</legend>
 

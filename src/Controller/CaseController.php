@@ -13,8 +13,10 @@ use App\Service\CaseHelper;
 use App\Service\CaseManager;
 use App\Service\WorkflowService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -77,7 +79,7 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}", name="case_show", methods={"GET"})
      */
-    public function show(CaseEntity $case, CaseHelper $casePartyHelper): Response
+    public function show(CaseEntity $case, CaseHelper $casePartyHelper, TranslatorInterface $translator): Response
     {
         $data = $casePartyHelper->getRelevantTemplateAndPartiesByCase($case);
 
@@ -85,6 +87,14 @@ class CaseController extends AbstractController
             'case' => $case,
             'complainants' => $data['complainants'],
             'counterparties' => $data['counterparties'],
+            'bbr_config' => [
+                'lease' => [
+                    'data_url' => $this->generateUrl('case_bbr_data', ['id' => $case->getId(), 'addressType' => 'lease']),
+                ],
+                'messages' => [
+                    'Error loading BBR data' => $translator->trans('Error loading BBR data', [], 'case'),
+                ],
+            ],
         ]);
     }
 
@@ -216,5 +226,22 @@ class CaseController extends AbstractController
         $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
 
         return $this->redirect($redirectUrl);
+    }
+
+    /**
+     * @Route("/{id}/bbr-data/{addressType}", name="case_bbr_data", methods={"GET"})
+     */
+    public function bbrData(Request $request, TranslatorInterface $translator, CaseEntity $case, BBRHelper $bbrHelper, string $addressType): Response
+    {
+        $address = $case->getFormattedAddress($addressType);
+        if (null === $address) {
+            throw new BadRequestHttpException('Cannot get address');
+        }
+        $data = $bbrHelper->fetchBBRData($address);
+
+        return new JsonResponse([
+            'data' => $data,
+            'rendered' => $this->render('case/_bbr/data-'.$addressType.'.html.twig', ['data' => $data])->getContent(),
+        ]);
     }
 }
