@@ -58,9 +58,7 @@ class AgendaCaseItemType extends AbstractType
             /** @var Board $board */
             $board = $options['board'];
 
-            $casesWithBoard = $this->caseRepository->findCasesByBoardAndIsReadyForAgenda($board);
-
-            $casesWithBoardAndWithoutActiveAgenda = $this->caseHelper->removeCasesWithActiveAgenda($casesWithBoard);
+            $casesWithBoardAndWithoutActiveAgenda = $this->caseRepository->findReadyCasesWithoutActiveAgendaByBoard($board);
         }
 
         $builder
