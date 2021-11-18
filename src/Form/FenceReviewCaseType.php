@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Entity\FenceReviewCase;
+use App\Form\Embeddable\AddressType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -45,15 +46,7 @@ class FenceReviewCaseType extends AbstractType
             ->add('complainantCPR', IntegerType::class, [
                 'label' => $this->translator->trans('Complainant CPR', [], 'case'),
             ])
-            ->add('complainantStreetNameAndNumber', TextType::class, [
-                'label' => $this->translator->trans('Complainant street name and number', [], 'case'),
-            ])
-            ->add('complainantZip', TextType::class, [
-                'label' => $this->translator->trans('Complainant postal code', [], 'case'),
-            ])
-            ->add('complainantCity', TextType::class, [
-                'label' => $this->translator->trans('Complainant city', [], 'case'),
-            ])
+            ->add('complainantAddress', AddressType::class)
             ->add('complainantCadastralNumber', TextType::class, [
                 'label' => $this->translator->trans('Complainant cadastral number', [], 'case'),
             ])
@@ -63,15 +56,7 @@ class FenceReviewCaseType extends AbstractType
             ->add('accusedCPR', IntegerType::class, [
                 'label' => $this->translator->trans('Accused CPR', [], 'case'),
             ])
-            ->add('accusedStreetNameAndNumber', TextType::class, [
-                'label' => $this->translator->trans('Accused street name and number', [], 'case'),
-            ])
-            ->add('accusedZip', TextType::class, [
-                'label' => $this->translator->trans('Accused postal code', [], 'case'),
-            ])
-            ->add('accusedCity', TextType::class, [
-                'label' => $this->translator->trans('Accused city', [], 'case'),
-            ])
+            ->add('accusedAddress', AddressType::class)
             ->add('accusedCadastralNumber', TextType::class, [
                 'label' => $this->translator->trans('Accused cadastral number', [], 'case'),
             ])
