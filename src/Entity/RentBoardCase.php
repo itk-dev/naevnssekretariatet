@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Embeddable\Address;
 use App\Repository\RentBoardCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,19 +27,9 @@ class RentBoardCase extends CaseEntity
     private $hasVacated;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      */
-    private $leaseStreetNameAndNumber;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $leaseZip;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $leaseCity;
+    private $leaseAddress;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -90,6 +81,12 @@ class RentBoardCase extends CaseEntity
      */
     private $leaseType;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->leaseAddress = new Address();
+    }
+
     public function getLeaseSize(): ?int
     {
         return $this->leaseSize;
@@ -126,40 +123,14 @@ class RentBoardCase extends CaseEntity
         return $this;
     }
 
-    public function getLeaseStreetNameAndNumber(): ?string
+    public function getLeaseAddress(): Address
     {
-        return $this->leaseStreetNameAndNumber;
+        return $this->leaseAddress;
     }
 
-    public function setLeaseStreetNameAndNumber(string $leaseStreetNameAndNumber): self
+    public function setLeaseAddress(Address $address): void
     {
-        $this->leaseStreetNameAndNumber = $leaseStreetNameAndNumber;
-
-        return $this;
-    }
-
-    public function getLeaseZip(): ?string
-    {
-        return $this->leaseZip;
-    }
-
-    public function setLeaseZip(string $leaseZip): self
-    {
-        $this->leaseZip = $leaseZip;
-
-        return $this;
-    }
-
-    public function getLeaseCity(): ?string
-    {
-        return $this->leaseCity;
-    }
-
-    public function setLeaseCity(string $leaseCity): self
-    {
-        $this->leaseCity = $leaseCity;
-
-        return $this;
+        $this->leaseAddress = $address;
     }
 
     public function getLeaseStarted(): ?\DateTimeInterface
