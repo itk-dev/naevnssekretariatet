@@ -19,6 +19,9 @@
 {% block content %}
 
     <main role="main" class="col-12 mt-3">
-        {{ form(agenda_item_edit_form) }}
+        {{ form_start(agenda_item_edit_form) }}
+        {{ form_rest(agenda_item_edit_form) }}
+        <button class="btn btn-primary float-right">{{ button_label|default('Edit agenda item'|trans([], 'agenda', 'da')) }}</button>
+        {{ form_end(agenda_item_edit_form) }}
     </main>
 {% endblock %}

@@ -9,7 +9,6 @@ use App\Repository\CaseEntityRepository;
 use App\Service\CaseHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -109,18 +108,6 @@ class AgendaCaseItemType extends AbstractType
                 'label' => $this->translator->trans('Case', [], 'agenda_item'),
                 'disabled' => true,
             ]);
-        }
-
-        if (!$isCreateContext) {
-            $builder
-                ->add('submit', SubmitType::class, [
-                    'label' => $this->translator->trans('Update agenda item', [], 'agenda_item'),
-                ]);
-        } else {
-            $builder
-                ->add('submit', SubmitType::class, [
-                    'label' => $this->translator->trans('Create agenda item', [], 'agenda_item'),
-                ]);
         }
     }
 }

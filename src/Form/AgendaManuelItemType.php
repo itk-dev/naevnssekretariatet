@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\AgendaManuelItem;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
@@ -25,16 +24,11 @@ class AgendaManuelItemType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => AgendaManuelItem::class,
-            'isCreateContext' => false,
         ]);
-
-        $resolver->setAllowedTypes('isCreateContext', 'bool');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $isCreateContext = $options['isCreateContext'];
-
         $builder
             ->add('title', TextType::class, [
                 'label' => $this->translator->trans('Title', [], 'agenda_item'),
@@ -56,16 +50,7 @@ class AgendaManuelItemType extends AbstractType
             ])
             ->add('meetingPoint', TextType::class, [
                 'label' => $this->translator->trans('Meeting point', [], 'agenda_item'),
-            ]);
-
-        if (!$isCreateContext) {
-            $builder->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('Update agenda item', [], 'agenda_item'),
-            ]);
-        } else {
-            $builder->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('Create agenda item', [], 'agenda_item'),
-            ]);
-        }
+            ])
+        ;
     }
 }
