@@ -7,6 +7,7 @@ use App\Entity\CaseEntity;
 use App\Service\AgendaStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Uid\UuidV4;
 
 /**
  * @method Agenda|null find($id, $lockMode = null, $lockVersion = null)
@@ -46,12 +47,18 @@ class AgendaRepository extends ServiceEntityRepository
 
         $stmt = $em->getConnection()->prepare($sql);
 
-        return $stmt->executeQuery(
+        $result = $stmt->executeQuery(
             [
                 ':case_id' => $case->getId()->toBinary(),
                 ':agenda_status' => AgendaStatus::FINISHED,
             ]
         )->fetchAllAssociative();
+
+        foreach ($result as &$agenda) {
+            $agenda['agenda_id'] = UuidV4::fromString($agenda['agenda_id'])->__toString();
+        }
+
+        return $result;
     }
 
     /**
@@ -79,11 +86,17 @@ class AgendaRepository extends ServiceEntityRepository
 
         $stmt = $em->getConnection()->prepare($sql);
 
-        return $stmt->executeQuery(
+        $result = $stmt->executeQuery(
             [
                 ':case_id' => $case->getId()->toBinary(),
                 ':agenda_status' => AgendaStatus::FINISHED,
             ]
         )->fetchAllAssociative();
+
+        foreach ($result as &$agenda) {
+            $agenda['agenda_id'] = UuidV4::fromString($agenda['agenda_id'])->__toString();
+        }
+
+        return $result;
     }
 }

@@ -27,6 +27,6 @@ class AgendaItemRepository extends ServiceEntityRepository
             ->setParameter('agenda', $agenda->getId()->toBinary())
             ->orderBy('a.startTime', 'ASC')
             ->getQuery()
-            ->getArrayResult();
+            ->getResult();
     }
 }

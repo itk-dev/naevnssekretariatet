@@ -123,7 +123,7 @@
                                             {% if agenda_item.caseEntity is defined %}
                                                 {{ agenda_item.caseEntity.caseNumber|e }}
                                                 {% if agenda_item.inspection is defined and agenda_item.inspection == true %}
-                                                <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                                    <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
                                                 {% endif %}
                                             {% else %}
                                                 {{ agenda_item.title|e }}

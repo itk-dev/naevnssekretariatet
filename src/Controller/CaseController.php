@@ -7,6 +7,7 @@ use App\Form\CaseAgendaStatusType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Form\ResidentComplaintBoardCaseType;
+use App\Repository\AgendaCaseItemRepository;
 use App\Repository\AgendaRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
@@ -17,7 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Uid\UuidV4;
 
 /**
  * @Route("/case")
@@ -93,7 +93,7 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/status", name="case_status", methods={"GET", "POST"})
      */
-    public function status(CaseEntity $case, AgendaHelper $agendaHelper, AgendaRepository $agendaRepository, CaseHelper $caseHelper, WorkflowService $workflowService, Request $request): Response
+    public function status(CaseEntity $case, AgendaCaseItemRepository $agendaCaseItemRepository, AgendaHelper $agendaHelper, AgendaRepository $agendaRepository, CaseHelper $caseHelper, WorkflowService $workflowService, Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -133,23 +133,15 @@ class CaseController extends AbstractController
             ]);
         }
 
-        $activeAgendaData = $agendaRepository->getActiveAgendaDataByCase($case);
-        $finishedAgendaData = $agendaRepository->getFinishedAgendaDataByCase($case);
-
-        foreach ($activeAgendaData as &$agenda) {
-            $agenda['agenda_id'] = UuidV4::fromString($agenda['agenda_id'])->__toString();
-        }
-
-        foreach ($finishedAgendaData as &$agenda) {
-            $agenda['agenda_id'] = UuidV4::fromString($agenda['agenda_id'])->__toString();
-        }
+        $activeAgendaCaseItems = $agendaCaseItemRepository->findActiveAgendaCaseItemIdsByCase($case);
+        $finishedAgendaCaseItems = $agendaCaseItemRepository->findFinishedAgendaCaseItemIdsByCase($case);
 
         return $this->render('case/status.html.twig', [
             'case' => $case,
             'case_status_form' => $caseStatusForm->createView(),
             'case_agenda_status_form' => $caseAgendaStatusForm->createView(),
-            'active_agendas' => $activeAgendaData,
-            'finished_agendas' => $finishedAgendaData,
+            'active_agendas' => $activeAgendaCaseItems,
+            'finished_agendas' => $finishedAgendaCaseItems,
         ]);
     }
 
