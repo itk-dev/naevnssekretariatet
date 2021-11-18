@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\AgendaCaseItem;
+use App\Entity\AgendaManuelItem;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -37,24 +39,24 @@ class AgendaItemType extends AbstractType
 
         $builder->add('type', ChoiceType::class, [
             'choices' => [
-                $caseItemTranslated => $caseItemTranslated,
-                $manuelItemTranslated => $manuelItemTranslated,
+                $caseItemTranslated => AgendaCaseItem::class,
+                $manuelItemTranslated => AgendaManuelItem::class,
             ],
             'placeholder' => $this->translator->trans('Choose an agenda item type', [], 'agenda_item'),
         ]);
 
-        $formModifier = function (FormInterface $form, string $type = null) use ($manuelItemTranslated, $caseItemTranslated, $board) {
+        $formModifier = function (FormInterface $form, string $type = null) use ($board) {
             if (null != $type) {
                 $formClass = null;
                 switch ($type) {
-                    case $caseItemTranslated:
+                    case AgendaCaseItem::class:
                         $formClass = AgendaCaseItemType::class;
                         $form->add('agendaItem', $formClass, [
                             'board' => $board,
                             'isCreateContext' => true,
                         ]);
                         break;
-                    case $manuelItemTranslated:
+                    case AgendaManuelItem::class:
                         $formClass = AgendaManuelItemType::class;
                         $form->add('agendaItem', $formClass, [
                             'isCreateContext' => true,
