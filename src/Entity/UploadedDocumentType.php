@@ -11,7 +11,7 @@ use Symfony\Component\Uid\UuidV4;
 /**
  * @ORM\Entity(repositoryClass=DocumentTypeRepository::class)
  */
-class DocumentType implements LoggableEntityInterface
+class UploadedDocumentType implements LoggableEntityInterface
 {
     /**
      * @ORM\Id

@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Document;
-use App\Entity\DocumentType;
+use App\Entity\UploadedDocumentType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -27,7 +27,7 @@ class DocumentForm extends AbstractType
                 'label' => 'Document name:',
             ])
             ->add('type', EntityType::class, [
-                'class' => DocumentType::class,
+                'class' => UploadedDocumentType::class,
                 'choice_label' => 'name',
             ])
             ->add('filename', FileType::class, [

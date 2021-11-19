@@ -6,9 +6,9 @@ use App\Entity\Board;
 use App\Entity\BoardMember;
 use App\Entity\BoardRole;
 use App\Entity\ComplaintCategory;
-use App\Entity\DocumentType;
 use App\Entity\Municipality;
 use App\Entity\Party;
+use App\Entity\UploadedDocumentType;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -86,7 +86,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Board roles', '', BoardRole::class);
         yield MenuItem::linkToCrud('Boardmember', '', BoardMember::class);
         yield MenuItem::linkToCrud('Part Index', '', Party::class);
-        yield MenuItem::linkToCrud('Document types', '', DocumentType::class);
+        yield MenuItem::linkToCrud('Document types', '', UploadedDocumentType::class);
         yield MenuItem::linkToCrud('User Settings', '', User::class)
             ->setAction('edit')
             ->setEntityId($this->getUser()->getId())
