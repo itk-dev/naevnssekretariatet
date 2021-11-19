@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Agenda;
 use App\Entity\Board;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -25,16 +26,15 @@ class AgendaCreateType extends AbstractType
     {
         $municipality = $options['municipality'];
 
-        $boards = [];
-
-        foreach ($municipality->getBoards()->toArray() as $board) {
-            $boards[$board->getName()] = $board;
-        }
-
         $builder
             ->add('board', EntityType::class, [
                 'class' => Board::class,
-                'choices' => $boards,
+                'query_builder' => function (EntityRepository $er) use ($municipality) {
+                    return $er->createQueryBuilder('b')
+                        ->where('b.municipality = :municipality')
+                        ->setParameter('municipality', $municipality->getId()->toBinary())
+                        ->orderBy('b.name', 'ASC');
+                },
                 'choice_label' => 'name',
             ])
             ->add('date', DateType::class, [

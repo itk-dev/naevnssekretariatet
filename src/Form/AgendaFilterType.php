@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Municipality;
+use App\Repository\BoardRepository;
 use App\Service\AgendaStatus;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
@@ -14,12 +15,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AgendaFilterType extends AbstractType
 {
     /**
+     * @var BoardRepository
+     */
+    private $boardRepository;
+    /**
      * @var TranslatorInterface
      */
     private $translator;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(BoardRepository $boardRepository, TranslatorInterface $translator)
     {
+        $this->boardRepository = $boardRepository;
         $this->translator = $translator;
     }
 
@@ -42,15 +48,14 @@ class AgendaFilterType extends AbstractType
         /** @var Municipality $municipality */
         $municipality = $options['municipality'];
 
-        $boards = [];
-
-        foreach ($municipality->getBoards()->toArray() as $board) {
-            $boards[$board->getName()] = $board;
-        }
-
         $builder
             ->add('board', Filters\ChoiceFilterType::class, [
-                'choices' => $boards,
+                'choices' => $this->boardRepository->createQueryBuilder('b')
+                    ->indexBy('b', 'b.name')
+                    ->where('b.municipality = :municipality')
+                    ->setParameter('municipality', $municipality->getId()->toBinary())
+                    ->orderBy('b.name', 'ASC')
+                    ->getQuery()->getResult(),
                 'label' => false,
                 'placeholder' => $this->translator->trans('All boards', [], 'agenda'),
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
@@ -65,6 +70,7 @@ class AgendaFilterType extends AbstractType
 
                     // expression parameters
                     // Added ->getId()->toBinary() to handle Uuid
+
                     $parameters = [$paramName => $values['value']->getId()->toBinary()]; // [ name => value ]
 
                     return $filterQuery->createCondition($expression, $parameters);
