@@ -46,7 +46,9 @@ class FenceReviewCaseType extends AbstractType
             ->add('complainantCPR', IntegerType::class, [
                 'label' => $this->translator->trans('Complainant CPR', [], 'case'),
             ])
-            ->add('complainantAddress', AddressType::class)
+            ->add('complainantAddress', AddressType::class, [
+                'label' => $this->translator->trans('Complainant address', [], 'case'),
+            ])
             ->add('complainantCadastralNumber', TextType::class, [
                 'label' => $this->translator->trans('Complainant cadastral number', [], 'case'),
             ])
@@ -56,7 +58,9 @@ class FenceReviewCaseType extends AbstractType
             ->add('accusedCPR', IntegerType::class, [
                 'label' => $this->translator->trans('Accused CPR', [], 'case'),
             ])
-            ->add('accusedAddress', AddressType::class)
+            ->add('accusedAddress', AddressType::class, [
+                'label' => $this->translator->trans('Accused address', [], 'case'),
+            ])
             ->add('accusedCadastralNumber', TextType::class, [
                 'label' => $this->translator->trans('Accused cadastral number', [], 'case'),
             ])

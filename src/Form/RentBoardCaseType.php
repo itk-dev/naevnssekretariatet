@@ -49,12 +49,16 @@ class RentBoardCaseType extends AbstractType
             ->add('complainantPhone', IntegerType::class, [
                 'label' => $this->translator->trans('Complainant phone', [], 'case'),
             ])
-            ->add('complainantAddress', AddressType::class)
+            ->add('complainantAddress', AddressType::class, [
+                'label' => $this->translator->trans('Complainant address', [], 'case'),
+            ])
             ->add('hasVacated', CheckboxType::class, [
                 'label' => $this->translator->trans('Has vacated', [], 'case'),
                 'required' => false,
             ])
-            ->add('leaseAddress', AddressType::class)
+            ->add('leaseAddress', AddressType::class, [
+                'label' => $this->translator->trans('Lease address', [], 'case'),
+            ])
             ->add('leaseType', ChoiceType::class, [
                 'choices' => [
                     $this->translator->trans('Big', [], 'case') => $this->translator->trans('Big', [], 'case'),
