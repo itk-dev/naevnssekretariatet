@@ -71,7 +71,7 @@
         </div>
     </div>
     <div class="form-row">
-        {{ form_widget(agenda_form.submit) }}
+        <button class="btn btn-primary float-right">{{ button_label|default('Save changes'|trans([], 'agenda', 'da')) }}</button>
     </div>
     {{ form_end(agenda_form) }}
 

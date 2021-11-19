@@ -7,10 +7,10 @@ use App\Entity\AgendaProtocol;
 use App\Entity\BoardMember;
 use App\Form\AgendaAddBoardMemberType;
 use App\Form\AgendaBroadcastType;
-use App\Form\AgendaCreateType;
+use App\Form\AgendaNewType;
 use App\Form\AgendaFilterType;
 use App\Form\AgendaProtocolType;
-use App\Form\AgendaType;
+use App\Form\AgendaEditType;
 use App\Form\MunicipalitySelectorType;
 use App\Repository\AgendaItemRepository;
 use App\Repository\AgendaRepository;
@@ -125,7 +125,7 @@ class AgendaController extends AbstractController
     {
         $agenda = new Agenda();
 
-        $form = $this->createForm(AgendaCreateType::class, $agenda, [
+        $form = $this->createForm(AgendaNewType::class, $agenda, [
             'municipality' => $municipalityHelper->getActiveMunicipality(),
         ]);
 
@@ -184,7 +184,7 @@ class AgendaController extends AbstractController
 
         $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
 
-        $form = $this->createForm(AgendaType::class, $agenda, $agendaOptions);
+        $form = $this->createForm(AgendaEditType::class, $agenda, $agendaOptions);
 
         $isFinishedAgenda = $agenda->isFinished();
 
