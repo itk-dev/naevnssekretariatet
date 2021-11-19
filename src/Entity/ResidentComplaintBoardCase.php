@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Embeddable\Address;
 use App\Repository\ResidentComplaintBoardCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,19 +27,9 @@ class ResidentComplaintBoardCase extends CaseEntity
     private $hasVacated;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      */
-    private $leaseStreetNameAndNumber;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $leaseZip;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $leaseCity;
+    private $leaseAddress;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -85,6 +76,12 @@ class ResidentComplaintBoardCase extends CaseEntity
      */
     private $feePaid;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->leaseAddress = new Address();
+    }
+
     public function getLeaseSize(): ?int
     {
         return $this->leaseSize;
@@ -121,40 +118,14 @@ class ResidentComplaintBoardCase extends CaseEntity
         return $this;
     }
 
-    public function getLeaseStreetNameAndNumber(): ?string
+    public function getLeaseAddress(): Address
     {
-        return $this->leaseStreetNameAndNumber;
+        return $this->leaseAddress;
     }
 
-    public function setLeaseStreetNameAndNumber(string $leaseStreetNameAndNumber): self
+    public function setLeaseAddress(Address $address): void
     {
-        $this->leaseStreetNameAndNumber = $leaseStreetNameAndNumber;
-
-        return $this;
-    }
-
-    public function getLeaseZip(): ?string
-    {
-        return $this->leaseZip;
-    }
-
-    public function setLeaseZip(string $leaseZip): self
-    {
-        $this->leaseZip = $leaseZip;
-
-        return $this;
-    }
-
-    public function getLeaseCity(): ?string
-    {
-        return $this->leaseCity;
-    }
-
-    public function setLeaseCity(string $leaseCity): self
-    {
-        $this->leaseCity = $leaseCity;
-
-        return $this;
+        $this->leaseAddress = $address;
     }
 
     public function getLeaseStarted(): ?\DateTimeInterface

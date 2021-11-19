@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Embeddable\Address;
 use App\Repository\CaseEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -93,19 +94,9 @@ abstract class CaseEntity
     private $complainant;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      */
-    private $complainantStreetNameAndNumber;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $complainantZip;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $complainantCity;
+    private $complainantAddress;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -119,6 +110,7 @@ abstract class CaseEntity
 
     public function __construct()
     {
+        $this->complainantAddress = new Address();
         $this->casePartyRelation = new ArrayCollection();
         $this->caseDocumentRelation = new ArrayCollection();
         $this->notes = new ArrayCollection();
@@ -316,40 +308,14 @@ abstract class CaseEntity
         return $this;
     }
 
-    public function getComplainantStreetNameAndNumber(): ?string
+    public function setComplainantAddress(Address $address): void
     {
-        return $this->complainantStreetNameAndNumber;
+        $this->complainantAddress = $address;
     }
 
-    public function setComplainantStreetNameAndNumber(?string $complainantStreetNameAndNumber): self
+    public function getComplainantAddress(): Address
     {
-        $this->complainantStreetNameAndNumber = $complainantStreetNameAndNumber;
-
-        return $this;
-    }
-
-    public function getComplainantZip(): ?string
-    {
-        return $this->complainantZip;
-    }
-
-    public function setComplainantZip(?string $complainantZip): self
-    {
-        $this->complainantZip = $complainantZip;
-
-        return $this;
-    }
-
-    public function getComplainantCity(): ?string
-    {
-        return $this->complainantCity;
-    }
-
-    public function setComplainantCity(?string $complainantCity): self
-    {
-        $this->complainantCity = $complainantCity;
-
-        return $this;
+        return $this->complainantAddress;
     }
 
     public function getComplainantCPR(): ?string

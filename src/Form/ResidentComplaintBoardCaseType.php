@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Entity\ResidentComplaintBoardCase;
+use App\Form\Embeddable\AddressType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -48,27 +49,15 @@ class ResidentComplaintBoardCaseType extends AbstractType
             ->add('complainantPhone', IntegerType::class, [
                 'label' => $this->translator->trans('Complainant phone', [], 'case'),
             ])
-            ->add('complainantStreetNameAndNumber', TextType::class, [
-                'label' => $this->translator->trans('Complainant street name and number', [], 'case'),
-            ])
-            ->add('complainantZip', TextType::class, [
-                'label' => $this->translator->trans('Complainant postal code', [], 'case'),
-            ])
-            ->add('complainantCity', TextType::class, [
-                'label' => $this->translator->trans('Complainant city', [], 'case'),
+            ->add('complainantAddress', AddressType::class, [
+                'label' => $this->translator->trans('Complainant address', [], 'case'),
             ])
             ->add('hasVacated', CheckboxType::class, [
                 'label' => $this->translator->trans('Has vacated', [], 'case'),
                 'required' => false,
             ])
-            ->add('leaseStreetNameAndNumber', TextType::class, [
-                'label' => $this->translator->trans('Lease street name and number', [], 'case'),
-            ])
-            ->add('leaseZip', TextType::class, [
-                'label' => $this->translator->trans('Lease postal code', [], 'case'),
-            ])
-            ->add('leaseCity', TextType::class, [
-                'label' => $this->translator->trans('Lease city', [], 'case'),
+            ->add('leaseAddress', AddressType::class, [
+                'label' => $this->translator->trans('Lease address', [], 'case'),
             ])
             ->add('complaintCategory', EntityType::class, [
                 'class' => ComplaintCategory::class,

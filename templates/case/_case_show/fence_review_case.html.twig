@@ -45,15 +45,15 @@
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputBasicInformation3">{% trans %}Road{% endtrans %}</label>
-                                    <input type="text" class="form-control" id="inputBasicInformation3" value="{{ case.complainantStreetNameAndNumber }}" readonly>
+                                    <input type="text" class="form-control" id="inputBasicInformation3" value="{{ case.complainantAddress.street }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputBasicInformation4">{% trans %}Postal code{% endtrans %}</label>
-                                    <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.complainantZip }}" readonly>
+                                    <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.complainantAddress.postalCode }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputBasicInformation5">{% trans %}City{% endtrans %}</label>
-                                    <input type="text" class="form-control" id="inputBasicInformation5" value="{{ case.complainantCity }}" readonly>
+                                    <input type="text" class="form-control" id="inputBasicInformation5" value="{{ case.complainantAddress.city }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputBasicInformation6">{% trans %}Cadastral number{% endtrans %}</label>
@@ -93,16 +93,16 @@
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputBasicInformation10">{% trans %}Road{% endtrans %}</label>
-                                    <input type="text" class="form-control" id="inputBasicInformation10" value="{{ case.accusedStreetNameAndNumber }}" readonly>
+                                    <input type="text" class="form-control" id="inputBasicInformation10" value="{{ case.accusedAddress.street }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputBasicInformation11">{% trans %}Postal code{% endtrans %}</label>
-                                    <input type="text" class="form-control" id="inputBasicInformation11" value="{{ case.accusedZip }}" readonly>
+                                    <input type="text" class="form-control" id="inputBasicInformation11" value="{{ case.accusedAddress.postalCode }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputBasicInformation12">{% trans %}City{% endtrans %}</label>
                                     {# TODO: Update city value when such property exists #}
-                                    <input type="text" class="form-control" id="inputBasicInformation12" value="{{ case.accusedCity }}" readonly>
+                                    <input type="text" class="form-control" id="inputBasicInformation12" value="{{ case.accusedAddress.city }}" readonly>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="inputBasicInformation13">{% trans %}Cadastral number{% endtrans %}</label>

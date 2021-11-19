@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Embeddable\Address;
 use App\Repository\FenceReviewCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,9 +32,9 @@ class FenceReviewCase extends CaseEntity
     private $accused;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      */
-    private $accusedStreetNameAndNumber;
+    private $accusedAddress;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -45,15 +46,11 @@ class FenceReviewCase extends CaseEntity
      */
     private $accusedCadastralNumber;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $accusedZip;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $accusedCity;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->accusedAddress = new Address();
+    }
 
     public function getConditions(): ?string
     {
@@ -103,18 +100,6 @@ class FenceReviewCase extends CaseEntity
         return $this;
     }
 
-    public function getAccusedStreetNameAndNumber(): ?string
-    {
-        return $this->accusedStreetNameAndNumber;
-    }
-
-    public function setAccusedStreetNameAndNumber(string $accusedStreetNameAndNumber): self
-    {
-        $this->accusedStreetNameAndNumber = $accusedStreetNameAndNumber;
-
-        return $this;
-    }
-
     public function getAccusedCPR(): ?string
     {
         return $this->accusedCPR;
@@ -139,27 +124,13 @@ class FenceReviewCase extends CaseEntity
         return $this;
     }
 
-    public function getAccusedZip(): ?string
+    public function getAccusedAddress(): Address
     {
-        return $this->accusedZip;
+        return $this->accusedAddress;
     }
 
-    public function setAccusedZip(string $accusedZip): self
+    public function setAccusedAddress(Address $address): void
     {
-        $this->accusedZip = $accusedZip;
-
-        return $this;
-    }
-
-    public function getAccusedCity(): ?string
-    {
-        return $this->accusedCity;
-    }
-
-    public function setAccusedCity(string $accusedCity): self
-    {
-        $this->accusedCity = $accusedCity;
-
-        return $this;
+        $this->accusedAddress = $address;
     }
 }

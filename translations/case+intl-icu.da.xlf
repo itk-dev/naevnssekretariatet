@@ -781,6 +781,14 @@
         <source>Condition</source>
         <target>Forhold</target>
       </trans-unit>
+      <trans-unit id="C.aUTDz" resname="Accused address">
+        <source>Accused address</source>
+        <target>Modparts adresse</target>
+      </trans-unit>
+      <trans-unit id="yB1Z2So" resname="Lease address">
+        <source>Lease address</source>
+        <target>Lejemålets adresse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
