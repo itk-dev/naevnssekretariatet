@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
-use App\Entity\CaseDecisionProposal;
-use App\Entity\CasePresentation;
 use App\Entity\Document;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CasePresentationType;
@@ -87,31 +85,9 @@ class AgendaCaseItemController extends AbstractController
      */
     public function presentation(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
-        $casePresentation = $agendaItem->getPresentation() ?? new CasePresentation();
+        $casePresentation = $agendaItem->getCaseEntity()->getPresentation();
 
-        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
-
-        $form = $this->createForm(CasePresentationType::class, $casePresentation, $agendaOptions);
-
-        $isFinishedAgenda = $agenda->isFinished();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
-            /** @var CasePresentation $casePresentation */
-            $casePresentation = $form->getData();
-
-            // TODO: possibly save this on the case in form of a document?
-            // Should this be done when agenda is published?
-            $agendaItem->setPresentation($casePresentation);
-
-            $this->entityManager->persist($casePresentation);
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('agenda_case_item_presentation', [
-                'id' => $agenda->getId(),
-                'agenda_item_id' => $agendaItem->getId(),
-            ]);
-        }
+        $form = $this->createForm(CasePresentationType::class, $casePresentation, ['disabled' => true]);
 
         return $this->render('agenda_case_item/presentation.html.twig', [
             'case_presentation_form' => $form->createView(),
@@ -127,30 +103,9 @@ class AgendaCaseItemController extends AbstractController
      */
     public function decisionProposal(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
-        $decisionProposal = $agendaItem->getDecisionProposal() ?? new CaseDecisionProposal();
+        $decisionProposal = $agendaItem->getCaseEntity()->getDecisionProposal();
 
-        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
-
-        $form = $this->createForm(CaseDecisionProposalType::class, $decisionProposal, $agendaOptions);
-
-        $isFinishedAgenda = $agenda->isFinished();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
-            $decisionProposal = $form->getData();
-
-            // TODO: possibly save this on the case in form of a document?
-            // Should this be done when agenda is published?
-            $agendaItem->setDecisionProposal($decisionProposal);
-
-            $this->entityManager->persist($decisionProposal);
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('agenda_case_item_decision_proposal', [
-                'id' => $agenda->getId(),
-                'agenda_item_id' => $agendaItem->getId(),
-            ]);
-        }
+        $form = $this->createForm(CaseDecisionProposalType::class, $decisionProposal, ['disabled' => true]);
 
         return $this->render('agenda_case_item/decision_proposal.html.twig', [
             'decision_proposal_form' => $form->createView(),

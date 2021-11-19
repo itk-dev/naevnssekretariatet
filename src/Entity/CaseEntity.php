@@ -97,6 +97,16 @@ abstract class CaseEntity
      */
     private $shouldBeInspected = false;
 
+    /**
+     * @ORM\OneToOne(targetEntity=CasePresentation::class, inversedBy="caseEntity", cascade={"persist", "remove"}, fetch="EAGER")
+     */
+    private $presentation;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CaseDecisionProposal::class, inversedBy="caseEntity", cascade={"persist", "remove"})
+     */
+    private $decisionProposal;
+
     public function __construct()
     {
         $this->casePartyRelation = new ArrayCollection();
@@ -327,6 +337,30 @@ abstract class CaseEntity
     public function setShouldBeInspected(bool $shouldBeInspected): self
     {
         $this->shouldBeInspected = $shouldBeInspected;
+
+        return $this;
+    }
+
+    public function getPresentation(): ?CasePresentation
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(?CasePresentation $presentation): self
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getDecisionProposal(): ?CaseDecisionProposal
+    {
+        return $this->decisionProposal;
+    }
+
+    public function setDecisionProposal(?CaseDecisionProposal $decisionProposal): self
+    {
+        $this->decisionProposal = $decisionProposal;
 
         return $this;
     }

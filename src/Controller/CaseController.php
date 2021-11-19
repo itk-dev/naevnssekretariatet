@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
+use App\Entity\CasePresentation;
 use App\Form\CaseAgendaStatusType;
+use App\Form\CaseDecisionProposalType;
+use App\Form\CasePresentationType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Form\ResidentComplaintBoardCaseType;
@@ -182,6 +186,70 @@ class CaseController extends AbstractController
     {
         return $this->render('case/log.html.twig', [
             'case' => $case,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/presentation", name="case_presentation", methods={"GET", "POST"})
+     */
+    public function presentation(CaseEntity $case, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $casePresentation = $case->getPresentation() ?? new CasePresentation();
+
+        $form = $this->createForm(CasePresentationType::class, $casePresentation);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var CasePresentation $casePresentation */
+            $casePresentation = $form->getData();
+
+            $case->setPresentation($casePresentation);
+
+            $em->persist($casePresentation);
+            $em->flush();
+
+            return $this->redirectToRoute('case_presentation', [
+                'id' => $case->getId(),
+            ]);
+        }
+
+        return $this->render('case/presentation.html.twig', [
+            'case' => $case,
+            'case_presentation_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/decision-proposal", name="case_decision_proposal", methods={"GET", "POST"})
+     */
+    public function decisionProposal(CaseEntity $case, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $caseDecisionProposal = $case->getDecisionProposal() ?? new CaseDecisionProposal();
+
+        $form = $this->createForm(CaseDecisionProposalType::class, $caseDecisionProposal);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var CaseDecisionProposal $caseDecisionProposal */
+            $caseDecisionProposal = $form->getData();
+
+            $case->setDecisionProposal($caseDecisionProposal);
+
+            $em->persist($caseDecisionProposal);
+            $em->flush();
+
+            return $this->redirectToRoute('case_decision_proposal', [
+                'id' => $case->getId(),
+            ]);
+        }
+
+        return $this->render('case/decision_proposal.html.twig', [
+            'case' => $case,
+            'decision_proposal_form' => $form->createView(),
         ]);
     }
 }

@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\CaseDecisionProposal;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -40,8 +39,6 @@ class CaseDecisionProposalType extends AbstractType
                     'toolbar' => 'editor',
                 ],
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('Update proposal', [], 'agenda_item'),
-            ]);
+        ;
     }
 }
