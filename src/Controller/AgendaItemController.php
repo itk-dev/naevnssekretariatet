@@ -79,23 +79,13 @@ class AgendaItemController extends AbstractController
     public function edit(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
     {
         $formClass = $this->agendaItemHelper->getFormType($agendaItem);
-
-        $options = [];
-
-        $twigLayout = 'layout-with-agenda-manuel-item-submenu.html.twig';
-
-        if (AgendaCaseItem::class === get_class($agendaItem)) {
-            $options['relevantCase'] = $agendaItem->getCaseEntity();
-            $twigLayout = 'layout-with-agenda-case-item-submenu.html.twig';
-        }
-
-        if ($agenda->isFinished()) {
-            $options['disabled'] = true;
-        }
-
-        $form = $this->createForm($formClass, $agendaItem, $options);
+        $templatePath = $this->agendaItemHelper->getTemplatePath($agendaItem);
 
         $isFinishedAgenda = $agenda->isFinished();
+
+        $options = $isFinishedAgenda ? ['disabled' => true] : [];
+
+        $form = $this->createForm($formClass, $agendaItem, $options);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
@@ -107,11 +97,10 @@ class AgendaItemController extends AbstractController
             ]);
         }
 
-        return $this->render('agenda_item/edit.html.twig', [
+        return $this->render($templatePath, [
             'agenda_item_edit_form' => $form->createView(),
             'agenda' => $agenda,
             'agenda_item' => $agendaItem,
-            'layout' => $twigLayout,
         ]);
     }
 

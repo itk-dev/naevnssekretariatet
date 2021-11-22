@@ -1,8 +1,12 @@
-{% extends 'layout-with-agenda-manuel-item-submenu.html.twig' %}
+{% extends 'layout-with-agenda-item-submenu.html.twig' %}
 
 {% trans_default_domain 'documents' %}
 
 {% block title %}{% trans %}Documents{% endtrans %}{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar/agenda-manuel-item-sidebar.html.twig' %}
+{% endblock %}
 
 {% block header %}
     <div class="row mt-1 mb-3">

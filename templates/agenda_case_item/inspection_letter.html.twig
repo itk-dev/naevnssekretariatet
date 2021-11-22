@@ -1,8 +1,12 @@
-{% extends 'layout-with-agenda-case-item-submenu.html.twig' %}
+{% extends 'layout-with-agenda-item-submenu.html.twig' %}
 
 {% trans_default_domain 'agenda_item' %}
 
 {% block title %}{% trans %}Inspection letter{% endtrans %}{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar/agenda-case-item-sidebar.html.twig' %}
+{% endblock %}
 
 {% block header %}
     <div class="row">

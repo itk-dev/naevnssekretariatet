@@ -24,4 +24,19 @@ class AgendaItemHelper
 
         return $formClass;
     }
+
+    public function getTemplatePath(AgendaItem $agendaItem): ?string
+    {
+        $templatePath = null;
+        switch (get_class($agendaItem)) {
+            case AgendaCaseItem::class:
+                $templatePath = 'agenda_case_item/edit.html.twig';
+                break;
+            case AgendaManuelItem::class:
+                $templatePath = 'agenda_manuel_item/edit.html.twig';
+                break;
+        }
+
+        return $templatePath;
+    }
 }

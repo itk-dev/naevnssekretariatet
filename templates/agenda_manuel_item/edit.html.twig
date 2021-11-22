@@ -5,7 +5,7 @@
 {% block title %}{% trans %}Agenda item{% endtrans %}{% endblock %}
 
 {% block sidebar %}
-    {% include 'sidebar/agenda-item-sidebar.html.twig' %}
+    {% include 'sidebar/agenda-manuel-item-sidebar.html.twig' %}
 {% endblock %}
 
 {% block header %}
@@ -15,7 +15,7 @@
             <p class="text-muted"><small>{% trans %}Edit agenda item{% endtrans %}</small></p>
         </div>
         <div class="col-auto">
-{#            <a name="" id="" class="btn btn-secondary" href="{{ url('agenda_show', {id: agenda.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>#}
+            {#            <a name="" id="" class="btn btn-secondary" href="{{ url('agenda_show', {id: agenda.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>#}
         </div>
     </div>
 {% endblock %}

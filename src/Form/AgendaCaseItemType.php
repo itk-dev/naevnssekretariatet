@@ -6,7 +6,6 @@ use App\Entity\AgendaCaseItem;
 use App\Entity\Board;
 use App\Entity\CaseEntity;
 use App\Repository\CaseEntityRepository;
-use App\Service\CaseHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,16 +24,11 @@ class AgendaCaseItemType extends AbstractType
      * @var CaseEntityRepository
      */
     private $caseRepository;
-    /**
-     * @var CaseHelper
-     */
-    private $caseHelper;
 
-    public function __construct(CaseEntityRepository $caseRepository, CaseHelper $caseHelper, TranslatorInterface $translator)
+    public function __construct(CaseEntityRepository $caseRepository, TranslatorInterface $translator)
     {
-        $this->translator = $translator;
         $this->caseRepository = $caseRepository;
-        $this->caseHelper = $caseHelper;
+        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -42,7 +36,6 @@ class AgendaCaseItemType extends AbstractType
         $resolver->setDefaults([
             'data_class' => AgendaCaseItem::class,
             'isCreateContext' => false,
-            'relevantCase' => null,
             'board' => null,
         ]);
 
