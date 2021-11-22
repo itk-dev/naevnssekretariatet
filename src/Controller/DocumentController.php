@@ -9,7 +9,7 @@ use App\Entity\User;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use App\Form\CopyDocumentForm;
-use App\Form\DocumentForm;
+use App\Form\DocumentType;
 use App\Repository\CaseDocumentRelationRepository;
 use App\Service\DocumentCopyHelper;
 use App\Service\DocumentUploader;
@@ -70,7 +70,7 @@ class DocumentController extends AbstractController
 
         // Create new document and its form
         $document = new Document();
-        $form = $this->createForm(DocumentForm::class, $document);
+        $form = $this->createForm(DocumentType::class, $document);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

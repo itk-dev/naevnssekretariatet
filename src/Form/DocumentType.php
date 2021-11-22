@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class DocumentForm extends AbstractType
+class DocumentType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {

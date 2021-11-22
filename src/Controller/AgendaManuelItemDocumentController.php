@@ -8,7 +8,7 @@ use App\Entity\Document;
 use App\Entity\User;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
-use App\Form\DocumentForm;
+use App\Form\DocumentType;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -67,7 +67,7 @@ class AgendaManuelItemDocumentController extends AbstractController
 
         // Create new document and its form
         $document = new Document();
-        $form = $this->createForm(DocumentForm::class, $document);
+        $form = $this->createForm(DocumentType::class, $document);
 
         $isFinishedAgenda = $agenda->isFinished();
 
