@@ -31,25 +31,25 @@ class AgendaManuelItemType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => $this->translator->trans('Title', [], 'agenda_item'),
+                'label' => $this->translator->trans('Title', [], 'agenda'),
             ])
             ->add('description', TextareaType::class, [
-                'label' => $this->translator->trans('Description', [], 'agenda_item'),
+                'label' => $this->translator->trans('Description', [], 'agenda'),
             ])
             ->add('startTime', TimeType::class, [
-                'label' => $this->translator->trans('Start time', [], 'agenda_item'),
+                'label' => $this->translator->trans('Start time', [], 'agenda'),
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
             ])
             ->add('endTime', TimeType::class, [
-                'label' => $this->translator->trans('End time', [], 'agenda_item'),
+                'label' => $this->translator->trans('End time', [], 'agenda'),
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
             ])
             ->add('meetingPoint', TextType::class, [
-                'label' => $this->translator->trans('Meeting point', [], 'agenda_item'),
+                'label' => $this->translator->trans('Meeting point', [], 'agenda'),
             ])
         ;
     }

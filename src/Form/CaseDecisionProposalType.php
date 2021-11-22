@@ -32,7 +32,7 @@ class CaseDecisionProposalType extends AbstractType
     {
         $builder
             ->add('decisionProposal', CKEditorType::class, [
-                'label' => $this->translator->trans('Decision proposal', [], 'agenda_item'),
+                'label' => $this->translator->trans('Decision proposal', [], 'agenda'),
                 'attr' => ['rows' => 6],
                 'config' => [
                     'uiColor' => '#ffffff',

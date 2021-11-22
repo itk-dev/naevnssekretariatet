@@ -28,13 +28,13 @@ class InspectionLetterType extends AbstractType
     {
         $builder
             ->add('recipients', null, [
-                'label' => $this->translator->trans('Select recipients', [], 'agenda_item'),
+                'label' => $this->translator->trans('Select recipients', [], 'agenda'),
             ])
             ->add('subject', TextType::class, [
-                'label' => $this->translator->trans('Subject', [], 'agenda_item'),
+                'label' => $this->translator->trans('Subject', [], 'agenda'),
             ])
             ->add('template', ChoiceType::class, [
-                'label' => $this->translator->trans('Template', [], 'agenda_item'),
+                'label' => $this->translator->trans('Template', [], 'agenda'),
                 'choices' => [
                     'Inspection letter template 1' => 'inspection_letter_1',
                     'Inspection letter template 2' => 'inspection_letter_2',
@@ -42,10 +42,10 @@ class InspectionLetterType extends AbstractType
                 ],
             ])
             ->add('contents', TextareaType::class, [
-                'label' => $this->translator->trans('Contents', [], 'agenda_item'),
+                'label' => $this->translator->trans('Contents', [], 'agenda'),
             ])
             ->add('documents', FileType::class, [
-                'label' => $this->translator->trans('Attach document(s)', [], 'agenda_item'),
+                'label' => $this->translator->trans('Attach document(s)', [], 'agenda'),
                 'mapped' => false,
                 'constraints' => [
                     new File([
@@ -65,7 +65,7 @@ class InspectionLetterType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('Send inspection letter', [], 'agenda_item'),
+                'label' => $this->translator->trans('Send inspection letter', [], 'agenda'),
             ]);
     }
 }

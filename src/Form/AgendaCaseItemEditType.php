@@ -41,27 +41,27 @@ class AgendaCaseItemEditType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => $this->translator->trans('Title', [], 'agenda_item'),
+                'label' => $this->translator->trans('Title', [], 'agenda'),
             ])
             ->add('startTime', TimeType::class, [
-                'label' => $this->translator->trans('Start time', [], 'agenda_item'),
+                'label' => $this->translator->trans('Start time', [], 'agenda'),
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
             ])
             ->add('endTime', TimeType::class, [
-                'label' => $this->translator->trans('End time', [], 'agenda_item'),
+                'label' => $this->translator->trans('End time', [], 'agenda'),
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
             ])
             ->add('meetingPoint', TextType::class, [
-                'label' => $this->translator->trans('Meeting point', [], 'agenda_item'),
+                'label' => $this->translator->trans('Meeting point', [], 'agenda'),
             ])
             ->add('caseEntity', EntityType::class, [
                 'class' => CaseEntity::class,
                 'choice_label' => 'caseNumber',
-                'label' => $this->translator->trans('Case', [], 'agenda_item'),
+                'label' => $this->translator->trans('Case', [], 'agenda'),
                 'disabled' => true,
             ])
         ;

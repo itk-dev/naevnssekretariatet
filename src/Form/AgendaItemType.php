@@ -34,15 +34,15 @@ class AgendaItemType extends AbstractType
     {
         $board = $options['board'];
 
-        $caseItemTranslated = $this->translator->trans('Case item', [], 'agenda_item');
-        $manuelItemTranslated = $this->translator->trans('Manuel item', [], 'agenda_item');
+        $caseItemTranslated = $this->translator->trans('Case item', [], 'agenda');
+        $manuelItemTranslated = $this->translator->trans('Manuel item', [], 'agenda');
 
         $builder->add('type', ChoiceType::class, [
             'choices' => [
                 $caseItemTranslated => AgendaCaseItem::class,
                 $manuelItemTranslated => AgendaManuelItem::class,
             ],
-            'placeholder' => $this->translator->trans('Choose an agenda item type', [], 'agenda_item'),
+            'placeholder' => $this->translator->trans('Choose an agenda item type', [], 'agenda'),
         ]);
 
         $formModifier = function (FormInterface $form, string $type = null) use ($board) {

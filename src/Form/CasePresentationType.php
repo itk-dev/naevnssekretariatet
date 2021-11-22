@@ -32,7 +32,7 @@ class CasePresentationType extends AbstractType
     {
         $builder
             ->add('presentation', CKEditorType::class, [
-                'label' => $this->translator->trans('Presentation', [], 'agenda_item'),
+                'label' => $this->translator->trans('Presentation', [], 'agenda'),
                 'attr' => ['rows' => 6],
                 'config' => [
                     'uiColor' => '#ffffff',

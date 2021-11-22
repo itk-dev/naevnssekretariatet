@@ -48,22 +48,22 @@ class AgendaCaseItemNewType extends AbstractType
 
         $builder
             ->add('title', TextType::class, [
-                'label' => $this->translator->trans('Title', [], 'agenda_item'),
+                'label' => $this->translator->trans('Title', [], 'agenda'),
             ])
             ->add('startTime', TimeType::class, [
-                'label' => $this->translator->trans('Start time', [], 'agenda_item'),
+                'label' => $this->translator->trans('Start time', [], 'agenda'),
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
             ])
             ->add('endTime', TimeType::class, [
-                'label' => $this->translator->trans('End time', [], 'agenda_item'),
+                'label' => $this->translator->trans('End time', [], 'agenda'),
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
             ])
             ->add('meetingPoint', TextType::class, [
-                'label' => $this->translator->trans('Meeting point', [], 'agenda_item'),
+                'label' => $this->translator->trans('Meeting point', [], 'agenda'),
             ])
             ->add('caseEntity', EntityType::class, [
                 'class' => CaseEntity::class,
@@ -75,15 +75,15 @@ class AgendaCaseItemNewType extends AbstractType
                     $address = $caseEntity->getComplainantAddress();
 
                     if ($isInspection) {
-                        $label = $caseNumber.' - '.$this->translator->trans('Inspection', [], 'agenda_item').' - '.$complaint.' - '.$address;
+                        $label = $caseNumber.' - '.$this->translator->trans('Inspection', [], 'agenda').' - '.$complaint.' - '.$address;
                     } else {
                         $label = $caseNumber.' - '.$complaint.' - '.$address;
                     }
 
                     return $label;
                 },
-                'label' => $this->translator->trans('Case', [], 'agenda_item'),
-                'placeholder' => $this->translator->trans('Choose a case', [], 'agenda_item'),
+                'label' => $this->translator->trans('Case', [], 'agenda'),
+                'placeholder' => $this->translator->trans('Choose a case', [], 'agenda'),
             ]);
     }
 }

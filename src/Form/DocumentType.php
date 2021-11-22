@@ -10,9 +10,20 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DocumentType extends AbstractType
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -24,14 +35,15 @@ class DocumentType extends AbstractType
     {
         $builder
             ->add('documentName', null, [
-                'label' => 'Document name:',
+                'label' => $this->translator->trans('Document name', [], 'documents'),
             ])
             ->add('type', EntityType::class, [
                 'class' => UploadedDocumentType::class,
+                'label' => $this->translator->trans('Document type', [], 'documents'),
                 'choice_label' => 'name',
             ])
             ->add('filename', FileType::class, [
-                'label' => 'Upload file',
+                'label' => $this->translator->trans('Upload file', [], 'documents'),
                 'mapped' => false,
                 'constraints' => [
                     new File([

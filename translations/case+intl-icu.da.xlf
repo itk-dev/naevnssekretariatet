@@ -609,6 +609,18 @@
         <source>Agenda status</source>
         <target>Dagsordens status</target>
       </trans-unit>
+      <trans-unit id="hAA_WCr" resname="Decision proposal">
+        <source>Decision proposal</source>
+        <target>Afgørelses foreslag</target>
+      </trans-unit>
+      <trans-unit id="0MdgX5D" resname="Update proposal">
+        <source>Update proposal</source>
+        <target>Opdater foreslag</target>
+      </trans-unit>
+      <trans-unit id="QISCbyx" resname="Case presentation">
+        <source>Case presentation</source>
+        <target>Sagsfremstilling</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
