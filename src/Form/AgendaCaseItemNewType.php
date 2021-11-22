@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AgendaCaseItemType extends AbstractType
+class AgendaCaseItemNewType extends AbstractType
 {
     /**
      * @var TranslatorInterface
@@ -35,23 +35,16 @@ class AgendaCaseItemType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => AgendaCaseItem::class,
-            'isCreateContext' => false,
             'board' => null,
         ]);
-
-        $resolver->setAllowedTypes('isCreateContext', 'bool');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $isCreateContext = $options['isCreateContext'];
+        /** @var Board $board */
+        $board = $options['board'];
 
-        if ($isCreateContext) {
-            /** @var Board $board */
-            $board = $options['board'];
-
-            $casesWithBoardAndWithoutActiveAgenda = $this->caseRepository->findReadyCasesWithoutActiveAgendaByBoard($board);
-        }
+        $casesWithBoardAndWithoutActiveAgenda = $this->caseRepository->findReadyCasesWithoutActiveAgendaByBoard($board);
 
         $builder
             ->add('title', TextType::class, [
@@ -71,10 +64,8 @@ class AgendaCaseItemType extends AbstractType
             ])
             ->add('meetingPoint', TextType::class, [
                 'label' => $this->translator->trans('Meeting point', [], 'agenda_item'),
-            ]);
-
-        if ($isCreateContext) {
-            $builder->add('caseEntity', EntityType::class, [
+            ])
+            ->add('caseEntity', EntityType::class, [
                 'class' => CaseEntity::class,
                 'choices' => $casesWithBoardAndWithoutActiveAgenda,
                 'choice_label' => function ($caseEntity) {
@@ -94,13 +85,5 @@ class AgendaCaseItemType extends AbstractType
                 'label' => $this->translator->trans('Case', [], 'agenda_item'),
                 'placeholder' => $this->translator->trans('Choose a case', [], 'agenda_item'),
             ]);
-        } else {
-            $builder->add('caseEntity', EntityType::class, [
-                'class' => CaseEntity::class,
-                'choice_label' => 'caseNumber',
-                'label' => $this->translator->trans('Case', [], 'agenda_item'),
-                'disabled' => true,
-            ]);
-        }
     }
 }

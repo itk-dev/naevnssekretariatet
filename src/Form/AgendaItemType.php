@@ -50,10 +50,9 @@ class AgendaItemType extends AbstractType
                 $formClass = null;
                 switch ($type) {
                     case AgendaCaseItem::class:
-                        $formClass = AgendaCaseItemType::class;
+                        $formClass = AgendaCaseItemNewType::class;
                         $form->add('agendaItem', $formClass, [
                             'board' => $board,
-                            'isCreateContext' => true,
                         ]);
                         break;
                     case AgendaManuelItem::class:

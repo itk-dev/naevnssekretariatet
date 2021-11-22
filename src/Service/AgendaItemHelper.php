@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Entity\AgendaCaseItem;
 use App\Entity\AgendaItem;
 use App\Entity\AgendaManuelItem;
-use App\Form\AgendaCaseItemType;
+use App\Form\AgendaCaseItemEditType;
 use App\Form\AgendaManuelItemType;
 
 class AgendaItemHelper
@@ -15,7 +15,7 @@ class AgendaItemHelper
         $formClass = null;
         switch (get_class($agendaItem)) {
             case AgendaCaseItem::class:
-                $formClass = AgendaCaseItemType::class;
+                $formClass = AgendaCaseItemEditType::class;
                 break;
             case AgendaManuelItem::class:
                 $formClass = AgendaManuelItemType::class;
