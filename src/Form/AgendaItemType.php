@@ -59,7 +59,6 @@ class AgendaItemType extends AbstractType
                     case AgendaManuelItem::class:
                         $formClass = AgendaManuelItemType::class;
                         $form->add('agendaItem', $formClass, [
-                            'isCreateContext' => true,
                         ]);
                         break;
                     default:
