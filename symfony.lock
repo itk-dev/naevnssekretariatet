@@ -108,6 +108,9 @@
     "fakerphp/faker": {
         "version": "v1.13.0"
     },
+    "firebase/php-jwt": {
+        "version": "v5.4.0"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.16",
         "recipe": {
@@ -163,6 +166,12 @@
             "config/packages/test/hautelook_alice.yaml",
             "fixtures/.gitignore"
         ]
+    },
+    "itk-dev/openid-connect": {
+        "version": "2.2.0"
+    },
+    "itk-dev/openid-connect-bundle": {
+        "version": "1.0.1"
     },
     "knplabs/knp-components": {
         "version": "v3.1.0"
@@ -248,6 +257,9 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "robrichards/xmlseclibs": {
+        "version": "3.1.1"
     },
     "sebastian/comparator": {
         "version": "4.0.6"

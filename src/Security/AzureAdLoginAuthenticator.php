@@ -5,59 +5,37 @@ namespace App\Security;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use ItkDev\OpenIdConnect\Security\OpenIdConfigurationProvider;
+use ItkDev\OpenIdConnectBundle\Security\OpenIdLoginAuthenticator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
-class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
+class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
 {
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
-
-    /**
-     * @var SessionInterface
-     */
-    private $session;
-
     /**
      * @var UserRepository
      */
     private $userRepository;
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $router;
 
-    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, UserRepository $userRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository, OpenIdConfigurationProvider $provider, SessionInterface $session, UrlGeneratorInterface $router, int $leeway = 0)
     {
         $this->entityManager = $entityManager;
-        $this->session = $session;
         $this->userRepository = $userRepository;
-    }
-
-    public function supports(Request $request)
-    {
-        // Check if request has state and id_token
-        return $request->query->has('state') && $request->query->has('id_token');
-    }
-
-    public function getCredentials(Request $request)
-    {
-        // Make sure state and oauth2sate are the same
-        if ($request->query->get('state') !== $this->session->get('oauth2state')) {
-            $this->session->remove('oauth2state');
-            throw new \RuntimeException('Invalid state');
-        }
-
-        // Retrieve id_token and decode it
-        // @see https://tools.ietf.org/html/rfc7519
-        $idToken = $request->query->get('id_token');
-        [$jose, $payload, $signature] = array_map('base64_decode', explode('.', $idToken));
-
-        return json_decode($payload, true);
+        $this->router = $router;
+        parent::__construct($provider, $session, $leeway);
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
@@ -99,30 +77,13 @@ class OpenIdLoginAuthenticator extends AbstractGuardAuthenticator
         return $user;
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
-    {
-        return true;
-    }
-
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
-    {
-        // Throw (telling) error
-        throw new AuthenticationException('Error occurred validating azure login');
-    }
-
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
-        // todo Redirect to some destination - default for now?
-        return new RedirectResponse('/');
+        return new RedirectResponse($this->router->generate('default'));
     }
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        return new RedirectResponse('/login');
-    }
-
-    public function supportsRememberMe()
-    {
-        return false;
+        return new RedirectResponse($this->router->generate('itkdev_openid_connect_login'));
     }
 }

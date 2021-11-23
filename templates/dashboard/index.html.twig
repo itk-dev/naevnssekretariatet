@@ -2,17 +2,6 @@
 
 {% trans_default_domain 'dashboard' %}
 
-{% set reached_reminders = [
-    {
-        "link": "#",
-        "caseid": "2206",
-        "title": "Remember to add signed documents",
-        "description": "Here is a casesummery id tincidunt massa quam quis nunc.",
-        "status": "Closed",
-        "date": "2. sep 2020"
-    },
-] %}
-
 {% set unassigned_cases = [
     {
         "link": "#",
@@ -43,21 +32,6 @@
     },
 ] %}
 
-{% set upcomming_reminders = [
-    {
-        "link": "#",
-        "caseid": "2207",
-        "title": "Remember to check payment",
-        "date": "5. sep 2020"
-    },
-    {
-        "link": "#",
-        "caseid": "2207",
-        "title": "Remember to add to hearing",
-        "date": "6. sep 2020"
-    },
-] %}
-
 {% block title %}{% trans %}Dashboard{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -79,10 +53,14 @@
 
 {% block content %}
     <main role="main" class="col-md-9">
-        <h2 class="h3"><i class="fas fa-clock mr-2"></i>{% trans %}Cases with reached reminders{% endtrans %}</h2>
-        {% include "dashboard/_reached_reminders.html.twig" with reached_reminders %}
-        <h2 class="h3"><i class="fas fa-user-plus mr-2"></i>{% trans %}Unassigned cases{% endtrans %}</h2>
-        {% include "dashboard/_unassigned_cases.html.twig" with unassigned_cases %}
+        {% if exceeded_reminders|length > 0 %}
+            <h2 class="h3"><i class="fas fa-clock mr-2"></i>{% trans %}Cases with reached reminders{% endtrans %}</h2>
+            {% include "dashboard/_reached_reminders.html.twig" with exceeded_reminders %}
+        {% endif %}
+        {% if unassigned_cases|length > 0 %}
+            <h2 class="h3"><i class="fas fa-user-plus mr-2"></i>{% trans %}Unassigned cases{% endtrans %}</h2>
+            {% include "dashboard/_unassigned_cases.html.twig" with unassigned_cases %}
+        {% endif %}
         <div class="row mb-5">
             <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
                 <h2 class="h3"><i class="fas fa-list mr-2"></i>{% trans %}My cases{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
@@ -117,40 +95,6 @@
         {% include "dashboard/_inactive_cases.html.twig" with inactive_cases %}
     </main>
     <aside role="aside" class="col-md-3">
-        <div class="rounded-sm ">
-            <h2 class="h3">{% trans %}Upcomming reminders{% endtrans %}</h2>
-            <div class="form-group">
-                <label for="upcomming-reminders" class="sr-only">{% trans %}Select period{% endtrans %}</label>
-                <select class="form-control form-control-sm" name="upcomming-reminders" id="upcomming-reminders">
-                    <option value="7-days">{% trans %}Next 7 days{% endtrans %}</option>
-                    <option value="14-days">{% trans %}Next 14 days{% endtrans %}</option>
-                    <option value="30-days">{% trans %}Next 30 days{% endtrans %}</option>
-                </select>
-            </div>
-            <h3 class="h4">{% trans %}Monday{% endtrans %}</h3>
-            <div class="list-group mb-3">
-                {% for item in upcomming_reminders %}
-                    <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">
-                        <div class="d-flex w-100 justify-content-between">
-                            <small>{{ item.date|e }}</small>
-                            <small>{{ item.caseid|e }}</small>
-                        </div>
-                        <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ item.title|e }}</span>
-                    </a>
-                {% endfor %}
-            </div>
-            <h3 class="h4">{% trans %}Wedensday{% endtrans %}</h3>
-            <div class="list-group mb-3">
-                {% for item in upcomming_reminders %}
-                    <a href="{{ item.link|e }}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" role="alert">
-                        <div class="d-flex w-100 justify-content-between">
-                            <small>{{ item.date|e }}</small>
-                            <small>{{ item.caseid|e }}</small>
-                        </div>
-                        <span class="text-dark"><i class="fas fa-check-square mr-1"></i> {{ item.title|e }}</span>
-                    </a>
-                {% endfor %}
-            </div>
-        </div>
+        {% include "dashboard/_upcoming_reminders.html.twig" with upcoming_reminders %}
     </aside>
 {% endblock %}

@@ -6,17 +6,18 @@ use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
 use App\Form\CaseAgendaStatusType;
+use App\Form\CaseEntityType;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CasePresentationType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
-use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\AgendaCaseItemRepository;
 use App\Repository\AgendaRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
 use App\Service\AgendaHelper;
 use App\Service\CaseHelper;
+use App\Service\CaseManager;
 use App\Service\WorkflowService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,6 +55,32 @@ class CaseController extends AbstractController
     }
 
     /**
+     * @Route("/new", name="case_new", methods={"GET", "POST"})
+     */
+    public function new(Request $request, CaseManager $caseManager): Response
+    {
+        $form = $this->createForm(CaseEntityType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $caseEntity = $caseManager->newCase(
+                $form->get('caseEntity')->getData(),
+                $form->get('board')->getData()
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($caseEntity);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('case_show', ['id' => $caseEntity->getId()]);
+        }
+
+        return $this->render('case/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="case_show", methods={"GET"})
      */
     public function show(CaseEntity $case, CaseHelper $casePartyHelper): Response
@@ -73,7 +100,7 @@ class CaseController extends AbstractController
     public function edit(CaseEntity $case, Request $request): Response
     {
         // Todo: Handle other case types, possibly via switch on $case->getBoard()->getCaseFormType()
-        $form = $this->createForm(ResidentComplaintBoardCaseType::class, $case, ['board' => $case->getBoard()]);
+        $form = $this->createForm('App\\Form\\'.$case->getBoard()->getCaseFormType(), $case, ['board' => $case->getBoard()]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

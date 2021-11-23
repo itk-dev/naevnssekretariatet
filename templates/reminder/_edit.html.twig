@@ -1,0 +1,23 @@
+{% trans_default_domain 'reminder' %}
+
+<div class="modal fade" id="reminder_edit{{ reminder.id }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rescheduleDeadlineModalLabel">{% trans %}Edit reminder{% endtrans %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(reminder_form, {'action': path('reminder_edit', {id: reminder.caseEntity.id, reminder_id: reminder.id})}) }}
+                {{ form_widget(reminder_form) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                <button type="submit" class="btn btn-primary">{% trans %}Confirm{% endtrans %}</button>
+                {{ form_end(reminder_form) }}
+            </div>
+        </div>
+    </div>
+</div>

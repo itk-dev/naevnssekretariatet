@@ -85,17 +85,25 @@ Configuration of the following environment variables
 must be done in order to login via Azure B2C:
 
 ```shell
-OPEN_ID_PROVIDER_URL=
-OPEN_ID_PROVIDER_CLIENT_ID=
-OPEN_ID_PROVIDER_CLIENT_SECRET=
+###> itk-dev/openid-connect-bundle ###
+CONFIGURATION_URL=APP_CONFIGURATION_URL
+CLIENT_ID=APP_CLIENT_ID
+CLIENT_SECRET=APP_CLIENT_SECRET
+CALLBACK_URI=APP_CALLBACK_URI
+CLI_REDIRECT=APP_CLI_REDIRECT_URI
+LEEWAY=APP_LEEWAY
+###< itk-dev/openid-connect-bundle ###
 ```
 
 Example configuration:
 
 ```shell
-OPEN_ID_PROVIDER_URL='https://.../.well-known/openid-configuration...'
-OPEN_ID_PROVIDER_CLIENT_ID={app.client.id}
-OPEN_ID_PROVIDER_CLIENT_SECRET={app.client.secret}
+CONFIGURATION_URL='https://.../.well-known/openid-configuration...'
+CLIENT_ID={app.client.id}
+CLIENT_SECRET={app.client.secret}
+CALLBACK_URI={app.callback.uri}
+CLI_REDIRECT={app.cli.redirect}
+LEEWAY=10
 ```
 
 #### CLI login
@@ -116,7 +124,7 @@ Rather than signing in via Azure B2C, you can get
 a sign in url from the command line. Run
 
 ```shell
-bin/console app:user-login --help
+bin/console itk-dev:openid-connect:login --help
 ```
 
 for details. Be aware that a login url will only work once.

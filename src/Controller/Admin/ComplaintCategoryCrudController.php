@@ -31,10 +31,13 @@ class ComplaintCategoryCrudController extends AbstractCrudController
     {
         yield TextField::new('name', 'Name');
         yield NumberField::new('fee', 'Fee')
-            ->setRequired(true);
+            ->setRequired(true)
+        ;
         yield AssociationField::new('board', 'Board')
-            ->setRequired(true);
+            ->setRequired(true)
+        ;
         yield AssociationField::new('municipality', 'Municipality')
-            ->setRequired(true);
+            ->setRequired(true)
+        ;
     }
 }

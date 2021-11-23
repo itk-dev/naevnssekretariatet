@@ -42,10 +42,15 @@ MunicipalityListener, BoardListener and their tests.
 - [TVIST1-126](https://jira.itkdev.dk/browse/TVIST1-126): Adding workflows for cases.
 - [TVIST1-227](https://jira.itkdev.dk/browse/TVIST1-227): Added ability to create, edit and remove notes.
 - [TVIST1-322](https://jira.itkdev.dk/browse/TVIST1-322): Replaced SubBoard entity by BoardRole entity.
+- [TVIST1-306](https://jira.itkdev.dk/browse/TVIST1-306): Adding handling of case creation.
+- [TVIST1-359](https://jira.itkdev.dk/browse/TVIST1-359): Added Case reminders.
+- [TVIST1-238](https://jira.itkdev.dk/browse/TVIST1-238): Added RentBoardCase and FenceReviewCase.
+- [TVIST1-410](https://jira.itkdev.dk/browse/TVIST1-410): Added address embeddable.
 - [TVIST1-297](https://jira.itkdev.dk/browse/TVIST1-297): Added templates, routes and controller for Agenda module.
 
 ### Changed
 - [NSEK-138](https://jira.itkdev.dk/browse/NSEK-138): Updating Cypress to 6.5.0 so the same version is used project wide.
+- [TVIST1-144](https://jira.itkdev.dk/browse/TVIST1-144): Switched to `itk-dev/openid-connect-bundle` for AD and CLI login.
 
 ### Fixed
 - [NSEK-104](https://jira.itkdev.dk/browse/NSEK-104): Added missing database variables to .env file.

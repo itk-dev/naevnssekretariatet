@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Logging\LoggableEntityInterface;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -46,6 +48,22 @@ class User implements UserInterface, LoggableEntityInterface
      * @ORM\ManyToOne(targetEntity=Municipality::class)
      */
     private $favoriteMunicipality;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="assignedTo")
+     */
+    private $assignedCases;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="createdBy")
+     */
+    private $reminders;
+
+    public function __construct()
+    {
+        $this->assignedCases = new ArrayCollection();
+        $this->reminders = new ArrayCollection();
+    }
 
     public function getId(): ?UuidV4
     {
@@ -163,6 +181,36 @@ class User implements UserInterface, LoggableEntityInterface
         return $this->name;
     }
 
+    /**
+     * @return Collection|CaseEntity[]
+     */
+    public function getAssignedCases(): Collection
+    {
+        return $this->assignedCases;
+    }
+
+    public function addAssignedCase(CaseEntity $assignedCase): self
+    {
+        if (!$this->assignedCases->contains($assignedCase)) {
+            $this->assignedCases[] = $assignedCase;
+            $assignedCase->setAssignedTo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedCase(CaseEntity $assignedCase): self
+    {
+        if ($this->assignedCases->removeElement($assignedCase)) {
+            // set the owning side to null (unless already changed)
+            if ($assignedCase->getAssignedTo() === $this) {
+                $assignedCase->setAssignedTo(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getLoggableProperties(): array
     {
         return [
@@ -170,5 +218,35 @@ class User implements UserInterface, LoggableEntityInterface
             'name',
             'email',
         ];
+    }
+
+    /**
+     * @return Collection|Reminder[]
+     */
+    public function getReminders(): Collection
+    {
+        return $this->reminders;
+    }
+
+    public function addReminder(Reminder $reminder): self
+    {
+        if (!$this->reminders->contains($reminder)) {
+            $this->reminders[] = $reminder;
+            $reminder->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReminder(Reminder $reminder): self
+    {
+        if ($this->reminders->removeElement($reminder)) {
+            // set the owning side to null (unless already changed)
+            if ($reminder->getCreatedBy() === $this) {
+                $reminder->setCreatedBy(null);
+            }
+        }
+
+        return $this;
     }
 }

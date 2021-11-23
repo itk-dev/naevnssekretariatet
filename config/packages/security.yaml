@@ -16,9 +16,9 @@ security:
             provider: app_user_provider
             guard:
                 authenticators:
-                    - App\Security\LoginTokenAuthenticator
-                    - App\Security\OpenIdLoginAuthenticator
-                entry_point: App\Security\OpenIdLoginAuthenticator
+                    - ItkDev\OpenIdConnectBundle\Security\LoginTokenAuthenticator
+                    - App\Security\AzureAdLoginAuthenticator
+                entry_point: App\Security\AzureAdLoginAuthenticator
             logout:
                 path: app_logout
 
@@ -38,7 +38,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/openidconnect/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, roles: [ROLE_CASEWORKER, ROLE_ADMINISTRATION] }
         - { path: ^/, roles: [ROLE_USER] }
         # - { path: ^/profile, roles: ROLE_USER }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Embeddable\Address;
 use App\Repository\CaseEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,7 +15,7 @@ use Symfony\Component\Uid\UuidV4;
  * @ORM\Entity(repositoryClass=CaseEntityRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"caseEntity" = "CaseEntity", "residentComplaintBoardCase" = "ResidentComplaintBoardCase"})
+ * @ORM\DiscriminatorMap({"caseEntity" = "CaseEntity", "residentComplaintBoardCase" = "ResidentComplaintBoardCase", "rentBoardCase" = "RentBoardCase", "fenceReviewCase" = "FenceReviewCase"})
  * @ORM\EntityListeners({"App\Logging\EntityListener\CaseListener"})
  */
 abstract class CaseEntity
@@ -107,12 +108,39 @@ abstract class CaseEntity
      */
     private $decisionProposal;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignedCases")
+     */
+    private $assignedTo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainant;
+
+    /**
+     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
+     */
+    private $complainantAddress;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainantCPR;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="caseEntity")
+     */
+    private $reminders;
+
     public function __construct()
     {
+        $this->complainantAddress = new Address();
         $this->casePartyRelation = new ArrayCollection();
         $this->caseDocumentRelation = new ArrayCollection();
         $this->notes = new ArrayCollection();
         $this->agendaCaseItems = new ArrayCollection();
+        $this->reminders = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -282,12 +310,59 @@ abstract class CaseEntity
         return $this;
     }
 
+    public function getAssignedTo(): ?User
+    {
+        return $this->assignedTo;
+    }
+
+    public function setAssignedTo(?User $assignedTo): self
+    {
+        $this->assignedTo = $assignedTo;
+
+        return $this;
+    }
+
+    public function getComplainant(): ?string
+    {
+        return $this->complainant;
+    }
+
+    public function setComplainant(?string $complainant): self
+    {
+        $this->complainant = $complainant;
+
+        return $this;
+    }
+
+    public function setComplainantAddress(Address $address): void
+    {
+        $this->complainantAddress = $address;
+    }
+
+    public function getComplainantAddress(): Address
+    {
+        return $this->complainantAddress;
+    }
+
+    public function getComplainantCPR(): ?string
+    {
+        return $this->complainantCPR;
+    }
+
+    public function setComplainantCPR(string $complainantCPR): self
+    {
+        $this->complainantCPR = $complainantCPR;
+
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->caseNumber;
     }
 
     /**
+<<<<<<< HEAD
      * @return Collection|AgendaCaseItem[]
      */
     public function getAgendaCaseItems(): Collection
@@ -311,6 +386,36 @@ abstract class CaseEntity
             // set the owning side to null (unless already changed)
             if ($agendaCaseItem->getCaseEntity() === $this) {
                 $agendaCaseItem->setCaseEntity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reminder[]
+     */
+    public function getReminders(): Collection
+    {
+        return $this->reminders;
+    }
+
+    public function addReminder(Reminder $reminder): self
+    {
+        if (!$this->reminders->contains($reminder)) {
+            $this->reminders[] = $reminder;
+            $reminder->setCaseEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReminder(Reminder $reminder): self
+    {
+        if ($this->reminders->removeElement($reminder)) {
+            // set the owning side to null (unless already changed)
+            if ($reminder->getCaseEntity() === $this) {
+                $reminder->setCaseEntity(null);
             }
         }
 

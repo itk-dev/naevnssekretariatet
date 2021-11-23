@@ -31,7 +31,6 @@ class BoardMemberCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Name');
-
         yield AssociationField::new('boards', 'Board')
             ->setRequired(true)
             ->formatValue(function ($value, BoardMember $member) {
@@ -41,6 +40,9 @@ class BoardMemberCrudController extends AbstractCrudController
 
                 return implode($roles->getValues(), ', ');
             })
+        ;
+        yield AssociationField::new('municipality', 'Municipality')
+            ->setRequired(true)
         ;
         yield AssociationField::new('boardRoles', 'BoardRole')
             ->setFormTypeOptions([

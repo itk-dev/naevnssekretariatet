@@ -1,0 +1,28 @@
+{% trans_default_domain 'reminder' %}
+
+<div class="rounded-sm ">
+    <h2 class="h3">{% trans %}Upcoming reminders{% endtrans %}</h2>
+    {% if upcoming_reminders|length > 0 %}
+        {% for date, reminders in upcoming_reminders %}
+            <h3 class="h4">{{ date|date('l')|trans({}, 'reminder') }}</h3>
+            <div class="list-group mb-3">
+                {% for reminder in reminders %}
+                    <li class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning">
+                        <div class="d-flex w-100 justify-content-between" title="{% trans %}Show case{% endtrans %}">
+                            <small>{{ reminder.date|date("d/m/Y") }}</small>
+                            <a href="{{ url('case_summary', {id: reminder.caseEntity.id}) }}">
+                                {{ reminder.caseEntity.caseNumber|e }}
+                            </a>
+                        </div>
+                        <span class="text-dark">{{ reminder.content|e }}</span>
+                    </li>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        {% trans %}No reminders within the week.{% endtrans %}
+    {% endif %}
+    <a href="{{ url('reminder_index') }}">
+        {% trans %}See all reminders{% endtrans %}
+    </a>
+</div>

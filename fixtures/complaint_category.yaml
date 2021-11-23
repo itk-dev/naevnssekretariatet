@@ -23,18 +23,6 @@ App\Entity\ComplaintCategory:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
 
-  rent-increase-complaint-aarhus:
-    name: Lejeforhøjelser
-    fee: 201
-    board: '@resident-complaint-board-aarhus'
-    municipality: '@municipality-aarhus'
-
-  rent-increase-complaint-randers:
-    name: Lejeforhøjelser
-    fee: 211
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-
   water-heat-electricity-complaint-aarhus:
     name: Vand-, varme- og elregnskaber
     fee: 179
@@ -69,4 +57,28 @@ App\Entity\ComplaintCategory:
     name: Betaling for fællesantenne og adgang til teletjeneste
     fee: 230
     board: '@resident-complaint-board-randers'
+    municipality: '@municipality-randers'
+
+  rent-size-complaint-aarhus:
+    name: Lejestørrelse
+    fee: 201
+    board: '@rent-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  rent-increase-complaint-aarhus:
+    name: Lejeforhøjelser
+    fee: 201
+    board: '@rent-board-aarhus'
+    municipality: '@municipality-aarhus'
+
+  rent-size-complaint-randers:
+    name: Lejestørrelse
+    fee: 201
+    board: '@rent-board-randers'
+    municipality: '@municipality-randers'
+
+  rent-increase-complaint-randers:
+    name: Lejeforhøjelser
+    fee: 201
+    board: '@rent-board-randers'
     municipality: '@municipality-randers'
