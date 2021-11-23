@@ -99,7 +99,8 @@ class AgendaController extends AbstractController
 
         // Only get agendas under active municipality
         $filterBuilder->andWhere('board.municipality = :municipality')
-            ->setParameter('municipality', $activeMunicipality->getId()->toBinary());
+            ->setParameter('municipality', $activeMunicipality->getId()->toBinary())
+        ;
 
         $query = $filterBuilder->getQuery();
 

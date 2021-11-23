@@ -38,6 +38,7 @@ class AgendaBroadcastType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans('Broadcast agenda', [], 'agenda'),
-            ]);
+            ])
+        ;
     }
 }

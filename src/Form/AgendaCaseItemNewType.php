@@ -84,6 +84,7 @@ class AgendaCaseItemNewType extends AbstractType
                 },
                 'label' => $this->translator->trans('Case', [], 'agenda'),
                 'placeholder' => $this->translator->trans('Choose a case', [], 'agenda'),
-            ]);
+            ])
+        ;
     }
 }

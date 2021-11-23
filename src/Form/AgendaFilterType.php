@@ -109,6 +109,7 @@ class AgendaFilterType extends AbstractType
                 },
                 'label' => false,
                 'placeholder' => $this->translator->trans('All statuses', [], 'agenda'),
-            ]);
+            ])
+        ;
     }
 }

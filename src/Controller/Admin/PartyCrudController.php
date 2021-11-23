@@ -59,7 +59,8 @@ class PartyCrudController extends AbstractCrudController
             })
         ;
         yield BooleanField::new('isPartOfPartIndex', 'Add to part index')
-            ->hideOnIndex();
+            ->hideOnIndex()
+        ;
     }
 
     /**

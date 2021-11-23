@@ -66,6 +66,7 @@ class InspectionLetterType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans('Send inspection letter', [], 'agenda'),
-            ]);
+            ])
+        ;
     }
 }

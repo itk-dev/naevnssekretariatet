@@ -33,7 +33,8 @@ class AgendaNewType extends AbstractType
                     return $er->createQueryBuilder('b')
                         ->where('b.municipality = :municipality')
                         ->setParameter('municipality', $municipality->getId()->toBinary())
-                        ->orderBy('b.name', 'ASC');
+                        ->orderBy('b.name', 'ASC')
+                    ;
                 },
                 'choice_label' => 'name',
             ])

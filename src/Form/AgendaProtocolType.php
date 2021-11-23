@@ -42,6 +42,7 @@ class AgendaProtocolType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans('Update protocol', [], 'agenda'),
-            ]);
+            ])
+        ;
     }
 }

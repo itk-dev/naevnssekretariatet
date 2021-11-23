@@ -29,7 +29,8 @@ class DocumentRepository extends ServiceEntityRepository
                 return Uuid::fromString($id)->toBinary();
             }, $ids))
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 
     public function getAvailableDocumentsForAgendaItem(AgendaCaseItem $agendaCaseItem): array
@@ -53,6 +54,7 @@ class DocumentRepository extends ServiceEntityRepository
 
         return $qb
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 }
