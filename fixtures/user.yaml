@@ -2,7 +2,7 @@ App\Entity\User:
   user-case-worker:
     name: Case Worker
     email: case-worker@example.com
-    roles: [ROLE_CASE_WORKER]
+    roles: [ROLE_CASEWORKER]
     favoriteMunicipality: '@municipality-aarhus'
 
   user-administration:
