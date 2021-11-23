@@ -25,6 +25,8 @@ services:
             $bbrHelperOptions:
                 datafordeler_api_username: '%env(DATAFORDELER_API_USERNAME)%'
                 datafordeler_api_password: '%env(DATAFORDELER_API_PASSWORD)%'
+                # @todo What should we call this?
+                ttl: '-7 days'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

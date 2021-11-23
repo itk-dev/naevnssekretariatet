@@ -83,7 +83,7 @@ abstract class AbstractEntityListener
                 continue;
             }
 
-            if (is_scalar($changedValue)) {
+            if (is_scalar($changedValue) || is_array($changedValue)) {
                 $dataArray[$key] = $changedValue;
                 continue;
             }
@@ -98,7 +98,7 @@ abstract class AbstractEntityListener
             }
 
             // Property was not handled
-            $message = sprintf('Unhandled property %s of type %s.', $key, get_class($changedValue));
+            $message = sprintf('Unhandled property %s of type %s.', $key, is_scalar($changedValue) ? gettype($changedValue) : (is_array($changedValue) ? 'array' : get_class($changedValue)));
             throw new ItkDevLoggingException($message);
         }
 

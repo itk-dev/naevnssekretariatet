@@ -235,16 +235,4 @@ class ResidentComplaintBoardCase extends CaseEntity
 
         return $this;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFormattedAddress(string $type): ?string
-    {
-        if ('lease' === $type) {
-            return sprintf("%s\n%s %s", $this->getLeaseStreetNameAndNumber(), $this->getLeaseZip(), $this->getLeaseCity());
-        }
-
-        return parent::getFormattedAddress($type);
-    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Exception\BBRException;
 use App\Repository\CaseEntityRepository;
 use App\Service\BBRHelper;
 use Symfony\Component\Console\Command\Command;
@@ -9,11 +10,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class BBRCaseDataCommand extends Command
 {
-    protected static $defaultName = 'tvist1:bbr:case-data';
-    protected static $defaultDescription = 'Fetch BBR data on cases';
+    protected static $defaultName = 'tvist1:bbr:update-case-data';
+    protected static $defaultDescription = 'Update BBR data on cases addresses';
 
     private BBRHelper $bbrHelper;
     private CaseEntityRepository $caseEntityRepository;
@@ -30,23 +32,28 @@ class BBRCaseDataCommand extends Command
         $this
             ->setDescription(self::$defaultDescription)
             ->addArgument('case-ids', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Optional case ids to fetch data for')
-            ->addOption('address-type', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'The address types to handle', ['lease'])
-            ->addOption('dump', null, InputOption::VALUE_NONE, 'Dump fetched data')
-            ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Don\'t store (or update) data on cases')
+            ->addOption('address-property', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'The address property to handle', ['leaseAddress'])
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $caseIds = $input->getArgument('case-ids');
-        $addressTypes = $input->getOption('address-type');
-        $dump = $input->getOption('dump');
-        $dryRun = $input->getOption('dry-run');
+        $io = new SymfonyStyle($input, $output);
 
-        $cases = $this->caseEntityRepository->findAll();
+        $caseIds = $input->getArgument('case-ids');
+        $addressProperties = $input->getOption('address-property');
+
+        $cases = empty($caseIds)
+            ? $this->caseEntityRepository->findAll()
+            : $this->caseEntityRepository->findBy(['id' => $caseIds]);
         foreach ($cases as $case) {
-            foreach ($addressTypes as $addressType) {
-                $data = $this->bbrHelper->updateBBRData($case, $addressType, $dryRun);
+            foreach ($addressProperties as $addressType) {
+                try {
+                    $io->info(sprintf('Case #%s: %s', $case->getId(), $case->getCaseNumber()));
+                    $this->bbrHelper->updateCaseBBRData($case, $addressType);
+                } catch (BBRException $exception) {
+                    $io->error($exception->getMessage());
+                }
             }
         }
 

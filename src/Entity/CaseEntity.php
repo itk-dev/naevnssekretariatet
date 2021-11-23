@@ -117,18 +117,6 @@ abstract class CaseEntity
         $this->reminders = new ArrayCollection();
     }
 
-    /**
-     * Get formatted address of a specific type.
-     *
-     * @param string $type the address type
-     *
-     * @return string|null the formatted address if it exists
-     */
-    public function getFormattedAddress(string $type): ?string
-    {
-        return null;
-    }
-
     public function getId(): ?UuidV4
     {
         return $this->id;

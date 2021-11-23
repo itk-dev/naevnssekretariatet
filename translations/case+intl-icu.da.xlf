@@ -797,25 +797,25 @@
         <source>Show BBR-Meddelelse for lease (PDF)</source>
         <target state="translated">Vis BBR-Meddelelse for lejemål (pdf)</target>
       </trans-unit>
-      <trans-unit id="3W56ZhJ" resname="Cannot get address for BBR-Meddelelse">
-        <source>Cannot get address for BBR-Meddelelse</source>
-        <target state="translated">Adresse for BBR-Meddelelse ikke fundet</target>
-      </trans-unit>
-      <trans-unit id="WsxYcLd" resname="Cannot get url for BBR-Meddelelse">
-        <source>Cannot get url for BBR-Meddelelse</source>
-        <target state="translated">Url til BBR-Meddelelse ikke fundet</target>
-      </trans-unit>
       <trans-unit id="4DKtL_b" resname="BBR information">
         <source>BBR information</source>
         <target>BBR-information</target>
       </trans-unit>
-      <trans-unit id="FOHJPfu" resname="Error loading BBR data">
-        <source>Error loading BBR data</source>
-        <target>__Error loading BBR data</target>
+      <trans-unit id="scIMjxO" resname="Cannot get url for BBR-Meddelelse (%message%)">
+        <source>Cannot get url for BBR-Meddelelse (%message%%)</source>
+        <target state="translated">Url til BBR-Meddelelse ikke fundet (%message%)</target>
       </trans-unit>
-      <trans-unit id="uZcf_rA" resname="Loading BBR data …">
-        <source>Loading BBR data …</source>
-        <target>__Loading BBR data …</target>
+      <trans-unit id="_mEYMv5" resname="No BBR data">
+        <source>No BBR data</source>
+        <target state="translated">Ingen BBR-information</target>
+      </trans-unit>
+      <trans-unit id="N6NcuQL" resname="Update BBR data">
+        <source>Update BBR data</source>
+        <target state="translated">Opdater BBR-information</target>
+      </trans-unit>
+      <trans-unit id="SdPrRoI" resname="Cannot update BBR data (%message%)">
+        <source>Cannot update BBR data (%message%)</source>
+        <target state="translated">Fejl under opdatering af BBR-information (%message%)</target>
       </trans-unit>
     </body>
   </file>

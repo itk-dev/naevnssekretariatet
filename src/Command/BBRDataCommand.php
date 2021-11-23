@@ -31,7 +31,6 @@ class BBRDataCommand extends Command
             ->setDescription(self::$defaultDescription)
             ->addArgument('addresses', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'One or more addresses')
             ->addOption('dump', null, InputOption::VALUE_NONE, 'Dump fetched data')
-            ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Don\'t update stored data')
         ;
     }
 
@@ -39,7 +38,6 @@ class BBRDataCommand extends Command
     {
         $addresses = $input->getArgument('addresses');
         $dump = $input->getOption('dump');
-        $dryRun = $input->getOption('dry-run');
 
         foreach ($addresses as $address) {
             $bbrData = $this->bbrHelper->getBBRData($address);

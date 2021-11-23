@@ -12,11 +12,10 @@ use App\Service\BBRHelper;
 use App\Service\CaseHelper;
 use App\Service\CaseManager;
 use App\Service\WorkflowService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -87,14 +86,6 @@ class CaseController extends AbstractController
             'case' => $case,
             'complainants' => $data['complainants'],
             'counterparties' => $data['counterparties'],
-            'bbr_config' => [
-                'lease' => [
-                    'data_url' => $this->generateUrl('case_bbr_data', ['id' => $case->getId(), 'addressType' => 'lease']),
-                ],
-                'messages' => [
-                    'Error loading BBR data' => $translator->trans('Error loading BBR data', [], 'case'),
-                ],
-            ],
         ]);
     }
 
@@ -202,24 +193,21 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/bbr-meddelelse/{addressType}.{_format}", name="case_bbr_meddelelse", methods={"GET"},
+     * @Route("/{id}/bbr-meddelelse/{addressProperty}.{_format}", name="case_bbr_meddelelse", methods={"GET"},
      *     format="pdf",
      *     requirements={
      *         "_format": "pdf",
      *     }
      * )
      */
-    public function bbrMeddelelse(Request $request, TranslatorInterface $translator, CaseEntity $case, BBRHelper $bbrHelper, string $addressType, string $_format): Response
+    public function bbrMeddelelse(Request $request, TranslatorInterface $translator, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, string $_format): Response
     {
-        $address = $case->getFormattedAddress($addressType);
-        if (null === $address) {
-            $this->addFlash('error', $translator->trans('Cannot get address for BBR-Meddelelse', [], 'case'));
-        } else {
-            try {
-                return $this->redirect($bbrHelper->getBBRMeddelelseUrl($address, $_format));
-            } catch (\Exception $exception) {
-                $this->addFlash('error', $translator->trans('Cannot get url for BBR-Meddelelse', [], 'case'));
-            }
+        try {
+            return $this->redirect($bbrHelper->getBBRMeddelelseUrlForCase($case, $addressProperty, $_format));
+        } catch (\Exception $exception) {
+            $this->addFlash('error', $translator->trans('Cannot get url for BBR-Meddelelse (%message%)', [
+                '%message%' => $exception->getMessage(),
+            ], 'case'));
         }
 
         // Send user back to where he came from.
@@ -229,19 +217,23 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/bbr-data/{addressType}", name="case_bbr_data", methods={"GET"})
+     * @Route("/{id}/bbr-data/{addressProperty}/update", name="case_bbr_data_update", methods={"POST"})
      */
-    public function bbrData(Request $request, TranslatorInterface $translator, CaseEntity $case, BBRHelper $bbrHelper, string $addressType): Response
+    public function bbrData(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
-        $address = $case->getFormattedAddress($addressType);
-        if (null === $address) {
-            throw new BadRequestHttpException('Cannot get address');
+        try {
+            $bbrHelper->updateCaseBBRData($case, $addressProperty);
+            $entityManager->persist($case);
+            $entityManager->flush();
+        } catch (\Exception $exception) {
+            $this->addFlash('error', $translator->trans('Cannot update BBR data (%message%)', [
+                '%message%' => $exception->getMessage(),
+            ], 'case'));
         }
-        $data = $bbrHelper->fetchBBRData($address);
 
-        return new JsonResponse([
-            'data' => $data,
-            'rendered' => $this->render('case/_bbr/data-'.$addressType.'.html.twig', ['data' => $data])->getContent(),
-        ]);
+        // Send user back to where he came from.
+        $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+        return $this->redirect($redirectUrl);
     }
 }
