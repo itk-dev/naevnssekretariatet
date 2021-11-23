@@ -61,10 +61,8 @@ class BBRHelper
             $bbrData->setData($data);
         }
 
-        if (null !== $bbrData) {
-            $this->entityManager->persist($bbrData);
-            $this->entityManager->flush();
-        }
+        $this->entityManager->persist($bbrData);
+        $this->entityManager->flush();
 
         return $bbrData;
     }
@@ -210,10 +208,6 @@ class BBRHelper
                     $bestMatch['percentage'] = $percentage;
                     $bestMatch['item'] = $item;
                 }
-            } else {
-                header('content-type: text/plain');
-                echo var_export([$items, $item, $key], true);
-                exit(__FILE__.':'.__LINE__.':'.__METHOD__);
             }
         }
 
