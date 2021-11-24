@@ -5,13 +5,17 @@ namespace App\Service;
 use App\Entity\BBRData;
 use App\Entity\CaseEntity;
 use App\Entity\Embeddable\Address;
+use App\Exception\AddressException;
 use App\Exception\BBRException;
 use App\Repository\BBRDataRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use ItkDev\Datafordeler\Client;
-use ItkDev\Datafordeler\Service\BBR\BBRPublic\V1 as BBRPublicV1;
+use ItkDev\Datafordeler\Service\BBR\V1\BBRPublic;
+use ItkDev\Datafordeler\Service\DAR\V1\DAR;
+use ItkDev\Datafordeler\Service\DAR\V1\DAR_BFE_Public;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -61,7 +65,8 @@ class BBRHelper implements LoggerAwareInterface
             ;
         }
 
-        if (null === $bbrData->getData() || $bbrData->getUpdatedAt() < new \DateTimeImmutable($this->options['ttl'])) {
+        if (null === $bbrData->getData()
+            || $bbrData->getUpdatedAt() < new \DateTimeImmutable(sprintf('-%dseconds', (int)$this->options['bbr_data_ttl']))) {
             $data = $this->fetchBBRData($address);
             $bbrData->setData($data);
         }
@@ -87,12 +92,14 @@ class BBRHelper implements LoggerAwareInterface
                 $this->options['datafordeler_api_username'],
                 $this->options['datafordeler_api_password']
             );
-            $service = new BBRPublicV1($client);
 
-            $bbrData['enhed'] = $service->enhed(['AdresseIdentificerer' => $addressId]);
-            if (isset($bbrData['enhed'][0]['bygning'])) {
-                $bbrData['bygning'] = $service->bygning(['Id' => $bbrData['enhed'][0]['bygning']]);
-            }
+            $darService = new DAR($client);
+            $husnummer = $darService->adresseTilHusnummer($addressId);
+            $bbrService = new BBRPublic($client);
+
+            $bbrData['bygning'] = $bbrService->bygning(['Husnummer' => $husnummer]);
+
+            $bbrData['enhed'] = $bbrService->enhed(['AdresseIdentificerer' => $addressId]);
         } catch (\Exception $exception) {
             throw $this->createException($exception->getMessage(), $exception->getCode(), $exception);
         }
@@ -172,34 +179,6 @@ class BBRHelper implements LoggerAwareInterface
     }
 
     /**
-     * Find address data by (stringified) address.
-     *
-     * @throws \InvalidArgumentException
-     */
-    private function getAddressData(string $address): array
-    {
-        try {
-            // @see https://dawadocs.dataforsyningen.dk/dok/bbr#find-en-enhed-ud-fra-dens-adresse
-            $response = $this->httpClient->request('GET', 'https://api.dataforsyningen.dk/adresser', [
-                'query' => ['q' => $this->normalizeAddress($address)],
-            ]);
-            $data = $response->toArray();
-        } catch (\Exception $exception) {
-            throw $this->createException(sprintf('Invalid or unknown address: %s', $address), 0, $exception);
-        }
-        if (0 === count($data) || !isset($data[0]['id'])) {
-            throw $this->createException(sprintf('Invalid or unknown address: %s', $address));
-        }
-
-        $item = $this->findBestAddressMatch($address, $data, 'adressebetegnelse');
-        if (null === $item) {
-            throw $this->createException(sprintf('Invalid or unknown address: %s', $address));
-        }
-
-        return $item;
-    }
-
-    /**
      * Find best address match in a list of address objects.
      *
      * @return float|mixed|null
@@ -244,6 +223,58 @@ class BBRHelper implements LoggerAwareInterface
      */
     private function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(['datafordeler_api_username', 'datafordeler_api_password', 'ttl']);
+        $resolver->setRequired(['datafordeler_api_username', 'datafordeler_api_password', 'bbr_data_ttl']);
+    }
+
+    /**
+     * Get an address object from a stringified address using Adgangsadresse datavask.
+     *
+     * @see https://dawadocs.dataforsyningen.dk/dok/api/adgangsadresse#datavask
+     *
+     * @param string $address
+     * @return array
+     */
+    public function getAccessAddressData(string $address): array
+    {
+        return $this->fetchAddressData($address, 'adgangsadresser');
+    }
+
+    /**
+     * Get an address object from a stringified address using Adresse datavask.
+     *
+     * @see https://dawadocs.dataforsyningen.dk/dok/api/adresse#datavask
+     *
+     * @param string $address
+     * @return array
+     */
+    public function getAddressData(string $address): array
+    {
+        return $this->fetchAddressData($address, 'adresser');
+    }
+
+    private function fetchAddressData(string $address, string $path): array
+    {
+        try {
+            $client = HttpClient::create([
+                'base_uri' => 'https://api.dataforsyningen.dk/datavask/',
+            ]);
+
+            $response = $client->request('GET', $path, [
+                'query' => [
+                    'betegnelse' => $address,
+                ],
+            ]);
+
+            $data = $response->toArray();
+            if (in_array($data['kategori'] ?? null, ['A', 'B'])
+                && isset($data['resultater'][0]['adresse'])) {
+                return $data['resultater'][0]['adresse'];
+            }
+
+        } catch (\Throwable $throwable) {
+            throw $this->createException(sprintf('Invalid address: %s', $address), $throwable->getCode(), $throwable);
+        }
+
+        throw $this->createException(sprintf('Invalid address: %s', $address));
     }
 }

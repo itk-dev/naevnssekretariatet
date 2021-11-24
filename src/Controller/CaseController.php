@@ -223,6 +223,7 @@ class CaseController extends AbstractController
             $bbrHelper->updateCaseBBRData($case, $addressProperty);
             $entityManager->persist($case);
             $entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('BBR data updated'));
         } catch (\Exception $exception) {
             $this->addFlash('error', new TranslatableMessage('Cannot update BBR data'));
         }

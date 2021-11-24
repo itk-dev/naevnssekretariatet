@@ -2183,12 +2183,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/datafordeler-php-client.git",
-                "reference": "13c42f2e4222100cc2a92d4dd5912be1ebbe1222"
+                "reference": "2fe34ed90b3c1eb199f60d465fdaff9947ffd94f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/13c42f2e4222100cc2a92d4dd5912be1ebbe1222",
-                "reference": "13c42f2e4222100cc2a92d4dd5912be1ebbe1222",
+                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/2fe34ed90b3c1eb199f60d465fdaff9947ffd94f",
+                "reference": "2fe34ed90b3c1eb199f60d465fdaff9947ffd94f",
                 "shasum": ""
             },
             "require": {
@@ -2236,7 +2236,7 @@
                 "source": "https://github.com/itk-dev/datafordeler-php-client/tree/feature/TVIST1-39-BBR",
                 "issues": "https://github.com/itk-dev/datafordeler-php-client/issues"
             },
-            "time": "2021-11-18T15:24:25+00:00"
+            "time": "2021-11-24T20:48:58+00:00"
         },
         {
             "name": "itk-dev/openid-connect",
