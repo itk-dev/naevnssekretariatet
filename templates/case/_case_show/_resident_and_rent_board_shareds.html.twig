@@ -22,18 +22,18 @@
                     <legend>{% trans %}Complainant{% endtrans %}</legend>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputBasicInformation1">{% trans %}Complainant name{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation1" value="{{ case.complainant }}" readonly>
+                            <label>{% trans %}Complainant name{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainant }}" readonly>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="inputBasicInformation6">{% trans %}Telephone number{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation6" value="{{ case.complainantPhone }}" readonly>
+                            <label>{% trans %}Telephone number{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantPhone }}" readonly>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="inputBasicInformation2">{% trans %}CPR number{% endtrans %}</label>
+                            <label>{% trans %}CPR number{% endtrans %}</label>
                             <div class="input-group mb-3">
                                 {# TODO: Input correct CPR when property exists #}
-                                <input type="text" class="form-control" id="inputBasicInformation2" value="{{ case.complainantCPR }}" readonly>
+                                <input type="text" class="form-control" value="{{ case.complainantCPR }}" readonly>
                                 {#  <div class="input-group-append">#}
                                 {# TODO: Show status depending on validation result #}
                                 {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate CPR number'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
@@ -44,41 +44,57 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="form-row">
-                        <div class="form-group col-md-5">
-                            <label for="inputBasicInformation3">{% trans %}Road{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation3" value="{{ case.complainantAddress.street }}" readonly>
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Road{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.street }}" readonly>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputBasicInformation4">{% trans %}Postal code{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.complainantAddress.postalCode }}" readonly>
+                            <label>{% trans %}Number{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.number }}" readonly>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputBasicInformation5">{% trans %}City{% endtrans %}</label>
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Floor{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.floor }}" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Side{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.side }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Postal code{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.postalCode }}" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>{% trans %}City{% endtrans %}</label>
                             {# TODO: Update city value when such property exists #}
-                            <input type="text" class="form-control" id="inputBasicInformation5" value="{{ case.complainantAddress.city }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.city }}" readonly>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputBasicInformation7">{% trans %}Validate{% endtrans %}</label>
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Validate{% endtrans %}</label>
                             {# TODO: Show status depending on validation result #}
                             {# Not yet validated #} <button class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate address'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
                             {# Success <button class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="Address is validated"><i class="fas fa-check-circle"></i></button>#}
                             {# Warning <button class="btn btn-block btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
                             {# Failed <button class="btn btn-block btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                            <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
                         </div>
                     </div>
-                    <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
+
                 </fieldset>
                 <fieldset>
                     <legend>{% trans %}Case specifics{% endtrans %}</legend>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputBasicInformation15">{% trans %}Complaint fee in DKK{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation15" value="{{ case.complaintCategory.fee }}" readonly>
+                            <label>{% trans %}Complaint fee in DKK{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complaintCategory.fee }}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputBasicInformation16">{% trans %}Complaint category{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation16" value="{{ case.complaintCategory.name }}" readonly>
+                            <label>{% trans %}Complaint category{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complaintCategory.name }}" readonly>
                         </div>
                     </div>
                 </fieldset>
@@ -91,29 +107,43 @@
                 <fieldset>
                     <legend>{% trans %}Address{% endtrans %}</legend>
                     <div class="form-row">
-                        <div class="form-group col-md-5">
-                            <label for="inputBasicInformation3">{% trans %}Road{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation3" value="{{ case.leaseAddress.street }}" readonly>
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Road{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.street }}" readonly>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputBasicInformation4">{% trans %}Postal code{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.leaseAddress.postalCode }}" readonly>
+                            <label>{% trans %}Number{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.number }}" readonly>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputBasicInformation5">{% trans %}City{% endtrans %}</label>
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Floor{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.floor }}" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Side{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.side }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Postal code{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.postalCode }}" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>{% trans %}City{% endtrans %}</label>
                             {# TODO: Update city value when such property exists #}
-                            <input type="text" class="form-control" id="inputBasicInformation5" value="{{ case.leaseAddress.city }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.city }}" readonly>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputBasicInformation7">{% trans %}Validate{% endtrans %}</label>
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Validate{% endtrans %}</label>
                             {# TODO: Show status depending on validation result #}
                             {# Not yet validated #} <button class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate address'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
                             {# Success <button class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="Address is validated"><i class="fas fa-check-circle"></i></button>#}
                             {# Warning <button class="btn btn-block btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
                             {# Failed <button class="btn btn-block btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                            <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
                         </div>
                     </div>
-                    <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
                 </fieldset>
 
                 <fieldset>
@@ -193,28 +223,28 @@
                     <legend>{% trans %}Rent{% endtrans %}</legend>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="inputBasicInformation5">{% trans %}Agreed rent{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation5" value="{{ case.leaseAgreedRent }}" readonly>
+                            <label>{% trans %}Agreed rent{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAgreedRent }}" readonly>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputBasicInformation3">{% trans %}Regulated rent{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation3" value="{{ case.leaseRegulatedRent }}" readonly>
+                            <label>{% trans %}Regulated rent{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseRegulatedRent }}" readonly>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputBasicInformation5">{% trans %}Rent at collection time{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation5" value="{{ case.leaseRentAtCollectionTime }}" readonly>
+                            <label>{% trans %}Rent at collection time{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseRentAtCollectionTime }}" readonly>
                         </div>
                     </div>
                 </fieldset>
                 <fieldset>
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label for="inputBasicInformation5">{% trans %}Security deposit{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation5" value="{{ case.leaseSecurityDeposit }}" readonly>
+                            <label>{% trans %}Security deposit{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseSecurityDeposit }}" readonly>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="inputBasicInformation4">{% trans %}Prepaid rent{% endtrans %}</label>
-                            <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.prepaidRent }}" readonly>
+                            <label>{% trans %}Prepaid rent{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.prepaidRent }}" readonly>
                         </div>
                     </div>
                 </fieldset>
