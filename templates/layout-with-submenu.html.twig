@@ -18,7 +18,8 @@
                     {% for label, messages in app.flashes %}
                         {% for message in messages %}
                             <div class="alert alert-{{ 'error' == label ? 'danger' : label }}">
-                                {{ message }}
+                                {# message may be an instance of TranslatableInterface #}
+                                {{ message.trans is defined ? message|trans : message }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="{{ 'Close'|trans }}">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

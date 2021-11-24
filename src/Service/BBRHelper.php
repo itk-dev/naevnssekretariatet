@@ -10,12 +10,17 @@ use App\Repository\BBRDataRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use ItkDev\Datafordeler\Client;
 use ItkDev\Datafordeler\Service\BBR\BBRPublic\V1 as BBRPublicV1;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Throwable;
 
-class BBRHelper
+class BBRHelper implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     private PropertyAccessorInterface $propertyAccessor;
     private BBRDataRepository $bbrDataRepository;
     private EntityManagerInterface $entityManager;
@@ -85,8 +90,11 @@ class BBRHelper
             $service = new BBRPublicV1($client);
 
             $bbrData['enhed'] = $service->enhed(['AdresseIdentificerer' => $addressId]);
-            $bbrData['bygning'] = $service->enhed(['AdresseIdentificerer' => $addressId]);
+            if (isset($bbrData['enhed'][0]['bygning'])) {
+                $bbrData['bygning'] = $service->bygning(['Id' => $bbrData['enhed'][0]['bygning']]);
+            }
         } catch (\Exception $exception) {
+            throw $this->createException($exception->getMessage(), $exception->getCode(), $exception);
         }
 
         return $bbrData;
@@ -131,12 +139,12 @@ class BBRHelper
     public function getBBRMeddelelseUrl(string $address, string $format = 'pdf'): string
     {
         if ('pdf' !== $format) {
-            throw new \InvalidArgumentException(sprintf('Invalid format: %s', $format));
+            throw $this->createException(sprintf('Invalid format: %s', $format));
         }
 
         $addressData = $this->getAddressData($address);
         if (!isset($addressData['adgangsadresse']['id'])) {
-            throw new BBRException(sprintf('Cannot get adgangsadresse for address %s', $address));
+            throw $this->createException(sprintf('Cannot get adgangsadresse for address %s', $address));
         }
         $accessAddressId = $addressData['adgangsadresse']['id'];
 
@@ -154,7 +162,7 @@ class BBRHelper
         // Dig for best match
         $item = $this->findBestAddressMatch($this->normalizeAddress($address), $items, 'Adresse');
         if (null === $item) {
-            throw new BBRException(sprintf('Invalid or unknown address: %s', $address));
+            throw $this->createException(sprintf('Invalid or unknown address: %s', $address));
         }
 
         return 'https://bbr.dk/pls/wwwdata/get_ois_pck.show_bbr_meddelelse_pdf?'.http_build_query([
@@ -177,15 +185,15 @@ class BBRHelper
             ]);
             $data = $response->toArray();
         } catch (\Exception $exception) {
-            throw new BBRException(sprintf('Invalid or unknown address: %s', $address), 0, $exception);
+            throw $this->createException(sprintf('Invalid or unknown address: %s', $address), 0, $exception);
         }
         if (0 === count($data) || !isset($data[0]['id'])) {
-            throw new BBRException(sprintf('Invalid or unknown address: %s', $address));
+            throw $this->createException(sprintf('Invalid or unknown address: %s', $address));
         }
 
         $item = $this->findBestAddressMatch($address, $data, 'adressebetegnelse');
         if (null === $item) {
-            throw new BBRException(sprintf('Invalid or unknown address: %s', $address));
+            throw $this->createException(sprintf('Invalid or unknown address: %s', $address));
         }
 
         return $item;
@@ -218,10 +226,17 @@ class BBRHelper
     {
         $address = $this->propertyAccessor->getValue($entity, $property);
         if (!($address instanceof Address)) {
-            throw new BBRException(sprintf('Property %s.%s must be an instance of %s; is %s', get_class($entity), $property, Address::class, get_class($address)));
+            throw $this->createException(sprintf('Property %s.%s must be an instance of %s; is %s', get_class($entity), $property, Address::class, get_class($address)));
         }
 
         return $address;
+    }
+
+    private function createException(string $message, $code = 0, Throwable $previous = null)
+    {
+        $this->logger->error($message, ['previous' => $previous]);
+
+        return new BBRException($message, $code, $previous);
     }
 
     /**

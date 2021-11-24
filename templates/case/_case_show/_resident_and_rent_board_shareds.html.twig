@@ -120,16 +120,67 @@
                     <legend>{% trans %}BBR information{% endtrans %}</legend>
 
                     {% if case.leaseAddress.bbrData|default(false) %}
-                        {# @todo figure out what BRR data to actually show #}
+                        {% set enhed = case.leaseAddress.bbrData.enhed.0|default(false) %}
+                        {% set bygning = case.leaseAddress.bbrData.bygning.0|default(false) %}
+                        {% if enhed %}
+                            <table class="table bbr-enhed">
+                                {% if enhed.enh027ArealTilBeboelse|default(false) %}
+                                    <tr class="bbr-enh027ArealTilBeboelse">
+                                        <th>{% trans %}Enhedens boligareal{% endtrans %}</th>
+                                        <td class="number">{{ enhed.enh027ArealTilBeboelse|number_format|with_unit('m²') }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if enhed.enh031AntalVærelser|default(false) %}
+                                    <tr class="bbr-enh031AntalVærelser">
+                                        <th>{% trans %}Antal værelser{% endtrans %}</th>
+                                        <td class="number">{{ enhed.enh031AntalVærelser|number_format }}</td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                        {% endif %}
+
+                        {% if bygning %}
+                            <table class="table bbr-bygning">
+
+                                {% if case.leaseAddress.bbrData.bygning.0.byg007Bygningsnummer|default(false) %}
+                                    <tr class="bbr-byg007Bygningsnummer">
+                                        <th>{% trans %}Bygningsnr.{% endtrans %}</th>
+                                        <td class="number">{{ case.leaseAddress.bbrData.bygning.0.byg007Bygningsnummer }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if case.leaseAddress.bbrData.bygning.0.byg026Opførelsesår|default(false) %}
+                                    <tr class="bbr-byg026Opførelsesår">
+                                        <th>{% trans %}Opførelsesår{% endtrans %}</th>
+                                        <td class="number">{{ case.leaseAddress.bbrData.bygning.0.byg026Opførelsesår }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if case.leaseAddress.bbrData.bygning.0.byg024AntalLejlighederMedKøkken|default(false) %}
+                                    <tr class="bbr-byg024AntalLejlighederMedKøkken">
+                                        <th>{% trans %}Lejligheder med køkken{% endtrans %}</th>
+                                        <td class="number">{{ case.leaseAddress.bbrData.bygning.0.byg024AntalLejlighederMedKøkken }}</td>
+                                    </tr>
+                                {% endif %}
+
+                            </table>
+                        {% endif %}
+
                     {% else %}
                         {% trans %}No BBR data{% endtrans %}
                     {% endif %}
 
-                    <form data-referer-query-name="referer" class="btn-group" method="post" action="{{ path('case_bbr_data_update', {id: case.id, addressProperty: 'leaseAddress'}) }}">
-                        <button class="btn btn-light">{% trans %}Update BBR data{% endtrans %}</button>
-                    </form>
-
-                    <p><a data-referer-query-name="referer" href="{{ path('case_bbr_meddelelse', {id: case.id, addressProperty: 'leaseAddress'}) }}">{% trans %}Show BBR-Meddelelse for lease (PDF){% endtrans %}</a></p>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-link" data-referer-query-name="referer" href="{{ path('case_bbr_meddelelse', {id: case.id, addressProperty: 'leaseAddress'}) }}">{% trans %}Show BBR-Meddelelse for lease (PDF){% endtrans %}</a>
+                        </div>
+                        <div class="col text-right">
+                            <form data-referer-query-name="referer" class="btn-group" method="post" action="{{ path('case_bbr_data_update', {id: case.id, addressProperty: 'leaseAddress'}) }}">
+                                <button class="btn btn-secondary">{% trans %}Update BBR data{% endtrans %}</button>
+                            </form>
+                        </div>
+                    </div>
                 </fieldset>
 
                 <fieldset>

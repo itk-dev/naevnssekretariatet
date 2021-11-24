@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/case")
@@ -78,7 +78,7 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}", name="case_show", methods={"GET"})
      */
-    public function show(CaseEntity $case, CaseHelper $casePartyHelper, TranslatorInterface $translator): Response
+    public function show(CaseEntity $case, CaseHelper $casePartyHelper): Response
     {
         $data = $casePartyHelper->getRelevantTemplateAndPartiesByCase($case);
 
@@ -200,14 +200,12 @@ class CaseController extends AbstractController
      *     }
      * )
      */
-    public function bbrMeddelelse(Request $request, TranslatorInterface $translator, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, string $_format): Response
+    public function bbrMeddelelse(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, string $_format): Response
     {
         try {
             return $this->redirect($bbrHelper->getBBRMeddelelseUrlForCase($case, $addressProperty, $_format));
         } catch (\Exception $exception) {
-            $this->addFlash('error', $translator->trans('Cannot get url for BBR-Meddelelse (%message%)', [
-                '%message%' => $exception->getMessage(),
-            ], 'case'));
+            $this->addFlash('error', new TranslatableMessage('Cannot get url for BBR-Meddelelse'));
         }
 
         // Send user back to where he came from.
@@ -219,16 +217,14 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/bbr-data/{addressProperty}/update", name="case_bbr_data_update", methods={"POST"})
      */
-    public function bbrData(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
+    public function bbrData(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, EntityManagerInterface $entityManager): Response
     {
         try {
             $bbrHelper->updateCaseBBRData($case, $addressProperty);
             $entityManager->persist($case);
             $entityManager->flush();
         } catch (\Exception $exception) {
-            $this->addFlash('error', $translator->trans('Cannot update BBR data (%message%)', [
-                '%message%' => $exception->getMessage(),
-            ], 'case'));
+            $this->addFlash('error', new TranslatableMessage('Cannot update BBR data'));
         }
 
         // Send user back to where he came from.
