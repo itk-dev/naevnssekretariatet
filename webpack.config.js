@@ -79,5 +79,4 @@ Encore
     from: './assets/images'
   })
 
-
 module.exports = Encore.getWebpackConfig()
