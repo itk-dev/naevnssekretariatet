@@ -5,14 +5,12 @@ namespace App\Service;
 use App\Entity\BBRData;
 use App\Entity\CaseEntity;
 use App\Entity\Embeddable\Address;
-use App\Exception\AddressException;
 use App\Exception\BBRException;
 use App\Repository\BBRDataRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use ItkDev\Datafordeler\Client;
 use ItkDev\Datafordeler\Service\BBR\V1\BBRPublic;
 use ItkDev\Datafordeler\Service\DAR\V1\DAR;
-use ItkDev\Datafordeler\Service\DAR\V1\DAR_BFE_Public;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpClient\HttpClient;
@@ -66,7 +64,7 @@ class BBRHelper implements LoggerAwareInterface
         }
 
         if (null === $bbrData->getData()
-            || $bbrData->getUpdatedAt() < new \DateTimeImmutable(sprintf('-%dseconds', (int)$this->options['bbr_data_ttl']))) {
+            || $bbrData->getUpdatedAt() < new \DateTimeImmutable(sprintf('-%dseconds', (int) $this->options['bbr_data_ttl']))) {
             $data = $this->fetchBBRData($address);
             $bbrData->setData($data);
         }
@@ -230,9 +228,6 @@ class BBRHelper implements LoggerAwareInterface
      * Get an address object from a stringified address using Adgangsadresse datavask.
      *
      * @see https://dawadocs.dataforsyningen.dk/dok/api/adgangsadresse#datavask
-     *
-     * @param string $address
-     * @return array
      */
     public function getAccessAddressData(string $address): array
     {
@@ -243,9 +238,6 @@ class BBRHelper implements LoggerAwareInterface
      * Get an address object from a stringified address using Adresse datavask.
      *
      * @see https://dawadocs.dataforsyningen.dk/dok/api/adresse#datavask
-     *
-     * @param string $address
-     * @return array
      */
     public function getAddressData(string $address): array
     {
@@ -270,7 +262,6 @@ class BBRHelper implements LoggerAwareInterface
                 && isset($data['resultater'][0]['adresse'])) {
                 return $data['resultater'][0]['adresse'];
             }
-
         } catch (\Throwable $throwable) {
             throw $this->createException(sprintf('Invalid address: %s', $address), $throwable->getCode(), $throwable);
         }
