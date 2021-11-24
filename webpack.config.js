@@ -6,8 +6,6 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
   Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev')
 }
 
-module.exports = Encore.getWebpackConfig()
-
 Encore
 // directory where compiled assets will be stored
   .setOutputPath('public/build/')
@@ -80,3 +78,6 @@ Encore
   .copyFiles({
     from: './assets/images'
   })
+
+
+module.exports = Encore.getWebpackConfig()
