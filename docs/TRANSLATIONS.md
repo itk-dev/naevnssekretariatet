@@ -22,7 +22,7 @@ used in Twig templates and code.
    ```twig
    {# Set the default translation domain for the Twig template #}
    {% trans_default_domain 'users' %}
-   
+
    {% trans %}Change password{% endtrans %}
    ```
 
@@ -36,8 +36,9 @@ used in Twig templates and code.
 3. Generate/update the translation files:
 
    ```sh
-   docker-compose exec -e DEFAULT_LOCALE=en phpfpm bin/console \
-   translation:update --force da
+   docker-compose exec -e DEFAULT_LOCALE=en phpfpm bin/console translation:update --force da
+   # Mark default translations as “Needs work”.
+   sed -i '' 's/\<target\>__/\<target state="needs-l10n"\>__/' translations/*.xlf
    ```
 
 4. Remember to clear the cache after the translations have been updated:

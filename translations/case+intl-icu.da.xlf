@@ -87,7 +87,7 @@
       </trans-unit>
       <trans-unit id="5ZiVth6" resname="Use letter templates to create standardized letters">
         <source>Use letter templates to create standardized letters</source>
-        <target>Brug brev skabelon til at skabe standard breve </target>
+        <target state="translated">Brug brev skabelon til at skabe standard breve</target>
       </trans-unit>
       <trans-unit id="n1OzYSt" resname="Select recipient(s)">
         <source>Select recipient(s)</source>
@@ -383,7 +383,7 @@
       </trans-unit>
       <trans-unit id="zBB31Sp" resname="In the section Deadlines you can see the currently active deadlines">
         <source>In the section Deadlines you can see the currently active deadlines</source>
-        <target>Her vises aktive tidsfrister samt hvor lang tid der resterer før tidsfristen overskrides. Tidsfristen ligger hos personen der har initiativet. </target>
+        <target state="translated">Her vises aktive tidsfrister samt hvor lang tid der resterer før tidsfristen overskrides. Tidsfristen ligger hos personen der har initiativet.</target>
       </trans-unit>
       <trans-unit id="4IO9g_n" resname="Process">
         <source>Process</source>
@@ -801,10 +801,6 @@
         <source>BBR information</source>
         <target>BBR-information</target>
       </trans-unit>
-      <trans-unit id="scIMjxO" resname="Cannot get url for BBR-Meddelelse (%message%)">
-        <source>Cannot get url for BBR-Meddelelse (%message%%)</source>
-        <target state="translated">Url til BBR-Meddelelse ikke fundet (%message%)</target>
-      </trans-unit>
       <trans-unit id="_mEYMv5" resname="No BBR data">
         <source>No BBR data</source>
         <target state="translated">Ingen BBR-information</target>
@@ -813,9 +809,37 @@
         <source>Update BBR data</source>
         <target state="translated">Opdater BBR-information</target>
       </trans-unit>
-      <trans-unit id="SdPrRoI" resname="Cannot update BBR data (%message%)">
-        <source>Cannot update BBR data (%message%)</source>
-        <target state="translated">Fejl under opdatering af BBR-information (%message%)</target>
+      <trans-unit id="vYLPFmm" resname="Number">
+        <source>Number</source>
+        <target state="translated">Nummer</target>
+      </trans-unit>
+      <trans-unit id="0mjJxEk" resname="Floor">
+        <source>Floor</source>
+        <target state="translated">Etage</target>
+      </trans-unit>
+      <trans-unit id="Yw7wC3x" resname="Side">
+        <source>Side</source>
+        <target state="translated">Side</target>
+      </trans-unit>
+      <trans-unit id="0wrwWpM" resname="Enhedens boligareal">
+        <source>Enhedens boligareal</source>
+        <target state="translated">Enhedens boligareal</target>
+      </trans-unit>
+      <trans-unit id="Ip9lO2r" resname="Antal værelser">
+        <source>Antal værelser</source>
+        <target state="translated">Antal værelser</target>
+      </trans-unit>
+      <trans-unit id="1teybSj" resname="Bygningsnr.">
+        <source>Bygningsnr.</source>
+        <target state="translated">Bygningsnr.</target>
+      </trans-unit>
+      <trans-unit id="uyKNGnD" resname="Opførelsesår">
+        <source>Opførelsesår</source>
+        <target state="translated">Opførelsesår</target>
+      </trans-unit>
+      <trans-unit id="A5AS.gf" resname="Lejligheder med køkken">
+        <source>Lejligheder med køkken</source>
+        <target state="translated">Lejligheder med køkken</target>
       </trans-unit>
     </body>
   </file>
