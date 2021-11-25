@@ -40,6 +40,11 @@ class Address implements LoggableEntityInterface
      */
     private $city;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $bbrData;
+
     public function getStreet(): string
     {
         return $this->street;
@@ -98,6 +103,18 @@ class Address implements LoggableEntityInterface
     public function setCity(string $city): void
     {
         $this->city = $city;
+    }
+
+    public function getBbrData(): ?array
+    {
+        return $this->bbrData;
+    }
+
+    public function setBbrData(?array $bbrData): self
+    {
+        $this->bbrData = $bbrData;
+
+        return $this;
     }
 
     public function __toString(): string

@@ -14,6 +14,20 @@
                 {% include 'sidebar/sidebar.html.twig' %}
             {% endblock %}
             <div class="col-md-12 col-lg-9 ml-sm-auto px-md-4">
+                {% block flash_messages %}
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ 'error' == label ? 'danger' : label }}">
+                                {# message may be an instance of TranslatableInterface #}
+                                {{ message.trans is defined ? message|trans : message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="{{ 'Close'|trans([], 'messages') }}">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endblock %}
+
                 {# <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> #}
                 <header class="pt-3">
                     {% block header %}{% endblock %}

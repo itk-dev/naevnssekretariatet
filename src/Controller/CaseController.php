@@ -8,13 +8,16 @@ use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
+use App\Service\BBRHelper;
 use App\Service\CaseHelper;
 use App\Service\CaseManager;
 use App\Service\WorkflowService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/case")
@@ -187,5 +190,47 @@ class CaseController extends AbstractController
         return $this->render('case/log.html.twig', [
             'case' => $case,
         ]);
+    }
+
+    /**
+     * @Route("/{id}/bbr-meddelelse/{addressProperty}.{_format}", name="case_bbr_meddelelse", methods={"GET"},
+     *     format="pdf",
+     *     requirements={
+     *         "_format": "pdf",
+     *     }
+     * )
+     */
+    public function bbrMeddelelse(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, string $_format): Response
+    {
+        try {
+            return $this->redirect($bbrHelper->getBBRMeddelelseUrlForCase($case, $addressProperty, $_format));
+        } catch (\Exception $exception) {
+            $this->addFlash('error', new TranslatableMessage('Cannot get url for BBR-Meddelelse'));
+        }
+
+        // Send user back to where he came from.
+        $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+        return $this->redirect($redirectUrl);
+    }
+
+    /**
+     * @Route("/{id}/bbr-data/{addressProperty}/update", name="case_bbr_data_update", methods={"POST"})
+     */
+    public function bbrData(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, EntityManagerInterface $entityManager): Response
+    {
+        try {
+            $bbrHelper->updateCaseBBRData($case, $addressProperty);
+            $entityManager->persist($case);
+            $entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('BBR data updated'));
+        } catch (\Exception $exception) {
+            $this->addFlash('error', new TranslatableMessage('Cannot update BBR data'));
+        }
+
+        // Send user back to where he came from.
+        $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+        return $this->redirect($redirectUrl);
     }
 }
