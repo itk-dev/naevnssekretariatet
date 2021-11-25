@@ -134,7 +134,11 @@ class AgendaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Agenda $agenda */
             $agenda = $form->getData();
+
+            // Modify start and end times, so they correspond to the correct date
+            $agenda = $this->agendaHelper->setCorrectDatesOnStartAndEnd($agenda);
 
             $this->entityManager->persist($agenda);
             $this->entityManager->flush();

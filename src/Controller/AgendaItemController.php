@@ -56,6 +56,9 @@ class AgendaItemController extends AbstractController
                 );
             }
 
+            // Modify start and end times, so they correspond to the correct date for agenda
+            $agendaItem = $this->agendaItemHelper->setCorrectDateOnStartAndEnd($agendaItem, $agenda);
+
             $agenda->addAgendaItem($agendaItem);
             $this->entityManager->persist($agendaItem);
             $this->entityManager->flush();
