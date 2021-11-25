@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8a827da4669e8814fe9f87ed70b42b4",
+    "content-hash": "810898b4431bf594805243f10bd129e2",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2179,16 +2179,16 @@
         },
         {
             "name": "itk-dev/datafordeler-php-client",
-            "version": "dev-feature/TVIST1-39-BBR",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/datafordeler-php-client.git",
-                "reference": "2fe34ed90b3c1eb199f60d465fdaff9947ffd94f"
+                "reference": "0ac84ac5bafb788f1cfa9bddd33a5f142c001a36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/2fe34ed90b3c1eb199f60d465fdaff9947ffd94f",
-                "reference": "2fe34ed90b3c1eb199f60d465fdaff9947ffd94f",
+                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/0ac84ac5bafb788f1cfa9bddd33a5f142c001a36",
+                "reference": "0ac84ac5bafb788f1cfa9bddd33a5f142c001a36",
                 "shasum": ""
             },
             "require": {
@@ -2233,10 +2233,10 @@
             ],
             "description": "PHP client for datafordeler.dk",
             "support": {
-                "source": "https://github.com/itk-dev/datafordeler-php-client/tree/feature/TVIST1-39-BBR",
+                "source": "https://github.com/itk-dev/datafordeler-php-client/tree/develop",
                 "issues": "https://github.com/itk-dev/datafordeler-php-client/issues"
             },
-            "time": "2021-11-24T20:48:58+00:00"
+            "time": "2021-11-25T09:37:30+00:00"
         },
         {
             "name": "itk-dev/openid-connect",
