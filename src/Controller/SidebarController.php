@@ -73,10 +73,8 @@ class SidebarController extends AbstractController
             $this->generateSubmenuItem($this->translator->trans('Status Info', [], 'sidebar'), ['case_status'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['case_communication'], $caseId, $activeRoute),
-
-            $this->generateSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['case_presentation'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['case_decision_proposal'], $caseId, $activeRoute),
-
+//            $this->generateSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['case_presentation'], $caseId, $activeRoute),
+//            $this->generateSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['case_decision_proposal'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Decision', [], 'sidebar'), ['case_decision'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['document_index', 'document_create', 'document_copy'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Notes', [], 'sidebar'), ['note_index', 'note_edit'], $caseId, $activeRoute),
@@ -106,8 +104,8 @@ class SidebarController extends AbstractController
         $submenuItems = [
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Agenda item', [], 'sidebar'), ['agenda_item_edit'], $agendaId, $agendaItemId, $activeRoute),
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['agenda_case_item_document', 'agenda_case_item_document_attach'], $agendaId, $agendaItemId, $activeRoute),
-            $this->generateAgendaItemSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['agenda_case_item_presentation'], $agendaId, $agendaItemId, $activeRoute),
-            $this->generateAgendaItemSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['agenda_case_item_decision_proposal'], $agendaId, $agendaItemId, $activeRoute),
+//            $this->generateAgendaItemSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['agenda_case_item_presentation'], $agendaId, $agendaItemId, $activeRoute),
+//            $this->generateAgendaItemSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['agenda_case_item_decision_proposal'], $agendaId, $agendaItemId, $activeRoute),
         ];
 
         if ($isInspection) {
