@@ -64,7 +64,7 @@ class CaseReminderController extends AbstractController
             $this->entityManager->persist($reminder);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('case_index');
+            return $this->redirect($request->headers->get('referer'));
         }
 
         return $this->render('reminder/_new.html.twig', [
