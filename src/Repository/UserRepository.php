@@ -26,9 +26,9 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findByRole(string $role): array
+    public function findByRole(string $role, array $orderBy): array
     {
-        $users = $this->findBy([], ['name' => 'ASC']);
+        $users = $this->findBy([], $orderBy);
 
         return array_filter($users, function (User $user) use ($role) {
             return $this->authorizationChecker->isGranted($role, $user);

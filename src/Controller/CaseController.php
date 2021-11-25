@@ -241,7 +241,7 @@ class CaseController extends AbstractController
      */
     public function assignCaseworker(CaseEntity $case, UserRepository $userRepository, Request $request): Response
     {
-        $availableCaseworkers = $userRepository->findByRole('ROLE_CASEWORKER');
+        $availableCaseworkers = $userRepository->findByRole('ROLE_CASEWORKER', ['name' => 'ASC']);
 
         $assignForm = $this->createForm(CaseAssignCaseworkerType::class, $case, ['available_caseworkers' => $availableCaseworkers]);
 
