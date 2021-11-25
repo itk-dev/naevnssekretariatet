@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Municipality;
 use App\Entity\User;
+use App\Repository\CaseEntityRepository;
 use App\Repository\MunicipalityRepository;
 use App\Repository\ReminderRepository;
 use App\Service\ReminderHelper;
@@ -17,7 +17,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="default")
      */
-    public function index(MunicipalityRepository $municipalityRepository, ReminderHelper $reminderHelper, ReminderRepository $reminderRepository, Security $security): Response
+    public function index(CaseEntityRepository $caseRepository, MunicipalityRepository $municipalityRepository, ReminderHelper $reminderHelper, ReminderRepository $reminderRepository, Security $security): Response
     {
         // Get current User
         /** @var User $user */
@@ -25,6 +25,8 @@ class DefaultController extends AbstractController
 
         $upcomingReminders = $reminderHelper->getRemindersWithinWeekByUserGroupedByDay($user);
         $exceededReminders = $reminderRepository->findExceededRemindersByUser($user);
+
+        $unassignedCases = $caseRepository->findBy(['assignedTo' => null]);
 
         // Get favorite municipality
         // null is fine as it is only used for selecting an option
@@ -38,6 +40,7 @@ class DefaultController extends AbstractController
             'favorite_municipality' => $favoriteMunicipality,
             'upcoming_reminders' => $upcomingReminders,
             'exceeded_reminders' => $exceededReminders,
+            'unassigned_cases' => $unassignedCases,
         ]);
     }
 
