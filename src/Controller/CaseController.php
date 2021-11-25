@@ -250,7 +250,9 @@ class CaseController extends AbstractController
         if ($assignForm->isSubmitted() && $assignForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($request->headers->get('referer'));
+            $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_index');
+
+            return $this->redirect($redirectUrl);
         }
 
         return $this->render('case/_assign_caseworker.html.twig', [
