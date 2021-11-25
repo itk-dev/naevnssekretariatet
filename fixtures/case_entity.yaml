@@ -437,7 +437,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-4:
     leaseSize: 61
@@ -452,7 +452,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-5:
     leaseSize: 78
@@ -467,7 +467,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-6:
     leaseSize: 87
@@ -482,7 +482,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-7:
     leaseSize: 84
@@ -497,7 +497,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-8:
     leaseSize: 84
@@ -512,7 +512,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-9:
     leaseSize: 121
@@ -527,7 +527,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-10:
     leaseSize: 101
@@ -542,7 +542,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-11:
     leaseSize: 83
@@ -557,7 +557,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-12:
     leaseSize: 45
@@ -572,7 +572,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-13:
     leaseSize: 76
@@ -587,7 +587,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-14:
     leaseSize: 67
@@ -602,7 +602,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-15:
     leaseSize: 56
@@ -617,7 +617,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-16:
     leaseSize: 76
@@ -632,7 +632,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-17:
     leaseSize: 44
@@ -647,7 +647,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-18:
     leaseSize: 62
@@ -662,7 +662,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-19:
     leaseSize: 98
@@ -677,7 +677,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-20:
     leaseSize: 44
@@ -692,7 +692,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-21:
     leaseSize: 55
@@ -707,7 +707,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-22:
     leaseSize: 66
@@ -722,7 +722,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-23:
     leaseSize: 81
@@ -737,7 +737,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-24:
     leaseSize: 34
@@ -752,7 +752,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-randers-1:
     leaseSize: 51
@@ -767,7 +767,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-randers-2:
     leaseSize: 73
@@ -782,7 +782,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-randers-3:
     leaseSize: 77
@@ -797,7 +797,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-randers-4:
     leaseSize: 61
@@ -812,7 +812,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-randers-5:
     leaseSize: 78
@@ -827,7 +827,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-randers-6:
     leaseSize: 87
@@ -842,7 +842,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-randers-7:
     leaseSize: 84
@@ -857,7 +857,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-randers-8:
     leaseSize: 84
@@ -872,7 +872,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
 
   test-case-randers-9:
     leaseSize: 121
@@ -887,4 +887,4 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
-    assignedTo: '@user-case-worker'
+    assignedTo: '@user-caseworker'
