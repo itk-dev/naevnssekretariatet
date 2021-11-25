@@ -303,7 +303,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createPhoneNoteModalLabel">{% trans %}Create new phone note{% endtrans %}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'Close'|trans([], 'messages') }}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -324,7 +324,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans from 'messages' %}Close{% endtrans %}</button>
                     <button type="button" class="btn btn-success">{% trans %}Save changes{% endtrans %}</button>
                 </div>
             </div>

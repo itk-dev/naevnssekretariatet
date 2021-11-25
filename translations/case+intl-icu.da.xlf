@@ -441,10 +441,6 @@
         <source>Save changes</source>
         <target>Gem ændringer</target>
       </trans-unit>
-      <trans-unit id="fZ63rLE" resname="Close">
-        <source>Close</source>
-        <target>Anuller</target>
-      </trans-unit>
       <trans-unit id="pqgEMbA" resname="Reschedule">
         <source>Reschedule</source>
         <target>Ændre tidsfrist</target>
