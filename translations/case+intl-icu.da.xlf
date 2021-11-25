@@ -837,6 +837,22 @@
         <source>Lejligheder med køkken</source>
         <target state="translated">Lejligheder med køkken</target>
       </trans-unit>
+      <trans-unit id="3JN7WYk" resname="None">
+        <source>None</source>
+        <target>Ingen</target>
+      </trans-unit>
+      <trans-unit id="qDPO.Vd" resname="Assign caseworker">
+        <source>Assign caseworker</source>
+        <target>Tildel sagsbehandler</target>
+      </trans-unit>
+      <trans-unit id="FNM70BT" resname="Unassigned">
+        <source>Unassigned</source>
+        <target>Ikke tildelt</target>
+      </trans-unit>
+      <trans-unit id="KJ4vdJW" resname="Assign to">
+        <source>Assign to</source>
+        <target>Tildel til</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
