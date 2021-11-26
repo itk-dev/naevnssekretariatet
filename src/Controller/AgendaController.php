@@ -286,7 +286,7 @@ class AgendaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             /** @var AgendaProtocol $casePresentation */
             $agendaProtocol = $form->getData();
-            
+
             // Should this be done when agenda is published?
             $agenda->setProtocol($agendaProtocol);
 
