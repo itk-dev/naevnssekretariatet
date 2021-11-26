@@ -56,16 +56,19 @@ class AgendaEditType extends AbstractType
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
                 'input_format' => 'dd-MM-yyyy',
+                'required' => false,
             ])
             ->add('start', TimeType::class, [
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
+                'required' => false,
             ])
             ->add('end', TimeType::class, [
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'input_format' => 'H:i',
+                'required' => false,
             ])
         ;
     }
