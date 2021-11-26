@@ -39,16 +39,4 @@ class AgendaItemHelper
 
         return $templatePath;
     }
-
-    public function setCorrectDateOnStartAndEnd($agendaItem, $agenda)
-    {
-        $year = $agenda->getDate()->format('Y');
-        $month = $agenda->getDate()->format('m');
-        $day = $agenda->getDate()->format('d');
-
-        $agendaItem->getStartTime()->setDate($year, $month, $day);
-        $agendaItem->getEndTime()->setDate($year, $month, $day);
-
-        return $agendaItem;
-    }
 }
