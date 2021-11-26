@@ -76,7 +76,7 @@ class CaseReminderController extends AbstractController
     }
 
     /**
-     * @Route("/{reminder_id}/complete", name="reminder_complete", methods={"POST"})
+     * @Route("/{reminder_id}/complete", name="reminder_complete", methods={"GET"})
      * @Entity("reminder", expr="repository.find(reminder_id)")
      * @Entity("case", expr="repository.find(id)")
      */
