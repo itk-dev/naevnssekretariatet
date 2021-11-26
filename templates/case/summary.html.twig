@@ -4,6 +4,7 @@
 
 {% set createdate = case.createdAt|date('d/m/Y') %}
 {% set updatedate = case.updatedAt|date('d/m/Y') %}
+{% set assigned_caseworker = case.assignedTo.name ?? 'Unassigned'|trans({}, 'case') %}
 
 {% set caseinfo = [
     {
@@ -20,7 +21,7 @@
     },
     {
         "label": "Assigned to",
-        "value": "Bruger Brugersen"
+        "value": assigned_caseworker
     },
     {
         "label": "Board",

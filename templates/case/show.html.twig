@@ -32,3 +32,8 @@
         </div>
     </footer>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('case_show') }}
+{% endblock %}

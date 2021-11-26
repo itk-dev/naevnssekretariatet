@@ -33,6 +33,7 @@
         "friendsofsymfony/ckeditor-bundle": "^2.3",
         "friendsoftwig/twigcs": "^5.0",
         "gedmo/doctrine-extensions": "^3.0",
+        "itk-dev/datafordeler-php-client": "dev-develop",
         "itk-dev/openid-connect-bundle": "^1.0",
         "knplabs/knp-paginator-bundle": "^5.6",
         "league/oauth2-client": "^2.6",
@@ -147,6 +148,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/theofidry/AliceBundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/itk-dev/datafordeler-php-client"
         }
     ]
 }

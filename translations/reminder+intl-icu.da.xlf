@@ -61,10 +61,6 @@
         <source>Create reminder</source>
         <target>Opret påmindelse</target>
       </trans-unit>
-      <trans-unit id="fZ63rLE" resname="Close">
-        <source>Close</source>
-        <target>Annuller</target>
-      </trans-unit>
       <trans-unit id="uCDKt07" resname="active reminders">
         <source>active reminders</source>
         <target>aktive påmindelser</target>
@@ -76,10 +72,6 @@
       <trans-unit id="NWWysNz" resname="No active reminders">
         <source>No active reminders</source>
         <target>Ingen aktive påmindelser</target>
-      </trans-unit>
-      <trans-unit id="7r3SSnf" resname="Confirm">
-        <source>Confirm</source>
-        <target>Bekræft</target>
       </trans-unit>
       <trans-unit id="HxNTsFX" resname="Edit reminder">
         <source>Edit reminder</source>

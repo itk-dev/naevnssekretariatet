@@ -167,6 +167,9 @@
             "fixtures/.gitignore"
         ]
     },
+    "itk-dev/datafordeler-php-client": {
+        "version": "dev-feature/tvist1-39-bbr"
+    },
     "itk-dev/openid-connect": {
         "version": "2.2.0"
     },

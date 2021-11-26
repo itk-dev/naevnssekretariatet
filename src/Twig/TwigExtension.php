@@ -3,6 +3,7 @@
 namespace App\Twig;
 
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class TwigExtension extends AbstractExtension
@@ -12,6 +13,13 @@ class TwigExtension extends AbstractExtension
         return [
             new TwigFunction('camelCaseToUnderscore', [$this, 'camelCaseToUnderscore']),
             new TwigFunction('class', [$this, 'getClass']),
+        ];
+    }
+
+    public function getFilters()
+    {
+        return [
+          new TwigFilter('with_unit', [$this, 'withUnit']),
         ];
     }
 
@@ -25,5 +33,11 @@ class TwigExtension extends AbstractExtension
     public function getClass($object): string
     {
         return (new \ReflectionClass($object))->getShortName();
+    }
+
+    public function withUnit(string $formattedNumber, string $unit): string
+    {
+        // Separate formatted number and unit with a narrow non-breaking space.
+        return $formattedNumber."\u{202F}".$unit;
     }
 }

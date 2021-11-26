@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d70145de9e090611bb6d2169c7912b68",
+    "content-hash": "e3ba2071486721dbf221a325f4abb580",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2262,6 +2262,67 @@
                 "source": "https://github.com/guzzle/psr7/tree/2.0.0"
             },
             "time": "2021-06-30T20:03:07+00:00"
+        },
+        {
+            "name": "itk-dev/datafordeler-php-client",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itk-dev/datafordeler-php-client.git",
+                "reference": "0ac84ac5bafb788f1cfa9bddd33a5f142c001a36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/0ac84ac5bafb788f1cfa9bddd33a5f142c001a36",
+                "reference": "0ac84ac5bafb788f1cfa9bddd33a5f142c001a36",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.3",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+                "escapestudios/symfony2-coding-standard": "^3.12"
+            },
+            "bin": [
+                "bin/datafordeler"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ItkDev\\Datafordeler\\": "src/"
+                }
+            },
+            "scripts": {
+                "check-coding-standards": [
+                    "vendor/bin/phpcs --standard=phpcs.xml.dist"
+                ],
+                "apply-coding-standards": [
+                    "vendor/bin/phpcbf --standard=phpcs.xml.dist"
+                ],
+                "install-codestandards": [
+                    "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
+                ],
+                "post-install-cmd": [
+                    "@install-codestandards"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikkel Ricky",
+                    "email": "rimi@aarhus.dk"
+                }
+            ],
+            "description": "PHP client for datafordeler.dk",
+            "support": {
+                "source": "https://github.com/itk-dev/datafordeler-php-client/tree/develop",
+                "issues": "https://github.com/itk-dev/datafordeler-php-client/issues"
+            },
+            "time": "2021-11-25T09:37:30+00:00"
         },
         {
             "name": "itk-dev/openid-connect",
@@ -10868,7 +10929,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "itk-dev/datafordeler-php-client": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

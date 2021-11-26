@@ -22,6 +22,7 @@ Encore
          */
   .addEntry('app', './assets/app.js')
   .addEntry('case_new', './assets/case/new.js')
+  .addEntry('case_show', './assets/case/show.js')
   .addEntry('agenda_item_new', './assets/agenda_item/new.js')
   .addEntry('agenda_filter', './assets/agenda/processFilter.js')
 

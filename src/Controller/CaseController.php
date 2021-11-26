@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
+use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CaseEntityType;
@@ -15,14 +16,18 @@ use App\Repository\AgendaCaseItemRepository;
 use App\Repository\AgendaRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
+use App\Repository\UserRepository;
 use App\Service\AgendaHelper;
+use App\Service\BBRHelper;
 use App\Service\CaseHelper;
 use App\Service\CaseManager;
 use App\Service\WorkflowService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/case")
@@ -277,6 +282,73 @@ class CaseController extends AbstractController
         return $this->render('case/decision_proposal.html.twig', [
             'case' => $case,
             'decision_proposal_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/bbr-meddelelse/{addressProperty}.{_format}", name="case_bbr_meddelelse", methods={"GET"},
+     *     format="pdf",
+     *     requirements={
+     *         "_format": "pdf",
+     *     }
+     * )
+     */
+    public function bbrMeddelelse(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, string $_format): Response
+    {
+        try {
+            return $this->redirect($bbrHelper->getBBRMeddelelseUrlForCase($case, $addressProperty, $_format));
+        } catch (\Exception $exception) {
+            $this->addFlash('error', new TranslatableMessage('Cannot get url for BBR-Meddelelse'));
+        }
+
+        // Send user back to where he came from.
+        $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+        return $this->redirect($redirectUrl);
+    }
+
+    /**
+     * @Route("/{id}/bbr-data/{addressProperty}/update", name="case_bbr_data_update", methods={"POST"})
+     */
+    public function bbrData(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, EntityManagerInterface $entityManager): Response
+    {
+        try {
+            $bbrHelper->updateCaseBBRData($case, $addressProperty);
+            $entityManager->persist($case);
+            $entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('BBR data updated'));
+        } catch (\Exception $exception) {
+            $this->addFlash('error', new TranslatableMessage('Cannot update BBR data'));
+        }
+
+        // Send user back to where he came from.
+        $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+        return $this->redirect($redirectUrl);
+    }
+
+    /**
+     * @Route("/{id}/assign-caseworker", name="case_assign_caseworker", methods={"POST"})
+     */
+    public function assignCaseworker(CaseEntity $case, UserRepository $userRepository, Request $request): Response
+    {
+        $availableCaseworkers = $userRepository->findByRole('ROLE_CASEWORKER', ['name' => 'ASC']);
+
+        $assignForm = $this->createForm(CaseAssignCaseworkerType::class, $case, ['available_caseworkers' => $availableCaseworkers]);
+
+        $assignForm->handleRequest($request);
+
+        if ($assignForm->isSubmitted() && $assignForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_index');
+
+            return $this->redirect($redirectUrl);
+        }
+
+        return $this->render('case/_assign_caseworker.html.twig', [
+            'assign_form' => $assignForm->createView(),
+            'case' => $case,
         ]);
     }
 }
