@@ -47,24 +47,6 @@ class AgendaCaseItemNewType extends AbstractType
         $casesWithBoardAndWithoutActiveAgenda = $this->caseRepository->findReadyCasesWithoutActiveAgendaByBoard($board);
 
         $builder
-            ->add('title', TextType::class, [
-                'label' => $this->translator->trans('Title', [], 'agenda'),
-            ])
-            ->add('startTime', TimeType::class, [
-                'label' => $this->translator->trans('Start time', [], 'agenda'),
-                'input' => 'datetime',
-                'widget' => 'single_text',
-                'input_format' => 'H:i',
-            ])
-            ->add('endTime', TimeType::class, [
-                'label' => $this->translator->trans('End time', [], 'agenda'),
-                'input' => 'datetime',
-                'widget' => 'single_text',
-                'input_format' => 'H:i',
-            ])
-            ->add('meetingPoint', TextType::class, [
-                'label' => $this->translator->trans('Meeting point', [], 'agenda'),
-            ])
             ->add('caseEntity', EntityType::class, [
                 'class' => CaseEntity::class,
                 'choices' => $casesWithBoardAndWithoutActiveAgenda,
@@ -84,6 +66,24 @@ class AgendaCaseItemNewType extends AbstractType
                 },
                 'label' => $this->translator->trans('Case', [], 'agenda'),
                 'placeholder' => $this->translator->trans('Choose a case', [], 'agenda'),
+            ])
+            ->add('title', TextType::class, [
+                'label' => $this->translator->trans('Title', [], 'agenda'),
+            ])
+            ->add('startTime', TimeType::class, [
+                'label' => $this->translator->trans('Start time', [], 'agenda'),
+                'input' => 'datetime',
+                'widget' => 'single_text',
+                'input_format' => 'H:i',
+            ])
+            ->add('endTime', TimeType::class, [
+                'label' => $this->translator->trans('End time', [], 'agenda'),
+                'input' => 'datetime',
+                'widget' => 'single_text',
+                'input_format' => 'H:i',
+            ])
+            ->add('meetingPoint', TextType::class, [
+                'label' => $this->translator->trans('Meeting point', [], 'agenda'),
             ])
         ;
     }
