@@ -2,14 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
+use App\Entity\CasePresentation;
+use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
+use App\Form\CaseDecisionProposalType;
 use App\Form\CaseEntityType;
+use App\Form\CasePresentationType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
+use App\Repository\AgendaCaseItemRepository;
+use App\Repository\AgendaRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
+use App\Service\AgendaHelper;
 use App\Service\BBRHelper;
 use App\Service\CaseHelper;
 use App\Service\CaseManager;
@@ -121,8 +129,10 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/status", name="case_status", methods={"GET", "POST"})
      */
-    public function status(CaseEntity $case, WorkflowService $workflowService, Request $request): Response
+    public function status(CaseEntity $case, AgendaCaseItemRepository $agendaCaseItemRepository, AgendaHelper $agendaHelper, AgendaRepository $agendaRepository, CaseHelper $caseHelper, WorkflowService $workflowService, Request $request): Response
     {
+        $em = $this->getDoctrine()->getManager();
+
         $workflow = $workflowService->getWorkflowForCase($case);
 
         $caseStatus = new CaseStatusFormModel();
@@ -138,7 +148,6 @@ class CaseController extends AbstractController
         $caseStatusForm->handleRequest($request);
         if ($caseStatusForm->isSubmitted() && $caseStatusForm->isValid()) {
             $workflow->apply($case, $caseStatus->getStatus());
-            $em = $this->getDoctrine()->getManager();
             $em->persist($case);
             $em->flush();
 
@@ -148,9 +157,27 @@ class CaseController extends AbstractController
             ]);
         }
 
+        $caseAgendaStatusForm = $this->createForm(CaseAgendaStatusType::class, $case);
+
+        $caseAgendaStatusForm->handleRequest($request);
+        if ($caseAgendaStatusForm->isSubmitted() && $caseAgendaStatusForm->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('case_status', [
+                'id' => $case->getId(),
+                'case' => $case,
+            ]);
+        }
+
+        $activeAgendaCaseItems = $agendaCaseItemRepository->findActiveAgendaCaseItemIdsByCase($case);
+        $finishedAgendaCaseItems = $agendaCaseItemRepository->findFinishedAgendaCaseItemIdsByCase($case);
+
         return $this->render('case/status.html.twig', [
             'case' => $case,
             'case_status_form' => $caseStatusForm->createView(),
+            'case_agenda_status_form' => $caseAgendaStatusForm->createView(),
+            'active_agendas' => $activeAgendaCaseItems,
+            'finished_agendas' => $finishedAgendaCaseItems,
         ]);
     }
 
@@ -191,6 +218,70 @@ class CaseController extends AbstractController
     {
         return $this->render('case/log.html.twig', [
             'case' => $case,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/presentation", name="case_presentation", methods={"GET", "POST"})
+     */
+    public function presentation(CaseEntity $case, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $casePresentation = $case->getPresentation() ?? new CasePresentation();
+
+        $form = $this->createForm(CasePresentationType::class, $casePresentation);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var CasePresentation $casePresentation */
+            $casePresentation = $form->getData();
+
+            $case->setPresentation($casePresentation);
+
+            $em->persist($casePresentation);
+            $em->flush();
+
+            return $this->redirectToRoute('case_presentation', [
+                'id' => $case->getId(),
+            ]);
+        }
+
+        return $this->render('case/presentation.html.twig', [
+            'case' => $case,
+            'case_presentation_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/decision-proposal", name="case_decision_proposal", methods={"GET", "POST"})
+     */
+    public function decisionProposal(CaseEntity $case, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $caseDecisionProposal = $case->getDecisionProposal() ?? new CaseDecisionProposal();
+
+        $form = $this->createForm(CaseDecisionProposalType::class, $caseDecisionProposal);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var CaseDecisionProposal $caseDecisionProposal */
+            $caseDecisionProposal = $form->getData();
+
+            $case->setDecisionProposal($caseDecisionProposal);
+
+            $em->persist($caseDecisionProposal);
+            $em->flush();
+
+            return $this->redirectToRoute('case_decision_proposal', [
+                'id' => $case->getId(),
+            ]);
+        }
+
+        return $this->render('case/decision_proposal.html.twig', [
+            'case' => $case,
+            'decision_proposal_form' => $form->createView(),
         ]);
     }
 

@@ -1,0 +1,107 @@
+{# TODO: Should be revisited #}
+
+{% extends 'layout-with-agenda-item-submenu.html.twig' %}
+
+{% trans_default_domain 'agenda' %}
+
+{% block title %}{% trans %}Inspection{% endtrans %}{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar/agenda-case-item-sidebar.html.twig' %}
+{% endblock %}
+
+{% block header %}
+    <div class="row mt-1 mb-3">
+        <div class="col">
+            <h1>{% trans %}Inspection case{% endtrans %} {{ agenda_item.caseEntity.caseNumber }}</h1>
+            <p class="text-muted"><small>{% trans %}Send message to parties regarding inspection{% endtrans %}</small></p>
+        </div>
+        <div class="col-auto">
+            <a name="" id="" class="btn btn-success {% if agenda.isFinished() %} disabled {% endif %}" href="{{ url('agenda_case_item_inspection_letter', {id: agenda.id, agenda_item_id: agenda_item.id}) }}" role="button">{% trans %}Create inspection letter{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    {% set landlords = [
+        {
+            "role": "Primær part",
+        },
+        {
+            "role": "Fuldmagtshaver",
+        },
+    ] %}
+
+    {% set tenants = [
+        {
+            "role": "Primær part",
+        },
+        {
+            "role": "Fuldmagtshaver",
+        },
+        {
+            "role": "Sekundær part",
+        },
+    ] %}
+
+
+    <main role="main" class="col-12">
+        <div class="table-responsive-sm">
+            <table id="landlordtable" class="table table-striped table-hover border">
+                <thead>
+                <tr>
+                    <th scope="col">{% trans %}Landlord{% endtrans %}</th>
+                    <th scope="col">{% trans %}Letter sent{% endtrans %}</th>
+                    <th scope="col">{% trans %}Recipients{% endtrans %}</th>
+                    <th scope="col">{% trans %}Choices{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for landlord in landlords %}
+                    <tr>
+                        <td>{{ landlord.role|e }}</td>
+                        <td>Some date</td>
+                        <td>Som recipients</td>
+                        <td>
+                            <a href="#" role="button" class="btn btn-dark" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show letter{% endtrans %}">{% trans %}Show letter{% endtrans %}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive-sm">
+            <table id="tentanttable" class="table table-striped table-hover border">
+                <thead>
+                <tr>
+                    <th scope="col">{% trans %}Tenant{% endtrans %}</th>
+                    <th scope="col">{% trans %}Letter sent{% endtrans %}</th>
+                    <th scope="col">{% trans %}Recipients{% endtrans %}</th>
+                    <th scope="col">{% trans %}Choices{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tenant in tenants %}
+                    <tr>
+                        <td>{{ tenant.role|e }}</td>
+                        <td>Some date</td>
+                        <td>Som recipients</td>
+                        <td>
+                            <a href="#" role="button" class="btn btn-dark" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show letter{% endtrans %}">{% trans %}Show letter{% endtrans %}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer class="col-12 mt-3">
+        <div class="row">
+            <div class="col-auto ml-auto">
+                <a name="" id="" class="btn btn-success {% if agenda.isFinished() %} disabled {% endif %}" href="{{ url('agenda_case_item_inspection_letter', {id: agenda.id, agenda_item_id: agenda_item.id}) }}" role="button">{% trans %}Create inspection letter{% endtrans %}</a>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

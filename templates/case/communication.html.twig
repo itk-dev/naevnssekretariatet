@@ -1,10 +1,8 @@
-{% extends 'layout-with-submenu.html.twig' %}
+{% extends 'layout-with-case-submenu.html.twig' %}
 
 {% trans_default_domain 'case' %}
 
 {% block title %}{% trans %}Communication{% endtrans %}{% endblock %}
-
-{% set decisionlink = "/case/" ~ case.id ~ "/documents" %}
 
 {% block header %}
     <div class="row">
@@ -12,7 +10,7 @@
             <h1>{% trans %}Communication{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a name="" id="" class="btn btn-primary" href={{ decisionlink }} role="button">{% trans %}Create decision{% endtrans %}</a>
+            <a name="" id="" class="btn btn-primary" href={{ url('case_decision', {id: case.id}) }} role="button">{% trans %}Create decision{% endtrans %}</a>
             <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
         </div>
     </div>

@@ -351,7 +351,7 @@
       </trans-unit>
       <trans-unit id="P4Mfiij" resname="Processinformation">
         <source>Processinformation</source>
-        <target>Processinformation</target>
+        <target>Procesinformation</target>
       </trans-unit>
       <trans-unit id="FMLkHtb" resname="In the section Processinformation you can see the current status">
         <source>In the section Processinformation you can see the current status</source>
@@ -411,7 +411,7 @@
       </trans-unit>
       <trans-unit id="Uz3lvy0" resname="This information is needed for journaling purpose">
         <source>This information is needed for journaling purpose</source>
-        <target>Denne information skal bruges i forbindelse med logging</target>
+        <target>Denne information skal bruges i forbindelse med jorunalisering</target>
       </trans-unit>
       <trans-unit id="dKps013" resname="Selected agenda">
         <source>Selected agenda</source>
@@ -564,6 +564,58 @@
       <trans-unit id="rfb6h3u" resname="Change status">
         <source>Change status</source>
         <target>Skift status</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Rediger</target>
+      </trans-unit>
+      <trans-unit id="87gIr9x" resname="Show agenda">
+        <source>Show agenda</source>
+        <target>Vis dagsorden</target>
+      </trans-unit>
+      <trans-unit id="fO9Nehv" resname="Add case to agenda">
+        <source>Add case to agenda</source>
+        <target>Tilføj til dagsorden</target>
+      </trans-unit>
+      <trans-unit id="r6Y2tp2" resname="No current active agenda available">
+        <source>No current active agenda available</source>
+        <target>Ingen aktive dagsordener til stede</target>
+      </trans-unit>
+      <trans-unit id="3TV2EFD" resname="Active agenda">
+        <source>Active agenda</source>
+        <target>Aktiv dagsorden</target>
+      </trans-unit>
+      <trans-unit id="if6qtSh" resname="Case is not assigned any non-finished agenda">
+        <source>Case is not assigned any non-finished agenda</source>
+        <target>Sagen er ikke tilknyttet nogen aktiv dagsorden</target>
+      </trans-unit>
+      <trans-unit id="PXLSwjw" resname="Finished agendas">
+        <source>Finished agendas</source>
+        <target>Afsluttede dagsordener</target>
+      </trans-unit>
+      <trans-unit id="bUeEpQr" resname="Is ready for agenda">
+        <source>Is ready for agenda</source>
+        <target>Klar til dagsorden</target>
+      </trans-unit>
+      <trans-unit id="HwnSsUt" resname="Should be inspected">
+        <source>Should be inspected</source>
+        <target>Skal besigtiges</target>
+      </trans-unit>
+      <trans-unit id="KUyOOJ4" resname="Agenda status">
+        <source>Agenda status</source>
+        <target>Dagsordens status</target>
+      </trans-unit>
+      <trans-unit id="hAA_WCr" resname="Decision proposal">
+        <source>Decision proposal</source>
+        <target>Afgørelses foreslag</target>
+      </trans-unit>
+      <trans-unit id="0MdgX5D" resname="Update proposal">
+        <source>Update proposal</source>
+        <target>Opdater foreslag</target>
+      </trans-unit>
+      <trans-unit id="QISCbyx" resname="Case presentation">
+        <source>Case presentation</source>
+        <target>Sagsfremstilling</target>
       </trans-unit>
       <trans-unit id="af_SUi6" resname="Choose a board">
         <source>Choose a board</source>

@@ -13,9 +13,20 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartyCrudController extends AbstractCrudController
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public static function getEntityFqcn(): string
     {
         return Party::class;
@@ -38,8 +49,18 @@ class PartyCrudController extends AbstractCrudController
         yield TextField::new('cpr', 'CPR');
         yield TextField::new('address', 'Address');
         yield TextField::new('phoneNumber', 'Phone number');
-        yield TextField::new('journalNumber', 'Journal number');
-        yield BooleanField::new('isPartOfPartIndex', 'Add to part index');
+        yield TextField::new('journalNumber', 'Journal number')
+            ->formatValue(function ($value) {
+                if (null === $value) {
+                    return $this->translator->trans('Empty', [], 'admin');
+                }
+
+                return $value;
+            })
+        ;
+        yield BooleanField::new('isPartOfPartIndex', 'Add to part index')
+            ->hideOnIndex()
+        ;
     }
 
     /**

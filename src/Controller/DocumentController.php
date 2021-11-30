@@ -6,9 +6,10 @@ use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
 use App\Entity\User;
+use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use App\Form\CopyDocumentForm;
-use App\Form\DocumentForm;
+use App\Form\DocumentType;
 use App\Repository\CaseDocumentRelationRepository;
 use App\Service\DocumentCopyHelper;
 use App\Service\DocumentUploader;
@@ -32,11 +33,16 @@ class DocumentController extends AbstractController
      * @var DocumentCopyHelper
      */
     private $copyHelper;
+    /**
+     * @var DocumentUploader
+     */
+    private $documentUploader;
 
-    public function __construct(EntityManagerInterface $entityManager, DocumentCopyHelper $copyHelper)
+    public function __construct(EntityManagerInterface $entityManager, DocumentCopyHelper $copyHelper, DocumentUploader $documentUploader)
     {
         $this->entityManager = $entityManager;
         $this->copyHelper = $copyHelper;
+        $this->documentUploader = $documentUploader;
     }
 
     /**
@@ -56,12 +62,15 @@ class DocumentController extends AbstractController
      * @Route("/create", name="document_create", methods={"GET", "POST"})
      *
      * @throws FileMovingException
+     * @throws DocumentDirectoryException
      */
-    public function create(CaseEntity $case, Request $request, DocumentUploader $uploader): Response
+    public function create(CaseEntity $case, Request $request): Response
     {
+        $this->documentUploader->specifyDirectory('/case_documents/');
+
         // Create new document and its form
         $document = new Document();
-        $form = $this->createForm(DocumentForm::class, $document);
+        $form = $this->createForm(DocumentType::class, $document);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -69,7 +78,7 @@ class DocumentController extends AbstractController
             // Users will only see document name, not filename
             $file = $form->get('filename')->getData();
 
-            $newFilename = $uploader->upload($file);
+            $newFilename = $this->documentUploader->upload($file);
 
             // Set filename, document name, creator and case
             $document->setFilename($newFilename);
@@ -149,9 +158,12 @@ class DocumentController extends AbstractController
      * @Route("/download/{document_id}", name="document_download", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
+     *
+     * @throws DocumentDirectoryException
      */
     public function download(Document $document, DocumentUploader $uploader): Response
     {
+        $uploader->specifyDirectory('/case_documents/');
         $response = $uploader->handleDownload($document);
 
         return $response;
