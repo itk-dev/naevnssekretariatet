@@ -126,4 +126,73 @@ class PartyHelper
 
         $this->entityManager->flush();
     }
+
+    public function getAllPartyTypes(CaseEntity $case): array
+    {
+        $complainantPartyTypes = $this->getComplainantPartyTypesByCase($case);
+        $counterPartyTypes = $this->getCounterPartyTypesByCase($case);
+
+        return array_merge($complainantPartyTypes, $counterPartyTypes);
+    }
+
+    public function getComplainantPartyTypesByCase(CaseEntity $case): array
+    {
+        $rawTypes = explode(
+            PHP_EOL,
+            $case->getBoard()->getComplainantPartyTypes()
+        );
+
+        return $this->getTrimmedTypes($rawTypes);
+    }
+
+    public function getCounterPartyTypesByCase(CaseEntity $case): array
+    {
+        $rawTypes = explode(
+            PHP_EOL,
+            $case->getBoard()->getCounterPartyTypes()
+        );
+
+        return $this->getTrimmedTypes($rawTypes);
+    }
+
+    public function getTrimmedTypes(array $rawTypes): array
+    {
+        $trimmedTypes = [];
+        foreach ($rawTypes as $rawType) {
+            $trimmedRawType = trim($rawType);
+            $trimmedTypes[$trimmedRawType] = $trimmedRawType;
+        }
+
+        return $trimmedTypes;
+    }
+
+    /**
+     * Returns array containing relevant party arrays.
+     *
+     * @return array[]
+     */
+    public function getRelevantPartiesByCase(CaseEntity $case): array
+    {
+        $complainantRelations = $this->relationRepository
+            ->findBy([
+                'case' => $case,
+                'type' => $this->getComplainantPartyTypesByCase($case),
+                'softDeleted' => false,
+            ])
+        ;
+
+        $complainants = array_map(function ($relation) { return $relation->getParty(); }, $complainantRelations);
+
+        $counterPartyRelations = $this->relationRepository
+            ->findBy([
+                'case' => $case,
+                'type' => $this->getCounterPartyTypesByCase($case),
+                'softDeleted' => false,
+            ])
+        ;
+
+        $counterparties = array_map(function ($relation) { return $relation->getParty(); }, $counterPartyRelations);
+
+        return ['complainants' => $complainants, 'counterparties' => $counterparties];
+    }
 }

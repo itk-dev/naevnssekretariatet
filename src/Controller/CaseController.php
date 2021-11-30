@@ -9,8 +9,8 @@ use App\Form\Model\CaseStatusFormModel;
 use App\Form\ResidentComplaintBoardCaseType;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
-use App\Service\CaseHelper;
 use App\Service\CaseManager;
+use App\Service\PartyHelper;
 use App\Service\WorkflowService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,14 +76,14 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}", name="case_show", methods={"GET"})
      */
-    public function show(CaseEntity $case, CaseHelper $casePartyHelper): Response
+    public function show(CaseEntity $case, PartyHelper $partyHelper): Response
     {
-        $data = $casePartyHelper->getRelevantTemplateAndPartiesByCase($case);
+        $parties = $partyHelper->getRelevantPartiesByCase($case);
 
-        return $this->render((string) $data['template'], [
+        return $this->render('case/show.html.twig', [
             'case' => $case,
-            'complainants' => $data['complainants'],
-            'counterparties' => $data['counterparties'],
+            'complainants' => $parties['complainants'],
+            'counterparties' => $parties['counterparties'],
         ]);
     }
 
