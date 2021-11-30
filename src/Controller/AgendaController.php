@@ -25,7 +25,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -189,8 +188,6 @@ class AgendaController extends AbstractController
 
         $form = $this->createForm(AgendaEditType::class, $agenda, $agendaOptions);
 
-        $this->edit($agenda, $form, $request);
-
         return $this->render('agenda/show.html.twig', [
             'agenda_form' => $form->createView(),
             'agenda' => $agenda,
@@ -199,8 +196,15 @@ class AgendaController extends AbstractController
         ]);
     }
 
-    public function edit(Agenda $agenda, FormInterface $form, Request $request): ?Response
+    /**
+     * @Route("/{id}/edit", name="agenda_edit", methods={"POST"})
+     */
+    public function edit(Agenda $agenda, Request $request): ?Response
     {
+        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
+
+        $form = $this->createForm(AgendaEditType::class, $agenda, $agendaOptions);
+
         $isFinishedAgenda = $agenda->isFinished();
 
         $form->handleRequest($request);
@@ -214,7 +218,10 @@ class AgendaController extends AbstractController
             ]);
         }
 
-        return null;
+        return $this->redirectToRoute('agenda_show', [
+            'id' => $agenda->getId(),
+            'agenda' => $agenda,
+        ]);
     }
 
     /**

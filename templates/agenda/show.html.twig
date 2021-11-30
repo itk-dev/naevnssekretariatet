@@ -30,7 +30,7 @@
 
 {% block content %}
     <main role="main" class="col-12 mt-3">
-    {{ form_start(agenda_form) }}
+    {{ form_start(agenda_form, {'action': path('agenda_edit', {'id': agenda.id})}) }}
     <div class="form-row">
         <div class="col-md-4">
             <div class="form-group">
