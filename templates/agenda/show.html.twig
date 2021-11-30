@@ -15,14 +15,14 @@
             {% elseif agenda.agendaItems|length > 0 %}
                 <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete agenda containing agenda items{% endtrans %}">{% trans %}Delete agenda{% endtrans %}</button>
             {% else %}
-                <form id="myform" class="btn" method="post" action="{{ path('agenda_delete', {'id': agenda.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this agenda?{% endtrans %}');">
+                <form class="btn" method="post" action="{{ path('agenda_delete', {'id': agenda.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this agenda?{% endtrans %}');">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ agenda.id) }}">
                     <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete agenda{% endtrans %}">{% trans %}Delete agenda{% endtrans %}</button>
                 </form>
             {% endif %}
             {% if agenda.isReady() %}
-                <a name="" id="" class="btn btn-success {% if agenda.isPublished == true %} disabled {% endif %}" href="{{ url('agenda_publish', {id: agenda.id}) }}" role="button">{% trans %}Publish to boardmembers{% endtrans %}</a>
+                <a class="btn btn-success {% if agenda.isPublished == true %} disabled {% endif %}" href="{{ url('agenda_publish', {id: agenda.id}) }}" role="button">{% trans %}Publish to boardmembers{% endtrans %}</a>
             {% endif %}
         </div>
     </div>
@@ -83,7 +83,7 @@
                     <h5 id="section_agenda_items">{% trans %}Agenda items{% endtrans %}</h5>
                 </div>
                 <div class="col-auto">
-                    <a name="" id="" class="btn btn-success btn-sm {% if agenda.isFinished() %} disabled {% endif %}" href="{{ url('agenda_item_create', {id: agenda.id}) }}" role="button">{% trans %}Add agenda item{% endtrans %}</a>
+                    <a class="btn btn-success btn-sm {% if agenda.isFinished() %} disabled {% endif %}" href="{{ url('agenda_item_create', {id: agenda.id}) }}" role="button">{% trans %}Add agenda item{% endtrans %}</a>
                 </div>
                 <hr style="width:95%">
             </div>
@@ -123,7 +123,7 @@
                                             {% if agenda_item.caseEntity is defined %}
                                                 {{ agenda_item.caseEntity.caseNumber|e }}
                                                 {% if agenda_item.inspection is defined and agenda_item.inspection == true %}
-                                                    <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                                    <span class="badge badge-pill badge-info text-dark">B</span>
                                                 {% endif %}
                                             {% else %}
                                                 {{ agenda_item.title|e }}
@@ -139,7 +139,7 @@
                                                 </div>
                                                 {% if not agenda.isFinished() %}
                                                 <div class="ml-2">
-                                                    <form id="myform" method="post" action="{{ path('agenda_item_delete', {'id': agenda.id, 'agenda_item_id': agenda_item.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this agenda item?{% endtrans %}');">
+                                                    <form method="post" action="{{ path('agenda_item_delete', {'id': agenda.id, 'agenda_item_id': agenda_item.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this agenda item?{% endtrans %}');">
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ agenda_item.id) }}">
                                                         <button class="btn btn-danger btn-sm" style="float: right;" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete agenda item{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
@@ -163,7 +163,7 @@
                     <h5 id="section_board_members">{% trans %}Board members{% endtrans %}</h5>
                 </div>
                 <div class="col-auto">
-                    <a name="" id="" class="btn btn-success btn-sm {% if agenda.isFinished() %} disabled {% endif %}" href="{{ url('agenda_add_board_member', {id: agenda.id}) }}" role="button">{% trans %}Add board member{% endtrans %}</a>
+                    <a class="btn btn-success btn-sm {% if agenda.isFinished() %} disabled {% endif %}" href="{{ url('agenda_add_board_member', {id: agenda.id}) }}" role="button">{% trans %}Add board member{% endtrans %}</a>
                 </div>
                 <hr style="width:95%">
             </div>
@@ -175,7 +175,6 @@
                                 <div class="row">
                                     <div class="col">
                                         <p class="m-0 mt-2">{{ board_member.name|e }}</p>
-                                        {# TODO: Display boardmember title once it has been added to boardmember entity #}
                                         <p class="m-0" style="font-size:15px; opacity: 0.5">{{ board_member.title|e }}</p>
                                     </div>
                                     <div class="col-auto">
@@ -183,7 +182,7 @@
                                             <div class="row mt-2">
                                                 <div class="ml-2">
                                                     {% if not agenda.isFinished() %}
-                                                    <form id="myform" method="post" action="{{ path('agenda_board_member_remove', {'id': agenda.id, 'board_member_id': board_member.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to remove this board member?{% endtrans %}');">
+                                                    <form method="post" action="{{ path('agenda_board_member_remove', {'id': agenda.id, 'board_member_id': board_member.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to remove this board member?{% endtrans %}');">
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <input type="hidden" name="_token" value="{{ csrf_token('remove' ~ board_member.id) }}">
                                                         <button class="btn btn-danger btn-sm" style="float: right;" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove board member{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
