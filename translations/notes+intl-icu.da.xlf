@@ -39,15 +39,15 @@
       </trans-unit>
       <trans-unit id="ndqry5I" resname="Add a quick note">
         <source>Add a quick note</source>
-        <target>Opret en note</target>
+        <target>Opret hurtig note</target>
       </trans-unit>
       <trans-unit id="Myd0kC4" resname="Hide quick note">
         <source>Hide quick note</source>
-        <target>Skjul opret note</target>
+        <target>Skjul hurtig note</target>
       </trans-unit>
       <trans-unit id="_CT5F_I" resname="Show quick note">
         <source>Show quick note</source>
-        <target>Vis opret note</target>
+        <target>Vis hurtig note</target>
       </trans-unit>
       <trans-unit id="_UiT6nQ" resname="List of existing notes">
         <source>List of existing notes</source>
@@ -72,6 +72,18 @@
       <trans-unit id="uA5PRCM" resname="Delete note">
         <source>Delete note</source>
         <target>Slet note</target>
+      </trans-unit>
+      <trans-unit id="dupIL4Q" resname="New note">
+        <source>New note</source>
+        <target>Ny note</target>
+      </trans-unit>
+      <trans-unit id="J_zRY64" resname="Create note">
+        <source>Create note</source>
+        <target>Opret note</target>
+      </trans-unit>
+      <trans-unit id="ykB4LzV" resname="Create note for case">
+        <source>Create note for case</source>
+        <target>Opret note for sag</target>
       </trans-unit>
     </body>
   </file>

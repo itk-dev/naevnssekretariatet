@@ -9,6 +9,11 @@
         <div class="col">
             <h1>{% trans %}Notes{% endtrans %}</h1>
         </div>
+        <div class="col-auto">
+            {# TODO: Needs functionality on buttons #}
+            <a name="" id="" class="btn btn-primary" target="_blank" href="{{ url('notes_new', {'id': case.id}) }}" role="button">{% trans %}New note{% endtrans %}</a>
+            {# Moved validation buttons inline in form #}
+        </div>
     </div>
 {% endblock %}
 
