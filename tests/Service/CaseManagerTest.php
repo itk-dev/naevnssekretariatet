@@ -7,13 +7,17 @@ use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
 use App\Service\CaseManager;
 use App\Service\WorkflowService;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Lock\LockFactory;
 
 class CaseManagerTest extends TestCase
 {
     private $mockCaseRepository;
     private $mockWorkflowService;
     private $caseManager;
+    private $mockEntityManager;
+    private $lockFactory;
 
     protected function setUp(): void
     {
@@ -21,9 +25,13 @@ class CaseManagerTest extends TestCase
 
         $this->mockCaseRepository = $this->createMock(CaseEntityRepository::class);
         $this->mockWorkflowService = $this->createMock(WorkflowService::class);
+        $this->mockEntityManager = $this->createMock(EntityManagerInterface::class);
+        $this->lockFactory = $this->createMock(LockFactory::class);
 
         $this->caseManager = new CaseManager(
             $this->mockCaseRepository,
+            $this->mockEntityManager,
+            $this->lockFactory,
             $this->mockWorkflowService
         );
     }

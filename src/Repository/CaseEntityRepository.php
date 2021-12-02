@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Board;
 use App\Entity\CaseEntity;
-use App\Entity\Municipality;
 use App\Service\AgendaStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
