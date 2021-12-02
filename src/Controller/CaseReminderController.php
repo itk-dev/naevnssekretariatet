@@ -6,18 +6,15 @@ use App\Entity\CaseEntity;
 use App\Entity\Reminder;
 use App\Entity\User;
 use App\Form\ReminderType;
+use App\Repository\ReminderRepository;
 use App\Service\ReminderHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-/**
- * @Route("/case/{id}/reminder")
- */
 class CaseReminderController extends AbstractController
 {
     /**
@@ -41,7 +38,22 @@ class CaseReminderController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="reminder_create", methods={"POST"})
+     * @Route("/reminder", name="reminder_index")
+     */
+    public function index(ReminderRepository $reminderRepository): Response
+    {
+        /** @var User $user */
+        $user = $this->security->getUser();
+
+        $reminders = $reminderRepository->findBy(['createdBy' => $user->getId()->toBinary()], ['date' => 'ASC']);
+
+        return $this->render('reminder/index.html.twig', [
+            'reminders' => $reminders,
+        ]);
+    }
+
+    /**
+     * @Route("/case/{id}/reminder/new", name="reminder_new", methods={"POST"})
      */
     public function new(CaseEntity $case, Request $request): Response
     {
@@ -76,24 +88,23 @@ class CaseReminderController extends AbstractController
     }
 
     /**
-     * @Route("/{reminder_id}/complete", name="reminder_complete", methods={"POST"})
-     * @Entity("reminder", expr="repository.find(reminder_id)")
-     * @Entity("case", expr="repository.find(id)")
+     * @Route("/reminder/{id}/complete", name="reminder_complete", methods={"DELETE"})
      */
-    public function complete(CaseEntity $case, Reminder $reminder): Response
+    public function complete(Reminder $reminder, Request $request): Response
     {
-        $this->entityManager->remove($reminder);
-        $this->entityManager->flush();
+        // Check that CSRF token is valid
+        if ($this->isCsrfTokenValid('complete'.$reminder->getId(), $request->request->get('_token'))) {
+            $this->entityManager->remove($reminder);
+            $this->entityManager->flush();
+        }
 
         return $this->redirectToRoute('reminder_index');
     }
 
     /**
-     * @Route("/{reminder_id}/edit", name="reminder_edit", methods={"POST"})
-     * @Entity("reminder", expr="repository.find(reminder_id)")
-     * @Entity("case", expr="repository.find(id)")
+     * @Route("/reminder/{id}/edit", name="reminder_edit", methods={"POST"})
      */
-    public function edit(CaseEntity $case, Reminder $reminder, Request $request): Response
+    public function edit(Reminder $reminder, Request $request): Response
     {
         $reminderForm = $this->createForm(ReminderType::class, $reminder);
 
