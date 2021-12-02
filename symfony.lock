@@ -108,6 +108,9 @@
     "fakerphp/faker": {
         "version": "v1.13.0"
     },
+    "firebase/php-jwt": {
+        "version": "v5.4.0"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.16",
         "recipe": {
@@ -122,6 +125,18 @@
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
+    },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
+        },
+        "files": [
+            "config/packages/fos_ckeditor.yaml"
+        ]
     },
     "friendsoftwig/twigcs": {
         "version": "v5.0.0"
@@ -152,6 +167,15 @@
             "fixtures/.gitignore"
         ]
     },
+    "itk-dev/datafordeler-php-client": {
+        "version": "dev-feature/tvist1-39-bbr"
+    },
+    "itk-dev/openid-connect": {
+        "version": "2.2.0"
+    },
+    "itk-dev/openid-connect-bundle": {
+        "version": "1.0.1"
+    },
     "knplabs/knp-components": {
         "version": "v3.1.0"
     },
@@ -169,6 +193,9 @@
     },
     "league/oauth2-client": {
         "version": "2.6.0"
+    },
+    "lexik/form-filter-bundle": {
+        "version": "v7.0.0"
     },
     "monolog/monolog": {
         "version": "2.2.0"
@@ -233,6 +260,9 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "robrichards/xmlseclibs": {
+        "version": "3.1.1"
     },
     "sebastian/comparator": {
         "version": "4.0.6"

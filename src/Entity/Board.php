@@ -77,11 +77,23 @@ class Board implements LoggableEntityInterface
      */
     private $counterPartyTypes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Agenda::class, mappedBy="board")
+     */
+    private $agendas;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=BoardMember::class, mappedBy="boards")
+     */
+    private $boardMembers;
+
     public function __construct()
     {
         $this->complaintCategories = new ArrayCollection();
         $this->caseEntities = new ArrayCollection();
         $this->boardRoles = new ArrayCollection();
+        $this->agendas = new ArrayCollection();
+        $this->boardMembers = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -266,6 +278,24 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
+    /**
+     * @return Collection|Agenda[]
+     */
+    public function getAgendas(): Collection
+    {
+        return $this->agendas;
+    }
+
+    public function addAgenda(Agenda $agenda): self
+    {
+        if (!$this->agendas->contains($agenda)) {
+            $this->agendas[] = $agenda;
+            $agenda->setBoard($this);
+        }
+
+        return $this;
+    }
+
     public function getCounterPartyTypes(): ?string
     {
         return $this->counterPartyTypes;
@@ -274,6 +304,45 @@ class Board implements LoggableEntityInterface
     public function setCounterPartyTypes(string $counterPartyTypes): self
     {
         $this->counterPartyTypes = $counterPartyTypes;
+
+        return $this;
+    }
+
+    public function removeAgenda(Agenda $agenda): self
+    {
+        if ($this->agendas->removeElement($agenda)) {
+            // set the owning side to null (unless already changed)
+            if ($agenda->getBoard() === $this) {
+                $agenda->setBoard(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BoardMember[]
+     */
+    public function getBoardMembers(): Collection
+    {
+        return $this->boardMembers;
+    }
+
+    public function addBoardMember(BoardMember $boardMember): self
+    {
+        if (!$this->boardMembers->contains($boardMember)) {
+            $this->boardMembers[] = $boardMember;
+            $boardMember->addBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoardMember(BoardMember $boardMember): self
+    {
+        if ($this->boardMembers->removeElement($boardMember)) {
+            $boardMember->removeBoard($this);
+        }
 
         return $this;
     }

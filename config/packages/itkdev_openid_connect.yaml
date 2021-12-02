@@ -1,0 +1,10 @@
+itkdev_openid_connect:
+  cache_options:
+    cache_pool: 'cache.app' # Cache item pool for caching discovery document and CLI login tokens
+  openid_provider_options:
+    configuration_url: '%env(CONFIGURATION_URL)%' # url to OpenId Discovery document
+    client_id: '%env(CLIENT_ID)%' # Client id assigned by authorizer
+    client_secret: '%env(CLIENT_SECRET)%' # Client password assigned by authorizer
+    callback_uri: '%env(CALLBACK_URI)%' # Callback URI registered at identity provider
+  cli_login_options:
+    cli_redirect: '%env(CLI_REDIRECT)%' # Redirect route for CLI login

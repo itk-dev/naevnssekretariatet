@@ -2,20 +2,33 @@
 
 namespace App\Controller;
 
+use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
+use App\Entity\CasePresentation;
+use App\Form\CaseAgendaStatusType;
+use App\Form\CaseAssignCaseworkerType;
+use App\Form\CaseDecisionProposalType;
 use App\Form\CaseEntityType;
+use App\Form\CasePresentationType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
-use App\Form\ResidentComplaintBoardCaseType;
+use App\Repository\AgendaCaseItemRepository;
+use App\Repository\AgendaRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
+use App\Repository\UserRepository;
+use App\Service\AgendaHelper;
+use App\Service\BBRHelper;
+use App\Service\CaseHelper;
 use App\Service\CaseManager;
 use App\Service\PartyHelper;
 use App\Service\WorkflowService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/case")
@@ -61,10 +74,6 @@ class CaseController extends AbstractController
                 $form->get('board')->getData()
             );
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($caseEntity);
-            $entityManager->flush();
-
             return $this->redirectToRoute('case_show', ['id' => $caseEntity->getId()]);
         }
 
@@ -93,7 +102,7 @@ class CaseController extends AbstractController
     public function edit(CaseEntity $case, Request $request): Response
     {
         // Todo: Handle other case types, possibly via switch on $case->getBoard()->getCaseFormType()
-        $form = $this->createForm(ResidentComplaintBoardCaseType::class, $case, ['board' => $case->getBoard()]);
+        $form = $this->createForm('App\\Form\\'.$case->getBoard()->getCaseFormType(), $case, ['board' => $case->getBoard()]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -117,8 +126,10 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/status", name="case_status", methods={"GET", "POST"})
      */
-    public function status(CaseEntity $case, WorkflowService $workflowService, Request $request): Response
+    public function status(CaseEntity $case, AgendaCaseItemRepository $agendaCaseItemRepository, AgendaHelper $agendaHelper, AgendaRepository $agendaRepository, CaseHelper $caseHelper, WorkflowService $workflowService, Request $request): Response
     {
+        $em = $this->getDoctrine()->getManager();
+
         $workflow = $workflowService->getWorkflowForCase($case);
 
         $caseStatus = new CaseStatusFormModel();
@@ -134,7 +145,6 @@ class CaseController extends AbstractController
         $caseStatusForm->handleRequest($request);
         if ($caseStatusForm->isSubmitted() && $caseStatusForm->isValid()) {
             $workflow->apply($case, $caseStatus->getStatus());
-            $em = $this->getDoctrine()->getManager();
             $em->persist($case);
             $em->flush();
 
@@ -144,9 +154,27 @@ class CaseController extends AbstractController
             ]);
         }
 
+        $caseAgendaStatusForm = $this->createForm(CaseAgendaStatusType::class, $case);
+
+        $caseAgendaStatusForm->handleRequest($request);
+        if ($caseAgendaStatusForm->isSubmitted() && $caseAgendaStatusForm->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('case_status', [
+                'id' => $case->getId(),
+                'case' => $case,
+            ]);
+        }
+
+        $activeAgendaCaseItems = $agendaCaseItemRepository->findActiveAgendaCaseItemIdsByCase($case);
+        $finishedAgendaCaseItems = $agendaCaseItemRepository->findFinishedAgendaCaseItemIdsByCase($case);
+
         return $this->render('case/status.html.twig', [
             'case' => $case,
             'case_status_form' => $caseStatusForm->createView(),
+            'case_agenda_status_form' => $caseAgendaStatusForm->createView(),
+            'active_agendas' => $activeAgendaCaseItems,
+            'finished_agendas' => $finishedAgendaCaseItems,
         ]);
     }
 
@@ -186,6 +214,137 @@ class CaseController extends AbstractController
     public function log(CaseEntity $case): Response
     {
         return $this->render('case/log.html.twig', [
+            'case' => $case,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/presentation", name="case_presentation", methods={"GET", "POST"})
+     */
+    public function presentation(CaseEntity $case, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $casePresentation = $case->getPresentation() ?? new CasePresentation();
+
+        $form = $this->createForm(CasePresentationType::class, $casePresentation);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var CasePresentation $casePresentation */
+            $casePresentation = $form->getData();
+
+            $case->setPresentation($casePresentation);
+
+            $em->persist($casePresentation);
+            $em->flush();
+
+            return $this->redirectToRoute('case_presentation', [
+                'id' => $case->getId(),
+            ]);
+        }
+
+        return $this->render('case/presentation.html.twig', [
+            'case' => $case,
+            'case_presentation_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/decision-proposal", name="case_decision_proposal", methods={"GET", "POST"})
+     */
+    public function decisionProposal(CaseEntity $case, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $caseDecisionProposal = $case->getDecisionProposal() ?? new CaseDecisionProposal();
+
+        $form = $this->createForm(CaseDecisionProposalType::class, $caseDecisionProposal);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var CaseDecisionProposal $caseDecisionProposal */
+            $caseDecisionProposal = $form->getData();
+
+            $case->setDecisionProposal($caseDecisionProposal);
+
+            $em->persist($caseDecisionProposal);
+            $em->flush();
+
+            return $this->redirectToRoute('case_decision_proposal', [
+                'id' => $case->getId(),
+            ]);
+        }
+
+        return $this->render('case/decision_proposal.html.twig', [
+            'case' => $case,
+            'decision_proposal_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/bbr-meddelelse/{addressProperty}.{_format}", name="case_bbr_meddelelse", methods={"GET"},
+     *     format="pdf",
+     *     requirements={
+     *         "_format": "pdf",
+     *     }
+     * )
+     */
+    public function bbrMeddelelse(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, string $_format): Response
+    {
+        try {
+            return $this->redirect($bbrHelper->getBBRMeddelelseUrlForCase($case, $addressProperty, $_format));
+        } catch (\Exception $exception) {
+            $this->addFlash('error', new TranslatableMessage('Cannot get url for BBR-Meddelelse'));
+        }
+
+        // Send user back to where he came from.
+        $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+        return $this->redirect($redirectUrl);
+    }
+
+    /**
+     * @Route("/{id}/bbr-data/{addressProperty}/update", name="case_bbr_data_update", methods={"POST"})
+     */
+    public function bbrData(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, EntityManagerInterface $entityManager): Response
+    {
+        try {
+            $bbrHelper->updateCaseBBRData($case, $addressProperty);
+            $entityManager->persist($case);
+            $entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('BBR data updated'));
+        } catch (\Exception $exception) {
+            $this->addFlash('error', new TranslatableMessage('Cannot update BBR data'));
+        }
+
+        // Send user back to where he came from.
+        $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+        return $this->redirect($redirectUrl);
+    }
+
+    /**
+     * @Route("/{id}/assign-caseworker", name="case_assign_caseworker", methods={"POST"})
+     */
+    public function assignCaseworker(CaseEntity $case, UserRepository $userRepository, Request $request): Response
+    {
+        $availableCaseworkers = $userRepository->findByRole('ROLE_CASEWORKER', ['name' => 'ASC']);
+
+        $assignForm = $this->createForm(CaseAssignCaseworkerType::class, $case, ['available_caseworkers' => $availableCaseworkers]);
+
+        $assignForm->handleRequest($request);
+
+        if ($assignForm->isSubmitted() && $assignForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_index');
+
+            return $this->redirect($redirectUrl);
+        }
+
+        return $this->render('case/_assign_caseworker.html.twig', [
+            'assign_form' => $assignForm->createView(),
             'case' => $case,
         ]);
     }

@@ -77,18 +77,21 @@
                     <tr>
                         <td><a href="{{ url('case_summary', {id: case.id}) }}" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ case.casenumber|e }}">{{ case.casenumber|e }}</a></td>
                         <td>{{ case.complaintCategory.name|e }}</td>
-                        <td>{{ case.casestate|e }}</td>
+                        <td>{{ case.currentPlace|e }}</td>
                         <td>{{ "2. sep 2020"|e }}</td>
                         <td>{{ case.complainantAddress|e }}</td>
                         <td>{{ "Udlejer"|e }}</td>
                         <td>{{ case.complainant|e }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                                <a href="" role="button" class="btn btn-success" data-toggle="modal" data-target="#assign_case{{ case.id }}" data-placement="auto" title="{% trans %}Assign caseworker{% endtrans %}"><i class="fas fa-user-plus"></i><span class="sr-only">{% trans %}Assign caseworker{% endtrans %}</span></a>
+                                <a href="" role="button" class="btn btn-warning" data-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}"><i class="fas fa-clock"></i><span class="sr-only">{% trans %}Add reminder{% endtrans %}</span></a>
                                 <a href="{{ url('case_summary', {id: case.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show case{% endtrans %}</span></a>
-                                <a href="#" role="button" class="btn btn-warning" data-toggle="tooltip" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}"><i class="fas fa-clock"></i><span class="sr-only">{% trans %}Add reminder{% endtrans %}</span></a>
                             </div>
                         </td>
                     </tr>
+                    {{ render(controller('App\\Controller\\CaseReminderController:new', {id: case.id})) }}
+                    {{ render(controller('App\\Controller\\CaseController:assignCaseworker', {id: case.id})) }}
                 {% endfor %}
                 </tbody>
             </table>

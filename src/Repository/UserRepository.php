@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,8 +15,25 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var RoleHierarchyInterface
+     */
+    private $roleHierarchy;
+
+    public function __construct(ManagerRegistry $registry, RoleHierarchyInterface $roleHierarchy)
     {
+        $this->roleHierarchy = $roleHierarchy;
         parent::__construct($registry, User::class);
+    }
+
+    public function findByRole(string $role, array $orderBy): array
+    {
+        $users = $this->findBy([], $orderBy);
+
+        return array_filter($users, function (User $user) use ($role) {
+            $reachableRoles = $this->roleHierarchy->getReachableRoleNames($user->getRoles());
+
+            return in_array($role, $reachableRoles, true);
+        });
     }
 }

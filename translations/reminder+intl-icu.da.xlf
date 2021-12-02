@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Dato for påmindelse</target>
+      </trans-unit>
+      <trans-unit id="R70pB1_" resname="Content">
+        <source>Content</source>
+        <target>Påmindelsestekst</target>
+      </trans-unit>
+      <trans-unit id="eXHddSZ" resname="Reminders">
+        <source>Reminders</source>
+        <target>Påmindelser</target>
+      </trans-unit>
+      <trans-unit id="f70FC4t" resname="Here you can see a list of your own personal reminders and manage them.">
+        <source>Here you can see a list of your own personal reminders and manage them.</source>
+        <target>Her kan du se dine personlige påmindelser samt håndtere dem.</target>
+      </trans-unit>
+      <trans-unit id="7xc8BDd" resname="Casenumber">
+        <source>Casenumber</source>
+        <target>Sagsnummer</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="yANxAwL" resname="Function">
+        <source>Function</source>
+        <target>Handling</target>
+      </trans-unit>
+      <trans-unit id="DhTdmrK" resname="Show case">
+        <source>Show case</source>
+        <target>Vis sag</target>
+      </trans-unit>
+      <trans-unit id="ImnkQgY" resname="List functions">
+        <source>List functions</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="8X9Zsqy" resname="Mark as completed">
+        <source>Mark as completed</source>
+        <target>Marker som udført</target>
+      </trans-unit>
+      <trans-unit id="a4ayc.8" resname="1">
+        <source>1</source>
+        <target>Afventer</target>
+      </trans-unit>
+      <trans-unit id="1HNeOiZ" resname="2">
+        <source>2</source>
+        <target>Aktiv</target>
+      </trans-unit>
+      <trans-unit id="TgdAhWK" resname="3">
+        <source>3</source>
+        <target>Overskredet</target>
+      </trans-unit>
+      <trans-unit id="kZ4nGjm" resname="Create reminder">
+        <source>Create reminder</source>
+        <target>Opret påmindelse</target>
+      </trans-unit>
+      <trans-unit id="uCDKt07" resname="active reminders">
+        <source>active reminders</source>
+        <target>aktive påmindelser</target>
+      </trans-unit>
+      <trans-unit id="S5sqsW3" resname="active reminder">
+        <source>active reminder</source>
+        <target>aktiv påmindelse</target>
+      </trans-unit>
+      <trans-unit id="NWWysNz" resname="No active reminders">
+        <source>No active reminders</source>
+        <target>Ingen aktive påmindelser</target>
+      </trans-unit>
+      <trans-unit id="HxNTsFX" resname="Edit reminder">
+        <source>Edit reminder</source>
+        <target>Rediger påmindelse</target>
+      </trans-unit>
+      <trans-unit id="UNZUdHa" resname="Are you sure you want to complete this reminder?">
+        <source>Are you sure you want to complete this reminder?</source>
+        <target>Er du sikker på at du vil markere denne påmindelse som udført og derved fjerne den?</target>
+      </trans-unit>
+      <trans-unit id="FfhuJO0" resname="Case">
+        <source>Case</source>
+        <target>Sag</target>
+      </trans-unit>
+      <trans-unit id="agDfwdy" resname="Monday">
+        <source>Monday</source>
+        <target>Mandag</target>
+      </trans-unit>
+      <trans-unit id="fYrx3hJ" resname="Tuesday">
+        <source>Tuesday</source>
+        <target>Tirsdag</target>
+      </trans-unit>
+      <trans-unit id="wKbMgpz" resname="Wednesday">
+        <source>Wednesday</source>
+        <target>Onsdag</target>
+      </trans-unit>
+      <trans-unit id=".CZiBi." resname="Thursday">
+        <source>Thursday</source>
+        <target>Torsdag</target>
+      </trans-unit>
+      <trans-unit id="4h8.Nyp" resname="Friday">
+        <source>Friday</source>
+        <target>Fredag</target>
+      </trans-unit>
+      <trans-unit id="2_Ncc2P" resname="Saturday">
+        <source>Saturday</source>
+        <target>Lørdag</target>
+      </trans-unit>
+      <trans-unit id="hz.vdg5" resname="Sunday">
+        <source>Sunday</source>
+        <target>Søndag</target>
+      </trans-unit>
+      <trans-unit id="vk88k.W" resname="Select period">
+        <source>Select period</source>
+        <target>Vælg tidsperiode</target>
+      </trans-unit>
+      <trans-unit id="UqfaRgF" resname="Next 7 days">
+        <source>Next 7 days</source>
+        <target>De næste 7 dage</target>
+      </trans-unit>
+      <trans-unit id="qcydPfe" resname="Next 14 days">
+        <source>Next 14 days</source>
+        <target>De næste 14 dage</target>
+      </trans-unit>
+      <trans-unit id="ycRLTHH" resname="Next 30 days">
+        <source>Next 30 days</source>
+        <target>De næste 30 dage</target>
+      </trans-unit>
+      <trans-unit id="RGQGnCA" resname="No reminders within the week.">
+        <source>No reminders within the week.</source>
+        <target>Ingen påmindelser i den kommende uge.</target>
+      </trans-unit>
+      <trans-unit id="SD1HV9p" resname="See all reminders">
+        <source>See all reminders</source>
+        <target>Se alle påmindelser</target>
+      </trans-unit>
+      <trans-unit id="LKg12el" resname="Upcoming reminders">
+        <source>Upcoming reminders</source>
+        <target>Kommende påmindelser</target>
+      </trans-unit>
+      <trans-unit id="zPXv6o4" resname="active_reminders_plural">
+        <source>active_reminders_plural</source>
+        <target>{count, plural, =0 {Ingen aktive påmindelser} one {1 aktiv påmindelse} other {# aktive påmindelser}}</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,624 +1,906 @@
+App\Entity\Embeddable\Address:
+  test-case-aarhus-1-complainant-address:
+    street: Aarhusvej
+    number: 117
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-1-lease-address:
+    street: Aarhusvej
+    number: 117
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-2-complainant-address:
+    street: Randersvej
+    number: 119
+    city: Brabrand
+    postalCode: 8220
+
+  test-case-aarhus-2-lease-address:
+    street: Randersvej
+    number: 119
+    city: Brabrand
+    postalCode: 8220
+
+  test-case-aarhus-3-complainant-address:
+    street: Skejbygårdsvej
+    number: 1
+    city: Aarhus N
+    postalCode: 8200
+
+  test-case-aarhus-3-lease-address:
+    street: Skejbygårdsvej
+    number: 1
+    city: Aarhus N
+    postalCode: 8200
+
+  test-case-aarhus-4-complainant-address:
+    street: Skejbygårdsvej
+    number: 21
+    city: Risskov
+    postalCode: 8240
+
+  test-case-aarhus-4-lease-address:
+    street: Skejbygårdsvej
+    number: 21
+    city: Risskov
+    postalCode: 8240
+
+  test-case-aarhus-5-complainant-address:
+    street: Jens Baggesensvej
+    number: 27
+    city: Aarhus N
+    postalCode: 8200
+
+  test-case-aarhus-5-lease-address:
+    street: Jens Baggesensvej
+    number: 27
+    city: Aarhus N
+    postalCode: 8200
+
+  test-case-aarhus-6-complainant-address:
+    street: Andevej
+    number: 192
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-6-lease-address:
+    street: Andevej
+    number: 192
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-7-complainant-address:
+    street: Silkeborgvej
+    number: 192
+    city: Aarhus V
+    postalCode: 8210
+
+  test-case-aarhus-7-lease-address:
+    street: Silkeborgvej
+    number: 192
+    city: Aarhus V
+    postalCode: 8210
+
+  test-case-aarhus-8-complainant-address:
+    street: Silkeborgvej
+    number: 13
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-8-lease-address:
+    street: Silkeborgvej
+    number: 13
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-9-complainant-address:
+    street: Holmevej
+    number: 45
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-9-lease-address:
+    street: Holmevej
+    number: 45
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-10-complainant-address:
+    street: Holmevej
+    number: 29
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-10-lease-address:
+    street: Holmevej
+    number: 29
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-11-complainant-address:
+    street: Sømandsvej
+    number: 2
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-11-lease-address:
+    street: Sømandsvej
+    number: 2
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-12-complainant-address:
+    street: Landevej
+    number: 5
+    city: Beder
+    postalCode: 83310
+
+  test-case-aarhus-12-lease-address:
+    street: Landevej
+    number: 5
+    city: Beder
+    postalCode: 83310
+
+  test-case-aarhus-13-complainant-address:
+    street: Nyringen
+    number: 5
+    city: Aarhus V
+    postalCode: 8210
+
+  test-case-aarhus-13-lease-address:
+    street: Nyringen
+    number: 5
+    city: Aarhus V
+    postalCode: 8210
+
+  test-case-aarhus-14-complainant-address:
+    street: Nyringen
+    number: 9
+    city: Aarhus V
+    postalCode: 8210
+
+  test-case-aarhus-14-lease-address:
+    street: Nyringen
+    number: 9
+    city: Aarhus V
+    postalCode: 8210
+
+  test-case-aarhus-15-complainant-address:
+    street: Nyringen
+    number: 53
+    city: Aarhus V
+    postalCode: 8210
+
+  test-case-aarhus-15-lease-address:
+    street: Nyringen
+    number: 53
+    city: Aarhus V
+    postalCode: 8210
+
+  test-case-aarhus-16-complainant-address:
+    street: Risskov vej
+    number: 245
+    city: Risskov
+    postalCode: 8240
+
+  test-case-aarhus-16-lease-address:
+    street: Risskov vej
+    number: 245
+    city: Risskov
+    postalCode: 8240
+
+  test-case-aarhus-17-complainant-address:
+    street: Egå vej
+    number: 5
+    city: Egå
+    postalCode: 8250
+
+  test-case-aarhus-17-lease-address:
+    street: Egå vej
+    number: 5
+    city: Egå
+    postalCode: 8250
+
+  test-case-aarhus-18-complainant-address:
+    street: Malling vej
+    number: 98
+    city: Malling
+    postalCode: 8340
+
+  test-case-aarhus-18-lease-address:
+    street: Malling vej
+    number: 98
+    city: Malling
+    postalCode: 8340
+
+  test-case-aarhus-19-complainant-address:
+    street: Trige vej
+    number: 98
+    city: Trige
+    postalCode: 8380
+
+  test-case-aarhus-19-lease-address:
+    street: Trige vej
+    number: 98
+    city: Trige
+    postalCode: 8380
+
+  test-case-aarhus-20-complainant-address:
+    street: Sabro vej
+    number: 37
+    city: Sabro
+    postalCode: 8471
+
+  test-case-aarhus-20-lease-address:
+    street: Sabro vej
+    number: 37
+    city: Sabro
+    postalCode: 8471
+
+  test-case-aarhus-21-complainant-address:
+    street: Sabro vej
+    number: 37
+    city: Sabro
+    postalCode: 8471
+
+  test-case-aarhus-21-lease-address:
+    street: Sabro vej
+    number: 37
+    city: Sabro
+    postalCode: 8471
+
+  test-case-aarhus-22-complainant-address:
+    street: Skolegade
+    number: 19
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-22-lease-address:
+    street: Skolegade
+    number: 19
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-23-complainant-address:
+    street: Skolegade
+    number: 29
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-23-lease-address:
+    street: Skolegade
+    number: 29
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-24-complainant-address:
+    street: Skolegade
+    number: 32
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-aarhus-24-lease-address:
+    street: Skolegade
+    number: 32
+    city: Aarhus C
+    postalCode: 8000
+
+  test-case-randers-1-complainant-address:
+    street: Skolevej
+    number: 117
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-1-lease-address:
+    street: Skolevej
+    number: 117
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-2-complainant-address:
+    street: Skolevej
+    number: 119
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-2-lease-address:
+    street: Skolevej
+    number: 119
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-3-complainant-address:
+    street: Skolevej
+    number: 11
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-3-lease-address:
+    street: Skolevej
+    number: 11
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-4-complainant-address:
+    street: Skolevej
+    number: 21
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-4-lease-address:
+    street: Skolevej
+    number: 21
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-5-complainant-address:
+    street: Skolevej
+    number: 27
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-5-lease-address:
+    street: Skolevej
+    number: 27
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-6-complainant-address:
+    street: Slotspladsen
+    number: 192
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-6-lease-address:
+    street: Slotspladsen
+    number: 192
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-7-complainant-address:
+    street: Slotspladsen
+    number: 192
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-7-lease-address:
+    street: Slotspladsen
+    number: 192
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-8-complainant-address:
+    street: Slotspladsen
+    number: 13
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-8-lease-address:
+    street: Slotspladsen
+    number: 13
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-9-complainant-address:
+    street: Snaregade
+    number: 47
+    city: Randers C
+    postalCode: 8900
+
+  test-case-randers-9-lease-address:
+    street: Snaregade
+    number: 47
+    city: Randers C
+    postalCode: 8900
+
 App\Entity\ResidentComplaintBoardCase:
   test-case-aarhus-1:
-    size: 51
+    leaseSize: 51
     complainant: Jens Jensen
-    complainantAddress: Aarhusvej 117
+    complainantCPR: 1234567890
     complainantPhone: 87654321
-    complainantPostalCode: 8000
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-1-complainant-address'
+    leaseAddress: '@test-case-aarhus-1-lease-address'
+    hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
-    caseNumber: 2021-0001
+    caseNumber: 21-000001
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
 
   test-case-aarhus-2:
-    size: 53
+    leaseSize: 53
     complainant: Jens Petersen
-    complainantAddress: Randersvej 119
+    complainantCPR: 1234567890
     complainantPhone: 23456789
-    complainantPostalCode: 8220
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-2-complainant-address'
+    leaseAddress: '@test-case-aarhus-2-lease-address'
+    hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
-    caseNumber: 2021-0002
+    caseNumber: 21-000002
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
 
   test-case-aarhus-3:
-    size: 55
+    leaseSize: 55
     complainant: Anton Per Hansen
-    complainantAddress: Skejbygårdsvej 1
+    complainantCPR: 1234567890
     complainantPhone: 87655678
-    complainantPostalCode: 8200
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-2-complainant-address'
+    leaseAddress: '@test-case-aarhus-2-lease-address'
+    hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
-    caseNumber: 2021-0003
+    caseNumber: 21-000003
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-4:
-    size: 61
+    leaseSize: 61
     complainant: Helle Hansen
-    complainantAddress: Skejbygårdsvej 21
+    complainantCPR: 1234567890
     complainantPhone: 87255678
-    complainantPostalCode: 8240
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-4-complainant-address'
+    leaseAddress: '@test-case-aarhus-4-lease-address'
+    hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
-    caseNumber: 2021-0004
+    caseNumber: 21-000004
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-5:
-    size: 78
+    leaseSize: 78
     complainant: Anne Jensen
-    complainantAddress: Jens Baggesensvej 27
+    complainantCPR: 1234567890
     complainantPhone: 61655678
-    complainantPostalCode: 8200
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-1-complainant-address'
+    leaseAddress: '@test-case-aarhus-1-lease-address'
+    hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
-    caseNumber: 2021-0005
+    caseNumber: 21-000005
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-6:
-    size: 87
+    leaseSize: 87
     complainant: Malene Skriver
-    complainantAddress: Andevej 192
+    complainantCPR: 1234567890
     complainantPhone: 51650678
-    complainantPostalCode: 8000
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-6-complainant-address'
+    leaseAddress: '@test-case-aarhus-6-lease-address'
+    hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
-    caseNumber: 2021-0006
+    caseNumber: 21-000006
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-7:
-    size: 84
+    leaseSize: 84
     complainant: Karen Skriver
-    complainantAddress: Silkeborgvej 192
+    complainantCPR: 1234567890
     complainantPhone: 51657654
-    complainantPostalCode: 8210
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-7-complainant-address'
+    leaseAddress: '@test-case-aarhus-7-lease-address'
+    hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
-    caseNumber: 2021-0007
+    caseNumber: 21-000007
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-8:
-    size: 84
+    leaseSize: 84
     complainant: Helge Pedersen
-    complainantAddress: Silkeborgvej 13
+    complainantCPR: 1234567890
     complainantPhone: 71654674
-    complainantPostalCode: 8000
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-8-complainant-address'
+    leaseAddress: '@test-case-aarhus-8-lease-address'
+    hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
-    caseNumber: 2021-0008
+    caseNumber: 21-000008
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-9:
-    size: 121
+    leaseSize: 121
     complainant: Kirsten Christensen
-    complainantAddress: Holmevej 45
+    complainantCPR: 1234567890
     complainantPhone: 71655674
-    complainantPostalCode: 8000
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-9-complainant-address'
+    leaseAddress: '@test-case-aarhus-9-lease-address'
+    hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
-    caseNumber: 2021-0009
+    caseNumber: 21-000009
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
+    isReadyForAgenda: true
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-10:
-    size: 101
+    leaseSize: 101
     complainant: Mette Susanne Larsen
-    complainantAddress: Holmevej 29
+    complainantCPR: 1234567890
     complainantPhone: 71257674
-    complainantPostalCode: 8000
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-10-complainant-address'
+    leaseAddress: '@test-case-aarhus-10-lease-address'
+    hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
-    caseNumber: 2021-0010
+    caseNumber: 21-000010
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    isReadyForAgenda: true
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-11:
-    size: 83
+    leaseSize: 83
     complainant: Susanne Birgitte Hanne
-    complainantAddress: Sømandsvej 2
+    complainantCPR: 1234567890
     complainantPhone: 81453614
-    complainantPostalCode: 8000
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-11-complainant-address'
+    leaseAddress: '@test-case-aarhus-11-lease-address'
+    hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
-    caseNumber: 2021-0011
+    caseNumber: 21-000011
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-12:
-    size: 45
+    leaseSize: 45
     complainant: Molly Marianne Olsen
-    complainantAddress: Landevej 5
+    complainantCPR: 1234567890
     complainantPhone: 81453614
-    complainantPostalCode: 8330
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-12-complainant-address'
+    leaseAddress: '@test-case-aarhus-12-lease-address'
+    hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
-    caseNumber: 2021-0012
+    caseNumber: 21-000012
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-13:
-    size: 76
+    leaseSize: 76
     complainant: Michael Olsen
-    complainantAddress: Nyringen 5
+    complainantCPR: 1234567890
     complainantPhone: 45368114
-    complainantPostalCode: 8210
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-13-complainant-address'
+    leaseAddress: '@test-case-aarhus-13-lease-address'
+    hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
-    caseNumber: 2021-0013
+    caseNumber: 21-000013
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    isReadyForAgenda: true
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-14:
-    size: 67
+    leaseSize: 67
     complainant: Jan Martin Sørensen
-    complainantAddress: Nyringen 9
+    complainantCPR: 1234567890
     complainantPhone: 81144536
-    complainantPostalCode: 8210
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-14-complainant-address'
+    leaseAddress: '@test-case-aarhus-14-lease-address'
+    hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
-    caseNumber: 2021-0014
+    caseNumber: 21-000014
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-15:
-    size: 56
+    leaseSize: 56
     complainant: Martin Jan Thomsen
-    complainantAddress: Næringen 52
+    complainantCPR: 1234567890
     complainantPhone: 44453816
-    complainantPostalCode: 8210
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-15-complainant-address'
+    leaseAddress: '@test-case-aarhus-15-lease-address'
+    hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
-    caseNumber: 2021-0015
+    caseNumber: 21-000015
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
+    isReadyForAgenda: true
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-16:
-    size: 76
+    leaseSize: 76
     complainant: Charlotte Thomsen
-    complainantAddress: Risskov vej 245
+    complainantCPR: 1234567890
     complainantPhone: 45381644
-    complainantPostalCode: 8240
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-16-complainant-address'
+    leaseAddress: '@test-case-aarhus-16-lease-address'
+    hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
-    caseNumber: 2021-0016
+    caseNumber: 21-000016
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-17:
-    size: 44
+    leaseSize: 44
     complainant: Tina Møller
-    complainantAddress: Egå vej 5
+    complainantCPR: 1234567890
     complainantPhone: 38451644
-    complainantPostalCode: 8250
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-17-complainant-address'
+    leaseAddress: '@test-case-aarhus-17-lease-address'
+    hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
-    caseNumber: 2021-0017
+    caseNumber: 21-000017
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-18:
-    size: 62
+    leaseSize: 62
     complainant: Pia Johansen
-    complainantAddress: Malling vej 98
+    complainantCPR: 1234567890
     complainantPhone: 51638444
-    complainantPostalCode: 8340
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-18-complainant-address'
+    leaseAddress: '@test-case-aarhus-18-lease-address'
+    hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
-    caseNumber: 2021-0018
+    caseNumber: 21-000018
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-19:
-    size: 98
+    leaseSize: 98
     complainant: Jeppe Johansen
-    complainantAddress: Trige vej 98
+    complainantCPR: 1234567890
     complainantPhone: 63844514
-    complainantPostalCode: 8380
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-19-complainant-address'
+    leaseAddress: '@test-case-aarhus-19-lease-address'
+    hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
-    caseNumber: 2021-0019
+    caseNumber: 21-000019
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-20:
-    size: 44
+    leaseSize: 44
     complainant: Jeppe Johansen
-    complainantAddress: Sabro vej 37
+    complainantCPR: 1234567890
     complainantPhone: 38445146
-    complainantPostalCode: 8471
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-20-complainant-address'
+    leaseAddress: '@test-case-aarhus-20-lease-address'
+    hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
-    caseNumber: 2021-0020
+    caseNumber: 21-000020
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-21:
-    size: 55
+    leaseSize: 55
     complainant: Søren Johansen
-    complainantAddress: Sabro vej 37
+    complainantCPR: 1234567890
     complainantPhone: 38445146
-    complainantPostalCode: 8471
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-21-complainant-address'
+    leaseAddress: '@test-case-aarhus-21-lease-address'
+    hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
-    caseNumber: 2021-0021
+    caseNumber: 21-000021
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-22:
-    size: 66
+    leaseSize: 66
     complainant: Søren Johansen
-    complainantAddress: Skolegade 19
+    complainantCPR: 1234567890
     complainantPhone: 84465314
-    complainantPostalCode: 8000
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-22-complainant-address'
+    leaseAddress: '@test-case-aarhus-22-lease-address'
+    hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
-    caseNumber: 2021-0022
+    caseNumber: 21-000022
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-23:
-    size: 81
+    leaseSize: 81
     complainant: Bente Poulsen
-    complainantAddress: Skolegade 29
+    complainantCPR: 1234567890
     complainantPhone: 44465314
-    complainantPostalCode: 8000
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-23-complainant-address'
+    leaseAddress: '@test-case-aarhus-23-lease-address'
+    hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
-    caseNumber: 2021-0023
+    caseNumber: 21-000023
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-24:
-    size: 34
+    leaseSize: 34
     complainant: Rasmus Madsen
-    complainantAddress: Skolegade 32
+    complainantCPR: 1234567890
     complainantPhone: 46531444
-    complainantPostalCode: 8000
-    caseState: submitted
+    complainantAddress: '@test-case-aarhus-24-complainant-address'
+    leaseAddress: '@test-case-aarhus-24-lease-address'
+    hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
-    caseNumber: 2021-0024
+    caseNumber: 21-000024
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    shouldBeInspected: true
+    isReadyForAgenda: true
+    assignedTo: '@user-caseworker'
 
   test-case-randers-1:
-    size: 51
+    leaseSize: 51
     complainant: Anne Jensen
-    complainantAddress: Skolevej 117
+    complainantCPR: 1234567890
     complainantPhone: 87674321
-    complainantPostalCode: 8900
-    caseState: submitted
+    complainantAddress: '@test-case-randers-1-complainant-address'
+    leaseAddress: '@test-case-randers-1-lease-address'
+    hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
-    caseNumber: 2021-0001
+    caseNumber: 21-000025
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    isReadyForAgenda: true
+    assignedTo: '@user-caseworker'
 
   test-case-randers-2:
-    size: 73
+    leaseSize: 73
     complainant: Anne Petersen
-    complainantAddress: Skolevej 119
+    complainantCPR: 1234567890
     complainantPhone: 23476711
-    complainantPostalCode: 8900
-    caseState: submitted
+    complainantAddress: '@test-case-randers-2-complainant-address'
+    leaseAddress: '@test-case-randers-2-lease-address'
+    hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
-    caseNumber: 2021-0002
+    caseNumber: 21-000026
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-randers-3:
-    size: 77
+    leaseSize: 77
     complainant: Henrik Per Hansen
-    complainantAddress: Skolevej 1
+    complainantCPR: 1234567890
     complainantPhone: 87677611
-    complainantPostalCode: 8900
-    caseState: submitted
+    complainantAddress: '@test-case-randers-3-complainant-address'
+    leaseAddress: '@test-case-randers-3-lease-address'
+    hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
-    caseNumber: 2021-0003
+    caseNumber: 21-000027
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    isReadyForAgenda: true
+    assignedTo: '@user-caseworker'
 
   test-case-randers-4:
-    size: 61
+    leaseSize: 61
     complainant: Henrik Hansen
-    complainantAddress: Skolevej 21
+    complainantCPR: 1234567890
     complainantPhone: 87277611
-    complainantPostalCode: 8900
-    caseState: submitted
+    complainantAddress: '@test-case-randers-4-complainant-address'
+    leaseAddress: '@test-case-randers-4-lease-address'
+    hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
-    caseNumber: 2021-0004
+    caseNumber: 21-000028
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-randers-5:
-    size: 78
+    leaseSize: 78
     complainant: Niels Jensen
-    complainantAddress: Skolevej 27
+    complainantCPR: 1234567890
     complainantPhone: 61677611
-    complainantPostalCode: 8920
-    caseState: submitted
+    complainantAddress: '@test-case-randers-5-complainant-address'
+    leaseAddress: '@test-case-randers-5-lease-address'
+    hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
-    caseNumber: 2021-0007
+    caseNumber: 21-000029
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    isReadyForAgenda: true
+    assignedTo: '@user-caseworker'
 
   test-case-randers-6:
-    size: 87
+    leaseSize: 87
     complainant: Niels Skriver
-    complainantAddress: Slotspladsen 192
+    complainantCPR: 1234567890
     complainantPhone: 71670611
-    complainantPostalCode: 8920
-    caseState: submitted
+    complainantAddress: '@test-case-randers-6-complainant-address'
+    leaseAddress: '@test-case-randers-6-lease-address'
+    hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
-    caseNumber: 2021-0006
+    caseNumber: 21-000030
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-randers-7:
-    size: 84
+    leaseSize: 84
     complainant: Anders Skriver
-    complainantAddress: Slotspladsen 192
+    complainantCPR: 1234567890
     complainantPhone: 71677611
-    complainantPostalCode: 8920
-    caseState: submitted
+    complainantAddress: '@test-case-randers-7-complainant-address'
+    leaseAddress: '@test-case-randers-7-lease-address'
+    hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
-    caseNumber: 2021-0007
+    caseNumber: 21-000031
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-randers-8:
-    size: 84
+    leaseSize: 84
     complainant: Anders Pedersen
-    complainantAddress: Slotspladsen 13
+    complainantCPR: 1234567890
     complainantPhone: 71674611
-    complainantPostalCode: 8920
-    caseState: submitted
+    complainantAddress: '@test-case-randers-8-complainant-address'
+    leaseAddress: '@test-case-randers-8-lease-address'
+    hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
-    caseNumber: 2021-0008
+    caseNumber: 21-000032
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-randers-9:
-    size: 121
+    leaseSize: 121
     complainant: Inger Christensen
-    complainantAddress: Snaregade 47
+    complainantCPR: 1234567890
     complainantPhone: 71677611
-    complainantPostalCode: 8930
-    caseState: submitted
+    complainantAddress: '@test-case-randers-9-complainant-address'
+    leaseAddress: '@test-case-randers-9-lease-address'
+    hasVacated: false
     complaintCategory: '@rent-increase-complaint-randers'
-    caseNumber: 2021-0009
+    caseNumber: 21-000033
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
-
-  test-case-randers-10:
-    size: 101
-    complainant: Inger Susanne Larsen
-    complainantAddress: Snaregade 29
-    complainantPhone: 71277611
-    complainantPostalCode: 8960
-    caseState: submitted
-    complaintCategory: '@rent-increase-complaint-randers'
-    caseNumber: 2021-0010
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-11:
-    size: 83
-    complainant: Camilla Birgitte Hanne
-    complainantAddress: Solsortvej 2
-    complainantPhone: 81473611
-    complainantPostalCode: 8960
-    caseState: submitted
-    complaintCategory: '@rent-increase-complaint-randers'
-    caseNumber: 2021-0011
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-12:
-    size: 47
-    complainant: Camilla Marianne Olsen
-    complainantAddress: Solsortvej 7
-    complainantPhone: 81473611
-    complainantPostalCode: 8960
-    caseState: submitted
-    complaintCategory: '@rent-increase-complaint-randers'
-    caseNumber: 2021-0012
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-13:
-    size: 76
-    complainant: Louise Olsen
-    complainantAddress: Splejservej 7
-    complainantPhone: 47368111
-    complainantPostalCode: 8983
-    caseState: submitted
-    complaintCategory: '@water-heat-electricity-complaint-randers'
-    caseNumber: 2021-0013
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-14:
-    size: 67
-    complainant: Louise Sørensen
-    complainantAddress: Splejservej 9
-    complainantPhone: 81144711
-    complainantPostalCode: 8983
-    caseState: submitted
-    complaintCategory: '@water-heat-electricity-complaint-randers'
-    caseNumber: 2021-0014
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-15:
-    size: 76
-    complainant: Per Jan Thomsen
-    complainantAddress: Nygade 72
-    complainantPhone: 44473811
-    complainantPostalCode: 8983
-    caseState: submitted
-    complaintCategory: '@water-heat-electricity-complaint-randers'
-    caseNumber: 2021-0017
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-16:
-    size: 76
-    complainant: Ole Thomsen
-    complainantAddress: Nygade 247
-    complainantPhone: 47381611
-    complainantPostalCode: 8983
-    caseState: submitted
-    complaintCategory: '@water-heat-electricity-complaint-randers'
-    caseNumber: 2021-0016
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-17:
-    size: 44
-    complainant: Per Møller
-    complainantAddress: Odinsgade 7
-    complainantPhone: 38471611
-    complainantPostalCode: 8981
-    caseState: submitted
-    complaintCategory: '@improvement-compensation-complaint-randers'
-    caseNumber: 2021-0017
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-18:
-    size: 62
-    complainant: Jørgen Johansen
-    complainantAddress: Odinsgade 98
-    complainantPhone: 71638411
-    complainantPostalCode: 8981
-    caseState: submitted
-    complaintCategory: '@improvement-compensation-complaint-randers'
-    caseNumber: 2021-0018
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-19:
-    size: 98
-    complainant: Jørgen Johansen
-    complainantAddress: Vester Alle 98
-    complainantPhone: 63844711
-    complainantPostalCode: 8981
-    caseState: submitted
-    complaintCategory: '@improvement-compensation-complaint-randers'
-    caseNumber: 2021-0019
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-20:
-    size: 44
-    complainant: Susanne Johansen
-    complainantAddress: Vester Alle 37
-    complainantPhone: 38447111
-    complainantPostalCode: 8981
-    caseState: submitted
-    complaintCategory: '@improvement-compensation-complaint-randers'
-    caseNumber: 2021-0020
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-21:
-    size: 77
-    complainant: Susanne Johansen
-    complainantAddress: Integade 37
-    complainantPhone: 38447111
-    complainantPostalCode: 8970
-    caseState: submitted
-    complaintCategory: '@telecommunications-service-complaint-randers'
-    caseNumber: 2021-0021
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-22:
-    size: 66
-    complainant: Bente Johansen
-    complainantAddress: Integade 19
-    complainantPhone: 84467311
-    complainantPostalCode: 8970
-    caseState: submitted
-    complaintCategory: '@telecommunications-service-complaint-randers'
-    caseNumber: 2021-0022
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-23:
-    size: 81
-    complainant: Lone Poulsen
-    complainantAddress: Kirkegade 29
-    complainantPhone: 44467311
-    complainantPostalCode: 8970
-    caseState: submitted
-    complaintCategory: '@telecommunications-service-complaint-randers'
-    caseNumber: 2021-0023
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
-
-  test-case-randers-24:
-    size: 34
-    complainant: Bente Madsen
-    complainantAddress: Kirkegade 32
-    complainantPhone: 46731411
-    complainantPostalCode: 8970
-    caseState: submitted
-    complaintCategory: '@telecommunications-service-complaint-randers'
-    caseNumber: 2021-0024
-    board: '@resident-complaint-board-randers'
-    municipality: '@municipality-randers'
-    currentPlace: Oprettet
+    assignedTo: '@user-caseworker'

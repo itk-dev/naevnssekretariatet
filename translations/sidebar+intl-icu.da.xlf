@@ -69,6 +69,46 @@
         <source>Log</source>
         <target>Log</target>
       </trans-unit>
+      <trans-unit id="JS.Rdbh" resname="Agenda list">
+        <source>Agenda list</source>
+        <target>Dagsordensliste</target>
+      </trans-unit>
+      <trans-unit id="g0MTLJA" resname="Go to list of agendas">
+        <source>Go to list of agendas</source>
+        <target>Gå til dagsordensliste</target>
+      </trans-unit>
+      <trans-unit id="D99IX1v" resname="Agenda">
+        <source>Agenda</source>
+        <target>Dagsorden</target>
+      </trans-unit>
+      <trans-unit id="zwiDND9" resname="Protocol">
+        <source>Protocol</source>
+        <target>Protokol</target>
+      </trans-unit>
+      <trans-unit id="WXAMe6v" resname="Broadcast agenda">
+        <source>Broadcast agenda</source>
+        <target>Publisér dagsorden</target>
+      </trans-unit>
+      <trans-unit id="0dUuar9" resname="Agenda item">
+        <source>Agenda item</source>
+        <target>Dagsordenspunkt</target>
+      </trans-unit>
+      <trans-unit id="QISCbyx" resname="Case presentation">
+        <source>Case presentation</source>
+        <target>Sagsfremstilling</target>
+      </trans-unit>
+      <trans-unit id="hAA_WCr" resname="Decision proposal">
+        <source>Decision proposal</source>
+        <target>Afgørelses foreslag</target>
+      </trans-unit>
+      <trans-unit id="bk_hPaS" resname="Inspection">
+        <source>Inspection</source>
+        <target>Besigtigelse</target>
+      </trans-unit>
+      <trans-unit id="8VCI9Yd" resname="Back to agenda">
+        <source>Back to agenda</source>
+        <target>Til dagsorden</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

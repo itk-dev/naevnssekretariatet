@@ -20,15 +20,25 @@ class DocumentUploader
      */
     private $slugger;
     private $documentDirectory;
+    /**
+     * @var Filesystem
+     */
+    private $filesystem;
+
+    public function __construct(SluggerInterface $slugger, string $documentDirectory, Filesystem $filesystem)
+    {
+        $this->documentDirectory = $documentDirectory;
+        $this->filesystem = $filesystem;
+        $this->slugger = $slugger;
+    }
 
     /**
      * @throws DocumentDirectoryException
      */
-    public function __construct(SluggerInterface $slugger, string $documentDirectory, Filesystem $filesystem)
+    public function specifyDirectory(string $directory)
     {
-        $this->checkDocumentDirectory($documentDirectory, $filesystem);
-        $this->slugger = $slugger;
-        $this->documentDirectory = $documentDirectory;
+        $this->documentDirectory = $this->documentDirectory.$directory;
+        $this->checkDocumentDirectory($this->documentDirectory, $this->filesystem);
     }
 
     /**

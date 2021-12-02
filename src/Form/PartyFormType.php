@@ -44,6 +44,7 @@ class PartyFormType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => $this->partyHelper->getAllPartyTypes($case),
-            ]);
+            ])
+        ;
     }
 }

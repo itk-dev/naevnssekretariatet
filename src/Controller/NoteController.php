@@ -70,6 +70,35 @@ class NoteController extends AbstractController
     }
 
     /**
+     * @Route("/new", name="note_new")
+     */
+    public function new(CaseEntity $case, Request $request): Response
+    {
+        $note = new Note();
+
+        $form = $this->createForm(NoteType::class, $note);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $note->setCaseEntity($case);
+
+            /** @var User $user */
+            $user = $this->getUser();
+
+            $note->setCreatedBy($user);
+            $this->entityManager->persist($note);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('note_index', ['id' => $case->getId()]);
+        }
+
+        return $this->render('notes/new.html.twig', [
+            'note_form' => $form->createView(),
+            'case' => $case,
+        ]);
+    }
+
+    /**
      * @Route("/{note_id}/edit", name="note_edit", methods={"GET", "POST"})
      * @Entity("note", expr="repository.find(note_id)")
      * @Entity("case", expr="repository.find(id)")

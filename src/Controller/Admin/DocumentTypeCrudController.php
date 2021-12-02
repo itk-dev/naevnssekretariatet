@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\DocumentType;
+use App\Entity\UploadedDocumentType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -11,7 +11,7 @@ class DocumentTypeCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return DocumentType::class;
+        return UploadedDocumentType::class;
     }
 
     public function configureCrud(Crud $crud): Crud
@@ -28,6 +28,7 @@ class DocumentTypeCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Name')
-            ->setRequired(true);
+            ->setRequired(true)
+        ;
     }
 }

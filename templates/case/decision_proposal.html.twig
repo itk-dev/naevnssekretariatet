@@ -1,0 +1,22 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Decision proposal{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Decision proposal{% endtrans %}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(decision_proposal_form) }}
+        {{ form_rest(decision_proposal_form) }}
+        <button class="btn btn-primary float-right">{{ button_label|default('Update proposal'|trans([], 'case', 'da')) }}</button>
+        {{ form_end(decision_proposal_form) }}
+    </main>
+{% endblock %}

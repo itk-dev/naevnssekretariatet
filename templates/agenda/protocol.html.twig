@@ -1,0 +1,21 @@
+{% extends 'layout-with-agenda-submenu.html.twig' %}
+
+{% trans_default_domain 'agenda' %}
+
+{% block title %}{% trans %}Protocol{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Protocol{% endtrans %}</h1>
+            <p class="text-muted"><small>{% trans %}Create or update protocol{% endtrans %}</small></p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <main role="main" class="col-12 mt-3">
+        {{ form(protocol_form) }}
+    </main>
+{% endblock %}

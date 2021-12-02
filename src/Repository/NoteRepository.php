@@ -27,7 +27,8 @@ class NoteRepository extends ServiceEntityRepository
             ->where('n.caseEntity = :caseObject')
             ->setParameter('caseObject', $case->getId()->toBinary())
             ->orderBy('n.updatedAt', 'DESC')
-            ->getQuery();
+            ->getQuery()
+        ;
     }
 
     /**
@@ -41,6 +42,7 @@ class NoteRepository extends ServiceEntityRepository
             ->orderBy('n.updatedAt', 'DESC')
             ->setMaxResults($numberOfNotes)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 }

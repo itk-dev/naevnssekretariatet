@@ -28,19 +28,31 @@ class BoardMember
     private $name;
 
     /**
+     * @ORM\ManyToMany(targetEntity=BoardRole::class, mappedBy="boardMembers")
+     */
+    private $boardRoles;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Agenda::class, mappedBy="boardmembers")
+     */
+    private $agendas;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Board::class, inversedBy="boardMembers")
+     */
+    private $boards;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="boardMembers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $municipality;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=BoardRole::class, mappedBy="boardMembers")
-     */
-    private $boardRoles;
-
     public function __construct()
     {
         $this->boardRoles = new ArrayCollection();
+        $this->agendas = new ArrayCollection();
+        $this->boards = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -56,18 +68,6 @@ class BoardMember
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getMunicipality(): ?Municipality
-    {
-        return $this->municipality;
-    }
-
-    public function setMunicipality(?Municipality $municipality): self
-    {
-        $this->municipality = $municipality;
 
         return $this;
     }
@@ -95,6 +95,74 @@ class BoardMember
         if ($this->boardRoles->removeElement($boardRole)) {
             $boardRole->removeBoardMember($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Agenda[]
+     */
+    public function getAgendas(): Collection
+    {
+        return $this->agendas;
+    }
+
+    public function addAgenda(Agenda $agenda): self
+    {
+        if (!$this->agendas->contains($agenda)) {
+            $this->agendas[] = $agenda;
+            $agenda->addBoardmember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgenda(Agenda $agenda): self
+    {
+        if ($this->agendas->removeElement($agenda)) {
+            $agenda->removeBoardmember($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Collection|Board[]
+     */
+    public function getBoards(): Collection
+    {
+        return $this->boards;
+    }
+
+    public function addBoard(Board $board): self
+    {
+        if (!$this->boards->contains($board)) {
+            $this->boards[] = $board;
+        }
+
+        return $this;
+    }
+
+    public function removeBoard(Board $board): self
+    {
+        $this->boards->removeElement($board);
+
+        return $this;
+    }
+
+    public function getMunicipality(): ?Municipality
+    {
+        return $this->municipality;
+    }
+
+    public function setMunicipality(?Municipality $municipality): self
+    {
+        $this->municipality = $municipality;
 
         return $this;
     }

@@ -1,0 +1,346 @@
+{% trans_default_domain 'case' %}
+
+<ul class="nav nav-tabs mt-3" id="casestatusTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">{% trans %}Overview{% endtrans %}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="lease-tab" data-toggle="tab" href="#lease" role="tab" aria-controls="lease" aria-selected="true">{% trans %}Lease{% endtrans %}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="tenant-tab" data-toggle="tab" href="#tenant" role="tab" aria-controls="tenant" aria-selected="true">{% trans %}Tenant{% endtrans %}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="landlord-tab" data-toggle="tab" href="#landlord" role="tab" aria-controls="landlord" aria-selected="true">{% trans %}Landlord{% endtrans %}</a>
+    </li>
+</ul>
+<div class="tab-content" id="casestatusTabContent">
+    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+        <div class="row mt-3">
+            <div class="col">
+                <fieldset>
+                    <legend>{% trans %}Complainant{% endtrans %}</legend>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Complainant name{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainant }}" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>{% trans %}Telephone number{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantPhone }}" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>{% trans %}CPR number{% endtrans %}</label>
+                            <div class="input-group mb-3">
+                                {# TODO: Input correct CPR when property exists #}
+                                <input type="text" class="form-control" value="{{ case.complainantCPR }}" readonly>
+                                {#  <div class="input-group-append">#}
+                                {# TODO: Show status depending on validation result #}
+                                {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate CPR number'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
+                                {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
+                                {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
+                                {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                                {#</div>   #}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Road{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.street }}" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Number{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.number }}" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Floor{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.floor }}" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Side{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.side }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Postal code{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.postalCode }}" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>{% trans %}City{% endtrans %}</label>
+                            {# TODO: Update city value when such property exists #}
+                            <input type="text" class="form-control" value="{{ case.complainantAddress.city }}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Validate{% endtrans %}</label>
+                            {# TODO: Show status depending on validation result #}
+                            {# Not yet validated #} <button class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate address'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
+                            {# Success <button class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="Address is validated"><i class="fas fa-check-circle"></i></button>#}
+                            {# Warning <button class="btn btn-block btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
+                            {# Failed <button class="btn btn-block btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                            <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
+                        </div>
+                    </div>
+
+                </fieldset>
+                <fieldset>
+                    <legend>{% trans %}Case specifics{% endtrans %}</legend>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Complaint fee in DKK{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complaintCategory.fee }}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Complaint category{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.complaintCategory.name }}" readonly>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="lease" role="tabpanel" aria-labelledby="lease-tab">
+        <div class="row mt-3">
+            <div class="col">
+                <fieldset>
+                    <legend>{% trans %}Address{% endtrans %}</legend>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Road{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.street }}" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Number{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.number }}" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Floor{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.floor }}" readonly>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Side{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.side }}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label>{% trans %}Postal code{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.postalCode }}" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>{% trans %}City{% endtrans %}</label>
+                            {# TODO: Update city value when such property exists #}
+                            <input type="text" class="form-control" value="{{ case.leaseAddress.city }}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>{% trans %}Validate{% endtrans %}</label>
+                            {# TODO: Show status depending on validation result #}
+                            {# Not yet validated #} <button class="btn btn-block btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate address'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
+                            {# Success <button class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="Address is validated"><i class="fas fa-check-circle"></i></button>#}
+                            {# Warning <button class="btn btn-block btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
+                            {# Failed <button class="btn btn-block btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                            <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>{% trans %}BBR information{% endtrans %}</legend>
+
+                    {% if case.leaseAddress.bbrData|default(false) %}
+                        {% set enhed = case.leaseAddress.bbrData.enhed.0|default(false) %}
+                        {% set bygning = case.leaseAddress.bbrData.bygning.0|default(false) %}
+                        {% if enhed %}
+                            <table class="table bbr-enhed">
+                                {% if enhed.enh027ArealTilBeboelse|default(false) %}
+                                    <tr class="bbr-enh027ArealTilBeboelse">
+                                        <th>{% trans %}Enhedens boligareal{% endtrans %}</th>
+                                        <td class="number">{{ enhed.enh027ArealTilBeboelse|number_format|with_unit('m²') }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if enhed.enh031AntalVærelser|default(false) %}
+                                    <tr class="bbr-enh031AntalVærelser">
+                                        <th>{% trans %}Antal værelser{% endtrans %}</th>
+                                        <td class="number">{{ enhed.enh031AntalVærelser|number_format }}</td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                        {% endif %}
+
+                        {% if bygning %}
+                            <table class="table bbr-bygning">
+
+                                {% if case.leaseAddress.bbrData.bygning.0.byg007Bygningsnummer|default(false) %}
+                                    <tr class="bbr-byg007Bygningsnummer">
+                                        <th>{% trans %}Bygningsnr.{% endtrans %}</th>
+                                        <td class="number">{{ case.leaseAddress.bbrData.bygning.0.byg007Bygningsnummer }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if case.leaseAddress.bbrData.bygning.0.byg026Opførelsesår|default(false) %}
+                                    <tr class="bbr-byg026Opførelsesår">
+                                        <th>{% trans %}Opførelsesår{% endtrans %}</th>
+                                        <td class="number">{{ case.leaseAddress.bbrData.bygning.0.byg026Opførelsesår }}</td>
+                                    </tr>
+                                {% endif %}
+
+                                {% if case.leaseAddress.bbrData.bygning.0.byg024AntalLejlighederMedKøkken|default(false) %}
+                                    <tr class="bbr-byg024AntalLejlighederMedKøkken">
+                                        <th>{% trans %}Lejligheder med køkken{% endtrans %}</th>
+                                        <td class="number">{{ case.leaseAddress.bbrData.bygning.0.byg024AntalLejlighederMedKøkken }}</td>
+                                    </tr>
+                                {% endif %}
+
+                            </table>
+                        {% endif %}
+
+                    {% else %}
+                        {% trans %}No BBR data{% endtrans %}
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-link" data-referer-query-name="referer" href="{{ path('case_bbr_meddelelse', {id: case.id, addressProperty: 'leaseAddress'}) }}">{% trans %}Show BBR-Meddelelse for lease (PDF){% endtrans %}</a>
+                        </div>
+                        <div class="col text-right">
+                            <form data-referer-query-name="referer" class="btn-group" method="post" action="{{ path('case_bbr_data_update', {id: case.id, addressProperty: 'leaseAddress'}) }}">
+                                <button class="btn btn-secondary">{% trans %}Update BBR data{% endtrans %}</button>
+                            </form>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>{% trans %}Lease information{% endtrans %}</legend>
+
+                    {% include('case/_case_show/_lease_information/' ~ camelCaseToUnderscore(class(case)) ~ '.html.twig') %}
+
+                </fieldset>
+                <fieldset>
+                    <legend>{% trans %}Rent{% endtrans %}</legend>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>{% trans %}Agreed rent{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseAgreedRent }}" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>{% trans %}Regulated rent{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseRegulatedRent }}" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>{% trans %}Rent at collection time{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseRentAtCollectionTime }}" readonly>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label>{% trans %}Security deposit{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseSecurityDeposit }}" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>{% trans %}Prepaid rent{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.prepaidRent }}" readonly>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="tenant" role="tabpanel" aria-labelledby="tenant-tab">
+        <div class="row mt-3">
+            <div class="col">
+                <div class="table-responsive-sm">
+                    <table id="basicInformationTenant" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">{% trans %}Name{% endtrans %}</th>
+                                <th scope="col">{% trans %}Address{% endtrans %}</th>
+                                <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Journal number{% endtrans %}</th>
+                                <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for party in complainants %}
+                                <tr>
+                                    <td>{{ party.name|e }}</td>
+                                    <td>{{ party.address|e }}</td>
+                                    <td>{{ party.cpr|e }}</td>
+                                    <td>{{ party.phoneNumber|e }}</td>
+                                    <td>{{ party.journalNumber|e }}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+
+                                            <!-- Edit button -->
+                                            <a href="{{ url("party_edit", {id: case.id, party_id: party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+
+                                            <!-- Delete button -->
+
+                                            <form class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party.id) }}">
+                                                <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="landlord" role="tabpanel" aria-labelledby="landlord-tab">
+        <div class="row mt-3">
+            <div class="col">
+                <div class="table-responsive-sm">
+                    <table id="basicInformationLandlord" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">{% trans %}Name{% endtrans %}</th>
+                                <th scope="col">{% trans %}Address{% endtrans %}</th>
+                                <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Journal number{% endtrans %}</th>
+                                <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for party in counterparties %}
+                                <tr>
+                                    <td>{{ party.name|e }}</td>
+                                    <td>{{ party.address|e }}</td>
+                                    <td>{{ party.cpr|e }}</td>
+                                    <td>{{ party.phoneNumber|e }}</td>
+                                    <td>{{ party.journalNumber|e }}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+
+                                            <!-- Edit button -->
+                                            <a href="{{ url("party_edit", {id: case.id, party_id: party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+
+                                            <!-- Delete button -->
+
+                                            <form class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party.id) }}">
+                                                <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

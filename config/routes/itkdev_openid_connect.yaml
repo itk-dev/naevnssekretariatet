@@ -1,0 +1,3 @@
+itkdev_openid_connect:
+  resource: "@ItkDevOpenIdConnectBundle/src/Resources/config/routes.yaml"
+  prefix: "/openidconnect" # Prefix for bundle routes

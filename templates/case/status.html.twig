@@ -1,4 +1,4 @@
-{% extends 'layout-with-submenu.html.twig' %}
+{% extends 'layout-with-case-submenu.html.twig' %}
 
 {% trans_default_domain 'case' %}
 
@@ -63,61 +63,97 @@
             </div>
         </section>
         <section class="mt-3">
-            <h2>{% trans %}Agenda{% endtrans %}</h2>
+            <h2>{% trans %}Agenda status{% endtrans %}</h2>
+
+            {{ form_start(case_agenda_status_form) }}
             <div class="row">
-                <div class="col">
-                    <form class="form-inline form-row">
-                        <div class="form-group col-4 mr-2">
-                            <label for="agendaSelect" class="sr-only">Select agenda</label>
-                            <select class="form-control js-select2 w-100" name="agendaSelect" id="agendaSelect">
-                                <option>Agenda 1</option>
-                                <option>Agenda 2</option>
-                                <option>Agenda 3</option>
-                                <option>Agenda 4</option>
-                                <option>Agenda 5</option>
-                                <option>Agenda 6</option>
-                                <option>Agenda 7</option>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-primary col-auto">{% trans %}Add case to selected agenda{% endtrans %}</button>
-                    </form>
+                <div class="col-auto">
+                    {{ form_widget(case_agenda_status_form.isReadyForAgenda) }}
+                </div>
+                <div class="col-auto">
+                    {{ form_widget(case_agenda_status_form.shouldBeInspected) }}
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary">{{ button_label|default('Submit'|trans([], 'case', 'da')) }}</button>
                 </div>
             </div>
-            <h3 class="h5 mt-3">{% trans %}Selected agenda{% endtrans %}</h3>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>{% trans %}Board{% endtrans %}</th>
-                        <th>{% trans %}Date{% endtrans %}</th>
-                        <th>{% trans %}Start time{% endtrans %}</th>
-                        <th>{% trans %}End time{% endtrans %}</th>
-                        <th class="text-right">{% trans %}Remove{% endtrans %}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td scope="row">
-                            <form class="form-inline">
-                                <strong>Beboerklagenævn</strong>
-                                <div class="form-check ml-3">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" checked>
-                                        Besigtigelsessag
-                                    </label>
-                                </div>
-                            </form>
-                        </td>
-                        <td>2. sep. 2020</td>
-                        <td>17:00</td>
-                        <td>20:00</td>
-                        <td class="text-right">
-                            <a href="#" role="button" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Remove from agenda{% endtrans %}"><i class="fas fa-trash-alt"></i><span class="sr-only">{% trans %}Remove from agenda{% endtrans %} </span></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            {{ form_end(case_agenda_status_form) }}
+
+                <h3 class="h5 mt-3">{% trans %}Active agenda{% endtrans %}</h3>
+                {% if active_agendas|length > 0 %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>{% trans %}Board{% endtrans %}</th>
+                                <th>{% trans %}Date{% endtrans %}</th>
+                                <th>{% trans %}Start time{% endtrans %}</th>
+                                <th>{% trans %}End time{% endtrans %}</th>
+                                <th>{% trans %}Status{% endtrans %}</th>
+                                <th class="text-right">{% trans %}Edit{% endtrans %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for active_agenda in active_agendas %}
+                                <tr>
+                                    <td>
+                                        {{ active_agenda.agenda.board.name|e }}
+                                        {% if active_agenda.inspection %}
+                                            <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ active_agenda.agenda.date|date('j M Y') }}</td>
+                                    <td>{{ active_agenda.agenda.start|date('H:i') }}</td>
+                                    <td>{{ active_agenda.agenda.end|date('H:i') }}</td>
+                                    <td>{{ active_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
+                                    <td class="text-right">
+                                        <a href="{{ url('agenda_show', {id: active_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    {% trans %}Case is not assigned any non-finished agenda{% endtrans %}
+                {% endif %}
+
+            {% if finished_agendas|length > 0 %}
+                <h3 class="h5 mt-3">{% trans %}Finished agendas{% endtrans %}</h3>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>{% trans %}Board{% endtrans %}</th>
+                            <th>{% trans %}Date{% endtrans %}</th>
+                            <th>{% trans %}Start time{% endtrans %}</th>
+                            <th>{% trans %}End time{% endtrans %}</th>
+                            <th>{% trans %}Status{% endtrans %}</th>
+                            <th class="text-right">{% trans %}Edit{% endtrans %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for finished_agenda in finished_agendas %}
+                            <tr>
+                                <td>
+                                    {{ finished_agenda.agenda.board.name|e }}
+                                    {% if finished_agenda.inspection %}
+                                        <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ finished_agenda.agenda.date|date('j M Y') }}</td>
+                                <td>{{ finished_agenda.agenda.start|date('H:i') }}</td>
+                                <td>{{ finished_agenda.agenda.end|date('H:i') }}</td>
+                                <td>{{ finished_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
+                                <td class="text-right">
+                                    <a href="{{ url('agenda_show', {id: finished_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
         </section>
     </main>
     <footer class="col-12 mt-3">
@@ -131,7 +167,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="rescheduleDeadlineModalLabel">{% trans %}Reschedule deadline{% endtrans %}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'Close'|trans([], 'messages') }}">
                         <span aria-hidden="true"><i class="fas fa-times"></i></span>
                     </button>
                 </div>
@@ -148,7 +184,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans from 'messages' %}Close{% endtrans %}</button>
                     <button type="button" class="btn btn-primary">{% trans %}Save changes{% endtrans %}</button>
                 </div>
             </div>

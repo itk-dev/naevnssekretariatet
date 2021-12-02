@@ -1,0 +1,42 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'agenda' %}
+
+{% block title %}{% trans %}Create agenda{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Create agenda{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a name="" id="" class="btn btn-secondary" href="{{ url('agenda_index') }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(agenda_create_form) }}
+        <div class="mb-3">
+            <label >{% trans %}Board{% endtrans %}</label>
+            {{ form_widget(agenda_create_form.board, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
+        </div>
+        <div class="mb-3">
+            <label >{% trans %}Date{% endtrans %}</label>
+            {{ form_widget(agenda_create_form.date, {'attr': {'type': 'text', 'class': 'form-control'}}) }}
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label >{% trans %}Start time{% endtrans %}</label>
+                {{ form_widget(agenda_create_form.start, {'attr': {'type': 'date', 'class': 'form-control'}}) }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label >{% trans %}End time{% endtrans %}</label>
+                {{ form_widget(agenda_create_form.end, {'attr': {'type': 'text', 'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <button class="btn btn-success float-right">{{ button_label|default('Create Agenda'|trans([], 'agenda', 'da')) }}</button>
+        {{ form_end(agenda_create_form) }}
+    </main>
+{% endblock %}
