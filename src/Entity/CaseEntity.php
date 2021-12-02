@@ -84,6 +84,31 @@ abstract class CaseEntity
     private $notes;
 
     /**
+     * @ORM\OneToMany(targetEntity=AgendaCaseItem::class, mappedBy="caseEntity")
+     */
+    private $agendaCaseItems;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $isReadyForAgenda = false;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $shouldBeInspected = false;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CasePresentation::class, inversedBy="caseEntity", cascade={"persist", "remove"}, fetch="EAGER")
+     */
+    private $presentation;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CaseDecisionProposal::class, inversedBy="caseEntity", cascade={"persist", "remove"})
+     */
+    private $decisionProposal;
+
+    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignedCases")
      */
     private $assignedTo;
@@ -114,6 +139,7 @@ abstract class CaseEntity
         $this->casePartyRelation = new ArrayCollection();
         $this->caseDocumentRelation = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->agendaCaseItems = new ArrayCollection();
         $this->reminders = new ArrayCollection();
     }
 
@@ -336,6 +362,37 @@ abstract class CaseEntity
     }
 
     /**
+<<<<<<< HEAD
+     * @return Collection|AgendaCaseItem[]
+     */
+    public function getAgendaCaseItems(): Collection
+    {
+        return $this->agendaCaseItems;
+    }
+
+    public function addAgendaCaseItem(AgendaCaseItem $agendaCaseItem): self
+    {
+        if (!$this->agendaCaseItems->contains($agendaCaseItem)) {
+            $this->agendaCaseItems[] = $agendaCaseItem;
+            $agendaCaseItem->setCaseEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgendaCaseItem(AgendaCaseItem $agendaCaseItem): self
+    {
+        if ($this->agendaCaseItems->removeElement($agendaCaseItem)) {
+            // set the owning side to null (unless already changed)
+            if ($agendaCaseItem->getCaseEntity() === $this) {
+                $agendaCaseItem->setCaseEntity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection|Reminder[]
      */
     public function getReminders(): Collection
@@ -361,6 +418,54 @@ abstract class CaseEntity
                 $reminder->setCaseEntity(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsReadyForAgenda(): ?bool
+    {
+        return $this->isReadyForAgenda;
+    }
+
+    public function setIsReadyForAgenda(bool $isReadyForAgenda): self
+    {
+        $this->isReadyForAgenda = $isReadyForAgenda;
+
+        return $this;
+    }
+
+    public function getShouldBeInspected(): ?bool
+    {
+        return $this->shouldBeInspected;
+    }
+
+    public function setShouldBeInspected(bool $shouldBeInspected): self
+    {
+        $this->shouldBeInspected = $shouldBeInspected;
+
+        return $this;
+    }
+
+    public function getPresentation(): ?CasePresentation
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(?CasePresentation $presentation): self
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getDecisionProposal(): ?CaseDecisionProposal
+    {
+        return $this->decisionProposal;
+    }
+
+    public function setDecisionProposal(?CaseDecisionProposal $decisionProposal): self
+    {
+        $this->decisionProposal = $decisionProposal;
 
         return $this;
     }

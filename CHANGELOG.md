@@ -46,6 +46,7 @@ MunicipalityListener, BoardListener and their tests.
 - [TVIST1-359](https://jira.itkdev.dk/browse/TVIST1-359): Added Case reminders.
 - [TVIST1-238](https://jira.itkdev.dk/browse/TVIST1-238): Added RentBoardCase and FenceReviewCase.
 - [TVIST1-410](https://jira.itkdev.dk/browse/TVIST1-410): Added address embeddable.
+- [TVIST1-297](https://jira.itkdev.dk/browse/TVIST1-297): Added templates, routes and controller for Agenda module.
 
 ### Changed
 - [NSEK-138](https://jira.itkdev.dk/browse/NSEK-138): Updating Cypress to 6.5.0 so the same version is used project wide.

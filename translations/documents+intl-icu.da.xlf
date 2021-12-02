@@ -31,7 +31,7 @@
       </trans-unit>
       <trans-unit id="delC5bN" resname="Functions">
         <source>Functions</source>
-        <target>Handlinger</target>
+        <target>Valgmuligheder</target>
       </trans-unit>
       <trans-unit id="VYJLaab" resname="Create new document">
         <source>Create new document</source>
@@ -71,7 +71,7 @@
       </trans-unit>
       <trans-unit id="ImnkQgY" resname="List functions">
         <source>List functions</source>
-        <target>Handlinger</target>
+        <target>Valgmuligheder</target>
       </trans-unit>
       <trans-unit id="MY1S7iA" resname="Copy document to another case">
         <source>Copy document to another case</source>
@@ -116,6 +116,18 @@
       <trans-unit id="hl6J3nj" resname="Upload">
         <source>Upload</source>
         <target>Opret</target>
+      </trans-unit>
+      <trans-unit id="sZy9p79" resname="Upload documents">
+        <source>Upload documents</source>
+        <target>Opret dokumenter</target>
+      </trans-unit>
+      <trans-unit id="LqCaMFb" resname="Upload and remove documents">
+        <source>Upload and remove documents</source>
+        <target>Opret og slet dokumenter</target>
+      </trans-unit>
+      <trans-unit id="2ZvNeLW" resname="Upload file">
+        <source>Upload file</source>
+        <target>Opret dokument</target>
       </trans-unit>
     </body>
   </file>

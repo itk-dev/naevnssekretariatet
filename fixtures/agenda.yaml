@@ -1,0 +1,84 @@
+App\Entity\Agenda:
+  agenda-1:
+    board: '@resident-complaint-board-aarhus'
+    date: <(new \DateTime('2021-10-11'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 1
+
+  agenda-2:
+    board: '@resident-complaint-board-aarhus'
+    date: <(new \DateTime('2021-10-11'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 2
+
+  agenda-3:
+    board: '@resident-complaint-board-aarhus'
+    date: <(new \DateTime('2021-10-12'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 1
+
+  agenda-4:
+    board: '@resident-complaint-board-aarhus'
+    date: <(new \DateTime('2021-10-13'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 2
+
+  agenda-5:
+    board: '@rent-board-aarhus'
+    date: <(new \DateTime('2021-10-14'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 1
+
+  agenda-6:
+    board: '@fence-board-aarhus'
+    date: <(new \DateTime('2021-11-11'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 2
+
+  agenda-7:
+    board: '@rent-board-aarhus'
+    date: <(new \DateTime('2021-11-12'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 1
+
+  agenda-8:
+    board: '@fence-board-aarhus'
+    date: <(new \DateTime('2021-11-13'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 1
+
+  agenda-9:
+    board: '@resident-complaint-board-aarhus'
+    date: <(new \DateTime('2021-12-11'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 1
+
+  agenda-10:
+    board: '@rent-board-aarhus'
+    date: <(new \DateTime('2021-12-15'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 1
+
+  agenda-11:
+    board: '@resident-complaint-board-aarhus'
+    date: <(new \DateTime('2021-12-05'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 1
+
+  agenda-12:
+    board: '@rent-board-aarhus'
+    date: <(new \DateTime('2021-10-07'))>
+    start: <(new \DateTime('1970-01-01 17:00'))>
+    end: <(new \DateTime('1970-01-01 21:00'))>
+    status: 1

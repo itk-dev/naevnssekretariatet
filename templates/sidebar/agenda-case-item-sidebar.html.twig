@@ -17,12 +17,14 @@
             </div>
             {% block sidebarSubmenu %}
                 <div class="sidebar-sticky pt-3">
-                    <h6 class="px-3 mb-1">{% trans %}Case{% endtrans %} {{ case.caseNumber }}</h6>
-                    <p class="text-muted px-3 mt-1 mb-3"><small>{{ case.complainantAddress }}</small></p>
+                    <h6 class="px-3 mb-1">{% trans %}Agenda item{% endtrans %} {{ agenda_item.startTime|date('H:i') }}-{{ agenda_item.endTime|date('H:i') }}</h6>
+                    <p class="text-muted px-3 mt-1 mb-3"><small>{{ agenda_item.meetingPoint }}</small></p>
                     <ul class="nav flex-column">
                         {{ render(controller(
-                            'App\\Controller\\SidebarController::renderSubmenu', {
-                                caseId: case.id,
+                            'App\\Controller\\SidebarController::renderAgendaCaseItemSubmenu', {
+                                agendaId: agenda.id,
+                                agendaItemId: agenda_item.id,
+                                isInspection: agenda_item.inspection,
                                 activeRoute: app.request.get('_route')
                             }
                         )) }}

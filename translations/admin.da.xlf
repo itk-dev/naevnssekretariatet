@@ -181,6 +181,14 @@
         <source>Document types</source>
         <target>Dokumenttyper</target>
       </trans-unit>
+      <trans-unit id="xsCUvAB" resname="Empty">
+        <source>Empty</source>
+        <target>Tom</target>
+      </trans-unit>
+      <trans-unit id="0AItL4V" resname="Add to part index">
+        <source>Add to part index</source>
+        <target>Tilføj til partskartotek</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

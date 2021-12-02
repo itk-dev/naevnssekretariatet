@@ -2,7 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Board;
 use App\Entity\CaseEntity;
+use App\Entity\Municipality;
+use App\Service\AgendaStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,5 +30,40 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+
+    public function findReadyCasesWithoutActiveAgendaByBoard(Board $board)
+    {
+        $activeCases = $this->findCasesWithActiveAgenda();
+
+        $binaryIdsOfActiveCases = array_map(function (CaseEntity $case) {
+            return $case->getId()->toBinary();
+        }, $activeCases);
+
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->select('c')
+            ->where('c.board = :board')
+            ->setParameter('board', $board->getId()->toBinary())
+            ->andWhere('c.isReadyForAgenda = :isReadyForAgendaCheck')
+            ->setParameter('isReadyForAgendaCheck', true)
+            ->andWhere('c NOT IN (:cases_with_active_agenda)')
+            ->setParameter('cases_with_active_agenda', $binaryIdsOfActiveCases)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findCasesWithActiveAgenda()
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->leftJoin('c.agendaCaseItems', 'aci')
+            ->join('aci.agenda', 'a')
+            ->where('a.status != :agenda_status')
+            ->setParameter('agenda_status', AgendaStatus::FINISHED)
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 }

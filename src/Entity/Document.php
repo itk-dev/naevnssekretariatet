@@ -56,9 +56,15 @@ class Document implements LoggableEntityInterface
      */
     private $caseDocumentRelation;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=AgendaCaseItem::class, mappedBy="documents")
+     */
+    private $agendaCaseItems;
+
     public function __construct()
     {
         $this->caseDocumentRelation = new ArrayCollection();
+        $this->agendaCaseItems = new ArrayCollection();
     }
 
     public function getId(): ?UuidV4
@@ -157,5 +163,37 @@ class Document implements LoggableEntityInterface
             'documentName',
             'type',
         ];
+    }
+
+    /**
+     * @return Collection|AgendaCaseItem[]
+     */
+    public function getAgendaCaseItems(): Collection
+    {
+        return $this->agendaCaseItems;
+    }
+
+    public function addAgendaCaseItem(AgendaCaseItem $agendaCaseItem): self
+    {
+        if (!$this->agendaCaseItems->contains($agendaCaseItem)) {
+            $this->agendaCaseItems[] = $agendaCaseItem;
+            $agendaCaseItem->addDocument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgendaCaseItem(AgendaCaseItem $agendaCaseItem): self
+    {
+        if ($this->agendaCaseItems->removeElement($agendaCaseItem)) {
+            $agendaCaseItem->removeDocument($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->documentName;
     }
 }
