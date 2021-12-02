@@ -905,6 +905,14 @@
         <source>Assign to</source>
         <target>Tildel til</target>
       </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target>Luk</target>
+      </trans-unit>
+      <trans-unit id="hgr5Rub" resname="Neighbour">
+        <source>Neighbour</source>
+        <target>Nabo</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
