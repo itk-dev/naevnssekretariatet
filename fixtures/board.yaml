@@ -91,8 +91,8 @@ App\Entity\Board:
       Klager
       Klager repræsentant
     counterPartyTypes: |-
-      Modpart
-      Modpart repræsentant
+      Nabo
+      Nabo repræsentant
 
   fence-board-randers:
     name: Hegnsnævnet Randers
@@ -110,5 +110,5 @@ App\Entity\Board:
       Klager
       Klager repræsentant
     counterPartyTypes: |-
-      Modpart
-      Modpart repræsentant
+      Nabo
+      Nabo repræsentant
