@@ -189,6 +189,22 @@
         <source>Add to part index</source>
         <target>Tilføj til partskartotek</target>
       </trans-unit>
+      <trans-unit id="7lWBnRv" resname="Case Form Type">
+        <source>Case Form Type</source>
+        <target>Sag form type</target>
+      </trans-unit>
+      <trans-unit id="4G27vkv" resname="Complainant party types">
+        <source>Complainant party types</source>
+        <target>Klager typer</target>
+      </trans-unit>
+      <trans-unit id="x.7GeB3" resname="Counter party types">
+        <source>Counter party types</source>
+        <target>Modpart typer</target>
+      </trans-unit>
+      <trans-unit id="suC1YnM" resname="BoardRole">
+        <source>BoardRole</source>
+        <target>Nævnsroller</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
