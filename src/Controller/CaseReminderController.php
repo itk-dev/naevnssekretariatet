@@ -45,9 +45,7 @@ class CaseReminderController extends AbstractController
         /** @var User $user */
         $user = $this->security->getUser();
 
-        $reminders = $reminderRepository->findBy([
-            'createdBy' => $user->getId()->toBinary(),
-        ]);
+        $reminders = $reminderRepository->findBy(['createdBy' => $user->getId()->toBinary()], ['date' => 'ASC']);
 
         return $this->render('reminder/index.html.twig', [
             'reminders' => $reminders,
