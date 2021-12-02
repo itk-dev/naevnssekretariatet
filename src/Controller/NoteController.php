@@ -70,7 +70,7 @@ class NoteController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="notes_new")
+     * @Route("/new", name="note_new")
      */
     public function new(CaseEntity $case, Request $request): Response
     {

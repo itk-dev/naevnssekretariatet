@@ -10,7 +10,7 @@
             <h1>{% trans %}Notes{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a class="btn btn-primary" target="_blank" href="{{ url('notes_new', {'id': case.id}) }}" role="button">{% trans %}New note{% endtrans %}</a>
+            <a class="btn btn-primary" target="_blank" href="{{ url('note_new', {'id': case.id}) }}" role="button">{% trans %}New note{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
