@@ -90,12 +90,15 @@ class CaseReminderController extends AbstractController
     }
 
     /**
-     * @Route("/reminder/{id}/complete", name="reminder_complete", methods={"GET"})
+     * @Route("/reminder/{id}/complete", name="reminder_complete", methods={"DELETE"})
      */
-    public function complete(Reminder $reminder): Response
+    public function complete(Reminder $reminder, Request $request): Response
     {
-        $this->entityManager->remove($reminder);
-        $this->entityManager->flush();
+        // Check that CSRF token is valid
+        if ($this->isCsrfTokenValid('complete'.$reminder->getId(), $request->request->get('_token'))) {
+            $this->entityManager->remove($reminder);
+            $this->entityManager->flush();
+        }
 
         return $this->redirectToRoute('reminder_index');
     }
