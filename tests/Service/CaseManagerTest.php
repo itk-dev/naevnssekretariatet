@@ -7,13 +7,17 @@ use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
 use App\Service\CaseManager;
 use App\Service\WorkflowService;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Lock\LockFactory;
 
 class CaseManagerTest extends TestCase
 {
     private $mockCaseRepository;
     private $mockWorkflowService;
     private $caseManager;
+    private $mockEntityManager;
+    private $lockFactory;
 
     protected function setUp(): void
     {
@@ -21,9 +25,13 @@ class CaseManagerTest extends TestCase
 
         $this->mockCaseRepository = $this->createMock(CaseEntityRepository::class);
         $this->mockWorkflowService = $this->createMock(WorkflowService::class);
+        $this->mockEntityManager = $this->createMock(EntityManagerInterface::class);
+        $this->lockFactory = $this->createMock(LockFactory::class);
 
         $this->caseManager = new CaseManager(
             $this->mockCaseRepository,
+            $this->mockEntityManager,
+            $this->lockFactory,
             $this->mockWorkflowService
         );
     }
@@ -34,17 +42,16 @@ class CaseManagerTest extends TestCase
 
         $this->mockCaseRepository
             ->expects($this->once())
-            ->method('findLatestCaseByMunicipality')
-            ->with($mockMunicipality)
+            ->method('findLatestCase')
             ->willReturn(null)
         ;
 
         $date = new \DateTime();
-        $year = $date->format('Y');
+        $year = $date->format('y');
 
         $actual = $this->caseManager->generateCaseNumber($mockMunicipality);
 
-        $expected = $year.'-0001';
+        $expected = $year.'-000001';
 
         $this->assertSame($expected, $actual);
     }
@@ -57,8 +64,7 @@ class CaseManagerTest extends TestCase
 
         $this->mockCaseRepository
             ->expects($this->once())
-            ->method('findLatestCaseByMunicipality')
-            ->with($mockMunicipality)
+            ->method('findLatestCase')
             ->willReturn($mockCase)
         ;
 
@@ -71,33 +77,33 @@ class CaseManagerTest extends TestCase
         ;
 
         $currentDate = new \DateTime();
-        $currentYear = $currentDate->format('Y');
+        $currentYear = $currentDate->format('y');
 
         // Subtract a year from DateTime and get the year
         $previousYearDate = $currentDate->sub(new \DateInterval('P1Y'));
-        $previousYear = $previousYearDate->format('Y');
+        $previousYear = $previousYearDate->format('y');
 
         $mockDate
             ->expects($this->once())
             ->method('format')
-            ->with('Y')
+            ->with('y')
             ->willReturn($previousYear)
         ;
 
         $actual = $this->caseManager->generateCaseNumber($mockMunicipality);
 
-        $expected = $currentYear.'-0001';
+        $expected = $currentYear.'-000001';
 
         $this->assertSame($expected, $actual);
     }
 
     public function testGetIncrementedCaseCounter()
     {
-        $testCaseNumber = '2021-0001';
+        $testCaseNumber = '21-000001';
 
         $actual = $this->caseManager->getIncrementedCaseCounter($testCaseNumber);
 
-        $expected = '0002';
+        $expected = '000002';
 
         $this->assertSame($expected, $actual);
     }

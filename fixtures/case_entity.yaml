@@ -405,7 +405,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-1-lease-address'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
-    caseNumber: 2021-0001
+    caseNumber: 21-000001
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -420,7 +420,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-2-lease-address'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
-    caseNumber: 2021-0002
+    caseNumber: 21-000002
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -434,7 +434,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-2-lease-address'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
-    caseNumber: 2021-0003
+    caseNumber: 21-000003
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -449,7 +449,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-4-lease-address'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
-    caseNumber: 2021-0004
+    caseNumber: 21-000004
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -464,7 +464,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-1-lease-address'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
-    caseNumber: 2021-0005
+    caseNumber: 21-000005
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -480,7 +480,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-6-lease-address'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
-    caseNumber: 2021-0006
+    caseNumber: 21-000006
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -495,7 +495,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-7-lease-address'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
-    caseNumber: 2021-0007
+    caseNumber: 21-000007
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -510,7 +510,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-8-lease-address'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
-    caseNumber: 2021-0008
+    caseNumber: 21-000008
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -525,7 +525,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-9-lease-address'
     hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
-    caseNumber: 2021-0009
+    caseNumber: 21-000009
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -542,7 +542,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-10-lease-address'
     hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
-    caseNumber: 2021-0010
+    caseNumber: 21-000010
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -558,7 +558,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-11-lease-address'
     hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
-    caseNumber: 2021-0011
+    caseNumber: 21-000011
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -573,7 +573,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-12-lease-address'
     hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
-    caseNumber: 2021-0012
+    caseNumber: 21-000012
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -589,7 +589,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-13-lease-address'
     hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
-    caseNumber: 2021-0013
+    caseNumber: 21-000013
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -605,7 +605,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-14-lease-address'
     hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
-    caseNumber: 2021-0014
+    caseNumber: 21-000014
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -620,7 +620,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-15-lease-address'
     hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
-    caseNumber: 2021-0015
+    caseNumber: 21-000015
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -637,7 +637,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-16-lease-address'
     hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
-    caseNumber: 2021-0016
+    caseNumber: 21-000016
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -653,7 +653,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-17-lease-address'
     hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
-    caseNumber: 2021-0017
+    caseNumber: 21-000017
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -668,7 +668,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-18-lease-address'
     hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
-    caseNumber: 2021-0018
+    caseNumber: 21-000018
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -683,7 +683,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-19-lease-address'
     hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
-    caseNumber: 2021-0019
+    caseNumber: 21-000019
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -699,7 +699,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-20-lease-address'
     hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
-    caseNumber: 2021-0020
+    caseNumber: 21-000020
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -714,7 +714,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-21-lease-address'
     hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
-    caseNumber: 2021-0021
+    caseNumber: 21-000021
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -729,7 +729,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-22-lease-address'
     hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
-    caseNumber: 2021-0022
+    caseNumber: 21-000022
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -744,7 +744,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-23-lease-address'
     hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
-    caseNumber: 2021-0023
+    caseNumber: 21-000023
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -759,7 +759,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-aarhus-24-lease-address'
     hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
-    caseNumber: 2021-0024
+    caseNumber: 21-000024
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
@@ -776,7 +776,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-randers-1-lease-address'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
-    caseNumber: 2021-0001
+    caseNumber: 21-000025
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
@@ -792,7 +792,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-randers-2-lease-address'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
-    caseNumber: 2021-0002
+    caseNumber: 21-000026
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
@@ -807,7 +807,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-randers-3-lease-address'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
-    caseNumber: 2021-0003
+    caseNumber: 21-000027
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
@@ -823,7 +823,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-randers-4-lease-address'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
-    caseNumber: 2021-0004
+    caseNumber: 21-000028
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
@@ -838,7 +838,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-randers-5-lease-address'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
-    caseNumber: 2021-0007
+    caseNumber: 21-000029
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
@@ -854,7 +854,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-randers-6-lease-address'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
-    caseNumber: 2021-0006
+    caseNumber: 21-000030
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
@@ -869,7 +869,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-randers-7-lease-address'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
-    caseNumber: 2021-0007
+    caseNumber: 21-000031
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
@@ -884,7 +884,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-randers-8-lease-address'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
-    caseNumber: 2021-0008
+    caseNumber: 21-000032
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet
@@ -899,7 +899,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseAddress: '@test-case-randers-9-lease-address'
     hasVacated: false
     complaintCategory: '@rent-increase-complaint-randers'
-    caseNumber: 2021-0009
+    caseNumber: 21-000033
     board: '@resident-complaint-board-randers'
     municipality: '@municipality-randers'
     currentPlace: Oprettet

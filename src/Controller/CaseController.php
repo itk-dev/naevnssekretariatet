@@ -73,10 +73,6 @@ class CaseController extends AbstractController
                 $form->get('board')->getData()
             );
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($caseEntity);
-            $entityManager->flush();
-
             return $this->redirectToRoute('case_show', ['id' => $caseEntity->getId()]);
         }
 
