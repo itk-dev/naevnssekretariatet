@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,13 +16,13 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class UserRepository extends ServiceEntityRepository
 {
     /**
-     * @var AuthorizationCheckerInterface
+     * @var RoleHierarchyInterface
      */
-    private $authorizationChecker;
+    private $roleHierarchy;
 
-    public function __construct(ManagerRegistry $registry, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(ManagerRegistry $registry, RoleHierarchyInterface $roleHierarchy)
     {
-        $this->authorizationChecker = $authorizationChecker;
+        $this->roleHierarchy = $roleHierarchy;
         parent::__construct($registry, User::class);
     }
 
@@ -31,7 +31,9 @@ class UserRepository extends ServiceEntityRepository
         $users = $this->findBy([], $orderBy);
 
         return array_filter($users, function (User $user) use ($role) {
-            return $this->authorizationChecker->isGranted($role, $user);
+            $reachableRoles = $this->roleHierarchy->getReachableRoleNames($user->getRoles());
+
+            return in_array($role, $reachableRoles, true);
         });
     }
 }
