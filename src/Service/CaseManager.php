@@ -6,6 +6,8 @@ use App\Entity\Board;
 use App\Entity\CaseEntity;
 use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Lock\LockFactory;
 
 class CaseManager
 {
@@ -13,15 +15,24 @@ class CaseManager
      * @var CaseEntityRepository
      */
     private $caseRepository;
-
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+    /**
+     * @var LockFactory
+     */
+    private $lockFactory;
     /**
      * @var WorkflowService
      */
     private $workflowService;
 
-    public function __construct(CaseEntityRepository $caseRepository, WorkflowService $workflowService)
+    public function __construct(CaseEntityRepository $caseRepository, EntityManagerInterface $entityManager, LockFactory $lockFactory, WorkflowService $workflowService)
     {
         $this->caseRepository = $caseRepository;
+        $this->entityManager = $entityManager;
+        $this->lockFactory = $lockFactory;
         $this->workflowService = $workflowService;
     }
 
@@ -61,6 +72,10 @@ class CaseManager
 
     public function newCase(CaseEntity $caseEntity, Board $board): CaseEntity
     {
+        $lock = $this->lockFactory->createLock('case-generation');
+
+        $lock->acquire(true);
+
         $caseEntity->setCaseNumber(
             $this->generateCaseNumber($board->getMunicipality())
         );
@@ -69,6 +84,11 @@ class CaseManager
 
         $workflow = $this->workflowService->getWorkflowForCase($caseEntity);
         $workflow->getMarking($caseEntity);
+
+        $this->entityManager->persist($caseEntity);
+        $this->entityManager->flush();
+
+        $lock->release();
 
         return $caseEntity;
     }

@@ -18,7 +18,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 
@@ -55,26 +54,16 @@ class CaseController extends AbstractController
     /**
      * @Route("/new", name="case_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, CaseManager $caseManager, LockFactory $lockFactory): Response
+    public function new(Request $request, CaseManager $caseManager): Response
     {
         $form = $this->createForm(CaseEntityType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $lock = $lockFactory->createLock('case-generation');
-
-            $lock->acquire(true);
-
             $caseEntity = $caseManager->newCase(
                 $form->get('caseEntity')->getData(),
                 $form->get('board')->getData()
             );
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($caseEntity);
-            $entityManager->flush();
-
-            $lock->release();
 
             return $this->redirectToRoute('case_show', ['id' => $caseEntity->getId()]);
         }
