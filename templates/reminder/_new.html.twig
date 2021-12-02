@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                {{ form_start(reminder_form, {'action': path('reminder_create', {'id': case.id})}) }}
+                {{ form_start(reminder_form, {'action': path('reminder_new', {'id': case.id})}) }}
                 {{ form_widget(reminder_form) }}
             </div>
             <div class="modal-footer">

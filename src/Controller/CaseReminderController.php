@@ -55,7 +55,7 @@ class CaseReminderController extends AbstractController
     }
 
     /**
-     * @Route("/case/{id}/reminder/new", name="reminder_create", methods={"POST"})
+     * @Route("/case/{id}/reminder/new", name="reminder_new", methods={"POST"})
      */
     public function new(CaseEntity $case, Request $request): Response
     {
