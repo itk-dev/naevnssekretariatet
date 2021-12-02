@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'notes' %}
+
+{% block title %}{% trans %}Create note{% endtrans %}{% endblock %}
+
+{% block body %}
+
+    <div class="col px-md-4">
+        <header class="pt-3">
+            {% block header %}
+                <div class="row">
+                    <div class="col">
+                        <h3>{% trans %}Create note for case{% endtrans %} {{ case.caseNumber }}</h3>
+                    </div>
+                </div>
+            {% endblock %}
+        </header>
+        <div class="row">
+            <div class="col">
+            {% block content %}
+                {{ form_start(note_form) }}
+                <div>
+                    <label>{% trans %}Subject{% endtrans %}</label>
+                    {{ form_widget(note_form.subject) }}
+                </div>
+                <div>
+                    <label>{% trans %}Note content{% endtrans %}</label>
+                    {{ form_widget(note_form.content, {'attr': {'rows': 10}}) }}
+                </div>
+                <button class="btn btn-success mt-3 float-right">{{ button_label|default('Create note'|trans([], 'notes', 'da')) }}</button>
+                {{ form_rest(note_form) }}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
