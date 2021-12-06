@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Party;
+use App\Service\PartyHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -11,13 +12,28 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AddPartyFromIndexType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver): void
+    /**
+     * @var PartyHelper
+     */
+    private $partyHelper;
+
+    public function __construct(PartyHelper $partyHelper)
     {
+        $this->partyHelper = $partyHelper;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'case' => null,
+        ]);
+
         $resolver->setRequired('party_choices');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $case = $options['case'];
         $choices = $options['party_choices'];
 
         $builder
@@ -27,13 +43,7 @@ class AddPartyFromIndexType extends AbstractType
                 'multiple' => false,
             ])
             ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Tenant' => 'Tenant',
-                    'Tenant (representative)' => 'Representative',
-                    'Landlord' => 'Landlord',
-                    'Landlord (administrator)' => 'Administrator',
-                ],
-                'translation_domain' => 'party',
+                'choices' => $this->partyHelper->getAllPartyTypes($case),
             ])
         ;
     }

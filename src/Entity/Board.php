@@ -68,6 +68,16 @@ class Board implements LoggableEntityInterface
     private $boardRoles;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $complainantPartyTypes;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $counterPartyTypes;
+
+    /**
      * @ORM\OneToMany(targetEntity=Agenda::class, mappedBy="board")
      */
     private $agendas;
@@ -269,6 +279,18 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
+    public function getComplainantPartyTypes(): ?string
+    {
+        return $this->complainantPartyTypes;
+    }
+
+    public function setComplainantPartyTypes(string $complainantPartyTypes): self
+    {
+        $this->complainantPartyTypes = $complainantPartyTypes;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Agenda[]
      */
@@ -283,6 +305,18 @@ class Board implements LoggableEntityInterface
             $this->agendas[] = $agenda;
             $agenda->setBoard($this);
         }
+
+        return $this;
+    }
+
+    public function getCounterPartyTypes(): ?string
+    {
+        return $this->counterPartyTypes;
+    }
+
+    public function setCounterPartyTypes(string $counterPartyTypes): self
+    {
+        $this->counterPartyTypes = $counterPartyTypes;
 
         return $this;
     }

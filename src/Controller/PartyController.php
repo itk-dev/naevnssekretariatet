@@ -8,7 +8,6 @@ use App\Entity\Party;
 use App\Form\AddPartyFromIndexType;
 use App\Form\PartyFormType;
 use App\Repository\CasePartyRelationRepository;
-use App\Repository\PartyRepository;
 use App\Service\PartyHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,7 +37,9 @@ class PartyController extends AbstractController
     {
         $party = new Party();
 
-        $form = $this->createForm(PartyFormType::class);
+        $form = $this->createForm(PartyFormType::class, null, [
+            'case' => $case,
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -60,7 +61,7 @@ class PartyController extends AbstractController
     /**
      * @Route("/add_party_from_index", name="party_add_from_index")
      */
-    public function addPartyFromIndex(CaseEntity $case, CasePartyRelationRepository $relationRepository, PartyRepository $partyRepository, Request $request): Response
+    public function addPartyFromIndex(CaseEntity $case, Request $request): Response
     {
         $party = null;
 
@@ -69,6 +70,7 @@ class PartyController extends AbstractController
 
         $form = $this->createForm(AddPartyFromIndexType::class, $party, [
             'party_choices' => $partyChoices,
+            'case' => $case,
         ]);
 
         $form->handleRequest($request);
@@ -93,7 +95,9 @@ class PartyController extends AbstractController
      */
     public function edit(CaseEntity $case, Party $party, CasePartyRelationRepository $relationRepository, Request $request): Response
     {
-        $form = $this->createForm(PartyFormType::class);
+        $form = $this->createForm(PartyFormType::class, null, [
+            'case' => $case,
+        ]);
 
         /** @var CasePartyRelation $relation */
         $relation = $relationRepository->findOneBy(['case' => $case, 'party' => $party]);

@@ -945,6 +945,10 @@
         <source>Case finish processing deadline</source>
         <target>Frist for afsluttet sagsbehandling</target>
       </trans-unit>
+      <trans-unit id="hgr5Rub" resname="Neighbour">
+        <source>Neighbour</source>
+        <target>Nabo</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

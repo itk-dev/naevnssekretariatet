@@ -56,11 +56,10 @@ class BoardCrudController extends AbstractCrudController
         ;
 
         yield IntegerField::new('hearingResponseDeadline', 'Hearing response deadline(days)');
-
         yield IntegerField::new('finishHearingDeadlineDefault', 'Finish hearing deadline(days)');
-
         yield IntegerField::new('finishProcessingDeadlineDefault', 'Finish processing case deadline(days)');
-
+        yield TextareaField::new('complainantPartyTypes', 'Complainant party types');
+        yield TextareaField::new('counterPartyTypes', 'Counter party types');
         yield TextareaField::new('statuses', 'Statuses');
     }
 }

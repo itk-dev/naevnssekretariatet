@@ -15,14 +15,12 @@ use App\Form\CaseRescheduleFinishProcessDeadlineType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Repository\AgendaCaseItemRepository;
-use App\Repository\AgendaRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
-use App\Service\AgendaHelper;
 use App\Service\BBRHelper;
-use App\Service\CaseHelper;
 use App\Service\CaseManager;
+use App\Service\PartyHelper;
 use App\Service\WorkflowService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -86,14 +84,14 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}", name="case_show", methods={"GET"})
      */
-    public function show(CaseEntity $case, CaseHelper $casePartyHelper): Response
+    public function show(CaseEntity $case, PartyHelper $partyHelper): Response
     {
-        $data = $casePartyHelper->getRelevantTemplateAndPartiesByCase($case);
+        $parties = $partyHelper->getRelevantPartiesByCase($case);
 
-        return $this->render((string) $data['template'], [
+        return $this->render('case/show.html.twig', [
             'case' => $case,
-            'complainants' => $data['complainants'],
-            'counterparties' => $data['counterparties'],
+            'complainants' => $parties['complainants'],
+            'counterparties' => $parties['counterparties'],
         ]);
     }
 
@@ -127,7 +125,7 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/status", name="case_status", methods={"GET", "POST"})
      */
-    public function status(CaseEntity $case, AgendaCaseItemRepository $agendaCaseItemRepository, AgendaHelper $agendaHelper, AgendaRepository $agendaRepository, CaseHelper $caseHelper, WorkflowService $workflowService, Request $request): Response
+    public function status(CaseEntity $case, AgendaCaseItemRepository $agendaCaseItemRepository, WorkflowService $workflowService, Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
 
