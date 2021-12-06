@@ -9,6 +9,10 @@
         <source>Close</source>
         <target>Luk</target>
       </trans-unit>
+      <trans-unit id="7r3SSnf" resname="Confirm">
+        <source>Confirm</source>
+        <target>Bekræft</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
