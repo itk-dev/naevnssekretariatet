@@ -56,8 +56,17 @@
                     <tbody>
                     <tr>
                         <td>Parthøringstidsfrist</td>
-                        <td>01.07.2020 - 14 dage tilbage. <a name="" id="" class="btn btn-primary float-right" href="#reschedule-deadline" role="button" data-toggle="modal" data-target="#rescheduleDeadline"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a></td>
+                        <td>01.07.2020, 14 dage tilbage. <a name="" id="" class="btn btn-primary float-right" href="#reschedule-deadline" role="button" data-toggle="modal" data-target="#rescheduleDeadline"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a></td>
                     </tr>
+                    <tr>
+                        <td>{% trans %}Case finish processing deadline{% endtrans %}</td>
+                        {% set finished_processing_difference = date("today"|date).diff(case.finishProcessingDeadline) %}
+                        <td>
+                            {{ case.finishProcessingDeadline|date('d/m/Y') }}, {{ finished_processing_difference.days|e }} {{ finished_processing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
+                            <a class="btn btn-primary float-right" href="" role="button" data-toggle="modal" data-target="#reschedule_finish_process_deadline{{ case.id }}" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                        </td>
+                    </tr>
+                    {{ render(controller('App\\Controller\\CaseController:rescheduleFinishProcessDeadline', {id: case.id})) }}
                     </tbody>
                 </table>
             </div>
