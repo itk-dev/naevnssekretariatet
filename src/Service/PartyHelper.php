@@ -181,7 +181,14 @@ class PartyHelper
             ])
         ;
 
-        $complainants = array_map(function ($relation) { return ['party' => $relation->getParty(), 'type' => $relation->getType()]; }, $complainantRelations);
+        $complainants = array_map(
+            function ($relation) {
+                return [
+                    'party' => $relation->getParty(),
+                    'type' => $relation->getType(),
+                ];
+            }, $complainantRelations
+        );
 
         $counterPartyRelations = $this->relationRepository
             ->findBy([
@@ -191,7 +198,14 @@ class PartyHelper
             ])
         ;
 
-        $counterparties = array_map(function ($relation) { return ['party' => $relation->getParty(), 'type' => $relation->getType()]; }, $counterPartyRelations);
+        $counterparties = array_map(
+            function ($relation) {
+                return [
+                    'party' => $relation->getParty(),
+                    'type' => $relation->getType(),
+                ];
+            }, $counterPartyRelations
+        );
 
         return ['complainants' => $complainants, 'counterparties' => $counterparties];
     }
