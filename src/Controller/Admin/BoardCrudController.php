@@ -56,7 +56,8 @@ class BoardCrudController extends AbstractCrudController
         ;
 
         yield IntegerField::new('defaultDeadline', 'Default Deadline(days)');
-
+        yield TextareaField::new('complainantPartyTypes', 'Complainant party types');
+        yield TextareaField::new('counterPartyTypes', 'Counter party types');
         yield TextareaField::new('statuses', 'Statuses');
     }
 }
