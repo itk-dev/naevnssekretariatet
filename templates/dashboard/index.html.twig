@@ -18,16 +18,8 @@
 {% block header %}
     <h1>{% trans %}Dashboard{% endtrans %}</h1>
     <div class="row">
-        <div class="form-group col-md-4">
-            <label for="municipality">{% trans %}Select municipality{% endtrans %}</label>
-            <select class="form-control" name="municipality" id="municipality">
-                {% if municipalities|length > 0 %}
-                    {% for municipality in municipalities %}
-                        {# Todo: Update page according to selected municipality #}
-                        <option value=municipality {% if municipality == favorite_municipality %} selected="selected" {% endif %} >{{ municipality.name }}</option>
-                    {% endfor %}
-                {% endif %}
-            </select>
+        <div class="col-3">
+            {{ form(municipality_form) }}
         </div>
     </div>
 {% endblock %}
@@ -78,4 +70,10 @@
     <aside role="aside" class="col-md-3">
         {% include "dashboard/_upcoming_reminders.html.twig" with upcoming_reminders %}
     </aside>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('municipality_select') }}
 {% endblock %}

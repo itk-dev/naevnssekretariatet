@@ -12,15 +12,18 @@ use App\Form\CaseEntityType;
 use App\Form\CasePresentationType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
+use App\Form\MunicipalitySelectorType;
 use App\Repository\AgendaCaseItemRepository;
 use App\Repository\AgendaRepository;
 use App\Repository\CaseEntityRepository;
+use App\Repository\MunicipalityRepository;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
 use App\Service\AgendaHelper;
 use App\Service\BBRHelper;
 use App\Service\CaseHelper;
 use App\Service\CaseManager;
+use App\Service\MunicipalityHelper;
 use App\Service\WorkflowService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,14 +38,32 @@ use Symfony\Component\Translation\TranslatableMessage;
 class CaseController extends AbstractController
 {
     /**
-     * @Route("/", name="case_index", methods={"GET"})
+     * @Route("/", name="case_index", methods={"GET", "POST"})
      */
-    public function index(CaseEntityRepository $caseRepository): Response
+    public function index(CaseEntityRepository $caseRepository, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, Request $request): Response
     {
+        $activeMunicipality = $municipalityHelper->getActiveMunicipality();
+        $municipalities = $municipalityRepository->findAll();
+
+        $municipalityForm = $this->createForm(MunicipalitySelectorType::class, null, [
+            'municipalities' => $municipalities,
+            'active_municipality' => $activeMunicipality,
+        ]);
+
+        $municipalityForm->handleRequest($request);
+        if ($municipalityForm->isSubmitted()) {
+            $municipality = $municipalityForm->get('municipality')->getData();
+
+            $municipalityHelper->setActiveMunicipalitySession($municipality);
+
+            return $this->redirectToRoute('case_index');
+        }
+
         $cases = $caseRepository->findAll();
 
         return $this->render('case/index.html.twig', [
             'cases' => $cases,
+            'municipality_form' => $municipalityForm->createView(),
         ]);
     }
 

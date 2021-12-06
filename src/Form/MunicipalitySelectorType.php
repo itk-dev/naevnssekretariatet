@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Municipality;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -49,9 +48,6 @@ class MunicipalitySelectorType extends AbstractType
             },
             'label' => $this->translator->trans('Show for', [], 'agenda'),
             'data' => $activeMunicipality,
-        ]);
-        $builder->add('submit', SubmitType::class, [
-            'label' => $this->translator->trans('Change municipality', [], 'agenda'),
         ]);
     }
 }
