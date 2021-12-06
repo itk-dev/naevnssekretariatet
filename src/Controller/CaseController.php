@@ -10,6 +10,7 @@ use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CaseEntityType;
 use App\Form\CasePresentationType;
+use App\Form\CaseRescheduleFinishHearingDeadlineType;
 use App\Form\CaseRescheduleFinishProcessDeadlineType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
@@ -342,6 +343,29 @@ class CaseController extends AbstractController
         }
 
         return $this->render('case/_reschedule_finish_processing_deadline.html.twig', [
+            'reschedule_form' => $rescheduleForm->createView(),
+            'case' => $case,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/reschedule-hearing-deadline", name="case_reschedule_finish_hearing_deadline", methods={"GET","POST"})
+     */
+    public function rescheduleFinishHearingDeadline(CaseEntity $case, Request $request): Response
+    {
+        $rescheduleForm = $this->createForm(CaseRescheduleFinishHearingDeadlineType::class, $case);
+
+        $rescheduleForm->handleRequest($request);
+
+        if ($rescheduleForm->isSubmitted() && $rescheduleForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_status', ['id' => $case->getId()]);
+
+            return $this->redirect($redirectUrl);
+        }
+
+        return $this->render('case/_reschedule_finish_hearing_deadline.html.twig', [
             'reschedule_form' => $rescheduleForm->createView(),
             'case' => $case,
         ]);
