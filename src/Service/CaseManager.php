@@ -85,6 +85,13 @@ class CaseManager
         $workflow = $this->workflowService->getWorkflowForCase($caseEntity);
         $workflow->getMarking($caseEntity);
 
+        // Set deadlines via board default deadlines
+        $hearingModifier = sprintf('+%s days', $board->getFinishHearingDeadlineDefault());
+        $processModifier = sprintf('+%s days', $board->getFinishProcessingDeadlineDefault());
+
+        $caseEntity->setFinishHearingDeadline((new \DateTime('today'))->modify($hearingModifier));
+        $caseEntity->setFinishProcessingDeadline((new \DateTime('today'))->modify($processModifier));
+
         $this->entityManager->persist($caseEntity);
         $this->entityManager->flush();
 
