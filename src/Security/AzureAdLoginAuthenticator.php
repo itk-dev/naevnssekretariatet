@@ -45,9 +45,23 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
     {
         $claims = $this->getClaims($request);
 
+        $providerKey = $claims['open_id_connect_provider'] ?? null;
+        switch ($providerKey) {
+            case 'admin':
+                return $this->getAdminUser($claims);
+
+            case 'board-member':
+                return $this->getBoardMemberUser($claims);
+        }
+
+        throw new \RuntimeException(sprintf('Invalid open id connect provider: %s', $providerKey));
+    }
+
+    private function getAdminUser(array $claims)
+    {
         $name = $claims['name'];
         $email = $claims['upn'];
-        $roles = $claims['role'];
+        $roles = $claims['role'] ?? [];
 
         //Check if user exists already - if not create a user
         $user = $this->userRepository->findOneBy(['email' => $email]);
@@ -82,6 +96,32 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
         return new SelfValidatingPassport(new UserBadge($user->getUserIdentifier()));
     }
 
+    private function getBoardMemberUser(array $credentials)
+    {
+        $name = $credentials['name'];
+        $email = $credentials['cpr'].'@cpr.example.com';
+        $roles = ['ROLE_BOARD_MEMBER'];
+
+        //Check if user exists already - if not create a user
+        $user = $this->userRepository->findOneBy(['email' => $email]);
+        if (null === $user) {
+            // Create the new user
+            $user = new User();
+        }
+
+        // Update/set names here
+        $user->setName($name);
+        $user->setEmail($email);
+        $user->setRoles($roles);
+
+        // persist and flush user to database
+        // If no change persist will recognize this
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        return new SelfValidatingPassport(new UserBadge($user->getUserIdentifier()));
+    }
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         return new RedirectResponse($this->router->generate('default'));
@@ -89,6 +129,6 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        return new RedirectResponse($this->router->generate('itkdev_openid_connect_login', ['providerKey' => 'admin']));
+        return new RedirectResponse($this->router->generate('login'));
     }
 }

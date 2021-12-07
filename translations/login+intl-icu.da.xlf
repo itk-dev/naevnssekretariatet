@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target state="translated">Log ind</target>
+      </trans-unit>
+      <trans-unit id="zdU6ls5" resname="open_id_connect.login_provider.admin">
+        <source>open_id_connect.login_provider.admin</source>
+        <target state="translated">Administrator</target>
+      </trans-unit>
+      <trans-unit id="4JJwX.1" resname="open_id_connect.login_provider.board-member">
+        <source>open_id_connect.login_provider.board-member</source>
+        <target state="translated">Nævnsmedlem</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

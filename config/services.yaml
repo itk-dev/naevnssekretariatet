@@ -16,11 +16,6 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             $leeway: '%env(LEEWAY)%'
-            $openIdProviderOptions:
-                urlConfiguration: '%env(OPEN_ID_PROVIDER_URL)%'
-                cachePath: '%env(resolve:OPEN_ID_PROVIDER_CACHE_PATH)%'
-                clientId: '%env(OPEN_ID_PROVIDER_CLIENT_ID)%'
-                clientSecret: '%env(OPEN_ID_PROVIDER_CLIENT_SECRET)%'
 
             $bbrHelperOptions:
                 datafordeler_api_username: '%env(DATAFORDELER_API_USERNAME)%'
