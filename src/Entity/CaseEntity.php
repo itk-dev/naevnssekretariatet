@@ -143,6 +143,16 @@ abstract class CaseEntity
      */
     private $finishHearingDeadline;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $hasReachedHearingDeadline = false;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $hasReachedProcessingDeadline = false;
+
     public function __construct()
     {
         $this->complainantAddress = new Address();
@@ -372,7 +382,6 @@ abstract class CaseEntity
     }
 
     /**
-<<<<<<< HEAD
      * @return Collection|AgendaCaseItem[]
      */
     public function getAgendaCaseItems(): Collection
@@ -500,6 +509,30 @@ abstract class CaseEntity
     public function setFinishHearingDeadline(\DateTimeInterface $finishHearingDeadline): self
     {
         $this->finishHearingDeadline = $finishHearingDeadline;
+
+        return $this;
+    }
+
+    public function getHasReachedHearingDeadline(): ?bool
+    {
+        return $this->hasReachedHearingDeadline;
+    }
+
+    public function setHasReachedHearingDeadline(bool $hasReachedHearingDeadline): self
+    {
+        $this->hasReachedHearingDeadline = $hasReachedHearingDeadline;
+
+        return $this;
+    }
+
+    public function getHasReachedProcessingDeadline(): ?bool
+    {
+        return $this->hasReachedProcessingDeadline;
+    }
+
+    public function setHasReachedProcessingDeadline(bool $hasReachedProcessingDeadline): self
+    {
+        $this->hasReachedProcessingDeadline = $hasReachedProcessingDeadline;
 
         return $this;
     }
