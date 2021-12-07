@@ -189,6 +189,18 @@
         <source>Add to part index</source>
         <target>Tilføj til partskartotek</target>
       </trans-unit>
+      <trans-unit id="y2ULwvC" resname="Hearing response deadline(days)">
+        <source>Hearing response deadline(days)</source>
+        <target>Partshøring svarfrist</target>
+      </trans-unit>
+      <trans-unit id="bYZdb1o" resname="Finish hearing deadline(days)">
+        <source>Finish hearing deadline(days)</source>
+        <target>Afsluttet partshøringsfrist</target>
+      </trans-unit>
+      <trans-unit id="Nd6BVdz" resname="Finish processing case deadline(days)">
+        <source>Finish processing case deadline(days)</source>
+        <target>Afsluttet sagsbehandlingsfrist</target>
+      </trans-unit>
       <trans-unit id="7lWBnRv" resname="Case Form Type">
         <source>Case Form Type</source>
         <target>Sag form type</target>

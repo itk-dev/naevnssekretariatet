@@ -909,6 +909,42 @@
         <source>Close</source>
         <target>Luk</target>
       </trans-unit>
+      <trans-unit id="AQx0Y8J" resname="Reschedule to">
+        <source>Reschedule to</source>
+        <target>Ændre til</target>
+      </trans-unit>
+      <trans-unit id="SI9wKXG" resname="Reschedule processing deadline">
+        <source>Reschedule processing deadline</source>
+        <target>Rediger sagsbehandlingsfrist</target>
+      </trans-unit>
+      <trans-unit id="uKdkYxr" resname="Case processing finish deadline">
+        <source>Case processing finish deadline</source>
+        <target>Afsluttet sagsbehandlingsfrist</target>
+      </trans-unit>
+      <trans-unit id="N9rZHfe" resname="days ago">
+        <source>days ago</source>
+        <target>dage siden</target>
+      </trans-unit>
+      <trans-unit id="OFQ4o4R" resname="days remaining">
+        <source>days remaining</source>
+        <target>dage tilbage</target>
+      </trans-unit>
+      <trans-unit id="bU9FrLc" resname="Reschedule finish hearing deadline">
+        <source>Reschedule finish hearing deadline</source>
+        <target>Ændre frist for afslutning af partshøring</target>
+      </trans-unit>
+      <trans-unit id="QgExcvT" resname="Reschedule finish processing deadline">
+        <source>Reschedule finish processing deadline</source>
+        <target>Ændre frist for afslutning af sagsbehandling</target>
+      </trans-unit>
+      <trans-unit id="YGhSFNx" resname="Finish hearing deadline">
+        <source>Finish hearing deadline</source>
+        <target>Frist for afsluttet partshøring</target>
+      </trans-unit>
+      <trans-unit id="GBkcDN5" resname="Case finish processing deadline">
+        <source>Case finish processing deadline</source>
+        <target>Frist for afsluttet sagsbehandling</target>
+      </trans-unit>
       <trans-unit id="hgr5Rub" resname="Neighbour">
         <source>Neighbour</source>
         <target>Nabo</target>

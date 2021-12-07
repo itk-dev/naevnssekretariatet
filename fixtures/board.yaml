@@ -3,7 +3,9 @@ App\Entity\Board:
     name: Beboerklagenævnet Aarhus
     municipality: '@municipality-aarhus'
     caseFormType: ResidentComplaintBoardCaseType
-    defaultDeadline: 14
+    hearingResponseDeadline: 14
+    finishHearingDeadlineDefault: 90
+    finishProcessingDeadlineDefault: 120
     statuses: |-
       Oprettet
       Valideret
@@ -22,7 +24,9 @@ App\Entity\Board:
     name: Beboerklagenævnet Randers
     municipality: '@municipality-randers'
     caseFormType: ResidentComplaintBoardCaseType
-    defaultDeadline: 10
+    hearingResponseDeadline: 10
+    finishHearingDeadlineDefault: 90
+    finishProcessingDeadlineDefault: 120
     statuses: |-
       Oprettet
       Valideret
@@ -41,7 +45,9 @@ App\Entity\Board:
     name: Huslejenævnet Aarhus
     municipality: '@municipality-aarhus'
     caseFormType: RentBoardCaseType
-    defaultDeadline: 14
+    hearingResponseDeadline: 14
+    finishHearingDeadlineDefault: 90
+    finishProcessingDeadlineDefault: 120
     statuses: |-
       Oprettet
       Valideret
@@ -60,7 +66,9 @@ App\Entity\Board:
     name: Huslejenævnet Randers
     municipality: '@municipality-randers'
     caseFormType: RentBoardCaseType
-    defaultDeadline: 10
+    hearingResponseDeadline: 10
+    finishHearingDeadlineDefault: 90
+    finishProcessingDeadlineDefault: 120
     statuses: |-
       Oprettet
       Valideret
@@ -79,7 +87,9 @@ App\Entity\Board:
     name: Hegsnævnet Aarhus
     municipality: '@municipality-aarhus'
     caseFormType: FenceReviewCaseType
-    defaultDeadline: 14
+    hearingResponseDeadline: 14
+    finishHearingDeadlineDefault: 90
+    finishProcessingDeadlineDefault: 120
     statuses: |-
       Oprettet
       Valideret
@@ -98,7 +108,9 @@ App\Entity\Board:
     name: Hegnsnævnet Randers
     municipality: '@municipality-randers'
     caseFormType: FenceReviewCaseType
-    defaultDeadline: 10
+    hearingResponseDeadline: 10
+    finishHearingDeadlineDefault: 90
+    finishProcessingDeadlineDefault: 120
     statuses: |-
       Oprettet
       Valideret

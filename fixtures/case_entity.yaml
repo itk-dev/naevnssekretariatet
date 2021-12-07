@@ -404,6 +404,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-1-complainant-address'
     leaseAddress: '@test-case-aarhus-1-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 21-000001
     board: '@resident-complaint-board-aarhus'
@@ -419,6 +421,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-2-complainant-address'
     leaseAddress: '@test-case-aarhus-2-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 21-000002
     board: '@resident-complaint-board-aarhus'
@@ -433,6 +437,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-2-complainant-address'
     leaseAddress: '@test-case-aarhus-2-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 21-000003
     board: '@resident-complaint-board-aarhus'
@@ -448,6 +454,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-4-complainant-address'
     leaseAddress: '@test-case-aarhus-4-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 21-000004
     board: '@resident-complaint-board-aarhus'
@@ -463,6 +471,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-1-complainant-address'
     leaseAddress: '@test-case-aarhus-1-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 21-000005
     board: '@resident-complaint-board-aarhus'
@@ -479,6 +489,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-6-complainant-address'
     leaseAddress: '@test-case-aarhus-6-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 21-000006
     board: '@resident-complaint-board-aarhus'
@@ -494,6 +506,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-7-complainant-address'
     leaseAddress: '@test-case-aarhus-7-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 21-000007
     board: '@resident-complaint-board-aarhus'
@@ -509,6 +523,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-8-complainant-address'
     leaseAddress: '@test-case-aarhus-8-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 21-000008
     board: '@resident-complaint-board-aarhus'
@@ -524,6 +540,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-9-complainant-address'
     leaseAddress: '@test-case-aarhus-9-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 21-000009
     board: '@resident-complaint-board-aarhus'
@@ -541,6 +559,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-10-complainant-address'
     leaseAddress: '@test-case-aarhus-10-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 21-000010
     board: '@resident-complaint-board-aarhus'
@@ -557,6 +577,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-11-complainant-address'
     leaseAddress: '@test-case-aarhus-11-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 21-000011
     board: '@resident-complaint-board-aarhus'
@@ -572,6 +594,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-12-complainant-address'
     leaseAddress: '@test-case-aarhus-12-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 21-000012
     board: '@resident-complaint-board-aarhus'
@@ -588,6 +612,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-13-complainant-address'
     leaseAddress: '@test-case-aarhus-13-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 21-000013
     board: '@resident-complaint-board-aarhus'
@@ -604,6 +630,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-14-complainant-address'
     leaseAddress: '@test-case-aarhus-14-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 21-000014
     board: '@resident-complaint-board-aarhus'
@@ -619,6 +647,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-15-complainant-address'
     leaseAddress: '@test-case-aarhus-15-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 21-000015
     board: '@resident-complaint-board-aarhus'
@@ -636,6 +666,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-16-complainant-address'
     leaseAddress: '@test-case-aarhus-16-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 21-000016
     board: '@resident-complaint-board-aarhus'
@@ -652,6 +684,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-17-complainant-address'
     leaseAddress: '@test-case-aarhus-17-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 21-000017
     board: '@resident-complaint-board-aarhus'
@@ -667,6 +701,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-18-complainant-address'
     leaseAddress: '@test-case-aarhus-18-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 21-000018
     board: '@resident-complaint-board-aarhus'
@@ -682,6 +718,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-19-complainant-address'
     leaseAddress: '@test-case-aarhus-19-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 21-000019
     board: '@resident-complaint-board-aarhus'
@@ -698,6 +736,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-20-complainant-address'
     leaseAddress: '@test-case-aarhus-20-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 21-000020
     board: '@resident-complaint-board-aarhus'
@@ -713,6 +753,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-21-complainant-address'
     leaseAddress: '@test-case-aarhus-21-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 21-000021
     board: '@resident-complaint-board-aarhus'
@@ -728,6 +770,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-22-complainant-address'
     leaseAddress: '@test-case-aarhus-22-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 21-000022
     board: '@resident-complaint-board-aarhus'
@@ -743,6 +787,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-23-complainant-address'
     leaseAddress: '@test-case-aarhus-23-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 21-000023
     board: '@resident-complaint-board-aarhus'
@@ -758,6 +804,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-aarhus-24-complainant-address'
     leaseAddress: '@test-case-aarhus-24-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 21-000024
     board: '@resident-complaint-board-aarhus'
@@ -775,6 +823,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-randers-1-complainant-address'
     leaseAddress: '@test-case-randers-1-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 21-000025
     board: '@resident-complaint-board-randers'
@@ -791,6 +841,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-randers-2-complainant-address'
     leaseAddress: '@test-case-randers-2-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 21-000026
     board: '@resident-complaint-board-randers'
@@ -806,6 +858,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-randers-3-complainant-address'
     leaseAddress: '@test-case-randers-3-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 21-000027
     board: '@resident-complaint-board-randers'
@@ -822,6 +876,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-randers-4-complainant-address'
     leaseAddress: '@test-case-randers-4-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 21-000028
     board: '@resident-complaint-board-randers'
@@ -837,6 +893,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-randers-5-complainant-address'
     leaseAddress: '@test-case-randers-5-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 21-000029
     board: '@resident-complaint-board-randers'
@@ -853,6 +911,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-randers-6-complainant-address'
     leaseAddress: '@test-case-randers-6-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 21-000030
     board: '@resident-complaint-board-randers'
@@ -868,6 +928,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-randers-7-complainant-address'
     leaseAddress: '@test-case-randers-7-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 21-000031
     board: '@resident-complaint-board-randers'
@@ -883,6 +945,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-randers-8-complainant-address'
     leaseAddress: '@test-case-randers-8-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 21-000032
     board: '@resident-complaint-board-randers'
@@ -898,6 +962,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainantAddress: '@test-case-randers-9-complainant-address'
     leaseAddress: '@test-case-randers-9-lease-address'
     hasVacated: false
+    finishHearingDeadline: <(new \DateTime('2022-05-20'))>
+    finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@rent-increase-complaint-randers'
     caseNumber: 21-000033
     board: '@resident-complaint-board-randers'

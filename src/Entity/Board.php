@@ -55,7 +55,7 @@ class Board implements LoggableEntityInterface
      * @Assert\Positive
      * @ORM\Column(type="integer")
      */
-    private $defaultDeadline;
+    private $hearingResponseDeadline;
 
     /**
      * @ORM\Column(type="text")
@@ -86,6 +86,18 @@ class Board implements LoggableEntityInterface
      * @ORM\ManyToMany(targetEntity=BoardMember::class, mappedBy="boards")
      */
     private $boardMembers;
+
+    /**
+     * @Assert\Positive
+     * @ORM\Column(type="integer")
+     */
+    private $finishProcessingDeadlineDefault;
+
+    /**
+     * @Assert\Positive
+     * @ORM\Column(type="integer")
+     */
+    private $finishHearingDeadlineDefault;
 
     public function __construct()
     {
@@ -202,14 +214,14 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
-    public function getDefaultDeadline(): ?int
+    public function getHearingResponseDeadline(): ?int
     {
-        return $this->defaultDeadline;
+        return $this->hearingResponseDeadline;
     }
 
-    public function setDefaultDeadline(int $defaultDeadline): self
+    public function setHearingResponseDeadline(int $hearingResponseDeadline): self
     {
-        $this->defaultDeadline = $defaultDeadline;
+        $this->hearingResponseDeadline = $hearingResponseDeadline;
 
         return $this;
     }
@@ -220,7 +232,8 @@ class Board implements LoggableEntityInterface
             'id',
             'name',
             'caseFormType',
-            'defaultDeadline',
+            'hearingResponseDeadline',
+            'finishProcessingDeadlineDefault',
         ];
     }
 
@@ -343,6 +356,30 @@ class Board implements LoggableEntityInterface
         if ($this->boardMembers->removeElement($boardMember)) {
             $boardMember->removeBoard($this);
         }
+
+        return $this;
+    }
+
+    public function getFinishProcessingDeadlineDefault(): ?int
+    {
+        return $this->finishProcessingDeadlineDefault;
+    }
+
+    public function setFinishProcessingDeadlineDefault(int $finishProcessingDeadlineDefault): self
+    {
+        $this->finishProcessingDeadlineDefault = $finishProcessingDeadlineDefault;
+
+        return $this;
+    }
+
+    public function getFinishHearingDeadlineDefault(): ?int
+    {
+        return $this->finishHearingDeadlineDefault;
+    }
+
+    public function setFinishHearingDeadlineDefault(int $finishHearingDeadlineDefault): self
+    {
+        $this->finishHearingDeadlineDefault = $finishHearingDeadlineDefault;
 
         return $this;
     }
