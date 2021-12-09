@@ -9,7 +9,8 @@ $('#finish_process_submit_button').on('click', function (e) {
     type: $form.attr('method'),
     data: $form.serialize(),
     success: function (html) {
-      if ($(html).find('.form-error-message').length) {
+      if ($(html).find('.form-error-message').length > 0) {
+        // Todo: Figure out how to correctly replace/modify modal
         $('#reschedule_finish_process_deadline').modal('hide')
         $(html).modal('show')
       } else {
