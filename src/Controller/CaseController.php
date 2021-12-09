@@ -24,6 +24,7 @@ use App\Service\PartyHelper;
 use App\Service\WorkflowService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -336,6 +337,15 @@ class CaseController extends AbstractController
             $case->setHasReachedProcessingDeadline(false);
 
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', new TranslatableMessage('Process deadline updated on case %case', [
+                '%case' => $case->getCaseNumber(),
+            ]));
+
+            // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
+            if ($request->get('ajax')) {
+                return new JsonResponse(true);
+            }
 
             $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_status', ['id' => $case->getId()]);
 

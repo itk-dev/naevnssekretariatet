@@ -60,6 +60,12 @@ To get a local copy up and running follow these simple steps.
    docker run -v ${PWD}:/app itkdev/yarn:14 encore dev
    ```
 
+   During development, you may want to watch for changes:
+
+   ```sh
+   docker run --interactive --tty -v ${PWD}:/app itkdev/yarn:14 encore dev --watch
+   ```
+
 6. Run database migrations
 
    ```sh
