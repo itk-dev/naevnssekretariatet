@@ -360,13 +360,9 @@ class CaseController extends AbstractController
         if ($rescheduleForm->isSubmitted() && $rescheduleForm->isValid()) {
             $case->setHasReachedHearingDeadline(false);
 
-            // Make sure to modify process deadline if new hearing deadline occurs later than current process deadline
-            if ($case->getFinishHearingDeadline() >= $case->getFinishProcessingDeadline()) {
-                $newHearingDeadline = $case->getFinishHearingDeadline()->format('d/m/Y');
-
-                $newProcessingDeadline = \DateTime::createFromFormat('d/m/Y', $newHearingDeadline)->modify('+1 day');
-
-                $case->setFinishProcessingDeadline($newProcessingDeadline);
+            if ($case->getFinishHearingDeadline() > $case->getFinishProcessingDeadline()) {
+                // Ensure processing deadline is always after
+                $case->setFinishProcessingDeadline($case->getFinishHearingDeadline());
                 $case->setHasReachedProcessingDeadline(false);
             }
 
