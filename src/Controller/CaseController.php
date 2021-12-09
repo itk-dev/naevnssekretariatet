@@ -127,18 +127,6 @@ class CaseController extends AbstractController
      */
     public function status(CaseEntity $case, AgendaCaseItemRepository $agendaCaseItemRepository, WorkflowService $workflowService, Request $request): Response
     {
-//        $rescheduleForm = $this->createForm(CaseRescheduleFinishProcessDeadlineType::class, $case);
-//
-//        $rescheduleForm->handleRequest($request);
-//
-//        if ($rescheduleForm->isSubmitted() && $rescheduleForm->isValid()) {
-//            $this->getDoctrine()->getManager()->flush();
-//
-//            $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_status', ['id' => $case->getId()]);
-//
-//            return $this->redirect($redirectUrl);
-//        }
-
         $em = $this->getDoctrine()->getManager();
 
         $workflow = $workflowService->getWorkflowForCase($case);
@@ -372,6 +360,7 @@ class CaseController extends AbstractController
         if ($rescheduleForm->isSubmitted() && $rescheduleForm->isValid()) {
             $case->setHasReachedHearingDeadline(false);
 
+            // Make sure to modify process deadline if new hearing deadline occurs later than current process deadline
             if ($case->getFinishHearingDeadline() >= $case->getFinishProcessingDeadline()) {
                 $newHearingDeadline = $case->getFinishHearingDeadline()->format('d/m/Y');
 
