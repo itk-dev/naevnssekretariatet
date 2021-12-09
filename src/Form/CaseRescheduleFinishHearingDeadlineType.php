@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CaseRescheduleFinishHearingDeadlineType extends AbstractType
@@ -23,7 +22,7 @@ class CaseRescheduleFinishHearingDeadlineType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CaseEntity::class,
-//            'validation_groups' => ['hearing_finish'],
+            'validation_groups' => ['hearing_finish'],
         ]);
     }
 
@@ -34,9 +33,6 @@ class CaseRescheduleFinishHearingDeadlineType extends AbstractType
                 'label' => $this->translator->trans('Reschedule to', [], 'case'),
                 'widget' => 'single_text',
                 'input_format' => 'dd-MM-yyyy',
-                'constraints' => [
-                    new GreaterThanOrEqual(new \DateTime('today')),
-                ],
             ])
         ;
     }

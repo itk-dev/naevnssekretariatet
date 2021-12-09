@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Uid\UuidV4;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CaseEntityRepository::class)
@@ -134,11 +135,13 @@ abstract class CaseEntity
     private $reminders;
 
     /**
+     * @Assert\GreaterThanOrEqual(propertyPath="finishHearingDeadline", groups={"process_finish"})
      * @ORM\Column(type="date")
      */
     private $finishProcessingDeadline;
 
     /**
+     * @Assert\GreaterThanOrEqual("today", groups={"hearing_finish"})
      * @ORM\Column(type="date")
      */
     private $finishHearingDeadline;
