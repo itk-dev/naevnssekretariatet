@@ -143,6 +143,7 @@ abstract class CaseEntity
 
     /**
      * @Assert\GreaterThanOrEqual("today", groups={"hearing_finish"})
+     * @Assert\NotBlank()
      * @ORM\Column(type="date")
      */
     private $finishHearingDeadline;

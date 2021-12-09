@@ -14,7 +14,7 @@ $(() => {
       type: $form.attr('method'),
       data: $form.serialize(),
       success: function (html) {
-        if ($(html).find('.form-error-message').length) {
+        if ($(html).find('.form-error-message').length > 0) {
           // Replace modal body with modal body from response
           $modal.find('.modal-body').replaceWith($(html).find('.modal-body'))
         } else {

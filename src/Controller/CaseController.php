@@ -378,6 +378,15 @@ class CaseController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', new TranslatableMessage('Hearing deadline updated on case %case', [
+                '%case' => $case->getCaseNumber(),
+            ]));
+
+            // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
+            if ($request->get('ajax')) {
+                return new JsonResponse(true);
+            }
+
             $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_status', ['id' => $case->getId()]);
 
             return $this->redirect($redirectUrl);
