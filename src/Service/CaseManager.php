@@ -109,7 +109,7 @@ class CaseManager implements LoggerAwareInterface
         // We do this in batches as there might be a large number of cases
         // @see https://www.doctrine-project.org/projects/doctrine-orm/en/2.9/reference/batch-processing.html#iterating-results
         $batchSize = 20;
-        $i = 1;
+        $caseCounter = 1;
         $query = $this->caseRepository->createQueryBuilder('c')->getQuery();
 
         $today = new DateTime('today');
@@ -136,14 +136,16 @@ class CaseManager implements LoggerAwareInterface
                     }
                 }
             }
-            ++$i;
+            ++$caseCounter;
 
-            if (($i % $batchSize) === 0 && !$isDryRun) {
+            if (($caseCounter % $batchSize) === 0 && !$isDryRun) {
                 $this->entityManager->flush(); // Executes all updates.
                 $this->entityManager->clear(); // Detaches all objects from Doctrine!
             }
         }
 
-        $this->entityManager->flush();
+        if (!$isDryRun) {
+            $this->entityManager->flush();
+        }
     }
 }

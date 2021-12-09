@@ -34,7 +34,6 @@ class UpdateCaseDeadlineBooleansCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->setVerbosity(128);
         $logger = new ConsoleLogger($output);
 
         $this->caseManager->setLogger($logger);
