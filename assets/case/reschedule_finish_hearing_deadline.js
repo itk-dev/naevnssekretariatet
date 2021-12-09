@@ -1,8 +1,8 @@
 /* global $ */
 
 $('#finish_hearing_submit_button').on('click', function (e) {
-  let $form = $('#reschedule_hearing_form')
-  e.preventDefault();
+  const $form = $('#reschedule_hearing_form')
+  e.preventDefault()
   // Submit data via AJAX to the form's action path.
   $.ajax({
     url: $form.attr('action'),
@@ -13,9 +13,9 @@ $('#finish_hearing_submit_button').on('click', function (e) {
         $('#reschedule_finish_hearing_deadline').modal('hide')
         $(html).modal('show')
       } else {
-        window.location.reload();
+        window.location.reload()
       }
-    },
-  });
-  return false;
-});
+    }
+  })
+  return false
+})

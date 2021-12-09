@@ -3,7 +3,7 @@
 <div class="modal fade" id="reschedule_finish_hearing_deadline">
     <div class="modal-dialog">
         <div class="modal-content">
-            {{ form_start(reschedule_form, {'method': 'POST', 'action': path('case_reschedule_finish_hearing_deadline', {'id': case.id}), 'attr': {'id': 'reschedule_hearing_form'} }) }}
+            {{ form_start(reschedule_form, {'method': 'POST', 'action': path('case_reschedule_finish_hearing_deadline', {'id': case.id}), 'attr': {'id': 'reschedule_hearing_form'}}) }}
             <div class="modal-header">
                 <h5 class="modal-title" id="rescheduleFinishHearingDeadlineModalLabel">{% trans %}Reschedule finish hearing deadline{% endtrans %}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

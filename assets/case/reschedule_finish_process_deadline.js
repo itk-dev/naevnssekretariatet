@@ -1,8 +1,8 @@
 /* global $ */
 
 $('#finish_process_submit_button').on('click', function (e) {
-  let $form = $('#reschedule_process_form')
-  e.preventDefault();
+  const $form = $('#reschedule_process_form')
+  e.preventDefault()
   // Submit data via AJAX to the form's action path.
   $.ajax({
     url: $form.attr('action'),
@@ -13,9 +13,9 @@ $('#finish_process_submit_button').on('click', function (e) {
         $('#reschedule_finish_process_deadline').modal('hide')
         $(html).modal('show')
       } else {
-        window.location.reload();
+        window.location.reload()
       }
-    },
-  });
-  return false;
-});
+    }
+  })
+  return false
+})
