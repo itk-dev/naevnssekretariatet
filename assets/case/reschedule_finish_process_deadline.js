@@ -2,7 +2,7 @@
 
 $(() => {
   const $form = $('#reschedule_process_form')
-  const $modal = $('#reschedule_finish_process_deadline')
+  const $modal = $form.closest('.modal')
   $form.find('[type="submit"]').on('click', function (e) {
     e.preventDefault()
     let url = $form.attr('action')
