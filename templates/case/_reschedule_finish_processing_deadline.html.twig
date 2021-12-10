@@ -3,15 +3,16 @@
 <div class="modal fade" id="reschedule_finish_process_deadline">
     <div class="modal-dialog">
         <div class="modal-content">
-            {{ form_start(reschedule_form, {'action': path('case_reschedule_finish_processing_deadline', {'id': case.id}), 'attr': {'id': 'reschedule_process_form'}}) }}
+            {{ form_start(reschedule_form, {'action': path('case_reschedule_finish_processing_deadline', {'id': case.id}), 'attr': {'id': 'reschedule_process_form', 'data-use-ajax': true}}) }}
             <div class="modal-header">
                 <h5 class="modal-title" id="rescheduleFinishProcessDeadlineModalLabel">{% trans %}Reschedule finish processing deadline{% endtrans %}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="fas fa-times"></i></span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body form-body">
                 {{ form_widget(reschedule_form) }}
+                <div class="form-error"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
@@ -21,7 +22,3 @@
         </div>
     </div>
 </div>
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('case_reschedule_process_deadline') }}
-{% endblock %}
