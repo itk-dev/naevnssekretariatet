@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Municipality;
 use App\Repository\BoardRepository;
 use App\Service\AgendaStatus;
+use App\Service\FilterHelper;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use Symfony\Component\Form\AbstractType;
@@ -19,13 +20,18 @@ class AgendaFilterType extends AbstractType
      */
     private $boardRepository;
     /**
+     * @var FilterHelper
+     */
+    private $filterHelper;
+    /**
      * @var TranslatorInterface
      */
     private $translator;
 
-    public function __construct(BoardRepository $boardRepository, TranslatorInterface $translator)
+    public function __construct(BoardRepository $boardRepository, FilterHelper $filterHelper, TranslatorInterface $translator)
     {
         $this->boardRepository = $boardRepository;
+        $this->filterHelper = $filterHelper;
         $this->translator = $translator;
     }
 
@@ -59,21 +65,7 @@ class AgendaFilterType extends AbstractType
                 'label' => false,
                 'placeholder' => $this->translator->trans('All boards', [], 'agenda'),
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
-                    if (empty($values['value'])) {
-                        return null;
-                    }
-
-                    $paramName = sprintf('p_%s', str_replace('.', '_', $field));
-
-                    // expression that represent the condition
-                    $expression = $filterQuery->getExpr()->eq($field, ':'.$paramName);
-
-                    // expression parameters
-                    // Added ->getId()->toBinary() to handle Uuid
-
-                    $parameters = [$paramName => $values['value']->getId()->toBinary()]; // [ name => value ]
-
-                    return $filterQuery->createCondition($expression, $parameters);
+                    return $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values);
                 },
             ])
             ->add('date', Filters\DateFilterType::class, [

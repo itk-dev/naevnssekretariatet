@@ -9,6 +9,7 @@ use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CaseEntityType;
+use App\Form\CaseFilterType;
 use App\Form\CasePresentationType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
@@ -26,6 +27,8 @@ use App\Service\CaseManager;
 use App\Service\MunicipalityHelper;
 use App\Service\WorkflowService;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +43,7 @@ class CaseController extends AbstractController
     /**
      * @Route("/", name="case_index", methods={"GET", "POST"})
      */
-    public function index(CaseEntityRepository $caseRepository, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, Request $request): Response
+    public function index(CaseEntityRepository $caseRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
         $municipalities = $municipalityRepository->findAll();
@@ -59,10 +62,50 @@ class CaseController extends AbstractController
             return $this->redirectToRoute('case_index');
         }
 
-        $cases = $caseRepository->findAll();
+        // Setup filter and pagination
+        $filterBuilder = $caseRepository->createQueryBuilder('c');
+
+        $filterForm = $this->createForm(CaseFilterType::class, null, [
+            'municipality' => $activeMunicipality,
+        ]);
+
+        if ($request->query->has($filterForm->getName())) {
+            $filterForm->submit($request->query->get($filterForm->getName()));
+        } else {
+            // Default filter
+            $filterForm->submit([
+                'board' => '',
+            ]);
+        }
+
+        $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
+
+        // Add sortable fields.
+        $filterBuilder->leftJoin('c.board', 'board');
+        $filterBuilder->addSelect('partial board.{id,name}');
+
+        // Only get agendas under active municipality
+        $filterBuilder->andWhere('c.municipality = :municipality')
+            ->setParameter('municipality', $activeMunicipality->getId()->toBinary())
+        ;
+
+        $query = $filterBuilder->getQuery();
+
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+
+        $pagination->setCustomParameters(['align' => 'center']);
+
+//        $cases = $caseRepository->findAll();
 
         return $this->render('case/index.html.twig', [
-            'cases' => $cases,
+            'filter_form' => $filterForm->createView(),
+            'municipalities' => $municipalities,
+            'pagination' => $pagination,
+//            'cases' => $cases,
             'municipality_form' => $municipalityForm->createView(),
         ]);
     }
