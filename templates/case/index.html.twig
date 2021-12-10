@@ -98,10 +98,22 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">{% trans %}Casenumber{% endtrans %}</th>
-                    <th scope="col">{% trans %}Complaint category{% endtrans %}</th>
-                    <th scope="col">{% trans %}Status{% endtrans %}</th>
-                    <th scope="col">{% trans %}Deadline{% endtrans %}</th>
+                    <th{% if pagination.isSorted('c.CaseNumber') %} class="sorted"{% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Casenumber'|trans({}, 'case'), 'c.caseNumber') }}
+                    </th>
+                    <th{% if pagination.isSorted('c.ComplaintCategory') %} class="sorted"{% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Complaint category'|trans({}, 'case'), 'complaintCategory.name') }}
+                    </th>
+{#                    <th scope="col">{% trans %}Complaint category{% endtrans %}</th>#}
+                    <th{% if pagination.isSorted('c.currentPlace') %} class="sorted"{% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Status'|trans({}, 'case'), 'c.currentPlace') }}
+                    </th>
+{#                    <th scope="col">{% trans %}Status{% endtrans %}</th>#}
+                    {# Todo: Replace 'createdAt' with correct deadline when it is decided which one is the correct one #}
+                    <th{% if pagination.isSorted('a.CreatedAt') %} class="sorted"{% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Deadline'|trans({}, 'case'), 'c.createdAt') }}
+                    </th>
+{#                    <th scope="col">{% trans %}Deadline{% endtrans %}</th>#}
                     <th scope="col">{% trans %}Address{% endtrans %}</th>
                     <th scope="col">{% trans %}Landlord{% endtrans %}</th>
                     <th scope="col">{% trans %}Tenant{% endtrans %}</th>
@@ -114,7 +126,8 @@
                         <td><a href="{{ url('case_summary', {id: case.id}) }}" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ case.casenumber|e }}">{{ case.casenumber|e }}</a></td>
                         <td>{{ case.complaintCategory.name|e }}</td>
                         <td>{{ case.currentPlace|e }}</td>
-                        <td>{{ "2. sep 2020"|e }}</td>
+                        {# Todo: Replace with correct deadline when it is decided which one is the correct one #}
+                        <td>{{ case.createdAt|date('d/m/Y') }}</td>
                         <td>{{ case.complainantAddress|e }}</td>
                         <td>{{ "Udlejer"|e }}</td>
                         <td>{{ case.complainant|e }}</td>

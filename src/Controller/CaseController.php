@@ -80,9 +80,9 @@ class CaseController extends AbstractController
 
         $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
 
-        // Add sortable fields.
-        $filterBuilder->leftJoin('c.board', 'board');
-        $filterBuilder->addSelect('partial board.{id,name}');
+        // Add sortable fields depending on case type.
+        $filterBuilder->leftJoin('c.complaintCategory', 'complaintCategory');
+        $filterBuilder->addSelect('partial complaintCategory.{id,name}');
 
         // Only get agendas under active municipality
         $filterBuilder->andWhere('c.municipality = :municipality')
