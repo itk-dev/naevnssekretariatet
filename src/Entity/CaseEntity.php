@@ -136,12 +136,14 @@ abstract class CaseEntity
 
     /**
      * @Assert\GreaterThanOrEqual(propertyPath="finishHearingDeadline", groups={"process_finish"})
+     * @Assert\NotBlank()
      * @ORM\Column(type="date")
      */
     private $finishProcessingDeadline;
 
     /**
      * @Assert\GreaterThanOrEqual("today", groups={"hearing_finish"})
+     * @Assert\NotBlank()
      * @ORM\Column(type="date")
      */
     private $finishHearingDeadline;

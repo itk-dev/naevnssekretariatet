@@ -25,8 +25,7 @@ Encore
   .addEntry('case_show', './assets/case/show.js')
   .addEntry('agenda_item_new', './assets/agenda_item/new.js')
   .addEntry('agenda_filter', './assets/agenda/processFilter.js')
-  .addEntry('case_reschedule_hearing_deadline', './assets/case/reschedule_finish_hearing_deadline.js')
-  .addEntry('case_reschedule_process_deadline', './assets/case/reschedule_finish_process_deadline.js')
+  .addEntry('ajax-forms', './assets/ajax-forms.js')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 //  .enableStimulusBridge('./assets/controllers.json')

@@ -33,6 +33,7 @@ class CaseRescheduleFinishProcessDeadlineType extends AbstractType
                 'label' => $this->translator->trans('Reschedule to', [], 'case'),
                 'widget' => 'single_text',
                 'input_format' => 'dd-MM-yyyy',
+                'empty_data' => null,
             ])
         ;
     }
