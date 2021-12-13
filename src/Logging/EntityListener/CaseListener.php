@@ -8,11 +8,12 @@ use App\Logging\ItkDevLoggingException;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Security\Core\Security;
 
 class CaseListener extends AbstractEntityListener
 {
-    public function __construct(Security $security)
+    public function __construct(Security $security, PropertyAccessorInterface $propertyAccessor)
     {
         parent::__construct($security);
     }
