@@ -315,7 +315,7 @@
       </trans-unit>
       <trans-unit id="b5G97Vo" resname="Validate the legitimacy of the address by pressing the validate button">
         <source>Validate the legitimacy of the address by pressing the validate button</source>
-        <target>Valider adressen ved at klikke på valider knappen</target>
+        <target state="translated">Valider adressen ved at klikke på “Valider adresse”-knappen</target>
       </trans-unit>
       <trans-unit id="MpAtaJD" resname="Alternative address">
         <source>Alternative address</source>
@@ -948,6 +948,18 @@
       <trans-unit id="hgr5Rub" resname="Neighbour">
         <source>Neighbour</source>
         <target>Nabo</target>
+      </trans-unit>
+      <trans-unit id="cINTtN1" resname="Address validated at %validation_time%">
+        <source>Address validated at %validation_time%</source>
+        <target state="translated">Adresse valideret %validation_time%</target>
+      </trans-unit>
+      <trans-unit id="bmiw4cB" resname="Address validated">
+        <source>Address validated</source>
+        <target state="translated">Adresse valideret</target>
+      </trans-unit>
+      <trans-unit id="PKqe.03" resname="Error validating address">
+        <source>Error validating address</source>
+        <target state="translated">Fejl under validering af adresse</target>
       </trans-unit>
     </body>
   </file>

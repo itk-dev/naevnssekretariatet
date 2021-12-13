@@ -18,6 +18,7 @@ use App\Repository\AgendaCaseItemRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
+use App\Service\AddressHelper;
 use App\Service\BBRHelper;
 use App\Service\CaseManager;
 use App\Service\PartyHelper;
@@ -421,5 +422,23 @@ class CaseController extends AbstractController
             'assign_form' => $assignForm->createView(),
             'case' => $case,
         ]);
+    }
+
+    /**
+     * @Route("/{id}/validate-address/{addressProperty}", name="case_validate_address", methods={"POST"})
+     */
+    public function validateAddress(Request $request, CaseEntity $case, AddressHelper $addressHelper, string $addressProperty): Response
+    {
+        try {
+            $addressHelper->validateAddress($case, $addressProperty);
+            $this->addFlash('success', new TranslatableMessage('Address validated', [], 'case'));
+        } catch (\Exception $exception) {
+            $this->addFlash('error', new TranslatableMessage('Error validating address', [], 'case'));
+        }
+
+        // Send user back to where he came from.
+        $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+        return $this->redirect($redirectUrl);
     }
 }
