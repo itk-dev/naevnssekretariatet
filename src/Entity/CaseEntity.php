@@ -143,6 +143,16 @@ abstract class CaseEntity
      */
     private $sortingComplainant;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $finishProcessingDeadline;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $finishHearingDeadline;
+
     public function __construct()
     {
         $this->complainantAddress = new Address();
@@ -488,6 +498,18 @@ abstract class CaseEntity
     {
         $this->sortingAddress = $sortingAddress;
 
+         return $this;
+    }
+
+    public function getFinishProcessingDeadline(): ?\DateTimeInterface
+    {
+        return $this->finishProcessingDeadline;
+    }
+
+    public function setFinishProcessingDeadline(?\DateTimeInterface $finishProcessingDeadline): self
+    {
+        $this->finishProcessingDeadline = $finishProcessingDeadline;
+
         return $this;
     }
 
@@ -499,6 +521,18 @@ abstract class CaseEntity
     public function setSortingComplainant(string $sortingComplainant): self
     {
         $this->sortingComplainant = $sortingComplainant;
+
+        return $this;
+    }
+
+    public function getFinishHearingDeadline(): ?\DateTimeInterface
+    {
+        return $this->finishHearingDeadline;
+    }
+
+    public function setFinishHearingDeadline(\DateTimeInterface $finishHearingDeadline): self
+    {
+        $this->finishHearingDeadline = $finishHearingDeadline;
 
         return $this;
     }

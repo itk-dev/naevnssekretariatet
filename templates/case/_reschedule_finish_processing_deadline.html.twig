@@ -1,0 +1,23 @@
+{% trans_default_domain 'case' %}
+
+<div class="modal fade" id="reschedule_finish_process_deadline{{ case.id }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rescheduleFinishProcessDeadlineModalLabel">{% trans %}Reschedule finish processing deadline{% endtrans %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(reschedule_form, {'action': path('case_reschedule_finish_processing_deadline', {'id': case.id})}) }}
+                {{ form_widget(reschedule_form) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                <button type="submit" class="btn btn-primary">{% trans %}Reschedule{% endtrans %}</button>
+                {{ form_end(reschedule_form) }}
+            </div>
+        </div>
+    </div>
+</div>
