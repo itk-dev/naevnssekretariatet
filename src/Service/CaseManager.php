@@ -100,4 +100,12 @@ class CaseManager
 
         return $caseEntity;
     }
+
+    public function updateSortingComplainant(CaseEntity $case)
+    {
+        // Todo: Fetch data from complainant
+        $case->setSortingComplainant('Some complainant stuff');
+        $this->entityManager->persist($case);
+        $this->entityManager->flush();
+    }
 }

@@ -138,6 +138,11 @@ abstract class CaseEntity
      */
     private $sortingAddress;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sortingComplainant;
+
     public function __construct()
     {
         $this->complainantAddress = new Address();
@@ -482,6 +487,18 @@ abstract class CaseEntity
     public function setSortingAddress(string $sortingAddress): self
     {
         $this->sortingAddress = $sortingAddress;
+
+        return $this;
+    }
+
+    public function getSortingComplainant(): ?string
+    {
+        return $this->sortingComplainant;
+    }
+
+    public function setSortingComplainant(string $sortingComplainant): self
+    {
+        $this->sortingComplainant = $sortingComplainant;
 
         return $this;
     }
