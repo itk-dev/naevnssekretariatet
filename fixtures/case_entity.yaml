@@ -403,6 +403,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87654321
     complainantAddress: '@test-case-aarhus-1-complainant-address'
     leaseAddress: '@test-case-aarhus-1-lease-address'
+    sortingAddress: '@test-case-aarhus-1-lease-address->street @test-case-aarhus-1-lease-address->number , @test-case-aarhus-1-lease-address->postalCode @test-case-aarhus-1-lease-address->city'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 21-000001
@@ -418,6 +419,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 23456789
     complainantAddress: '@test-case-aarhus-2-complainant-address'
     leaseAddress: '@test-case-aarhus-2-lease-address'
+    sortingAddress: '@test-case-aarhus-2-lease-address->street @test-case-aarhus-2-lease-address->number , @test-case-aarhus-2-lease-address->postalCode @test-case-aarhus-2-lease-address->city'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 21-000002
@@ -430,8 +432,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainant: Anton Per Hansen
     complainantCPR: 1234567890
     complainantPhone: 87655678
-    complainantAddress: '@test-case-aarhus-2-complainant-address'
-    leaseAddress: '@test-case-aarhus-2-lease-address'
+    complainantAddress: '@test-case-aarhus-3-complainant-address'
+    leaseAddress: '@test-case-aarhus-3-lease-address'
+    sortingAddress: '@test-case-aarhus-3-lease-address->street @test-case-aarhus-3-lease-address->number , @test-case-aarhus-3-lease-address->postalCode @test-case-aarhus-3-lease-address->city'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 21-000003
@@ -447,6 +450,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87255678
     complainantAddress: '@test-case-aarhus-4-complainant-address'
     leaseAddress: '@test-case-aarhus-4-lease-address'
+    sortingAddress: '@test-case-aarhus-4-lease-address->street @test-case-aarhus-4-lease-address->number , @test-case-aarhus-4-lease-address->postalCode @test-case-aarhus-4-lease-address->city'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-aarhus'
     caseNumber: 21-000004
@@ -460,8 +464,9 @@ App\Entity\ResidentComplaintBoardCase:
     complainant: Anne Jensen
     complainantCPR: 1234567890
     complainantPhone: 61655678
-    complainantAddress: '@test-case-aarhus-1-complainant-address'
-    leaseAddress: '@test-case-aarhus-1-lease-address'
+    complainantAddress: '@test-case-aarhus-5-complainant-address'
+    leaseAddress: '@test-case-aarhus-5-lease-address'
+    sortingAddress: '@test-case-aarhus-5-lease-address->street @test-case-aarhus-5-lease-address->number , @test-case-aarhus-5-lease-address->postalCode @test-case-aarhus-5-lease-address->city'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 21-000005
@@ -478,6 +483,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 51650678
     complainantAddress: '@test-case-aarhus-6-complainant-address'
     leaseAddress: '@test-case-aarhus-6-lease-address'
+    sortingAddress: '@test-case-aarhus-6-lease-address->street @test-case-aarhus-6-lease-address->number , @test-case-aarhus-6-lease-address->postalCode @test-case-aarhus-6-lease-address->city'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 21-000006
@@ -493,6 +499,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 51657654
     complainantAddress: '@test-case-aarhus-7-complainant-address'
     leaseAddress: '@test-case-aarhus-7-lease-address'
+    sortingAddress: '@test-case-aarhus-7-lease-address->street @test-case-aarhus-7-lease-address->number , @test-case-aarhus-7-lease-address->postalCode @test-case-aarhus-7-lease-address->city'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 21-000007
@@ -508,6 +515,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71654674
     complainantAddress: '@test-case-aarhus-8-complainant-address'
     leaseAddress: '@test-case-aarhus-8-lease-address'
+    sortingAddress: '@test-case-aarhus-8-lease-address->street @test-case-aarhus-8-lease-address->number , @test-case-aarhus-8-lease-address->postalCode @test-case-aarhus-8-lease-address->city'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-aarhus'
     caseNumber: 21-000008
@@ -523,6 +531,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71655674
     complainantAddress: '@test-case-aarhus-9-complainant-address'
     leaseAddress: '@test-case-aarhus-9-lease-address'
+    sortingAddress: '@test-case-aarhus-9-lease-address->street @test-case-aarhus-9-lease-address->number , @test-case-aarhus-9-lease-address->postalCode @test-case-aarhus-9-lease-address->city'
     hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 21-000009
@@ -540,6 +549,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71257674
     complainantAddress: '@test-case-aarhus-10-complainant-address'
     leaseAddress: '@test-case-aarhus-10-lease-address'
+    sortingAddress: '@test-case-aarhus-10-lease-address->street @test-case-aarhus-10-lease-address->number , @test-case-aarhus-10-lease-address->postalCode @test-case-aarhus-10-lease-address->city'
     hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 21-000010
@@ -556,6 +566,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 81453614
     complainantAddress: '@test-case-aarhus-11-complainant-address'
     leaseAddress: '@test-case-aarhus-11-lease-address'
+    sortingAddress: '@test-case-aarhus-11-lease-address->street @test-case-aarhus-11-lease-address->number , @test-case-aarhus-11-lease-address->postalCode @test-case-aarhus-11-lease-address->city'
     hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 21-000011
@@ -571,6 +582,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 81453614
     complainantAddress: '@test-case-aarhus-12-complainant-address'
     leaseAddress: '@test-case-aarhus-12-lease-address'
+    sortingAddress: '@test-case-aarhus-12-lease-address->street @test-case-aarhus-12-lease-address->number , @test-case-aarhus-12-lease-address->postalCode @test-case-aarhus-12-lease-address->city'
     hasVacated: false
     complaintCategory: '@rent-increase-complaint-aarhus'
     caseNumber: 21-000012
@@ -587,6 +599,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 45368114
     complainantAddress: '@test-case-aarhus-13-complainant-address'
     leaseAddress: '@test-case-aarhus-13-lease-address'
+    sortingAddress: '@test-case-aarhus-13-lease-address->street @test-case-aarhus-13-lease-address->number , @test-case-aarhus-13-lease-address->postalCode @test-case-aarhus-13-lease-address->city'
     hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 21-000013
@@ -603,6 +616,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 81144536
     complainantAddress: '@test-case-aarhus-14-complainant-address'
     leaseAddress: '@test-case-aarhus-14-lease-address'
+    sortingAddress: '@test-case-aarhus-14-lease-address->street @test-case-aarhus-14-lease-address->number , @test-case-aarhus-14-lease-address->postalCode @test-case-aarhus-14-lease-address->city'
     hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 21-000014
@@ -618,6 +632,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 44453816
     complainantAddress: '@test-case-aarhus-15-complainant-address'
     leaseAddress: '@test-case-aarhus-15-lease-address'
+    sortingAddress: '@test-case-aarhus-15-lease-address->street @test-case-aarhus-15-lease-address->number , @test-case-aarhus-15-lease-address->postalCode @test-case-aarhus-15-lease-address->city'
     hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 21-000015
@@ -635,6 +650,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 45381644
     complainantAddress: '@test-case-aarhus-16-complainant-address'
     leaseAddress: '@test-case-aarhus-16-lease-address'
+    sortingAddress: '@test-case-aarhus-16-lease-address->street @test-case-aarhus-16-lease-address->number , @test-case-aarhus-16-lease-address->postalCode @test-case-aarhus-16-lease-address->city'
     hasVacated: false
     complaintCategory: '@water-heat-electricity-complaint-aarhus'
     caseNumber: 21-000016
@@ -651,6 +667,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 38451644
     complainantAddress: '@test-case-aarhus-17-complainant-address'
     leaseAddress: '@test-case-aarhus-17-lease-address'
+    sortingAddress: '@test-case-aarhus-17-lease-address->street @test-case-aarhus-17-lease-address->number , @test-case-aarhus-17-lease-address->postalCode @test-case-aarhus-17-lease-address->city'
     hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 21-000017
@@ -666,6 +683,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 51638444
     complainantAddress: '@test-case-aarhus-18-complainant-address'
     leaseAddress: '@test-case-aarhus-18-lease-address'
+    sortingAddress: '@test-case-aarhus-18-lease-address->street @test-case-aarhus-18-lease-address->number , @test-case-aarhus-18-lease-address->postalCode @test-case-aarhus-18-lease-address->city'
     hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 21-000018
@@ -681,6 +699,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 63844514
     complainantAddress: '@test-case-aarhus-19-complainant-address'
     leaseAddress: '@test-case-aarhus-19-lease-address'
+    sortingAddress: '@test-case-aarhus-19-lease-address->street @test-case-aarhus-19-lease-address->number , @test-case-aarhus-19-lease-address->postalCode @test-case-aarhus-19-lease-address->city'
     hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 21-000019
@@ -697,6 +716,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 38445146
     complainantAddress: '@test-case-aarhus-20-complainant-address'
     leaseAddress: '@test-case-aarhus-20-lease-address'
+    sortingAddress: '@test-case-aarhus-20-lease-address->street @test-case-aarhus-20-lease-address->number , @test-case-aarhus-20-lease-address->postalCode @test-case-aarhus-20-lease-address->city'
     hasVacated: false
     complaintCategory: '@improvement-compensation-complaint-aarhus'
     caseNumber: 21-000020
@@ -712,6 +732,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 38445146
     complainantAddress: '@test-case-aarhus-21-complainant-address'
     leaseAddress: '@test-case-aarhus-21-lease-address'
+    sortingAddress: '@test-case-aarhus-21-lease-address->street @test-case-aarhus-21-lease-address->number , @test-case-aarhus-21-lease-address->postalCode @test-case-aarhus-21-lease-address->city'
     hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 21-000021
@@ -727,6 +748,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 84465314
     complainantAddress: '@test-case-aarhus-22-complainant-address'
     leaseAddress: '@test-case-aarhus-22-lease-address'
+    sortingAddress: '@test-case-aarhus-22-lease-address->street @test-case-aarhus-22-lease-address->number , @test-case-aarhus-22-lease-address->postalCode @test-case-aarhus-22-lease-address->city'
     hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 21-000022
@@ -742,6 +764,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 44465314
     complainantAddress: '@test-case-aarhus-23-complainant-address'
     leaseAddress: '@test-case-aarhus-23-lease-address'
+    sortingAddress: '@test-case-aarhus-23-lease-address->street @test-case-aarhus-23-lease-address->number , @test-case-aarhus-23-lease-address->postalCode @test-case-aarhus-23-lease-address->city'
     hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 21-000023
@@ -757,6 +780,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 46531444
     complainantAddress: '@test-case-aarhus-24-complainant-address'
     leaseAddress: '@test-case-aarhus-24-lease-address'
+    sortingAddress: '@test-case-aarhus-24-lease-address->street @test-case-aarhus-24-lease-address->number , @test-case-aarhus-24-lease-address->postalCode @test-case-aarhus-24-lease-address->city'
     hasVacated: false
     complaintCategory: '@telecommunications-service-complaint-aarhus'
     caseNumber: 21-000024
@@ -774,6 +798,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87674321
     complainantAddress: '@test-case-randers-1-complainant-address'
     leaseAddress: '@test-case-randers-1-lease-address'
+    sortingAddress: '@test-case-randers-1-lease-address->street @test-case-randers-1-lease-address->number , @test-case-randers-1-lease-address->postalCode @test-case-randers-1-lease-address->city'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 21-000025
@@ -790,6 +815,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 23476711
     complainantAddress: '@test-case-randers-2-complainant-address'
     leaseAddress: '@test-case-randers-2-lease-address'
+    sortingAddress: '@test-case-randers-1-lease-address->street @test-case-randers-1-lease-address->number , @test-case-randers-1-lease-address->postalCode @test-case-randers-1-lease-address->city'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 21-000026
@@ -805,6 +831,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87677611
     complainantAddress: '@test-case-randers-3-complainant-address'
     leaseAddress: '@test-case-randers-3-lease-address'
+    sortingAddress: '@test-case-randers-3-lease-address->street @test-case-randers-3-lease-address->number , @test-case-randers-3-lease-address->postalCode @test-case-randers-3-lease-address->city'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 21-000027
@@ -821,6 +848,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 87277611
     complainantAddress: '@test-case-randers-4-complainant-address'
     leaseAddress: '@test-case-randers-4-lease-address'
+    sortingAddress: '@test-case-randers-4-lease-address->street @test-case-randers-4-lease-address->number , @test-case-randers-4-lease-address->postalCode @test-case-randers-4-lease-address->city'
     hasVacated: false
     complaintCategory: '@security-deposit-complaint-randers'
     caseNumber: 21-000028
@@ -836,6 +864,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 61677611
     complainantAddress: '@test-case-randers-5-complainant-address'
     leaseAddress: '@test-case-randers-5-lease-address'
+    sortingAddress: '@test-case-randers-5-lease-address->street @test-case-randers-5-lease-address->number , @test-case-randers-5-lease-address->postalCode @test-case-randers-5-lease-address->city'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 21-000029
@@ -852,6 +881,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71670611
     complainantAddress: '@test-case-randers-6-complainant-address'
     leaseAddress: '@test-case-randers-6-lease-address'
+    sortingAddress: '@test-case-randers-6-lease-address->street @test-case-randers-6-lease-address->number , @test-case-randers-6-lease-address->postalCode @test-case-randers-6-lease-address->city'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 21-000030
@@ -867,6 +897,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71677611
     complainantAddress: '@test-case-randers-7-complainant-address'
     leaseAddress: '@test-case-randers-7-lease-address'
+    sortingAddress: '@test-case-randers-7-lease-address->street @test-case-randers-7-lease-address->number , @test-case-randers-7-lease-address->postalCode @test-case-randers-7-lease-address->city'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 21-000031
@@ -882,6 +913,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71674611
     complainantAddress: '@test-case-randers-8-complainant-address'
     leaseAddress: '@test-case-randers-8-lease-address'
+    sortingAddress: '@test-case-randers-8-lease-address->street @test-case-randers-8-lease-address->number , @test-case-randers-8-lease-address->postalCode @test-case-randers-8-lease-address->city'
     hasVacated: false
     complaintCategory: '@maintenance-complaint-randers'
     caseNumber: 21-000032
@@ -897,6 +929,7 @@ App\Entity\ResidentComplaintBoardCase:
     complainantPhone: 71677611
     complainantAddress: '@test-case-randers-9-complainant-address'
     leaseAddress: '@test-case-randers-9-lease-address'
+    sortingAddress: '@test-case-randers-9-lease-address->street @test-case-randers-9-lease-address->number , @test-case-randers-9-lease-address->postalCode @test-case-randers-9-lease-address->city'
     hasVacated: false
     complaintCategory: '@rent-increase-complaint-randers'
     caseNumber: 21-000033

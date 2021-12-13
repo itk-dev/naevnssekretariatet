@@ -133,6 +133,11 @@ abstract class CaseEntity
      */
     private $reminders;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sortingAddress;
+
     public function __construct()
     {
         $this->complainantAddress = new Address();
@@ -362,7 +367,6 @@ abstract class CaseEntity
     }
 
     /**
-<<<<<<< HEAD
      * @return Collection|AgendaCaseItem[]
      */
     public function getAgendaCaseItems(): Collection
@@ -466,6 +470,18 @@ abstract class CaseEntity
     public function setDecisionProposal(?CaseDecisionProposal $decisionProposal): self
     {
         $this->decisionProposal = $decisionProposal;
+
+        return $this;
+    }
+
+    public function getSortingAddress(): ?string
+    {
+        return $this->sortingAddress;
+    }
+
+    public function setSortingAddress(string $sortingAddress): self
+    {
+        $this->sortingAddress = $sortingAddress;
 
         return $this;
     }

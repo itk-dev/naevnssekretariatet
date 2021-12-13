@@ -114,7 +114,10 @@
                         {{ knp_pagination_sortable(pagination, 'Deadline'|trans({}, 'case'), 'c.createdAt') }}
                     </th>
 {#                    <th scope="col">{% trans %}Deadline{% endtrans %}</th>#}
-                    <th scope="col">{% trans %}Address{% endtrans %}</th>
+                    <th{% if pagination.isSorted('c.SortingAddress') %} class="sorted"{% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Address'|trans({}, 'case'), 'c.sortingAddress') }}
+                    </th>
+{#                    <th scope="col">{% trans %}Address{% endtrans %}</th>#}
                     <th scope="col">{% trans %}Landlord{% endtrans %}</th>
                     <th scope="col">{% trans %}Tenant{% endtrans %}</th>
                     <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
@@ -128,7 +131,8 @@
                         <td>{{ case.currentPlace|e }}</td>
                         {# Todo: Replace with correct deadline when it is decided which one is the correct one #}
                         <td>{{ case.createdAt|date('d/m/Y') }}</td>
-                        <td>{{ case.complainantAddress|e }}</td>
+                        <td>{{ case.sortingAddress|e }}</td>
+{#                        <td>{{ case.complainantAddress|e }}</td>#}
                         <td>{{ "Udlejer"|e }}</td>
                         <td>{{ case.complainant|e }}</td>
                         <td>

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Board;
 use App\Entity\CaseEntity;
+use App\Entity\FenceReviewCase;
 use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -81,6 +82,13 @@ class CaseManager
         );
         $caseEntity->setBoard($board);
         $caseEntity->setMunicipality($board->getMunicipality());
+
+//        // Set relevant address based on case type
+//        if ($caseEntity instanceof FenceReviewCase) {
+//            $caseEntity->setRelevantAddress($caseEntity->getComplainantAddress()->__toString());
+//        } else {
+//            $caseEntity->setRelevantAddress($caseEntity->getLeaseAddress()->__toString());
+//        }
 
         $workflow = $this->workflowService->getWorkflowForCase($caseEntity);
         $workflow->getMarking($caseEntity);

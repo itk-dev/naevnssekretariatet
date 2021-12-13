@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
+use App\Entity\FenceReviewCase;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
@@ -83,6 +84,9 @@ class CaseController extends AbstractController
         // Add sortable fields depending on case type.
         $filterBuilder->leftJoin('c.complaintCategory', 'complaintCategory');
         $filterBuilder->addSelect('partial complaintCategory.{id,name}');
+
+//        $filterBuilder->leftJoin('c.relevantAddress', 'relevantAddress');
+//        $filterBuilder->addSelect('partial relevantAddress.{id}');
 
         // Only get agendas under active municipality
         $filterBuilder->andWhere('c.municipality = :municipality')
@@ -170,6 +174,13 @@ class CaseController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $case = $form->getData();
+
+//            // Make sure to update relevant address
+//            if ($case instanceof FenceReviewCase) {
+//                $case->setRelevantAddress($case->getComplainantAddress()->__toString());
+//            } else {
+//                $case->setRelevantAddress($case->getLeaseAddress()->__toString());
+//            }
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();
