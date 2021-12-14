@@ -25,6 +25,7 @@ Encore
   .addEntry('case_show', './assets/case/show.js')
   .addEntry('agenda_item_new', './assets/agenda_item/new.js')
   .addEntry('agenda_filter', './assets/agenda/processFilter.js')
+  .addEntry('ajax-forms', './assets/ajax-forms.js')
   .addEntry('municipality_select', './assets/municipality/select.js')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

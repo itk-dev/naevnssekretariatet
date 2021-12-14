@@ -7,11 +7,15 @@ use App\Entity\CaseEntity;
 use App\Entity\FenceReviewCase;
 use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Lock\LockFactory;
 
-class CaseManager
+class CaseManager implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
     /**
      * @var CaseEntityRepository
      */
@@ -111,6 +115,51 @@ class CaseManager
         $lock->release();
 
         return $caseEntity;
+    }
+
+    public function updateDeadlineBooleans($isDryRun)
+    {
+        // We do this in batches as there might be a large number of cases
+        // @see https://www.doctrine-project.org/projects/doctrine-orm/en/2.9/reference/batch-processing.html#iterating-results
+        $batchSize = 20;
+        $caseCounter = 1;
+        $query = $this->caseRepository->createQueryBuilder('c')->getQuery();
+
+        $today = new DateTime('today');
+
+        $this->logger->info('Today: '.$today->format('d/m/Y'));
+
+        foreach ($query->toIterable() as $case) {
+            assert($case instanceof CaseEntity);
+            $hearingDeadline = $case->getFinishHearingDeadline();
+            $processingDeadline = $case->getFinishProcessingDeadline();
+
+            if ($hearingDeadline < $today) {
+                $this->logger->info('Changing case '.$case->getCaseNumber().' with hearing deadline: '.$hearingDeadline->format('d/m/Y'));
+
+                if (!$isDryRun) {
+                    $case->setHasReachedHearingDeadline(true);
+                }
+
+                if ($processingDeadline < $today) {
+                    $this->logger->info('Changing case '.$case->getCaseNumber().' with processing deadline: '.$hearingDeadline->format('d/m/Y'));
+
+                    if (!$isDryRun) {
+                        $case->setHasReachedProcessingDeadline(true);
+                    }
+                }
+            }
+            ++$caseCounter;
+
+            if (($caseCounter % $batchSize) === 0 && !$isDryRun) {
+                $this->entityManager->flush(); // Executes all updates.
+                $this->entityManager->clear(); // Detaches all objects from Doctrine!
+            }
+        }
+
+        if (!$isDryRun) {
+            $this->entityManager->flush();
+        }
     }
 
     public function updateSortingProperties(CaseEntity $case)
