@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 use Symfony\Component\Uid\UuidV4;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CaseEntityRepository::class)
@@ -134,14 +135,28 @@ abstract class CaseEntity
     private $reminders;
 
     /**
+     * @Assert\GreaterThanOrEqual(propertyPath="finishHearingDeadline", groups={"process_finish"})
+     * @Assert\NotBlank()
      * @ORM\Column(type="date")
      */
     private $finishProcessingDeadline;
 
     /**
+     * @Assert\GreaterThanOrEqual("today", groups={"hearing_finish"})
+     * @Assert\NotBlank()
      * @ORM\Column(type="date")
      */
     private $finishHearingDeadline;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $hasReachedHearingDeadline = false;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $hasReachedProcessingDeadline = false;
 
     public function __construct()
     {
@@ -372,7 +387,6 @@ abstract class CaseEntity
     }
 
     /**
-<<<<<<< HEAD
      * @return Collection|AgendaCaseItem[]
      */
     public function getAgendaCaseItems(): Collection
@@ -500,6 +514,30 @@ abstract class CaseEntity
     public function setFinishHearingDeadline(\DateTimeInterface $finishHearingDeadline): self
     {
         $this->finishHearingDeadline = $finishHearingDeadline;
+
+        return $this;
+    }
+
+    public function getHasReachedHearingDeadline(): ?bool
+    {
+        return $this->hasReachedHearingDeadline;
+    }
+
+    public function setHasReachedHearingDeadline(bool $hasReachedHearingDeadline): self
+    {
+        $this->hasReachedHearingDeadline = $hasReachedHearingDeadline;
+
+        return $this;
+    }
+
+    public function getHasReachedProcessingDeadline(): ?bool
+    {
+        return $this->hasReachedProcessingDeadline;
+    }
+
+    public function setHasReachedProcessingDeadline(bool $hasReachedProcessingDeadline): self
+    {
+        $this->hasReachedProcessingDeadline = $hasReachedProcessingDeadline;
 
         return $this;
     }
