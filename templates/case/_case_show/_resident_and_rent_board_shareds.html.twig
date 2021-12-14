@@ -78,14 +78,8 @@
                             {% if case.complainantAddress.validatedAt %}
                                 <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Address validated at %validation_time%'|trans({'%validation_time%': case.complainantAddress.validatedAt|date}) }}"><i class="fas fa-check-circle"></i> {% trans %}Address validated{% endtrans %}</span>
                             {% else %}
-                                {# @todo Use ajax for this #}
-                                <form data-use-ajax data-referer-query-name="referer" method="post" action="{{ path('case_validate_address', {id: case.id, addressProperty: 'complainantAddress'}) }}">
-                                    <div class="form-body">
-                                        <button class="btn btn-block btn-secondary" type="submit" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate address'|trans([], 'case', 'da') }}">{% trans %}Validate address{% endtrans %}</button>
-                                    </div>
-                                    <div class="form-error"></div>
-                                </form>
-                                <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
+                                {# Render ajax form #}
+                                {{ render(controller('App\\Controller\\CaseController:validateAddress', {id: case.id, addressProperty: 'complainantAddress'})) }}
                             {% endif %}
                         </div>
                     </div>

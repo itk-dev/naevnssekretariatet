@@ -961,6 +961,10 @@
         <source>Error validating address</source>
         <target state="translated">Fejl under validering af adresse</target>
       </trans-unit>
+      <trans-unit id="TJu1Sbp" resname="Invalid address">
+        <source>Invalid address</source>
+        <target state="translated">Ugyldig adresse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
