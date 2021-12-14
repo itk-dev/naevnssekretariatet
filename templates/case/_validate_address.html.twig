@@ -1,6 +1,6 @@
 {% trans_default_domain 'case' %}
 
-{{ form_start(form, {'action': path('case_validate_address', {id: case.id, addressProperty: 'complainantAddress'}), 'attr': {'id': 'reschedule_hearing_form', 'data-use-ajax': true}}) }}
+{{ form_start(form, {'action': path('case_validate_address', {id: case.id, addressProperty: address_property}), 'attr': {'data-use-ajax': true}}) }}
     <div class="form-header">
         <button class="btn btn-block btn-secondary" type="submit">{% trans %}Validate address{% endtrans %}</button>
     </div>

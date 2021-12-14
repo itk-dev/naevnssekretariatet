@@ -460,6 +460,7 @@ class CaseController extends AbstractController
         return $this->render('case/_validate_address.html.twig', [
             'form' => $form->createView(),
             'case' => $case,
+            'address_property' => $addressProperty,
         ]);
     }
 }
