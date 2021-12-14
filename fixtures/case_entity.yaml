@@ -982,8 +982,8 @@ App\Entity\FenceReviewCase:
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
     finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
     complaintCategory: '@fence-complaint-aarhus'
-    caseNumber: 21-100001
-    board: '@resident-complaint-board-aarhus'
+    caseNumber: 21-000034
+    board: '@fence-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
     shouldBeInspected: true
