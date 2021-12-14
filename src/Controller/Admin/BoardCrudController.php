@@ -12,9 +12,19 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BoardCrudController extends AbstractCrudController
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
     public static function getEntityFqcn(): string
     {
         return Board::class;
@@ -58,8 +68,14 @@ class BoardCrudController extends AbstractCrudController
         yield IntegerField::new('hearingResponseDeadline', 'Hearing response deadline(days)');
         yield IntegerField::new('finishHearingDeadlineDefault', 'Finish hearing deadline(days)');
         yield IntegerField::new('finishProcessingDeadlineDefault', 'Finish processing case deadline(days)');
-        yield TextareaField::new('complainantPartyTypes', 'Complainant party types');
-        yield TextareaField::new('counterPartyTypes', 'Counter party types');
-        yield TextareaField::new('statuses', 'Statuses');
+        yield TextareaField::new('complainantPartyTypes', 'Complainant party types')
+            ->setHelp($this->translator->trans('Configuration of complainant types. Each line will be treated as a type of which the first will be the one used for sorting purposes.'))
+        ;
+        yield TextareaField::new('counterPartyTypes', 'Counter party types')
+            ->setHelp($this->translator->trans('Configuration of counterpart types. Each line will be treated as a type of which the first will be the one used for sorting purposes.'))
+        ;
+        yield TextareaField::new('statuses', 'Statuses')
+            ->setHelp('Configuration of case statuses. Each line will be treated as a status and the order of case statuses will be reflected by the order of these.')
+        ;
     }
 }

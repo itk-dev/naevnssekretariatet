@@ -79,7 +79,7 @@ class CaseFilterType extends AbstractType
                     ->orderBy('b.name', 'ASC')
                     ->getQuery()->getResult(),
                 'label' => false,
-                'placeholder' => $this->translator->trans('All boards', [], 'agenda'),
+                'placeholder' => $this->translator->trans('All boards', [], 'case'),
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                     return $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values);
                 },
@@ -126,7 +126,7 @@ class CaseFilterType extends AbstractType
         $builder->add('assignedTo', Filters\ChoiceFilterType::class, [
             'choices' => $correctedCaseworkers,
             'label' => false,
-            'placeholder' => $this->translator->trans('All caseworkers', [], 'agenda'),
+            'placeholder' => $this->translator->trans('All caseworkers', [], 'case'),
             'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                 return $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values);
             },

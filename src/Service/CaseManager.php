@@ -25,15 +25,20 @@ class CaseManager
      */
     private $lockFactory;
     /**
+     * @var PartyHelper
+     */
+    private $partyHelper;
+    /**
      * @var WorkflowService
      */
     private $workflowService;
 
-    public function __construct(CaseEntityRepository $caseRepository, EntityManagerInterface $entityManager, LockFactory $lockFactory, WorkflowService $workflowService)
+    public function __construct(CaseEntityRepository $caseRepository, EntityManagerInterface $entityManager, LockFactory $lockFactory, PartyHelper $partyHelper, WorkflowService $workflowService)
     {
         $this->caseRepository = $caseRepository;
         $this->entityManager = $entityManager;
         $this->lockFactory = $lockFactory;
+        $this->partyHelper = $partyHelper;
         $this->workflowService = $workflowService;
     }
 
@@ -108,11 +113,14 @@ class CaseManager
         return $caseEntity;
     }
 
-    public function updateSortingComplainant(CaseEntity $case)
+    public function updateSortingProperties(CaseEntity $case)
     {
-        // Todo: Fetch data from complainant
-        $case->setSortingComplainant('Some complainant stuff');
-        $this->entityManager->persist($case);
+        $relevantComplainant = $this->partyHelper->getSortingRelevantComplainant($case);
+        $case->setSortingComplainant($relevantComplainant);
+
+        $relevantCounterpart = $this->partyHelper->getSortingRelevantCounterpart($case);
+        $case->setSortingCounterpart($relevantCounterpart);
+
         $this->entityManager->flush();
     }
 }

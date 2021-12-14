@@ -118,8 +118,14 @@
                         {{ knp_pagination_sortable(pagination, 'Address'|trans({}, 'case'), 'c.sortingAddress') }}
                     </th>
 {#                    <th scope="col">{% trans %}Address{% endtrans %}</th>#}
-                    <th scope="col">{% trans %}Complainant{% endtrans %}</th>
-                    <th scope="col">{% trans %}Counterpart{% endtrans %}</th>
+                    <th{% if pagination.isSorted('c.SortingComplainant') %} class="sorted"{% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Complainant'|trans({}, 'case'), 'c.sortingComplainant') }}
+                    </th>
+{#                    <th scope="col">{% trans %}Complainant{% endtrans %}</th>#}
+                    <th{% if pagination.isSorted('c.SortingCounterpart') %} class="sorted"{% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Counterpart'|trans({}, 'case'), 'c.sortingCounterpart') }}
+                    </th>
+{#                    <th scope="col">{% trans %}Counterpart{% endtrans %}</th>#}
                     <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
                 </tr>
                 </thead>
@@ -133,8 +139,8 @@
                         <td>{{ case.createdAt|date('d/m/Y') }}</td>
                         <td>{{ case.sortingAddress|e }}</td>
 {#                        <td>{{ case.complainantAddress|e }}</td>#}
-                        <td>{{ "Udlejer"|e }}</td>
-                        <td>{{ case.complainant|e }}</td>
+                        <td>{{ case.sortingComplainant|e }}</td>
+                        <td>{{ case.sortingCounterpart|e }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
                                 <a href="" role="button" class="btn btn-success" data-toggle="modal" data-target="#assign_case{{ case.id }}" data-placement="auto" title="{% trans %}Assign caseworker{% endtrans %}"><i class="fas fa-user-plus"></i><span class="sr-only">{% trans %}Assign caseworker{% endtrans %}</span></a>

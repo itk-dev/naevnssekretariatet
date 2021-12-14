@@ -209,4 +209,38 @@ class PartyHelper
 
         return ['complainants' => $complainants, 'counterparties' => $counterparties];
     }
+
+    public function getSortingRelevantComplainant(CaseEntity $case): string
+    {
+        $complainantTypes = $this->getComplainantPartyTypesByCase($case);
+        // Gets first entry in array
+        $relevantType = reset($complainantTypes);
+
+        $complainantRelation = $this->relationRepository
+            ->findOneBy([
+                'case' => $case,
+                'type' => $relevantType,
+                'softDeleted' => false,
+            ])
+        ;
+
+        return $complainantRelation ? $complainantRelation->getParty()->getName() : ' ';
+    }
+
+    public function getSortingRelevantCounterpart(CaseEntity $case): string
+    {
+        $counterpartTypes = $this->getCounterPartyTypesByCase($case);
+        // Gets first entry in array
+        $relevantType = reset($counterpartTypes);
+
+        $counterpartRelation = $this->relationRepository
+            ->findOneBy([
+                'case' => $case,
+                'type' => $relevantType,
+                'softDeleted' => false,
+            ])
+        ;
+
+        return $counterpartRelation ? $counterpartRelation->getParty()->getName() : ' ';
+    }
 }

@@ -144,6 +144,11 @@ abstract class CaseEntity
     private $sortingComplainant;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sortingCounterpart;
+
+    /**
      * @ORM\Column(type="date")
      */
     private $finishProcessingDeadline;
@@ -498,7 +503,7 @@ abstract class CaseEntity
     {
         $this->sortingAddress = $sortingAddress;
 
-         return $this;
+        return $this;
     }
 
     public function getFinishProcessingDeadline(): ?\DateTimeInterface
@@ -521,6 +526,18 @@ abstract class CaseEntity
     public function setSortingComplainant(string $sortingComplainant): self
     {
         $this->sortingComplainant = $sortingComplainant;
+
+        return $this;
+    }
+
+    public function getSortingCounterpart(): ?string
+    {
+        return $this->sortingCounterpart;
+    }
+
+    public function setSortingCounterpart(string $sortingCounterpart): self
+    {
+        $this->sortingCounterpart = $sortingCounterpart;
 
         return $this;
     }

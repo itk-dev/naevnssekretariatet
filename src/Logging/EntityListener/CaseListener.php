@@ -5,7 +5,6 @@ namespace App\Logging\EntityListener;
 use App\Entity\CaseEntity;
 use App\Logging\ItkDevGetFunctionNotFoundException;
 use App\Logging\ItkDevLoggingException;
-use App\Service\CaseManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -13,14 +12,8 @@ use Symfony\Component\Security\Core\Security;
 
 class CaseListener extends AbstractEntityListener
 {
-    /**
-     * @var CaseManager
-     */
-    private $caseManager;
-
-    public function __construct(CaseManager $caseManager, Security $security)
+    public function __construct(Security $security)
     {
-        $this->caseManager = $caseManager;
         parent::__construct($security);
     }
 
@@ -30,7 +23,6 @@ class CaseListener extends AbstractEntityListener
      */
     public function postUpdate(CaseEntity $case, LifecycleEventArgs $args)
     {
-        $this->caseManager->updateSortingComplainant($case);
         $this->logActivity('Update', $args);
     }
 
@@ -40,7 +32,6 @@ class CaseListener extends AbstractEntityListener
      */
     public function postPersist(CaseEntity $case, LifecycleEventArgs $args)
     {
-        $this->caseManager->updateSortingComplainant($case);
         $this->logActivity('Create', $args);
     }
 
