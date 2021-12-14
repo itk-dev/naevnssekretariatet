@@ -109,18 +109,25 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
         throw $this->createException(sprintf('Invalid address: %s', (string) $address));
     }
 
+    /**
+     * Set Address.validatedAt to null when changing embedded Address entities.
+     */
     public function preUpdate(LifecycleEventArgs $args)
     {
         $object = $args->getObject();
-        // Set validatedAt to null when changing embedded Address entities.
         $changeSet = $args->getEntityChangeSet();
         foreach ($changeSet as $propertyPath => $value) {
-            $path = explode('.', $propertyPath, 2);
-            if ($this->propertyAccessor->isReadable($object, $path[0])) {
-                $embedded = $this->propertyAccessor->getValue($object, $path[0]);
-                // Only set validatedAt if not already being set in the change set.
-                if ($embedded instanceof Address && 'validatedAt' !== ($path[1] ?? null)) {
-                    $embedded->setValidatedAt(null);
+            // Check for embedded property path, i.e. a property path followed
+            // by a dot and a name.
+            if (preg_match('/^(.+)\.([^.]+)$/', $propertyPath, $matches)) {
+                [, $embeddedPath, $embeddedProperty] = $matches;
+                if ($this->propertyAccessor->isReadable($object, $embeddedPath)) {
+                    $embedded = $this->propertyAccessor->getValue($object, $embeddedPath);
+                    // Only set validatedAt if not already being set in the change set.
+                    if ($embedded instanceof Address && 'validatedAt' !== $embeddedProperty) {
+                        $embedded->setValidatedAt(null);
+                        break;
+                    }
                 }
             }
         }
