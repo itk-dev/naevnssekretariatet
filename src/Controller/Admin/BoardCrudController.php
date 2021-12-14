@@ -25,6 +25,7 @@ class BoardCrudController extends AbstractCrudController
     {
         $this->translator = $translator;
     }
+
     public static function getEntityFqcn(): string
     {
         return Board::class;
