@@ -35,12 +35,12 @@ class AddressType extends AbstractType
             ->add('number', IntegerType::class, [
                 'label' => $this->translator->trans('Number', [], 'address'),
             ])
-            ->add('side', TextType::class, [
-                'label' => $this->translator->trans('Side', [], 'address'),
-                'required' => false,
-            ])
             ->add('floor', TextType::class, [
                 'label' => $this->translator->trans('Floor', [], 'address'),
+                'required' => false,
+            ])
+            ->add('side', TextType::class, [
+                'label' => $this->translator->trans('Side', [], 'address'),
                 'required' => false,
             ])
             ->add('postalCode', IntegerType::class, [

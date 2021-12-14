@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Entity\RentBoardCase;
-use App\Form\Embeddable\AddressType;
+use App\Form\Embeddable\AddressLookupType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -49,15 +49,19 @@ class RentBoardCaseType extends AbstractType
             ->add('complainantPhone', IntegerType::class, [
                 'label' => $this->translator->trans('Complainant phone', [], 'case'),
             ])
-            ->add('complainantAddress', AddressType::class, [
+            ->add('complainantAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Complainant address', [], 'case'),
+                'lookup-placeholder' => $this->translator->trans('Look up complainant address', [], 'case'),
+                'lookup-help' => $this->translator->trans('Look up an address to fill out the address fields', [], 'case'),
             ])
             ->add('hasVacated', CheckboxType::class, [
                 'label' => $this->translator->trans('Has vacated', [], 'case'),
                 'required' => false,
             ])
-            ->add('leaseAddress', AddressType::class, [
+            ->add('leaseAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Lease address', [], 'case'),
+                'lookup-placeholder' => $this->translator->trans('Look up lease address', [], 'case'),
+                'lookup-help' => $this->translator->trans('Look up an address to fill out the address fields', [], 'case'),
             ])
             ->add('leaseType', ChoiceType::class, [
                 'choices' => [

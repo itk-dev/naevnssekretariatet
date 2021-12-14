@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Entity\FenceReviewCase;
-use App\Form\Embeddable\AddressType;
+use App\Form\Embeddable\AddressLookupType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -46,8 +46,10 @@ class FenceReviewCaseType extends AbstractType
             ->add('complainantCPR', IntegerType::class, [
                 'label' => $this->translator->trans('Complainant CPR', [], 'case'),
             ])
-            ->add('complainantAddress', AddressType::class, [
+            ->add('complainantAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Complainant address', [], 'case'),
+                'lookup-placeholder' => $this->translator->trans('Look up complainant address', [], 'case'),
+                'lookup-help' => $this->translator->trans('Look up an address to fill out the address fields', [], 'case'),
             ])
             ->add('complainantCadastralNumber', TextType::class, [
                 'label' => $this->translator->trans('Complainant cadastral number', [], 'case'),
@@ -58,8 +60,10 @@ class FenceReviewCaseType extends AbstractType
             ->add('accusedCPR', IntegerType::class, [
                 'label' => $this->translator->trans('Accused CPR', [], 'case'),
             ])
-            ->add('accusedAddress', AddressType::class, [
+            ->add('accusedAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Accused address', [], 'case'),
+                'lookup-placeholder' => $this->translator->trans('Look up accused address', [], 'case'),
+                'lookup-help' => $this->translator->trans('Look up an address to fill out the address fields', [], 'case'),
             ])
             ->add('accusedCadastralNumber', TextType::class, [
                 'label' => $this->translator->trans('Accused cadastral number', [], 'case'),
