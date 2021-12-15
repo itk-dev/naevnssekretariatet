@@ -14,6 +14,7 @@ $board.change(function () {
       $('#case_entity_caseEntity').replaceWith(
         $(html).find('#case_entity_caseEntity')
       )
+      window.dispatchEvent(new Event('ajaxload'))
     }
   })
 })

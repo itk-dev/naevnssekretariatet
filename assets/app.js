@@ -14,3 +14,8 @@ require('bootstrap')
 $(document).ready(function () {
   $('[data-toggle="popover"]').popover()
 })
+
+window.addEventListener('load', () => {
+  // Trigger ajax load on document load.
+  window.dispatchEvent(new Event('ajaxload'))
+})

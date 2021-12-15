@@ -3,7 +3,7 @@
 // @see https://autocomplete.aws.dk/guide2.html
 const dawa = require('dawa-autocomplete2')
 
-$(() => {
+const initializeDawaLookup = () => {
   $('[data-dawa-address-lookup]').each(function () {
     const config = $(this).data('dawa-address-lookup')
     const selectorPattern = config['selector-pattern'] ?? null
@@ -24,7 +24,6 @@ $(() => {
       dawa.dawaAutocomplete(input[0], {
         select: selected => {
           const address = selected.data
-          console.log(address)
 
           // Map address fields.
           const map = {
@@ -56,4 +55,7 @@ $(() => {
       })
     }
   })
-})
+}
+
+// Set up address lookup on document load and ajax load.
+window.addEventListener('ajaxload', initializeDawaLookup)
