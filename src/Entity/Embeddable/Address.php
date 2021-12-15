@@ -41,6 +41,11 @@ class Address implements LoggableEntityInterface
     private $city;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $validatedAt;
+
+    /**
      * @ORM\Column(type="json", nullable=true)
      */
     private $bbrData;
@@ -103,6 +108,21 @@ class Address implements LoggableEntityInterface
     public function setCity(string $city): void
     {
         $this->city = $city;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getValidatedAt(): ?\DateTimeInterface
+    {
+        return $this->validatedAt;
+    }
+
+    public function setValidatedAt(?\DateTimeInterface $validatedAt): self
+    {
+        $this->validatedAt = $validatedAt;
+
+        return $this;
     }
 
     public function getBbrData(): ?array

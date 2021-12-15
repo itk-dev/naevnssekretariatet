@@ -72,7 +72,7 @@ abstract class AbstractEntityListener
             }
 
             // Handle DateTime(s)
-            if ($changedValue instanceof \DateTime) {
+            if ($changedValue instanceof \DateTimeInterface) {
                 $dataArray[$key] = $changedValue->format('d-m-Y H:i:s');
                 continue;
             }

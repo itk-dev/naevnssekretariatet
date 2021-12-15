@@ -84,7 +84,7 @@ App\Entity\Board:
       Udlejer administrator
 
   fence-board-aarhus:
-    name: Hegsnævnet Aarhus
+    name: Hegnsnævnet Aarhus
     municipality: '@municipality-aarhus'
     caseFormType: FenceReviewCaseType
     hearingResponseDeadline: 14
