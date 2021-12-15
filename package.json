@@ -5,6 +5,7 @@
         "bootstrap-history-tabs": "https://github.com/jeffdavidgreen/bootstrap-html5-history-tabs",
         "core-js": "^3.0.0",
         "cypress": "^6.5.0",
+        "dawa-autocomplete2": "^1.0.2",
         "file-loader": "^6.0.0",
         "jquery": "^3.5.1",
         "markdownlint-cli": "^0.26.0",

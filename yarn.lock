@@ -2474,6 +2474,11 @@ date-fns@^1.27.2:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
+dawa-autocomplete2@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/dawa-autocomplete2/-/dawa-autocomplete2-1.0.2.tgz#8e7c099e06ec3a01ab1d956b6e3b59c9b6d3db6e"
+  integrity sha512-9CrVy2B/WR8tDQZDIHlQ9CPD6tDKzRiFGJzQHz04+bczsfTwkJmBGuRMS20XHTedvYr20cIVD6EZ7B/2DfwtlA==
+
 dayjs@^1.9.3:
   version "1.10.4"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.4.tgz#8e544a9b8683f61783f570980a8a80eaf54ab1e2"

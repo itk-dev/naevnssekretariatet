@@ -16,7 +16,7 @@ class Address implements LoggableEntityInterface
     private $street;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $number;
 
