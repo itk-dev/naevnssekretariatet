@@ -1,4 +1,4 @@
-/* global $ */
+/* global $, Event */
 
 const $board = $('#case_entity_board')
 $board.change(function () {
