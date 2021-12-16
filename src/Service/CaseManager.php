@@ -80,17 +80,10 @@ class CaseManager implements LoggerAwareInterface
         $lock->acquire(true);
 
         $caseEntity->setCaseNumber(
-            $this->generateCaseNumber($board->getMunicipality())
+            $this->generateCaseNumber()
         );
         $caseEntity->setBoard($board);
         $caseEntity->setMunicipality($board->getMunicipality());
-
-//        // Set relevant address based on case type
-//        if ($caseEntity instanceof FenceReviewCase) {
-//            $caseEntity->setRelevantAddress($caseEntity->getComplainantAddress()->__toString());
-//        } else {
-//            $caseEntity->setRelevantAddress($caseEntity->getLeaseAddress()->__toString());
-//        }
 
         $workflow = $this->workflowService->getWorkflowForCase($caseEntity);
         $workflow->getMarking($caseEntity);
