@@ -4,8 +4,6 @@ namespace App\Service;
 
 use App\Entity\Board;
 use App\Entity\CaseEntity;
-use App\Entity\FenceReviewCase;
-use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,24 +27,19 @@ class CaseManager implements LoggerAwareInterface
      */
     private $lockFactory;
     /**
-     * @var PartyHelper
-     */
-    private $partyHelper;
-    /**
      * @var WorkflowService
      */
     private $workflowService;
 
-    public function __construct(CaseEntityRepository $caseRepository, EntityManagerInterface $entityManager, LockFactory $lockFactory, PartyHelper $partyHelper, WorkflowService $workflowService)
+    public function __construct(CaseEntityRepository $caseRepository, EntityManagerInterface $entityManager, LockFactory $lockFactory, WorkflowService $workflowService)
     {
         $this->caseRepository = $caseRepository;
         $this->entityManager = $entityManager;
         $this->lockFactory = $lockFactory;
-        $this->partyHelper = $partyHelper;
         $this->workflowService = $workflowService;
     }
 
-    public function generateCaseNumber(Municipality $municipality): string
+    public function generateCaseNumber(): string
     {
         $case = $this->caseRepository->findLatestCase();
 
