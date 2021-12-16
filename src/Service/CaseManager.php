@@ -161,15 +161,4 @@ class CaseManager implements LoggerAwareInterface
             $this->entityManager->flush();
         }
     }
-
-    public function updateSortingProperties(CaseEntity $case)
-    {
-        $relevantComplainant = $this->partyHelper->getSortingRelevantComplainant($case);
-        $case->setSortingComplainant($relevantComplainant);
-
-        $relevantCounterpart = $this->partyHelper->getSortingRelevantCounterpart($case);
-        $case->setSortingCounterpart($relevantCounterpart);
-
-        $this->entityManager->flush();
-    }
 }

@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Board;
 use App\Entity\Municipality;
-use App\Exception\CaseFilterException;
 use App\Repository\BoardRepository;
 use App\Repository\UserRepository;
 use App\Service\BoardHelper;
@@ -148,49 +147,30 @@ class CaseFilterType extends AbstractType
                         return null;
                     }
 
-                    switch ($values['value']) {
-                        case CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED:
-                            $field = 'c.hasReachedHearingDeadline';
+                    $filterChoice = $values['value'];
+
+                    // Base expression and parameters
+                    $resultExpression = $filterQuery->getExpr()->andX();
+                    $parameters = [];
+
+                    // Add one or two expressions based on filter choice aka. $values['value']
+                    // Filters that require one expression are hearing- and process deadline exceeded
+                    // Both exceeded and none exceeded require two expressions, one for hearing- and one for process deadline exceeded
+
+                    // Iterate over two statuses that will define the expressions needed
+                    foreach ([CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED, CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED] as $iteratorStatus) {
+                        // Check if filter choice is status iterator or one of the filtering choices that need both expressions
+                        if (in_array($filterChoice, [$iteratorStatus, CaseDeadlineStatuses::BOTH_DEADLINES_EXCEEDED, CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED])) {
+                            // Construct expression depending on status iterator
+                            $field = CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED === $iteratorStatus ? 'c.hasReachedHearingDeadline' : 'c.hasReachedProcessingDeadline';
                             $paramName = sprintf('p_%s', str_replace('.', '_', $field));
                             $expression = $filterQuery->getExpr()->eq($field, ':'.$paramName);
-                            $parameters = [$paramName => true];
-                            break;
-
-                        case CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED:
-                            $field = 'c.hasReachedProcessingDeadline';
-                            $paramName = sprintf('p_%s', str_replace('.', '_', $field));
-                            $expression = $filterQuery->getExpr()->eq($field, ':'.$paramName);
-                            $parameters = [$paramName => true];
-                            break;
-
-                        case CaseDeadlineStatuses::BOTH_DEADLINES_EXCEEDED:
-                            $fieldOne = 'c.hasReachedHearingDeadline';
-                            $fieldTwo = 'c.hasReachedProcessingDeadline';
-                            $paramNameOne = sprintf('p_%s', str_replace('.', '_', $fieldOne));
-                            $paramNameTwo = sprintf('p_%s', str_replace('.', '_', $fieldTwo));
-                            $expressionOne = $filterQuery->getExpr()->eq($fieldOne, ':'.$paramNameOne);
-                            $expressionTwo = $filterQuery->getExpr()->eq($fieldTwo, ':'.$paramNameTwo);
-                            $expression = $filterQuery->getExpr()->andX($expressionOne, $expressionTwo);
-                            $parameters = [$paramNameOne => true, $paramNameTwo => true];
-                            break;
-
-                        case CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED:
-                            $fieldOne = 'c.hasReachedHearingDeadline';
-                            $fieldTwo = 'c.hasReachedProcessingDeadline';
-                            $paramNameOne = sprintf('p_%s', str_replace('.', '_', $fieldOne));
-                            $paramNameTwo = sprintf('p_%s', str_replace('.', '_', $fieldTwo));
-                            $expressionOne = $filterQuery->getExpr()->eq($fieldOne, ':'.$paramNameOne);
-                            $expressionTwo = $filterQuery->getExpr()->eq($fieldTwo, ':'.$paramNameTwo);
-                            $expression = $filterQuery->getExpr()->andX($expressionOne, $expressionTwo);
-                            $parameters = [$paramNameOne => false, $paramNameTwo => false];
-                            break;
-
-                        default:
-                            $message = sprintf('Unhandled choice %s in CaseFilterType.', $values['value']);
-                            throw new CaseFilterException($message);
+                            $resultExpression->add($expression);
+                            $parameters[$paramName] = CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED !== $filterChoice;
+                        }
                     }
 
-                    return $filterQuery->createCondition($expression, $parameters);
+                    return $filterQuery->createCondition($resultExpression, $parameters);
                 },
                 'label' => false,
                 'placeholder' => $this->translator->trans('Select deadline filter', [], 'agenda'),
