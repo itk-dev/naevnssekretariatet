@@ -354,7 +354,7 @@ class CaseController extends AbstractController
         try {
             return $this->redirect($bbrHelper->getBBRMeddelelseUrlForCase($case, $addressProperty, $_format));
         } catch (\Exception $exception) {
-            $this->addFlash('error', new TranslatableMessage('Cannot get url for BBR-Meddelelse'));
+            $this->addFlash('error', new TranslatableMessage('Cannot get url for BBR-Meddelelse', [], 'case'));
         }
 
         // Send user back to where he came from.
@@ -372,9 +372,9 @@ class CaseController extends AbstractController
             $bbrHelper->updateCaseBBRData($case, $addressProperty);
             $entityManager->persist($case);
             $entityManager->flush();
-            $this->addFlash('success', new TranslatableMessage('BBR data updated'));
+            $this->addFlash('success', new TranslatableMessage('BBR data updated', [], 'case'));
         } catch (\Exception $exception) {
-            $this->addFlash('error', new TranslatableMessage('Cannot update BBR data'));
+            $this->addFlash('error', new TranslatableMessage('Cannot update BBR data', [], 'case'));
         }
 
         // Send user back to where he came from.
@@ -397,9 +397,7 @@ class CaseController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', new TranslatableMessage('Process deadline updated on case %case', [
-                '%case' => $case->getCaseNumber(),
-            ]));
+            $this->addFlash('success', new TranslatableMessage('Process deadline updated!', [], 'case'));
 
             // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
             if ($request->get('ajax')) {
@@ -437,9 +435,7 @@ class CaseController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', new TranslatableMessage('Hearing deadline updated on case %case', [
-                '%case' => $case->getCaseNumber(),
-            ]));
+            $this->addFlash('success', new TranslatableMessage('Hearing deadline updated!', [], 'case'));
 
             // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
             if ($request->get('ajax')) {

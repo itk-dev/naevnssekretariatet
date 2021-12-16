@@ -137,10 +137,10 @@ class CaseFilterType extends AbstractType
         $builder
             ->add('deadlines', Filters\ChoiceFilterType::class, [
                 'choices' => [
-                    $this->translator->trans('Exceeded hearing deadline', [], 'agenda') => CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED,
-                    $this->translator->trans('Exceeded processing deadline', [], 'agenda') => CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED,
-                    $this->translator->trans('Both deadlines exceeded', [], 'agenda') => CaseDeadlineStatuses::BOTH_DEADLINES_EXCEEDED,
-                    $this->translator->trans('No exceeded deadlines', [], 'agenda') => CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED,
+                    $this->translator->trans('Exceeded hearing deadline', [], 'case') => CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED,
+                    $this->translator->trans('Exceeded processing deadline', [], 'case') => CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED,
+                    $this->translator->trans('Both deadlines exceeded', [], 'case') => CaseDeadlineStatuses::BOTH_DEADLINES_EXCEEDED,
+                    $this->translator->trans('No exceeded deadlines', [], 'case') => CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED,
                 ],
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                     if (empty($values['value'])) {
@@ -173,7 +173,7 @@ class CaseFilterType extends AbstractType
                     return $filterQuery->createCondition($resultExpression, $parameters);
                 },
                 'label' => false,
-                'placeholder' => $this->translator->trans('Select deadline filter', [], 'agenda'),
+                'placeholder' => $this->translator->trans('Select deadline filter', [], 'case'),
             ])
         ;
     }

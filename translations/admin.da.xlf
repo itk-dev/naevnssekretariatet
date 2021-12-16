@@ -217,6 +217,18 @@
         <source>BoardRole</source>
         <target>Nævnsroller</target>
       </trans-unit>
+      <trans-unit id="PTaFfBn" resname="Configuration of complainant types. Each line will be treated as a type of which the first will be the one used for sorting purposes.">
+        <source>Configuration of complainant types. Each line will be treated as a type of which the first will be the one used for sorting purposes.</source>
+        <target>__Configuration of complainant types. Each line will be treated as a type of which the first will be the one used for sorting purposes.</target>
+      </trans-unit>
+      <trans-unit id="zUE9NOB" resname="Configuration of counterpart types. Each line will be treated as a type of which the first will be the one used for sorting purposes.">
+        <source>Configuration of counterpart types. Each line will be treated as a type of which the first will be the one used for sorting purposes.</source>
+        <target>__Configuration of counterpart types. Each line will be treated as a type of which the first will be the one used for sorting purposes.</target>
+      </trans-unit>
+      <trans-unit id="wGvpo5U" resname="Configuration of case statuses. Each line will be treated as a status and the order of case statuses will be reflected by the order of these.">
+        <source>Configuration of case statuses. Each line will be treated as a status and the order of case statuses will be reflected by the order of these.</source>
+        <target>__Configuration of case statuses. Each line will be treated as a status and the order of case statuses will be reflected by the order of these.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
