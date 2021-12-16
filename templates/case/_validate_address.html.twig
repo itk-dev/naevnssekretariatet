@@ -1,0 +1,14 @@
+{% trans_default_domain 'case' %}
+
+{{ form_start(form, {'action': path('case_validate_address', {id: case.id, addressProperty: address_property}), 'attr': {'data-use-ajax': true}}) }}
+    <div class="form-header">
+        <button class="btn btn-block btn-secondary" type="submit">{% trans %}Validate address{% endtrans %}</button>
+    </div>
+    <div class="form-body">
+        {{ form_widget(form) }}
+        {% if not form.vars.errors|length %}
+            <p class="text-muted">{% trans %}Validate the legitimacy of the address by pressing the validate button{% endtrans %}</p>
+        {% endif %}
+        <div class="form-error"></div>
+    </div>
+{{ form_end(form) }}

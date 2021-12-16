@@ -22,6 +22,7 @@ use App\Repository\CaseEntityRepository;
 use App\Repository\MunicipalityRepository;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
+use App\Service\AddressHelper;
 use App\Service\BBRHelper;
 use App\Service\CaseManager;
 use App\Service\MunicipalityHelper;
@@ -31,11 +32,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/case")
@@ -495,6 +498,44 @@ class CaseController extends AbstractController
         return $this->render('case/_assign_caseworker.html.twig', [
             'assign_form' => $assignForm->createView(),
             'case' => $case,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/validate-address/{addressProperty}", name="case_validate_address", methods={"GET", "POST"})
+     */
+    public function validateAddress(Request $request, CaseEntity $case, AddressHelper $addressHelper, string $addressProperty, TranslatorInterface $translator): Response
+    {
+        $form = $this->createformbuilder()->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $addressHelper->validateAddress($case, $addressProperty);
+                $this->addFlash('success', new TranslatableMessage('Address validated', [], 'case'));
+
+                // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
+                if ($request->get('ajax')) {
+                    return new JsonResponse(true);
+                }
+
+                // Send user back to where he came from.
+                $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+                return $this->redirect($redirectUrl);
+            } catch (\Exception $exception) {
+                if ($request->get('ajax')) {
+                    $form->addError(new FormError($translator->trans('Invalid address', [], 'case')));
+                } else {
+                    $this->addFlash('error', new TranslatableMessage('Error validating address', [], 'case'));
+                }
+            }
+        }
+
+        return $this->render('case/_validate_address.html.twig', [
+            'form' => $form->createView(),
+            'case' => $case,
+            'address_property' => $addressProperty,
         ]);
     }
 }

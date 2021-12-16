@@ -21,3 +21,7 @@
     {{ form_end(case_form) }}
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dawa-address-lookup') }}
+{% endblock %}

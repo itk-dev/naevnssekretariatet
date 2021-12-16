@@ -82,3 +82,9 @@ App\Entity\ComplaintCategory:
     fee: 201
     board: '@rent-board-randers'
     municipality: '@municipality-randers'
+
+  fence-complaint-aarhus:
+    name: Fence
+    fee: 87
+    board: '@fence-board-aarhus'
+    municipality: '@municipality-aarhus'

@@ -1,0 +1,45 @@
+{% trans_default_domain 'case' %}
+
+{% set address = attribute(case, address_property) %}
+
+<div class="case-address address-{{ address_property }}">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>{% trans %}Road{% endtrans %}</label>
+            <input type="text" class="form-control" value="{{ address.street }}" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label>{% trans %}Number{% endtrans %}</label>
+            <input type="text" class="form-control" value="{{ address.number }}" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label>{% trans %}Floor{% endtrans %}</label>
+            <input type="text" class="form-control" value="{{ address.floor }}" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label>{% trans %}Side{% endtrans %}</label>
+            <input type="text" class="form-control" value="{{ address.side }}" readonly>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label>{% trans %}Postal code{% endtrans %}</label>
+            <input type="text" class="form-control" value="{{ address.postalCode }}" readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label>{% trans %}City{% endtrans %}</label>
+            <input type="text" class="form-control" value="{{ address.city }}" readonly>
+        </div>
+        {% if withValidation|default(true) %}
+            <div class="form-group col-md-6">
+                <label class="invisible">{% trans %}Validate{% endtrans %}</label>
+                {% if address.validatedAt %}
+                    <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Address validated at %validation_time%'|trans({'%validation_time%': address.validatedAt|date}) }}"><i class="fas fa-check-circle"></i> {% trans %}Address validated{% endtrans %}</span>
+                {% else %}
+                    {# Render ajax form #}
+                    {{ render(controller('App\\Controller\\CaseController:validateAddress', {id: case.id, addressProperty: address_property})) }}
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
