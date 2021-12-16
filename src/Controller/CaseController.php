@@ -75,11 +75,6 @@ class CaseController extends AbstractController
 
         if ($request->query->has($filterForm->getName())) {
             $filterForm->submit($request->query->get($filterForm->getName()));
-        } else {
-            // Default filter
-            $filterForm->submit([
-                'board' => '',
-            ]);
         }
 
         $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
@@ -103,13 +98,10 @@ class CaseController extends AbstractController
 
         $pagination->setCustomParameters(['align' => 'center']);
 
-//        $cases = $caseRepository->findAll();
-
         return $this->render('case/index.html.twig', [
             'filter_form' => $filterForm->createView(),
             'municipalities' => $municipalities,
             'pagination' => $pagination,
-//            'cases' => $cases,
             'municipality_form' => $municipalityForm->createView(),
         ]);
     }

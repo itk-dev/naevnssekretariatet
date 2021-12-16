@@ -53,28 +53,22 @@
                     <th{% if pagination.isSorted('c.ComplaintCategory') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Complaint category'|trans({}, 'case'), 'complaintCategory.name') }}
                     </th>
-{#                    <th scope="col">{% trans %}Complaint category{% endtrans %}</th>#}
                     <th{% if pagination.isSorted('c.currentPlace') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Status'|trans({}, 'case'), 'c.currentPlace') }}
                     </th>
-{#                    <th scope="col">{% trans %}Status{% endtrans %}</th>#}
                     {# Todo: Replace 'createdAt' with correct deadline when it is decided which one is the correct one #}
                     <th{% if pagination.isSorted('a.CreatedAt') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Deadline'|trans({}, 'case'), 'c.createdAt') }}
                     </th>
-{#                    <th scope="col">{% trans %}Deadline{% endtrans %}</th>#}
                     <th{% if pagination.isSorted('c.SortingAddress') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Address'|trans({}, 'case'), 'c.sortingAddress') }}
                     </th>
-{#                    <th scope="col">{% trans %}Address{% endtrans %}</th>#}
                     <th{% if pagination.isSorted('c.SortingComplainant') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Complainant'|trans({}, 'case'), 'c.sortingComplainant') }}
                     </th>
-{#                    <th scope="col">{% trans %}Complainant{% endtrans %}</th>#}
                     <th{% if pagination.isSorted('c.SortingCounterpart') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Counterpart'|trans({}, 'case'), 'c.sortingCounterpart') }}
                     </th>
-{#                    <th scope="col">{% trans %}Counterpart{% endtrans %}</th>#}
                     <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
                 </tr>
                 </thead>
@@ -87,7 +81,6 @@
                         {# Todo: Replace with correct deadline when it is decided which one is the correct one #}
                         <td>{{ case.createdAt|date('d/m/Y') }}</td>
                         <td>{{ case.sortingAddress|e }}</td>
-{#                        <td>{{ case.complainantAddress|e }}</td>#}
                         <td>{{ case.sortingComplainant|e }}</td>
                         <td>{{ case.sortingCounterpart|e }}</td>
                         <td>
