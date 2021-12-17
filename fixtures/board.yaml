@@ -13,10 +13,10 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
-    complainantPartyTypes: |-
+    complainantTypes: |-
       Lejer
       Lejer repræsentant
-    counterPartyTypes: |-
+    counterpartyTypes: |-
       Udlejer
       Udlejer administrator
 
@@ -34,10 +34,10 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
-    complainantPartyTypes: |-
+    complainantTypes: |-
       Lejer
       Lejer repræsentant
-    counterPartyTypes: |-
+    counterpartyTypes: |-
       Udlejer
       Udlejer administrator
 
@@ -55,10 +55,10 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
-    complainantPartyTypes: |-
+    complainantTypes: |-
       Lejer
       Lejer repræsentant
-    counterPartyTypes: |-
+    counterpartyTypes: |-
       Udlejer
       Udlejer administrator
 
@@ -76,10 +76,10 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
-    complainantPartyTypes: |-
+    complainantTypes: |-
       Lejer
       Lejer repræsentant
-    counterPartyTypes: |-
+    counterpartyTypes: |-
       Udlejer
       Udlejer administrator
 
@@ -97,10 +97,10 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
-    complainantPartyTypes: |-
+    complainantTypes: |-
       Klager
       Klager repræsentant
-    counterPartyTypes: |-
+    counterpartyTypes: |-
       Nabo
       Nabo repræsentant
 
@@ -118,9 +118,9 @@ App\Entity\Board:
       Sagsbehandling
       Dagsorden
       Afgørelse
-    complainantPartyTypes: |-
+    complainantTypes: |-
       Klager
       Klager repræsentant
-    counterPartyTypes: |-
+    counterpartyTypes: |-
       Nabo
       Nabo repræsentant

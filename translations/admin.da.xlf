@@ -217,17 +217,17 @@
         <source>BoardRole</source>
         <target>Nævnsroller</target>
       </trans-unit>
-      <trans-unit id="PTaFfBn" resname="Configuration of complainant types. Each line will be treated as a type of which the first will be the one used for sorting purposes.">
-        <source>Configuration of complainant types. Each line will be treated as a type of which the first will be the one used for sorting purposes.</source>
-        <target>__Configuration of complainant types. Each line will be treated as a type of which the first will be the one used for sorting purposes.</target>
+      <trans-unit id="Sfc9b3p" resname="List of complainant party types. One per line. The first party type can be used for sorting cases.">
+        <source>List of complainant party types. One per line. The first party type can be used for sorting cases.</source>
+        <target>Liste af klager typer. En per linje. Der vil kunne sorteres på den første type på sagslisten.</target>
       </trans-unit>
-      <trans-unit id="zUE9NOB" resname="Configuration of counterpart types. Each line will be treated as a type of which the first will be the one used for sorting purposes.">
-        <source>Configuration of counterpart types. Each line will be treated as a type of which the first will be the one used for sorting purposes.</source>
-        <target>__Configuration of counterpart types. Each line will be treated as a type of which the first will be the one used for sorting purposes.</target>
+      <trans-unit id="ikn_uZ2" resname="List of counterparty types. One per line. The first party type can be used for sorting cases.">
+        <source>List of counterparty types. One per line. The first party type can be used for sorting cases.</source>
+        <target>Liste af modparts typer. En per linje. Der vil kunne sorteres på den første type på sagslisten.</target>
       </trans-unit>
-      <trans-unit id="wGvpo5U" resname="Configuration of case statuses. Each line will be treated as a status and the order of case statuses will be reflected by the order of these.">
-        <source>Configuration of case statuses. Each line will be treated as a status and the order of case statuses will be reflected by the order of these.</source>
-        <target>__Configuration of case statuses. Each line will be treated as a status and the order of case statuses will be reflected by the order of these.</target>
+      <trans-unit id="5k3cjlx" resname="List of case statuses. One per line.">
+        <source>List of case statuses. One per line.</source>
+        <target>Liste af sagsstatusser. En per linje.</target>
       </trans-unit>
     </body>
   </file>

@@ -1037,6 +1037,10 @@
         <source>Hearing deadline updated!</source>
         <target>Høringstidfrist opdateret!</target>
       </trans-unit>
+      <trans-unit id="U8x0Pda" resname="Counterparty">
+        <source>Counterparty</source>
+        <target>Modpart</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

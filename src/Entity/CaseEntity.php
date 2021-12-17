@@ -147,7 +147,7 @@ abstract class CaseEntity
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $sortingCounterpart;
+    private $sortingCounterparty;
 
     /**
      * @Assert\GreaterThanOrEqual(propertyPath="finishHearingDeadline", groups={"process_finish"})
@@ -545,14 +545,14 @@ abstract class CaseEntity
         return $this;
     }
 
-    public function getSortingCounterpart(): ?string
+    public function getSortingCounterparty(): ?string
     {
-        return $this->sortingCounterpart;
+        return $this->sortingCounterparty;
     }
 
-    public function setSortingCounterpart(string $sortingCounterpart): self
+    public function setSortingCounterparty(string $sortingCounterparty): self
     {
-        $this->sortingCounterpart = $sortingCounterpart;
+        $this->sortingCounterparty = $sortingCounterparty;
 
         return $this;
     }
