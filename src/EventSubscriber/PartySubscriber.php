@@ -30,6 +30,8 @@ class PartySubscriber implements EventSubscriberInterface
     {
         $object = $args->getObject();
         $changeSet = $args->getEntityChangeSet();
+        // We allow sort of cases on party names
+        // Check that object is Party and name has been changed
         if ($object instanceof Party && array_key_exists('name', $changeSet)) {
             $relations = $this->relationRepository->findBy(['party' => $object->getId()]);
 
