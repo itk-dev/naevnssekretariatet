@@ -20,7 +20,6 @@ class FilterHelper
 
         // expression parameters
         // Added ->getId()->toBinary() to handle Uuid
-
         $parameters = [$paramName => $values['value']->getId()->toBinary()]; // [ name => value ]
 
         return $filterQuery->createCondition($expression, $parameters);

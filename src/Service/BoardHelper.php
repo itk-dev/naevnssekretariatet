@@ -8,16 +8,6 @@ class BoardHelper
 {
     public function getStatusesByBoard(Board $board): array
     {
-        $rawStatuses = explode(
-            PHP_EOL,
-            $board->getStatuses()
-        );
-
-        $trimmedStatuses = [];
-        foreach ($rawStatuses as $rawStatus) {
-            $trimmedStatuses[$rawStatus] = trim($rawStatus);
-        }
-
-        return $trimmedStatuses;
+        return array_filter(array_map('trim', explode(PHP_EOL, $board->getStatuses())));
     }
 }

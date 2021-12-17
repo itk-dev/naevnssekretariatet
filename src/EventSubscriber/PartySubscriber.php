@@ -34,10 +34,7 @@ class PartySubscriber implements EventSubscriberInterface
             $relations = $this->relationRepository->findBy(['party' => $object->getId()]);
 
             foreach ($relations as $relation) {
-                $relevantComplainant = $this->partyHelper->getSortingRelevantComplainant($relation->getCase());
-                $relation->getCase()->setSortingComplainant($relevantComplainant);
-                $relevantCounterpart = $this->partyHelper->getSortingRelevantCounterpart($relation->getCase());
-                $relation->getCase()->setSortingCounterpart($relevantCounterpart);
+                $this->partyHelper->updateSortingProperties($relation->getCase());
             }
         }
     }

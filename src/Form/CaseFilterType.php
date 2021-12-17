@@ -90,8 +90,16 @@ class CaseFilterType extends AbstractType
         // Dynamically show list of statuses via board
         $formModifier = function (FormInterface $form, Board $board = null) {
             if (null != $board) {
+                // Retrieve list of statuses by board and make them into options
+                $statuses = array_filter(array_map('trim', explode(PHP_EOL, $board->getStatuses())));
+                $statusOptions = [];
+
+                foreach ($statuses as $status) {
+                    $statusOptions[$status] = $status;
+                }
+
                 $form->add('currentPlace', Filters\ChoiceFilterType::class, [
-                    'choices' => $this->boardHelper->getStatusesByBoard($board),
+                    'choices' => $statusOptions,
                     'label' => false,
                     'placeholder' => $this->translator->trans('All statuses', [], 'case'),
                 ]);

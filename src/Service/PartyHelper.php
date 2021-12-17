@@ -67,6 +67,12 @@ class PartyHelper
             $existingRelation->setSoftDeletedAt(null);
         }
 
+        if ($type === $this->getSortingComplainantType($case)) {
+            $case->setSortingComplainant($party->getName());
+        } elseif ($type === $this->getSortingCounterpartType($case)) {
+            $case->setSortingCounterpart($party->getName());
+        }
+
         $this->entityManager->flush();
     }
 
@@ -111,6 +117,12 @@ class PartyHelper
         $relation->setCase($case);
         $relation->setParty($party);
         $relation->setType($data['type']);
+
+        if ($data['type'] === $this->getSortingComplainantType($case)) {
+            $case->setSortingComplainant($data['name']);
+        } elseif ($data['type'] === $this->getSortingCounterpartType($case)) {
+            $case->setSortingCounterpart($data['name']);
+        }
 
         $this->entityManager->persist($relation);
 
@@ -210,37 +222,59 @@ class PartyHelper
         return ['complainants' => $complainants, 'counterparties' => $counterparties];
     }
 
-    public function getSortingRelevantComplainant(CaseEntity $case): string
+    public function getSortingComplainant(CaseEntity $case): ?string
     {
-        $complainantTypes = $this->getComplainantPartyTypesByCase($case);
-        // Gets first entry in array
-        $relevantType = reset($complainantTypes);
+        $type = $this->getSortingComplainantType($case);
 
         $complainantRelation = $this->relationRepository
             ->findOneBy([
                 'case' => $case,
-                'type' => $relevantType,
+                'type' => $type,
                 'softDeleted' => false,
             ])
         ;
 
-        return $complainantRelation ? $complainantRelation->getParty()->getName() : ' ';
+        return $complainantRelation ? $complainantRelation->getParty()->getName() : null;
     }
 
-    public function getSortingRelevantCounterpart(CaseEntity $case): string
+    public function getSortingCounterpart(CaseEntity $case): ?string
     {
-        $counterpartTypes = $this->getCounterPartyTypesByCase($case);
-        // Gets first entry in array
-        $relevantType = reset($counterpartTypes);
+        $type = $this->getSortingCounterpartType($case);
 
         $counterpartRelation = $this->relationRepository
             ->findOneBy([
                 'case' => $case,
-                'type' => $relevantType,
+                'type' => $type,
                 'softDeleted' => false,
             ])
         ;
 
-        return $counterpartRelation ? $counterpartRelation->getParty()->getName() : ' ';
+        return $counterpartRelation ? $counterpartRelation->getParty()->getName() : null;
+    }
+
+    public function updateSortingProperties(CaseEntity $case)
+    {
+        $sortingComplainant = $this->getSortingComplainant($case);
+        if (null !== $sortingComplainant) {
+            $case->setSortingComplainant($sortingComplainant);
+        }
+        $sortingCounterpart = $this->getSortingCounterpart($case);
+        if (null !== $sortingCounterpart) {
+            $case->setSortingCounterpart($sortingCounterpart);
+        }
+    }
+
+    private function getSortingComplainantType(CaseEntity $case)
+    {
+        $complainantTypes = $this->getComplainantPartyTypesByCase($case);
+        // Return first entry in array
+        return reset($complainantTypes);
+    }
+
+    private function getSortingCounterpartType(CaseEntity $case)
+    {
+        $counterpartTypes = $this->getCounterPartyTypesByCase($case);
+        // Return first entry in array
+        return reset($counterpartTypes);
     }
 }
