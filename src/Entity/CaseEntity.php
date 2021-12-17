@@ -166,6 +166,8 @@ abstract class CaseEntity
         $this->notes = new ArrayCollection();
         $this->agendaCaseItems = new ArrayCollection();
         $this->reminders = new ArrayCollection();
+        $this->finishHearingDeadline = new \DateTime('today');
+        $this->finishProcessingDeadline = new \DateTime('today');
     }
 
     public function getId(): ?UuidV4
