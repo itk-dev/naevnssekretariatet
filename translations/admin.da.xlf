@@ -217,6 +217,18 @@
         <source>BoardRole</source>
         <target>Nævnsroller</target>
       </trans-unit>
+      <trans-unit id="Sfc9b3p" resname="List of complainant party types. One per line. The first party type can be used for sorting cases.">
+        <source>List of complainant party types. One per line. The first party type can be used for sorting cases.</source>
+        <target>Liste af klager typer. En per linje. Der vil kunne sorteres på den første type på sagslisten.</target>
+      </trans-unit>
+      <trans-unit id="ikn_uZ2" resname="List of counterparty types. One per line. The first party type can be used for sorting cases.">
+        <source>List of counterparty types. One per line. The first party type can be used for sorting cases.</source>
+        <target>Liste af modparts typer. En per linje. Der vil kunne sorteres på den første type på sagslisten.</target>
+      </trans-unit>
+      <trans-unit id="5k3cjlx" resname="List of case statuses. One per line.">
+        <source>List of case statuses. One per line.</source>
+        <target>Liste af sagsstatusser. En per linje.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -9,21 +9,27 @@ use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CaseEntityType;
+use App\Form\CaseFilterType;
 use App\Form\CasePresentationType;
 use App\Form\CaseRescheduleFinishHearingDeadlineType;
 use App\Form\CaseRescheduleFinishProcessDeadlineType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
+use App\Form\MunicipalitySelectorType;
 use App\Repository\AgendaCaseItemRepository;
 use App\Repository\CaseEntityRepository;
+use App\Repository\MunicipalityRepository;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
 use App\Service\AddressHelper;
 use App\Service\BBRHelper;
 use App\Service\CaseManager;
+use App\Service\MunicipalityHelper;
 use App\Service\PartyHelper;
 use App\Service\WorkflowService;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,14 +45,64 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class CaseController extends AbstractController
 {
     /**
-     * @Route("/", name="case_index", methods={"GET"})
+     * @Route("/", name="case_index", methods={"GET", "POST"})
      */
-    public function index(CaseEntityRepository $caseRepository): Response
+    public function index(CaseEntityRepository $caseRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $cases = $caseRepository->findAll();
+        $activeMunicipality = $municipalityHelper->getActiveMunicipality();
+        $municipalities = $municipalityRepository->findAll();
+
+        $municipalityForm = $this->createForm(MunicipalitySelectorType::class, null, [
+            'municipalities' => $municipalities,
+            'active_municipality' => $activeMunicipality,
+        ]);
+
+        $municipalityForm->handleRequest($request);
+        if ($municipalityForm->isSubmitted()) {
+            $municipality = $municipalityForm->get('municipality')->getData();
+
+            $municipalityHelper->setActiveMunicipalitySession($municipality);
+
+            return $this->redirectToRoute('case_index');
+        }
+
+        // Setup filter and pagination
+        $filterBuilder = $caseRepository->createQueryBuilder('c');
+
+        $filterForm = $this->createForm(CaseFilterType::class, null, [
+            'municipality' => $activeMunicipality,
+        ]);
+
+        if ($request->query->has($filterForm->getName())) {
+            $filterForm->submit($request->query->get($filterForm->getName()));
+        }
+
+        $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
+
+        // Add sortable fields depending on case type.
+        $filterBuilder->leftJoin('c.complaintCategory', 'complaintCategory');
+        $filterBuilder->addSelect('partial complaintCategory.{id,name}');
+
+        // Only get agendas under active municipality
+        $filterBuilder->andWhere('c.municipality = :municipality')
+            ->setParameter('municipality', $activeMunicipality->getId()->toBinary())
+        ;
+
+        $query = $filterBuilder->getQuery();
+
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+
+        $pagination->setCustomParameters(['align' => 'center']);
 
         return $this->render('case/index.html.twig', [
-            'cases' => $cases,
+            'filter_form' => $filterForm->createView(),
+            'municipalities' => $municipalities,
+            'pagination' => $pagination,
+            'municipality_form' => $municipalityForm->createView(),
         ]);
     }
 
@@ -298,7 +354,7 @@ class CaseController extends AbstractController
         try {
             return $this->redirect($bbrHelper->getBBRMeddelelseUrlForCase($case, $addressProperty, $_format));
         } catch (\Exception $exception) {
-            $this->addFlash('error', new TranslatableMessage('Cannot get url for BBR-Meddelelse'));
+            $this->addFlash('error', new TranslatableMessage('Cannot get url for BBR-Meddelelse', [], 'case'));
         }
 
         // Send user back to where he came from.
@@ -316,9 +372,9 @@ class CaseController extends AbstractController
             $bbrHelper->updateCaseBBRData($case, $addressProperty);
             $entityManager->persist($case);
             $entityManager->flush();
-            $this->addFlash('success', new TranslatableMessage('BBR data updated'));
+            $this->addFlash('success', new TranslatableMessage('BBR data updated', [], 'case'));
         } catch (\Exception $exception) {
-            $this->addFlash('error', new TranslatableMessage('Cannot update BBR data'));
+            $this->addFlash('error', new TranslatableMessage('Cannot update BBR data', [], 'case'));
         }
 
         // Send user back to where he came from.
@@ -341,9 +397,7 @@ class CaseController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', new TranslatableMessage('Process deadline updated on case %case', [
-                '%case' => $case->getCaseNumber(),
-            ]));
+            $this->addFlash('success', new TranslatableMessage('Process deadline updated!', [], 'case'));
 
             // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
             if ($request->get('ajax')) {
@@ -381,9 +435,7 @@ class CaseController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', new TranslatableMessage('Hearing deadline updated on case %case', [
-                '%case' => $case->getCaseNumber(),
-            ]));
+            $this->addFlash('success', new TranslatableMessage('Hearing deadline updated!', [], 'case'));
 
             // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
             if ($request->get('ajax')) {

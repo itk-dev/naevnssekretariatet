@@ -135,6 +135,21 @@ abstract class CaseEntity
     private $reminders;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sortingAddress;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sortingComplainant;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sortingCounterparty;
+
+    /**
      * @Assert\GreaterThanOrEqual(propertyPath="finishHearingDeadline", groups={"process_finish"})
      * @Assert\NotBlank()
      * @ORM\Column(type="date")
@@ -496,6 +511,18 @@ abstract class CaseEntity
         return $this;
     }
 
+    public function getSortingAddress(): ?string
+    {
+        return $this->sortingAddress;
+    }
+
+    public function setSortingAddress(string $sortingAddress): self
+    {
+        $this->sortingAddress = $sortingAddress;
+
+        return $this;
+    }
+
     public function getFinishProcessingDeadline(): ?\DateTimeInterface
     {
         return $this->finishProcessingDeadline;
@@ -504,6 +531,30 @@ abstract class CaseEntity
     public function setFinishProcessingDeadline(?\DateTimeInterface $finishProcessingDeadline): self
     {
         $this->finishProcessingDeadline = $finishProcessingDeadline;
+
+        return $this;
+    }
+
+    public function getSortingComplainant(): ?string
+    {
+        return $this->sortingComplainant;
+    }
+
+    public function setSortingComplainant(string $sortingComplainant): self
+    {
+        $this->sortingComplainant = $sortingComplainant;
+
+        return $this;
+    }
+
+    public function getSortingCounterparty(): ?string
+    {
+        return $this->sortingCounterparty;
+    }
+
+    public function setSortingCounterparty(string $sortingCounterparty): self
+    {
+        $this->sortingCounterparty = $sortingCounterparty;
 
         return $this;
     }

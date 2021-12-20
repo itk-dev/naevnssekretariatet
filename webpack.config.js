@@ -26,6 +26,7 @@ Encore
   .addEntry('agenda_item_new', './assets/agenda_item/new.js')
   .addEntry('agenda_filter', './assets/agenda/processFilter.js')
   .addEntry('ajax-forms', './assets/ajax-forms.js')
+  .addEntry('municipality_select', './assets/municipality/select.js')
   .addEntry('dawa-address-lookup', './assets/dawa-address-lookup.js')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

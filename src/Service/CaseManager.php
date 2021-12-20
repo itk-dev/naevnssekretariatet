@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\Board;
 use App\Entity\CaseEntity;
-use App\Entity\Municipality;
 use App\Repository\CaseEntityRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -40,7 +39,7 @@ class CaseManager implements LoggerAwareInterface
         $this->workflowService = $workflowService;
     }
 
-    public function generateCaseNumber(Municipality $municipality): string
+    public function generateCaseNumber(): string
     {
         $case = $this->caseRepository->findLatestCase();
 
@@ -81,7 +80,7 @@ class CaseManager implements LoggerAwareInterface
         $lock->acquire(true);
 
         $caseEntity->setCaseNumber(
-            $this->generateCaseNumber($board->getMunicipality())
+            $this->generateCaseNumber()
         );
         $caseEntity->setBoard($board);
         $caseEntity->setMunicipality($board->getMunicipality());

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ResidentComplaintBoardCaseRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class ResidentComplaintBoardCase extends CaseEntity
 {
@@ -234,5 +235,14 @@ class ResidentComplaintBoardCase extends CaseEntity
         $this->feePaid = $feePaid;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateSortingAddress()
+    {
+        $this->setSortingAddress($this->getLeaseAddress()->__toString());
     }
 }

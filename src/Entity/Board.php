@@ -70,12 +70,12 @@ class Board implements LoggableEntityInterface
     /**
      * @ORM\Column(type="text")
      */
-    private $complainantPartyTypes;
+    private $complainantTypes;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $counterPartyTypes;
+    private $counterpartyTypes;
 
     /**
      * @ORM\OneToMany(targetEntity=Agenda::class, mappedBy="board")
@@ -279,14 +279,14 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
-    public function getComplainantPartyTypes(): ?string
+    public function getComplainantTypes(): ?string
     {
-        return $this->complainantPartyTypes;
+        return $this->complainantTypes;
     }
 
-    public function setComplainantPartyTypes(string $complainantPartyTypes): self
+    public function setComplainantTypes(string $complainantTypes): self
     {
-        $this->complainantPartyTypes = $complainantPartyTypes;
+        $this->complainantTypes = $complainantTypes;
 
         return $this;
     }
@@ -309,14 +309,14 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
-    public function getCounterPartyTypes(): ?string
+    public function getCounterpartyTypes(): ?string
     {
-        return $this->counterPartyTypes;
+        return $this->counterpartyTypes;
     }
 
-    public function setCounterPartyTypes(string $counterPartyTypes): self
+    public function setCounterpartyTypes(string $counterpartyTypes): self
     {
-        $this->counterPartyTypes = $counterPartyTypes;
+        $this->counterpartyTypes = $counterpartyTypes;
 
         return $this;
     }

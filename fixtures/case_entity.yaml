@@ -434,8 +434,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainant: Anton Per Hansen
     complainantCPR: 1234567890
     complainantPhone: 87655678
-    complainantAddress: '@test-case-aarhus-2-complainant-address'
-    leaseAddress: '@test-case-aarhus-2-lease-address'
+    complainantAddress: '@test-case-aarhus-3-complainant-address'
+    leaseAddress: '@test-case-aarhus-3-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
     finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
@@ -468,8 +468,8 @@ App\Entity\ResidentComplaintBoardCase:
     complainant: Anne Jensen
     complainantCPR: 1234567890
     complainantPhone: 61655678
-    complainantAddress: '@test-case-aarhus-1-complainant-address'
-    leaseAddress: '@test-case-aarhus-1-lease-address'
+    complainantAddress: '@test-case-aarhus-5-complainant-address'
+    leaseAddress: '@test-case-aarhus-5-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
     finishProcessingDeadline: <(new \DateTime('2022-07-11'))>

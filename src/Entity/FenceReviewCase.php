@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=FenceReviewCaseRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class FenceReviewCase extends CaseEntity
 {
@@ -132,5 +133,14 @@ class FenceReviewCase extends CaseEntity
     public function setAccusedAddress(Address $address): void
     {
         $this->accusedAddress = $address;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateSortingAddress()
+    {
+        $this->setSortingAddress($this->getComplainantAddress()->__toString());
     }
 }

@@ -965,6 +965,82 @@
         <source>Invalid address</source>
         <target state="translated">Ugyldig adresse</target>
       </trans-unit>
+      <trans-unit id="juVzI6b" resname="All statuses">
+        <source>All statuses</source>
+        <target>Alle statusser</target>
+      </trans-unit>
+      <trans-unit id="MJfpZBl" resname="All caseworkers">
+        <source>All caseworkers</source>
+        <target>Alle sagsbehandlere</target>
+      </trans-unit>
+      <trans-unit id="xGEOv7m" resname="Look up complainant address">
+        <source>Look up complainant address</source>
+        <target>Fremsøg klagers adresse</target>
+      </trans-unit>
+      <trans-unit id="bpOcnZE" resname="Look up an address to fill out the address fields">
+        <source>Look up an address to fill out the address fields</source>
+        <target>Fremsøg en adresse for automatisk udfyldning af adresse</target>
+      </trans-unit>
+      <trans-unit id="OXJnOSy" resname="Look up accused address">
+        <source>Look up accused address</source>
+        <target>Fremsøg anklagets adresse</target>
+      </trans-unit>
+      <trans-unit id=".oSQrHa" resname="Look up lease address">
+        <source>Look up lease address</source>
+        <target>Fremsøg lejemålets adresse</target>
+      </trans-unit>
+      <trans-unit id="sqSFiwS" resname="Party type">
+        <source>Party type</source>
+        <target>Parts type</target>
+      </trans-unit>
+      <trans-unit id="2u52BrM" resname="Reset">
+        <source>Reset</source>
+        <target>Nulstil</target>
+      </trans-unit>
+      <trans-unit id="0JjH21z" resname="Exceeded hearing deadline">
+        <source>Exceeded hearing deadline</source>
+        <target>Overskredet høringstidsfrist</target>
+      </trans-unit>
+      <trans-unit id="NHNorz5" resname="Exceeded processing deadline">
+        <source>Exceeded processing deadline</source>
+        <target>Overskredet sagsbehandlingstidsfrist</target>
+      </trans-unit>
+      <trans-unit id="eOHlIKW" resname="Both deadlines exceeded">
+        <source>Both deadlines exceeded</source>
+        <target>Overskredet begge tidsfrister</target>
+      </trans-unit>
+      <trans-unit id="en4Z_eY" resname="No exceeded deadlines">
+        <source>No exceeded deadlines</source>
+        <target>Ingen overskredne tidsfrister</target>
+      </trans-unit>
+      <trans-unit id="wPtiqm7" resname="Select deadline filter">
+        <source>Select deadline filter</source>
+        <target>Vælg et tidsfrist filter</target>
+      </trans-unit>
+      <trans-unit id="WsxYcLd" resname="Cannot get url for BBR-Meddelelse">
+        <source>Cannot get url for BBR-Meddelelse</source>
+        <target>Kan ikke finde url til BBR-meddelelse</target>
+      </trans-unit>
+      <trans-unit id="VaveQB2" resname="BBR data updated">
+        <source>BBR data updated</source>
+        <target>BBR data opdateret</target>
+      </trans-unit>
+      <trans-unit id="mzHh8j0" resname="Cannot update BBR data">
+        <source>Cannot update BBR data</source>
+        <target>Kan ikke opdatere BBR data</target>
+      </trans-unit>
+      <trans-unit id="ZLjpBRI" resname="Process deadline updated!">
+        <source>Process deadline updated!</source>
+        <target>Behandlingstidfrist opdateret!</target>
+      </trans-unit>
+      <trans-unit id="lDAfL6A" resname="Hearing deadline updated!">
+        <source>Hearing deadline updated!</source>
+        <target>Høringstidfrist opdateret!</target>
+      </trans-unit>
+      <trans-unit id="U8x0Pda" resname="Counterparty">
+        <source>Counterparty</source>
+        <target>Modpart</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
