@@ -33,7 +33,8 @@ class MailTemplateCrudController extends AbstractCrudController
             ->setChoices([
                 'Inspection letter' => 'inspection_letter',
                 'Decision' => 'decision',
-            ]);
+            ])
+        ;
         yield TextField::new('name');
         yield TextareaField::new('description');
         yield Field::new('templateFile')
@@ -41,10 +42,12 @@ class MailTemplateCrudController extends AbstractCrudController
             // ->setRequired(true)
             ->setFormType(VichFileType::class)
             ->setFormTypeOption('allow_delete', false)
-            ->onlyOnForms();
+            ->onlyOnForms()
+        ;
         yield Field::new('templateFilename')
             ->setLabel('Template')
             ->setFormType(VichFileType::class)
-            ->hideOnForm();
+            ->hideOnForm()
+        ;
     }
 }
