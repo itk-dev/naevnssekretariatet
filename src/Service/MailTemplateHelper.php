@@ -3,8 +3,9 @@
 namespace App\Service;
 
 use App\Entity\MailTemplate;
-use App\Repository\CaseEntityRepository;
+use App\Repository\MailTemplateMacroRepository;
 use App\Repository\MailTemplateRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpWord\Element\AbstractElement;
 use PhpOffice\PhpWord\Element\TextRun;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -13,61 +14,51 @@ use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class MailTemplateHelper
 {
     /**
-     * @var MailTemplateRepository
-     */
-    private $mailTemplateRepository;
-
-    /**
-     * @var CaseEntityRepository
-     */
-    private $caseEntityRepository;
-
-    /**
-     * The config.
+     * The options.
      *
      * @var array
      */
-    private $config;
+    private $options;
 
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
-
-    /**
-     * @var Filesystem
-     */
-    private $filesystem;
-
-    public function __construct(MailTemplateRepository $mailTemplateRepository, CaseEntityRepository $caseEntityRepository, SerializerInterface $serializer, Filesystem $filesystem, array $mailTemplateHelperConfig)
+    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, array $mailTemplateHelperOptions)
     {
-        $this->mailTemplateRepository = $mailTemplateRepository;
-        $this->caseEntityRepository = $caseEntityRepository;
-        $this->serializer = $serializer;
-        $this->filesystem = $filesystem;
-        $this->config = $mailTemplateHelperConfig;
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+        $this->options = $resolver->resolve($mailTemplateHelperOptions);
+    }
+
+    public function getMailTemplateTypeChoices(): array
+    {
+        return array_flip(array_map(static fn (array $spec) => $spec['label'], $this->options['template_types']));
     }
 
     /**
      * Get entity for previewing a mail template.
      *
-     * @return The entity
+     * @return mixed The entity
      *
      * @throws \RuntimeException
      */
     public function getPreviewEntity(MailTemplate $mailTemplate)
     {
-        switch ($mailTemplate->getType()) {
-            case 'decision':
-                return $this->caseEntityRepository->findOneBy([]);
-
-            case 'inspection_letter':
-                return $this->caseEntityRepository->findOneBy([]);
+        $spec = $this->options['template_types'][$mailTemplate->getType()] ?? null;
+        if (isset($spec['entity_class_names']) && is_array($spec['entity_class_names'])) {
+            foreach ($spec['entity_class_names'] as $className) {
+                try {
+                    $repository = $this->entityManager->getRepository($className);
+                    $entity = $repository->findOneBy([]);
+                    if (null !== $entity) {
+                        return $entity;
+                    }
+                } catch (\Exception $exception) {
+                }
+            }
         }
 
         throw new \InvalidArgumentException(sprintf('Cannot get preview entity for mail template %s of type %s', $mailTemplate->getName(), $mailTemplate->getType()));
@@ -91,17 +82,27 @@ class MailTemplateHelper
         $templateFileName = $this->getTemplateFile($mailTemplate);
         // https://phpword.readthedocs.io/en/latest/templates-processing.html
         $templateProcessor = new TemplateProcessor($templateFileName);
-        $values = $this->getValues($entity, $templateProcessor);
-        foreach ($values as $name => $value) {
-            if ($value instanceof AbstractElement) {
-                $templateProcessor->setComplexValue($name, $value);
-            } else {
-                $templateProcessor->setValue($name, $value);
+
+        // Handle macros.
+        $templateType = $mailTemplate->getType();
+        $macros = $this->mailTemplateMacroRepository->findByTemplateType($templateType);
+        foreach ($macros as $macro) {
+            $lines = explode(PHP_EOL, trim($macro->getContent()));
+            $element = new TextRun();
+            foreach ($lines as $index => $line) {
+                if ($index > 0) {
+                    $element->addTextBreak();
+                }
+                $element->addText($line);
             }
+
+            $this->setTemplateValue($macro->getMacro(), $element, $templateProcessor);
         }
+        $values = $this->getValues($entity, $templateProcessor);
+        $this->setTemplateValues($values, $templateProcessor);
         $processedFileName = $templateProcessor->save();
 
-        $client = HttpClient::create($this->config['http_client_options']);
+        $client = HttpClient::create($this->options['colabora_http_client_options']);
         $formFields = [
             'data' => DataPart::fromPath($processedFileName),
         ];
@@ -127,7 +128,7 @@ class MailTemplateHelper
 
     public function getTemplateFile(MailTemplate $mailTemplate): string
     {
-        return rtrim($this->config['template_file_directory'] ?? '', '/').'/'.$mailTemplate->getTemplateFilename();
+        return rtrim($this->options['template_file_directory'] ?? '', '/').'/'.$mailTemplate->getTemplateFilename();
     }
 
     public function getTemplates(string $type): array
@@ -145,6 +146,8 @@ class MailTemplateHelper
     private function getValues(?object $entity, TemplateProcessor $templateProcessor)
     {
         $placeHolders = $templateProcessor->getVariables();
+
+        $values = [];
 
         if (null === $entity) {
             // We don't have any data; highlight placeholders with colored markers.
@@ -165,6 +168,11 @@ class MailTemplateHelper
             $csv = $this->serializer->serialize($entity, 'csv', ['groups' => ['mail_template']]);
             // We now have a csv string with two lines (the first is the header) that we split and parse.
             [$header, $row] = array_map('str_getcsv', explode(PHP_EOL, $csv, 2));
+            /**
+             * @psalm-suppress InvalidArgument
+             *
+             * Argument 1 of array_combine expects array<array-key, array-key>, non-empty-list<null|string> provided (see https://psalm.dev/004)
+             */
             $values = array_combine($header, $row);
         }
 
@@ -203,5 +211,37 @@ class MailTemplateHelper
         }
 
         return $value;
+    }
+
+    private function setTemplateValue(string $name, $value, TemplateProcessor $templateProcessor)
+    {
+        if ($value instanceof AbstractElement) {
+            $count = 0;
+            // TemplateProcessor::setComplexValue() only replaces one (the first) occurrence.
+            while (isset($templateProcessor->getVariableCount()[$name]) && $count < 10) {
+                $templateProcessor->setComplexValue($name, $value);
+                ++$count;
+            }
+        } else {
+            $templateProcessor->setValue($name, $value);
+        }
+    }
+
+    private function setTemplateValues(array $values, TemplateProcessor $templateProcessor)
+    {
+        foreach ($values as $name => $value) {
+            $this->setTemplateValue($name, $value, $templateProcessor);
+        }
+    }
+
+    private function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setRequired([
+            'template_types',
+            'upload_destination',
+            'template_file_directory',
+            'colabora_http_client_options',
+        ]);
+        $resolver->setAllowedTypes('template_types', 'array');
     }
 }

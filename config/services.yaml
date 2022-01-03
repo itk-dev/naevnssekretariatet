@@ -54,10 +54,24 @@ services:
                 cookie_end_time: '+1 month'
 
             $mailTemplateHelperConfig:
+
+            $mailTemplateHelperOptions:
+                template_types:
+                    inspection_letter:
+                        label: Inspection letter
+                        entity_class_names:
+                            - App\Entity\ResidentComplaintBoardCase
+                    decision:
+                        label: Decision
+                        entity_class_names:
+                            # - App\Entity\ResidentComplaintBoardCase
+                            - App\Entity\FenceReviewCase
+                            - App\Entity\RentBoardCase
+
                 upload_destination: '%kernel.project_dir%/files/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination
                 template_file_directory: '%kernel.project_dir%/files/mail-templates'
-                http_client_options:
+                colabora_http_client_options:
                     base_uri: '%env(COLLABORA_API_BASE_URL)%'
                     verify_peer: false
                     verify_host: false

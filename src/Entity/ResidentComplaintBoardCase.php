@@ -32,6 +32,7 @@ class ResidentComplaintBoardCase extends CaseEntity
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
+     * @Groups({"mail_template"})
      */
     private $leaseAddress;
 

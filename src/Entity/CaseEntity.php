@@ -119,11 +119,13 @@ abstract class CaseEntity
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"mail_template"})
      */
     private $complainant;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
+     * @Groups({"mail_template"})
      */
     private $complainantAddress;
 

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\MailTemplate;
+use App\Service\MailTemplateHelper;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
@@ -13,6 +14,10 @@ use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class MailTemplateCrudController extends AbstractCrudController
 {
+    public function __construct(private MailTemplateHelper $mailTemplateHelper)
+    {
+    }
+
     public static function getEntityFqcn(): string
     {
         return MailTemplate::class;
@@ -30,10 +35,7 @@ class MailTemplateCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield ChoiceField::new('type')
-            ->setChoices([
-                'Inspection letter' => 'inspection_letter',
-                'Decision' => 'decision',
-            ])
+            ->setChoices($this->mailTemplateHelper->getMailTemplateTypeChoices())
         ;
         yield TextField::new('name');
         yield TextareaField::new('description');
