@@ -20,7 +20,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": "^8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
@@ -44,7 +44,7 @@
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
         "symfony/expression-language": "5.4.*",
-        "symfony/flex": "^1.3.1",
+        "symfony/flex": "^1.17",
         "symfony/form": "5.4.*",
         "symfony/framework-bundle": "5.4.*",
         "symfony/http-client": "5.4.*",
@@ -52,7 +52,7 @@
         "symfony/lock": "5.4.*",
         "symfony/mailer": "5.4.*",
         "symfony/mime": "5.4.*",
-        "symfony/monolog-bundle": "^3.1",
+        "symfony/monolog-bundle": "^3.7",
         "symfony/notifier": "5.4.*",
         "symfony/process": "5.4.*",
         "symfony/property-access": "5.4.*",
@@ -66,7 +66,7 @@
         "symfony/uid": "5.4.*",
         "symfony/validator": "5.4.*",
         "symfony/web-link": "5.4.*",
-        "symfony/webpack-encore-bundle": "^1.11",
+        "symfony/webpack-encore-bundle": "^1.13",
         "symfony/workflow": "5.4.*",
         "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
@@ -75,14 +75,17 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.1",
         "hautelook/alice-bundle": "^2.8",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/phpstan": "^1.3",
         "symfony/browser-kit": "5.4.*",
         "symfony/css-selector": "5.4.*",
         "symfony/debug-bundle": "5.4.*",
-        "symfony/maker-bundle": "^1.0",
+        "symfony/maker-bundle": "^1.36",
         "symfony/phpunit-bridge": "5.4.*",
         "symfony/stopwatch": "5.4.*",
         "symfony/var-dumper": "5.4.*",
-        "symfony/web-profiler-bundle": "5.4.*"
+        "symfony/web-profiler-bundle": "5.4.*",
+        "vimeo/psalm": "^4.17"
     },
     "config": {
         "optimize-autoloader": true,
@@ -133,6 +136,16 @@
         ],
         "apply-coding-standards": [
             "@apply-coding-standards/php-cs-fixer"
+        ],
+        "code-analysis/phpstan": [
+            "phpstan analyse src tests"
+        ],
+        "code-analysis/psalm": [
+            "psalm src tests"
+        ],
+        "code-analysis": [
+            "@code-analysis/phpstan",
+            "@code-analysis/psalm"
         ]
     },
     "conflict": {

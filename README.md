@@ -187,6 +187,29 @@ we decided to adhere to in this project.
   docker run -v ${PWD}:/app itkdev/yarn:latest markdownlint README.md
   ```
 
+## Code analysis
+
+We use [PHPStan](https://phpstan.org/) and [Psalm](https://psalm.dev/) for code
+analysis.
+
+To analyse the code with both tools, run
+
+```sh
+composer code-analysis
+```
+
+Alternatively you can run just a single tool with
+
+```sh
+composer code-analysis/phpstan
+```
+
+or
+
+```sh
+composer code-analysis/psalm
+```
+
 ## Contributing
 
 See the [CONTRIBUTING.md](docs/CONTRIBUTING.md) documentation file.

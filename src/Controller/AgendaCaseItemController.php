@@ -150,6 +150,7 @@ class AgendaCaseItemController extends AbstractController
         $documentIds = $request->request->get('documents');
 
         if (null !== $documentIds) {
+            // @todo DocumentRepository::findMany expects array
             $documents = $documentRepository->findMany($documentIds);
 
             foreach ($documents as $document) {

@@ -21,7 +21,7 @@ class MasqueradeAuthenticator extends AbstractAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        throw new AuthenticationException('Error occurred while authenticating', $exception);
+        throw new AuthenticationException('Error occurred while authenticating', $exception->getCode(), $exception);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response

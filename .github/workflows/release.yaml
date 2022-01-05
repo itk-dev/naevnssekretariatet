@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [ '7.4' ]
+        php: [ '8.1' ]
         node: [ '14' ]
     name: Create Release
     steps:

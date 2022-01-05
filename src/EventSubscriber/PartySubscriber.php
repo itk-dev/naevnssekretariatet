@@ -6,8 +6,8 @@ use App\Entity\Party;
 use App\Repository\CasePartyRelationRepository;
 use App\Service\PartyHelper;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 class PartySubscriber implements EventSubscriberInterface
 {
@@ -26,7 +26,7 @@ class PartySubscriber implements EventSubscriberInterface
         $this->partyHelper = $partyHelper;
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(PreUpdateEventArgs $args)
     {
         $object = $args->getObject();
         $changeSet = $args->getEntityChangeSet();

@@ -27,6 +27,7 @@ class BBRHelper implements LoggerAwareInterface
     private BBRDataRepository $bbrDataRepository;
     private EntityManagerInterface $entityManager;
     private HttpClientInterface $httpClient;
+    private array $options;
 
     public function __construct(PropertyAccessorInterface $propertyAccessor, BBRDataRepository $bbrDataRepository, EntityManagerInterface $entityManager, HttpClientInterface $httpClient, array $bbrHelperOptions)
     {

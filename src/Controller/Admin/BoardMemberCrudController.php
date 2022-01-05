@@ -38,7 +38,7 @@ class BoardMemberCrudController extends AbstractCrudController
                     return $board->__toString();
                 });
 
-                return implode($roles->getValues(), ', ');
+                return implode(', ', $roles->getValues());
             })
         ;
         yield AssociationField::new('municipality', 'Municipality')
@@ -53,7 +53,7 @@ class BoardMemberCrudController extends AbstractCrudController
                     return $boardRole->__toString();
                 });
 
-                return implode($roles->getValues(), ', ');
+                return implode(', ', $roles->getValues());
             })
         ;
     }

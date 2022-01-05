@@ -110,9 +110,6 @@ class Address implements LoggableEntityInterface
         $this->city = $city;
     }
 
-    /**
-     * @return DateTimeInterface|null
-     */
     public function getValidatedAt(): ?\DateTimeInterface
     {
         return $this->validatedAt;
