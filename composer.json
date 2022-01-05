@@ -84,7 +84,8 @@
         "symfony/phpunit-bridge": "5.4.*",
         "symfony/stopwatch": "5.4.*",
         "symfony/var-dumper": "5.4.*",
-        "symfony/web-profiler-bundle": "5.4.*"
+        "symfony/web-profiler-bundle": "5.4.*",
+        "vimeo/psalm": "^4.17"
     },
     "config": {
         "optimize-autoloader": true,
@@ -139,8 +140,12 @@
         "code-analysis/phpstan": [
             "phpstan analyse src tests"
         ],
+        "code-analysis/psalm": [
+            "psalm src tests"
+        ],
         "code-analysis": [
-            "@code-analysis/phpstan"
+            "@code-analysis/phpstan",
+            "@code-analysis/psalm"
         ]
     },
     "conflict": {
