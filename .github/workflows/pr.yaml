@@ -6,7 +6,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4']
+        php: [ '8.1' ]
     name: Validate composer (${{ matrix.php}})
     steps:
       - name: Checkout
@@ -38,7 +38,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4']
+        php: [ '8.1' ]
     name: Unit tests (${{ matrix.php}})
     steps:
       - name: Checkout
@@ -130,7 +130,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4']
+        php: [ '8.1' ]
     name: PHP Coding Standards Fixer (${{ matrix.php }})
     steps:
       - name: Checkout
@@ -160,7 +160,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4']
+        php: [ '8.1' ]
     name: Twigcs (${{ matrix.php }})
     steps:
       - name: Checkout
