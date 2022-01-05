@@ -5,15 +5,18 @@ namespace App\Security;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use ItkDev\OpenIdConnect\Security\OpenIdConfigurationProvider;
+use ItkDev\OpenIdConnectBundle\Security\OpenIdConfigurationProviderManager;
 use ItkDev\OpenIdConnectBundle\Security\OpenIdLoginAuthenticator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
 class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
 {
@@ -30,19 +33,21 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
      */
     private $router;
 
-    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository, OpenIdConfigurationProvider $provider, SessionInterface $session, UrlGeneratorInterface $router, int $leeway = 0)
+    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository, OpenIdConfigurationProviderManager $providerManager, SessionInterface $session, UrlGeneratorInterface $router, int $leeway = 0)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
         $this->router = $router;
-        parent::__construct($provider, $session, $leeway);
+        parent::__construct($providerManager, $session, $leeway);
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function authenticate(Request $request): Passport
     {
-        $name = $credentials['name'];
-        $email = $credentials['upn'];
-        $roles = $credentials['role'];
+        $claims = $this->getClaims($request);
+
+        $name = $claims['name'];
+        $email = $claims['upn'];
+        $roles = $claims['role'];
 
         //Check if user exists already - if not create a user
         $user = $this->userRepository->findOneBy(['email' => $email]);
@@ -74,16 +79,16 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        return $user;
+        return new SelfValidatingPassport(new UserBadge($user->getUserIdentifier()));
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         return new RedirectResponse($this->router->generate('default'));
     }
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        return new RedirectResponse($this->router->generate('itkdev_openid_connect_login'));
+        return new RedirectResponse($this->router->generate('itkdev_openid_connect_login', ['providerKey' => 'admin']));
     }
 }
