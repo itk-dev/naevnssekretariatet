@@ -234,3 +234,5 @@ jobs:
       - run: yarn install
       - name: markdownlint
         run: yarn markdownlint README.md docs
+
+  # @todo Run code analysis
