@@ -7,8 +7,8 @@ use App\Entity\Embeddable\Address;
 use App\Exception\AddressException;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpClient\HttpClient;
@@ -69,10 +69,6 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
 
     /**
      * Fetch address data using https://dawadocs.dataforsyningen.dk/dok/api/adresse#s%C3%B8gning.
-
-     *
-     * @param string $address
-     * @param string $path
      *
      * @throws AddressException
      */
@@ -103,7 +99,7 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
                 throw $this->createException(sprintf('Ambiguous address: %s', (string) $address));
             }
         } catch (\Throwable $throwable) {
-            throw $this->createException(sprintf('Invalid address', (string) $address), $throwable->getCode(), $throwable);
+            throw $this->createException(sprintf('Invalid address: %s', (string) $address), $throwable->getCode(), $throwable);
         }
 
         throw $this->createException(sprintf('Invalid address: %s', (string) $address));
@@ -112,7 +108,7 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
     /**
      * Set Address.validatedAt to null when changing embedded Address entities.
      */
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(PreUpdateEventArgs $args)
     {
         $object = $args->getObject();
         $changeSet = $args->getEntityChangeSet();

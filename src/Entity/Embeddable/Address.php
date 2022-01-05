@@ -111,7 +111,7 @@ class Address implements LoggableEntityInterface
     }
 
     /**
-     * @return DateTimeInterface|null
+     * @return \DateTimeInterface|null
      */
     public function getValidatedAt(): ?\DateTimeInterface
     {
