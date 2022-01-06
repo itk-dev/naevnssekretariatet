@@ -75,8 +75,7 @@ To get a local copy up and running follow these simple steps.
 7. Load database fixtures
 
    ```sh
-   docker-compose exec phpfpm bin/console hautelook:fixtures:load \
-   --purge-with-truncate --no-interaction
+   docker-compose exec phpfpm bin/console hautelook:fixtures:load --no-bundles --purge-with-truncate --no-interaction
    ```
 
 You should now be able to browse to the application
