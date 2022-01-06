@@ -3,7 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\MailTemplate;
+use App\Exception\MailTemplateException;
 use App\Service\MailTemplateHelper;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,12 +23,24 @@ class MailTemplateController extends AbstractController
     /**
      * @Route("/preview/{id}", name="preview")
      */
-    public function preview(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper): Response
+    public function preview(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper, AdminUrlGenerator $adminUrlGenerator): Response
     {
-        // @todo error handling.
-        $entity = filter_var($request->get('with_data'), FILTER_VALIDATE_BOOLEAN) ? $mailTemplateHelper->getPreviewEntity($mailTemplate) : null;
-        $fileName = $mailTemplateHelper->renderMailTemplate($mailTemplate, $entity);
-        $mimeType = (new MimeTypes())->guessMimeType($fileName);
+        try {
+            $entity = filter_var($request->get('with_data'), FILTER_VALIDATE_BOOLEAN) ? $mailTemplateHelper->getPreviewEntity($mailTemplate) : null;
+            $fileName = $mailTemplateHelper->renderMailTemplate($mailTemplate, $entity);
+            $mimeType = (new MimeTypes())->guessMimeType($fileName);
+        } catch (MailTemplateException $exception) {
+            $this->addFlash('danger', $exception->getMessage());
+
+            // Redirect to referer or crud controller on error.
+            return $this->redirect(
+                $request->headers->get('referer') ?? $adminUrlGenerator
+                    ->setController(MailTemplateCrudController::class)
+                    ->setAction(Action::DETAIL)
+                    ->setEntityId($mailTemplate->getId())
+                    ->generateUrl()
+            );
+        }
 
         return new BinaryFileResponse($fileName, 200, ['content-type' => $mimeType]);
     }

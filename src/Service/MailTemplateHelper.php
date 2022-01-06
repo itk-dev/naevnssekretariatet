@@ -3,14 +3,18 @@
 namespace App\Service;
 
 use App\Entity\MailTemplate;
+use App\Exception\MailTemplateException;
 use App\Repository\MailTemplateMacroRepository;
 use App\Repository\MailTemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\Mapping\MappingException;
 use PhpOffice\PhpWord\Element\AbstractElement;
 use PhpOffice\PhpWord\Element\TextRun;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpClient\Exception\ClientException;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
@@ -26,7 +30,7 @@ class MailTemplateHelper
      */
     private $options;
 
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, array $mailTemplateHelperOptions)
+    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, array $mailTemplateHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -56,7 +60,8 @@ class MailTemplateHelper
                     if (null !== $entity) {
                         return $entity;
                     }
-                } catch (\Exception $exception) {
+                } catch (MappingException $mappingException) {
+                    // Cannot get repository for the class name. Continue to see if another class name succeeds.
                 }
             }
         }
@@ -75,7 +80,7 @@ class MailTemplateHelper
     /**
      * Render mail template to a file.
      *
-     * @param $entity
+     * @throws MailTemplateException
      */
     public function renderMailTemplate(MailTemplate $mailTemplate, $entity = null): string
     {
@@ -116,8 +121,9 @@ class MailTemplateHelper
                 'body' => $formData->bodyToIterable(),
             ]);
             $content = $response->getContent();
-        } catch (ClientException $exception) {
-            // @todo How to handle this?
+        } catch (ClientException|TransportException $exception) {
+            $this->logger->critical(sprintf('Error talking to Collabora: %s', $exception->getMessage()), ['exception' => $exception]);
+            throw new MailTemplateException(sprintf('Error rendering mail template %s', $mailTemplate->getName()), $exception->getCode(), $exception);
         }
 
         $fileName = $this->filesystem->tempnam('/tmp/', 'mail_template', '.pdf');
@@ -181,6 +187,8 @@ class MailTemplateHelper
         $values['today'] = (new \DateTimeImmutable('today'))->format(\DateTimeImmutable::ATOM);
 
         foreach ($placeHolders as $placeHolder) {
+            // Handle placeholders on the form «key»:«format», e.g.
+            //   case.inspection_date|dd/mm/yyyy
             if (preg_match('/^(?P<key>[^:]+):(?P<format>.+)$/', $placeHolder, $matches)) {
                 [, $key, $format] = $matches;
                 if (isset($values[$key])) {
@@ -200,6 +208,7 @@ class MailTemplateHelper
      */
     private function formatValue(string $value, string $format): string
     {
+        // Try to format the value as a date(time).
         try {
             $date = new \DateTimeImmutable($value);
             $formatter = new \IntlDateFormatter(\Locale::getDefault(), \IntlDateFormatter::NONE, \IntlDateFormatter::NONE);
