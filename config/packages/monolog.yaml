@@ -1,0 +1,9 @@
+monolog:
+    channels:
+        - "database"
+
+    handlers:
+        database:
+            type: service
+            id: App\Monolog\DoctrineHandler
+            channels: ["database"]
