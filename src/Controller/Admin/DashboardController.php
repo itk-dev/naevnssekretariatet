@@ -10,6 +10,7 @@ use App\Entity\Municipality;
 use App\Entity\Party;
 use App\Entity\UploadedDocumentType;
 use App\Entity\User;
+use App\Monolog\LogEntry;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -88,6 +89,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Boardmember', '', BoardMember::class);
         yield MenuItem::linkToCrud('Part Index', '', Party::class);
         yield MenuItem::linkToCrud('Document types', '', UploadedDocumentType::class);
+        yield MenuItem::linkToCrud('Log', '', LogEntry::class);
         yield MenuItem::linkToCrud('User Settings', '', User::class)
             ->setAction('edit')
             ->setEntityId($this->getUser()->getId())
