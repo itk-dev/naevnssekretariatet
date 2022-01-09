@@ -28,11 +28,13 @@ class MailTemplate
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -40,6 +42,7 @@ class MailTemplate
      * @ORM\Column(type="string", length=255)
      *
      * @var string
+     * @Assert\NotBlank()
      */
     private $templateFilename;
 
