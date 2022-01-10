@@ -22,9 +22,7 @@
             {% endfor %}
         {% endblock %}
 
-        {% for key in provider_keys %}
-            <a class="btn btn-primary btn-block" href="{{ path('itkdev_openid_connect_login', {providerKey: key}) }}">{{ ('open_id_connect.login_provider.' ~ key)|trans }}</a>
-        {% endfor %}
+        {{ form(form) }}
     </div>
 {% endblock %}
 

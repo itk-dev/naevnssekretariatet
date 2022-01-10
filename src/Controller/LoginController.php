@@ -2,12 +2,17 @@
 
 namespace App\Controller;
 
+use ItkDev\OpenIdConnectBundle\Exception\InvalidProviderException;
 use ItkDev\OpenIdConnectBundle\Security\OpenIdConfigurationProviderManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class LoginController extends AbstractController
 {
@@ -23,8 +28,54 @@ class LoginController extends AbstractController
      */
     public function index(Request $request, SessionInterface $session): Response
     {
-        return $this->render('login/index.html.twig', [
-            'provider_keys' => $this->providerManager->getProviderKeys(),
+        $authenticationProviderCookieName = 'authentication_provider';
+        $authenticationProvider = null;
+        if (null === $request->get('reset-authentication-provider')) {
+            $authenticationProvider = $request->cookies->get($authenticationProviderCookieName);
+        }
+        $rememberProvider = false;
+
+        $formBuilder = $this->createFormBuilder();
+        foreach ($this->providerManager->getProviderKeys() as $key) {
+            $formBuilder->add('provider_'.$key, SubmitType::class, [
+                'label' => new TranslatableMessage('open_id_connect.login_provider.'.$key, [], 'login'),
+            ]);
+        }
+        $form = $formBuilder
+            ->add('remember_provider', CheckboxType::class, [
+                'label' => new TranslatableMessage('Remember my choice', [], 'login'),
+                'required' => false,
+            ])
+            ->getForm()
+        ;
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($this->providerManager->getProviderKeys() as $key) {
+                if ($form->get('provider_'.$key)->isClicked()) {
+                    $authenticationProvider = $key;
+                    break;
+                }
+            }
+            $rememberProvider = $form->get('remember_provider')->getData();
+        }
+
+        if (null !== $authenticationProvider) {
+            try {
+                $this->providerManager->getProvider($authenticationProvider);
+                $response = $this->redirectToRoute('itkdev_openid_connect_login',
+                    ['providerKey' => $authenticationProvider]);
+                if ($rememberProvider) {
+                    $response->headers->setCookie(new Cookie($authenticationProviderCookieName, $authenticationProvider, new \DateTimeImmutable('+1 month')));
+                }
+
+                return $response;
+            } catch (InvalidProviderException $invalidProviderException) {
+            }
+        }
+
+        return $this->renderForm('login/index.html.twig', [
+            'form' => $form,
         ]);
     }
 }
