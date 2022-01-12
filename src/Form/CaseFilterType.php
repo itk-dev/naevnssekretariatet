@@ -145,6 +145,7 @@ class CaseFilterType extends AbstractType
         $builder
             ->add('deadlines', Filters\ChoiceFilterType::class, [
                 'choices' => [
+                    $this->translator->trans('Some deadline exceeded', [], 'case') => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
                     $this->translator->trans('Exceeded hearing deadline', [], 'case') => CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED,
                     $this->translator->trans('Exceeded processing deadline', [], 'case') => CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED,
                     $this->translator->trans('Both deadlines exceeded', [], 'case') => CaseDeadlineStatuses::BOTH_DEADLINES_EXCEEDED,
@@ -158,17 +159,21 @@ class CaseFilterType extends AbstractType
                     $filterChoice = $values['value'];
 
                     // Base expression and parameters
-                    $resultExpression = $filterQuery->getExpr()->andX();
+                    if ($filterChoice === CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED){
+                        $resultExpression = $filterQuery->getExpr()->orX();
+                    } else {
+                        $resultExpression = $filterQuery->getExpr()->andX();
+                    }
                     $parameters = [];
 
                     // Add one or two expressions based on filter choice aka. $values['value']
                     // Filters that require one expression are hearing- and process deadline exceeded
-                    // Both exceeded and none exceeded require two expressions, one for hearing- and one for process deadline exceeded
+                    // Both exceeded, none exceeded and some (one or more) exceeded require two expressions, one for hearing- and one for process deadline exceeded
 
                     // Iterate over two statuses that will define the expressions needed
                     foreach ([CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED, CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED] as $iteratorStatus) {
                         // Check if filter choice is status iterator or one of the filtering choices that need both expressions
-                        if (in_array($filterChoice, [$iteratorStatus, CaseDeadlineStatuses::BOTH_DEADLINES_EXCEEDED, CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED])) {
+                        if (in_array($filterChoice, [$iteratorStatus, CaseDeadlineStatuses::BOTH_DEADLINES_EXCEEDED, CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED, CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED])) {
                             // Construct expression depending on status iterator
                             $field = CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED === $iteratorStatus ? 'c.hasReachedHearingDeadline' : 'c.hasReachedProcessingDeadline';
                             $paramName = sprintf('p_%s', str_replace('.', '_', $field));
