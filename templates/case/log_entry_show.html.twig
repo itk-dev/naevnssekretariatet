@@ -40,7 +40,7 @@
     </div>
 {% endblock %}
 
-{% macro render_data(data, level = 0) %}
+{% macro render_data(data, level=0) %}
     <table class="table table-hover table-sm {{ level > 0 ? 'table-borderless ' }}">
         {% for name, value in data %}
             {% set type = type(value) %}
@@ -62,7 +62,7 @@
                             {{ value }}
                         {% endif %}
                     {% elseif type == 'array' %}
-                        {{ _self.render_data(value, level+1) }}
+                        {{ _self.render_data(value, level + 1) }}
                     {% elseif type == 'NULL' %}
                         {{ '–' }}
                     {% else %}
