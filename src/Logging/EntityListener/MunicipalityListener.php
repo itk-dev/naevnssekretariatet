@@ -25,6 +25,6 @@ class MunicipalityListener extends AbstractRelatedToCaseListener
      */
     public function postUpdate(Municipality $municipality, LifecycleEventArgs $args)
     {
-        $this->logActivity('Update', $args);
+        $this->logActivity('Municipality updated', $args);
     }
 }

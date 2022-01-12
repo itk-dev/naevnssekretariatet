@@ -1,0 +1,59 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Log entry{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Log entry{% endtrans %}</h1>
+        </div>
+
+        {% if urls|default(false) %}
+            <div class="col">
+                <ul class="pagination float-right">
+                    {% if urls.previous|default(false) %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ urls.previous }}">
+                                {% trans %}Previous log entry{% endtrans %}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link">{% trans %}Previous log entry{% endtrans %}</a>
+                        </li>
+                    {% endif %}
+
+                    {% if urls.next|default(false) %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ urls.next }}">{% trans %}Next log entry{% endtrans %}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link">{% trans %}Next log entry{% endtrans %}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        <dl>
+            <dt>{% trans %}Created at{% endtrans %}</dt>
+            <dd>{{ log_entry.createdAt|date('Y-m-d H:i:s') }}</dd>
+
+            <dt>{% trans %}Username{% endtrans %}</dt>
+            <dd>{{ log_entry.user }}</dd>
+
+            <dt>{% trans %}Action{% endtrans %}</dt>
+            <dd>{{ log_entry.action|trans }}</dd>
+
+            <dt>{% trans %}Data{% endtrans %}</dt>
+            <dd><pre>{{ log_entry.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre></dd>
+        </dl>
+    </main>
+{% endblock %}

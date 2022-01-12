@@ -25,6 +25,6 @@ class BoardListener extends AbstractRelatedToCaseListener
      */
     public function postUpdate(Board $board, LifecycleEventArgs $args)
     {
-        $this->logActivity('Update', $args);
+        $this->logActivity('Board updated', $args);
     }
 }

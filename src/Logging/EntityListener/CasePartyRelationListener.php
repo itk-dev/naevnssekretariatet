@@ -15,12 +15,12 @@ class CasePartyRelationListener extends AbstractEntityListener
 
     public function postUpdate(CasePartyRelation $relation, LifecycleEventArgs $args)
     {
-        $this->logActivity('Updated party relation', $args);
+        $this->logActivity('Party relation updated', $args);
     }
 
     public function postPersist(CasePartyRelation $relation, LifecycleEventArgs $args)
     {
-        $this->logActivity('Added party', $args);
+        $this->logActivity('Party relation added', $args);
     }
 
     public function logActivity(string $action, LifecycleEventArgs $args): void

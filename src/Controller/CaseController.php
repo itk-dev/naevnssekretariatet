@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
+use App\Entity\LogEntry;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
@@ -18,6 +19,7 @@ use App\Form\Model\CaseStatusFormModel;
 use App\Form\MunicipalitySelectorType;
 use App\Repository\AgendaCaseItemRepository;
 use App\Repository\CaseEntityRepository;
+use App\Repository\LogEntryRepository;
 use App\Repository\MunicipalityRepository;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
@@ -27,6 +29,7 @@ use App\Service\CaseManager;
 use App\Service\MunicipalityHelper;
 use App\Service\PartyHelper;
 use App\Service\WorkflowService;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
@@ -270,10 +273,37 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/log", name="case_log", methods={"GET"})
      */
-    public function log(CaseEntity $case): Response
+    public function log(CaseEntity $case, LogEntryRepository $logEntryRepository): Response
     {
+        $logEntries = $logEntryRepository->findBy([
+            'caseID' => $case->getId(),
+        ], [
+            'createdAt' => Criteria::DESC,
+        ]);
+
         return $this->render('case/log.html.twig', [
             'case' => $case,
+            'log_entries' => $logEntries,
+        ]);
+    }
+
+    /**
+     * @Route("/{case}/log/{logEntry}", name="case_log_entry_show", methods={"GET"})
+     */
+    public function logEntryShow(Request $request, CaseEntity $case, LogEntry $logEntry, LogEntryRepository $logEntryRepository): Response
+    {
+        $urls = [];
+        if (null !== ($previousLogEntry = $logEntryRepository->findPrevious($case, $logEntry))) {
+            $urls['previous'] = $this->generateUrl('case_log_entry_show', ['case' => $case->getId(), 'logEntry' => $previousLogEntry->getId()]);
+        }
+        if (null !== ($nextLogEntry = $logEntryRepository->findNext($case, $logEntry))) {
+            $urls['next'] = $this->generateUrl('case_log_entry_show', ['case' => $case->getId(), 'logEntry' => $nextLogEntry->getId()]);
+        }
+
+        return $this->render('case/log_entry_show.html.twig', [
+            'case' => $case,
+            'log_entry' => $logEntry,
+            'urls' => $urls,
         ]);
     }
 

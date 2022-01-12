@@ -25,7 +25,7 @@ class CaseDecisionProposalListener extends AbstractEntityListener
      */
     public function postUpdate(CaseDecisionProposal $caseDecisionProposal, LifecycleEventArgs $args)
     {
-        $this->logActivity('Update', $args);
+        $this->logActivity('Case updated', $args);
     }
 
     /**

@@ -23,7 +23,7 @@ class CaseListener extends AbstractEntityListener
      */
     public function postUpdate(CaseEntity $case, LifecycleEventArgs $args)
     {
-        $this->logActivity('Update', $args);
+        $this->logActivity('Case updated', $args);
     }
 
     /**
@@ -32,7 +32,7 @@ class CaseListener extends AbstractEntityListener
      */
     public function postPersist(CaseEntity $case, LifecycleEventArgs $args)
     {
-        $this->logActivity('Create', $args);
+        $this->logActivity('Case created', $args);
     }
 
     /**

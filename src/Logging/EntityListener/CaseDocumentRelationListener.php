@@ -9,12 +9,12 @@ class CaseDocumentRelationListener extends AbstractEntityListener
 {
     public function postPersist(CaseDocumentRelation $relation, LifecycleEventArgs $args)
     {
-        $this->logActivity('Add document', $args);
+        $this->logActivity('Document added', $args);
     }
 
     public function postUpdate(CaseDocumentRelation $relation, LifecycleEventArgs $args)
     {
-        $this->logActivity('Update document', $args);
+        $this->logActivity('Document updated', $args);
     }
 
     public function logActivity(string $action, LifecycleEventArgs $args): void
