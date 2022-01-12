@@ -27,6 +27,29 @@ services:
                 datafordeler_api_password: '%env(DATAFORDELER_API_PASSWORD)%'
                 bbr_data_ttl: '%env(BBR_DATA_TTL)%'
 
+            $logEntryHelperOptions:
+                log_entry_display:
+                    exclude_keys:
+                        # List of keys to exclude from display
+                        - createdAt
+                        - updatedAt
+                        - accusedAddress.validatedAt
+                        - accusedAddress.bbrData
+                        - complainantAddress.validatedAt
+                        - complainantAddress.bbrData
+                        - leaseAddress.validatedAt
+                        - leaseAddress.bbrData
+                        - previousCasesAtLease
+                        # A key can be a regex (delimited by /, # or ~).
+                        - /^(sorting|hasReached)/
+                    translation_domains:
+                        # Domains to use for translations
+                        case:
+                            # Sub-domains. All keys from sub-domains will be
+                            # combined with parent domain keys.
+                            address:
+                        address:
+
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
