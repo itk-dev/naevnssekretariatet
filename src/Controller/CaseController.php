@@ -26,6 +26,7 @@ use App\Repository\UserRepository;
 use App\Service\AddressHelper;
 use App\Service\BBRHelper;
 use App\Service\CaseManager;
+use App\Service\LogEntryHelper;
 use App\Service\MunicipalityHelper;
 use App\Service\PartyHelper;
 use App\Service\WorkflowService;
@@ -290,7 +291,7 @@ class CaseController extends AbstractController
     /**
      * @Route("/{case}/log/{logEntry}", name="case_log_entry_show", methods={"GET"})
      */
-    public function logEntryShow(Request $request, CaseEntity $case, LogEntry $logEntry, LogEntryRepository $logEntryRepository): Response
+    public function logEntryShow(Request $request, CaseEntity $case, LogEntry $logEntry, LogEntryRepository $logEntryRepository, LogEntryHelper $logEntryHelper): Response
     {
         $urls = [];
         if (null !== ($previousLogEntry = $logEntryRepository->findPrevious($case, $logEntry))) {
@@ -303,6 +304,7 @@ class CaseController extends AbstractController
         return $this->render('case/log_entry_show.html.twig', [
             'case' => $case,
             'log_entry' => $logEntry,
+            'data' => $logEntryHelper->getDisplayData($logEntry),
             'urls' => $urls,
         ]);
     }

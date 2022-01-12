@@ -13,6 +13,7 @@ class TwigExtension extends AbstractExtension
         return [
             new TwigFunction('camelCaseToUnderscore', [$this, 'camelCaseToUnderscore']),
             new TwigFunction('class', [$this, 'getClass']),
+            new TwigFunction('type', 'gettype'),
         ];
     }
 

@@ -40,6 +40,40 @@
     </div>
 {% endblock %}
 
+{% macro render_data(data, level = 0) %}
+    <table class="table table-hover table-sm {{ level > 0 ? 'table-borderless ' }}">
+        {% for name, value in data %}
+            {% set type = type(value) %}
+
+            <tr>
+                <th>{{ name }}</th>
+                <td class="type-{{ type }}">
+                    {% if type == 'boolean' %}
+                        {#{ value ? 'Yes'|trans : 'No'|trans }#}
+                        <input type="checkbox" {{ value ? 'checked' }} onclick="return false;"/>
+                    {% elseif type in ['integer', 'double', 'string'] %}
+                        {% if value matches '/ 00:00:00$/' %}
+                            {# Date without time #}
+                            {{ value|date('Y-m-d') }}
+                        {% elseif value matches '/ \\d{2}:\\d{2}:\\d{2}$/' %}
+                            {# Date with time #}
+                            {{ value|date('Y-m-d H:i:s') }}
+                        {% else %}
+                            {{ value }}
+                        {% endif %}
+                    {% elseif type == 'array' %}
+                        {{ _self.render_data(value, level+1) }}
+                    {% elseif type == 'NULL' %}
+                        {{ '–' }}
+                    {% else %}
+                        <pre>{{ value|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endmacro %}
+
 {% block content %}
     <main role="main" class="col-12 mt-3">
         <dl>
@@ -53,7 +87,7 @@
             <dd>{{ log_entry.action|trans }}</dd>
 
             <dt>{% trans %}Data{% endtrans %}</dt>
-            <dd><pre>{{ log_entry.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre></dd>
+            <dd>{{ _self.render_data(data) }}</dd>
         </dl>
     </main>
 {% endblock %}
