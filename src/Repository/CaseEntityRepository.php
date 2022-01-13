@@ -91,7 +91,8 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->where('c.assignedTo = :user')
             ->setParameter('user', $user->getId()->toBinary())
             ->andWhere('c.hasReachedHearingDeadline = :isExceeded OR c.hasReachedProcessingDeadline = :isExceeded')
-            ->setParameter('isExceeded', true);
+            ->setParameter('isExceeded', true)
+        ;
 
         return $qb->getQuery()->getSingleScalarResult();
     }
@@ -120,7 +121,8 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->where('c.board = :board')
             ->setParameter('board', $board->getId()->toBinary())
             ->andWhere('c.hasReachedHearingDeadline = :isExceeded OR c.hasReachedProcessingDeadline = :isExceeded')
-            ->setParameter('isExceeded', true);
+            ->setParameter('isExceeded', true)
+        ;
 
         return $qb->getQuery()->getSingleScalarResult();
     }

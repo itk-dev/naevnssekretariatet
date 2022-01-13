@@ -109,8 +109,7 @@ class DashboardHelper
     {
         $boards = $this->boardRepository->findBy(['municipality' => $municipality], ['name' => 'ASC']);
 
-        foreach ($boards as $board){
-
+        foreach ($boards as $board) {
             $boardFilterOption = array_search($board, $boards);
 
             // Construct the filter urls and do the counts

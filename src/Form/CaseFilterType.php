@@ -161,7 +161,7 @@ class CaseFilterType extends AbstractType
                     $filterChoice = $values['value'];
 
                     // Base expression and parameters
-                    if ($filterChoice === CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED){
+                    if (CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED === $filterChoice) {
                         $resultExpression = $filterQuery->getExpr()->orX();
                     } else {
                         $resultExpression = $filterQuery->getExpr()->andX();
@@ -218,7 +218,8 @@ class CaseFilterType extends AbstractType
                             $qb->leftJoin('c.agendaCaseItems', 'aci')
                                 ->join('aci.agenda', 'a')
                                 ->where('a.status != :agenda_status')
-                                ->setParameter('agenda_status', AgendaStatus::FINISHED);
+                                ->setParameter('agenda_status', AgendaStatus::FINISHED)
+                            ;
                             break;
                     }
 
@@ -226,6 +227,7 @@ class CaseFilterType extends AbstractType
                 },
                 'label' => false,
                 'placeholder' => $this->translator->trans('Select a special filter', [], 'case'),
-            ]);
+            ])
+        ;
     }
 }
