@@ -6,8 +6,10 @@ use App\Entity\Board;
 use App\Entity\Municipality;
 use App\Repository\BoardRepository;
 use App\Repository\UserRepository;
+use App\Service\AgendaStatus;
 use App\Service\BoardHelper;
 use App\Service\CaseDeadlineStatuses;
+use App\Service\CaseSpecialFilterStatuses;
 use App\Service\FilterHelper;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
@@ -145,9 +147,9 @@ class CaseFilterType extends AbstractType
         $builder
             ->add('deadlines', Filters\ChoiceFilterType::class, [
                 'choices' => [
-                    $this->translator->trans('Some deadline exceeded', [], 'case') => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
                     $this->translator->trans('Exceeded hearing deadline', [], 'case') => CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED,
                     $this->translator->trans('Exceeded processing deadline', [], 'case') => CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED,
+                    $this->translator->trans('Some deadline exceeded', [], 'case') => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
                     $this->translator->trans('Both deadlines exceeded', [], 'case') => CaseDeadlineStatuses::BOTH_DEADLINES_EXCEEDED,
                     $this->translator->trans('No exceeded deadlines', [], 'case') => CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED,
                 ],
@@ -189,5 +191,41 @@ class CaseFilterType extends AbstractType
                 'placeholder' => $this->translator->trans('Select deadline filter', [], 'case'),
             ])
         ;
+
+        $builder
+            ->add('specialStateFilter', Filters\ChoiceFilterType::class, [
+                'choices' => [
+                    $this->translator->trans('In hearing', [], 'case') => CaseSpecialFilterStatuses::IN_HEARING,
+                    $this->translator->trans('New hearing post', [], 'case') => CaseSpecialFilterStatuses::NEW_HEARING_POST,
+                    $this->translator->trans('On agenda', [], 'case') => CaseSpecialFilterStatuses::ON_AGENDA,
+                ],
+                'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
+                    if (empty($values['value'])) {
+                        return null;
+                    }
+
+                    $filterChoice = $values['value'];
+
+                    switch ($filterChoice) {
+                        case CaseSpecialFilterStatuses::IN_HEARING:
+                            // TODO: modify query builder correctly with cases having an active hearing
+                            break;
+                        case CaseSpecialFilterStatuses::NEW_HEARING_POST:
+                            // TODO: modify query builder correctly with cases containing new hearing post
+                            break;
+                        case CaseSpecialFilterStatuses::ON_AGENDA:
+                            $qb = $filterQuery->getQueryBuilder();
+                            $qb->leftJoin('c.agendaCaseItems', 'aci')
+                                ->join('aci.agenda', 'a')
+                                ->where('a.status != :agenda_status')
+                                ->setParameter('agenda_status', AgendaStatus::FINISHED);
+                            break;
+                    }
+
+                    return $filterQuery->createCondition($filterQuery->getExpr()->andX(), []);
+                },
+                'label' => false,
+                'placeholder' => $this->translator->trans('Select a special filter', [], 'case'),
+            ]);
     }
 }
