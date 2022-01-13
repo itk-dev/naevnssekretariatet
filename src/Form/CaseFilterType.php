@@ -7,7 +7,6 @@ use App\Entity\Municipality;
 use App\Repository\BoardRepository;
 use App\Repository\UserRepository;
 use App\Service\AgendaStatus;
-use App\Service\BoardHelper;
 use App\Service\CaseDeadlineStatuses;
 use App\Service\CaseSpecialFilterStatuses;
 use App\Service\FilterHelper;
@@ -25,10 +24,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class CaseFilterType extends AbstractType
 {
     /**
-     * @var BoardHelper
-     */
-    private $boardHelper;
-    /**
      * @var BoardRepository
      */
     private $boardRepository;
@@ -45,9 +40,8 @@ class CaseFilterType extends AbstractType
      */
     private $userRepository;
 
-    public function __construct(BoardHelper $boardHelper, BoardRepository $boardRepository, FilterHelper $filterHelper, TranslatorInterface $translator, UserRepository $userRepository)
+    public function __construct(BoardRepository $boardRepository, FilterHelper $filterHelper, TranslatorInterface $translator, UserRepository $userRepository)
     {
-        $this->boardHelper = $boardHelper;
         $this->boardRepository = $boardRepository;
         $this->filterHelper = $filterHelper;
         $this->translator = $translator;
@@ -161,6 +155,7 @@ class CaseFilterType extends AbstractType
                     $filterChoice = $values['value'];
 
                     // Base expression and parameters
+                    // If filter choice is some (one or more) exceeded we need OR rather than AND
                     if (CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED === $filterChoice) {
                         $resultExpression = $filterQuery->getExpr()->orX();
                     } else {
@@ -206,6 +201,7 @@ class CaseFilterType extends AbstractType
 
                     $filterChoice = $values['value'];
 
+                    // Modify query builder according to filter choice
                     switch ($filterChoice) {
                         case CaseSpecialFilterStatuses::IN_HEARING:
                             // TODO: modify query builder correctly with cases having an active hearing
