@@ -7,6 +7,7 @@ use App\Form\MunicipalitySelectorType;
 use App\Repository\CaseEntityRepository;
 use App\Repository\MunicipalityRepository;
 use App\Repository\ReminderRepository;
+use App\Service\DashboardHelper;
 use App\Service\MunicipalityHelper;
 use App\Service\ReminderHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="default")
      */
-    public function index(CaseEntityRepository $caseRepository, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, ReminderHelper $reminderHelper, ReminderRepository $reminderRepository, Security $security, Request $request): Response
+    public function index(CaseEntityRepository $caseRepository, DashboardHelper $dashboardHelper, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, ReminderHelper $reminderHelper, ReminderRepository $reminderRepository, Security $security, Request $request): Response
     {
         // Get current User
         /** @var User $user */
@@ -30,8 +31,11 @@ class DefaultController extends AbstractController
         $upcomingReminders = $reminderHelper->getRemindersWithinWeekByUserGroupedByDay($user);
         $exceededReminders = $reminderRepository->findExceededRemindersByUser($user);
 
+        // Find chosen municipality or choose one
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
         $municipalities = $municipalityRepository->findAll();
+
+        $gridInformation = $dashboardHelper->getDashboardGridInformation($activeMunicipality, $user);
 
         $unassignedCases = $caseRepository->findBy([
             'assignedTo' => null,
@@ -57,6 +61,7 @@ class DefaultController extends AbstractController
             'exceeded_reminders' => $exceededReminders,
             'unassigned_cases' => $unassignedCases,
             'municipality_form' => $municipalityForm->createView(),
+            'grid_information' => $gridInformation,
         ]);
     }
 

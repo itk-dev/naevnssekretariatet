@@ -1041,6 +1041,26 @@
         <source>Counterparty</source>
         <target>Modpart</target>
       </trans-unit>
+      <trans-unit id="artpS9S" resname="Some deadline exceeded">
+        <source>Some deadline exceeded</source>
+        <target>En eller flere overskredne tidsfrister</target>
+      </trans-unit>
+      <trans-unit id="dGbMvEJ" resname="In hearing">
+        <source>In hearing</source>
+        <target>Høring i gang</target>
+      </trans-unit>
+      <trans-unit id="LEzdT8C" resname="New hearing post">
+        <source>New hearing post</source>
+        <target>Nyt høringssvar</target>
+      </trans-unit>
+      <trans-unit id="xdGur.z" resname="On agenda">
+        <source>On agenda</source>
+        <target>På dagsorden</target>
+      </trans-unit>
+      <trans-unit id="MZpZNtI" resname="Select a special filter">
+        <source>Select a special filter</source>
+        <target>Vælg et filter</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

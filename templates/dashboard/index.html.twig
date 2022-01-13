@@ -35,34 +35,7 @@
             {% include "dashboard/_unassigned_cases.html.twig" with unassigned_cases %}
         {% endif %}
         <div class="row mb-5">
-            <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
-                <h2 class="h3"><i class="fas fa-list mr-2"></i>{% trans %}My cases{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
-                <button type="button" name="" id="" class="btn btn-primary btn-lg btn-block">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-secondary btn-lg btn-block">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-info btn-lg btn-block">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-dark btn-lg btn-block">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-            </div>
-            <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
-                <h2 class="h3">{% trans %}Cases tenant complaints{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
-                <button type="button" name="" id="" class="btn btn-primary btn-lg btn-block">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-secondary btn-lg btn-block">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-info btn-lg btn-block">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-dark btn-lg btn-block">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-            </div>
-            <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
-                <h2 class="h3">{% trans %}Cases rent complaints{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
-                <button type="button" name="" id="" class="btn btn-primary btn-lg btn-block">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-secondary btn-lg btn-block">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-info btn-lg btn-block">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-dark btn-lg btn-block">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-            </div>
-            <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
-                <h2 class="h3">{% trans %}Cases fence complaints{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
-                <button type="button" name="" id="" class="btn btn-primary btn-lg btn-block">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-secondary btn-lg btn-block">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-info btn-lg btn-block">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-                <button type="button" name="" id="" class="btn btn-dark btn-lg btn-block">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">4</span></button>
-            </div>
+            {% include "dashboard/_grid_information.html.twig" with grid_information %}
         </div>
         <h2 class="h3"><i class="fas fa-undo mr-2"></i>{% trans %}Cases opened more than 30 days ago{% endtrans %}</h2>
         {% include "dashboard/_inactive_cases.html.twig" with inactive_cases %}

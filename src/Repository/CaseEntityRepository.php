@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Board;
 use App\Entity\CaseEntity;
+use App\Entity\User;
 use App\Service\AgendaStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -64,5 +65,63 @@ class CaseEntityRepository extends ServiceEntityRepository
         ;
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findCountOfCasesWithUserAndWithActiveAgenda(User $user)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->select('count(c.id)')
+            ->where('c.assignedTo = :user')
+            ->setParameter('user', $user->getId()->toBinary())
+            ->leftJoin('c.agendaCaseItems', 'aci')
+            ->join('aci.agenda', 'a')
+            ->andWhere('a.status != :agenda_status')
+            ->setParameter('agenda_status', AgendaStatus::FINISHED)
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findCountOfCasesWithUserAndSomeExceededDeadline(User $user)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->select('count(c.id)')
+            ->where('c.assignedTo = :user')
+            ->setParameter('user', $user->getId()->toBinary())
+            ->andWhere('c.hasReachedHearingDeadline = :isExceeded OR c.hasReachedProcessingDeadline = :isExceeded')
+            ->setParameter('isExceeded', true);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findCountOfCasesWithActiveAgendaByBoard(Board $board)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->select('count(c.id)')
+            ->where('c.board = :board')
+            ->setParameter('board', $board->getId()->toBinary())
+            ->leftJoin('c.agendaCaseItems', 'aci')
+            ->join('aci.agenda', 'a')
+            ->andWhere('a.status != :agenda_status')
+            ->setParameter('agenda_status', AgendaStatus::FINISHED)
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findCountOfCasesWithSomeExceededDeadlineByBoard(Board $board)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->select('count(c.id)')
+            ->where('c.board = :board')
+            ->setParameter('board', $board->getId()->toBinary())
+            ->andWhere('c.hasReachedHearingDeadline = :isExceeded OR c.hasReachedProcessingDeadline = :isExceeded')
+            ->setParameter('isExceeded', true);
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
 }

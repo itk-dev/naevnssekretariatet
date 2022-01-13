@@ -1,0 +1,30 @@
+{% trans_default_domain 'dashboard' %}
+
+<div class="col-md-6 col-lg-3 mb-5 mb-md-0">
+    <h2 class="h3"><i class="fas fa-list mr-2"></i>{% trans %}My cases{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
+    <a type="button" class="btn btn-primary btn-lg btn-block" href="{{ grid_information.personal_cases.hearing_data.url }}">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.personal_cases.hearing_data.count }}</span></a>
+    <a type="button" class="btn btn-secondary btn-lg btn-block" href="{{ grid_information.personal_cases.new_party_submission_data.url }}">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.personal_cases.new_party_submission_data.count }}</span></a>
+    <a type="button" class="btn btn-info btn-lg btn-block" href="{{ grid_information.personal_cases.agenda_data.url }}">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.personal_cases.agenda_data.count }}</span></a>
+    <a type="button" class="btn btn-dark btn-lg btn-block" href="{{ grid_information.personal_cases.exceeded_deadline_data.url }}">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.personal_cases.exceeded_deadline_data.count }}</span></a>
+</div>
+<div class="col-md-6 col-lg-3 mb-5 mb-md-0">
+    <h2 class="h3">{% trans %}Cases tenant complaints{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
+    <a type="button" class="btn btn-primary btn-lg btn-block" href="{{ grid_information.ResidentComplaintBoardCaseType.hearing_data.url }}">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.ResidentComplaintBoardCaseType.hearing_data.count }}</span></a>
+    <a type="button" class="btn btn-secondary btn-lg btn-block" href="{{ grid_information.ResidentComplaintBoardCaseType.new_party_submission_data.url }}">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.ResidentComplaintBoardCaseType.new_party_submission_data.count }}</span></a>
+    <a type="button" class="btn btn-info btn-lg btn-block" href="{{ grid_information.ResidentComplaintBoardCaseType.agenda_data.url }}">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.ResidentComplaintBoardCaseType.agenda_data.count }}</span></a>
+    <a type="button" class="btn btn-dark btn-lg btn-block" href="{{ grid_information.ResidentComplaintBoardCaseType.exceeded_deadline_data.url }}">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.ResidentComplaintBoardCaseType.exceeded_deadline_data.count }}</span></a>
+</div>
+<div class="col-md-6 col-lg-3 mb-5 mb-md-0">
+    <h2 class="h3">{% trans %}Cases rent complaints{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
+    <a type="button" class="btn btn-primary btn-lg btn-block" href="{{ grid_information.RentBoardCaseType.hearing_data.url }}">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.RentBoardCaseType.hearing_data.count }}</span></a>
+    <a type="button" class="btn btn-secondary btn-lg btn-block" href="{{ grid_information.RentBoardCaseType.new_party_submission_data.url }}">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.RentBoardCaseType.new_party_submission_data.count }}</span></a>
+    <a type="button" class="btn btn-info btn-lg btn-block" href="{{ grid_information.RentBoardCaseType.agenda_data.url }}">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.RentBoardCaseType.agenda_data.count }}</span></a>
+    <a type="button" class="btn btn-dark btn-lg btn-block" href="{{ grid_information.RentBoardCaseType.exceeded_deadline_data.url }}">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.RentBoardCaseType.exceeded_deadline_data.count }}</span></a>
+</div>
+<div class="col-md-6 col-lg-3 mb-5 mb-md-0">
+    <h2 class="h3">{% trans %}Cases fence complaints{% endtrans %}<span class="badge badge-dark ml-2">25</span></h2>
+    <a type="button" class="btn btn-primary btn-lg btn-block" href="{{ grid_information.FenceReviewCaseType.hearing_data.url }}">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.FenceReviewCaseType.hearing_data.count }}</span></a>
+    <a type="button" class="btn btn-secondary btn-lg btn-block" href="{{ grid_information.FenceReviewCaseType.new_party_submission_data.url }}">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.FenceReviewCaseType.new_party_submission_data.count }}</span></a>
+    <a type="button" class="btn btn-info btn-lg btn-block" href="{{ grid_information.FenceReviewCaseType.agenda_data.url }}">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.FenceReviewCaseType.agenda_data.count }}</span></a>
+    <a type="button" class="btn btn-dark btn-lg btn-block" href="{{ grid_information.FenceReviewCaseType.exceeded_deadline_data.url }}">{% trans %}Deadline reached{% endtrans %}<span class="badge badge-light ml-2">{{ grid_information.FenceReviewCaseType.exceeded_deadline_data.count }}</span></a>
+</div>
