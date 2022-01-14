@@ -8,18 +8,21 @@ use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DashboardHelper
 {
     private BoardRepository $boardRepository;
     private CaseEntityRepository $caseRepository;
+    private TranslatorInterface $translator;
     private UrlGeneratorInterface $router;
     private UserRepository $userRepository;
 
-    public function __construct(BoardRepository $boardRepository, CaseEntityRepository $caseRepository, UrlGeneratorInterface $router, UserRepository $userRepository)
+    public function __construct(BoardRepository $boardRepository, CaseEntityRepository $caseRepository, TranslatorInterface $translator, UrlGeneratorInterface $router, UserRepository $userRepository)
     {
         $this->boardRepository = $boardRepository;
         $this->caseRepository = $caseRepository;
+        $this->translator = $translator;
         $this->router = $router;
         $this->userRepository = $userRepository;
     }
@@ -95,12 +98,13 @@ class DashboardHelper
             'count' => $exceededDeadlineCount,
         ];
 
-        $gridInformation['personal_cases'] = [
+        array_push($gridInformation, [
+            'grid_label' => $this->translator->trans('My cases', [], 'dashboard'),
             'hearing_data' => $hearingData,
             'new_party_submission_data' => $newPartySubmissionData,
             'agenda_data' => $agendaData,
             'exceeded_deadline_data' => $exceededDeadlineData,
-        ];
+        ]);
 
         return $gridInformation;
     }
@@ -167,12 +171,13 @@ class DashboardHelper
                 'count' => $boardExceededDeadlineCount,
             ];
 
-            $gridInformation[$board->getCaseFormType()] = [
+            array_push($gridInformation, [
+                'grid_label' => $board->getName(),
                 'hearing_data' => $boardHearingData,
                 'new_party_submission_data' => $boardNewPartySubmissionData,
                 'agenda_data' => $boardAgendaData,
                 'exceeded_deadline_data' => $boardExceededDeadlineData,
-            ];
+            ]);
         }
 
         return $gridInformation;
