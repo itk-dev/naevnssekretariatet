@@ -9,34 +9,9 @@
         <div class="col">
             <h1>{% trans %}Log entry{% endtrans %}</h1>
         </div>
-
-        {% if urls|default(false) %}
-            <div class="col">
-                <ul class="pagination float-right">
-                    {% if urls.previous|default(false) %}
-                        <li class="page-item">
-                            <a class="page-link" href="{{ urls.previous }}">
-                                {% trans %}Previous log entry{% endtrans %}
-                            </a>
-                        </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                            <a class="page-link">{% trans %}Previous log entry{% endtrans %}</a>
-                        </li>
-                    {% endif %}
-
-                    {% if urls.next|default(false) %}
-                        <li class="page-item">
-                            <a class="page-link" href="{{ urls.next }}">{% trans %}Next log entry{% endtrans %}</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                            <a class="page-link">{% trans %}Next log entry{% endtrans %}</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        {% endif %}
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('case_log', {id: case.id}) }}">{% trans %}Back to log{% endtrans %}</a>
+        </div>
     </div>
 {% endblock %}
 
@@ -76,6 +51,34 @@
 
 {% block content %}
     <main role="main" class="col-12 mt-3">
+        {% if urls|default(false) %}
+            <div class="float-right">
+                <ul class="pagination float-right">
+                    {% if urls.previous|default(false) %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ urls.previous }}">
+                                {% trans %}Previous log entry{% endtrans %}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link">{% trans %}Previous log entry{% endtrans %}</a>
+                        </li>
+                    {% endif %}
+
+                    {% if urls.next|default(false) %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ urls.next }}">{% trans %}Next log entry{% endtrans %}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link">{% trans %}Next log entry{% endtrans %}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+
         <dl>
             <dt>{% trans %}Created at{% endtrans %}</dt>
             <dd>{{ log_entry.createdAt|date('Y-m-d H:i:s') }}</dd>
