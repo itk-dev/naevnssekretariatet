@@ -19,10 +19,13 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
 {
+    use TargetPathTrait;
+
     public function __construct(private EntityManagerInterface $entityManager, private UserRepository $userRepository, private OpenIdConfigurationProviderManager $providerManager, private SessionInterface $session, private UrlGeneratorInterface $router, private BoardMemberRepository $boardMemberRepository, private TranslatorInterface $translator, int $leeway = 0)
     {
         parent::__construct($providerManager, $session, $leeway);
@@ -116,7 +119,9 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        return new RedirectResponse($this->router->generate('default'));
+        $targetUrl = $this->getTargetPath($request->getSession(), $firewallName) ?? $this->router->generate('default');
+
+        return new RedirectResponse($targetUrl);
     }
 
     public function start(Request $request, AuthenticationException $authException = null)

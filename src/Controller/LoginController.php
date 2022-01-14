@@ -12,10 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class LoginController extends AbstractController
 {
+    use TargetPathTrait;
+
     private OpenIdConfigurationProviderManager $providerManager;
 
     public function __construct(OpenIdConfigurationProviderManager $providerManager)
@@ -28,11 +31,30 @@ class LoginController extends AbstractController
      */
     public function index(Request $request, SessionInterface $session): Response
     {
+        // Get authentication provider from cookie.
         $authenticationProviderCookieName = 'authentication_provider';
         $authenticationProvider = null;
         if (null === $request->get('reset-authentication-provider')) {
             $authenticationProvider = $request->cookies->get($authenticationProviderCookieName);
         }
+
+        // Look for authentication provider (aliased to "role") in query string.
+        if (null !== $request->query->has('role')) {
+            $authenticationProvider = $request->query->get('role');
+        }
+
+        // Look for authentication provider (aliased to "role") in target path query string.
+        if (null === $authenticationProvider) {
+            $targetPath = $this->getTargetPath($request->getSession(), 'main');
+            if (null !== $targetPath) {
+                $queryString = parse_url($targetPath, PHP_URL_QUERY);
+                if (null !== $queryString) {
+                    parse_str($queryString, $targetQuery);
+                    $authenticationProvider = $targetQuery['role'] ?? null;
+                }
+            }
+        }
+
         $rememberProvider = false;
 
         $formBuilder = $this->createFormBuilder();
