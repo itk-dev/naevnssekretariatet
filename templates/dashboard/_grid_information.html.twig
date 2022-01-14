@@ -2,7 +2,7 @@
 
 {% for column in grid_information %}
     <div class="col-md-6 col-lg-3 mb-5 mb-md-0">
-        <h2 class="h3"><i class="fas fa-list mr-2"></i>{{ column.grid_label|trans }}<span class="badge badge-dark ml-2">25</span></h2>
+        <h2 class="h3"><i class="fas fa-list mr-2"></i>{{ column.grid_label|trans }}<span class="badge badge-dark ml-2">{{ column.hearing_data.count + column.new_party_submission_data.count + column.agenda_data.count + column.exceeded_deadline_data.count }}</span></h2>
         <a type="button" class="btn btn-primary btn-lg btn-block" href="{{ column.hearing_data.url }}">{% trans %}Hearing in progress{% endtrans %}<span class="badge badge-light ml-2">{{ column.hearing_data.count }}</span></a>
         <a type="button" class="btn btn-secondary btn-lg btn-block" href="{{ column.new_party_submission_data.url }}">{% trans %}New post{% endtrans %}<span class="badge badge-light ml-2">{{ column.new_party_submission_data.count }}</span></a>
         <a type="button" class="btn btn-info btn-lg btn-block" href="{{ column.agenda_data.url }}">{% trans %}On agenda{% endtrans %}<span class="badge badge-light ml-2">{{ column.agenda_data.count }}</span></a>
