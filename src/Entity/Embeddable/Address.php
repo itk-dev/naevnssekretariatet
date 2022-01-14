@@ -60,12 +60,12 @@ class Address implements LoggableEntityInterface
         $this->street = $street;
     }
 
-    public function getNumber(): int
+    public function getNumber(): string
     {
         return $this->number;
     }
 
-    public function setNumber(int $number): void
+    public function setNumber(string $number): void
     {
         $this->number = $number;
     }

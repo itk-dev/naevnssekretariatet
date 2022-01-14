@@ -23,7 +23,7 @@ class CasePresentationListener extends AbstractEntityListener
      */
     public function postUpdate(CasePresentation $casePresentation, LifecycleEventArgs $args)
     {
-        $this->logActivity('Update', $args);
+        $this->logActivity('Case presentation updated', $args);
     }
 
     /**

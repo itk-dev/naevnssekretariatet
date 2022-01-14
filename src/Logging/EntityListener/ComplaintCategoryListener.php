@@ -25,6 +25,6 @@ class ComplaintCategoryListener extends AbstractRelatedToCaseListener
      */
     public function postUpdate(ComplaintCategory $complaintCategory, LifecycleEventArgs $args)
     {
-        $this->logActivity('Update', $args);
+        $this->logActivity('Complaint category updated', $args);
     }
 }

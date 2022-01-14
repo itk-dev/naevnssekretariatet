@@ -25,7 +25,7 @@ class AgendaCaseItemListener extends AbstractEntityListener
      */
     public function postPersist(AgendaCaseItem $agendaCaseItem, LifecycleEventArgs $args)
     {
-        $this->logActivity('Create', $args);
+        $this->logActivity('Case created', $args);
     }
 
     /**
@@ -36,7 +36,7 @@ class AgendaCaseItemListener extends AbstractEntityListener
      */
     public function postUpdate(AgendaCaseItem $agendaCaseItem, LifecycleEventArgs $args)
     {
-        $this->logActivity('Update', $args);
+        $this->logActivity('Case updated', $args);
     }
 
     /**
@@ -47,7 +47,7 @@ class AgendaCaseItemListener extends AbstractEntityListener
      */
     public function preRemove(AgendaCaseItem $agendaCaseItem, LifecycleEventArgs $args)
     {
-        $this->logActivity('Remove', $args);
+        $this->logActivity('Case removed', $args);
     }
 
     /**

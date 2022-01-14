@@ -36,7 +36,7 @@ used in Twig templates and code.
 3. Generate/update the translation files:
 
    ```sh
-   docker-compose exec -e DEFAULT_LOCALE=en phpfpm bin/console translation:update --force da
+   docker-compose exec -e DEFAULT_LOCALE=en phpfpm bin/console translation:extract --force da
    # Mark default translations as “Needs work”.
    sed -i '' 's/\<target\>__/\<target state="needs-l10n"\>__/' translations/*.xlf
    ```
