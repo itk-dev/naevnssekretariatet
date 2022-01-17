@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Board;
 use App\Entity\Municipality;
+use App\Entity\User;
 use App\Repository\BoardRepository;
 use App\Repository\UserRepository;
 use App\Service\AgendaStatus;
@@ -76,6 +77,10 @@ class CaseFilterType extends AbstractType
                     ->orderBy('b.name', 'ASC')
                     ->getQuery()->getResult(),
                 'label' => false,
+                // Use ID as choice value
+                'choice_value' => function (?Board $board) {
+                    return $board ? $board->getId() : '';
+                },
                 'placeholder' => $this->translator->trans('All boards', [], 'case'),
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                     return $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values);
@@ -131,6 +136,10 @@ class CaseFilterType extends AbstractType
         $builder->add('assignedTo', Filters\ChoiceFilterType::class, [
             'choices' => $correctedCaseworkers,
             'label' => false,
+            // Use ID as choice value
+            'choice_value' => function (?User $user) {
+                return $user ? $user->getId() : '';
+            },
             'placeholder' => $this->translator->trans('All caseworkers', [], 'case'),
             'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                 return $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values);
@@ -156,11 +165,7 @@ class CaseFilterType extends AbstractType
 
                     // Base expression and parameters
                     // If filter choice is some (one or more) exceeded we need OR rather than AND
-                    if (CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED === $filterChoice) {
-                        $resultExpression = $filterQuery->getExpr()->orX();
-                    } else {
-                        $resultExpression = $filterQuery->getExpr()->andX();
-                    }
+                    $resultExpression = CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED === $filterChoice ? $filterQuery->getExpr()->orX() : $filterQuery->getExpr()->andX();
                     $parameters = [];
 
                     // Add one or two expressions based on filter choice aka. $values['value']
@@ -204,10 +209,10 @@ class CaseFilterType extends AbstractType
                     // Modify query builder according to filter choice
                     switch ($filterChoice) {
                         case CaseSpecialFilterStatuses::IN_HEARING:
-                            // TODO: modify query builder correctly with cases having an active hearing
+                            // TODO: When hearing implemented: modify query builder correctly with cases having an active hearing
                             break;
                         case CaseSpecialFilterStatuses::NEW_HEARING_POST:
-                            // TODO: modify query builder correctly with cases containing new hearing post
+                            // TODO: When hearing implemented: modify query builder correctly with cases containing new hearing post
                             break;
                         case CaseSpecialFilterStatuses::ON_AGENDA:
                             $qb = $filterQuery->getQueryBuilder();

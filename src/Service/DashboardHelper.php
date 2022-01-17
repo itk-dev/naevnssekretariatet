@@ -12,41 +12,27 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DashboardHelper
 {
-    private BoardRepository $boardRepository;
-    private CaseEntityRepository $caseRepository;
-    private TranslatorInterface $translator;
-    private UrlGeneratorInterface $router;
-    private UserRepository $userRepository;
-
-    public function __construct(BoardRepository $boardRepository, CaseEntityRepository $caseRepository, TranslatorInterface $translator, UrlGeneratorInterface $router, UserRepository $userRepository)
+    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private TranslatorInterface $translator, private UrlGeneratorInterface $router, private UserRepository $userRepository)
     {
-        $this->boardRepository = $boardRepository;
-        $this->caseRepository = $caseRepository;
-        $this->translator = $translator;
-        $this->router = $router;
-        $this->userRepository = $userRepository;
     }
 
     public function getDashboardGridInformation(Municipality $municipality, User $user): array
     {
         $gridInformation = [];
 
-        $gridInformation = $this->addUserColumnCaseInformation($user, $gridInformation);
+        $gridInformation[] = $this->getUserColumnCaseInformation($user);
 
-        $gridInformation = $this->addBoardsColumnCaseInformation($municipality, $gridInformation);
+        $gridInformation = array_merge($gridInformation, $this->getBoardsColumnCaseInformation($municipality));
 
         return $gridInformation;
     }
 
-    private function addUserColumnCaseInformation(User $user, array $gridInformation): array
+    private function getUserColumnCaseInformation(User $user): array
     {
-        // Detect which filter option current user is
-        $userFilterOption = $this->getCurrentUserFilterOption($user);
-
         // Construct the filter urls and do the counts
         // In hearing
         $hearingUrl = $this->router->generate('case_index', ['case_filter' => [
-            'assignedTo' => $userFilterOption,
+            'assignedTo' => $user->getId(),
             'specialStateFilter' => CaseSpecialFilterStatuses::IN_HEARING,
         ]]);
 
@@ -54,13 +40,15 @@ class DashboardHelper
         $hearingCount = $this->caseRepository->count(['assignedTo' => $user]);
 
         $hearingData = [
+            'label' => $this->translator->trans('Hearing in progress', [], 'dashboard'),
             'url' => $hearingUrl,
             'count' => $hearingCount,
+            'button_style' => 'primary',
         ];
 
         // Has new party submission
         $newPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
-            'assignedTo' => $userFilterOption,
+            'assignedTo' => $user->getId(),
             'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
         ]]);
 
@@ -68,58 +56,67 @@ class DashboardHelper
         $newPartySubmissionCount = $this->caseRepository->count(['assignedTo' => $user]);
 
         $newPartySubmissionData = [
+            'label' => $this->translator->trans('New post', [], 'dashboard'),
             'url' => $newPartySubmissionUrl,
             'count' => $newPartySubmissionCount,
+            'button_style' => 'secondary',
         ];
 
         // On agenda
         $agendaUrl = $this->router->generate('case_index', ['case_filter' => [
-            'assignedTo' => $userFilterOption,
+            'assignedTo' => $user->getId(),
             'specialStateFilter' => CaseSpecialFilterStatuses::ON_AGENDA,
         ]]);
 
         $agendaCount = $this->caseRepository->findCountOfCasesWithUserAndWithActiveAgenda($user);
 
         $agendaData = [
+            'label' => $this->translator->trans('On agenda', [], 'dashboard'),
             'url' => $agendaUrl,
             'count' => $agendaCount,
+            'button_style' => 'info',
         ];
 
         // Has exceeded one or more deadlines
         $exceededDeadlineUrl = $this->router->generate('case_index', ['case_filter' => [
-            'assignedTo' => $userFilterOption,
+            'assignedTo' => $user->getId(),
             'deadlines' => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
         ]]);
 
         $exceededDeadlineCount = $this->caseRepository->findCountOfCasesWithUserAndSomeExceededDeadline($user);
 
         $exceededDeadlineData = [
+            'label' => $this->translator->trans('Deadline reached', [], 'dashboard'),
             'url' => $exceededDeadlineUrl,
             'count' => $exceededDeadlineCount,
+            'button_style' => 'dark',
         ];
 
-        array_push($gridInformation, [
-            'grid_label' => $this->translator->trans('My cases', [], 'dashboard'),
-            'hearing_data' => $hearingData,
-            'new_party_submission_data' => $newPartySubmissionData,
-            'agenda_data' => $agendaData,
-            'exceeded_deadline_data' => $exceededDeadlineData,
-        ]);
+        $columnCount = $hearingCount + $newPartySubmissionCount + $agendaCount + $exceededDeadlineCount;
 
-        return $gridInformation;
+        return [
+            'label' => $this->translator->trans('My cases', [], 'dashboard'),
+            'count' => $columnCount,
+            'rows' => [
+                $hearingData,
+                $newPartySubmissionData,
+                $agendaData,
+                $exceededDeadlineData,
+            ],
+        ];
     }
 
-    private function addBoardsColumnCaseInformation(Municipality $municipality, array $gridInformation): array
+    private function getBoardsColumnCaseInformation(Municipality $municipality): array
     {
         $boards = $this->boardRepository->findBy(['municipality' => $municipality], ['name' => 'ASC']);
 
-        foreach ($boards as $board) {
-            $boardFilterOption = array_search($board, $boards);
+        $boardsInformation = [];
 
+        foreach ($boards as $board) {
             // Construct the filter urls and do the counts
             // In hearing
             $boardHearingUrl = $this->router->generate('case_index', ['case_filter' => [
-                'board' => $boardFilterOption,
+                'board' => $board->getId(),
                 'specialStateFilter' => CaseSpecialFilterStatuses::IN_HEARING,
             ]]);
 
@@ -127,13 +124,15 @@ class DashboardHelper
             $boardHearingCount = $this->caseRepository->count(['board' => $board]);
 
             $boardHearingData = [
+                'label' => $this->translator->trans('Hearing in progress', [], 'dashboard'),
                 'url' => $boardHearingUrl,
                 'count' => $boardHearingCount,
+                'button_style' => 'primary',
             ];
 
             // Has new party submission
             $boardNewPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
-                'board' => $boardFilterOption,
+                'board' => $board->getId(),
                 'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
             ]]);
 
@@ -141,57 +140,56 @@ class DashboardHelper
             $boardNewPartySubmissionCount = $this->caseRepository->count(['board' => $board]);
 
             $boardNewPartySubmissionData = [
+                'label' => $this->translator->trans('New post', [], 'dashboard'),
                 'url' => $boardNewPartySubmissionUrl,
                 'count' => $boardNewPartySubmissionCount,
+                'button_style' => 'secondary',
             ];
 
             // On agenda
             $boardAgendaUrl = $this->router->generate('case_index', ['case_filter' => [
-                'board' => $boardFilterOption,
+                'board' => $board->getId(),
                 'specialStateFilter' => CaseSpecialFilterStatuses::ON_AGENDA,
             ]]);
 
             $boardAgendaCount = $this->caseRepository->findCountOfCasesWithActiveAgendaByBoard($board);
 
             $boardAgendaData = [
+                'label' => $this->translator->trans('On agenda', [], 'dashboard'),
                 'url' => $boardAgendaUrl,
                 'count' => $boardAgendaCount,
+                'button_style' => 'info',
             ];
 
             // Has exceeded one or more deadlines
             $boardExceededDeadlineUrl = $this->router->generate('case_index', ['case_filter' => [
-                'board' => $boardFilterOption,
+                'board' => $board->getId(),
                 'deadlines' => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
             ]]);
 
             $boardExceededDeadlineCount = $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineByBoard($board);
 
             $boardExceededDeadlineData = [
+                'label' => $this->translator->trans('Deadline reached', [], 'dashboard'),
                 'url' => $boardExceededDeadlineUrl,
                 'count' => $boardExceededDeadlineCount,
+                'button_style' => 'dark',
             ];
 
-            array_push($gridInformation, [
-                'grid_label' => $board->getName(),
-                'hearing_data' => $boardHearingData,
-                'new_party_submission_data' => $boardNewPartySubmissionData,
-                'agenda_data' => $boardAgendaData,
-                'exceeded_deadline_data' => $boardExceededDeadlineData,
+            $boardCount = $boardHearingCount + $boardNewPartySubmissionCount + $boardAgendaCount + $boardExceededDeadlineCount;
+
+            array_push($boardsInformation, [
+                'label' => $board->getName(),
+                'count' => $boardCount,
+                'rows' => [
+                    $boardHearingData,
+                    $boardNewPartySubmissionData,
+                    $boardAgendaData,
+                    $boardExceededDeadlineData,
+                ],
             ]);
         }
 
-        return $gridInformation;
-    }
-
-    private function getCurrentUserFilterOption(User $user): int
-    {
-        $caseworkers = $this->userRepository->findByRole('ROLE_CASEWORKER', ['name' => 'ASC']);
-
-        // Reindex caseworkers as UserRepository findByRole does not guarantee incrementing indexes starting from 0
-        $reindexedCaseworkers = array_values($caseworkers);
-
-        $userKey = array_search($user, $reindexedCaseworkers);
-
-        return $userKey;
+        return $boardsInformation;
     }
 }
