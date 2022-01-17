@@ -22,13 +22,15 @@ class DashboardHelper
 
         $gridInformation[] = $this->getUserColumnCaseInformation($municipality, $user);
 
-        $gridInformation = array_merge($gridInformation, $this->getBoardsColumnCaseInformation($municipality));
+        $gridInformation = array_merge($gridInformation, $this->getBoardColumnsCaseInformation($municipality));
 
         return $gridInformation;
     }
 
     private function getUserColumnCaseInformation(Municipality $municipality, User $user): array
     {
+        $row = [];
+
         // Construct the filter urls and do the counts
         // In hearing
         $hearingUrl = $this->router->generate('case_index', ['case_filter' => [
@@ -36,14 +38,10 @@ class DashboardHelper
             'specialStateFilter' => CaseSpecialFilterStatuses::IN_HEARING,
         ]]);
 
-        // TODO: Update beneath when hearing stuff has been implemented
-        $hearingCount = $this->caseRepository->count(['assignedTo' => $user, 'municipality' => $municipality]);
-
-        $hearingData = [
+        $row[] = [
             'label' => $this->translator->trans('Hearing in progress', [], 'dashboard'),
             'url' => $hearingUrl,
-            'count' => $hearingCount,
-            'button_style' => 'primary',
+            'count' => $this->caseRepository->findCountOfCasesWithActiveHearingBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
         // Has new party submission
@@ -52,14 +50,10 @@ class DashboardHelper
             'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
         ]]);
 
-        // TODO: Update beneath when hearing stuff has been implemented
-        $newPartySubmissionCount = $this->caseRepository->count(['assignedTo' => $user, 'municipality' => $municipality]);
-
-        $newPartySubmissionData = [
+        $row[] = [
             'label' => $this->translator->trans('New post', [], 'dashboard'),
             'url' => $newPartySubmissionUrl,
-            'count' => $newPartySubmissionCount,
-            'button_style' => 'secondary',
+            'count' => $this->caseRepository->findCountOfCasesWithNewHearingPostBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
         // On agenda
@@ -68,13 +62,10 @@ class DashboardHelper
             'specialStateFilter' => CaseSpecialFilterStatuses::ON_AGENDA,
         ]]);
 
-        $agendaCount = $this->caseRepository->findCountOfCasesWithUserAndMunicipalityAndWithActiveAgenda($municipality, $user);
-
-        $agendaData = [
+        $row[] = [
             'label' => $this->translator->trans('On agenda', [], 'dashboard'),
             'url' => $agendaUrl,
-            'count' => $agendaCount,
-            'button_style' => 'info',
+            'count' => $this->caseRepository->findCountOfCasesAndWithActiveAgendaBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
         // Has exceeded one or more deadlines
@@ -83,36 +74,33 @@ class DashboardHelper
             'deadlines' => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
         ]]);
 
-        $exceededDeadlineCount = $this->caseRepository->findCountOfCasesWithUserAndMunicipalityAndSomeExceededDeadline($municipality, $user);
-
-        $exceededDeadlineData = [
+        $row[] = [
             'label' => $this->translator->trans('Deadline reached', [], 'dashboard'),
             'url' => $exceededDeadlineUrl,
-            'count' => $exceededDeadlineCount,
-            'button_style' => 'dark',
+            'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
-        $columnCount = $hearingCount + $newPartySubmissionCount + $agendaCount + $exceededDeadlineCount;
+        $count = array_sum(array_column($row, 'count'));
 
         return [
             'label' => $this->translator->trans('My cases', [], 'dashboard'),
-            'count' => $columnCount,
-            'rows' => [
-                $hearingData,
-                $newPartySubmissionData,
-                $agendaData,
-                $exceededDeadlineData,
-            ],
+            'count' => $count,
+            'rows' => $row,
         ];
     }
 
-    private function getBoardsColumnCaseInformation(Municipality $municipality): array
+    /**
+     * Gets columns for all boards in municipality.
+     */
+    private function getBoardColumnsCaseInformation(Municipality $municipality): array
     {
         $boards = $this->boardRepository->findBy(['municipality' => $municipality], ['name' => 'ASC']);
 
         $boardsInformation = [];
 
         foreach ($boards as $board) {
+            $rows = [];
+
             // Construct the filter urls and do the counts
             // In hearing
             $boardHearingUrl = $this->router->generate('case_index', ['case_filter' => [
@@ -120,14 +108,10 @@ class DashboardHelper
                 'specialStateFilter' => CaseSpecialFilterStatuses::IN_HEARING,
             ]]);
 
-            // TODO: Update beneath when hearing stuff has been implemented
-            $boardHearingCount = $this->caseRepository->count(['board' => $board]);
-
-            $boardHearingData = [
+            $rows[] = [
                 'label' => $this->translator->trans('Hearing in progress', [], 'dashboard'),
                 'url' => $boardHearingUrl,
-                'count' => $boardHearingCount,
-                'button_style' => 'primary',
+                'count' => $this->caseRepository->findCountOfCasesWithActiveHearingBy(['board' => $board]),
             ];
 
             // Has new party submission
@@ -136,14 +120,10 @@ class DashboardHelper
                 'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
             ]]);
 
-            // TODO: Update beneath when hearing stuff has been implemented
-            $boardNewPartySubmissionCount = $this->caseRepository->count(['board' => $board]);
-
-            $boardNewPartySubmissionData = [
+            $rows[] = [
                 'label' => $this->translator->trans('New post', [], 'dashboard'),
                 'url' => $boardNewPartySubmissionUrl,
-                'count' => $boardNewPartySubmissionCount,
-                'button_style' => 'secondary',
+                'count' => $this->caseRepository->findCountOfCasesWithNewHearingPostBy(['board' => $board]),
             ];
 
             // On agenda
@@ -152,13 +132,10 @@ class DashboardHelper
                 'specialStateFilter' => CaseSpecialFilterStatuses::ON_AGENDA,
             ]]);
 
-            $boardAgendaCount = $this->caseRepository->findCountOfCasesWithActiveAgendaByBoard($board);
-
-            $boardAgendaData = [
+            $rows[] = [
                 'label' => $this->translator->trans('On agenda', [], 'dashboard'),
                 'url' => $boardAgendaUrl,
-                'count' => $boardAgendaCount,
-                'button_style' => 'info',
+                'count' => $this->caseRepository->findCountOfCasesAndWithActiveAgendaBy(['board' => $board]),
             ];
 
             // Has exceeded one or more deadlines
@@ -167,27 +144,19 @@ class DashboardHelper
                 'deadlines' => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
             ]]);
 
-            $boardExceededDeadlineCount = $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineByBoard($board);
-
-            $boardExceededDeadlineData = [
+            $rows[] = [
                 'label' => $this->translator->trans('Deadline reached', [], 'dashboard'),
                 'url' => $boardExceededDeadlineUrl,
-                'count' => $boardExceededDeadlineCount,
-                'button_style' => 'dark',
+                'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['board' => $board]),
             ];
 
-            $boardCount = $boardHearingCount + $boardNewPartySubmissionCount + $boardAgendaCount + $boardExceededDeadlineCount;
+            $boardCount = array_sum(array_column($rows, 'count'));
 
-            array_push($boardsInformation, [
+            $boardsInformation[] = [
                 'label' => $board->getName(),
                 'count' => $boardCount,
-                'rows' => [
-                    $boardHearingData,
-                    $boardNewPartySubmissionData,
-                    $boardAgendaData,
-                    $boardExceededDeadlineData,
-                ],
-            ]);
+                'rows' => $rows,
+            ];
         }
 
         return $boardsInformation;
