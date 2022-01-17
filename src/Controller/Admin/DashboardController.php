@@ -91,6 +91,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Boardmember', '', BoardMember::class);
         yield MenuItem::linkToCrud('Part Index', '', Party::class);
         yield MenuItem::linkToCrud('Document types', '', UploadedDocumentType::class);
+        yield MenuItem::linkToCrud('Log', '', LogEntry::class);
         yield MenuItem::subMenu('Mail templates', null)
             ->setSubItems([
                 MenuItem::linkToCrud('Mail templates', '', MailTemplate::class),
