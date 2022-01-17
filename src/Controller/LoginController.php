@@ -31,12 +31,7 @@ class LoginController extends AbstractController
      */
     public function index(Request $request, SessionInterface $session): Response
     {
-        // Get authentication provider from cookie.
-        $authenticationProviderCookieName = 'authentication_provider';
         $authenticationProvider = null;
-        if (null === $request->get('reset-authentication-provider')) {
-            $authenticationProvider = $request->cookies->get($authenticationProviderCookieName);
-        }
 
         // Look for authentication provider (aliased to "role") in query string.
         if (null !== $request->query->has('role')) {
@@ -52,6 +47,14 @@ class LoginController extends AbstractController
                     parse_str($queryString, $targetQuery);
                     $authenticationProvider = $targetQuery['role'] ?? null;
                 }
+            }
+        }
+
+        // Get authentication provider from cookie.
+        if (null === $authenticationProvider) {
+            $authenticationProviderCookieName = 'authentication_provider';
+            if (null === $request->get('reset-authentication-provider')) {
+                $authenticationProvider = $request->cookies->get($authenticationProviderCookieName);
             }
         }
 
