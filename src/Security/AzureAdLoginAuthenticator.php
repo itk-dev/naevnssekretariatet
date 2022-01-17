@@ -88,7 +88,7 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
         $boardMember = $this->boardMemberRepository->findOneBy(['cpr' => $cpr]);
         if (null === $boardMember) {
             // Show a message to the user.
-            $message = $this->translator->trans('Access denied');
+            $message = $this->translator->trans('Access denied', [], 'login');
             try {
                 $request->getSession()->getFlashBag()->add('danger', $message);
             } catch (\Exception $exception) {

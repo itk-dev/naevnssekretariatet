@@ -9,13 +9,21 @@
         <source>Login</source>
         <target state="translated">Log ind</target>
       </trans-unit>
-      <trans-unit id="zdU6ls5" resname="open_id_connect.login_provider.admin">
+      <trans-unit id="1IbyQx6" resname="open_id_connect.login_provider.admin">
         <source>open_id_connect.login_provider.admin</source>
         <target state="translated">Administrator</target>
       </trans-unit>
-      <trans-unit id="4JJwX.1" resname="open_id_connect.login_provider.board-member">
+      <trans-unit id="Vjg6OYg" resname="open_id_connect.login_provider.board-member">
         <source>open_id_connect.login_provider.board-member</source>
         <target state="translated">Nævnsmedlem</target>
+      </trans-unit>
+      <trans-unit id="l0utA0_" resname="Remember my choice">
+        <source>Remember my choice</source>
+        <target state="translated">Husk mit valg</target>
+      </trans-unit>
+      <trans-unit id="zBHUFdk" resname="Access denied">
+        <source>Access denied</source>
+        <target state="translated">Adgang nægtet</target>
       </trans-unit>
     </body>
   </file>

@@ -62,8 +62,9 @@ class LoginController extends AbstractController
 
         $formBuilder = $this->createFormBuilder();
         foreach ($this->providerManager->getProviderKeys() as $key) {
+            $name = 'open_id_connect.login_provider.'.$key;
             $formBuilder->add('provider_'.$key, SubmitType::class, [
-                'label' => new TranslatableMessage('open_id_connect.login_provider.'.$key, [], 'login'),
+                'label' => new TranslatableMessage($name, [], 'login'),
             ]);
         }
         $form = $formBuilder
