@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'search' %}
+
+{% block title %}{% trans %}Search{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Search{% endtrans %}</h1>
+            <p class="text-muted"><small>{% trans %}Your search yielded the following results:{% endtrans %}</small></p>
+        </div>
+    </div>
+{% endblock %}
