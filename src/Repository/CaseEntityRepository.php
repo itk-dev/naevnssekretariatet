@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Board;
 use App\Entity\CaseEntity;
+use App\Entity\Municipality;
 use App\Entity\User;
 use App\Service\AgendaStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -67,12 +68,14 @@ class CaseEntityRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findCountOfCasesWithUserAndWithActiveAgenda(User $user)
+    public function findCountOfCasesWithUserAndMunicipalityAndWithActiveAgenda(Municipality $municipality, User $user)
     {
         $qb = $this->createQueryBuilder('c');
 
         $qb->select('count(c.id)')
-            ->where('c.assignedTo = :user')
+            ->where('c.municipality = :municipality')
+            ->setParameter('municipality', $municipality->getId()->toBinary())
+            ->andWhere('c.assignedTo = :user')
             ->setParameter('user', $user->getId()->toBinary())
             ->leftJoin('c.agendaCaseItems', 'aci')
             ->join('aci.agenda', 'a')
@@ -83,12 +86,14 @@ class CaseEntityRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findCountOfCasesWithUserAndSomeExceededDeadline(User $user)
+    public function findCountOfCasesWithUserAndMunicipalityAndSomeExceededDeadline(Municipality $municipality, User $user)
     {
         $qb = $this->createQueryBuilder('c');
 
         $qb->select('count(c.id)')
-            ->where('c.assignedTo = :user')
+            ->where('c.municipality = :municipality')
+            ->setParameter('municipality', $municipality->getId()->toBinary())
+            ->andWhere('c.assignedTo = :user')
             ->setParameter('user', $user->getId()->toBinary())
             ->andWhere('c.hasReachedHearingDeadline = :isExceeded OR c.hasReachedProcessingDeadline = :isExceeded')
             ->setParameter('isExceeded', true)

@@ -20,14 +20,14 @@ class DashboardHelper
     {
         $gridInformation = [];
 
-        $gridInformation[] = $this->getUserColumnCaseInformation($user);
+        $gridInformation[] = $this->getUserColumnCaseInformation($municipality, $user);
 
         $gridInformation = array_merge($gridInformation, $this->getBoardsColumnCaseInformation($municipality));
 
         return $gridInformation;
     }
 
-    private function getUserColumnCaseInformation(User $user): array
+    private function getUserColumnCaseInformation(Municipality $municipality, User $user): array
     {
         // Construct the filter urls and do the counts
         // In hearing
@@ -37,7 +37,7 @@ class DashboardHelper
         ]]);
 
         // TODO: Update beneath when hearing stuff has been implemented
-        $hearingCount = $this->caseRepository->count(['assignedTo' => $user]);
+        $hearingCount = $this->caseRepository->count(['assignedTo' => $user, 'municipality' => $municipality]);
 
         $hearingData = [
             'label' => $this->translator->trans('Hearing in progress', [], 'dashboard'),
@@ -53,7 +53,7 @@ class DashboardHelper
         ]]);
 
         // TODO: Update beneath when hearing stuff has been implemented
-        $newPartySubmissionCount = $this->caseRepository->count(['assignedTo' => $user]);
+        $newPartySubmissionCount = $this->caseRepository->count(['assignedTo' => $user, 'municipality' => $municipality]);
 
         $newPartySubmissionData = [
             'label' => $this->translator->trans('New post', [], 'dashboard'),
@@ -68,7 +68,7 @@ class DashboardHelper
             'specialStateFilter' => CaseSpecialFilterStatuses::ON_AGENDA,
         ]]);
 
-        $agendaCount = $this->caseRepository->findCountOfCasesWithUserAndWithActiveAgenda($user);
+        $agendaCount = $this->caseRepository->findCountOfCasesWithUserAndMunicipalityAndWithActiveAgenda($municipality, $user);
 
         $agendaData = [
             'label' => $this->translator->trans('On agenda', [], 'dashboard'),
@@ -83,7 +83,7 @@ class DashboardHelper
             'deadlines' => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
         ]]);
 
-        $exceededDeadlineCount = $this->caseRepository->findCountOfCasesWithUserAndSomeExceededDeadline($user);
+        $exceededDeadlineCount = $this->caseRepository->findCountOfCasesWithUserAndMunicipalityAndSomeExceededDeadline($municipality, $user);
 
         $exceededDeadlineData = [
             'label' => $this->translator->trans('Deadline reached', [], 'dashboard'),
