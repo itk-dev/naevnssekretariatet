@@ -9,10 +9,6 @@
         <source>Search</source>
         <target>Søg</target>
       </trans-unit>
-      <trans-unit id="NCDwMG1" resname="search_no_results">
-        <source>search_no_results</source>
-        <target>Søgning på {searchTerm} gav ingen resultater.</target>
-      </trans-unit>
       <trans-unit id="6XiwDeR" resname="Search results">
         <source>Search results</source>
         <target>Søgeresultater</target>
@@ -20,6 +16,10 @@
       <trans-unit id="EFMlZtd" resname="You can search for case number, address or parts of an address.">
         <source>You can search for case number, address or parts of an address.</source>
         <target>Der kan søges på sagsnummer, adresse eller dele af en adresse.</target>
+      </trans-unit>
+      <trans-unit id="HUB_uls" resname="No results for %search%">
+        <source>No results for %search%</source>
+        <target>Søgning på: {searchTerm}, gav ingen resultater.</target>
       </trans-unit>
     </body>
   </file>

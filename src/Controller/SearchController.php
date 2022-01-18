@@ -22,7 +22,7 @@ class SearchController extends AbstractController
         $qb = $caseRepository->createQueryBuilder('c');
 
         $fieldMatches = $searchService->getFieldMatches($search);
-        if (sizeof($fieldMatches) > 0) {
+        if (count($fieldMatches) > 0) {
             $qb = $searchService->applyFieldSearch($qb, $fieldMatches);
         }
 
