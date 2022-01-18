@@ -134,6 +134,26 @@ bin/console itk-dev:openid-connect:login --help
 
 for details. Be aware that a login url will only work once.
 
+## Authentication providers
+
+A user can sign in as “administrator” or “board member”, and on the login page,
+`/login`, buttons for choosing authentication methods are shown.
+
+### Request authentication type in url
+
+A specific authentication provider can be requested via the `role` query
+parameter in a url, i.e. if the url
+`/case/7e62b7b8-2083-415c-8ddb-0ad9b5ed3d27/communication?role=board-member` is
+accessed then the user must authenticate as a board member (if not already
+authenticated).
+
+The following roles and, hence, authentication providers can be requested:
+
+| role         | authentication provider |
+|--------------|-------------------------|
+| admin        | administrator           |
+| board-member | board member            |
+
 ## Running the tests
 
 See the [TESTING.md](docs/TESTING.md) documentation for more information.

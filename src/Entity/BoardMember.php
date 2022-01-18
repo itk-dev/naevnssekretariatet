@@ -6,10 +6,12 @@ use App\Repository\BoardMemberRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=BoardMemberRepository::class)
+ * @UniqueEntity(fields={"cpr"})
  */
 class BoardMember
 {
@@ -44,6 +46,11 @@ class BoardMember
      * @ORM\JoinColumn(nullable=false)
      */
     private $municipality;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $cpr;
 
     public function __construct()
     {
@@ -161,6 +168,18 @@ class BoardMember
     public function setMunicipality(?Municipality $municipality): self
     {
         $this->municipality = $municipality;
+
+        return $this;
+    }
+
+    public function getCpr(): ?string
+    {
+        return $this->cpr;
+    }
+
+    public function setCpr(string $cpr): self
+    {
+        $this->cpr = $cpr;
 
         return $this;
     }

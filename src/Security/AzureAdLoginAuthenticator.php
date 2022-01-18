@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Repository\BoardMemberRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use ItkDev\OpenIdConnectBundle\Security\OpenIdConfigurationProviderManager;
@@ -14,30 +15,19 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $router;
+    use TargetPathTrait;
 
-    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository, OpenIdConfigurationProviderManager $providerManager, SessionInterface $session, UrlGeneratorInterface $router, int $leeway = 0)
+    public function __construct(private EntityManagerInterface $entityManager, private UserRepository $userRepository, private OpenIdConfigurationProviderManager $providerManager, private SessionInterface $session, private UrlGeneratorInterface $router, private BoardMemberRepository $boardMemberRepository, private TranslatorInterface $translator, int $leeway = 0)
     {
-        $this->entityManager = $entityManager;
-        $this->userRepository = $userRepository;
-        $this->router = $router;
         parent::__construct($providerManager, $session, $leeway);
     }
 
@@ -45,16 +35,26 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
     {
         $claims = $this->getClaims($request);
 
+        $providerKey = $claims['open_id_connect_provider'] ?? null;
+        switch ($providerKey) {
+            case 'admin':
+                return $this->getAdminUser($claims);
+
+            case 'board-member':
+                return $this->getBoardMemberUser($claims, $request);
+        }
+
+        throw new \RuntimeException(sprintf('Invalid open id connect provider: %s', $providerKey));
+    }
+
+    private function getAdminUser(array $claims)
+    {
         $name = $claims['name'];
         $email = $claims['upn'];
-        $roles = $claims['role'];
+        $roles = $claims['role'] ?? [];
 
-        //Check if user exists already - if not create a user
-        $user = $this->userRepository->findOneBy(['email' => $email]);
-        if (null === $user) {
-            // Create the new user
-            $user = new User();
-        }
+        // Check if user exists already or create a new user
+        $user = $this->userRepository->findOneBy(['email' => $email]) ?? new User();
 
         // Associative array mapping AD roles to system roles
         $roleArrayAssociative = [
@@ -82,13 +82,50 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
         return new SelfValidatingPassport(new UserBadge($user->getUserIdentifier()));
     }
 
+    private function getBoardMemberUser(array $claims, Request $request)
+    {
+        $cpr = $claims['cpr'] ?? null;
+        $boardMember = $this->boardMemberRepository->findOneBy(['cpr' => $cpr]);
+        if (null === $boardMember) {
+            // Show a message to the user.
+            $message = $this->translator->trans('Access denied', [], 'login');
+            try {
+                $request->getSession()->getFlashBag()->add('danger', $message);
+            } catch (\Exception $exception) {
+            }
+            // @todo Log this?
+            throw new CustomUserMessageAuthenticationException($message);
+        }
+
+        $name = $claims['name'];
+        $email = $claims['cpr'].'@cpr.example.com';
+        $roles = ['ROLE_BOARD_MEMBER'];
+
+        // Check if user exists already or create a new user
+        $user = $this->userRepository->findOneBy(['email' => $email]) ?? new User();
+
+        // Update/set names here
+        $user->setName($name);
+        $user->setEmail($email);
+        $user->setRoles($roles);
+
+        // persist and flush user to database
+        // If no change persist will recognize this
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        return new SelfValidatingPassport(new UserBadge($user->getUserIdentifier()));
+    }
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        return new RedirectResponse($this->router->generate('default'));
+        $targetUrl = $this->getTargetPath($request->getSession(), $firewallName) ?? $this->router->generate('default');
+
+        return new RedirectResponse($targetUrl);
     }
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        return new RedirectResponse($this->router->generate('itkdev_openid_connect_login', ['providerKey' => 'admin']));
+        return new RedirectResponse($this->router->generate('login'));
     }
 }
