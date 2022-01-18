@@ -26,6 +26,14 @@ class SearchController extends AbstractController
             $qb = $searchService->applyFieldSearch($qb, $fieldMatches);
         }
 
+        $qb->orWhere('c.sortingAddress LIKE :search');
+        $qb->setParameter(':search', '%'.$search.'%');
+
+
+        // Add sortable fields.
+        $qb->leftJoin('c.complaintCategory', 'complaintCategory');
+        $qb->addSelect('partial complaintCategory.{id,name}');
+
         $query = $qb->getQuery();
 
         $pagination = $paginator->paginate(
@@ -33,6 +41,8 @@ class SearchController extends AbstractController
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
+
+        $pagination->setCustomParameters(['align' => 'center']);
 
         return $this->render('search/index.html.twig', [
             'pagination' => $pagination,
