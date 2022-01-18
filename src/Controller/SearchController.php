@@ -7,6 +7,7 @@ use App\Service\SearchService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends AbstractController
@@ -14,14 +15,13 @@ class SearchController extends AbstractController
     /**
      * @Route("/search", name="search")
      */
-    public function index(CaseEntityRepository $caseRepository, PaginatorInterface $paginator, Request $request, SearchService $searchService)
+    public function index(CaseEntityRepository $caseRepository, PaginatorInterface $paginator, Request $request, SearchService $searchService): Response
     {
         $search = $request->query->get('search');
 
         $qb = $caseRepository->createQueryBuilder('c');
 
         $fieldMatches = $searchService->getFieldMatches($search);
-
         if (sizeof($fieldMatches) > 0) {
             $qb = $searchService->applyFieldSearch($qb, $fieldMatches);
         }
@@ -29,15 +29,12 @@ class SearchController extends AbstractController
         $qb->orWhere('c.sortingAddress LIKE :search');
         $qb->setParameter(':search', '%'.$search.'%');
 
-
         // Add sortable fields.
         $qb->leftJoin('c.complaintCategory', 'complaintCategory');
         $qb->addSelect('partial complaintCategory.{id,name}');
 
-        $query = $qb->getQuery();
-
         $pagination = $paginator->paginate(
-            $query, /* query NOT result */
+            $qb->getQuery(), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );

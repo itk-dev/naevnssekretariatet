@@ -6,8 +6,9 @@ use Doctrine\ORM\QueryBuilder;
 
 class SearchService
 {
-    public function getFieldMatches(string $search)
+    public function getFieldMatches(string $search): array
     {
+        // Match case number with or without a dash after first two digits
         preg_match('/^\d{2}-?\d{6}$/', $search, $caseNumberMatches);
 
         $result = [];
@@ -28,8 +29,8 @@ class SearchService
     public function applyFieldSearch(QueryBuilder $queryBuilder, array $matches): QueryBuilder
     {
         if (isset($matches['caseNumber'])) {
-            $queryBuilder->orWhere('c.caseNumber = :search_case_number_alternative');
-            $queryBuilder->setParameter(':search_case_number_alternative', $matches['caseNumber']);
+            $queryBuilder->orWhere('c.caseNumber = :search_case_number');
+            $queryBuilder->setParameter(':search_case_number', $matches['caseNumber']);
         }
 
         return $queryBuilder;
