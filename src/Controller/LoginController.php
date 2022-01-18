@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Translation\TranslatableMessage;
@@ -19,11 +20,16 @@ class LoginController extends AbstractController
 {
     use TargetPathTrait;
 
-    private OpenIdConfigurationProviderManager $providerManager;
+    private string $authenticationProviderCookieName = 'default_authentication_provider';
 
-    public function __construct(OpenIdConfigurationProviderManager $providerManager)
+    private array $options;
+
+    public function __construct(private OpenIdConfigurationProviderManager $providerManager, array $loginControllerOptions)
     {
-        $this->providerManager = $providerManager;
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+
+        $this->options = $resolver->resolve($loginControllerOptions);
     }
 
     /**
@@ -31,31 +37,9 @@ class LoginController extends AbstractController
      */
     public function index(Request $request, SessionInterface $session): Response
     {
-        $authenticationProvider = null;
-
-        // Look for authentication provider (aliased to "role") in query string.
-        if (null !== $request->query->has('role')) {
-            $authenticationProvider = $request->query->get('role');
-        }
-
-        // Look for authentication provider (aliased to "role") in target path query string.
-        if (null === $authenticationProvider) {
-            $targetPath = $this->getTargetPath($request->getSession(), 'main');
-            if (null !== $targetPath) {
-                $queryString = parse_url($targetPath, PHP_URL_QUERY);
-                if (null !== $queryString) {
-                    parse_str($queryString, $targetQuery);
-                    $authenticationProvider = $targetQuery['role'] ?? null;
-                }
-            }
-        }
-
-        // Get authentication provider from cookie.
-        if (null === $authenticationProvider) {
-            $authenticationProviderCookieName = 'authentication_provider';
-            if (null === $request->get('reset-authentication-provider')) {
-                $authenticationProvider = $request->cookies->get($authenticationProviderCookieName);
-            }
+        $authenticationProviderKey = $this->getAuthenticationProviderKey($request);
+        if (null !== $authenticationProviderKey && $this->isValidAuthenticationProvider($authenticationProviderKey)) {
+            return $this->redirectToAuthenticationProvider($authenticationProviderKey);
         }
 
         $rememberProvider = false;
@@ -79,29 +63,97 @@ class LoginController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             foreach ($this->providerManager->getProviderKeys() as $key) {
                 if ($form->get('provider_'.$key)->isClicked()) {
-                    $authenticationProvider = $key;
+                    $authenticationProviderKey = $key;
                     break;
                 }
             }
             $rememberProvider = $form->get('remember_provider')->getData();
         }
 
-        if (null !== $authenticationProvider) {
-            try {
-                $this->providerManager->getProvider($authenticationProvider);
-                $response = $this->redirectToRoute('itkdev_openid_connect_login',
-                    ['providerKey' => $authenticationProvider]);
-                if ($rememberProvider) {
-                    $response->headers->setCookie(new Cookie($authenticationProviderCookieName, $authenticationProvider, new \DateTimeImmutable('+1 month')));
-                }
-
-                return $response;
-            } catch (InvalidProviderException $invalidProviderException) {
+        if (null !== $authenticationProviderKey && $this->isValidAuthenticationProvider($authenticationProviderKey)) {
+            $response = $this->redirectToAuthenticationProvider($authenticationProviderKey);
+            if ($rememberProvider) {
+                $response->headers->setCookie(new Cookie(
+                    $this->authenticationProviderCookieName,
+                    $authenticationProviderKey,
+                    new \DateTimeImmutable($this->options['cookie_end_time'])
+                ));
             }
+
+            return $response;
         }
 
+        // No valid authentication provider found in request. Let the user pick one.
         return $this->renderForm('login/index.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    private function redirectToAuthenticationProvider(string $key): Response
+    {
+        return $this->redirectToRoute('itkdev_openid_connect_login', ['providerKey' => $key]);
+    }
+
+    /**
+     * Get authentication provider key from request.
+     */
+    private function getAuthenticationProviderKey(Request $request): ?string
+    {
+        // Look for authentication provider (aliased to "role") in query string.
+        if ($request->query->has('role')) {
+            return $request->query->get('role');
+        }
+
+        // Look for authentication provider (aliased to "role") in target path query string.
+        $targetPath = $this->getTargetPath($request->getSession(), $this->options['firewall_name']);
+        if (null !== $targetPath) {
+            $queryString = parse_url($targetPath, PHP_URL_QUERY);
+            if (null !== $queryString) {
+                parse_str($queryString, $targetQuery);
+
+                return $targetQuery['role'] ?? null;
+            }
+        }
+
+        // Get authentication provider from cookie.
+        if (null === $request->get('reset-authentication-provider')) {
+            return $request->cookies->get($this->authenticationProviderCookieName);
+        }
+
+        // No provider key found.
+        return null;
+    }
+
+    /**
+     * Check if an OpenID configuration key is valid, i.e. if the provider exists.
+     */
+    private function isValidAuthenticationProvider(?string $key): bool
+    {
+        try {
+            $this->providerManager->getProvider($key ?? '');
+
+            return true;
+        } catch (InvalidProviderException $exception) {
+        }
+
+        return false;
+    }
+
+    private function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setRequired('firewall_name')
+            ->setAllowedTypes('firewall_name', 'string')
+            ->setRequired('cookie_end_time', 'string')
+            ->setAllowedValues('cookie_end_time', function ($value) {
+                try {
+                    new \DateTimeImmutable($value);
+
+                    return true;
+                } catch (\Exception $exception) {
+                    return false;
+                }
+            })
+        ;
     }
 }
