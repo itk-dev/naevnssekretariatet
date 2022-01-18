@@ -7,15 +7,19 @@
     <body>
       <trans-unit id="ScJmuqq" resname="Search">
         <source>Search</source>
-        <target>Søgning</target>
-      </trans-unit>
-      <trans-unit id="7xc8BDd" resname="Casenumber">
-        <source>Casenumber</source>
-        <target>Sagsnr</target>
+        <target>Søg</target>
       </trans-unit>
       <trans-unit id="NCDwMG1" resname="search_no_results">
         <source>search_no_results</source>
         <target>Søgning på {searchTerm} gav ingen resultater.</target>
+      </trans-unit>
+      <trans-unit id="6XiwDeR" resname="Search results">
+        <source>Search results</source>
+        <target>Søgeresultater</target>
+      </trans-unit>
+      <trans-unit id="EFMlZtd" resname="You can search for case number, address or parts of an address.">
+        <source>You can search for case number, address or parts of an address.</source>
+        <target>Der kan søges på sagsnummer, adresse eller dele af en adresse.</target>
       </trans-unit>
     </body>
   </file>
