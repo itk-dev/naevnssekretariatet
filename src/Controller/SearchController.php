@@ -21,15 +21,17 @@ class SearchController extends AbstractController
 
         $qb = $caseRepository->createQueryBuilder('c');
 
-        $fieldMatches = $searchService->getFieldMatches($search);
-        if (count($fieldMatches) > 0) {
-            $qb = $searchService->applyFieldSearch($qb, $fieldMatches);
+        if (null !== $search) {
+            $fieldMatches = $searchService->getFieldMatches($search);
+            if (count($fieldMatches) > 0) {
+                $qb = $searchService->applyFieldSearch($qb, $fieldMatches);
+            }
+
+            $escapedSearch = $searchService->escapeStringForLike($search, '\\');
+
+            $qb->orWhere('c.sortingAddress LIKE :search');
+            $qb->setParameter(':search', '%'.$escapedSearch.'%');
         }
-
-        $escapedSearch = $searchService->escapeStringForLike($search, '\\');
-
-        $qb->orWhere('c.sortingAddress LIKE :search');
-        $qb->setParameter(':search', '%'.$escapedSearch.'%');
 
         // Add sortable fields.
         $qb->leftJoin('c.complaintCategory', 'complaintCategory');

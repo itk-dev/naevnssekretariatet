@@ -2,10 +2,15 @@
 
 namespace App\Service;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 
 class SearchService
 {
+    public function __construct(private EntityManagerInterface $entityManager)
+    {
+    }
+
     /**
      * Get matches between fields and the search string.
      */
@@ -43,10 +48,6 @@ class SearchService
 
     public function escapeStringForLike(string $inputString, string $escapeChar): string
     {
-        return preg_replace(
-            '~(['.preg_quote('%_'.$escapeChar, '~').'])~u',
-            addcslashes($escapeChar, '\\').'$1',
-            $inputString
-        );
+        return $this->entityManager->getConnection()->getDatabasePlatform()->escapeStringForLike($inputString, $escapeChar);
     }
 }
