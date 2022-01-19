@@ -17,13 +17,9 @@
         <source>You can search for case number, address or parts of an address.</source>
         <target>Der kan søges på sagsnummer, adresse eller dele af en adresse.</target>
       </trans-unit>
-      <trans-unit id="HUB_uls" resname="No results for %search%">
-        <source>No results for %search%</source>
-        <target>Søgning på: {searchTerm}, gav ingen resultater.</target>
-      </trans-unit>
       <trans-unit id="4O3VUqP" resname="No results for %searchTerm%">
         <source>No results for %searchTerm%</source>
-        <target>Søgning på: {searchTerm}, gav ingen resultater.</target>
+        <target>Søgning på {searchTerm} gav ingen resultater.</target>
       </trans-unit>
     </body>
   </file>

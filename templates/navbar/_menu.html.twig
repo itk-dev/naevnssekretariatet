@@ -1,7 +1,7 @@
 {% trans_default_domain 'navbar' %}
 
 <form class="tvist1-search form-inline px-3 px-lg-0 my-2 my-lg-0 ml-lg-1 col" action="{{ path('search') }}">
-    <input class="form-control w-100 rounded form-control-sm ml-lg-2 mr-lg-1" type="search" placeholder="{{ 'Search'|trans({}, 'search') }}" name="search">
+    <input class="form-control w-100 rounded form-control-sm ml-lg-2 mr-lg-1" type="search" placeholder="{{ 'Search'|trans({}, 'search') }}" name="search" value="{{ app.request.get('search') }}">
 </form>
 <ul class="navbar-nav ml-auto px-3 px-lg-0 col-auto">
     <li class="nav-item dropdown">
