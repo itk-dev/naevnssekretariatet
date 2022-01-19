@@ -26,8 +26,10 @@ class SearchController extends AbstractController
             $qb = $searchService->applyFieldSearch($qb, $fieldMatches);
         }
 
+        $escapedSearch = $searchService->escapeStringForLike($search, '\\');
+
         $qb->orWhere('c.sortingAddress LIKE :search');
-        $qb->setParameter(':search', '%'.$search.'%');
+        $qb->setParameter(':search', '%'.$escapedSearch.'%' );
 
         // Add sortable fields.
         $qb->leftJoin('c.complaintCategory', 'complaintCategory');

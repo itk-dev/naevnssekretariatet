@@ -40,4 +40,13 @@ class SearchService
 
         return $queryBuilder;
     }
+
+    public function escapeStringForLike(string $inputString, string $escapeChar): string
+    {
+        return preg_replace(
+            '~([' . preg_quote('%_' . $escapeChar, '~') . '])~u',
+            addcslashes($escapeChar, '\\') . '$1',
+            $inputString
+        );
+    }
 }
