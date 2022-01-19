@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="fO9Nehv" resname="Add case to agenda">
+        <source>Add case to agenda</source>
+        <target>Add case to agenda</target>
+      </trans-unit>
+      <trans-unit id="bUeEpQr" resname="Is ready for agenda">
+        <source>Is ready for agenda</source>
+        <target>Is ready for agenda</target>
+      </trans-unit>
+      <trans-unit id="HwnSsUt" resname="Should be inspected">
+        <source>Should be inspected</source>
+        <target>Should be inspected</target>
+      </trans-unit>
+      <trans-unit id="KJ4vdJW" resname="Assign to">
+        <source>Assign to</source>
+        <target>Assign to</target>
+      </trans-unit>
+      <trans-unit id="3JN7WYk" resname="None">
+        <source>None</source>
+        <target>None</target>
+      </trans-unit>
+      <trans-unit id="SBbL.XS" resname="Board">
+        <source>Board</source>
+        <target>Board</target>
+      </trans-unit>
+      <trans-unit id="af_SUi6" resname="Choose a board">
+        <source>Choose a board</source>
+        <target>Choose a board</target>
+      </trans-unit>
+      <trans-unit id="e8e6PXM" resname="All boards">
+        <source>All boards</source>
+        <target>All boards</target>
+      </trans-unit>
+      <trans-unit id="juVzI6b" resname="All statuses">
+        <source>All statuses</source>
+        <target>All statuses</target>
+      </trans-unit>
+      <trans-unit id="MJfpZBl" resname="All caseworkers">
+        <source>All caseworkers</source>
+        <target>All caseworkers</target>
+      </trans-unit>
+      <trans-unit id="0JjH21z" resname="Exceeded hearing deadline">
+        <source>Exceeded hearing deadline</source>
+        <target>Exceeded hearing deadline</target>
+      </trans-unit>
+      <trans-unit id="NHNorz5" resname="Exceeded processing deadline">
+        <source>Exceeded processing deadline</source>
+        <target>Exceeded processing deadline</target>
+      </trans-unit>
+      <trans-unit id="artpS9S" resname="Some deadline exceeded">
+        <source>Some deadline exceeded</source>
+        <target>Some deadline exceeded</target>
+      </trans-unit>
+      <trans-unit id="eOHlIKW" resname="Both deadlines exceeded">
+        <source>Both deadlines exceeded</source>
+        <target>Both deadlines exceeded</target>
+      </trans-unit>
+      <trans-unit id="en4Z_eY" resname="No exceeded deadlines">
+        <source>No exceeded deadlines</source>
+        <target>No exceeded deadlines</target>
+      </trans-unit>
+      <trans-unit id="wPtiqm7" resname="Select deadline filter">
+        <source>Select deadline filter</source>
+        <target>Select deadline filter</target>
+      </trans-unit>
+      <trans-unit id="dGbMvEJ" resname="In hearing">
+        <source>In hearing</source>
+        <target>In hearing</target>
+      </trans-unit>
+      <trans-unit id="LEzdT8C" resname="New hearing post">
+        <source>New hearing post</source>
+        <target>New hearing post</target>
+      </trans-unit>
+      <trans-unit id="xdGur.z" resname="On agenda">
+        <source>On agenda</source>
+        <target>On agenda</target>
+      </trans-unit>
+      <trans-unit id="MZpZNtI" resname="Select a special filter">
+        <source>Select a special filter</source>
+        <target>Select a special filter</target>
+      </trans-unit>
+      <trans-unit id="AQx0Y8J" resname="Reschedule to">
+        <source>Reschedule to</source>
+        <target>Reschedule to</target>
+      </trans-unit>
+      <trans-unit id="Ed8eDPL" resname="Change case status">
+        <source>Change case status</source>
+        <target>Change case status</target>
+      </trans-unit>
+      <trans-unit id="Txox_es" resname="Choose new case status">
+        <source>Choose new case status</source>
+        <target>Choose new case status</target>
+      </trans-unit>
+      <trans-unit id="rfb6h3u" resname="Change status">
+        <source>Change status</source>
+        <target>Change status</target>
+      </trans-unit>
+      <trans-unit id="1LKCjo7" resname="Complainant">
+        <source>Complainant</source>
+        <target>Complainant</target>
+      </trans-unit>
+      <trans-unit id="PKHq5DQ" resname="Complainant CPR">
+        <source>Complainant CPR</source>
+        <target>Complainant CPR</target>
+      </trans-unit>
+      <trans-unit id="10nq6fg" resname="Complainant address">
+        <source>Complainant address</source>
+        <target>Complainant address</target>
+      </trans-unit>
+      <trans-unit id="xGEOv7m" resname="Look up complainant address">
+        <source>Look up complainant address</source>
+        <target>Look up complainant address</target>
+      </trans-unit>
+      <trans-unit id="bpOcnZE" resname="Look up an address to fill out the address fields">
+        <source>Look up an address to fill out the address fields</source>
+        <target>Look up an address to fill out the address fields</target>
+      </trans-unit>
+      <trans-unit id="sFKfeQz" resname="Complainant cadastral number">
+        <source>Complainant cadastral number</source>
+        <target>Complainant cadastral number</target>
+      </trans-unit>
+      <trans-unit id="UcF5Wrz" resname="Accused">
+        <source>Accused</source>
+        <target>Accused</target>
+      </trans-unit>
+      <trans-unit id="11NLkDY" resname="Accused CPR">
+        <source>Accused CPR</source>
+        <target>Accused CPR</target>
+      </trans-unit>
+      <trans-unit id="C.aUTDz" resname="Accused address">
+        <source>Accused address</source>
+        <target>Accused address</target>
+      </trans-unit>
+      <trans-unit id="OXJnOSy" resname="Look up accused address">
+        <source>Look up accused address</source>
+        <target>Look up accused address</target>
+      </trans-unit>
+      <trans-unit id="XRZYp7m" resname="Accused cadastral number">
+        <source>Accused cadastral number</source>
+        <target>Accused cadastral number</target>
+      </trans-unit>
+      <trans-unit id="SaPHHYy" resname="Complaint category">
+        <source>Complaint category</source>
+        <target>Complaint category</target>
+      </trans-unit>
+      <trans-unit id="Xzo8ESE" resname="Select a complaint category">
+        <source>Select a complaint category</source>
+        <target>Select a complaint category</target>
+      </trans-unit>
+      <trans-unit id="l9S_iWB" resname="Conditions">
+        <source>Conditions</source>
+        <target>Conditions</target>
+      </trans-unit>
+      <trans-unit id="TKQdsCg" resname="Claim">
+        <source>Claim</source>
+        <target>Claim</target>
+      </trans-unit>
+      <trans-unit id="j1Jgg.v" resname="Complainant phone">
+        <source>Complainant phone</source>
+        <target>Complainant phone</target>
+      </trans-unit>
+      <trans-unit id="kovWgmq" resname="Has vacated">
+        <source>Has vacated</source>
+        <target>Has vacated</target>
+      </trans-unit>
+      <trans-unit id="yB1Z2So" resname="Lease address">
+        <source>Lease address</source>
+        <target>Lease address</target>
+      </trans-unit>
+      <trans-unit id=".oSQrHa" resname="Look up lease address">
+        <source>Look up lease address</source>
+        <target>Look up lease address</target>
+      </trans-unit>
+      <trans-unit id="9p.SY0Z" resname="Big">
+        <source>Big</source>
+        <target>Big</target>
+      </trans-unit>
+      <trans-unit id="UmMpP8I" resname="Small">
+        <source>Small</source>
+        <target>Small</target>
+      </trans-unit>
+      <trans-unit id="QYuwoY." resname="Lease type">
+        <source>Lease type</source>
+        <target>Lease type</target>
+      </trans-unit>
+      <trans-unit id="d5H6QKn" resname="Fee paid">
+        <source>Fee paid</source>
+        <target>Fee paid</target>
+      </trans-unit>
+      <trans-unit id="E0wfEXl" resname="Lease started">
+        <source>Lease started</source>
+        <target>Lease started</target>
+      </trans-unit>
+      <trans-unit id="Zixr61X" resname="Lease size">
+        <source>Lease size</source>
+        <target>Lease size</target>
+      </trans-unit>
+      <trans-unit id="eZjS.J3" resname="Lease agreed rent">
+        <source>Lease agreed rent</source>
+        <target>Lease agreed rent</target>
+      </trans-unit>
+      <trans-unit id="4jlp0oT" resname="Tenant">
+        <source>Tenant</source>
+        <target>Tenant</target>
+      </trans-unit>
+      <trans-unit id="OAd9aCc" resname="Landlord">
+        <source>Landlord</source>
+        <target>Landlord</target>
+      </trans-unit>
+      <trans-unit id="mbYOen8" resname="Lease interior maintenance">
+        <source>Lease interior maintenance</source>
+        <target>Lease interior maintenance</target>
+      </trans-unit>
+      <trans-unit id="jMggxed" resname="Lease regulated rent">
+        <source>Lease regulated rent</source>
+        <target>Lease regulated rent</target>
+      </trans-unit>
+      <trans-unit id="qZHakmv" resname="Lease rent at collection time">
+        <source>Lease rent at collection time</source>
+        <target>Lease rent at collection time</target>
+      </trans-unit>
+      <trans-unit id="Ytf808U" resname="Lease security deposit">
+        <source>Lease security deposit</source>
+        <target>Lease security deposit</target>
+      </trans-unit>
+      <trans-unit id="v4RVEgs" resname="Prepaid rent">
+        <source>Prepaid rent</source>
+        <target>Prepaid rent</target>
+      </trans-unit>
+      <trans-unit id="WsxYcLd" resname="Cannot get url for BBR-Meddelelse">
+        <source>Cannot get url for BBR-Meddelelse</source>
+        <target>Cannot get url for BBR-Meddelelse</target>
+      </trans-unit>
+      <trans-unit id="VaveQB2" resname="BBR data updated">
+        <source>BBR data updated</source>
+        <target>BBR data updated</target>
+      </trans-unit>
+      <trans-unit id="mzHh8j0" resname="Cannot update BBR data">
+        <source>Cannot update BBR data</source>
+        <target>Cannot update BBR data</target>
+      </trans-unit>
+      <trans-unit id="ZLjpBRI" resname="Process deadline updated!">
+        <source>Process deadline updated!</source>
+        <target>Process deadline updated!</target>
+      </trans-unit>
+      <trans-unit id="lDAfL6A" resname="Hearing deadline updated!">
+        <source>Hearing deadline updated!</source>
+        <target>Hearing deadline updated!</target>
+      </trans-unit>
+      <trans-unit id="bmiw4cB" resname="Address validated">
+        <source>Address validated</source>
+        <target>Address validated</target>
+      </trans-unit>
+      <trans-unit id="TJu1Sbp" resname="Invalid address">
+        <source>Invalid address</source>
+        <target>Invalid address</target>
+      </trans-unit>
+      <trans-unit id="PKqe.03" resname="Error validating address">
+        <source>Error validating address</source>
+        <target>Error validating address</target>
+      </trans-unit>
+      <trans-unit id="oi4LH8P" resname="Road">
+        <source>Road</source>
+        <target>Road</target>
+      </trans-unit>
+      <trans-unit id="vYLPFmm" resname="Number">
+        <source>Number</source>
+        <target>Number</target>
+      </trans-unit>
+      <trans-unit id="0mjJxEk" resname="Floor">
+        <source>Floor</source>
+        <target>Floor</target>
+      </trans-unit>
+      <trans-unit id="Yw7wC3x" resname="Side">
+        <source>Side</source>
+        <target>Side</target>
+      </trans-unit>
+      <trans-unit id="rlPOqCK" resname="Postal code">
+        <source>Postal code</source>
+        <target>Postal code</target>
+      </trans-unit>
+      <trans-unit id=".DP3Mkb" resname="City">
+        <source>City</source>
+        <target>City</target>
+      </trans-unit>
+      <trans-unit id="QGEau92" resname="Validate">
+        <source>Validate</source>
+        <target>Validate</target>
+      </trans-unit>
+      <trans-unit id="r3KyctU" resname="Address validated at {validation_time}">
+        <source>Address validated at {validation_time}</source>
+        <target>Address validated at {validation_time}</target>
+      </trans-unit>
+      <trans-unit id="qDPO.Vd" resname="Assign caseworker">
+        <source>Assign caseworker</source>
+        <target>Assign caseworker</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target>Close</target>
+      </trans-unit>
+      <trans-unit id="haOas0X" resname="Yes">
+        <source>Yes</source>
+        <target>Yes</target>
+      </trans-unit>
+      <trans-unit id="HqRCoTS" resname="No">
+        <source>No</source>
+        <target>No</target>
+      </trans-unit>
+      <trans-unit id="uxzWi9s" resname="Interior maintenance">
+        <source>Interior maintenance</source>
+        <target>Interior maintenance</target>
+      </trans-unit>
+      <trans-unit id="1LHqVwj" resname="Overview">
+        <source>Overview</source>
+        <target>Overview</target>
+      </trans-unit>
+      <trans-unit id="p4np4F7" resname="Lease">
+        <source>Lease</source>
+        <target>Lease</target>
+      </trans-unit>
+      <trans-unit id="f6wAbuN" resname="Complainant name">
+        <source>Complainant name</source>
+        <target>Complainant name</target>
+      </trans-unit>
+      <trans-unit id="MAUEDTa" resname="Telephone number">
+        <source>Telephone number</source>
+        <target>Telephone number</target>
+      </trans-unit>
+      <trans-unit id="WQvNeqY" resname="CPR number">
+        <source>CPR number</source>
+        <target>CPR number</target>
+      </trans-unit>
+      <trans-unit id="1gLIib9" resname="Validate CPR number">
+        <source>Validate CPR number</source>
+        <target>Validate CPR number</target>
+      </trans-unit>
+      <trans-unit id="jzfGRUD" resname="Case specifics">
+        <source>Case specifics</source>
+        <target>Case specifics</target>
+      </trans-unit>
+      <trans-unit id=".UpoVLi" resname="Complaint fee in DKK">
+        <source>Complaint fee in DKK</source>
+        <target>Complaint fee in DKK</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Address</target>
+      </trans-unit>
+      <trans-unit id="4DKtL_b" resname="BBR information">
+        <source>BBR information</source>
+        <target>BBR information</target>
+      </trans-unit>
+      <trans-unit id="0wrwWpM" resname="Enhedens boligareal">
+        <source>Enhedens boligareal</source>
+        <target>Enhedens boligareal</target>
+      </trans-unit>
+      <trans-unit id="Ip9lO2r" resname="Antal værelser">
+        <source>Antal værelser</source>
+        <target>Antal værelser</target>
+      </trans-unit>
+      <trans-unit id="1teybSj" resname="Bygningsnr.">
+        <source>Bygningsnr.</source>
+        <target>Bygningsnr.</target>
+      </trans-unit>
+      <trans-unit id="uyKNGnD" resname="Opførelsesår">
+        <source>Opførelsesår</source>
+        <target>Opførelsesår</target>
+      </trans-unit>
+      <trans-unit id="A5AS.gf" resname="Lejligheder med køkken">
+        <source>Lejligheder med køkken</source>
+        <target>Lejligheder med køkken</target>
+      </trans-unit>
+      <trans-unit id="_mEYMv5" resname="No BBR data">
+        <source>No BBR data</source>
+        <target>No BBR data</target>
+      </trans-unit>
+      <trans-unit id="do5djkp" resname="Show BBR-Meddelelse for lease (PDF)">
+        <source>Show BBR-Meddelelse for lease (PDF)</source>
+        <target>Show BBR-Meddelelse for lease (PDF)</target>
+      </trans-unit>
+      <trans-unit id="N6NcuQL" resname="Update BBR data">
+        <source>Update BBR data</source>
+        <target>Update BBR data</target>
+      </trans-unit>
+      <trans-unit id="rzUPz9i" resname="Lease information">
+        <source>Lease information</source>
+        <target>Lease information</target>
+      </trans-unit>
+      <trans-unit id="8CaMuRA" resname="Rent">
+        <source>Rent</source>
+        <target>Rent</target>
+      </trans-unit>
+      <trans-unit id=".oMLsMh" resname="Agreed rent">
+        <source>Agreed rent</source>
+        <target>Agreed rent</target>
+      </trans-unit>
+      <trans-unit id="bVY20B1" resname="Regulated rent">
+        <source>Regulated rent</source>
+        <target>Regulated rent</target>
+      </trans-unit>
+      <trans-unit id="R1v4ZeU" resname="Rent at collection time">
+        <source>Rent at collection time</source>
+        <target>Rent at collection time</target>
+      </trans-unit>
+      <trans-unit id="TdAyql4" resname="Security deposit">
+        <source>Security deposit</source>
+        <target>Security deposit</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="sqSFiwS" resname="Party type">
+        <source>Party type</source>
+        <target>Party type</target>
+      </trans-unit>
+      <trans-unit id="9gcREM5" resname="Journal number">
+        <source>Journal number</source>
+        <target>Journal number</target>
+      </trans-unit>
+      <trans-unit id="yANxAwL" resname="Function">
+        <source>Function</source>
+        <target>Function</target>
+      </trans-unit>
+      <trans-unit id="ImnkQgY" resname="List functions">
+        <source>List functions</source>
+        <target>List functions</target>
+      </trans-unit>
+      <trans-unit id="6kE0Yr5" resname="Edit party">
+        <source>Edit party</source>
+        <target>Edit party</target>
+      </trans-unit>
+      <trans-unit id="REE8PZe" resname="Are you sure you want to delete this item?">
+        <source>Are you sure you want to delete this item?</source>
+        <target>Are you sure you want to delete this item?</target>
+      </trans-unit>
+      <trans-unit id="taRVH3U" resname="Delete party">
+        <source>Delete party</source>
+        <target>Delete party</target>
+      </trans-unit>
+      <trans-unit id="ObNtONb" resname="Condition">
+        <source>Condition</source>
+        <target>Condition</target>
+      </trans-unit>
+      <trans-unit id="hgr5Rub" resname="Neighbour">
+        <source>Neighbour</source>
+        <target>Neighbour</target>
+      </trans-unit>
+      <trans-unit id="AGGWBBR" resname="Cadastral number">
+        <source>Cadastral number</source>
+        <target>Cadastral number</target>
+      </trans-unit>
+      <trans-unit id="saWkGCb" resname="Counterpart">
+        <source>Counterpart</source>
+        <target>Counterpart</target>
+      </trans-unit>
+      <trans-unit id="79xVjum" resname="Counterpart name">
+        <source>Counterpart name</source>
+        <target>Counterpart name</target>
+      </trans-unit>
+      <trans-unit id="669PzEA" resname="Counterpart CPR">
+        <source>Counterpart CPR</source>
+        <target>Counterpart CPR</target>
+      </trans-unit>
+      <trans-unit id="bU9FrLc" resname="Reschedule finish hearing deadline">
+        <source>Reschedule finish hearing deadline</source>
+        <target>Reschedule finish hearing deadline</target>
+      </trans-unit>
+      <trans-unit id="pqgEMbA" resname="Reschedule">
+        <source>Reschedule</source>
+        <target>Reschedule</target>
+      </trans-unit>
+      <trans-unit id="QgExcvT" resname="Reschedule finish processing deadline">
+        <source>Reschedule finish processing deadline</source>
+        <target>Reschedule finish processing deadline</target>
+      </trans-unit>
+      <trans-unit id="Iyyo8M8" resname="Validate address">
+        <source>Validate address</source>
+        <target>Validate address</target>
+      </trans-unit>
+      <trans-unit id="b5G97Vo" resname="Validate the legitimacy of the address by pressing the validate button">
+        <source>Validate the legitimacy of the address by pressing the validate button</source>
+        <target>Validate the legitimacy of the address by pressing the validate button</target>
+      </trans-unit>
+      <trans-unit id="OYGiucH" resname="Communication">
+        <source>Communication</source>
+        <target>Communication</target>
+      </trans-unit>
+      <trans-unit id="NxmQBC4" resname="Create decision">
+        <source>Create decision</source>
+        <target>Create decision</target>
+      </trans-unit>
+      <trans-unit id="y7CuPON" resname="Create phone note">
+        <source>Create phone note</source>
+        <target>Create phone note</target>
+      </trans-unit>
+      <trans-unit id="Xrj2VXd" resname="All messages">
+        <source>All messages</source>
+        <target>All messages</target>
+      </trans-unit>
+      <trans-unit id="KBHEj2q" resname="Phone notes">
+        <source>Phone notes</source>
+        <target>Phone notes</target>
+      </trans-unit>
+      <trans-unit id="qW8Wo5t" resname="Parties messages">
+        <source>Parties messages</source>
+        <target>Parties messages</target>
+      </trans-unit>
+      <trans-unit id="SqIT50M" resname="Citizens messages">
+        <source>Citizens messages</source>
+        <target>Citizens messages</target>
+      </trans-unit>
+      <trans-unit id="GP3VSbL" resname="New">
+        <source>New</source>
+        <target>New</target>
+      </trans-unit>
+      <trans-unit id="sqOqYCd" resname="Answer">
+        <source>Answer</source>
+        <target>Answer</target>
+      </trans-unit>
+      <trans-unit id="QXTH4IP" resname="Answer on behalf of part">
+        <source>Answer on behalf of part</source>
+        <target>Answer on behalf of part</target>
+      </trans-unit>
+      <trans-unit id="2uKLqSc" resname="No messages in this category">
+        <source>No messages in this category</source>
+        <target>No messages in this category</target>
+      </trans-unit>
+      <trans-unit id="HFStsFh" resname="Create new phone note">
+        <source>Create new phone note</source>
+        <target>Create new phone note</target>
+      </trans-unit>
+      <trans-unit id="IYGXaTQ" resname="From">
+        <source>From</source>
+        <target>From</target>
+      </trans-unit>
+      <trans-unit id="NIXobK." resname="Who is the call from">
+        <source>Who is the call from</source>
+        <target>Who is the call from</target>
+      </trans-unit>
+      <trans-unit id="aJcSg4Q" resname="Subject">
+        <source>Subject</source>
+        <target>Subject</target>
+      </trans-unit>
+      <trans-unit id="ZZEV7w4" resname="Subject of the call">
+        <source>Subject of the call</source>
+        <target>Subject of the call</target>
+      </trans-unit>
+      <trans-unit id="L3dmip3" resname="Message">
+        <source>Message</source>
+        <target>Message</target>
+      </trans-unit>
+      <trans-unit id="3Qrnpcv" resname="Save changes">
+        <source>Save changes</source>
+        <target>Save changes</target>
+      </trans-unit>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target>Decision</target>
+      </trans-unit>
+      <trans-unit id="xFeYYs7" resname="Send decision">
+        <source>Send decision</source>
+        <target>Send decision</target>
+      </trans-unit>
+      <trans-unit id="Kc9JLnb" resname="Select a letter template">
+        <source>Select a letter template</source>
+        <target>Select a letter template</target>
+      </trans-unit>
+      <trans-unit id="5ZiVth6" resname="Use letter templates to create standardized letters">
+        <source>Use letter templates to create standardized letters</source>
+        <target>Use letter templates to create standardized letters</target>
+      </trans-unit>
+      <trans-unit id="n1OzYSt" resname="Select recipient(s)">
+        <source>Select recipient(s)</source>
+        <target>Select recipient(s)</target>
+      </trans-unit>
+      <trans-unit id="PmMrn5P" resname="Select who should recieve the letter">
+        <source>Select who should recieve the letter</source>
+        <target>Select who should recieve the letter</target>
+      </trans-unit>
+      <trans-unit id="mJ94Xuh" resname="Should describe the essence of the letter">
+        <source>Should describe the essence of the letter</source>
+        <target>Should describe the essence of the letter</target>
+      </trans-unit>
+      <trans-unit id="Y03hFHd" resname="Attachments">
+        <source>Attachments</source>
+        <target>Attachments</target>
+      </trans-unit>
+      <trans-unit id="Do.Wbv4" resname="Attatch files to the letter">
+        <source>Attatch files to the letter</source>
+        <target>Attatch files to the letter</target>
+      </trans-unit>
+      <trans-unit id="R70pB1_" resname="Content">
+        <source>Content</source>
+        <target>Content</target>
+      </trans-unit>
+      <trans-unit id="hAA_WCr" resname="Decision proposal">
+        <source>Decision proposal</source>
+        <target>Decision proposal</target>
+      </trans-unit>
+      <trans-unit id="0MdgX5D" resname="Update proposal">
+        <source>Update proposal</source>
+        <target>Update proposal</target>
+      </trans-unit>
+      <trans-unit id="xf9bYTI" resname="Edit basic information">
+        <source>Edit basic information</source>
+        <target>Edit basic information</target>
+      </trans-unit>
+      <trans-unit id="bAksnKA" resname="Basic information">
+        <source>Basic information</source>
+        <target>Basic information</target>
+      </trans-unit>
+      <trans-unit id="b6JxRT_" resname="Cancel edit">
+        <source>Cancel edit</source>
+        <target>Cancel edit</target>
+      </trans-unit>
+      <trans-unit id="FV_BbAQ" resname="Submit">
+        <source>Submit</source>
+        <target>Submit</target>
+      </trans-unit>
+      <trans-unit id="A8h1npn" resname="Hearing">
+        <source>Hearing</source>
+        <target>Hearing</target>
+      </trans-unit>
+      <trans-unit id="x1Ufxf3" resname="End Hearing">
+        <source>End Hearing</source>
+        <target>End Hearing</target>
+      </trans-unit>
+      <trans-unit id="4_DYGl8" resname="Complaints have nothing more to add">
+        <source>Complaints have nothing more to add</source>
+        <target>Complaints have nothing more to add</target>
+      </trans-unit>
+      <trans-unit id="Fo04Zda" resname="Counterparty has no more to add">
+        <source>Counterparty has no more to add</source>
+        <target>Counterparty has no more to add</target>
+      </trans-unit>
+      <trans-unit id="Ikm9UD7" resname="Cases">
+        <source>Cases</source>
+        <target>Cases</target>
+      </trans-unit>
+      <trans-unit id="2u52BrM" resname="Reset">
+        <source>Reset</source>
+        <target>Reset</target>
+      </trans-unit>
+      <trans-unit id="7xc8BDd" resname="Casenumber">
+        <source>Casenumber</source>
+        <target>Casenumber</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="b8s43ch" resname="Deadline">
+        <source>Deadline</source>
+        <target>Deadline</target>
+      </trans-unit>
+      <trans-unit id="U8x0Pda" resname="Counterparty">
+        <source>Counterparty</source>
+        <target>Counterparty</target>
+      </trans-unit>
+      <trans-unit id="DhTdmrK" resname="Show case">
+        <source>Show case</source>
+        <target>Show case</target>
+      </trans-unit>
+      <trans-unit id="zVZoA78" resname="Add reminder">
+        <source>Add reminder</source>
+        <target>Add reminder</target>
+      </trans-unit>
+      <trans-unit id="bPuFPO8" resname="Create new Case">
+        <source>Create new Case</source>
+        <target>Create new Case</target>
+      </trans-unit>
+      <trans-unit id="uP0XvCB" resname="Create case">
+        <source>Create case</source>
+        <target>Create case</target>
+      </trans-unit>
+      <trans-unit id="QISCbyx" resname="Case presentation">
+        <source>Case presentation</source>
+        <target>Case presentation</target>
+      </trans-unit>
+      <trans-unit id="DiWTxj9" resname="Create representative">
+        <source>Create representative</source>
+        <target>Create representative</target>
+      </trans-unit>
+      <trans-unit id="4n3Tx2Z" resname="Status info">
+        <source>Status info</source>
+        <target>Status info</target>
+      </trans-unit>
+      <trans-unit id="P4Mfiij" resname="Processinformation">
+        <source>Processinformation</source>
+        <target>Processinformation</target>
+      </trans-unit>
+      <trans-unit id="FMLkHtb" resname="In the section Processinformation you can see the current status">
+        <source>In the section Processinformation you can see the current status</source>
+        <target>In the section Processinformation you can see the current status</target>
+      </trans-unit>
+      <trans-unit id="Cz2n9yX" resname="Current casestatus">
+        <source>Current casestatus</source>
+        <target>Current casestatus</target>
+      </trans-unit>
+      <trans-unit id="m.0YbeZ" resname="Initiative assigne">
+        <source>Initiative assigne</source>
+        <target>Initiative assigne</target>
+      </trans-unit>
+      <trans-unit id="b1Hpu29" resname="No entry yet">
+        <source>No entry yet</source>
+        <target>No entry yet</target>
+      </trans-unit>
+      <trans-unit id="6YB4rkh" resname="Last parts post">
+        <source>Last parts post</source>
+        <target>Last parts post</target>
+      </trans-unit>
+      <trans-unit id="av9fm0I" resname="Deadlines">
+        <source>Deadlines</source>
+        <target>Deadlines</target>
+      </trans-unit>
+      <trans-unit id="zBB31Sp" resname="In the section Deadlines you can see the currently active deadlines">
+        <source>In the section Deadlines you can see the currently active deadlines</source>
+        <target>In the section Deadlines you can see the currently active deadlines</target>
+      </trans-unit>
+      <trans-unit id="4IO9g_n" resname="Process">
+        <source>Process</source>
+        <target>Process</target>
+      </trans-unit>
+      <trans-unit id="YGhSFNx" resname="Finish hearing deadline">
+        <source>Finish hearing deadline</source>
+        <target>Finish hearing deadline</target>
+      </trans-unit>
+      <trans-unit id="N9rZHfe" resname="days ago">
+        <source>days ago</source>
+        <target>days ago</target>
+      </trans-unit>
+      <trans-unit id="OFQ4o4R" resname="days remaining">
+        <source>days remaining</source>
+        <target>days remaining</target>
+      </trans-unit>
+      <trans-unit id="GBkcDN5" resname="Case finish processing deadline">
+        <source>Case finish processing deadline</source>
+        <target>Case finish processing deadline</target>
+      </trans-unit>
+      <trans-unit id="KUyOOJ4" resname="Agenda status">
+        <source>Agenda status</source>
+        <target>Agenda status</target>
+      </trans-unit>
+      <trans-unit id="3TV2EFD" resname="Active agenda">
+        <source>Active agenda</source>
+        <target>Active agenda</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="ur6d2oU" resname="Start time">
+        <source>Start time</source>
+        <target>Start time</target>
+      </trans-unit>
+      <trans-unit id="LkYAal7" resname="End time">
+        <source>End time</source>
+        <target>End time</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="87gIr9x" resname="Show agenda">
+        <source>Show agenda</source>
+        <target>Show agenda</target>
+      </trans-unit>
+      <trans-unit id="if6qtSh" resname="Case is not assigned any non-finished agenda">
+        <source>Case is not assigned any non-finished agenda</source>
+        <target>Case is not assigned any non-finished agenda</target>
+      </trans-unit>
+      <trans-unit id="PXLSwjw" resname="Finished agendas">
+        <source>Finished agendas</source>
+        <target>Finished agendas</target>
+      </trans-unit>
+      <trans-unit id="xNa3ck9" resname="Reschedule deadline">
+        <source>Reschedule deadline</source>
+        <target>Reschedule deadline</target>
+      </trans-unit>
+      <trans-unit id="5fhyS2t" resname="Enter a new date">
+        <source>Enter a new date</source>
+        <target>Enter a new date</target>
+      </trans-unit>
+      <trans-unit id="sgJa9ii" resname="New date for the deadline">
+        <source>New date for the deadline</source>
+        <target>New date for the deadline</target>
+      </trans-unit>
+      <trans-unit id="uasmRr0" resname="Describe why the date has changed">
+        <source>Describe why the date has changed</source>
+        <target>Describe why the date has changed</target>
+      </trans-unit>
+      <trans-unit id="Uz3lvy0" resname="This information is needed for journaling purpose">
+        <source>This information is needed for journaling purpose</source>
+        <target>This information is needed for journaling purpose</target>
+      </trans-unit>
+      <trans-unit id="FNM70BT" resname="Unassigned">
+        <source>Unassigned</source>
+        <target>Unassigned</target>
+      </trans-unit>
+      <trans-unit id="M4PGNGw" resname="Casesummary">
+        <source>Casesummary</source>
+        <target>Casesummary</target>
+      </trans-unit>
+      <trans-unit id="FfhuJO0" resname="Case">
+        <source>Case</source>
+        <target>Case</target>
+      </trans-unit>
+      <trans-unit id="aBtQgag" resname="Move case">
+        <source>Move case</source>
+        <target>Move case</target>
+      </trans-unit>
+      <trans-unit id="FalviH0" resname="Delete case">
+        <source>Delete case</source>
+        <target>Delete case</target>
+      </trans-unit>
+      <trans-unit id="bKEupox" resname="Caseinfo">
+        <source>Caseinfo</source>
+        <target>Caseinfo</target>
+      </trans-unit>
+      <trans-unit id=".h9LxTI" resname="Latest communication">
+        <source>Latest communication</source>
+        <target>Latest communication</target>
+      </trans-unit>
+      <trans-unit id="MoPVoWp" resname="Latest notes">
+        <source>Latest notes</source>
+        <target>Latest notes</target>
+      </trans-unit>
+      <trans-unit id="y181RZk" resname="Create new note">
+        <source>Create new note</source>
+        <target>Create new note</target>
+      </trans-unit>
+      <trans-unit id="Xaj3_8K" resname="Back to list">
+        <source>Back to list</source>
+        <target>Back to list</target>
+      </trans-unit>
+      <trans-unit id="J_zRY64" resname="Create note">
+        <source>Create note</source>
+        <target>Create note</target>
+      </trans-unit>
+      <trans-unit id="N0zZ0iD" resname="Created by">
+        <source>Created by</source>
+        <target>Created by</target>
+      </trans-unit>
+      <trans-unit id="_pH3Yo6" resname="Date created">
+        <source>Date created</source>
+        <target>Date created</target>
+      </trans-unit>
+      <trans-unit id="2MVnCtm" resname="Last changed">
+        <source>Last changed</source>
+        <target>Last changed</target>
+      </trans-unit>
+      <trans-unit id="CO5FZaJ" resname="Assigned to">
+        <source>Assigned to</source>
+        <target>Assigned to</target>
+      </trans-unit>
+      <trans-unit id="5vSuyiT" resname="Municipality">
+        <source>Municipality</source>
+        <target>Municipality</target>
+      </trans-unit>
+      <trans-unit id="evTT2NC" resname="All casestatuses">
+        <source>All casestatuses</source>
+        <target>All casestatuses</target>
+      </trans-unit>
+      <trans-unit id="3FHPkV8" resname="All deadlines">
+        <source>All deadlines</source>
+        <target>All deadlines</target>
+      </trans-unit>
+      <trans-unit id="7_43pVW" resname="All responsible users">
+        <source>All responsible users</source>
+        <target>All responsible users</target>
+      </trans-unit>
+      <trans-unit id="XCTPL8W" resname="All municipalities">
+        <source>All municipalities</source>
+        <target>All municipalities</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
