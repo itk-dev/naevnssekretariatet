@@ -15,6 +15,25 @@ English sentences or words are used as keys as default, with danish translations
 Translation files are generated automatically after the translations are
 used in Twig templates and code.
 
+We use the [ICU Message
+Format”](https://symfony.com/doc/current/translation/message_format.html) for
+translations and this means that [message
+placeholders](https://symfony.com/doc/current/translation/message_format.html#message-placeholders)
+*must be wrapped* in `{}` and in the text and *not wrapped* when passing
+parameters to the translation, i.e.
+
+```twig
+{{ 'No results for {searchTerm}'|trans({'searchTerm': search}) }}
+```
+
+```twig
+{% trans with {'searchTerm': search} %}No results for {searchTerm}{% endtrans %}
+```
+
+```php
+$translator->trans('No results for {searchTerm}', ['searchTerm' => $search])
+```
+
 ## Workflow
 
 1. Use translation in Twig templates:
