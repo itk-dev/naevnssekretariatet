@@ -68,7 +68,7 @@
             </div>
         </div>
     {% else %}
-            {{ 'No results for %searchTerm%'|trans({'%searchTerm%': search}, 'search') }}
+        {% trans with {'searchTerm': search} %}No results for {searchTerm}{% endtrans %}
     {% endif %}
 </main>
 {% endblock %}

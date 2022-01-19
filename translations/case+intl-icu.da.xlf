@@ -949,9 +949,9 @@
         <source>Neighbour</source>
         <target>Nabo</target>
       </trans-unit>
-      <trans-unit id="cINTtN1" resname="Address validated at %validation_time%">
-        <source>Address validated at %validation_time%</source>
-        <target state="translated">Adresse valideret %validation_time%</target>
+      <trans-unit id="cINTtN1" resname="Address validated at {validation_time}">
+        <source>Address validated at {validation_time}</source>
+        <target state="translated">Adresse valideret {validation_time}</target>
       </trans-unit>
       <trans-unit id="bmiw4cB" resname="Address validated">
         <source>Address validated</source>

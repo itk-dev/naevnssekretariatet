@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="IeSesrK" resname="Log">
+        <source>Log</source>
+        <target>Log</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target>Created at</target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target>Username</target>
+      </trans-unit>
+      <trans-unit id="ZM.xMZ0" resname="Action">
+        <source>Action</source>
+        <target>Action</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target>Show</target>
+      </trans-unit>
+      <trans-unit id="feEaTn8" resname="Board updated">
+        <source>Board updated</source>
+        <target>Board updated</target>
+      </trans-unit>
+      <trans-unit id="oDg.PGf" resname="Case created">
+        <source>Case created</source>
+        <target>Case created</target>
+      </trans-unit>
+      <trans-unit id="1XPF6Ba" resname="Case presentation updated">
+        <source>Case presentation updated</source>
+        <target>Case presentation updated</target>
+      </trans-unit>
+      <trans-unit id="0C2Idub" resname="Case removed">
+        <source>Case removed</source>
+        <target>Case removed</target>
+      </trans-unit>
+      <trans-unit id="yTngtCU" resname="Case updated">
+        <source>Case updated</source>
+        <target>Case updated</target>
+      </trans-unit>
+      <trans-unit id="5aF370R" resname="Complaint category updated">
+        <source>Complaint category updated</source>
+        <target>Complaint category updated</target>
+      </trans-unit>
+      <trans-unit id="50z2zTS" resname="Document added">
+        <source>Document added</source>
+        <target>Document added</target>
+      </trans-unit>
+      <trans-unit id="ao95lfv" resname="Document updated">
+        <source>Document updated</source>
+        <target>Document updated</target>
+      </trans-unit>
+      <trans-unit id="ZXiiLNt" resname="Municipality updated">
+        <source>Municipality updated</source>
+        <target>Municipality updated</target>
+      </trans-unit>
+      <trans-unit id="CitIJB6" resname="Party relation added">
+        <source>Party relation added</source>
+        <target>Party relation added</target>
+      </trans-unit>
+      <trans-unit id="tyveVm3" resname="Party relation updated">
+        <source>Party relation updated</source>
+        <target>Party relation updated</target>
+      </trans-unit>
+      <trans-unit id="k1aYdSQ" resname="Party updated">
+        <source>Party updated</source>
+        <target>Party updated</target>
+      </trans-unit>
+      <trans-unit id="TkRFSzN" resname="Log entry">
+        <source>Log entry</source>
+        <target>Log entry</target>
+      </trans-unit>
+      <trans-unit id="8Hz9eQU" resname="Back to log">
+        <source>Back to log</source>
+        <target>Back to log</target>
+      </trans-unit>
+      <trans-unit id="4qToq05" resname="Previous log entry">
+        <source>Previous log entry</source>
+        <target>Previous log entry</target>
+      </trans-unit>
+      <trans-unit id="3h7nipJ" resname="Next log entry">
+        <source>Next log entry</source>
+        <target>Next log entry</target>
+      </trans-unit>
+      <trans-unit id="zsOpuJs" resname="Data">
+        <source>Data</source>
+        <target>Data</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

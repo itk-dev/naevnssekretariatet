@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
       <trans-unit id="ScJmuqq" resname="Search">
         <source>Search</source>
-        <target>Søg</target>
+        <target>Search</target>
       </trans-unit>
       <trans-unit id="6XiwDeR" resname="Search results">
         <source>Search results</source>
-        <target>Søgeresultater</target>
+        <target>Search results</target>
       </trans-unit>
       <trans-unit id="EFMlZtd" resname="You can search for case number, address or parts of an address.">
         <source>You can search for case number, address or parts of an address.</source>
-        <target>Der kan søges på sagsnummer, adresse eller dele af en adresse.</target>
+        <target>You can search for case number, address or parts of an address.</target>
       </trans-unit>
-      <trans-unit id="4O3VUqP" resname="No results for {searchTerm}">
+      <trans-unit id="IY9ECBk" resname="No results for {searchTerm}">
         <source>No results for {searchTerm}</source>
-        <target>Søgning på {searchTerm} gav ingen resultater.</target>
+        <target>No results for {searchTerm}</target>
       </trans-unit>
     </body>
   </file>
