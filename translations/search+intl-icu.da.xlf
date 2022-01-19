@@ -21,6 +21,10 @@
         <source>No results for %search%</source>
         <target>Søgning på: {searchTerm}, gav ingen resultater.</target>
       </trans-unit>
+      <trans-unit id="4O3VUqP" resname="No results for %searchTerm%">
+        <source>No results for %searchTerm%</source>
+        <target>Søgning på: {searchTerm}, gav ingen resultater.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
