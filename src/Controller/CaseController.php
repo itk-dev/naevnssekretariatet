@@ -11,6 +11,7 @@ use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CaseEntityType;
 use App\Form\CaseFilterType;
+use App\Form\CaseMoveType;
 use App\Form\CasePresentationType;
 use App\Form\CaseRescheduleFinishHearingDeadlineType;
 use App\Form\CaseRescheduleFinishProcessDeadlineType;
@@ -18,6 +19,7 @@ use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Form\MunicipalitySelectorType;
 use App\Repository\AgendaCaseItemRepository;
+use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\LogEntryRepository;
 use App\Repository\MunicipalityRepository;
@@ -113,13 +115,16 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/summary", name="case_summary", methods={"GET", "POST"})
      */
-    public function summary(CaseEntity $case, NoteRepository $noteRepository, WorkflowService $workflowService, Request $request): Response
+    public function summary(BoardRepository $boardRepository, CaseEntity $case, NoteRepository $noteRepository, WorkflowService $workflowService, Request $request): Response
     {
         $notes = $noteRepository->findMostRecentNotesByCase($case, 4);
+
+        $suitableBoards = $boardRepository->findDifferentSuitableBoards($case->getBoard());
 
         return $this->render('case/summary.html.twig', [
             'case' => $case,
             'notes' => $notes,
+            'suitable_boards' => $suitableBoards,
         ]);
     }
 
@@ -545,6 +550,31 @@ class CaseController extends AbstractController
             'form' => $form->createView(),
             'case' => $case,
             'address_property' => $addressProperty,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/move_case", name="case_move", methods={"POST"})
+     */
+    public function move(BoardRepository $boardRepository, CaseEntity $case, Request $request): Response
+    {
+        $availableBoards = $boardRepository->findDifferentSuitableBoards($case->getBoard());
+
+        $moveForm = $this->createForm(CaseMoveType::class, $case, ['boards' => $availableBoards]);
+
+        $moveForm->handleRequest($request);
+
+        if ($moveForm->isSubmitted() && $moveForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_summary', ['id' => $case->getId()]);
+
+            return $this->redirect($redirectUrl);
+        }
+
+        return $this->render('case/_move_case.html.twig', [
+            'move_form' => $moveForm->createView(),
+            'case' => $case,
         ]);
     }
 }

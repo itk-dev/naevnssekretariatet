@@ -1061,6 +1061,22 @@
         <source>Select a special filter</source>
         <target>Vælg et filter</target>
       </trans-unit>
+      <trans-unit id="vrgZS8R" resname="Move to">
+        <source>Move to</source>
+        <target>Flyt til</target>
+      </trans-unit>
+      <trans-unit id="Nk0c9Hr" resname="Move case to different board">
+        <source>Move case to different board</source>
+        <target>Flyt sag til andet nævn</target>
+      </trans-unit>
+      <trans-unit id="7r3SSnf" resname="Confirm">
+        <source>Confirm</source>
+        <target>Bekræft</target>
+      </trans-unit>
+      <trans-unit id="8qjJAnt" resname="No suitable boards">
+        <source>No suitable boards</source>
+        <target>Ingen passende nævn</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
