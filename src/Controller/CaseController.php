@@ -567,7 +567,7 @@ class CaseController extends AbstractController
         if ($moveForm->isSubmitted() && $moveForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_index');
+            $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_summary', ['id' => $case->getId()]);
 
             return $this->redirect($redirectUrl);
         }
