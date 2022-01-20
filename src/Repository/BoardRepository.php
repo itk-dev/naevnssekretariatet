@@ -18,4 +18,20 @@ class BoardRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Board::class);
     }
+
+    public function findDifferentSuitableBoards(Board $board)
+    {
+        $qb = $this->createQueryBuilder('b');
+
+        $qb->select('b')
+            ->where('b.id != :id')
+            ->setParameter('id', $board->getId()->toBinary())
+            ->andWhere('b.municipality = :municipality')
+            ->setParameter('municipality', $board->getMunicipality()->getId()->toBinary())
+            ->andWhere('b.caseFormType = :caseFormType')
+            ->setParameter('caseFormType', $board->getCaseFormType())
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

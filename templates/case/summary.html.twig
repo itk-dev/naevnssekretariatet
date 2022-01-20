@@ -62,9 +62,16 @@
             <h1>{% trans %}Case{% endtrans %} {{ case.caseNumber }}</h1>
         </div>
         <div class="col-auto">
-            {# TODO: Needs functionality on buttons #}
-            <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
+            {% if suitable_boards %}
+                <a href="" role="button" class="btn btn-secondary" data-toggle="modal" data-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
+            {% else %}
+                <button disabled class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}No suitable boards{% endtrans %}">{% trans %}Move case{% endtrans %}</button>
+            {% endif %}
+            {# TODO: Discuss what should happen with respect to deletion of case #}
             <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+
+            {{ render(controller('App\\Controller\\CaseController:move', {id: case.id})) }}
+
         </div>
     </div>
 {% endblock %}
