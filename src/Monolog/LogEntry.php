@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=LogEntryRepository::class)
- * @ORM\Table(name="log")
+ * @ORM\Table(name="monolog_log_entry")
  */
 class LogEntry
 {
@@ -26,7 +26,7 @@ class LogEntry
     private string $message;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private array $context = [];
 
@@ -46,7 +46,7 @@ class LogEntry
     private string $channel;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private array $extra = [];
 
