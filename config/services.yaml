@@ -77,3 +77,9 @@ services:
     App\Service\DocumentUploader:
         arguments:
             $documentDirectory: '%document_upload_directory%'
+
+    # Setting level in config/packages/monolog.yaml does not work as expected
+    # (cf. https://github.com/symfony/monolog-bundle/issues/322)
+    App\Monolog\DoctrineHandler:
+        arguments:
+            $level: error
