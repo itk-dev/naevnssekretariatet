@@ -5,6 +5,7 @@ namespace App\Monolog;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Logger;
 use Symfony\Component\Security\Core\Security;
 
 class DoctrineHandler extends AbstractProcessingHandler
@@ -12,9 +13,9 @@ class DoctrineHandler extends AbstractProcessingHandler
     private EntityManagerInterface $entityManager;
     private Security $security;
 
-    public function __construct(EntityManagerInterface $entityManager, Security $security)
+    public function __construct(EntityManagerInterface $entityManager, Security $security, $level = Logger::DEBUG, bool $bubble = true)
     {
-        parent::__construct();
+        parent::__construct($level, $bubble);
         $this->entityManager = $entityManager;
         $this->security = $security;
     }
