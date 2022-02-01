@@ -11,7 +11,8 @@
                         <div class="d-flex w-100 justify-content-between" title="{% trans %}Show case{% endtrans %}">
                             <small>{{ reminder.date|date("d/m/Y") }}</small>
                             <a href="{{ url('case_summary', {id: reminder.caseEntity.id}) }}">
-                                {{ reminder.caseEntity.caseNumber|e }}
+{#                                {{ reminder.caseEntity.caseNumber|e }}#}
+                                {% trans %}Show case{% endtrans %}
                             </a>
                         </div>
                         <span class="text-dark">{{ reminder.content|e }}</span>
