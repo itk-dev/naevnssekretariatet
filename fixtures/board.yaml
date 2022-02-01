@@ -1,6 +1,6 @@
 App\Entity\Board:
   resident-complaint-board-aarhus:
-    name: Beboerklagenævnet Aarhus
+    name: Beboerklagenævnet
     municipality: '@municipality-aarhus'
     caseFormType: ResidentComplaintBoardCaseType
     hearingResponseDeadline: 14
@@ -21,7 +21,7 @@ App\Entity\Board:
       Udlejer administrator
 
   resident-complaint-board-randers:
-    name: Beboerklagenævnet Randers
+    name: Beboerklagenævnet
     municipality: '@municipality-randers'
     caseFormType: ResidentComplaintBoardCaseType
     hearingResponseDeadline: 10
@@ -42,7 +42,7 @@ App\Entity\Board:
       Udlejer administrator
 
   rent-board-aarhus:
-    name: Huslejenævnet Aarhus
+    name: Huslejenævnet
     municipality: '@municipality-aarhus'
     caseFormType: RentBoardCaseType
     hearingResponseDeadline: 14
@@ -63,7 +63,7 @@ App\Entity\Board:
       Udlejer administrator
 
   rent-board-randers:
-    name: Huslejenævnet Randers
+    name: Huslejenævnet
     municipality: '@municipality-randers'
     caseFormType: RentBoardCaseType
     hearingResponseDeadline: 10
@@ -84,7 +84,7 @@ App\Entity\Board:
       Udlejer administrator
 
   fence-board-aarhus:
-    name: Hegnsnævnet Aarhus
+    name: Hegnsnævnet
     municipality: '@municipality-aarhus'
     caseFormType: FenceReviewCaseType
     hearingResponseDeadline: 14
@@ -105,7 +105,7 @@ App\Entity\Board:
       Nabo repræsentant
 
   fence-board-randers:
-    name: Hegnsnævnet Randers
+    name: Hegnsnævnet
     municipality: '@municipality-randers'
     caseFormType: FenceReviewCaseType
     hearingResponseDeadline: 10
