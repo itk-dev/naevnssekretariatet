@@ -28,11 +28,11 @@ class CaseEntityType extends AbstractType
             'placeholder' => $this->translator->trans('Choose a municipality', [], 'case'),
         ]);
 
-        // Adds or hides form children based on provided municipality_id
-        $addBoardFormModifier = function (FormInterface $form, $municipality_id = null) {
-            if (null != $municipality_id) {
+        // Adds or hides form children based on provided municipalityId
+        $addBoardFormModifier = function (FormInterface $form, $municipalityId = null) {
+            if (null != $municipalityId) {
                 // No municipality chosen - show board form child
-                $boardChoices = $this->boardRepository->findBy(['municipality' => $municipality_id]);
+                $boardChoices = $this->boardRepository->findBy(['municipality' => $municipalityId]);
 
                 $form->add('board', EntityType::class, [
                     'class' => Board::class,
@@ -55,8 +55,8 @@ class CaseEntityType extends AbstractType
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($addBoardFormModifier) {
                 $municipality = $event->getData()->getMunicipality();
-                $municipality_id = $municipality?->getId();
-                $addBoardFormModifier($event->getForm(), $municipality_id);
+                $municipalityId = $municipality?->getId();
+                $addBoardFormModifier($event->getForm(), $municipalityId);
             }
         );
 
@@ -64,16 +64,16 @@ class CaseEntityType extends AbstractType
             FormEvents::PRE_SUBMIT,
             function (FormEvent $event) use ($addBoardFormModifier) {
                 $data = $event->getData();
-                $municipality_id = array_key_exists('municipality', $data) ? $data['municipality'] : null;
-                $addBoardFormModifier($event->getForm(), $municipality_id);
+                $municipalityId = $data['municipality'] ?? null;
+                $addBoardFormModifier($event->getForm(), $municipalityId);
             }
         );
 
-        // Adds or hides caseEntity form child based on provided board_id
-        $addCaseFormModifier = function (FormInterface $form, $board_id = null) {
-            if (null != $board_id) {
+        // Adds or hides caseEntity form child based on provided boardId
+        $addCaseFormModifier = function (FormInterface $form, $boardId = null) {
+            if (null != $boardId) {
                 // Board chosen - show caseEntity form child
-                $board = $this->boardRepository->findOneBy(['id' => $board_id]);
+                $board = $this->boardRepository->findOneBy(['id' => $boardId]);
                 $caseFormType = $board->getCaseFormType();
 
                 $form->add('caseEntity', 'App\\Form\\'.$caseFormType, [
@@ -94,8 +94,8 @@ class CaseEntityType extends AbstractType
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($addCaseFormModifier) {
                 $board = $event->getData()->getBoard();
-                $board_id = $board?->getId();
-                $addCaseFormModifier($event->getForm(), $board_id);
+                $boardId = $board?->getId();
+                $addCaseFormModifier($event->getForm(), $boardId);
             }
         );
 
@@ -103,8 +103,8 @@ class CaseEntityType extends AbstractType
             FormEvents::PRE_SUBMIT,
             function (FormEvent $event) use ($addCaseFormModifier) {
                 $data = $event->getData();
-                $board_id = array_key_exists('board', $data) ? $data['board'] : null;
-                $addCaseFormModifier($event->getForm(), $board_id);
+                $boardId = $data['board'] ?? null;
+                $addCaseFormModifier($event->getForm(), $boardId);
             }
         );
     }
