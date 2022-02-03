@@ -123,7 +123,7 @@
       </trans-unit>
       <trans-unit id="n1OzYSt" resname="Select recipient(s)">
         <source>Select recipient(s)</source>
-        <target>__Select recipient(s)</target>
+        <target state="translated">Vælg modtagere</target>
       </trans-unit>
       <trans-unit id="tQJcc1A" resname="Remarks">
         <source>Remarks</source>

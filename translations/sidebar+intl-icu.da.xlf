@@ -67,7 +67,7 @@
       </trans-unit>
       <trans-unit id="IeSesrK" resname="Log">
         <source>Log</source>
-        <target>Log</target>
+        <target>Journal</target>
       </trans-unit>
       <trans-unit id="JS.Rdbh" resname="Agenda list">
         <source>Agenda list</source>

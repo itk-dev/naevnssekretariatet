@@ -949,7 +949,7 @@
         <source>Neighbour</source>
         <target>Nabo</target>
       </trans-unit>
-      <trans-unit id="cINTtN1" resname="Address validated at {validation_time}">
+      <trans-unit id="r3KyctU" resname="Address validated at {validation_time}">
         <source>Address validated at {validation_time}</source>
         <target state="translated">Adresse valideret {validation_time}</target>
       </trans-unit>
@@ -1076,6 +1076,10 @@
       <trans-unit id="8qjJAnt" resname="No suitable boards">
         <source>No suitable boards</source>
         <target>Ingen passende nævn</target>
+      </trans-unit>
+      <trans-unit id="HcjoZk_" resname="Choose a municipality">
+        <source>Choose a municipality</source>
+        <target state="translated">Vælg kommune</target>
       </trans-unit>
     </body>
   </file>

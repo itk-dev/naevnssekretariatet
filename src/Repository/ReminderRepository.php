@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Municipality;
 use App\Entity\Reminder;
 use App\Entity\User;
 use DateTime;
@@ -21,14 +22,17 @@ class ReminderRepository extends ServiceEntityRepository
         parent::__construct($registry, Reminder::class);
     }
 
-    public function findRemindersWithinWeekByUser(User $user)
+    public function findRemindersWithinWeekByUserAndMunicipality(User $user, Municipality $municipality)
     {
         $from = new DateTime('today');
         $to = new DateTime('today');
         $to->modify('+1 week');
 
         $result = $this->createQueryBuilder('r')
-            ->where('r.createdBy = :user')
+            ->leftJoin('r.caseEntity', 'c')
+            ->where('c.municipality = :municipality')
+            ->setParameter('municipality', $municipality->getId()->toBinary())
+            ->andWhere('r.createdBy = :user')
             ->setParameter('user', $user->getId()->toBinary())
             ->andWhere('r.date BETWEEN :from AND :to')
             ->setParameter('from', $from)
@@ -41,12 +45,15 @@ class ReminderRepository extends ServiceEntityRepository
         return $result;
     }
 
-    public function findExceededRemindersByUser(User $user)
+    public function findExceededRemindersByUserAndMunicipality(User $user, Municipality $municipality)
     {
         $today = new DateTime('today');
 
         $result = $this->createQueryBuilder('r')
-            ->where('r.createdBy = :user')
+            ->leftJoin('r.caseEntity', 'c')
+            ->where('c.municipality = :municipality')
+            ->setParameter('municipality', $municipality->getId()->toBinary())
+            ->andWhere('r.createdBy = :user')
             ->setParameter('user', $user->getId()->toBinary())
             ->andWhere('r.date < :today')
             ->setParameter('today', $today)

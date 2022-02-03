@@ -6,6 +6,7 @@ use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
 use App\Entity\LogEntry;
+use App\Entity\ResidentComplaintBoardCase;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
@@ -133,7 +134,8 @@ class CaseController extends AbstractController
      */
     public function new(Request $request, CaseManager $caseManager): Response
     {
-        $form = $this->createForm(CaseEntityType::class);
+        // We pass along a case entity to make sure we can extract municipality and board in CaseEntityType
+        $form = $this->createForm(CaseEntityType::class, new ResidentComplaintBoardCase());
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

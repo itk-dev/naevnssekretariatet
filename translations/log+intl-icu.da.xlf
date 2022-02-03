@@ -7,7 +7,7 @@
     <body>
       <trans-unit id="IeSesrK" resname="Log">
         <source>Log</source>
-        <target state="translated">Log</target>
+        <target state="translated">Journal</target>
       </trans-unit>
       <trans-unit id="d1tb_WR" resname="Created at">
         <source>Created at</source>
@@ -75,19 +75,23 @@
       </trans-unit>
       <trans-unit id="TkRFSzN" resname="Log entry">
         <source>Log entry</source>
-        <target state="translated">Logindgang</target>
+        <target state="translated">Journalindgang</target>
       </trans-unit>
       <trans-unit id="4qToq05" resname="Previous log entry">
         <source>Previous log entry</source>
-        <target state="translated">Forrige logindgang</target>
+        <target state="translated">Forrige journalindgang</target>
       </trans-unit>
       <trans-unit id="3h7nipJ" resname="Next log entry">
         <source>Next log entry</source>
-        <target state="translated">Næste logindgang</target>
+        <target state="translated">Næste journalindgang</target>
       </trans-unit>
       <trans-unit id="zsOpuJs" resname="Data">
         <source>Data</source>
         <target state="translated">Data</target>
+      </trans-unit>
+      <trans-unit id="8Hz9eQU" resname="Back to log">
+        <source>Back to log</source>
+        <target state="translated">Tilbage til journal</target>
       </trans-unit>
     </body>
   </file>
