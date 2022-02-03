@@ -120,8 +120,7 @@ class MailTemplateHelper
         ];
         $formData = new FormDataPart($formFields);
 
-        // curl --insecure --form "data=@mail_template_001.docx" https://libreoffice:9980/lool/convert-to/pdf
-        // https://sdk.collaboraonline.com/docs/conversion_api.html?highlight=convert
+        // https://sdk.collaboraonline.com/docs/conversion_api.html
         try {
             $response = $client->request('POST', '/lool/convert-to/pdf', [
                 'headers' => $formData->getPreparedHeaders()->toArray(),
