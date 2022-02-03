@@ -15,3 +15,10 @@ App\Entity\MailTemplate:
     description: |-
       Use it to notify people of a decision.
     templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>
+
+  mail-template-header-footer-001:
+    type: inspection_letter
+    name: Inspection letter with header and footer 001
+    description: |-
+      Multi-page template with page header and footer
+    templateFilename: <uploadFile(mail_template/mail_template_header_footer.docx, templateFile, App\Entity\MailTemplate)>

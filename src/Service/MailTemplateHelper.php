@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\MailTemplate;
+use App\Entity\User;
 use App\Exception\MailTemplateException;
 use App\Repository\MailTemplateMacroRepository;
 use App\Repository\MailTemplateRepository;
@@ -19,6 +20,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class MailTemplateHelper
@@ -30,7 +32,7 @@ class MailTemplateHelper
      */
     private $options;
 
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, array $mailTemplateHelperOptions)
+    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, array $mailTemplateHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -93,12 +95,17 @@ class MailTemplateHelper
         $macros = $this->mailTemplateMacroRepository->findByTemplateType($templateType);
         foreach ($macros as $macro) {
             $lines = explode(PHP_EOL, trim($macro->getContent()));
-            $element = new TextRun();
-            foreach ($lines as $index => $line) {
-                if ($index > 0) {
-                    $element->addTextBreak();
+            // Handle line breaks in macro content.
+            if (count($lines) > 1) {
+                $element = new TextRun();
+                foreach ($lines as $index => $line) {
+                    if ($index > 0) {
+                        $element->addTextBreak();
+                    }
+                    $element->addText($line);
                 }
-                $element->addText($line);
+            } else {
+                $element = $macro->getContent();
             }
 
             $this->setTemplateValue($macro->getMacro(), $element, $templateProcessor);
@@ -167,19 +174,20 @@ class MailTemplateHelper
                 }, $placeHolders)
             );
         } else {
-            // Serialize to csv to flatten array values and get keys separated by `.`, i.e.
-            //   ['name' => ['given' => 'Anders', 'family' => 'And']]
-            // will be converted to
-            //   ['name.given' => 'Anders', 'name.family' => 'And']
-            $csv = $this->serializer->serialize($entity, 'csv', ['groups' => ['mail_template']]);
-            // We now have a csv string with two lines (the first is the header) that we split and parse.
-            [$header, $row] = array_map('str_getcsv', explode(PHP_EOL, $csv, 2));
-            /**
-             * @psalm-suppress InvalidArgument
-             *
-             * Argument 1 of array_combine expects array<array-key, array-key>, non-empty-list<null|string> provided (see https://psalm.dev/004)
-             */
-            $values = array_combine($header, $row);
+            // Convert entity to array.
+            $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
+            $values += $this->flatten($data);
+        }
+
+        // Add user info
+        $user = $this->tokenStorage->getToken()?->getUser();
+        if (null !== $user && $user instanceof User) {
+            $values += $this->flatten([
+                'user' => [
+                    'email' => $user->getEmail(),
+                    'name' => $user->getName(),
+                ],
+            ]);
         }
 
         // Add some default values.
@@ -188,7 +196,7 @@ class MailTemplateHelper
 
         foreach ($placeHolders as $placeHolder) {
             // Handle placeholders on the form «key»:«format», e.g.
-            //   case.inspection_date|dd/mm/yyyy
+            //   case.inspection_date:dd/mm/yyyy
             if (preg_match('/^(?P<key>[^:]+):(?P<format>.+)$/', $placeHolder, $matches)) {
                 [, $key, $format] = $matches;
                 if (isset($values[$key])) {
@@ -252,5 +260,25 @@ class MailTemplateHelper
             'colabora_http_client_options',
         ]);
         $resolver->setAllowedTypes('template_types', 'array');
+    }
+
+    /**
+     * Flatten array value.
+     */
+    private function flatten(array $value): array
+    {
+        // Serialize to csv to flatten array values and get keys separated by `.`, i.e.
+        //   ['name' => ['given' => 'Anders', 'family' => 'And']]
+        // will be converted to
+        //   ['name.given' => 'Anders', 'name.family' => 'And']
+        $csv = $this->serializer->serialize($value, 'csv');
+        // We now have a csv string with two lines (the first is the header) that we split and parse.
+        [$header, $row] = array_map('str_getcsv', explode(PHP_EOL, $csv, 2));
+        /*
+         * @psalm-suppress InvalidArgument
+         *
+         * Argument 1 of array_combine expects array<array-key, array-key>, non-empty-list<null|string> provided (see https://psalm.dev/004)
+         */
+        return array_combine($header, $row);
     }
 }

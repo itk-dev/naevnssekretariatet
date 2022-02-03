@@ -17,3 +17,17 @@ App\Entity\MailTemplateMacro:
         ${complainantAddress.postalCode} ${complainantAddress.city}
     templateTypes:
         - inspection_letter
+
+  mail-template-macro-page-header-text:
+    name: Page header text
+    macro: page_header_text
+    content: |-
+        This is a header generated on ${today:dd/mm/yyyy}
+    templateTypes: []
+
+  mail-template-macro-page-footer-text:
+    name: Page footer text
+    macro: page_footer_text
+    content: |-
+        This is a footer generated on ${today:dd/mm/yyyy}
+    templateTypes: []
