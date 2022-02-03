@@ -149,6 +149,10 @@
         <source>See more</source>
         <target state="translated">Se mere</target>
       </trans-unit>
+      <trans-unit id="5vSuyiT" resname="Municipality">
+        <source>Municipality</source>
+        <target state="translated">Kommune</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

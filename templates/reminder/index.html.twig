@@ -20,6 +20,7 @@
                 <thead>
                 <tr>
                     <th scope="col">{% trans %}Casenumber{% endtrans %}</th>
+                    <th scope="col">{% trans %}Municipality{% endtrans %}</th>
                     <th scope="col">{% trans %}Status{% endtrans %}</th>
                     <th scope="col">{% trans %}Date{% endtrans %}</th>
                     <th scope="col">{% trans %}Content{% endtrans %}</th>
@@ -30,6 +31,7 @@
                 {% for reminder in reminders %}
                     <tr>
                         <td>{{ reminder.caseEntity.caseNumber|e }}</td>
+                        <td>{{ reminder.caseEntity.municipality.name|e }}</td>
                         <td>{{ reminder.status|trans({}, 'reminder') }}</td>
                         <td>{{ reminder.date|date('j F Y') }}</td>
                         <td>{{ reminder.content|e }}</td>

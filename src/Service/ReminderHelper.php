@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Municipality;
 use App\Entity\User;
 use App\Repository\ReminderRepository;
 use DateTime;
@@ -76,9 +77,9 @@ class ReminderHelper implements LoggerAwareInterface
         }
     }
 
-    public function getRemindersWithinWeekByUserGroupedByDay(User $user): array
+    public function getRemindersWithinWeekByUserAndMunicipalityGroupedByDay(User $user, Municipality $municipality): array
     {
-        $reminders = $this->reminderRepository->findRemindersWithinWeekByUser($user);
+        $reminders = $this->reminderRepository->findRemindersWithinWeekByUserAndMunicipality($user, $municipality);
 
         $remindersGroupedByDate = [];
 
