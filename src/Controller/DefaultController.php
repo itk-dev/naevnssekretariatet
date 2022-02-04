@@ -34,7 +34,7 @@ class DefaultController extends AbstractController
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
         $municipalities = $municipalityRepository->findAll();
 
-        // Despite chosen municipality we show ALL reminders
+        // Show reminders accordingly to chosen municipality
         $upcomingReminders = $reminderHelper->getRemindersWithinWeekByUserAndMunicipalityGroupedByDay($user, $activeMunicipality);
         $exceededReminders = $reminderRepository->findExceededRemindersByUserAndMunicipality($user, $activeMunicipality);
 
