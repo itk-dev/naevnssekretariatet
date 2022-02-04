@@ -85,17 +85,6 @@ class DefaultController extends AbstractController
      */
     public function redirectToUserSettings(AdminUrlGenerator $urlGenerator): Response
     {
-//        var_dump($this->getUser()->getId()->__toString());
-//        die(__FILE__);
-
-//        $url = $urlGenerator
-//            ->setDashboard(DashboardController::class)
-//            ->setController(BoardCrudController::class)
-//            ->setEntityId($this->getUser()->getId())
-//            ->setAction(Action::INDEX)
-//            ->generateUrl()
-//        ;
-
         $url = $urlGenerator
             ->setController(UserCrudController::class)
             ->setAction(Action::EDIT)
