@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Admin\UserCrudController;
 use App\Entity\User;
 use App\Form\MunicipalitySelectorType;
 use App\Repository\CaseEntityRepository;
@@ -10,6 +11,8 @@ use App\Repository\ReminderRepository;
 use App\Service\DashboardHelper;
 use App\Service\MunicipalityHelper;
 use App\Service\ReminderHelper;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,5 +76,20 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
+    }
+
+    /**
+     * @Route("/user-settings", name="user_settings")
+     */
+    public function redirectToUserSettings(AdminUrlGenerator $urlGenerator): Response
+    {
+        $url = $urlGenerator
+            ->setController(UserCrudController::class)
+            ->setAction(Action::EDIT)
+            ->setEntityId($this->getUser()->getId())
+            ->generateUrl()
+        ;
+
+        return $this->redirect($url);
     }
 }

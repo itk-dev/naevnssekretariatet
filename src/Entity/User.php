@@ -56,6 +56,11 @@ class User implements UserInterface, LoggableEntityInterface
      */
     private $reminders;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $initials;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -249,6 +254,18 @@ class User implements UserInterface, LoggableEntityInterface
                 $reminder->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getInitials(): ?string
+    {
+        return $this->initials;
+    }
+
+    public function setInitials(?string $initials): self
+    {
+        $this->initials = $initials;
 
         return $this;
     }
