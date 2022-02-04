@@ -22,3 +22,9 @@ App\Entity\User:
     email: super-admin@example.com
     roles: [ROLE_SUPER_ADMIN]
     favoriteMunicipality: '@municipality-aarhus'
+
+  user-tess-holst:
+    name: Tess Holst
+    email: board-member@example.com
+    roles: [ROLE_BOARD_MEMBER]
+    favoriteMunicipality: '@municipality-aarhus'
