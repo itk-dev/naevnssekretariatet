@@ -184,7 +184,7 @@ class AgendaController extends AbstractController
 
         $sortedAgendaItems = $agendaItemRepository->findAscendingAgendaItemsByAgenda($agenda);
 
-        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
+        $agendaOptions = $agenda->isFinished() || $this->isGranted('ROLE_BOARD_MEMBER') ? ['disabled' => true] : [];
 
         $form = $this->createForm(AgendaEditType::class, $agenda, $agendaOptions);
 
@@ -201,7 +201,7 @@ class AgendaController extends AbstractController
      */
     public function edit(Agenda $agenda, Request $request): ?Response
     {
-        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
+        $agendaOptions = $agenda->isFinished() ? ['disabled' => true] : [];
 
         $form = $this->createForm(AgendaEditType::class, $agenda, $agendaOptions);
 

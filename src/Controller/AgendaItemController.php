@@ -83,7 +83,7 @@ class AgendaItemController extends AbstractController
 
         $isFinishedAgenda = $agenda->isFinished();
 
-        $options = $isFinishedAgenda ? ['disabled' => true] : [];
+        $options = $isFinishedAgenda || $this->isGranted('ROLE_BOARD_MEMBER') ? ['disabled' => true] : [];
 
         $form = $this->createForm($formClass, $agendaItem, $options);
 
