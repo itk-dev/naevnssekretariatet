@@ -18,36 +18,55 @@ class SidebarController extends AbstractController
 
     public function renderMenu(string $activeRoute): Response
     {
-        $menuItems = [
-            $this->generateMenuItem(
-                $this->translator->trans('Dashboard', [], 'sidebar'),
-                $this->translator->trans('Go to dashboard', [], 'sidebar'),
-                'default',
-                'tachometer-alt',
-                $activeRoute
-            ),
-            $this->generateMenuItem(
-                $this->translator->trans('Case list', [], 'sidebar'),
-                $this->translator->trans('Go to list of cases', [], 'sidebar'),
-                'case_index',
-                'list',
-                $activeRoute
-            ),
-            $this->generateMenuItem(
-                $this->translator->trans('Agenda list', [], 'sidebar'),
-                $this->translator->trans('Go to list of agendas', [], 'sidebar'),
-                'agenda_index',
-                'list-alt',
-                $activeRoute
-            ),
-            $this->generateMenuItem(
-                $this->translator->trans('Settings', [], 'sidebar'),
-                $this->translator->trans('Go to settings', [], 'sidebar'),
-                'admin',
-                'cog',
-                $activeRoute
-            ),
-        ];
+        if (!$this->isGranted('ROLE_BOARD_MEMBER')) {
+            $menuItems = [
+                $this->generateMenuItem(
+                    $this->translator->trans('Dashboard', [], 'sidebar'),
+                    $this->translator->trans('Go to dashboard', [], 'sidebar'),
+                    'default',
+                    'tachometer-alt',
+                    $activeRoute
+                ),
+                $this->generateMenuItem(
+                    $this->translator->trans('Case list', [], 'sidebar'),
+                    $this->translator->trans('Go to list of cases', [], 'sidebar'),
+                    'case_index',
+                    'list',
+                    $activeRoute
+                ),
+                $this->generateMenuItem(
+                    $this->translator->trans('Agenda list', [], 'sidebar'),
+                    $this->translator->trans('Go to list of agendas', [], 'sidebar'),
+                    'agenda_index',
+                    'list-alt',
+                    $activeRoute
+                ),
+                $this->generateMenuItem(
+                    $this->translator->trans('Settings', [], 'sidebar'),
+                    $this->translator->trans('Go to settings', [], 'sidebar'),
+                    'admin',
+                    'cog',
+                    $activeRoute
+                ),
+            ];
+        } else {
+            $menuItems = [
+                $this->generateMenuItem(
+                    $this->translator->trans('Case list', [], 'sidebar'),
+                    $this->translator->trans('Go to list of cases', [], 'sidebar'),
+                    'case_index',
+                    'list',
+                    $activeRoute
+                ),
+                $this->generateMenuItem(
+                    $this->translator->trans('Agenda list', [], 'sidebar'),
+                    $this->translator->trans('Go to list of agendas', [], 'sidebar'),
+                    'agenda_index',
+                    'list-alt',
+                    $activeRoute
+                ),
+            ];
+        }
 
         return $this->render('sidebar/_menu.html.twig', [
             'menu_items' => $menuItems,
@@ -67,20 +86,28 @@ class SidebarController extends AbstractController
 
     public function renderCaseSubmenu(UuidV4 $caseId, string $activeRoute): Response
     {
-        $submenuItems = [
-            $this->generateSubmenuItem($this->translator->trans('Summary', [], 'sidebar'), ['case_summary'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Basic Information', [], 'sidebar'), ['case_show', 'case_edit', 'party_add', 'party_add_from_index', 'party_edit'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Status Info', [], 'sidebar'), ['case_status'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['case_communication'], $caseId, $activeRoute),
-            // Currently they do not wish to create case presentation and decision proposal via TVIST1
+        if (!$this->isGranted('ROLE_BOARD_MEMBER')) {
+            $submenuItems = [
+                $this->generateSubmenuItem($this->translator->trans('Summary', [], 'sidebar'), ['case_summary'], $caseId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Basic Information', [], 'sidebar'), ['case_show', 'case_edit', 'party_add', 'party_add_from_index', 'party_edit'], $caseId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Status Info', [], 'sidebar'), ['case_status'], $caseId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing'], $caseId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['case_communication'], $caseId, $activeRoute),
+                // Currently they do not wish to create case presentation and decision proposal via TVIST1
 //            $this->generateSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['case_presentation'], $caseId, $activeRoute),
 //            $this->generateSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['case_decision_proposal'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Decision', [], 'sidebar'), ['case_decision'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['document_index', 'document_create', 'document_copy'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Notes', [], 'sidebar'), ['note_index', 'note_edit'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Log', [], 'sidebar'), ['case_log', 'case_log_entry_show'], $caseId, $activeRoute),
-        ];
+                $this->generateSubmenuItem($this->translator->trans('Decision', [], 'sidebar'), ['case_decision'], $caseId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['document_index', 'document_create', 'document_copy'], $caseId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Notes', [], 'sidebar'), ['note_index', 'note_edit'], $caseId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Log', [], 'sidebar'), ['case_log', 'case_log_entry_show'], $caseId, $activeRoute),
+            ];
+        } else {
+            $submenuItems = [
+                $this->generateSubmenuItem($this->translator->trans('Summary', [], 'sidebar'), ['case_summary'], $caseId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Basic Information', [], 'sidebar'), ['case_show', 'case_edit', 'party_add', 'party_add_from_index', 'party_edit'], $caseId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['document_index', 'document_create', 'document_copy'], $caseId, $activeRoute),
+            ];
+        }
 
         return $this->render('sidebar/_submenu.html.twig', [
             'submenu_items' => $submenuItems,
@@ -89,11 +116,17 @@ class SidebarController extends AbstractController
 
     public function renderAgendaSubmenu(UuidV4 $agendaId, string $activeRoute): Response
     {
-        $submenuItems = [
-            $this->generateSubmenuItem($this->translator->trans('Agenda', [], 'sidebar'), ['agenda_show', 'agenda_add_board_member', 'agenda_item_create'], $agendaId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Protocol', [], 'sidebar'), ['agenda_protocol'], $agendaId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Broadcast agenda', [], 'sidebar'), ['agenda_broadcast'], $agendaId, $activeRoute),
-        ];
+        if ($this->isGranted('ROLE_BOARD_MEMBER')) {
+            $submenuItems = [
+                $this->generateSubmenuItem($this->translator->trans('Agenda', [], 'sidebar'), ['agenda_show', 'agenda_add_board_member', 'agenda_item_create'], $agendaId, $activeRoute),
+            ];
+        } else {
+            $submenuItems = [
+                $this->generateSubmenuItem($this->translator->trans('Agenda', [], 'sidebar'), ['agenda_show', 'agenda_add_board_member', 'agenda_item_create'], $agendaId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Protocol', [], 'sidebar'), ['agenda_protocol'], $agendaId, $activeRoute),
+                $this->generateSubmenuItem($this->translator->trans('Broadcast agenda', [], 'sidebar'), ['agenda_broadcast'], $agendaId, $activeRoute),
+            ];
+        }
 
         return $this->render('sidebar/_submenu.html.twig', [
             'submenu_items' => $submenuItems,
@@ -110,7 +143,7 @@ class SidebarController extends AbstractController
 //            $this->generateAgendaItemSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['agenda_case_item_decision_proposal'], $agendaId, $agendaItemId, $activeRoute),
         ];
 
-        if ($isInspection) {
+        if ($isInspection && !$this->isGranted('ROLE_BOARD_MEMBER')) {
             array_push($submenuItems, $this->generateAgendaItemSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_case_item_inspection', 'agenda_case_item_inspection_letter'], $agendaId, $agendaItemId, $activeRoute));
         }
 

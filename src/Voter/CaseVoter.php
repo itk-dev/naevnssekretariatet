@@ -7,11 +7,16 @@ use App\Entity\User;
 use App\Exception\VoterException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 
 class CaseVoter extends Voter
 {
-    const VIEW = 'view';
-    const EDIT = 'edit';
+    public const VIEW = 'view';
+    public const EDIT = 'edit';
+
+    public function __construct(private Security $security)
+    {
+    }
 
     protected function supports(string $attribute, $subject): bool
     {
@@ -61,6 +66,10 @@ class CaseVoter extends Voter
 
     private function canEdit(mixed $case, User $user): bool
     {
+        if ($this->security->isGranted('ROLE_BOARD_MEMBER')) {
+            return false;
+        }
+
         return true;
     }
 }

@@ -30,6 +30,7 @@
             <label>{% trans %}City{% endtrans %}</label>
             <input type="text" class="form-control" value="{{ address.city }}" readonly>
         </div>
+        {% if not is_granted('ROLE_BOARD_MEMBER') %}
         {% if withValidation|default(true) %}
             <div class="form-group col-md-6">
                 <label class="invisible">{% trans %}Validate{% endtrans %}</label>
@@ -40,6 +41,7 @@
                     {{ render(controller('App\\Controller\\CaseController:validateAddress', {id: case.id, addressProperty: address_property})) }}
                 {% endif %}
             </div>
+        {% endif %}
         {% endif %}
     </div>
 </div>

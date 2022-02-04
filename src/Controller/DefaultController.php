@@ -26,6 +26,11 @@ class DefaultController extends AbstractController
      */
     public function index(CaseEntityRepository $caseRepository, DashboardHelper $dashboardHelper, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, ReminderHelper $reminderHelper, ReminderRepository $reminderRepository, Security $security, Request $request): Response
     {
+        // Board member are redirected to case index
+        if ($this->isGranted('ROLE_BOARD_MEMBER')) {
+            return $this->redirectToRoute('case_index');
+        }
+
         // Get current User
         /** @var User $user */
         $user = $security->getUser();

@@ -62,16 +62,17 @@
             <h1>{% trans %}Case{% endtrans %} {{ case.caseNumber }}</h1>
         </div>
         <div class="col-auto">
-            {% if suitable_boards %}
-                <a href="" role="button" class="btn btn-secondary" data-toggle="modal" data-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
-            {% else %}
-                <button disabled class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}No suitable boards{% endtrans %}">{% trans %}Move case{% endtrans %}</button>
+            {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                {% if suitable_boards %}
+                    <a href="" role="button" class="btn btn-secondary" data-toggle="modal" data-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
+                {% else %}
+                    <button disabled class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}No suitable boards{% endtrans %}">{% trans %}Move case{% endtrans %}</button>
+                {% endif %}
+                {# TODO: Discuss what should happen with respect to deletion of case #}
+                <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+
+                {{ render(controller('App\\Controller\\CaseController:move', {id: case.id})) }}
             {% endif %}
-            {# TODO: Discuss what should happen with respect to deletion of case #}
-            <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
-
-            {{ render(controller('App\\Controller\\CaseController:move', {id: case.id})) }}
-
         </div>
     </div>
 {% endblock %}
@@ -99,66 +100,70 @@
             </div>
         </section>
 
-        <div class="row mt-md-5">
-            <section area-labelledby="section_latest_communication" class="col-md-6 mt-5 mt-md-0">
-                <div class="row">
-                    <div class="col">
-                        <h2 id="section_latest_communication">{% trans %}Latest communication{% endtrans %}</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="list-group">
-                            {% for item in casecommunication %}
-                                <a href="#" class="list-group-item list-group-item-action {% if item.status is defined == "unread" %}active{% endif %}">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <span class="mr-3">{{ item.date|e }}</span>
-                                        <p class="mb-1">{{ item.title|e }}</p>
-                                    </div>
-                                </a>
-                            {% endfor %}
+        {% if not is_granted('ROLE_BOARD_MEMBER') %}
+            <div class="row mt-md-5">
+                <section area-labelledby="section_latest_communication" class="col-md-6 mt-5 mt-md-0">
+                    <div class="row">
+                        <div class="col">
+                            <h2 id="section_latest_communication">{% trans %}Latest communication{% endtrans %}</h2>
                         </div>
                     </div>
-                </div>
-            </section>
+                    <div class="row">
+                        <div class="col">
+                            <div class="list-group">
+                                {% for item in casecommunication %}
+                                    <a href="#" class="list-group-item list-group-item-action {% if item.status is defined == "unread" %}active{% endif %}">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="mr-3">{{ item.date|e }}</span>
+                                            <p class="mb-1">{{ item.title|e }}</p>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-            <section area-labelledby="section_latest_notes" class="col-md-6 mt-5 mt-md-0">
-                <div class="row">
-                    <div class="col">
-                        <h2 id="section_latest_notes">{% trans %}Latest notes{% endtrans %}</h2>
-                    </div>
-                    <div class="col-auto">
-                        <a name="" id="" class="btn btn-success float-right" href={{ url("note_index", {id: case.id, 'showQuickNote': true}) }} role="button">{% trans %}Create new note{% endtrans %}</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="list-group">
-                            {% for note in notes %}
-                                {% set note_id = note.id|e %}
-                                <a href="{{ url("note_index", {id: case.id, 'noteShown': note_id}) }}" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <span class="mr-3">{{ note.createdAt|date('d/m/Y') }}</span>
-                                        <p class="mb-1 text-truncate">{{ note.subject|e }}</p>
-                                    </div>
-                                </a>
-                            {% endfor %}
+                <section area-labelledby="section_latest_notes" class="col-md-6 mt-5 mt-md-0">
+                    <div class="row">
+                        <div class="col">
+                            <h2 id="section_latest_notes">{% trans %}Latest notes{% endtrans %}</h2>
+                        </div>
+                        <div class="col-auto">
+                            <a name="" id="" class="btn btn-success float-right" href={{ url("note_index", {id: case.id, 'showQuickNote': true}) }} role="button">{% trans %}Create new note{% endtrans %}</a>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
-    </main>
+                    <div class="row">
+                        <div class="col">
+                            <div class="list-group">
+                                {% for note in notes %}
+                                    {% set note_id = note.id|e %}
+                                    <a href="{{ url("note_index", {id: case.id, 'noteShown': note_id}) }}" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="mr-3">{{ note.createdAt|date('d/m/Y') }}</span>
+                                            <p class="mb-1 text-truncate">{{ note.subject|e }}</p>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            </main>
+        {% endif %}
     <footer class="col-12 mt-3">
         <div class="row">
             <div class="col">
                 <a name="" id="" class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
             </div>
-            <div class="col-auto ml-auto">
-                {# TODO: Needs functionality on buttons #}
-                <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
-                <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
-            </div>
+            {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                <div class="col-auto ml-auto">
+                    {# TODO: Needs functionality on buttons #}
+                    <a name="" id="" class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
+                    <a name="" id="" class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
+                </div>
+            {% endif %}
         </div>
     </footer>
 {% endblock %}
