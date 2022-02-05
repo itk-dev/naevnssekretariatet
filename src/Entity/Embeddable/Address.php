@@ -62,9 +62,11 @@ class Address implements LoggableEntityInterface
         return $this->street;
     }
 
-    public function setStreet(string $street): void
+    public function setStreet(string $street): self
     {
         $this->street = $street;
+
+        return $this;
     }
 
     public function getNumber(): string
@@ -72,9 +74,11 @@ class Address implements LoggableEntityInterface
         return $this->number;
     }
 
-    public function setNumber(string $number): void
+    public function setNumber(string $number): self
     {
         $this->number = $number;
+
+        return $this;
     }
 
     public function getFloor(): ?string
@@ -82,9 +86,11 @@ class Address implements LoggableEntityInterface
         return $this->floor;
     }
 
-    public function setFloor(string $floor): void
+    public function setFloor(string $floor): self
     {
         $this->floor = $floor;
+
+        return $this;
     }
 
     public function getSide(): ?string
@@ -92,9 +98,11 @@ class Address implements LoggableEntityInterface
         return $this->side;
     }
 
-    public function setSide(string $side): void
+    public function setSide(string $side): self
     {
         $this->side = $side;
+
+        return $this;
     }
 
     public function getPostalCode(): int
@@ -102,9 +110,11 @@ class Address implements LoggableEntityInterface
         return $this->postalCode;
     }
 
-    public function setPostalCode(int $postalCode): void
+    public function setPostalCode(int $postalCode): self
     {
         $this->postalCode = $postalCode;
+
+        return $this;
     }
 
     public function getCity(): string
@@ -112,9 +122,11 @@ class Address implements LoggableEntityInterface
         return $this->city;
     }
 
-    public function setCity(string $city): void
+    public function setCity(string $city): self
     {
         $this->city = $city;
+
+        return $this;
     }
 
     public function getValidatedAt(): ?\DateTimeInterface
