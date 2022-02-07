@@ -16,7 +16,7 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticators:
-                - ItkDev\OpenIdConnectBundle\Security\LoginTokenAuthenticator
+                - ItkDev\OpenIdConnectBundle\Security\CliLoginTokenAuthenticator
                 - App\Security\AzureAdLoginAuthenticator
             entry_point: App\Security\AzureAdLoginAuthenticator
             logout:
