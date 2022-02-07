@@ -68,9 +68,9 @@ services:
                             - App\Entity\FenceReviewCase
                             - App\Entity\RentBoardCase
 
-                upload_destination: '%kernel.project_dir%/files/mail-templates'
+                upload_destination: '%kernel.project_dir%/upload/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination
-                template_file_directory: '%kernel.project_dir%/files/mail-templates'
+                template_file_directory: '%kernel.project_dir%/upload/mail-templates'
                 colabora_http_client_options:
                     base_uri: '%env(COLLABORA_API_BASE_URL)%'
                     verify_peer: false

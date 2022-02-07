@@ -4,5 +4,5 @@ vich_uploader:
     mappings:
         mail_templates:
             uri_prefix: /admin/mail-template/template-file
-            upload_destination: '%kernel.project_dir%/files/mail-templates'
+            upload_destination: '%kernel.project_dir%/upload/mail-templates'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
