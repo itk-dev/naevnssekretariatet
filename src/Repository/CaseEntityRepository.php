@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Board;
+use App\Entity\BoardMember;
 use App\Entity\CaseEntity;
 use App\Service\AgendaStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -134,5 +135,20 @@ class CaseEntityRepository extends ServiceEntityRepository
     {
         // TODO: Update beneath when hearing stuff has been implemented
         return -1;
+    }
+
+    public function findCasesForBoardMember(BoardMember $boardMember)
+    {
+        $qb = $this
+            ->createQueryBuilder('c')
+            ->leftJoin('c.agendaCaseItems', 'aci')
+            ->leftJoin('aci.agenda', 'a')
+            ->andWhere(':boardMember MEMBER OF a.boardmembers')
+            ->setParameter('boardMember', $boardMember->getId()->toBinary())
+            ->orWhere('c.currentPlace = :case_finished_status')
+            ->setParameter('case_finished_status', 'Afgørelse' )
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 }

@@ -7,6 +7,8 @@ use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
 use App\Entity\LogEntry;
 use App\Entity\ResidentComplaintBoardCase;
+use App\Entity\User;
+use App\Exception\BoardMemberException;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
@@ -74,11 +76,42 @@ class CaseController extends AbstractController
         }
 
         // Setup filter and pagination
-        $filterBuilder = $caseRepository->createQueryBuilder('c');
+        // If user is a board member we have to modify list of cases and filters shown
+        if ($this->isGranted('ROLE_BOARD_MEMBER')) {
+            /** @var User $user */
+            $user = $this->getUser();
 
-        $filterForm = $this->createForm(CaseFilterType::class, null, [
-            'municipality' => $activeMunicipality,
-        ]);
+            $boardMember = $user->getBoardMember();
+
+            if (null === $boardMember) {
+                $message = sprintf('User %s is not linked to any board member.', $user->getName());
+                throw new BoardMemberException($message);
+            }
+
+            $filterBuilder = $caseRepository
+                ->createQueryBuilder('c')
+                ->leftJoin('c.agendaCaseItems', 'aci')
+                ->leftJoin('aci.agenda', 'a')
+                ->andWhere(':boardMember MEMBER OF a.boardmembers')
+                ->setParameter('boardMember', $boardMember->getId()->toBinary())
+                ->orWhere('c.currentPlace = :case_finished_status')
+                ->setParameter('case_finished_status', 'Afgørelse' )
+            ;
+
+            $filterOptions = [
+                'municipality' => $activeMunicipality,
+                'isBoardMember' => true,
+            ];
+        } else {
+            $filterBuilder = $caseRepository->createQueryBuilder('c');
+
+            $filterOptions = [
+                'municipality' => $activeMunicipality,
+                'isBoardMember' => false,
+            ];
+        }
+
+        $filterForm = $this->createForm(CaseFilterType::class, null, $filterOptions);
 
         if ($request->query->has($filterForm->getName())) {
             $filterForm->submit($request->query->get($filterForm->getName()));
