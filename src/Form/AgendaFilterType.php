@@ -46,6 +46,7 @@ class AgendaFilterType extends AbstractType
             'csrf_protection' => false,
             'validation_groups' => ['filtering'],
             'municipality' => null,
+            'isBoardMember' => null,
         ]);
     }
 
@@ -53,6 +54,23 @@ class AgendaFilterType extends AbstractType
     {
         /** @var Municipality $municipality */
         $municipality = $options['municipality'];
+        $isBoardMember = $options['isBoardMember'];
+
+        // Modify status filter choices if board member
+        if ($isBoardMember){
+            $statusChoices = [
+                $this->translator->trans('Finished', [], 'agenda') => AgendaStatus::FINISHED,
+                $this->translator->trans('Open', [], 'agenda') => AgendaStatus::NOT_FINISHED,
+            ];
+        } else {
+            $statusChoices = [
+                $this->translator->trans('Open', [], 'agenda') => AgendaStatus::OPEN,
+                $this->translator->trans('Full', [], 'agenda') => AgendaStatus::FULL,
+                $this->translator->trans('Ready', [], 'agenda') => AgendaStatus::READY,
+                $this->translator->trans('Finished', [], 'agenda') => AgendaStatus::FINISHED,
+                $this->translator->trans('Not-closed', [], 'agenda') => AgendaStatus::NOT_FINISHED,
+            ];
+        }
 
         $builder
             ->add('board', Filters\ChoiceFilterType::class, [
@@ -74,13 +92,7 @@ class AgendaFilterType extends AbstractType
                 'input_format' => 'dd-MM-yyyy',
             ])
             ->add('status', Filters\ChoiceFilterType::class, [
-                'choices' => [
-                    $this->translator->trans('Open', [], 'agenda') => AgendaStatus::OPEN,
-                    $this->translator->trans('Full', [], 'agenda') => AgendaStatus::FULL,
-                    $this->translator->trans('Ready', [], 'agenda') => AgendaStatus::READY,
-                    $this->translator->trans('Finished', [], 'agenda') => AgendaStatus::FINISHED,
-                    $this->translator->trans('Not-closed', [], 'agenda') => AgendaStatus::NOT_FINISHED,
-                ],
+                'choices' => $statusChoices,
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                     if (empty($values['value'])) {
                         return null;

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaProtocol;
 use App\Entity\BoardMember;
+use App\Entity\User;
+use App\Exception\BoardMemberException;
 use App\Form\AgendaAddBoardMemberType;
 use App\Form\AgendaBroadcastType;
 use App\Form\AgendaEditType;
@@ -28,6 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Uid\UuidV4;
 
 /**
@@ -53,7 +56,7 @@ class AgendaController extends AbstractController
     /**
      * @Route("/", name="agenda_index", methods={"GET", "POST"})
      */
-    public function index(AgendaRepository $agendaRepository, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, Request $request): Response
+    public function index(AgendaRepository $agendaRepository, Security $security, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, Request $request): Response
     {
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
 
@@ -74,11 +77,41 @@ class AgendaController extends AbstractController
         }
 
         // Setup filter and pagination
-        $filterBuilder = $agendaRepository->createQueryBuilder('a');
+        // If user is a board member we have to modify list of agendas and filters shown
+        if ($this->isGranted('ROLE_BOARD_MEMBER')){
+            /** @var User $user */
+            $user = $this->getUser();
 
-        $filterForm = $this->createForm(AgendaFilterType::class, null, [
-            'municipality' => $activeMunicipality,
-        ]);
+            $boardMember = $user->getBoardMember();
+
+            if (null === $boardMember){
+                $message = sprintf('User %s is not linked to any board member.', $user->getName());
+                throw new BoardMemberException($message);
+            }
+
+            $filterBuilder = $agendaRepository
+                ->createQueryBuilder('a')
+                ->where(':boardMember MEMBER OF a.boardmembers')
+                ->setParameter('boardMember', $boardMember->getId()->toBinary())
+                ->orWhere('a.status = :agenda_finished_status')
+                ->setParameter('agenda_finished_status', AgendaStatus::FINISHED)
+            ;
+
+            $filterOptions = [
+                'municipality' => $activeMunicipality,
+                'isBoardMember' => true,
+            ];
+        } else {
+            $filterBuilder = $agendaRepository->createQueryBuilder('a');
+
+            $filterOptions = [
+                'municipality' => $activeMunicipality,
+                'isBoardMember' => false,
+            ];
+        }
+
+
+        $filterForm = $this->createForm(AgendaFilterType::class, null, $filterOptions);
 
         if ($request->query->has($filterForm->getName())) {
             $filterForm->submit($request->query->get($filterForm->getName()));
