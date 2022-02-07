@@ -229,17 +229,20 @@ class MailTemplateHelper
         return $value;
     }
 
-    private function setTemplateValue(string $name, $value, TemplateProcessor $templateProcessor)
+    private function setTemplateValue(string $search, $replace, TemplateProcessor $templateProcessor)
     {
-        if ($value instanceof AbstractElement) {
-            $count = 0;
-            // TemplateProcessor::setComplexValue() only replaces one (the first) occurrence.
-            while (isset($templateProcessor->getVariableCount()[$name]) && $count < 10) {
-                $templateProcessor->setComplexValue($name, $value);
-                ++$count;
+        if ($replace instanceof AbstractElement) {
+            // TemplateProcessor::setComplexValue() only replaces one (the
+            // first) occurrence.
+            // To prevent infinite loops (in the [unlikely] case that the
+            // replacement value contains the search value) we replace at most
+            // 10 times.
+            $maxReplacements = 10;
+            while (isset($templateProcessor->getVariableCount()[$search]) && --$maxReplacements >= 0) {
+                $templateProcessor->setComplexValue($search, $replace);
             }
         } else {
-            $templateProcessor->setValue($name, $value);
+            $templateProcessor->setValue($search, $replace);
         }
     }
 
