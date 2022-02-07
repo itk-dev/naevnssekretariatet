@@ -12,6 +12,9 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"document" = "Document", "digital post" = "DigitalPostDocument"})
  */
 class Document implements LoggableEntityInterface
 {

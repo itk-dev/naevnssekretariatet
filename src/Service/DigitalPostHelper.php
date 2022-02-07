@@ -7,6 +7,7 @@ use ItkDev\Serviceplatformen\DigitalPost\DigitalPost;
 use ItkDev\Serviceplatformen\SF1600\EnumType\KanalvalgType;
 use ItkDev\Serviceplatformen\SF1600\EnumType\PrioritetType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\String\ByteString;
 use Symfony\Component\Uid\Uuid;
 
 class DigitalPostHelper extends DigitalPost
@@ -52,9 +53,9 @@ class DigitalPostHelper extends DigitalPost
         exit(__FILE__.':'.__LINE__.':'.__METHOD__);
     }
 
-    protected function generateNextLetterIdentifier(): string
+    protected function generateNextSerialNumber(): string
     {
-        return 'hest004';
+        ByteString::fromRandom(21)->toString();
     }
 
     protected function generateUUID(): string
