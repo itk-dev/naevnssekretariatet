@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Logging\LoggableEntityInterface;
 use App\Repository\PartyRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -21,11 +22,13 @@ class Party implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"mail_template"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"mail_template"})
      */
     private $phoneNumber;
 
@@ -46,6 +49,7 @@ class Party implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"mail_template"})
      */
     private $name;
 

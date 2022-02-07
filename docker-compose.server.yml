@@ -44,3 +44,17 @@ services:
       - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_SERVER_DOMAIN}`)"
       - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure"
        #- "traefik.http.routers.${COMPOSE_PROJECT_NAME}.middlewares=ITKBasicAuth@file"
+
+  # https://sdk.collaboraonline.com/docs/installation/CODE_Docker_image.html
+  collabora:
+    image: collabora/code
+    restart: unless-stopped
+    networks:
+      - app
+    # environment:
+    #   extra_params: '--o:net.post_allow.host= --o:net.post_allow.host[0]=::ffff:172.[0-9]+.[0-9]+.[0-9]+'
+    volumes:
+      # https://sdk.collaboraonline.com/docs/installation/CODE_Docker_image.html#use-the-configuration-file-directly
+      - ${PWD}/.docker/collabora/config:/config
+    ports:
+      - '9980'

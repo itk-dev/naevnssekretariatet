@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Embeddable\Address;
 use App\Repository\ResidentComplaintBoardCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ResidentComplaintBoardCaseRepository::class)
@@ -14,6 +15,7 @@ class ResidentComplaintBoardCase extends CaseEntity
 {
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $leaseSize;
 
@@ -24,11 +26,13 @@ class ResidentComplaintBoardCase extends CaseEntity
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"mail_template"})
      */
     private $hasVacated;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
+     * @Groups({"mail_template"})
      */
     private $leaseAddress;
 
