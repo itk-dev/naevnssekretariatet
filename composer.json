@@ -35,7 +35,7 @@
         "gedmo/doctrine-extensions": "^3.0",
         "itk-dev/datafordeler-php-client": "dev-develop",
         "itk-dev/openid-connect-bundle": "dev-develop",
-        "itk-dev/serviceplatformen-digital-post": "dev-main",
+        "itk-dev/serviceplatformen": "dev-feature/digital-post",
         "knplabs/knp-paginator-bundle": "^5.6",
         "league/oauth2-client": "^2.6",
         "lexik/form-filter-bundle": "^7.0",
@@ -173,10 +173,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/itk-dev/datafordeler-php-client"
-        },
-        {
-            "type": "path",
-            "url": "../serviceplatformen-digital-post"
         }
     ]
 }

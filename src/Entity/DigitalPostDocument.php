@@ -13,10 +13,8 @@ use Symfony\Component\String\ByteString;
  */
 class DigitalPostDocument extends Document
 {
-    /**
-     * @ORM\Column(type="string", unique=true)
-     */
-    private string $serialNumber;
+    public const STATUS_SENT = 'sent';
+    public const STATUS_ERROR = 'error';
 
     /**
      * @ORM\Column(type="string", length=10)
@@ -38,32 +36,22 @@ class DigitalPostDocument extends Document
      */
     private string $status;
 
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $sentAt;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $data = [];
+
     public function __construct()
     {
         parent::__construct();
         $this
             ->setType('Digital post')
-            ->setSerialNumber(ByteString::fromRandom(21)->toString())
         ;
-    }
-
-    public function getSerialNumber(): string
-    {
-        return $this->serialNumber;
-    }
-
-    /**
-     * @return DigitalPostDocument
-     */
-    public function setSerialNumber(string $serialNumber): self
-    {
-        if (strlen($serialNumber) > 21) {
-            throw new \RuntimeException(sprintf('The digital post serial contains more the 21 characters: %s', $serialNumber));
-        }
-
-        $this->serialNumber = $serialNumber;
-
-        return $this;
     }
 
     public function getRecipientCpr(): string
@@ -124,5 +112,34 @@ class DigitalPostDocument extends Document
         $this->status = $status;
 
         return $this;
+    }
+
+    public function getSentAt(): ?\DateTimeInterface
+    {
+        return $this->sentAt;
+    }
+
+    public function setSentAt(?\DateTimeInterface $sentAt): self
+    {
+        $this->sentAt = $sentAt;
+
+        return $this;
+    }
+
+    public function getData(): array
+    {
+        return $this->data ?? [];
+    }
+
+    public function setData(?array $data): self
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function addData(array $data): self
+    {
+        return $this->setData(array_merge($this->getData(), $data));
     }
 }

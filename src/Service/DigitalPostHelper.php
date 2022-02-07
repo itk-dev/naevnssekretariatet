@@ -7,8 +7,6 @@ use ItkDev\Serviceplatformen\DigitalPost\DigitalPost;
 use ItkDev\Serviceplatformen\SF1600\EnumType\KanalvalgType;
 use ItkDev\Serviceplatformen\SF1600\EnumType\PrioritetType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\String\ByteString;
-use Symfony\Component\Uid\Uuid;
 
 class DigitalPostHelper extends DigitalPost
 {
@@ -23,7 +21,7 @@ class DigitalPostHelper extends DigitalPost
         $this->serviceOptions = $resolver->resolve($options);
     }
 
-    public function sendDigitalPost(string $cpr, string $name, Address $address, string $title, string $content): bool
+    public function sendDigitalPost(string $cpr, string $name, Address $address, string $title, string $content): array
     {
         $result = $this->setServiceOptions($this->serviceOptions['digital_post_options'])
             ->afsendBrevPerson(
@@ -48,19 +46,7 @@ class DigitalPostHelper extends DigitalPost
             )
         ;
 
-        header('content-type: text/plain');
-        echo var_export($result, true);
-        exit(__FILE__.':'.__LINE__.':'.__METHOD__);
-    }
-
-    protected function generateNextSerialNumber(): string
-    {
-        ByteString::fromRandom(21)->toString();
-    }
-
-    protected function generateUUID(): string
-    {
-        return Uuid::v4()->toRfc4122();
+        return $result;
     }
 
     protected function acquireLock(): bool

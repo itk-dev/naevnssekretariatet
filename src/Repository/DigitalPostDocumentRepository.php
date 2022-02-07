@@ -3,15 +3,14 @@
 namespace App\Repository;
 
 use App\Entity\DigitalPostDocument;
-use App\Entity\Document;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Document|null find($id, $lockMode = null, $lockVersion = null)
- * @method Document|null findOneBy(array $criteria, array $orderBy = null)
- * @method Document[]    findAll()
- * @method Document[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DigitalPostDocument|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DigitalPostDocument|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DigitalPostDocument[]    findAll()
+ * @method DigitalPostDocument[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class DigitalPostDocumentRepository extends ServiceEntityRepository
 {
