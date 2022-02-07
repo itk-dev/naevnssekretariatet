@@ -61,6 +61,11 @@ class User implements UserInterface, LoggableEntityInterface
      */
     private $initials;
 
+    /**
+     * @ORM\OneToOne(targetEntity=BoardMember::class, cascade={"persist", "remove"})
+     */
+    private $boardMember;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -266,6 +271,18 @@ class User implements UserInterface, LoggableEntityInterface
     public function setInitials(?string $initials): self
     {
         $this->initials = $initials;
+
+        return $this;
+    }
+
+    public function getBoardMember(): ?BoardMember
+    {
+        return $this->boardMember;
+    }
+
+    public function setBoardMember(?BoardMember $boardMember): self
+    {
+        $this->boardMember = $boardMember;
 
         return $this;
     }
