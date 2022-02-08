@@ -32,12 +32,14 @@
                     <th{% if pagination.isSorted('c.SortingAddress') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Address'|trans({}, 'case'), 'c.sortingAddress') }}
                     </th>
-                    <th{% if pagination.isSorted('c.SortingComplainant') %} class="sorted"{% endif %}>
-                        {{ knp_pagination_sortable(pagination, 'Complainant'|trans({}, 'case'), 'c.sortingComplainant') }}
-                    </th>
-                    <th{% if pagination.isSorted('c.SortingCounterparty') %} class="sorted"{% endif %}>
-                        {{ knp_pagination_sortable(pagination, 'Counterparty'|trans({}, 'case'), 'c.sortingCounterparty') }}
-                    </th>
+                    {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                        <th{% if pagination.isSorted('c.SortingComplainant') %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Complainant'|trans({}, 'case'), 'c.sortingComplainant') }}
+                        </th>
+                        <th{% if pagination.isSorted('c.SortingCounterparty') %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Counterparty'|trans({}, 'case'), 'c.sortingCounterparty') }}
+                        </th>
+                    {% endif %}
                     <th scope="col" data-orderable="false">{{ 'Function'|trans({}, 'case') }}</th>
                 </tr>
                 </thead>
@@ -48,12 +50,16 @@
                         <td>{{ case.complaintCategory.name|e }}</td>
                         <td>{{ case.currentPlace|e }}</td>
                         <td>{{ case.sortingAddress|e }}</td>
-                        <td>{{ case.sortingComplainant|e }}</td>
-                        <td>{{ case.sortingCounterparty|e }}</td>
+                        {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                            <td>{{ case.sortingComplainant|e }}</td>
+                            <td>{{ case.sortingCounterparty|e }}</td>
+                        {% endif %}
                         <td>
                             <div class="btn-group" role="group" aria-label="{{ 'List functions'|trans({}, 'case') }}">
-                                <a href="" role="button" class="btn btn-success" data-toggle="modal" data-target="#assign_case{{ case.id }}" data-placement="auto" title="{{ 'Assign caseworker'|trans({}, 'case') }}"><i class="fas fa-user-plus"></i><span class="sr-only">{{ 'Assign caseworker'|trans({}, 'case') }}</span></a>
-                                <a href="" role="button" class="btn btn-warning" data-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{{ 'Add reminder'|trans({}, 'case') }}"><i class="fas fa-clock"></i><span class="sr-only">{{ 'Add reminder'|trans({}, 'case') }}</span></a>
+                                {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                                    <a href="" role="button" class="btn btn-success" data-toggle="modal" data-target="#assign_case{{ case.id }}" data-placement="auto" title="{{ 'Assign caseworker'|trans({}, 'case') }}"><i class="fas fa-user-plus"></i><span class="sr-only">{{ 'Assign caseworker'|trans({}, 'case') }}</span></a>
+                                    <a href="" role="button" class="btn btn-warning" data-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{{ 'Add reminder'|trans({}, 'case') }}"><i class="fas fa-clock"></i><span class="sr-only">{{ 'Add reminder'|trans({}, 'case') }}</span></a>
+                                {% endif %}
                                 <a href="{{ url('case_summary', {id: case.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{{ 'Show case'|trans({}, 'case') }}"><i class="fas fa-eye"></i><span class="sr-only">{{ 'Show case'|trans({}, 'case') }}</span></a>
                             </div>
                         </td>
