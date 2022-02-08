@@ -146,7 +146,7 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->andWhere(':boardMember MEMBER OF a.boardmembers')
             ->setParameter('boardMember', $boardMember->getId()->toBinary())
             ->orWhere('c.currentPlace = :case_finished_status')
-            ->setParameter('case_finished_status', 'Afgørelse' )
+            ->setParameter('case_finished_status', 'Afgørelse')
         ;
 
         return $qb->getQuery()->getResult();

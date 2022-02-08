@@ -94,7 +94,7 @@ class CaseController extends AbstractController
                 ->leftJoin('aci.agenda', 'a')
                 ->andWhere(':boardMember MEMBER OF a.boardmembers OR c.currentPlace = :case_finished_status')
                 ->setParameter('boardMember', $boardMember->getId()->toBinary())
-                ->setParameter('case_finished_status', 'Afgørelse' )
+                ->setParameter('case_finished_status', 'Afgørelse')
             ;
 
             $filterOptions = [

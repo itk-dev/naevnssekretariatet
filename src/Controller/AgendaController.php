@@ -78,13 +78,13 @@ class AgendaController extends AbstractController
 
         // Setup filter and pagination
         // If user is a board member we have to modify list of agendas and filters shown
-        if ($this->isGranted('ROLE_BOARD_MEMBER')){
+        if ($this->isGranted('ROLE_BOARD_MEMBER')) {
             /** @var User $user */
             $user = $this->getUser();
 
             $boardMember = $user->getBoardMember();
 
-            if (null === $boardMember){
+            if (null === $boardMember) {
                 $message = sprintf('User %s is not linked to any board member.', $user->getName());
                 throw new BoardMemberException($message);
             }
@@ -109,7 +109,6 @@ class AgendaController extends AbstractController
                 'isBoardMember' => false,
             ];
         }
-
 
         $filterForm = $this->createForm(AgendaFilterType::class, null, $filterOptions);
 

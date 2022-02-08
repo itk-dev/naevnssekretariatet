@@ -28,7 +28,7 @@ class DefaultController extends AbstractController
     {
         // Board member are redirected to case index
         if ($this->isGranted('ROLE_BOARD_MEMBER')) {
-            return $this->redirectToRoute('case_index');
+            return $this->redirectToRoute('agenda_index');
         }
 
         // Get current User

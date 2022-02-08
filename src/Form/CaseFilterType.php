@@ -135,7 +135,7 @@ class CaseFilterType extends AbstractType
             $correctedCaseworkers[$user->getName()] = $user;
         }
 
-        if (!$isBoardMember){
+        if (!$isBoardMember) {
             $builder->add('assignedTo', Filters\ChoiceFilterType::class, [
                 'choices' => $correctedCaseworkers,
                 'label' => false,

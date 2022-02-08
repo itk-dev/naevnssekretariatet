@@ -94,6 +94,7 @@ class AgendaItemController extends AbstractController
             return $this->redirectToRoute('agenda_item_edit', [
                 'id' => $agenda->getId(),
                 'agenda_item_id' => $agendaItem->getId(),
+                'agenda_item' => $agendaItem,
             ]);
         }
 

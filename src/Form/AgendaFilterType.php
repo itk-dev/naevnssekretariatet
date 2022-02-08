@@ -57,7 +57,7 @@ class AgendaFilterType extends AbstractType
         $isBoardMember = $options['isBoardMember'];
 
         // Modify status filter choices if board member
-        if ($isBoardMember){
+        if ($isBoardMember) {
             $statusChoices = [
                 $this->translator->trans('Finished', [], 'agenda') => AgendaStatus::FINISHED,
                 $this->translator->trans('Open', [], 'agenda') => AgendaStatus::NOT_FINISHED,
