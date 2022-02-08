@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
 use App\Entity\Document;
+use App\Exception\DocumentDirectoryException;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CasePresentationType;
 use App\Form\InspectionLetterType;
 use App\Repository\DocumentRepository;
 use App\Service\AgendaHelper;
+use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -184,5 +186,19 @@ class AgendaCaseItemController extends AbstractController
             'id' => $agenda->getId(),
             'agenda_item_id' => $agendaItem->getId(),
         ]);
+    }
+
+    /**
+     * @Route("/download/{document_id}", name="agenda_case_item_document_download", methods={"GET", "POST"})
+     * @Entity("document", expr="repository.find(document_id)")
+     *
+     * @throws DocumentDirectoryException
+     */
+    public function download(Document $document, DocumentUploader $uploader): Response
+    {
+        $uploader->specifyDirectory('/case_documents/');
+        $response = $uploader->handleDownload($document);
+
+        return $response;
     }
 }
