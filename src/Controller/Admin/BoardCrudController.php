@@ -76,7 +76,7 @@ class BoardCrudController extends AbstractCrudController
             ->setHelp($this->translator->trans('List of counterparty types. One per line. The first party type can be used for sorting cases.', [], 'admin'))
         ;
         yield TextareaField::new('statuses', 'Statuses')
-            ->setHelp($this->translator->trans('List of case statuses. One per line.', [], 'admin'))
+            ->setHelp($this->translator->trans('List of case statuses. One per line. Board members will be able to see cases with the last status.', [], 'admin'))
         ;
     }
 }

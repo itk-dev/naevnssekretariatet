@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\CaseEntityRepository;
-use App\Service\CaseManager;
 use App\Service\SearchService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +16,7 @@ class SearchController extends AbstractController
     /**
      * @Route("/search", name="search")
      */
-    public function index(CaseEntityRepository $caseRepository, CaseManager $caseManager, PaginatorInterface $paginator, Request $request, SearchService $searchService): Response
+    public function index(CaseEntityRepository $caseRepository, PaginatorInterface $paginator, Request $request, SearchService $searchService): Response
     {
         $search = $request->query->get('search');
 
@@ -41,13 +40,7 @@ class SearchController extends AbstractController
 
             $boardMember = $user->getBoardMember();
 
-            $qb
-                ->leftJoin('c.agendaCaseItems', 'aci')
-                ->leftJoin('aci.agenda', 'a')
-                ->andWhere(':boardMember MEMBER OF a.boardmembers OR c.currentPlace = :case_finished_status')
-                ->setParameter('boardMember', $boardMember->getId()->toBinary())
-                ->setParameter('case_finished_status', 'Afgørelse')
-            ;
+            $qb = $caseRepository->updateQueryBuilderForBoardMember($boardMember, $qb);
         }
 
         // Add sortable fields.

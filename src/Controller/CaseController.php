@@ -88,14 +88,7 @@ class CaseController extends AbstractController
                 throw new BoardMemberException($message);
             }
 
-            $filterBuilder = $caseRepository
-                ->createQueryBuilder('c')
-                ->leftJoin('c.agendaCaseItems', 'aci')
-                ->leftJoin('aci.agenda', 'a')
-                ->where(':boardMember MEMBER OF a.boardmembers OR c.currentPlace = :case_finished_status')
-                ->setParameter('boardMember', $boardMember->getId()->toBinary())
-                ->setParameter('case_finished_status', 'Afgørelse')
-            ;
+            $filterBuilder = $caseRepository->createQueryBuilderForBoardMember($boardMember);
 
             $filterOptions = [
                 'municipality' => $activeMunicipality,

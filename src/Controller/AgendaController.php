@@ -30,7 +30,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Uid\UuidV4;
 
 /**
@@ -89,13 +88,7 @@ class AgendaController extends AbstractController
                 throw new BoardMemberException($message);
             }
 
-            $filterBuilder = $agendaRepository
-                ->createQueryBuilder('a')
-                ->where(':boardMember MEMBER OF a.boardmembers')
-                ->setParameter('boardMember', $boardMember->getId()->toBinary())
-                ->orWhere('a.status = :agenda_finished_status')
-                ->setParameter('agenda_finished_status', AgendaStatus::FINISHED)
-            ;
+            $filterBuilder = $agendaRepository->createQueryBuilderForBoardMember($boardMember);
 
             $filterOptions = [
                 'municipality' => $activeMunicipality,
