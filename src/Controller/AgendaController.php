@@ -56,7 +56,7 @@ class AgendaController extends AbstractController
     /**
      * @Route("/", name="agenda_index", methods={"GET", "POST"})
      */
-    public function index(AgendaRepository $agendaRepository, Security $security, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, Request $request): Response
+    public function index(AgendaRepository $agendaRepository, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, Request $request): Response
     {
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
 
