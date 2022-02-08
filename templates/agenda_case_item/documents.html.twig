@@ -45,8 +45,7 @@
                     <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
                     <td class="text-right">
                         <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
-                            {# TODO: Should we not just add a link to download document here? #}
-                            {# TODO: That would avoid boardmembers having to see documents on the specific cases #}
+                            <!-- Download button -->
                             <a href="{{ url("agenda_case_item_document_download", {id: agenda.id, agenda_item_id: agenda_item.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
                             {% if not is_granted('ROLE_BOARD_MEMBER') %}
                                 <!-- Delete button -->
