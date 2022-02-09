@@ -4,32 +4,37 @@
     <input class="form-control w-100 rounded form-control-sm ml-lg-2 mr-lg-1" type="search" placeholder="{{ 'Search'|trans({}, 'search') }}" name="search" value="{{ app.request.get('search') }}">
 </form>
 <ul class="navbar-nav ml-auto px-3 px-lg-0 col-auto">
-    <li class="nav-item dropdown">
-        {# TODO: Dropdown with shortcuts from Settings/External-shortcuts #}
-        <a class="btn btn-sm btn-dark d-block dropdown-toggle mb-2 mb-lg-0 border" href="#" id="external-shortcuts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Shortcuts'|trans({}, 'navbar') }}</a>
-        <div class="dropdown-menu" aria-labelledby="external-shortcuts">
-            <a class="dropdown-item" href="#">Genvej 1</a>
-            <a class="dropdown-item" href="#">Genvej 2</a>
-            <a class="dropdown-item" href="#">Genvej 3</a>
-        </div>
-    </li>
-    <li class="nav-item dropdown">
-        {# TODO: Link to Create new  #}
-        <a class="btn btn-sm btn-success d-block dropdown-toggle mb-2 mb-lg-0" href="#" id="create-new" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Create new'|trans({}, 'navbar') }}</a>
-        <div class="dropdown-menu" aria-labelledby="create-new">
-            <a class="dropdown-item" href="{{ path('case_new') }}">{{ 'New case'|trans({}, 'navbar') }}</a>
-            <a class="dropdown-item" href="#">{{ 'New agenda'|trans({}, 'navbar') }}</a>
-        </div>
-    </li>
-    <li class="nav-item">
-        {{ render(controller('App\\Controller\\NavbarController::renderReminders')) }}
-    </li>
+    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+        <li class="nav-item dropdown">
+            {# TODO: Dropdown with shortcuts from Settings/External-shortcuts #}
+            <a class="btn btn-sm btn-dark d-block dropdown-toggle mb-2 mb-lg-0 border" href="#" id="external-shortcuts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Shortcuts'|trans({}, 'navbar') }}</a>
+            <div class="dropdown-menu" aria-labelledby="external-shortcuts">
+                <a class="dropdown-item" href="#">Genvej 1</a>
+                <a class="dropdown-item" href="#">Genvej 2</a>
+                <a class="dropdown-item" href="#">Genvej 3</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            {# TODO: Link to Create new  #}
+            <a class="btn btn-sm btn-success d-block dropdown-toggle mb-2 mb-lg-0" href="#" id="create-new" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Create new'|trans({}, 'navbar') }}</a>
+            <div class="dropdown-menu" aria-labelledby="create-new">
+                <a class="dropdown-item" href="{{ path('case_new') }}">{{ 'New case'|trans({}, 'navbar') }}</a>
+                <a class="dropdown-item" href="#">{{ 'New agenda'|trans({}, 'navbar') }}</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            {{ render(controller('App\\Controller\\NavbarController::renderReminders')) }}
+        </li>
+    {% endif %}
     <li class="nav-item dropdown">
         {# TODO: Show name and avatar for active user and link to Settings/User  #}
         <a class="btn btn-sm btn-dark d-block dropdown-toggle mb-2 mb-lg-0" href="#" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle mr-2"></i>{{ app.user.name }}</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
-            <a class="dropdown-item" href="{{ path('user_settings') }}">{% trans %}User settings{% endtrans %}</a>
+            {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+                <a class="dropdown-item" href="{{ path('user_settings') }}">{% trans %}User settings{% endtrans %}</a>
+            {% endif %}
             <a class="dropdown-item" href="{{ path('app_logout') }}">{% trans %}Log out{% endtrans %}</a>
         </div>
     </li>
 </ul>
+

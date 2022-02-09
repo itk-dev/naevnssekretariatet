@@ -10,11 +10,12 @@
         <div class="col">
             <h1>{% trans %}Basic information{% endtrans %}</h1>
         </div>
-        <div class="col-auto">
-            {# TODO: Needs functionality on buttons #}
-            <a name="" id="" class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
-            <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
-        </div>
+        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+            <div class="col-auto">
+                <a class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
+                <a class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -22,15 +23,16 @@
 
     {% include('case/_case_show/' ~ camelCaseToUnderscore(class(case)) ~ '.html.twig') %}
 
-    <footer class="col-12 mt-3">
-        <div class="row">
-            <div class="col-auto ml-auto">
-                {# TODO: Needs functionality on buttons #}
-                <a name="" id="" class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
-                <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
+    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+        <footer class="col-12 mt-3">
+            <div class="row">
+                <div class="col-auto ml-auto">
+                    <a class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
+                    <a class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}

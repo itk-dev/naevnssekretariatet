@@ -50,6 +50,8 @@ class DocumentController extends AbstractController
      */
     public function index(CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $nonDeletedDocuments = $relationRepository->findNonDeletedDocumentsByCase($case);
 
         return $this->render('documents/index.html.twig', [
@@ -66,6 +68,8 @@ class DocumentController extends AbstractController
      */
     public function create(CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $this->documentUploader->specifyDirectory('/case_documents/');
 
         // Create new document and its form
@@ -111,6 +115,8 @@ class DocumentController extends AbstractController
      */
     public function delete(Request $request, Document $document, CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
             // Simply just soft delete by setting soft deleted to true
@@ -133,6 +139,8 @@ class DocumentController extends AbstractController
      */
     public function copy(Request $request, Document $document, CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         // Find suitable cases
         $suitableCases = $this->copyHelper->findSuitableCases($case, $document);
 
@@ -161,8 +169,10 @@ class DocumentController extends AbstractController
      *
      * @throws DocumentDirectoryException
      */
-    public function download(Document $document, DocumentUploader $uploader): Response
+    public function download(CaseEntity $case, Document $document, DocumentUploader $uploader): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $uploader->specifyDirectory('/case_documents/');
         $response = $uploader->handleDownload($document);
 

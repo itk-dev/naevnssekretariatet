@@ -108,6 +108,7 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
         $user->setName($name);
         $user->setEmail($email);
         $user->setRoles($roles);
+        $user->setBoardMember($boardMember);
 
         // persist and flush user to database
         // If no change persist will recognize this

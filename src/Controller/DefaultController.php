@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends AbstractController
@@ -26,6 +27,11 @@ class DefaultController extends AbstractController
      */
     public function index(CaseEntityRepository $caseRepository, DashboardHelper $dashboardHelper, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, ReminderHelper $reminderHelper, ReminderRepository $reminderRepository, Security $security, Request $request): Response
     {
+        // Board member are redirected to case index
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            return $this->redirectToRoute('agenda_index');
+        }
+
         // Get current User
         /** @var User $user */
         $user = $security->getUser();
@@ -34,7 +40,7 @@ class DefaultController extends AbstractController
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
         $municipalities = $municipalityRepository->findAll();
 
-        // Despite chosen municipality we show ALL reminders
+        // Show reminders accordingly to chosen municipality
         $upcomingReminders = $reminderHelper->getRemindersWithinWeekByUserAndMunicipalityGroupedByDay($user, $activeMunicipality);
         $exceededReminders = $reminderRepository->findExceededRemindersByUserAndMunicipality($user, $activeMunicipality);
 
@@ -83,6 +89,10 @@ class DefaultController extends AbstractController
      */
     public function redirectToUserSettings(AdminUrlGenerator $urlGenerator): Response
     {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
         $url = $urlGenerator
             ->setController(UserCrudController::class)
             ->setAction(Action::EDIT)

@@ -10,7 +10,7 @@
             <h1>{% trans %}Communication{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a name="" id="" class="btn btn-primary" href={{ url('case_decision', {id: case.id}) }} role="button">{% trans %}Create decision{% endtrans %}</a>
+            <a class="btn btn-primary" href={{ url('case_decision', {id: case.id}) }} role="button">{% trans %}Create decision{% endtrans %}</a>
             <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
         </div>
     </div>
@@ -73,8 +73,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
-                                        <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -110,8 +110,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
-                                        <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -147,8 +147,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
-                                        <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -197,8 +197,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
-                                        <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -234,8 +234,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
-                                        <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -271,8 +271,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a name="" id="" class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
-                                        <a name="" id="" class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
+                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -289,7 +289,7 @@
     <footer class="col-12 mt-3">
         <div class="row">
             <div class="col-auto ml-auto">
-                <a name="" id="" class="btn btn-primary" href="/case/decision" role="button">{% trans %}Create decision{% endtrans %}</a>
+                <a class="btn btn-primary" href="/case/decision" role="button">{% trans %}Create decision{% endtrans %}</a>
                 <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
             </div>
         </div>
@@ -308,17 +308,17 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">{% trans %}From{% endtrans %}</label>
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        <input type="text" class="form-control" aria-describedby="helpId" placeholder="">
                         <small id="helpId" class="form-text text-muted">{% trans %}Who is the call from{% endtrans %}</small>
                     </div>
                     <div class="form-group">
                         <label for="">{% trans %}Subject{% endtrans %}</label>
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        <input type="text" class="form-control" aria-describedby="helpId" placeholder="">
                         <small id="helpId" class="form-text text-muted">{% trans %}Subject of the call{% endtrans %}</small>
                     </div>
                     <div class="form-group">
                         <label for="">{% trans %}Message{% endtrans %}</label>
-                        <textarea class="form-control" name="" id="" rows="3"></textarea>
+                        <textarea class="form-control" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

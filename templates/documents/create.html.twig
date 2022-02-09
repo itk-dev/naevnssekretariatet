@@ -10,7 +10,7 @@
             <h1>{% trans %}Upload document{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a name="" id="" class="btn btn-secondary" href="{{ url('document_index', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+            <a class="btn btn-secondary" href="{{ url('document_index', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}

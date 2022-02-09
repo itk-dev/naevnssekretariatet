@@ -7,6 +7,7 @@ use App\Repository\ReminderRepository;
 use App\Service\ReminderStatus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 
 class NavbarController extends AbstractController
@@ -28,6 +29,10 @@ class NavbarController extends AbstractController
 
     public function renderReminders(): Response
     {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
         /** @var User $user */
         $user = $this->security->getUser();
 

@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
 use App\Entity\Document;
+use App\Exception\DocumentDirectoryException;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CasePresentationType;
 use App\Form\InspectionLetterType;
 use App\Repository\DocumentRepository;
 use App\Service\AgendaHelper;
+use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,6 +46,8 @@ class AgendaCaseItemController extends AbstractController
      */
     public function inspection(Agenda $agenda, AgendaCaseItem $agendaItem): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agendaItem);
+
         return $this->render('agenda_case_item/inspection.html.twig', [
             'agenda' => $agenda,
             'agenda_item' => $agendaItem,
@@ -57,6 +61,8 @@ class AgendaCaseItemController extends AbstractController
      */
     public function inspectionLetter(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agendaItem);
+
         $form = $this->createForm(InspectionLetterType::class);
 
         $isFinishedAgenda = $agenda->isFinished();
@@ -85,6 +91,9 @@ class AgendaCaseItemController extends AbstractController
      */
     public function presentation(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
+        // TODO: When they wish to make case presentations in TVIST1 ensure permissions are ok
+        $this->denyAccessUnlessGranted('view', $agendaItem);
+
         $casePresentation = $agendaItem->getCaseEntity()->getPresentation();
 
         $form = $this->createForm(CasePresentationType::class, $casePresentation, ['disabled' => true]);
@@ -103,6 +112,9 @@ class AgendaCaseItemController extends AbstractController
      */
     public function decisionProposal(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
+        // TODO: When they wish to make case presentations in TVIST1 ensure permissions are ok
+        $this->denyAccessUnlessGranted('view', $agendaItem);
+
         $decisionProposal = $agendaItem->getCaseEntity()->getDecisionProposal();
 
         $form = $this->createForm(CaseDecisionProposalType::class, $decisionProposal, ['disabled' => true]);
@@ -121,6 +133,8 @@ class AgendaCaseItemController extends AbstractController
      */
     public function caseItemDocuments(Agenda $agenda, AgendaCaseItem $agendaItem): Response
     {
+        $this->denyAccessUnlessGranted('view', $agendaItem);
+
         $documents = $agendaItem->getDocuments();
 
         return $this->render('agenda_case_item/documents.html.twig', [
@@ -137,6 +151,8 @@ class AgendaCaseItemController extends AbstractController
      */
     public function selectDocuments(Agenda $agenda, AgendaCaseItem $agendaItem, DocumentRepository $documentRepository, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agendaItem);
+
         $availableDocuments = $documentRepository->getAvailableDocumentsForAgendaItem($agendaItem);
 
         if ($request->isMethod('GET') || $agenda->isFinished()) {
@@ -174,6 +190,8 @@ class AgendaCaseItemController extends AbstractController
      */
     public function caseAgendaDocumentDelete(Agenda $agenda, AgendaCaseItem $agendaItem, Document $document, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agendaItem);
+
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $agendaItem->removeDocument($document);
@@ -184,5 +202,22 @@ class AgendaCaseItemController extends AbstractController
             'id' => $agenda->getId(),
             'agenda_item_id' => $agendaItem->getId(),
         ]);
+    }
+
+    /**
+     * @Route("/download/{document_id}", name="agenda_case_item_document_download", methods={"GET", "POST"})
+     * @Entity("document", expr="repository.find(document_id)")
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     *
+     * @throws DocumentDirectoryException
+     */
+    public function download(AgendaCaseItem $agendaItem, Document $document, DocumentUploader $uploader): Response
+    {
+        $this->denyAccessUnlessGranted('view', $agendaItem);
+
+        $uploader->specifyDirectory('/case_documents/');
+        $response = $uploader->handleDownload($document);
+
+        return $response;
     }
 }

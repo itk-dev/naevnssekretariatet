@@ -9,12 +9,14 @@
         <li class="nav-item">
             <a class="nav-link" id="claim-tab" data-toggle="tab" href="#claim" role="tab" aria-controls="claim" aria-selected="true">{% trans %}Condition{% endtrans %}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" id="complainant-tab" data-toggle="tab" href="#complainant" role="tab" aria-controls="complainant" aria-selected="true">{% trans %}Complainant{% endtrans %}</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="neighbour-tab" data-toggle="tab" href="#neighbour" role="tab" aria-controls="neighbour" aria-selected="true">{% trans %}Neighbour{% endtrans %}</a>
-        </li>
+        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+            <li class="nav-item">
+                <a class="nav-link" id="complainant-tab" data-toggle="tab" href="#complainant" role="tab" aria-controls="complainant" aria-selected="true">{% trans %}Complainant{% endtrans %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="neighbour-tab" data-toggle="tab" href="#neighbour" role="tab" aria-controls="neighbour" aria-selected="true">{% trans %}Neighbour{% endtrans %}</a>
+            </li>
+        {% endif %}
     </ul>
     <div class="tab-content" id="casestatusTabContent">
         <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
@@ -28,6 +30,7 @@
                                 <label for="inputBasicInformation1">{% trans %}Complainant name{% endtrans %}</label>
                                 <input type="text" class="form-control" id="inputBasicInformation1" value="{{ case.complainant }}" readonly>
                             </div>
+                            {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                             <div class="form-group col-md-6">
                                 <label for="inputBasicInformation2">{% trans %}CPR number{% endtrans %}</label>
                                 <div class="input-group mb-3">
@@ -39,6 +42,7 @@
                                     {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
                                 </div>
                             </div>
+                            {% endif %}
                         </div>
 
                         {% include 'case/_address.html.twig' with {case: case, address_property: 'complainantAddress'} %}
@@ -54,18 +58,20 @@
                                 <label for="inputBasicInformation8">{% trans %}Counterpart name{% endtrans %}</label>
                                 <input type="text" class="form-control" id="inputBasicInformation8" value="{{ case.accused }}" readonly>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputBasicInformation9">{% trans %}Counterpart CPR{% endtrans %}</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="inputBasicInformation9" value="{{ case.accusedCPR }}" readonly>
-                                    {# TODO: Show status depending on validation result #}
-                                    {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate CPR number'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
-                                    {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
-                                    {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
-                                    {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
-                                    {#</div>   #}
+                            {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+                                <div class="form-group col-md-6">
+                                    <label for="inputBasicInformation9">{% trans %}Counterpart CPR{% endtrans %}</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="inputBasicInformation9" value="{{ case.accusedCPR }}" readonly>
+                                        {# TODO: Show status depending on validation result #}
+                                        {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate CPR number'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
+                                        {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
+                                        {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
+                                        {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
+                                        {#</div>   #}
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
 
                         {% include 'case/_address.html.twig' with {case: case, address_property: 'accusedAddress'} %}
@@ -117,41 +123,41 @@
                     <div class="table-responsive-sm">
                         <table id="basicInformationComplainant" class="table table-striped table-hover">
                             <thead>
-                                <tr>
-                                    <th scope="col">{% trans %}Name{% endtrans %}</th>
-                                    <th scope="col">{% trans %}Party type{% endtrans %}</th>
-                                    <th scope="col">{% trans %}Address{% endtrans %}</th>
-                                    <th scope="col">{% trans %}CPR number{% endtrans %}</th>
-                                    <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
-                                    <th scope="col">{% trans %}Journal number{% endtrans %}</th>
-                                    <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
-                                </tr>
+                            <tr>
+                                <th scope="col">{% trans %}Name{% endtrans %}</th>
+                                <th scope="col">{% trans %}Party type{% endtrans %}</th>
+                                <th scope="col">{% trans %}Address{% endtrans %}</th>
+                                <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Journal number{% endtrans %}</th>
+                                <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                {% for party_data in complainants %}
-                                    <tr>
-                                        <td>{{ party_data.party.name|e }}</td>
-                                        <td>{{ party_data.type|e }}</td>
-                                        <td>{{ party_data.party.address|e }}</td>
-                                        <td>{{ party_data.party.cpr|e }}</td>
-                                        <td>{{ party_data.party.phoneNumber|e }}</td>
-                                        <td>{{ party_data.party.journalNumber|e }}</td>
-                                        <td class="text-right">
-                                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                            {% for party_data in complainants %}
+                                <tr>
+                                    <td>{{ party_data.party.name|e }}</td>
+                                    <td>{{ party_data.type|e }}</td>
+                                    <td>{{ party_data.party.address|e }}</td>
+                                    <td>{{ party_data.party.cpr|e }}</td>
+                                    <td>{{ party_data.party.phoneNumber|e }}</td>
+                                    <td>{{ party_data.party.journalNumber|e }}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
 
-                                                <!-- Edit button -->
-                                                <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+                                            <!-- Edit button -->
+                                            <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
 
-                                                <!-- Delete button -->
-                                                <form id="myform" class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party_data.party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party_data.party.id) }}">
-                                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+                                            <!-- Delete button -->
+                                            <form id="myform" class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party_data.party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party_data.party.id) }}">
+                                                <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -164,42 +170,42 @@
                     <div class="table-responsive-sm">
                         <table id="basicInformationNeighbour" class="table table-striped table-hover">
                             <thead>
-                                <tr>
-                                    <th scope="col">{% trans %}Name{% endtrans %}</th>
-                                    <th scope="col">{% trans %}Party type{% endtrans %}</th>
-                                    <th scope="col">{% trans %}Address{% endtrans %}</th>
-                                    <th scope="col">{% trans %}CPR number{% endtrans %}</th>
-                                    <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
-                                    <th scope="col">{% trans %}Journal number{% endtrans %}</th>
-                                    <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
-                                </tr>
+                            <tr>
+                                <th scope="col">{% trans %}Name{% endtrans %}</th>
+                                <th scope="col">{% trans %}Party type{% endtrans %}</th>
+                                <th scope="col">{% trans %}Address{% endtrans %}</th>
+                                <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Journal number{% endtrans %}</th>
+                                <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                {% for party_data in counterparties %}
-                                    <tr>
-                                        <td>{{ party_data.party.name|e }}</td>
-                                        <td>{{ party_data.type|e }}</td>
-                                        <td>{{ party_data.party.address|e }}</td>
-                                        <td>{{ party_data.party.cpr|e }}</td>
-                                        <td>{{ party_data.party.phoneNumber|e }}</td>
-                                        <td>{{ party_data.party.journalNumber|e }}</td>
-                                        <td class="text-right">
-                                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                            {% for party_data in counterparties %}
+                                <tr>
+                                    <td>{{ party_data.party.name|e }}</td>
+                                    <td>{{ party_data.type|e }}</td>
+                                    <td>{{ party_data.party.address|e }}</td>
+                                    <td>{{ party_data.party.cpr|e }}</td>
+                                    <td>{{ party_data.party.phoneNumber|e }}</td>
+                                    <td>{{ party_data.party.journalNumber|e }}</td>
+                                    <td class="text-right">
+                                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
 
-                                                <!-- Edit button -->
-                                                <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+                                            <!-- Edit button -->
+                                            <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
 
-                                                <!-- Delete button -->
+                                            <!-- Delete button -->
 
-                                                <form id="myform" class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party_data.party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party_data.party.id) }}">
-                                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+                                            <form id="myform" class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party_data.party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party_data.party.id) }}">
+                                                <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>

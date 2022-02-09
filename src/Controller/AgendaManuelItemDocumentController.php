@@ -44,6 +44,8 @@ class AgendaManuelItemDocumentController extends AbstractController
      */
     public function index(Agenda $agenda, AgendaManuelItem $agendaItem): Response
     {
+        $this->denyAccessUnlessGranted('view', $agendaItem);
+
         $documents = $agendaItem->getDocuments();
 
         return $this->render('agenda_manuel_item/documents.html.twig', [
@@ -63,6 +65,8 @@ class AgendaManuelItemDocumentController extends AbstractController
      */
     public function upload(Agenda $agenda, AgendaManuelItem $agendaItem, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agendaItem);
+
         $this->documentUploader->specifyDirectory('/agenda_item_documents/');
 
         // Create new document and its form
@@ -107,11 +111,14 @@ class AgendaManuelItemDocumentController extends AbstractController
     /**
      * @Route("/download/{document_id}", name="agenda_manuel_item_document_download", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
+     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      *
      * @throws DocumentDirectoryException
      */
-    public function download(Document $document, DocumentUploader $uploader): Response
+    public function download(AgendaManuelItem $agendaItem, Document $document, DocumentUploader $uploader): Response
     {
+        $this->denyAccessUnlessGranted('view', $agendaItem);
+
         $uploader->specifyDirectory('/agenda_item_documents/');
         $response = $uploader->handleDownload($document);
 
@@ -126,6 +133,8 @@ class AgendaManuelItemDocumentController extends AbstractController
      */
     public function delete(Agenda $agenda, AgendaManuelItem $agendaItem, Document $document, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agendaItem);
+
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $agendaItem->removeDocument($document);

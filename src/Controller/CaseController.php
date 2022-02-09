@@ -7,6 +7,8 @@ use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
 use App\Entity\LogEntry;
 use App\Entity\ResidentComplaintBoardCase;
+use App\Entity\User;
+use App\Exception\BoardMemberException;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
@@ -44,6 +46,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -57,6 +60,10 @@ class CaseController extends AbstractController
      */
     public function index(CaseEntityRepository $caseRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION') || $this->isGranted('ROLE_BOARD_MEMBER'))) {
+            throw new AccessDeniedException();
+        }
+
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
         $municipalities = $municipalityRepository->findAll();
 
@@ -75,11 +82,34 @@ class CaseController extends AbstractController
         }
 
         // Setup filter and pagination
-        $filterBuilder = $caseRepository->createQueryBuilder('c');
+        // If user is a board member we have to modify list of cases and filters shown
+        if ($this->isGranted('ROLE_BOARD_MEMBER')) {
+            /** @var User $user */
+            $user = $this->getUser();
 
-        $filterForm = $this->createForm(CaseFilterType::class, null, [
-            'municipality' => $activeMunicipality,
-        ]);
+            $boardMember = $user->getBoardMember();
+
+            if (null === $boardMember) {
+                $message = sprintf('User %s is not linked to any board member.', $user->getName());
+                throw new BoardMemberException($message);
+            }
+
+            $filterBuilder = $caseRepository->createQueryBuilderForBoardMember($boardMember);
+
+            $filterOptions = [
+                'municipality' => $activeMunicipality,
+                'isBoardMember' => true,
+            ];
+        } else {
+            $filterBuilder = $caseRepository->createQueryBuilder('c');
+
+            $filterOptions = [
+                'municipality' => $activeMunicipality,
+                'isBoardMember' => false,
+            ];
+        }
+
+        $filterForm = $this->createForm(CaseFilterType::class, null, $filterOptions);
 
         if ($request->query->has($filterForm->getName())) {
             $filterForm->submit($request->query->get($filterForm->getName()));
@@ -119,6 +149,8 @@ class CaseController extends AbstractController
      */
     public function summary(BoardRepository $boardRepository, CaseEntity $case, NoteRepository $noteRepository, WorkflowService $workflowService, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('view', $case);
+
         $notes = $noteRepository->findMostRecentNotesByCase($case, 4);
 
         $suitableBoards = $boardRepository->findDifferentSuitableBoards($case->getBoard());
@@ -135,6 +167,10 @@ class CaseController extends AbstractController
      */
     public function new(Request $request, CaseManager $caseManager): Response
     {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
         // We pass along a case entity to make sure we can extract municipality and board in CaseEntityType
         $form = $this->createForm(CaseEntityType::class, new ResidentComplaintBoardCase());
 
@@ -158,6 +194,8 @@ class CaseController extends AbstractController
      */
     public function show(CaseEntity $case, PartyHelper $partyHelper): Response
     {
+        $this->denyAccessUnlessGranted('view', $case);
+
         $parties = $partyHelper->getRelevantPartiesByCase($case);
 
         return $this->render('case/show.html.twig', [
@@ -172,6 +210,8 @@ class CaseController extends AbstractController
      */
     public function edit(CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         // Todo: Handle other case types, possibly via switch on $case->getBoard()->getCaseFormType()
         $form = $this->createForm('App\\Form\\'.$case->getBoard()->getCaseFormType(), $case, ['board' => $case->getBoard()]);
 
@@ -199,8 +239,9 @@ class CaseController extends AbstractController
      */
     public function status(CaseEntity $case, AgendaCaseItemRepository $agendaCaseItemRepository, WorkflowService $workflowService, Request $request): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $this->denyAccessUnlessGranted('view', $case);
 
+        $em = $this->getDoctrine()->getManager();
         $workflow = $workflowService->getWorkflowForCase($case);
 
         $caseStatus = new CaseStatusFormModel();
@@ -254,6 +295,8 @@ class CaseController extends AbstractController
      */
     public function hearing(CaseEntity $case): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         return $this->render('case/hearing.html.twig', [
             'case' => $case,
         ]);
@@ -264,6 +307,8 @@ class CaseController extends AbstractController
      */
     public function communication(CaseEntity $case): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         return $this->render('case/communication.html.twig', [
             'case' => $case,
         ]);
@@ -274,6 +319,8 @@ class CaseController extends AbstractController
      */
     public function decision(CaseEntity $case, MailTemplateHelper $mailTemplateHelper): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $mailTemplates = $mailTemplateHelper->getTemplates('decision');
 
         return $this->render('case/decision.html.twig', [
@@ -287,6 +334,8 @@ class CaseController extends AbstractController
      */
     public function log(CaseEntity $case, LogEntryRepository $logEntryRepository): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $logEntries = $logEntryRepository->findBy([
             'caseID' => $case->getId(),
         ], [
@@ -304,6 +353,8 @@ class CaseController extends AbstractController
      */
     public function logEntryShow(Request $request, CaseEntity $case, LogEntry $logEntry, LogEntryRepository $logEntryRepository, LogEntryHelper $logEntryHelper): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $urls = [];
         if (null !== ($previousLogEntry = $logEntryRepository->findPrevious($case, $logEntry))) {
             $urls['previous'] = $this->generateUrl('case_log_entry_show', ['case' => $case->getId(), 'logEntry' => $previousLogEntry->getId()]);
@@ -325,6 +376,8 @@ class CaseController extends AbstractController
      */
     public function presentation(CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $em = $this->getDoctrine()->getManager();
 
         $casePresentation = $case->getPresentation() ?? new CasePresentation();
@@ -357,6 +410,8 @@ class CaseController extends AbstractController
      */
     public function decisionProposal(CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $em = $this->getDoctrine()->getManager();
 
         $caseDecisionProposal = $case->getDecisionProposal() ?? new CaseDecisionProposal();
@@ -394,6 +449,8 @@ class CaseController extends AbstractController
      */
     public function bbrMeddelelse(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, string $_format): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         try {
             return $this->redirect($bbrHelper->getBBRMeddelelseUrlForCase($case, $addressProperty, $_format));
         } catch (\Exception $exception) {
@@ -411,6 +468,8 @@ class CaseController extends AbstractController
      */
     public function bbrData(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         try {
             $bbrHelper->updateCaseBBRData($case, $addressProperty);
             $entityManager->persist($case);
@@ -431,6 +490,8 @@ class CaseController extends AbstractController
      */
     public function rescheduleFinishProcessDeadline(CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $rescheduleForm = $this->createForm(CaseRescheduleFinishProcessDeadlineType::class, $case);
 
         $rescheduleForm->handleRequest($request);
@@ -463,6 +524,8 @@ class CaseController extends AbstractController
      */
     public function rescheduleFinishHearingDeadline(CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $rescheduleForm = $this->createForm(CaseRescheduleFinishHearingDeadlineType::class, $case);
 
         $rescheduleForm->handleRequest($request);
@@ -501,6 +564,8 @@ class CaseController extends AbstractController
      */
     public function assignCaseworker(CaseEntity $case, UserRepository $userRepository, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $availableCaseworkers = $userRepository->findByRole('ROLE_CASEWORKER', ['name' => 'ASC']);
 
         $assignForm = $this->createForm(CaseAssignCaseworkerType::class, $case, ['available_caseworkers' => $availableCaseworkers]);
@@ -526,6 +591,8 @@ class CaseController extends AbstractController
      */
     public function validateAddress(Request $request, CaseEntity $case, AddressHelper $addressHelper, string $addressProperty, TranslatorInterface $translator): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $form = $this->createformbuilder()->getForm();
         $form->handleRequest($request);
 
@@ -564,6 +631,8 @@ class CaseController extends AbstractController
      */
     public function move(BoardRepository $boardRepository, CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $availableBoards = $boardRepository->findDifferentSuitableBoards($case->getBoard());
 
         $moveForm = $this->createForm(CaseMoveType::class, $case, ['boards' => $availableBoards]);
