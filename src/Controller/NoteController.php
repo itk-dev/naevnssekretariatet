@@ -35,7 +35,7 @@ class NoteController extends AbstractController
      */
     public function index(CaseEntity $case, PaginatorInterface $paginator, NoteRepository $repository, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         $noteQuery = $repository->getNotesQueryByCase($case);
 

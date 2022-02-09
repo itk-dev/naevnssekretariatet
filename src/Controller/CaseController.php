@@ -295,7 +295,7 @@ class CaseController extends AbstractController
      */
     public function hearing(CaseEntity $case): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         return $this->render('case/hearing.html.twig', [
             'case' => $case,
@@ -307,7 +307,7 @@ class CaseController extends AbstractController
      */
     public function communication(CaseEntity $case): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         return $this->render('case/communication.html.twig', [
             'case' => $case,
@@ -319,7 +319,7 @@ class CaseController extends AbstractController
      */
     public function decision(CaseEntity $case, MailTemplateHelper $mailTemplateHelper): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         $mailTemplates = $mailTemplateHelper->getTemplates('decision');
 
@@ -334,7 +334,7 @@ class CaseController extends AbstractController
      */
     public function log(CaseEntity $case, LogEntryRepository $logEntryRepository): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         $logEntries = $logEntryRepository->findBy([
             'caseID' => $case->getId(),
@@ -353,7 +353,7 @@ class CaseController extends AbstractController
      */
     public function logEntryShow(Request $request, CaseEntity $case, LogEntry $logEntry, LogEntryRepository $logEntryRepository, LogEntryHelper $logEntryHelper): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         $urls = [];
         if (null !== ($previousLogEntry = $logEntryRepository->findPrevious($case, $logEntry))) {
@@ -376,7 +376,7 @@ class CaseController extends AbstractController
      */
     public function presentation(CaseEntity $case, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         $em = $this->getDoctrine()->getManager();
 
@@ -410,7 +410,7 @@ class CaseController extends AbstractController
      */
     public function decisionProposal(CaseEntity $case, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         $em = $this->getDoctrine()->getManager();
 
@@ -449,7 +449,7 @@ class CaseController extends AbstractController
      */
     public function bbrMeddelelse(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, string $_format): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         try {
             return $this->redirect($bbrHelper->getBBRMeddelelseUrlForCase($case, $addressProperty, $_format));
@@ -468,7 +468,7 @@ class CaseController extends AbstractController
      */
     public function bbrData(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         try {
             $bbrHelper->updateCaseBBRData($case, $addressProperty);

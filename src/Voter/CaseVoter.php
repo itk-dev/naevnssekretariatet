@@ -13,7 +13,6 @@ class CaseVoter extends Voter
 {
     public const VIEW = 'view';
     public const EDIT = 'edit';
-    public const EMPLOYEE = 'employee';
 
     public function __construct(private Security $security)
     {
@@ -22,7 +21,7 @@ class CaseVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::VIEW, self::EDIT, self::EMPLOYEE])) {
+        if (!in_array($attribute, [self::VIEW, self::EDIT])) {
             return false;
         }
 
@@ -54,8 +53,6 @@ class CaseVoter extends Voter
                 return $this->canView($case, $user);
             case self::EDIT:
                 return $this->canEdit($case, $user);
-            case self::EMPLOYEE:
-                return $this->isEmployee($case, $user);
         }
 
         $message = sprintf('Unhandled attribute %s in %s', $attribute, CaseVoter::class);
@@ -72,14 +69,6 @@ class CaseVoter extends Voter
     }
 
     private function canEdit(mixed $case, User $user): bool
-    {
-        $isCaseworker = $this->security->isGranted('ROLE_CASEWORKER');
-        $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');
-
-        return $isCaseworker || $isAdministration;
-    }
-
-    private function isEmployee(mixed $case, User $user): bool
     {
         $isCaseworker = $this->security->isGranted('ROLE_CASEWORKER');
         $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');

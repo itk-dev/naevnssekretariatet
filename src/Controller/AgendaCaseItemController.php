@@ -46,7 +46,7 @@ class AgendaCaseItemController extends AbstractController
      */
     public function inspection(Agenda $agenda, AgendaCaseItem $agendaItem): Response
     {
-        $this->denyAccessUnlessGranted('employee', $agendaItem);
+        $this->denyAccessUnlessGranted('edit', $agendaItem);
 
         return $this->render('agenda_case_item/inspection.html.twig', [
             'agenda' => $agenda,
@@ -61,7 +61,7 @@ class AgendaCaseItemController extends AbstractController
      */
     public function inspectionLetter(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('employee', $agendaItem);
+        $this->denyAccessUnlessGranted('edit', $agendaItem);
 
         $form = $this->createForm(InspectionLetterType::class);
 
@@ -151,7 +151,7 @@ class AgendaCaseItemController extends AbstractController
      */
     public function selectDocuments(Agenda $agenda, AgendaCaseItem $agendaItem, DocumentRepository $documentRepository, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('employee', $agendaItem);
+        $this->denyAccessUnlessGranted('edit', $agendaItem);
 
         $availableDocuments = $documentRepository->getAvailableDocumentsForAgendaItem($agendaItem);
 

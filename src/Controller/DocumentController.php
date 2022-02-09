@@ -50,7 +50,7 @@ class DocumentController extends AbstractController
      */
     public function index(CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         $nonDeletedDocuments = $relationRepository->findNonDeletedDocumentsByCase($case);
 
@@ -171,7 +171,7 @@ class DocumentController extends AbstractController
      */
     public function download(CaseEntity $case, Document $document, DocumentUploader $uploader): Response
     {
-        $this->denyAccessUnlessGranted('employee', $case);
+        $this->denyAccessUnlessGranted('edit', $case);
 
         $uploader->specifyDirectory('/case_documents/');
         $response = $uploader->handleDownload($document);

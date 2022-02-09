@@ -14,7 +14,6 @@ class AgendaVoter extends Voter
     public const VIEW = 'view';
     public const EDIT = 'edit';
     public const DELETE = 'delete';
-    public const EMPLOYEE = 'employee';
 
     public function __construct(private Security $security)
     {
@@ -23,7 +22,7 @@ class AgendaVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::VIEW, self::EDIT, self::DELETE, self::EMPLOYEE])) {
+        if (!in_array($attribute, [self::VIEW, self::EDIT, self::DELETE])) {
             return false;
         }
 
@@ -57,8 +56,6 @@ class AgendaVoter extends Voter
                 return $this->canEdit($agenda, $user);
             case self::DELETE:
                 return $this->canDelete($agenda, $user);
-            case self::EMPLOYEE:
-                return $this->isEmployee($agenda, $user);
         }
 
         $message = sprintf('Unhandled attribute %s in %s', $attribute, AgendaVoter::class);
@@ -83,14 +80,6 @@ class AgendaVoter extends Voter
     }
 
     private function canDelete(mixed $agenda, User $user): bool
-    {
-        $isCaseworker = $this->security->isGranted('ROLE_CASEWORKER');
-        $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');
-
-        return $isCaseworker || $isAdministration;
-    }
-
-    private function isEmployee(mixed $agenda, User $user): bool
     {
         $isCaseworker = $this->security->isGranted('ROLE_CASEWORKER');
         $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');

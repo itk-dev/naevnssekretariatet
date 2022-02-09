@@ -319,7 +319,7 @@ class AgendaController extends AbstractController
      */
     public function protocol(Agenda $agenda, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('employee', $agenda);
+        $this->denyAccessUnlessGranted('edit', $agenda);
 
         $agendaProtocol = $agenda->getProtocol() ?? new AgendaProtocol();
 
@@ -356,7 +356,7 @@ class AgendaController extends AbstractController
      */
     public function broadcastAgenda(Agenda $agenda, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('employee', $agenda);
+        $this->denyAccessUnlessGranted('edit', $agenda);
 
         $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
 
@@ -384,7 +384,7 @@ class AgendaController extends AbstractController
      */
     public function publishAgenda(Agenda $agenda): Response
     {
-        $this->denyAccessUnlessGranted('employee', $agenda);
+        $this->denyAccessUnlessGranted('edit', $agenda);
 
         $agenda->setIsPublished(true);
         $this->entityManager->flush();
