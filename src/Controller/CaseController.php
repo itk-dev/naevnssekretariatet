@@ -321,7 +321,7 @@ class CaseController extends AbstractController
     {
         $this->denyAccessUnlessGranted('employee', $case);
 
-      $mailTemplates = $mailTemplateHelper->getTemplates('decision');
+        $mailTemplates = $mailTemplateHelper->getTemplates('decision');
 
         return $this->render('case/decision.html.twig', [
             'case' => $case,
