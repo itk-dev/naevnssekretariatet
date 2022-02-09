@@ -37,7 +37,7 @@ services:
       - DOCKER_HOST_DOMAIN=${COMPOSE_DOMAIN}
       - COMPOSER_VERSION=2
     depends_on:
-      - libreoffice
+      - collabora
       - mariadb
     volumes:
       - .:/app:delegated
