@@ -2,18 +2,18 @@
 
 namespace App\Voter;
 
-use App\Entity\CaseEntity;
+use App\Entity\Reminder;
 use App\Entity\User;
 use App\Exception\VoterException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
-class CaseVoter extends Voter
+class ReminderVoter extends Voter
 {
     public const VIEW = 'view';
     public const EDIT = 'edit';
-    public const EMPLOYEE = 'employee';
+    public const DELETE = 'delete';
 
     public function __construct(private Security $security)
     {
@@ -22,12 +22,12 @@ class CaseVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::VIEW, self::EDIT, self::EMPLOYEE])) {
+        if (!in_array($attribute, [self::VIEW, self::EDIT, self::DELETE])) {
             return false;
         }
 
         // only vote on cases objects
-        if (!$subject instanceof CaseEntity) {
+        if (!$subject instanceof Reminder) {
             return false;
         }
 
@@ -46,36 +46,23 @@ class CaseVoter extends Voter
             return false;
         }
 
-        // As a consequence of the supports method we know subject is a case
-        $case = $subject;
+        // As a consequence of the supports method we know subject is a reminder
+        $reminder = $subject;
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($case, $user);
+                return $this->canView($reminder, $user);
             case self::EDIT:
-                return $this->canEdit($case, $user);
-            case self::EMPLOYEE:
-                return $this->isEmployee($case, $user);
+                return $this->canEdit($reminder, $user);
+            case self::DELETE:
+                return $this->canDelete($reminder, $user);
         }
 
-        $message = sprintf('Unhandled attribute %s in %s', $attribute, CaseVoter::class);
+        $message = sprintf('Unhandled attribute %s in %s', $attribute, AgendaVoter::class);
         throw new VoterException($message);
     }
 
-    private function canView(mixed $case, User $user): bool
-    {
-        $isCaseworker = $this->security->isGranted('ROLE_CASEWORKER');
-        $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');
-        $isBoardMember = $this->security->isGranted('ROLE_BOARD_MEMBER');
-
-        if ($isCaseworker || $isAdministration || $isBoardMember) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private function canEdit(mixed $case, User $user): bool
+    private function canView(mixed $reminder, User $user): bool
     {
         $isCaseworker = $this->security->isGranted('ROLE_CASEWORKER');
         $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');
@@ -87,7 +74,19 @@ class CaseVoter extends Voter
         }
     }
 
-    private function isEmployee(mixed $case, User $user): bool
+    private function canEdit(mixed $reminder, User $user): bool
+    {
+        $isCaseworker = $this->security->isGranted('ROLE_CASEWORKER');
+        $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');
+
+        if ($isCaseworker || $isAdministration) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function canDelete(mixed $reminder, User $user): bool
     {
         $isCaseworker = $this->security->isGranted('ROLE_CASEWORKER');
         $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');
