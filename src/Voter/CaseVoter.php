@@ -68,11 +68,7 @@ class CaseVoter extends Voter
         $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');
         $isBoardMember = $this->security->isGranted('ROLE_BOARD_MEMBER');
 
-        if ($isCaseworker || $isAdministration || $isBoardMember) {
-            return true;
-        } else {
-            return false;
-        }
+        return $isCaseworker || $isAdministration || $isBoardMember;
     }
 
     private function canEdit(mixed $case, User $user): bool
@@ -80,11 +76,7 @@ class CaseVoter extends Voter
         $isCaseworker = $this->security->isGranted('ROLE_CASEWORKER');
         $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');
 
-        if ($isCaseworker || $isAdministration) {
-            return true;
-        } else {
-            return false;
-        }
+        return $isCaseworker || $isAdministration;
     }
 
     private function isEmployee(mixed $case, User $user): bool
@@ -92,10 +84,6 @@ class CaseVoter extends Voter
         $isCaseworker = $this->security->isGranted('ROLE_CASEWORKER');
         $isAdministration = $this->security->isGranted('ROLE_ADMINISTRATION');
 
-        if ($isCaseworker || $isAdministration) {
-            return true;
-        } else {
-            return false;
-        }
+        return $isCaseworker || $isAdministration;
     }
 }
