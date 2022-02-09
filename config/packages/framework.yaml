@@ -20,3 +20,5 @@ framework:
     php_errors:
         log: true
     fragments: { path: /_fragment }
+
+    serializer: { enable_annotations: true }

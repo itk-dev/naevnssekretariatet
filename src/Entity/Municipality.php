@@ -7,6 +7,7 @@ use App\Repository\MunicipalityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -23,6 +24,7 @@ class Municipality implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Groups({"mail_template"})
      */
     private $name;
 

@@ -32,6 +32,7 @@ use App\Service\AddressHelper;
 use App\Service\BBRHelper;
 use App\Service\CaseManager;
 use App\Service\LogEntryHelper;
+use App\Service\MailTemplateHelper;
 use App\Service\MunicipalityHelper;
 use App\Service\PartyHelper;
 use App\Service\WorkflowService;
@@ -316,12 +317,15 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/decision", name="case_decision", methods={"GET"})
      */
-    public function decision(CaseEntity $case): Response
+    public function decision(CaseEntity $case, MailTemplateHelper $mailTemplateHelper): Response
     {
         $this->denyAccessUnlessGranted('employee', $case);
 
+      $mailTemplates = $mailTemplateHelper->getTemplates('decision');
+
         return $this->render('case/decision.html.twig', [
             'case' => $case,
+            'mail_templates' => $mailTemplates,
         ]);
     }
 
