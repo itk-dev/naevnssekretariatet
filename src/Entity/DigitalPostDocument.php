@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Entity\Embeddable\Address;
 use App\Repository\DigitalPostDocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\String\ByteString;
 
 /**
  * @ORM\Entity(repositoryClass=DigitalPostDocumentRepository::class)
