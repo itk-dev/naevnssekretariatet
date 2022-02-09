@@ -130,7 +130,7 @@
                             <h2 id="section_latest_notes">{% trans %}Latest notes{% endtrans %}</h2>
                         </div>
                         <div class="col-auto">
-                            <a name="" id="" class="btn btn-success float-right" href={{ url("note_index", {id: case.id, 'showQuickNote': true}) }} role="button">{% trans %}Create new note{% endtrans %}</a>
+                            <a class="btn btn-success float-right" href={{ url("note_index", {id: case.id, 'showQuickNote': true}) }} role="button">{% trans %}Create new note{% endtrans %}</a>
                         </div>
                     </div>
                     <div class="row">
@@ -155,7 +155,7 @@
     <footer class="col-12 mt-3">
         <div class="row">
             <div class="col">
-                <a name="" id="" class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
+                <a class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
             </div>
             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                 <div class="col-auto ml-auto">

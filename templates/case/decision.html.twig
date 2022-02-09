@@ -11,7 +11,7 @@
         </div>
         <div class="col-auto">
             {# TODO: Needs functionality on buttons #}
-            <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Send decision{% endtrans %}</a>
+            <a class="btn btn-success" href="#" role="button">{% trans %}Send decision{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
@@ -24,7 +24,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">{% trans %}Select a letter template{% endtrans %}</label>
-                        <select class="form-control js-select2" name="" id="">
+                        <select class="form-control js-select2">
                             <!-- TODO: List templates fom settings -->
                             <option>Template 1</option>
                             <option>Template 2</option>
@@ -36,7 +36,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">{% trans %}Select recipient(s) {% endtrans %}</label>
-                        <select class="form-control js-select2" name="" id="">
+                        <select class="form-control js-select2">
                             <!-- TODO: List templates fom settings -->
                             <option>Recipient 1</option>
                             <option>Recipient 2</option>
@@ -50,7 +50,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="">{% trans %}Subject{% endtrans %}</label>
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        <input type="text" class="form-control" aria-describedby="helpId" placeholder="">
                         <small id="helpId3" class="form-text text-muted">{% trans %}Should describe the essence of the letter{% endtrans %}</small>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="">{% trans %}Attachments{% endtrans %}</label>
-                        <input type="file" class="form-control-file" name="" id="" placeholder="" aria-describedby="fileHelpId">
+                        <input type="file" class="form-control-file" placeholder="" aria-describedby="fileHelpId">
                         <small id="fileHelpId1" class="form-text text-muted">{% trans %}Attatch files to the letter{% endtrans %}</small>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="">{% trans %}Content{% endtrans %}</label>
-                        <textarea class="form-control" name="" id="" rows="5"></textarea>
+                        <textarea class="form-control" rows="5"></textarea>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
         <div class="row">
             <div class="col-auto ml-auto">
                 {# TODO: Needs functionality on buttons #}
-                <a name="" id="" class="btn btn-success" href="#" role="button">{% trans %}Send decision{% endtrans %}</a>
+                <a class="btn btn-success" href="#" role="button">{% trans %}Send decision{% endtrans %}</a>
             </div>
         </div>
     </footer>

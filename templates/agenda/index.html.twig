@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-auto ml-2">
                     {# Todo: Just reset filter rather than refresh page although it yields the same result #}
-                    <a name="" id="" class="btn btn-secondary" href="{{ path('agenda_index') }}" role="button">{% trans %}Reset{% endtrans %}</a>
+                    <a class="btn btn-secondary" href="{{ path('agenda_index') }}" role="button">{% trans %}Reset{% endtrans %}</a>
                 </div>
             </div>
             {{ form_rest(filter_form) }}
