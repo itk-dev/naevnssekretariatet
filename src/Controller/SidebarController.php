@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Uid\UuidV4;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -89,7 +88,7 @@ class SidebarController extends AbstractController
         $isAdministration = $this->isGranted('ROLE_ADMINISTRATION');
         $isBoardMember = $this->isGranted('ROLE_BOARD_MEMBER');
 
-        if ($isCaseworker || $isAdministration || $isBoardMember){
+        if ($isCaseworker || $isAdministration || $isBoardMember) {
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Summary', [], 'sidebar'), ['case_summary'], $caseId, $activeRoute);
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Basic Information', [], 'sidebar'), ['case_show', 'case_edit', 'party_add', 'party_add_from_index', 'party_edit'], $caseId, $activeRoute);
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Status Info', [], 'sidebar'), ['case_status'], $caseId, $activeRoute);
@@ -122,11 +121,11 @@ class SidebarController extends AbstractController
         $isAdministration = $this->isGranted('ROLE_ADMINISTRATION');
         $isBoardMember = $this->isGranted('ROLE_BOARD_MEMBER');
 
-        if ($isCaseworker || $isAdministration || $isBoardMember){
+        if ($isCaseworker || $isAdministration || $isBoardMember) {
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Agenda', [], 'sidebar'), ['agenda_show', 'agenda_add_board_member', 'agenda_item_create'], $agendaId, $activeRoute);
         }
 
-        if ($isCaseworker || $isAdministration){
+        if ($isCaseworker || $isAdministration) {
             $this->generateSubmenuItem($this->translator->trans('Protocol', [], 'sidebar'), ['agenda_protocol'], $agendaId, $activeRoute);
             $this->generateSubmenuItem($this->translator->trans('Broadcast agenda', [], 'sidebar'), ['agenda_broadcast'], $agendaId, $activeRoute);
         }
@@ -144,7 +143,7 @@ class SidebarController extends AbstractController
         $isAdministration = $this->isGranted('ROLE_ADMINISTRATION');
         $isBoardMember = $this->isGranted('ROLE_BOARD_MEMBER');
 
-        if ($isCaseworker || $isAdministration || $isBoardMember){
+        if ($isCaseworker || $isAdministration || $isBoardMember) {
             $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Agenda item', [], 'sidebar'), ['agenda_item_edit'], $agendaId, $agendaItemId, $activeRoute);
             $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['agenda_case_item_document', 'agenda_case_item_document_attach'], $agendaId, $agendaItemId, $activeRoute);
         }
@@ -153,7 +152,7 @@ class SidebarController extends AbstractController
         // $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['agenda_case_item_presentation'], $agendaId, $agendaItemId, $activeRoute),
         // $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['agenda_case_item_decision_proposal'], $agendaId, $agendaItemId, $activeRoute),
 
-        if ($isInspection && ($isCaseworker || $isAdministration)){
+        if ($isInspection && ($isCaseworker || $isAdministration)) {
             $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_case_item_inspection', 'agenda_case_item_inspection_letter'], $agendaId, $agendaItemId, $activeRoute);
         }
 
