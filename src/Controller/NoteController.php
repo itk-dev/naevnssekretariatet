@@ -35,6 +35,8 @@ class NoteController extends AbstractController
      */
     public function index(CaseEntity $case, PaginatorInterface $paginator, NoteRepository $repository, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('employee', $case);
+
         $noteQuery = $repository->getNotesQueryByCase($case);
 
         $pagination = $paginator->paginate(
@@ -74,6 +76,8 @@ class NoteController extends AbstractController
      */
     public function new(CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $note = new Note();
 
         $form = $this->createForm(NoteType::class, $note);
@@ -105,6 +109,8 @@ class NoteController extends AbstractController
      */
     public function edit(CaseEntity $case, Note $note, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $form = $this->createForm(NoteType::class, $note);
 
         $form->handleRequest($request);
@@ -132,6 +138,8 @@ class NoteController extends AbstractController
      */
     public function delete(CaseEntity $case, Note $note, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$note->getId(), $request->request->get('_token'))) {
             $this->entityManager->remove($note);

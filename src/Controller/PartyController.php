@@ -35,6 +35,8 @@ class PartyController extends AbstractController
      */
     public function addParty(CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $party = new Party();
 
         $form = $this->createForm(PartyFormType::class, null, [
@@ -63,6 +65,8 @@ class PartyController extends AbstractController
      */
     public function addPartyFromIndex(CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $party = null;
 
         // Make sure we only get the option of adding parties that are not already added
@@ -95,6 +99,8 @@ class PartyController extends AbstractController
      */
     public function edit(CaseEntity $case, Party $party, CasePartyRelationRepository $relationRepository, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $form = $this->createForm(PartyFormType::class, null, [
             'case' => $case,
         ]);
@@ -129,6 +135,8 @@ class PartyController extends AbstractController
      */
     public function delete(Request $request, Party $party, CaseEntity $case, CasePartyRelationRepository $relationRepository): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$party->getId(), $request->request->get('_token'))) {
             // Simply just soft delete by setting soft deleted to true
