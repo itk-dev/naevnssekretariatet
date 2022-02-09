@@ -9,9 +9,9 @@
         <div class="col">
             <h1>{% trans %}Agendas{% endtrans %}</h1>
         </div>
-        {% if not is_granted('ROLE_BOARD_MEMBER') %}
+        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
             <div class="col-auto">
-                <a name="" id="" class="btn btn-success" href="create" role="button">{% trans %}Create agenda{% endtrans %}</a>
+                <a class="btn btn-success" href="create" role="button">{% trans %}Create agenda{% endtrans %}</a>
             </div>
         {% endif %}
     </div>
@@ -78,7 +78,7 @@
                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
                                 <!-- Show button -->
                                 <a href="{{ url('agenda_show', {id: agenda.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %}</span></a>
-                                {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                                {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                                     <!-- Delete button -->
                                     {% if agenda.isFinished() %}
                                         <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete finished agenda{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
@@ -104,16 +104,6 @@
             </div>
         </div>
     </main>
-
-    {% if not is_granted('ROLE_BOARD_MEMBER') %}
-        <footer class="col-12 mt-3">
-            <div class="row">
-                <div class="col-auto ml-auto">
-                    <a name="" id="" class="btn btn-success" href="create" role="button">{% trans %}Create agenda{% endtrans %}</a>
-                </div>
-            </div>
-        </footer>
-    {% endif %}
 {% endblock %}
 
 {% block javascripts %}

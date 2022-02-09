@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col">
             <h1>{% trans %}Agenda item{% endtrans %}</h1>
-            {% if not is_granted('ROLE_BOARD_MEMBER') %}
+            {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                 <p class="text-muted"><small>{% trans %}Edit agenda item{% endtrans %}</small></p>
             {% endif %}
         </div>
@@ -27,7 +27,7 @@
     <main role="main" class="col-12 mt-3">
         {{ form_start(agenda_item_edit_form) }}
         {{ form_rest(agenda_item_edit_form) }}
-        {% if not is_granted('ROLE_BOARD_MEMBER') %}
+        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
             <button class="btn btn-primary float-right">{{ button_label|default('Edit agenda item'|trans([], 'agenda', 'da')) }}</button>
         {% endif %}
         {{ form_end(agenda_item_edit_form) }}

@@ -7,7 +7,7 @@
     <li class="nav-item">
         <a class="nav-link" id="lease-tab" data-toggle="tab" href="#lease" role="tab" aria-controls="lease" aria-selected="true">{% trans %}Lease{% endtrans %}</a>
     </li>
-    {% if not is_granted('ROLE_BOARD_MEMBER') %}
+    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
         <li class="nav-item">
             <a class="nav-link" id="tenant-tab" data-toggle="tab" href="#tenant" role="tab" aria-controls="tenant" aria-selected="true">{% trans %}Tenant{% endtrans %}</a>
         </li>
@@ -31,7 +31,7 @@
                             <label>{% trans %}Telephone number{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.complainantPhone }}" readonly>
                         </div>
-                        {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                             <div class="form-group col-md-3">
                                 <label>{% trans %}CPR number{% endtrans %}</label>
                                 <div class="input-group mb-3">
@@ -132,7 +132,7 @@
                         {% trans %}No BBR data{% endtrans %}
                     {% endif %}
 
-                    {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                         <div class="row">
                             <div class="col">
                                 <a class="btn btn-link" data-referer-query-name="referer" href="{{ path('case_bbr_meddelelse', {id: case.id, addressProperty: 'leaseAddress'}) }}">{% trans %}Show BBR-Meddelelse for lease (PDF){% endtrans %}</a>

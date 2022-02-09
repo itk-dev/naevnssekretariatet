@@ -9,7 +9,7 @@
         <li class="nav-item">
             <a class="nav-link" id="claim-tab" data-toggle="tab" href="#claim" role="tab" aria-controls="claim" aria-selected="true">{% trans %}Condition{% endtrans %}</a>
         </li>
-        {% if not is_granted('ROLE_BOARD_MEMBER') %}
+        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
             <li class="nav-item">
                 <a class="nav-link" id="complainant-tab" data-toggle="tab" href="#complainant" role="tab" aria-controls="complainant" aria-selected="true">{% trans %}Complainant{% endtrans %}</a>
             </li>
@@ -30,7 +30,7 @@
                                 <label for="inputBasicInformation1">{% trans %}Complainant name{% endtrans %}</label>
                                 <input type="text" class="form-control" id="inputBasicInformation1" value="{{ case.complainant }}" readonly>
                             </div>
-                            {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                            {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                             <div class="form-group col-md-6">
                                 <label for="inputBasicInformation2">{% trans %}CPR number{% endtrans %}</label>
                                 <div class="input-group mb-3">
@@ -58,7 +58,7 @@
                                 <label for="inputBasicInformation8">{% trans %}Counterpart name{% endtrans %}</label>
                                 <input type="text" class="form-control" id="inputBasicInformation8" value="{{ case.accused }}" readonly>
                             </div>
-                            {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                            {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                                 <div class="form-group col-md-6">
                                     <label for="inputBasicInformation9">{% trans %}Counterpart CPR{% endtrans %}</label>
                                     <div class="input-group mb-3">

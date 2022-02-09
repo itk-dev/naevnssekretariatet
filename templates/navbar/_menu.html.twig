@@ -4,7 +4,7 @@
     <input class="form-control w-100 rounded form-control-sm ml-lg-2 mr-lg-1" type="search" placeholder="{{ 'Search'|trans({}, 'search') }}" name="search" value="{{ app.request.get('search') }}">
 </form>
 <ul class="navbar-nav ml-auto px-3 px-lg-0 col-auto">
-    {% if not is_granted('ROLE_BOARD_MEMBER') %}
+    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
         <li class="nav-item dropdown">
             {# TODO: Dropdown with shortcuts from Settings/External-shortcuts #}
             <a class="btn btn-sm btn-dark d-block dropdown-toggle mb-2 mb-lg-0 border" href="#" id="external-shortcuts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Shortcuts'|trans({}, 'navbar') }}</a>
@@ -30,7 +30,7 @@
         {# TODO: Show name and avatar for active user and link to Settings/User  #}
         <a class="btn btn-sm btn-dark d-block dropdown-toggle mb-2 mb-lg-0" href="#" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle mr-2"></i>{{ app.user.name }}</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
-            {% if not is_granted('ROLE_BOARD_MEMBER') %}
+            {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                 <a class="dropdown-item" href="{{ path('user_settings') }}">{% trans %}User settings{% endtrans %}</a>
             {% endif %}
             <a class="dropdown-item" href="{{ path('app_logout') }}">{% trans %}Log out{% endtrans %}</a>

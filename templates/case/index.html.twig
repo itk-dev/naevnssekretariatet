@@ -25,7 +25,7 @@
                 <div class="col-auto ml-2">
                     {{ form_widget(filter_form.currentPlace) }}
                 </div>
-                {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                     <div class="col-auto ml-2">
                         {{ form_widget(filter_form.assignedTo) }}
                     </div>
@@ -38,7 +38,7 @@
                 {% endif %}
                 <div class="col-auto ml-2">
                     {# Todo: Just reset filter rather than refresh page although it yields the same result #}
-                    <a name="" id="" class="btn btn-secondary" href="{{ path('case_index') }}" role="button">{% trans %}Reset{% endtrans %}</a>
+                    <a class="btn btn-secondary" href="{{ path('case_index') }}" role="button">{% trans %}Reset{% endtrans %}</a>
                 </div>
             </div>
             {{ form_rest(filter_form) }}
@@ -68,7 +68,7 @@
                     <th{% if pagination.isSorted('c.SortingAddress') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Address'|trans({}, 'case'), 'c.sortingAddress') }}
                     </th>
-                    {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                         <th{% if pagination.isSorted('c.SortingComplainant') %} class="sorted"{% endif %}>
                             {{ knp_pagination_sortable(pagination, 'Complainant'|trans({}, 'case'), 'c.sortingComplainant') }}
                         </th>
@@ -88,13 +88,13 @@
                         {# Todo: Replace with correct deadline when it is decided which one is the correct one #}
                         <td>{{ case.createdAt|date('d/m/Y') }}</td>
                         <td>{{ case.sortingAddress|e }}</td>
-                        {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                             <td>{{ case.sortingComplainant|e }}</td>
                             <td>{{ case.sortingCounterparty|e }}</td>
                         {% endif %}
                         <td>
                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
-                                {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                                {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                                     <!-- Assign button -->
                                     <a role="button" class="btn btn-success" data-toggle="modal" data-target="#assign_case{{ case.id }}" data-placement="auto" title="{% trans %}Assign caseworker{% endtrans %}"><i class="fas fa-user-plus"></i><span class="sr-only">{% trans %}Assign caseworker{% endtrans %}</span></a>
                                     <!-- Reminder button -->
@@ -105,7 +105,7 @@
                             </div>
                         </td>
                     </tr>
-                    {% if not is_granted('ROLE_BOARD_MEMBER') %}
+                    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                         {{ render(controller('App\\Controller\\CaseReminderController:new', {id: case.id})) }}
                         {{ render(controller('App\\Controller\\CaseController:assignCaseworker', {id: case.id})) }}
                     {% endif %}

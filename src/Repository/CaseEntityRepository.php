@@ -177,7 +177,7 @@ class CaseEntityRepository extends ServiceEntityRepository
         foreach ($boards as $board) {
             $rawPlaces = explode(
                 PHP_EOL,
-                $board->getStatuses()
+                trim($board->getStatuses())
             );
 
             $finishedStatus = trim(end($rawPlaces));

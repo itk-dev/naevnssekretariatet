@@ -10,10 +10,10 @@
         <div class="col">
             <h1>{% trans %}Basic information{% endtrans %}</h1>
         </div>
-        {% if not is_granted('ROLE_BOARD_MEMBER') %}
+        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
             <div class="col-auto">
-                <a name="" id="" class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
-                <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
+                <a class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
+                <a class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
             </div>
         {% endif %}
     </div>
@@ -23,12 +23,12 @@
 
     {% include('case/_case_show/' ~ camelCaseToUnderscore(class(case)) ~ '.html.twig') %}
 
-    {% if not is_granted('ROLE_BOARD_MEMBER') %}
+    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
         <footer class="col-12 mt-3">
             <div class="row">
                 <div class="col-auto ml-auto">
-                    <a name="" id="" class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
-                    <a name="" id="" class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
+                    <a class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
+                    <a class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
                 </div>
             </div>
         </footer>
