@@ -138,21 +138,6 @@ class CaseEntityRepository extends ServiceEntityRepository
         return -1;
     }
 
-    public function findCasesForBoardMember(BoardMember $boardMember)
-    {
-        $qb = $this
-            ->createQueryBuilder('c')
-            ->leftJoin('c.agendaCaseItems', 'aci')
-            ->leftJoin('aci.agenda', 'a')
-            ->andWhere(':boardMember MEMBER OF a.boardmembers')
-            ->setParameter('boardMember', $boardMember->getId()->toBinary())
-            ->orWhere('c.currentPlace = :case_finished_status')
-            ->setParameter('case_finished_status', 'Afgørelse')
-        ;
-
-        return $qb->getQuery()->getResult();
-    }
-
     public function createQueryBuilderForBoardMember(BoardMember $boardMember): QueryBuilder
     {
         $qb = $this
