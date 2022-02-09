@@ -209,7 +209,7 @@ class AgendaController extends AbstractController
 
         $sortedAgendaItems = $agendaItemRepository->findAscendingAgendaItemsByAgenda($agenda);
 
-        $agendaOptions = $agenda->isFinished() || $this->isGranted('ROLE_BOARD_MEMBER') ? ['disabled' => true] : [];
+        $agendaOptions = ($agenda->isFinished() || $this->isGranted('ROLE_BOARD_MEMBER')) ? ['disabled' => true] : [];
 
         $form = $this->createForm(AgendaEditType::class, $agenda, $agendaOptions);
 
