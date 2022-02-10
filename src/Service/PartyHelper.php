@@ -9,27 +9,12 @@ use App\Repository\CasePartyRelationRepository;
 use App\Repository\PartyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartyHelper
 {
-    /**
-     * @var PartyRepository
-     */
-    private $partyRepository;
-    /**
-     * @var CasePartyRelationRepository
-     */
-    private $relationRepository;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager, PartyRepository $partyRepository, CasePartyRelationRepository $relationRepository)
+    public function __construct(private EntityManagerInterface $entityManager, private PartyRepository $partyRepository, private CasePartyRelationRepository $relationRepository, private TranslatorInterface $translator)
     {
-        $this->entityManager = $entityManager;
-        $this->partyRepository = $partyRepository;
-        $this->relationRepository = $relationRepository;
     }
 
     public function findPartyIndexChoices(CaseEntity $case): array
@@ -276,5 +261,36 @@ class PartyHelper
         $counterpartTypes = $this->getCounterpartyTypesByCase($case);
         // Return first entry in array
         return reset($counterpartTypes);
+    }
+
+    public function getRelevantPartiesForHearingPostByCase(CaseEntity $case): array
+    {
+        $complainantRelations = $this->relationRepository
+            ->findBy([
+                'case' => $case,
+                'type' => $this->getComplainantTypesByCase($case),
+                'softDeleted' => false,
+            ])
+        ;
+
+        $complainants = [];
+        foreach ($complainantRelations as $relation) {
+            $complainants[$relation->getParty()->getName().', '.$relation->getType()] = $relation->getParty();
+        }
+
+        $counterpartyRelations = $this->relationRepository
+            ->findBy([
+                'case' => $case,
+                'type' => $this->getCounterpartyTypesByCase($case),
+                'softDeleted' => false,
+            ])
+        ;
+
+        $counterparties = [];
+        foreach ($counterpartyRelations as $relation) {
+            $counterparties[$relation->getParty()->getName().', '.$relation->getType()] = $relation->getParty();
+        }
+
+        return [$this->translator->trans('Complainants', [], 'case') => $complainants, $this->translator->trans('Counterparties', [], 'case') => $counterparties];
     }
 }

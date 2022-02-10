@@ -1,0 +1,136 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Hearing{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Hearing{% endtrans %}</h1>
+        </div>
+        {% if hearing.hasBeenStarted %}
+            <div class="col-auto">
+                {% if not neitherPartyHasAnythingToAdd %}
+                    <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while complainant or counterpart still has something to add{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
+                {% elseif hearing.hasNewHearingPost %}
+                    <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while there exists hearing post that has not been forwarded{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
+                {% else %}
+                    <a class="btn btn-primary" href="#" role="button">{% trans %}End Hearing{% endtrans %}</a>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="col-auto">
+                {% if hasSufficientParties %}
+                    <a class="btn btn-primary" href="{{ path('case_hearing_start', {id: case.id}) }}" role="button">{% trans %}Start hearing{% endtrans %}</a>
+                {% else %}
+                    <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must have both a complainant and a counter part before entering the hearing phase.{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
+                {% endif %}
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <main role="main" class="col-12 mt-3">
+        {% if hearing.hasBeenStarted %}
+            <p>{% trans %}Here you can process hearing posts sent by parties.{% endtrans %}</p>
+
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            {{ form_widget(form.complainantHasNoMoreToAdd) }}
+                        </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            {{ form_widget(form.counterpartHasNoMoreToAdd) }}
+                        </label>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary float-right">{{ button_label|default('Update'|trans([], 'case', 'da')) }}</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+
+            <div class="accordion mt-3" id="accordionAllHearingPosts">
+                {% if not posts|length > 0 %}
+                    {# Hearing started but no posts yet #}
+                    <p>{% trans %}No hearing posts have been receive yet.{% endtrans %}</p>
+                    <a class="btn btn-primary" href="{{ path('case_hearing_post_create', {case: case.id,  hearing: hearing.id}) }}" role="button">{% trans %}Create hearing post{% endtrans %}</a>
+                {% else %}
+                    {# Hearing started and there are posts #}
+                    {% set incrementer = 0 %}
+                    {% for post in posts %}
+                        {% set incrementer = incrementer + 1 %}
+                        <div class="card">
+                            {% set header = 'heading' ~ incrementer %}
+                            {% set collapse = 'collapse' ~ incrementer %}
+                            <div class="card-header" id="{{ header|e }}">
+                                <div class="row">
+                                    <div class="col">
+                                        <h2 class="m-0 p-0">
+                                            {% if not post.hasBeenProcessedAndForwarded %}
+                                                <span class="badge badge-pill badge-warning">N</span>
+                                            {% endif %}
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
+                                                {% trans %}Hearing post{% endtrans %}
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div class="col-auto ml-auto">
+                                        <p class="pt-2">{{ post.sender|e }} <span class="text-muted">{% trans %}sent to{% endtrans %}</span> {{ post.recipient|e }}</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <p class="pt-2">{{ post.createdAt|date('H:i d/m/Y') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if incrementer == 1 %}
+                                {% set collapse_variable = 'show' %}
+                            {% else %}
+                                {% set collapse_variable = 'collapse' %}
+                            {% endif %}
+                            <div id="{{ collapse|e }}" class="{{ collapse_variable }}" aria-labelledby="{{ header|e }}" data-parent="#accordionAllHearingPosts">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8" aria-label="message content">
+                                            <p>{{ post.content|e }}</p>
+                                        </div>
+                                        <div class="col-md-4" aria-label="attachments">
+                                            <p class="text-muted">
+                                                {#                                {% for attachment in post.attachments %}#}
+                                                {#                                    <a href="#">{{ attachment }}</a>;#}
+                                                {#                                {% endfor %}#}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            {% if post.hasBeenProcessedAndForwarded and incrementer == 1 %}
+                                                <a class="btn btn-primary" href="{{ path('case_hearing_post_create', {case: case.id,  hearing: hearing.id}) }}" role="button">{% trans %}Create response{% endtrans %}</a>
+                                            {% endif %}
+                                            <a class="btn btn-primary" href="{{ path('case_hearing_post_show', {case: case.id,  hearingPost: post.id}) }}" role="button">{% trans %}Show{% endtrans %}</a>
+                                            {% if not post.hasBeenProcessedAndForwarded %}
+                                                <a class="btn btn-warning" href="{{ path('case_hearing_post_forward', {case: case.id, hearingPost: post.id}) }}" role="button">{% trans %}Forward{% endtrans %}</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% else %}
+            <p>{% trans %}Hearing has not yet been started.{% endtrans %}</p>
+        {% endif %}
+    </main>
+{% endblock %}

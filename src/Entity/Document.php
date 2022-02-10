@@ -58,6 +58,11 @@ class Document implements LoggableEntityInterface
      */
     private $agendaCaseItems;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=HearingPost::class, inversedBy="documents")
+     */
+    private $hearingPost;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -193,5 +198,17 @@ class Document implements LoggableEntityInterface
     public function __toString()
     {
         return $this->documentName;
+    }
+
+    public function getHearingPost(): ?HearingPost
+    {
+        return $this->hearingPost;
+    }
+
+    public function setHearingPost(?HearingPost $hearingPost): self
+    {
+        $this->hearingPost = $hearingPost;
+
+        return $this;
     }
 }

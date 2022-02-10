@@ -170,6 +170,11 @@ abstract class CaseEntity
      */
     private $hasReachedProcessingDeadline = false;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Hearing::class, inversedBy="caseEntity", cascade={"persist", "remove"})
+     */
+    private $hearing;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -589,6 +594,18 @@ abstract class CaseEntity
     public function setHasReachedProcessingDeadline(bool $hasReachedProcessingDeadline): self
     {
         $this->hasReachedProcessingDeadline = $hasReachedProcessingDeadline;
+
+        return $this;
+    }
+
+    public function getHearing(): ?Hearing
+    {
+        return $this->hearing;
+    }
+
+    public function setHearing(?Hearing $hearing): self
+    {
+        $this->hearing = $hearing;
 
         return $this;
     }

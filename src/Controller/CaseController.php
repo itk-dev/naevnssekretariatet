@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
+use App\Entity\Hearing;
 use App\Entity\LogEntry;
+use App\Entity\User;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
@@ -243,16 +245,6 @@ class CaseController extends AbstractController
             'case_agenda_status_form' => $caseAgendaStatusForm->createView(),
             'active_agendas' => $activeAgendaCaseItems,
             'finished_agendas' => $finishedAgendaCaseItems,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/hearing", name="case_hearing", methods={"GET"})
-     */
-    public function hearing(CaseEntity $case): Response
-    {
-        return $this->render('case/hearing.html.twig', [
-            'case' => $case,
         ]);
     }
 

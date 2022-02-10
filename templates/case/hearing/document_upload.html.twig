@@ -1,0 +1,34 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'documents' %}
+
+{% block title %}{% trans %}Hearing post document upload{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Upload document to hearing post{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('case_hearing_post_show', {case: case.id, hearingPost: hearingPost.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(document_form) }}
+        <div>
+            <label >{% trans %}Document name{% endtrans %}</label>
+            {{ form_widget(document_form.documentName, {'attr': {'type': 'text', 'class': 'form-control', 'aria-describedby': 'helpNameId', 'required': true}}) }}
+            <small id="helpNameId" class="form-text text-muted">{% trans %}Provide a recognizable name for the document{% endtrans %}</small>
+        </div>
+        <div>
+            <label >{% trans %}Chose a file{% endtrans %}</label>
+            {{ form_widget(document_form.filename, {'attr': {'type': 'file', 'class': 'form-control-file', 'aria-describedby': 'helpFileId', 'required': true}}) }}
+            <small id="helpFileId" class="form-text text-muted">{% trans %}Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls{% endtrans %}</small>
+        </div>
+        <button class="btn btn-success float-right">{{ button_label|default('Upload'|trans([], 'documents', 'da')) }}</button>
+        {{ form_rest(document_form) }}
+    </main>
+{% endblock %}

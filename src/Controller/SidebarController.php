@@ -71,9 +71,9 @@ class SidebarController extends AbstractController
             $this->generateSubmenuItem($this->translator->trans('Summary', [], 'sidebar'), ['case_summary'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Basic Information', [], 'sidebar'), ['case_show', 'case_edit', 'party_add', 'party_add_from_index', 'party_edit'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Status Info', [], 'sidebar'), ['case_status'], $caseId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing'], $caseId, $activeRoute),
+            $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing', 'case_hearing_index', 'case_hearing_start', 'case_hearing_post_create', 'case_hearing_post_show', 'case_hearing_post_edit', 'case_hearing_post_document_upload'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['case_communication'], $caseId, $activeRoute),
-            // Currently they do not wish to create case presentation and decision proposal via TVIST1
+            // Currently, they do not wish to create case presentation and decision proposal via TVIST1
 //            $this->generateSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['case_presentation'], $caseId, $activeRoute),
 //            $this->generateSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['case_decision_proposal'], $caseId, $activeRoute),
             $this->generateSubmenuItem($this->translator->trans('Decision', [], 'sidebar'), ['case_decision'], $caseId, $activeRoute),
