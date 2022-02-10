@@ -28,10 +28,11 @@ class HearingController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/hearing", name="case_hearing")
+     * @Route("/{id}/hearing", name="case_hearing_index")
      */
     public function hearing(CaseEntity $case, HearingPostRepository $hearingPostRepository, PartyHelper $partyHelper, Request $request): Response
     {
+        // Check whether there is at least one part for each side
         $relevantParties = $partyHelper->getRelevantPartiesByCase($case);
 
         $hasSufficientParties = sizeof($relevantParties['complainants']) > 0 && sizeof($relevantParties['counterparties']) > 0;
@@ -58,13 +59,17 @@ class HearingController extends AbstractController
 
         $hearingPosts = $hearingPostRepository->findBy(['hearing' => $hearing], ['createdAt' => 'DESC']);
 
+        // Detect whether most recent hearing post has been forwarded or even exists
+        $hasNewUnforwardedPost = $hearingPosts[0] ? !$hearingPosts[0]->getHasBeenProcessedAndForwarded() : false;
+
         return $this->render('case/hearing/index.html.twig', [
             'case' => $case,
             'hearing' => $hearing,
             'posts' => $hearingPosts,
             'neitherPartyHasAnythingToAdd' => $neitherPartyHasAnythingToAdd,
-            'form' => $form->createView(),
             'hasSufficientParties' => $hasSufficientParties,
+            'hasNewUnforwardedPost' => $hasNewUnforwardedPost,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -83,34 +88,6 @@ class HearingController extends AbstractController
         $this->entityManager->flush();
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
-    }
-
-    /**
-     * @Route("/{id}/hearing/index", name="case_hearing_index")
-     */
-    public function activeHearing(CaseEntity $case, HearingPostRepository $hearingPostRepository, Request $request): Response
-    {
-        $hearing = $case->getHearing();
-
-        $neitherPartyHasAnythingToAdd = true === $hearing->getComplainantHasNoMoreToAdd() && true === $hearing->getCounterpartHasNoMoreToAdd();
-
-        $form = $this->createForm(HearingFinishType::class, $hearing);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
-        }
-
-        $hearingPosts = $hearingPostRepository->findBy(['hearing' => $hearing], ['createdAt' => 'DESC']);
-
-        return $this->render('case/hearing/index.html.twig', [
-            'case' => $case,
-            'hearing' => $hearing,
-            'posts' => $hearingPosts,
-            'neitherPartyHasAnythingToAdd' => $neitherPartyHasAnythingToAdd,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
@@ -138,7 +115,7 @@ class HearingController extends AbstractController
             $this->entityManager->persist($hearingPost);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('case_hearing', ['id' => $case->getId(), 'hearing' => $hearing->getId()]);
+            return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId(), 'hearing' => $hearing->getId()]);
         }
 
         return $this->render('case/hearing/post_create.html.twig', [
@@ -199,6 +176,6 @@ class HearingController extends AbstractController
         $hearingPost->getHearing()->setHasNewHearingPost(false);
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('case_hearing', ['id' => $case->getId()]);
+        return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
 }

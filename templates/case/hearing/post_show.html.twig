@@ -14,7 +14,7 @@
                 <a class="btn btn-primary" href="{{ path('case_hearing_post_edit', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Edit{% endtrans %}</a>
 {#                <a class="btn btn-primary" href="{{ path('case_hearing_post_document_upload', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Upload document{% endtrans %}</a>#}
             {% endif %}
-            <a class="btn btn-secondary" href="{{ path('case_hearing', {id: case.id}) }}">{% trans %}Back{% endtrans %}</a>
+            <a class="btn btn-secondary" href="{{ path('case_hearing_index', {id: case.id}) }}">{% trans %}Back{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
