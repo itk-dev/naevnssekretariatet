@@ -11,18 +11,25 @@
         </div>
         {% if hearing.hasBeenStarted %}
             <div class="col-auto">
-
-                {% if hasNewUnforwardedPost %}
-                    <button class="btn btn-success" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot create new post while there is an unforwarded post{% endtrans %}">{% trans %}Create response{% endtrans %}</button>
+                {% if hearing.hasFinished %}
+                    {% if hasSufficientParties %}
+                        <a class="btn btn-primary" href="{{ path('case_hearing_resume', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Resume hearing{% endtrans %}</a>
+                    {% else %}
+                        <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must have both a complainant and a counter part before entering the hearing phase.{% endtrans %}">{% trans %}Resume hearing{% endtrans %}</button>
+                    {% endif %}
                 {% else %}
-                    <a class="btn btn-success" href="{{ path('case_hearing_post_create', {case: case.id,  hearing: hearing.id}) }}" role="button">{% trans %}Create response{% endtrans %}</a>
-                {% endif %}
-                {% if not neitherPartyHasAnythingToAdd %}
-                    <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while complainant or counterpart still has something to add{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
-                {% elseif hearing.hasNewHearingPost %}
-                    <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while there exists hearing post that has not been forwarded{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
-                {% else %}
-                    <a class="btn btn-danger" href="#" role="button">{% trans %}End Hearing{% endtrans %}</a>
+                    {% if hasNewUnforwardedPost %}
+                        <button class="btn btn-success" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot create new post while there is an unforwarded post{% endtrans %}">{% trans %}Create response{% endtrans %}</button>
+                    {% else %}
+                        <a class="btn btn-success" href="{{ path('case_hearing_post_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create response{% endtrans %}</a>
+                    {% endif %}
+                    {% if not neitherPartyHasAnythingToAdd %}
+                        <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while complainant or counterpart still has something to add{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
+                    {% elseif hearing.hasNewHearingPost %}
+                        <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while there exists hearing post that has not been forwarded{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
+                    {% else %}
+                        <a class="btn btn-danger" href="{{ path('case_hearing_finish', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}End Hearing{% endtrans %}</a>
+                    {% endif %}
                 {% endif %}
             </div>
         {% else %}
@@ -44,27 +51,29 @@
         {% if hearing.hasBeenStarted %}
             <p>{% trans %}Here you can process hearing posts sent by parties.{% endtrans %}</p>
 
-            {{ form_start(form) }}
-            <div class="row">
-                <div class="col">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            {{ form_widget(form.complainantHasNoMoreToAdd) }}
-                        </label>
+            {% if not hearing.hasFinished %}
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                {{ form_widget(form.complainantHasNoMoreToAdd) }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                {{ form_widget(form.counterpartHasNoMoreToAdd) }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary float-right">{{ button_label|default('Update'|trans([], 'case', 'da')) }}</button>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            {{ form_widget(form.counterpartHasNoMoreToAdd) }}
-                        </label>
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-primary float-right">{{ button_label|default('Update'|trans([], 'case', 'da')) }}</button>
-                </div>
-            </div>
-            {{ form_end(form) }}
+                {{ form_end(form) }}
+            {% endif %}
 
             <div class="accordion mt-3" id="accordionAllHearingPosts">
                 {% if not posts|length > 0 %}
@@ -119,7 +128,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                            <a class="btn btn-primary" href="{{ path('case_hearing_post_show', {case: case.id,  hearingPost: post.id}) }}" role="button">{% trans %}Show{% endtrans %}</a>
+                                            <a class="btn btn-primary" href="{{ path('case_hearing_post_show', {case: case.id, hearingPost: post.id}) }}" role="button">{% trans %}Show{% endtrans %}</a>
                                             {% if not post.hasBeenProcessedAndForwarded %}
                                                 <a class="btn btn-warning" href="{{ path('case_hearing_post_forward', {case: case.id, hearingPost: post.id}) }}" role="button">{% trans %}Forward{% endtrans %}</a>
                                             {% endif %}

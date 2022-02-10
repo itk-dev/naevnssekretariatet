@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CaseEntity;
 use App\Entity\Hearing;
 use App\Entity\HearingPost;
+use App\Exception\HearingException;
 use App\Form\HearingFinishType;
 use App\Form\HearingPostType;
 use App\Repository\DocumentRepository;
@@ -60,7 +61,8 @@ class HearingController extends AbstractController
         $hearingPosts = $hearingPostRepository->findBy(['hearing' => $hearing], ['createdAt' => 'DESC']);
 
         // Detect whether most recent hearing post has been forwarded or even exists
-        $hasNewUnforwardedPost = $hearingPosts[0] ? !$hearingPosts[0]->getHasBeenProcessedAndForwarded() : false;
+        $mostRecentPost = reset($hearingPosts);
+        $hasNewUnforwardedPost = $mostRecentPost && !$mostRecentPost->getHasBeenProcessedAndForwarded();
 
         return $this->render('case/hearing/index.html.twig', [
             'case' => $case,
@@ -95,6 +97,10 @@ class HearingController extends AbstractController
      */
     public function hearingPostCreate(CaseEntity $case, DocumentRepository $documentRepository, Hearing $hearing, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
+        if ($hearing->getHasFinished()) {
+            throw new HearingException();
+        }
+
         $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
         $mailTemplates = $mailTemplateHelper->getTemplates('hearing');
 
@@ -125,9 +131,9 @@ class HearingController extends AbstractController
     }
 
     /**
-     * @Route("/{case}/hearing/{hearingPost}", name="case_hearing_post_show")
+     * @Route("/{case}/hearing/{hearingPost}/show", name="case_hearing_post_show")
      */
-    public function hearingPostShow(CaseEntity $case, HearingPost $hearingPost, PartyHelper $partyHelper, Request $request): Response
+    public function hearingPostShow(CaseEntity $case, HearingPost $hearingPost): Response
     {
         return $this->render('case/hearing/post_show.html.twig', [
             'case' => $case,
@@ -140,6 +146,10 @@ class HearingController extends AbstractController
      */
     public function hearingPostEdit(CaseEntity $case, DocumentRepository $documentRepository, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
+        if ($hearingPost->getHearing()->getHasFinished()) {
+            throw new HearingException();
+        }
+
         $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
         $mailTemplates = $mailTemplateHelper->getTemplates('hearing');
 
@@ -170,10 +180,38 @@ class HearingController extends AbstractController
      */
     public function hearingPostForward(CaseEntity $case, HearingPost $hearingPost): Response
     {
+        if ($hearingPost->getHearing()->getHasFinished()) {
+            throw new HearingException();
+        }
+
         // TODO: Send digital post envelope containing hearing post
 
         $hearingPost->setHasBeenProcessedAndForwarded(true);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
+    }
+
+    /**
+     * @Route("/{case}/hearing/{hearing}/finish", name="case_hearing_finish")
+     */
+    public function finishHearing(CaseEntity $case, Hearing $hearing): Response
+    {
+        // TODO: Consider whether more logic is needed upon finishing a hearing
+        $hearing->setHasFinished(true);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
+    }
+
+    /**
+     * @Route("/{case}/hearing/{hearing}/resume", name="case_hearing_resume")
+     */
+    public function resumeHearing(CaseEntity $case, Hearing $hearing): Response
+    {
+        // TODO: Consider whether more logic is needed upon resuming a hearing
+        $hearing->setHasFinished(false);
         $this->entityManager->flush();
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);

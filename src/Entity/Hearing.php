@@ -58,6 +58,11 @@ class Hearing implements LoggableEntityInterface
      */
     private $startDate;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $hasFinished = false;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -182,6 +187,18 @@ class Hearing implements LoggableEntityInterface
     public function setStartDate(?\DateTimeInterface $startDate): self
     {
         $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    public function getHasFinished(): ?bool
+    {
+        return $this->hasFinished;
+    }
+
+    public function setHasFinished(bool $hasFinished): self
+    {
+        $this->hasFinished = $hasFinished;
 
         return $this;
     }
