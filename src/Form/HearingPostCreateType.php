@@ -27,21 +27,23 @@ class HearingPostCreateType extends AbstractType
         $resolver->setDefaults([
             'data_class' => HearingPost::class,
             'case_parties' => null,
+            'mail_templates_choices' => null,
         ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $case_parties = $options['case_parties'];
+        $caseParties = $options['case_parties'];
+        $templateChoices = $options['mail_template_choices'];
 
         $builder
-            ->add('sender', ChoiceType::class, [
-                'label' => $this->translator->trans('Sender', [], 'case'),
-                'choices' => $case_parties,
+            ->add('template', ChoiceType::class, [
+                'label' => $this->translator->trans('Mail template', [], 'case'),
+                'choices' => $caseParties,
             ])
             ->add('recipient', ChoiceType::class, [
                 'label' => $this->translator->trans('Recipient', [], 'case'),
-                'choices' => $case_parties,
+                'choices' => $caseParties,
             ])
             ->add('content', TextareaType::class, [
                 'label' => $this->translator->trans('Content', [], 'case'),

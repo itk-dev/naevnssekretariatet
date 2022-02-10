@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\AgendaCaseItem;
+use App\Entity\CaseEntity;
 use App\Entity\Document;
+use App\Entity\HearingPost;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
@@ -51,6 +53,48 @@ class DocumentRepository extends ServiceEntityRepository
                 }))
             ;
         }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getAvailableDocumentsForHearingPost(HearingPost $hearingPost)
+    {
+        $qb = $this->createQueryBuilder('d');
+
+        $qb
+            ->join('d.caseDocumentRelation', 'r')
+            ->where('r.softDeleted = false')
+            ->andWhere('r.case = :caseId')
+            ->setParameter('caseId', $hearingPost->getHearing()->getCaseEntity()->getId(), 'uuid')
+        ;
+
+        if (!$hearingPost->getDocuments()->isEmpty()) {
+            $qb->andWhere('d.id NOT IN (:post_doc_ids)')
+                ->setParameter(':post_doc_ids', $hearingPost->getDocuments()->map(function (Document $doc) {
+                    return $doc->getId()->toBinary();
+                }))
+            ;
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getAvailableDocumentsForCase(CaseEntity $caseEntity)
+    {
+        $qb = $this->createQueryBuilder('d');
+
+        $qb
+            ->join('d.caseDocumentRelation', 'r')
+            ->where('r.softDeleted = false')
+            ->andWhere('r.case = :caseId')
+            ->setParameter('caseId', $caseEntity->getId(), 'uuid')
+        ;
 
         return $qb
             ->getQuery()

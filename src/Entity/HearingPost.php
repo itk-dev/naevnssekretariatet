@@ -32,12 +32,6 @@ class HearingPost
      * @ORM\ManyToOne(targetEntity=Party::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $sender;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Party::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
     private $recipient;
 
     /**
@@ -54,6 +48,12 @@ class HearingPost
      * @ORM\OneToMany(targetEntity=Document::class, mappedBy="hearingPost")
      */
     private $documents;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $template;
 
     public function __construct()
     {
@@ -74,18 +74,6 @@ class HearingPost
     public function setHearing(?Hearing $hearing): self
     {
         $this->hearing = $hearing;
-
-        return $this;
-    }
-
-    public function getSender(): ?Party
-    {
-        return $this->sender;
-    }
-
-    public function setSender(?Party $sender): self
-    {
-        $this->sender = $sender;
 
         return $this;
     }
@@ -152,6 +140,18 @@ class HearingPost
                 $document->setHearingPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTemplate(): ?MailTemplate
+    {
+        return $this->template;
+    }
+
+    public function setTemplate(?MailTemplate $template): self
+    {
+        $this->template = $template;
 
         return $this;
     }

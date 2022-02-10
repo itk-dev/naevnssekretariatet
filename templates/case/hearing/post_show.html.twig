@@ -12,7 +12,7 @@
         <div class="col-auto">
             {% if not hearingPost.hasBeenProcessedAndForwarded %}
                 <a class="btn btn-primary" href="{{ path('case_hearing_post_edit', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Edit{% endtrans %}</a>
-                <a class="btn btn-primary" href="{{ path('case_hearing_post_document_upload', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Upload document{% endtrans %}</a>
+{#                <a class="btn btn-primary" href="{{ path('case_hearing_post_document_upload', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Upload document{% endtrans %}</a>#}
             {% endif %}
             <a class="btn btn-secondary" href="{{ path('case_hearing', {id: case.id}) }}">{% trans %}Back{% endtrans %}</a>
         </div>
@@ -23,16 +23,16 @@
     <main role="main" class="col-12 mt-3">
         <dl>
             <dt>
-                {% trans %}Sender{% endtrans %}
-            </dt>
-            <dd>
-                {{ hearingPost.sender }}
-            </dd>
-            <dt>
-                {% trans %}Receiver{% endtrans %}
+                {% trans %}Recipient{% endtrans %}
             </dt>
             <dd>
                 {{ hearingPost.recipient }}
+            </dd>
+            <dt>
+                {% trans %}Template{% endtrans %}
+            </dt>
+            <dd>
+                {{ hearingPost.template.name }}
             </dd>
             <dt>
                 {% trans %}Hearing post content{% endtrans %}
@@ -61,18 +61,6 @@
                         <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
                             <!-- Download button -->
                             <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
-
-                            <!-- Delete button -->
-                            {% if hearingPost.hasBeenProcessedAndForwarded %}
-                                <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}You may not delete documents from forwarded hearing posts{% endtrans %}"><i class="fas fa-copy"></i></button>
-                            {% else %}
-                                <form id="myform" class="btn-group" method="post" action="{{ path('case_hearing_post_document_delete', {'case': case.id, 'document': document.id, 'hearingPost': hearingPost.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
-                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
-                                </form>
-                            {% endif %}
-
                         </div>
                     </td>
                 </tr>
