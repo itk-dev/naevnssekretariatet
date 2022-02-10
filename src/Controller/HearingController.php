@@ -96,7 +96,7 @@ class HearingController extends AbstractController
     public function hearingPostCreate(CaseEntity $case, DocumentRepository $documentRepository, Hearing $hearing, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
-        $mailTemplates = $mailTemplateHelper->getTemplates('inspection_letter');
+        $mailTemplates = $mailTemplateHelper->getTemplates('hearing');
 
         $hearingPost = new HearingPost();
 
@@ -141,7 +141,7 @@ class HearingController extends AbstractController
     public function hearingPostEdit(CaseEntity $case, DocumentRepository $documentRepository, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
-        $mailTemplates = $mailTemplateHelper->getTemplates('inspection_letter');
+        $mailTemplates = $mailTemplateHelper->getTemplates('hearing');
 
         $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
 
@@ -170,7 +170,7 @@ class HearingController extends AbstractController
      */
     public function hearingPostForward(CaseEntity $case, HearingPost $hearingPost): Response
     {
-        // TODO: Send digital post containing hearing post
+        // TODO: Send digital post envelope containing hearing post
 
         $hearingPost->setHasBeenProcessedAndForwarded(true);
         $hearingPost->getHearing()->setHasNewHearingPost(false);

@@ -67,6 +67,7 @@ class HearingPostType extends AbstractType
                 'label' => $this->translator->trans('Attach case documents', [], 'case'),
                 'multiple' => true,
                 'by_reference' => false,
+                'expanded' => true,
                 'required' => false,
             ])
         ;
