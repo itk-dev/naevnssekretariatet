@@ -4,6 +4,7 @@ namespace App\Entity\Embeddable;
 
 use App\Logging\LoggableEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Embeddable
@@ -12,31 +13,37 @@ class Address implements LoggableEntityInterface
 {
     /**
      * @ORM\Column(type="string")
+     * @Groups({"mail_template"})
      */
     private $street;
 
     /**
      * @ORM\Column(type="string")
+     * @Groups({"mail_template"})
      */
     private $number;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $floor;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $side;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"mail_template"})
      */
     private $postalCode;
 
     /**
      * @ORM\Column(type="string")
+     * @Groups({"mail_template"})
      */
     private $city;
 

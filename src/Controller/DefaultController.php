@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Admin\UserCrudController;
 use App\Entity\User;
 use App\Form\MunicipalitySelectorType;
 use App\Repository\CaseEntityRepository;
@@ -10,10 +11,13 @@ use App\Repository\ReminderRepository;
 use App\Service\DashboardHelper;
 use App\Service\MunicipalityHelper;
 use App\Service\ReminderHelper;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends AbstractController
@@ -23,17 +27,22 @@ class DefaultController extends AbstractController
      */
     public function index(CaseEntityRepository $caseRepository, DashboardHelper $dashboardHelper, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, ReminderHelper $reminderHelper, ReminderRepository $reminderRepository, Security $security, Request $request): Response
     {
+        // Board member are redirected to case index
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            return $this->redirectToRoute('agenda_index');
+        }
+
         // Get current User
         /** @var User $user */
         $user = $security->getUser();
 
-        // Despite chosen municipality we show ALL reminders
-        $upcomingReminders = $reminderHelper->getRemindersWithinWeekByUserGroupedByDay($user);
-        $exceededReminders = $reminderRepository->findExceededRemindersByUser($user);
-
         // Find chosen municipality or choose one
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
         $municipalities = $municipalityRepository->findAll();
+
+        // Show reminders accordingly to chosen municipality
+        $upcomingReminders = $reminderHelper->getRemindersWithinWeekByUserAndMunicipalityGroupedByDay($user, $activeMunicipality);
+        $exceededReminders = $reminderRepository->findExceededRemindersByUserAndMunicipality($user, $activeMunicipality);
 
         $gridInformation = $dashboardHelper->getDashboardGridInformation($activeMunicipality, $user);
 
@@ -73,5 +82,24 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
+    }
+
+    /**
+     * @Route("/user-settings", name="user_settings")
+     */
+    public function redirectToUserSettings(AdminUrlGenerator $urlGenerator): Response
+    {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
+        $url = $urlGenerator
+            ->setController(UserCrudController::class)
+            ->setAction(Action::EDIT)
+            ->setEntityId($this->getUser()->getId())
+            ->generateUrl()
+        ;
+
+        return $this->redirect($url);
     }
 }

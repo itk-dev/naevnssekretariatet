@@ -229,6 +229,10 @@
         <source>List of case statuses. One per line.</source>
         <target>Liste af sagsstatusser. En per linje.</target>
       </trans-unit>
+      <trans-unit id="MUvx5II" resname="Initials">
+        <source>Initials</source>
+        <target state="translated">Initialer</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

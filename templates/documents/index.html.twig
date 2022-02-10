@@ -9,9 +9,11 @@
         <div class="col">
             <h1>{% trans %}Documents{% endtrans %}</h1>
         </div>
-        <div class="col-auto">
-            <a name="" id="" class="btn btn-success" href="create" role="button">{% trans %}Upload document{% endtrans %}</a>
-        </div>
+        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+            <div class="col-auto">
+                <a class="btn btn-success" href="create" role="button">{% trans %}Upload document{% endtrans %}</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -25,7 +27,9 @@
                 <th>{% trans %}Document type{% endtrans %}</th>
                 <th>{% trans %}Uploaded by{% endtrans %}</th>
                 <th>{% trans %}Upload date{% endtrans %}</th>
-                <th class="text-right">{% trans %}Functions{% endtrans %}</th>
+                {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+                    <th class="text-right">{% trans %}Functions{% endtrans %}</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -35,34 +39,38 @@
                     <td>{{ document.type|e }}</td>
                     <td>{{ document.uploadedBy|e }}</td>
                     <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
-                    <td class="text-right">
-                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+                        <td class="text-right">
+                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
 
-                            <!-- Move button -->
-                            <a href="{{ url("document_copy", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Copy document to another case{% endtrans %}"><i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %} </span></a>
+                                <!-- Move button -->
+                                <a href="{{ url("document_copy", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Copy document to another case{% endtrans %}"><i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %} </span></a>
 
-                            <!-- Download button -->
-                            <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
+                                <!-- Download button -->
+                                <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
 
-                            <!-- Delete button -->
+                                <!-- Delete button -->
 
-                            <form id="myform" class="btn-group" method="post" action="{{ path('document_delete', {'id': case.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
-                                <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
-                            </form>
-                        </div>
-                    </td>
+                                <form id="myform" class="btn-group" method="post" action="{{ path('document_delete', {'id': case.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
+                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </div>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </main>
-    <footer class="col-12 mt-3">
-        <div class="row">
-            <div class="col-auto ml-auto">
-                <a name="" id="" class="btn btn-success" href="create" role="button">{% trans %}Upload document{% endtrans %}</a>
+    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+        <footer class="col-12 mt-3">
+            <div class="row">
+                <div class="col-auto ml-auto">
+                    <a  class="btn btn-success" href="create" role="button">{% trans %}Upload document{% endtrans %}</a>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    {% endif %}
 {% endblock %}

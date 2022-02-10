@@ -29,6 +29,7 @@ class AgendaManuelItem extends AgendaItem
 
     public function __construct()
     {
+        parent::__construct();
         $this->documents = new ArrayCollection();
     }
 

@@ -11,10 +11,30 @@
                         <div class="d-flex w-100 justify-content-between" title="{% trans %}Show case{% endtrans %}">
                             <small>{{ reminder.date|date("d/m/Y") }}</small>
                             <a href="{{ url('case_summary', {id: reminder.caseEntity.id}) }}">
-                                {{ reminder.caseEntity.caseNumber|e }}
+                                {% trans %}Show case{% endtrans %}
                             </a>
                         </div>
-                        <span class="text-dark">{{ reminder.content|e }}</span>
+                        <div>
+                            {% if reminder.content|length > 60 %}
+                                {% set sliced_reminder = reminder.content[0:59] ~ '...' %}
+                                <div class="col">
+                                    <div class="row">
+                                        <span class="text-dark">
+                                            {{ sliced_reminder }}
+                                        </span>
+                                    </div>
+                                    <div class="row">
+                                        <a href="{{ url('reminder_index') }}">
+                                            {% trans %}See more{% endtrans %}
+                                        </a>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <span class="text-dark">
+                                {{ reminder.content|e }}
+                            </span>
+                            {% endif %}
+                        </div>
                     </li>
                 {% endfor %}
             </div>

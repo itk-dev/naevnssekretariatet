@@ -40,6 +40,8 @@ class AgendaItemController extends AbstractController
      */
     public function create(Agenda $agenda, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agenda);
+
         $form = $this->createForm(AgendaItemType::class, null, [
             'board' => $agenda->getBoard(),
         ]);
@@ -83,17 +85,21 @@ class AgendaItemController extends AbstractController
 
         $isFinishedAgenda = $agenda->isFinished();
 
-        $options = $isFinishedAgenda ? ['disabled' => true] : [];
+        $options = ($isFinishedAgenda || $this->isGranted('ROLE_BOARD_MEMBER')) ? ['disabled' => true] : [];
 
         $form = $this->createForm($formClass, $agendaItem, $options);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
+            // We use the same route for showing and editing agenda items
+            $this->denyAccessUnlessGranted('edit', $agendaItem);
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('agenda_item_edit', [
                 'id' => $agenda->getId(),
                 'agenda_item_id' => $agendaItem->getId(),
+                'agenda_item' => $agendaItem,
             ]);
         }
 
@@ -111,6 +117,8 @@ class AgendaItemController extends AbstractController
      */
     public function delete(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('delete', $agendaItem);
+
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$agendaItem->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $this->entityManager->remove($agendaItem);

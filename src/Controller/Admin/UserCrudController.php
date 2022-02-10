@@ -42,6 +42,7 @@ class UserCrudController extends AbstractCrudController
         yield TextField::new('name', 'Name')
             ->setFormTypeOptions(['disabled' => true])
         ;
+        yield TextField::new('initials', 'Initials');
         yield AssociationField::new('favoriteMunicipality', 'Favorite municipality');
     }
 }

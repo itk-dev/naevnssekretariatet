@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,23 +30,27 @@ abstract class CaseEntity
     /**
      * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="caseEntities")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"mail_template"})
      */
     private $board;
 
     /**
      * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="caseEntities")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"mail_template"})
      */
     private $municipality;
 
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"mail_template"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"mail_template"})
      */
     private $caseNumber;
 
@@ -68,6 +73,7 @@ abstract class CaseEntity
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"mail_template"})
      */
     private $currentPlace;
 
@@ -113,11 +119,13 @@ abstract class CaseEntity
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"mail_template"})
      */
     private $complainant;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
+     * @Groups({"mail_template"})
      */
     private $complainantAddress;
 

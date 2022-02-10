@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 
 class CaseReminderController extends AbstractController
@@ -42,6 +43,10 @@ class CaseReminderController extends AbstractController
      */
     public function index(ReminderRepository $reminderRepository): Response
     {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
         /** @var User $user */
         $user = $this->security->getUser();
 
@@ -57,6 +62,8 @@ class CaseReminderController extends AbstractController
      */
     public function new(CaseEntity $case, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $reminder = new Reminder();
 
         $reminderForm = $this->createForm(ReminderType::class, $reminder);
@@ -92,6 +99,8 @@ class CaseReminderController extends AbstractController
      */
     public function complete(Reminder $reminder, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('delete', $reminder);
+
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('complete'.$reminder->getId(), $request->request->get('_token'))) {
             $this->entityManager->remove($reminder);
@@ -106,6 +115,8 @@ class CaseReminderController extends AbstractController
      */
     public function edit(Reminder $reminder, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $reminder);
+
         $reminderForm = $this->createForm(ReminderType::class, $reminder);
 
         $reminderForm->handleRequest($request);

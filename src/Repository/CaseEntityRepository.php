@@ -3,11 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\Board;
+use App\Entity\BoardMember;
 use App\Entity\CaseEntity;
 use App\Service\AgendaStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -134,5 +136,63 @@ class CaseEntityRepository extends ServiceEntityRepository
     {
         // TODO: Update beneath when hearing stuff has been implemented
         return -1;
+    }
+
+    public function createQueryBuilderForBoardMember(BoardMember $boardMember): QueryBuilder
+    {
+        $qb = $this
+            ->createQueryBuilder('c')
+            ->leftJoin('c.agendaCaseItems', 'aci')
+            ->leftJoin('aci.agenda', 'a')
+            ->where(':boardMember MEMBER OF a.boardmembers')
+            ->setParameter('boardMember', $boardMember->getId()->toBinary())
+        ;
+
+        // The status that is considered finished may vary from board to board
+        $qb = $this->updateQueryBuilderWithBoardFinishStatuses($qb);
+
+        return $qb;
+    }
+
+    public function updateQueryBuilderForBoardMember(BoardMember $boardMember, QueryBuilder $qb): QueryBuilder
+    {
+        $qb->leftJoin('c.agendaCaseItems', 'aci')
+            ->leftJoin('aci.agenda', 'a')
+            ->where(':boardMember MEMBER OF a.boardmembers')
+            ->setParameter('boardMember', $boardMember->getId()->toBinary())
+        ;
+
+        // The status that is considered finished may vary from board to board
+        $qb = $this->updateQueryBuilderWithBoardFinishStatuses($qb);
+
+        return $qb;
+    }
+
+    private function updateQueryBuilderWithBoardFinishStatuses(QueryBuilder $qb): QueryBuilder
+    {
+        $boardRepository = $this->getEntityManager()->getRepository(Board::class);
+        $boards = $boardRepository->findAll();
+
+        $count = 0;
+        foreach ($boards as $board) {
+            $rawPlaces = explode(
+                PHP_EOL,
+                trim($board->getStatuses())
+            );
+
+            $finishedStatus = trim(end($rawPlaces));
+
+            // Construct different variable names for each board
+            $statusDQLVariable = 'board_finish_status_'.$count;
+            $boardDQLVariable = 'board_'.$count;
+
+            $qb->orWhere('c.currentPlace = :'.$statusDQLVariable.' AND c.board = :'.$boardDQLVariable)
+                ->setParameter($statusDQLVariable, $finishedStatus)
+                ->setParameter($boardDQLVariable, $board->getId()->toBinary())
+            ;
+            ++$count;
+        }
+
+        return $qb;
     }
 }

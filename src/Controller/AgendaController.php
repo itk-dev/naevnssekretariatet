@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaProtocol;
 use App\Entity\BoardMember;
+use App\Entity\User;
+use App\Exception\BoardMemberException;
 use App\Form\AgendaAddBoardMemberType;
 use App\Form\AgendaBroadcastType;
 use App\Form\AgendaEditType;
@@ -28,6 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Uid\UuidV4;
 
 /**
@@ -74,11 +77,34 @@ class AgendaController extends AbstractController
         }
 
         // Setup filter and pagination
-        $filterBuilder = $agendaRepository->createQueryBuilder('a');
+        // If user is a board member we have to modify list of agendas and filters shown
+        if ($this->isGranted('ROLE_BOARD_MEMBER')) {
+            /** @var User $user */
+            $user = $this->getUser();
 
-        $filterForm = $this->createForm(AgendaFilterType::class, null, [
-            'municipality' => $activeMunicipality,
-        ]);
+            $boardMember = $user->getBoardMember();
+
+            if (null === $boardMember) {
+                $message = sprintf('User %s is not linked to any board member.', $user->getName());
+                throw new BoardMemberException($message);
+            }
+
+            $filterBuilder = $agendaRepository->createQueryBuilderForBoardMember($boardMember);
+
+            $filterOptions = [
+                'municipality' => $activeMunicipality,
+                'isBoardMember' => true,
+            ];
+        } else {
+            $filterBuilder = $agendaRepository->createQueryBuilder('a');
+
+            $filterOptions = [
+                'municipality' => $activeMunicipality,
+                'isBoardMember' => false,
+            ];
+        }
+
+        $filterForm = $this->createForm(AgendaFilterType::class, null, $filterOptions);
 
         if ($request->query->has($filterForm->getName())) {
             $filterForm->submit($request->query->get($filterForm->getName()));
@@ -124,6 +150,10 @@ class AgendaController extends AbstractController
      */
     public function create(MunicipalityHelper $municipalityHelper, Request $request): Response
     {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
         $agenda = new Agenda();
 
         $form = $this->createForm(AgendaNewType::class, $agenda, [
@@ -155,6 +185,8 @@ class AgendaController extends AbstractController
      */
     public function delete(Agenda $agenda, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('delete', $agenda);
+
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$agenda->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $this->entityManager->remove($agenda);
@@ -184,7 +216,7 @@ class AgendaController extends AbstractController
 
         $sortedAgendaItems = $agendaItemRepository->findAscendingAgendaItemsByAgenda($agenda);
 
-        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
+        $agendaOptions = ($agenda->isFinished() || $this->isGranted('ROLE_BOARD_MEMBER')) ? ['disabled' => true] : [];
 
         $form = $this->createForm(AgendaEditType::class, $agenda, $agendaOptions);
 
@@ -201,7 +233,9 @@ class AgendaController extends AbstractController
      */
     public function edit(Agenda $agenda, Request $request): ?Response
     {
-        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
+        $this->denyAccessUnlessGranted('edit', $agenda);
+
+        $agendaOptions = $agenda->isFinished() ? ['disabled' => true] : [];
 
         $form = $this->createForm(AgendaEditType::class, $agenda, $agendaOptions);
 
@@ -229,6 +263,8 @@ class AgendaController extends AbstractController
      */
     public function addBoardMember(Agenda $agenda, BoardMemberRepository $memberRepository, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agenda);
+
         $availableBoardMembers = $memberRepository->getAvailableBoardMembersByAgenda($agenda);
 
         $form = $this->createForm(AgendaAddBoardMemberType::class, [], [
@@ -267,6 +303,8 @@ class AgendaController extends AbstractController
      */
     public function removeBoardMember(Agenda $agenda, BoardMember $boardMember, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agenda);
+
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('remove'.$boardMember->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $agenda->removeBoardmember($boardMember);
@@ -281,6 +319,8 @@ class AgendaController extends AbstractController
      */
     public function protocol(Agenda $agenda, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agenda);
+
         $agendaProtocol = $agenda->getProtocol() ?? new AgendaProtocol();
 
         $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
@@ -316,6 +356,8 @@ class AgendaController extends AbstractController
      */
     public function broadcastAgenda(Agenda $agenda, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agenda);
+
         $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
 
         $form = $this->createForm(AgendaBroadcastType::class, null, $agendaOptions);
@@ -342,6 +384,8 @@ class AgendaController extends AbstractController
      */
     public function publishAgenda(Agenda $agenda): Response
     {
+        $this->denyAccessUnlessGranted('edit', $agenda);
+
         $agenda->setIsPublished(true);
         $this->entityManager->flush();
 

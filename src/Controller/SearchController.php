@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\CaseEntityRepository;
 use App\Service\SearchService;
 use Knp\Component\Pager\PaginatorInterface;
@@ -31,6 +32,15 @@ class SearchController extends AbstractController
 
             $qb->orWhere('c.sortingAddress LIKE :search');
             $qb->setParameter(':search', '%'.$escapedSearch.'%');
+        }
+
+        if ($this->isGranted('ROLE_BOARD_MEMBER')) {
+            /** @var User $user */
+            $user = $this->getUser();
+
+            $boardMember = $user->getBoardMember();
+
+            $qb = $caseRepository->updateQueryBuilderForBoardMember($boardMember, $qb);
         }
 
         // Add sortable fields.

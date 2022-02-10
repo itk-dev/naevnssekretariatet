@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Agenda;
+use App\Entity\BoardMember;
 use App\Entity\CaseEntity;
 use App\Service\AgendaStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -98,5 +99,18 @@ class AgendaRepository extends ServiceEntityRepository
         }
 
         return $result;
+    }
+
+    public function createQueryBuilderForBoardMember(BoardMember $boardMember)
+    {
+        $qb = $this
+            ->createQueryBuilder('a')
+            ->where(':boardMember MEMBER OF a.boardmembers')
+            ->setParameter('boardMember', $boardMember->getId()->toBinary())
+            ->orWhere('a.status = :agenda_finished_status')
+            ->setParameter('agenda_finished_status', AgendaStatus::FINISHED)
+        ;
+
+        return $qb;
     }
 }
