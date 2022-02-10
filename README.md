@@ -51,19 +51,25 @@ To get a local copy up and running follow these simple steps.
 4. Install yarn packages
 
    ```sh
-   docker run -v ${PWD}:/app itkdev/yarn:latest install
+   docker run -v ${PWD}:/app node:16 yarn --cwd=/app install
    ```
 
 5. Build assets
 
    ```sh
-   docker run -v ${PWD}:/app itkdev/yarn:14 encore dev
+   docker run -v ${PWD}:/app node:16 yarn --cwd=/app build
    ```
 
-   During development, you may want to watch for changes:
+   During development, run
 
    ```sh
-   docker run --interactive --tty -v ${PWD}:/app itkdev/yarn:14 encore dev --watch
+   docker run -v ${PWD}:/app node:16 yarn --cwd=/app dev
+   ```
+
+   and to watch for for changes run
+
+   ```sh
+   docker run --interactive --tty -v ${PWD}:/app node:16 yarn --cwd=/app dev --watch
    ```
 
 6. Run database migrations
