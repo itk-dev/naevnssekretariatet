@@ -1,0 +1,13 @@
+App\Entity\Document:
+  document-001:
+    type: document-type-4
+    documentName: The first document
+    # @see \DataFixtures\Faker\Provider\FileUploadProvider
+    filename: <copyFile(document/test1.pdf, upload/documents/case_documents)>
+    uploadedBy: '@user-caseworker'
+
+# Relate documents to cases.
+App\Entity\CaseDocumentRelation:
+    case-document-relation-001:
+        case: '@test-case-aarhus-1'
+        document: '@document-001'

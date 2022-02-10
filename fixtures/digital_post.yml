@@ -1,0 +1,11 @@
+App\Entity\DigitalPost:
+    digital-post-001:
+        document: '@document-001'
+
+App\Entity\DigitalPost\Recipient:
+    recipient-001:
+        digitalPost: '@digital-post-001'
+        name: 'Mr. Bean'
+        identifierType: 'cpr'
+        identifier: '0000000000'
+        address: '@test-case-aarhus-1-complainant-address'

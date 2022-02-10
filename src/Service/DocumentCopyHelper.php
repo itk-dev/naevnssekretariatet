@@ -29,7 +29,7 @@ class DocumentCopyHelper
         $repository = $this->entityManager->getRepository(get_class($case));
         $potentialCases = $repository->findBy(['municipality' => $case->getMunicipality()]);
 
-        $relations = $document->getCaseDocumentRelation();
+        $relations = $document->getCaseDocumentRelations();
         $casesThatContainDocument = [];
 
         foreach ($relations as $relation) {
