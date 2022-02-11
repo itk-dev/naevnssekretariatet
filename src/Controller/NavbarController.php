@@ -58,15 +58,19 @@ class NavbarController extends AbstractController
         );
 
         $shortcuts = [];
+
         foreach ($rawShortcuts as $rawShortcut) {
+            if (!str_contains($rawShortcut,':')) {
+                continue;
+            }
             $data = explode(
               ':',
               $rawShortcut,
                 2
             );
             $shortcuts[] = [
-                'identifier' => $data[0],
-                'url' => $data[1],
+                'identifier' => trim($data[0]),
+                'url' => trim($data[1]),
             ];
         }
         return $this->render('navbar/_shortcuts.html.twig', [
