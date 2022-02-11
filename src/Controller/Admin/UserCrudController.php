@@ -15,7 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserCrudController extends AbstractCrudController
 {
-    public function __construct(Private TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator)
     {
     }
 
