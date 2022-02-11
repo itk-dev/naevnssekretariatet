@@ -36,14 +36,17 @@ class DocumentType extends AbstractType
         $builder
             ->add('documentName', null, [
                 'label' => $this->translator->trans('Document name', [], 'documents'),
+                'help' => $this->translator->trans('Provide a recognizable name for the document', [], 'documents'),
             ])
             ->add('type', EntityType::class, [
                 'class' => UploadedDocumentType::class,
                 'label' => $this->translator->trans('Document type', [], 'documents'),
                 'choice_label' => 'name',
+                'help' => $this->translator->trans('Provide a document type', [], 'documents'),
             ])
             ->add('filename', FileType::class, [
                 'label' => $this->translator->trans('Upload file', [], 'documents'),
+                'help' => $this->translator->trans('Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls', [], 'documents'),
                 'mapped' => false,
                 'constraints' => [
                     new File([
@@ -58,7 +61,7 @@ class DocumentType extends AbstractType
                             'image/png',
                             'video/mp4',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid document',
+                        'mimeTypesMessage' => $this->translator->trans('Please upload a valid document', [], 'documents'),
                     ]),
                 ],
             ])
