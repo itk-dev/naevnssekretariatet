@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'app:digital-post:send',
+    name: 'tvist1:digital-post:send',
     description: 'Send unsent digital post',
 )]
 class DigitalPostSendCommand extends Command

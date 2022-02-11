@@ -16,7 +16,7 @@ class FileUploadProvider extends Base
     }
 
     /**
-     * Upload a file.
+     * Simulate file upload using VichUploader.
      *
      * @param string $path      the file path relative to the fixtures directory
      * @param string $property  the object property
@@ -42,12 +42,12 @@ class FileUploadProvider extends Base
     }
 
     /**
-     * Upload a file.
+     * Simulate file upload by a simple copy operation.
      *
      * @param string $path        the file path relative to the fixtures directory
      * @param string $destination the destination path. Can be a directory or a filename.
      *
-     * @return string
+     * @return string the name of the file
      */
     public function copyFile(string $path, string $destination)
     {
