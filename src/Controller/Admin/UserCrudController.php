@@ -9,10 +9,16 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserCrudController extends AbstractCrudController
 {
+    public function __construct(Private TranslatorInterface $translator)
+    {
+    }
+
     public static function getEntityFqcn(): string
     {
         return User::class;
@@ -44,5 +50,8 @@ class UserCrudController extends AbstractCrudController
         ;
         yield TextField::new('initials', 'Initials');
         yield AssociationField::new('favoriteMunicipality', 'Favorite municipality');
+        yield TextareaField::new('shortcuts', 'Shortcuts')
+            ->setHelp($this->translator->trans("List of shortcuts. One per line. Format, 'Identifier: URL'. Identifier may not contain a colon (:). E.g. Aarhus Kommune: https://www.aarhus.dk/.", [], 'admin'))
+        ;
     }
 }

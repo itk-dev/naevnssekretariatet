@@ -42,4 +42,35 @@ class NavbarController extends AbstractController
             'active_reminders' => sizeof($activeReminders),
         ]);
     }
+
+    public function renderShortcuts(): Response
+    {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
+        /** @var User $user */
+        $user = $this->security->getUser();
+
+        $rawShortcuts = explode(
+            PHP_EOL,
+            $user->getShortcuts()
+        );
+
+        $shortcuts = [];
+        foreach ($rawShortcuts as $rawShortcut) {
+            $data = explode(
+              ':',
+              $rawShortcut,
+                2
+            );
+            $shortcuts[] = [
+                'identifier' => $data[0],
+                'url' => $data[1],
+            ];
+        }
+        return $this->render('navbar/_shortcuts.html.twig', [
+            'shortcuts' => $shortcuts,
+        ]);
+    }
 }
