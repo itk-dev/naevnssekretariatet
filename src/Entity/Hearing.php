@@ -131,7 +131,7 @@ class Hearing implements LoggableEntityInterface
         return [];
     }
 
-    public function getComplainantHasNoMoreToAdd(): ?bool
+    public function getComplainantHasNoMoreToAdd(): bool
     {
         return $this->complainantHasNoMoreToAdd;
     }
@@ -143,7 +143,7 @@ class Hearing implements LoggableEntityInterface
         return $this;
     }
 
-    public function getCounterpartHasNoMoreToAdd(): ?bool
+    public function getCounterpartHasNoMoreToAdd(): bool
     {
         return $this->counterpartHasNoMoreToAdd;
     }

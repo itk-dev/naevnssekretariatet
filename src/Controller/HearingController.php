@@ -38,7 +38,7 @@ class HearingController extends AbstractController
         // Check whether there is at least one part for each side
         $relevantParties = $partyHelper->getRelevantPartiesByCase($case);
 
-        $hasSufficientParties = sizeof($relevantParties['complainants']) > 0 && sizeof($relevantParties['counterparties']) > 0;
+        $hasSufficientParties = count($relevantParties['complainants']) > 0 && count($relevantParties['counterparties']) > 0;
 
         $hearing = $case->getHearing();
 
