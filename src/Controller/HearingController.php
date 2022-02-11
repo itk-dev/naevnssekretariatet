@@ -33,6 +33,8 @@ class HearingController extends AbstractController
      */
     public function hearing(CaseEntity $case, HearingPostRepository $hearingPostRepository, PartyHelper $partyHelper, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         // Check whether there is at least one part for each side
         $relevantParties = $partyHelper->getRelevantPartiesByCase($case);
 
@@ -80,6 +82,8 @@ class HearingController extends AbstractController
      */
     public function startHearing(CaseEntity $case): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         $hearing = $case->getHearing();
 
         // Mark hearing as started
@@ -97,6 +101,8 @@ class HearingController extends AbstractController
      */
     public function hearingPostCreate(CaseEntity $case, DocumentRepository $documentRepository, Hearing $hearing, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         if ($hearing->getHasFinished()) {
             throw new HearingException();
         }
@@ -135,6 +141,8 @@ class HearingController extends AbstractController
      */
     public function hearingPostShow(CaseEntity $case, HearingPost $hearingPost): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         return $this->render('case/hearing/post_show.html.twig', [
             'case' => $case,
             'hearingPost' => $hearingPost,
@@ -146,6 +154,8 @@ class HearingController extends AbstractController
      */
     public function hearingPostEdit(CaseEntity $case, DocumentRepository $documentRepository, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         if ($hearingPost->getHearing()->getHasFinished()) {
             throw new HearingException();
         }
@@ -180,6 +190,8 @@ class HearingController extends AbstractController
      */
     public function hearingPostForward(CaseEntity $case, HearingPost $hearingPost): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         if ($hearingPost->getHearing()->getHasFinished()) {
             throw new HearingException();
         }
@@ -198,6 +210,8 @@ class HearingController extends AbstractController
      */
     public function finishHearing(CaseEntity $case, Hearing $hearing): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         // TODO: Consider whether more logic is needed upon finishing a hearing
         $hearing->setHasFinished(true);
         $this->entityManager->flush();
@@ -210,6 +224,8 @@ class HearingController extends AbstractController
      */
     public function resumeHearing(CaseEntity $case, Hearing $hearing): Response
     {
+        $this->denyAccessUnlessGranted('edit', $case);
+
         // TODO: Consider whether more logic is needed upon resuming a hearing
         $hearing->setHasFinished(false);
         $this->entityManager->flush();
