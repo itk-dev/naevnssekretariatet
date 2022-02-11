@@ -9,9 +9,9 @@
         <div class="col">
             <h1>{% trans %}Hearing{% endtrans %}</h1>
         </div>
-        {% if hearing.getStartDate %}
+        {% if hearing.getStartedOn %}
             <div class="col-auto">
-                {% if hearing.getFinishDate %}
+                {% if hearing.getFinishedOn %}
                     {% if hasSufficientParties %}
                         <a class="btn btn-primary" href="{{ path('case_hearing_resume', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Resume hearing{% endtrans %}</a>
                     {% else %}
@@ -48,10 +48,10 @@
 {% block content %}
 
     <main role="main" class="col-12 mt-3">
-        {% if hearing.getStartDate %}
+        {% if hearing.getStartedOn %}
             <p>{% trans %}Here you can process hearing posts sent by parties.{% endtrans %}</p>
 
-            {% if not hearing.getFinishDate %}
+            {% if not hearing.getFinishedOn %}
                 {{ form_start(form) }}
                 <div class="row">
                     <div class="col">
@@ -91,7 +91,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <h2 class="m-0 p-0">
-                                            {% if not post.getForwardDate %}
+                                            {% if not post.getForwardedOn %}
                                                 <span class="badge badge-pill badge-warning">N</span>
                                             {% endif %}
                                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
@@ -129,7 +129,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <a class="btn btn-primary" href="{{ path('case_hearing_post_show', {case: case.id, hearingPost: post.id}) }}" role="button">{% trans %}Show{% endtrans %}</a>
-                                            {% if not post.getForwardDate %}
+                                            {% if not post.getForwardedOn %}
                                                 <a class="btn btn-warning" href="{{ path('case_hearing_post_forward', {case: case.id, hearingPost: post.id}) }}" role="button">{% trans %}Forward{% endtrans %}</a>
                                             {% endif %}
                                         </div>

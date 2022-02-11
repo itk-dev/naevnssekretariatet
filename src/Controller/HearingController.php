@@ -64,7 +64,7 @@ class HearingController extends AbstractController
 
         // Detect whether most recent hearing post has been forwarded or even exists
         $mostRecentPost = reset($hearingPosts);
-        $hasNewUnforwardedPost = $mostRecentPost && !$mostRecentPost->getForwardDate();
+        $hasNewUnforwardedPost = $mostRecentPost && !$mostRecentPost->getForwardedOn();
 
         return $this->render('case/hearing/index.html.twig', [
             'case' => $case,
@@ -88,7 +88,7 @@ class HearingController extends AbstractController
 
         // Mark hearing as started
         $today = new DateTime('today');
-        $hearing->setStartDate($today);
+        $hearing->setStartedOn($today);
         $this->entityManager->persist($hearing);
         $this->entityManager->flush();
 
@@ -102,7 +102,7 @@ class HearingController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        if ($hearing->getFinishDate()) {
+        if ($hearing->getFinishedOn()) {
             throw new HearingException();
         }
 
@@ -155,7 +155,7 @@ class HearingController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        if ($hearingPost->getHearing()->getFinishDate()) {
+        if ($hearingPost->getHearing()->getFinishedOn()) {
             throw new HearingException();
         }
 
@@ -191,13 +191,13 @@ class HearingController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        if ($hearingPost->getHearing()->getFinishDate()) {
+        if ($hearingPost->getHearing()->getFinishedOn()) {
             throw new HearingException();
         }
 
         // TODO: Send digital post envelope containing hearing post
         $today = new DateTime('today');
-        $hearingPost->setForwardDate($today);
+        $hearingPost->setForwardedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
         $this->entityManager->flush();
 
@@ -213,7 +213,7 @@ class HearingController extends AbstractController
 
         // TODO: Consider whether more logic is needed upon finishing a hearing
         $today = new DateTime('today');
-        $hearing->setFinishDate($today);
+        $hearing->setFinishedOn($today);
         $this->entityManager->flush();
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
@@ -227,7 +227,7 @@ class HearingController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $case);
 
         // TODO: Consider whether more logic is needed upon resuming a hearing
-        $hearing->setFinishDate(null);
+        $hearing->setFinishedOn(null);
         $this->entityManager->flush();
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);

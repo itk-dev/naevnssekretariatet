@@ -51,12 +51,12 @@ class Hearing implements LoggableEntityInterface
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $startDate;
+    private $startedOn;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $finishDate;
+    private $finishedOn;
 
     public function __construct()
     {
@@ -162,26 +162,26 @@ class Hearing implements LoggableEntityInterface
         return $this;
     }
 
-    public function getStartDate(): ?\DateTimeInterface
+    public function getStartedOn(): ?\DateTimeInterface
     {
-        return $this->startDate;
+        return $this->startedOn;
     }
 
-    public function setStartDate(?\DateTimeInterface $startDate): self
+    public function setStartedOn(?\DateTimeInterface $startedOn): self
     {
-        $this->startDate = $startDate;
+        $this->startedOn = $startedOn;
 
         return $this;
     }
 
-    public function getFinishDate(): ?\DateTimeInterface
+    public function getFinishedOn(): ?\DateTimeInterface
     {
-        return $this->finishDate;
+        return $this->finishedOn;
     }
 
-    public function setFinishDate(?\DateTimeInterface $finishDate): self
+    public function setFinishedOn(?\DateTimeInterface $finishedOn): self
     {
-        $this->finishDate = $finishDate;
+        $this->finishedOn = $finishedOn;
 
         return $this;
     }

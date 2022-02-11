@@ -53,7 +53,7 @@ class HearingPost
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $forwardDate;
+    private $forwardedOn;
 
     public function __construct()
     {
@@ -144,14 +144,14 @@ class HearingPost
         return $this;
     }
 
-    public function getForwardDate(): ?\DateTimeInterface
+    public function getForwardedOn(): ?\DateTimeInterface
     {
-        return $this->forwardDate;
+        return $this->forwardedOn;
     }
 
-    public function setForwardDate(?\DateTimeInterface $forwardDate): self
+    public function setForwardedOn(?\DateTimeInterface $forwardedOn): self
     {
-        $this->forwardDate = $forwardDate;
+        $this->forwardedOn = $forwardedOn;
 
         return $this;
     }
