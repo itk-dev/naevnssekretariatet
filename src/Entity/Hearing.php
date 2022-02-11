@@ -49,19 +49,14 @@ class Hearing implements LoggableEntityInterface
     private $hasNewHearingPost = false;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
-    private $hasBeenStarted = false;
-
-    /**
      * @ORM\Column(type="date", nullable=true)
      */
     private $startDate;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
+     * @ORM\Column(type="date", nullable=true)
      */
-    private $hasFinished = false;
+    private $finishDate;
 
     public function __construct()
     {
@@ -167,18 +162,6 @@ class Hearing implements LoggableEntityInterface
         return $this;
     }
 
-    public function getHasBeenStarted(): ?bool
-    {
-        return $this->hasBeenStarted;
-    }
-
-    public function setHasBeenStarted(bool $hasBeenStarted): self
-    {
-        $this->hasBeenStarted = $hasBeenStarted;
-
-        return $this;
-    }
-
     public function getStartDate(): ?\DateTimeInterface
     {
         return $this->startDate;
@@ -191,14 +174,14 @@ class Hearing implements LoggableEntityInterface
         return $this;
     }
 
-    public function getHasFinished(): ?bool
+    public function getFinishDate(): ?\DateTimeInterface
     {
-        return $this->hasFinished;
+        return $this->finishDate;
     }
 
-    public function setHasFinished(bool $hasFinished): self
+    public function setFinishDate(?\DateTimeInterface $finishDate): self
     {
-        $this->hasFinished = $hasFinished;
+        $this->finishDate = $finishDate;
 
         return $this;
     }

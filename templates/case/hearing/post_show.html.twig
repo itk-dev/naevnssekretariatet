@@ -10,7 +10,7 @@
             <h1>{% trans %}Hearing post{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            {% if not hearingPost.hasBeenProcessedAndForwarded %}
+            {% if not hearingPost.getForwardDate %}
                 <a class="btn btn-primary" href="{{ path('case_hearing_post_edit', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Edit{% endtrans %}</a>
             {% endif %}
             <a class="btn btn-secondary" href="{{ path('case_hearing_index', {id: case.id}) }}">{% trans %}Back{% endtrans %}</a>

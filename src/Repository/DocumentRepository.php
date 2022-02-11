@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\AgendaCaseItem;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
-use App\Entity\HearingPost;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;

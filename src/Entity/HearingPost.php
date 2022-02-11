@@ -40,11 +40,6 @@ class HearingPost
     private $content;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
-    private $hasBeenProcessedAndForwarded = false;
-
-    /**
      * @ORM\OneToMany(targetEntity=Document::class, mappedBy="hearingPost")
      */
     private $documents;
@@ -54,6 +49,11 @@ class HearingPost
      * @ORM\JoinColumn(nullable=false)
      */
     private $template;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $forwardDate;
 
     public function __construct()
     {
@@ -102,18 +102,6 @@ class HearingPost
         return $this;
     }
 
-    public function getHasBeenProcessedAndForwarded(): ?bool
-    {
-        return $this->hasBeenProcessedAndForwarded;
-    }
-
-    public function setHasBeenProcessedAndForwarded(bool $hasBeenProcessedAndForwarded): self
-    {
-        $this->hasBeenProcessedAndForwarded = $hasBeenProcessedAndForwarded;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Document[]
      */
@@ -152,6 +140,18 @@ class HearingPost
     public function setTemplate(?MailTemplate $template): self
     {
         $this->template = $template;
+
+        return $this;
+    }
+
+    public function getForwardDate(): ?\DateTimeInterface
+    {
+        return $this->forwardDate;
+    }
+
+    public function setForwardDate(?\DateTimeInterface $forwardDate): self
+    {
+        $this->forwardDate = $forwardDate;
 
         return $this;
     }
