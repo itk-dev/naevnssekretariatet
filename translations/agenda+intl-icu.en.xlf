@@ -445,6 +445,10 @@
         <source>Download document</source>
         <target>Download document</target>
       </trans-unit>
+      <trans-unit id="DhTdmrK" resname="Show case">
+        <source>Show case</source>
+        <target>Show case</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

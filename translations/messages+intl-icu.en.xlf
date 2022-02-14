@@ -13,6 +13,22 @@
         <source>Confirm</source>
         <target>Confirm</target>
       </trans-unit>
+      <trans-unit id="Q9J9PC." resname="Show template file">
+        <source>Show template file</source>
+        <target>Show template file</target>
+      </trans-unit>
+      <trans-unit id="oX_9Ovd" resname="Preview template">
+        <source>Preview template</source>
+        <target>Preview template</target>
+      </trans-unit>
+      <trans-unit id="R0xEnk7" resname="Preview template data">
+        <source>Preview template data</source>
+        <target>Preview template data</target>
+      </trans-unit>
+      <trans-unit id="6QdVLZQ" resname="Preview template with data">
+        <source>Preview template with data</source>
+        <target>Preview template with data</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -101,6 +101,18 @@
         <source>Delete document</source>
         <target>Delete document</target>
       </trans-unit>
+      <trans-unit id="gmq5sjf" resname="Please upload a valid document">
+        <source>Please upload a valid document</source>
+        <target>Please upload a valid document</target>
+      </trans-unit>
+      <trans-unit id="uNg1Xt_" resname="Digital post document cannot be copied">
+        <source>Digital post document cannot be copied</source>
+        <target>Digital post document cannot be copied</target>
+      </trans-unit>
+      <trans-unit id="Vba1rzj" resname="Digitial post document cannot be deleted">
+        <source>Digitial post document cannot be deleted</source>
+        <target>Digitial post document cannot be deleted</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

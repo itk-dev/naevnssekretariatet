@@ -881,6 +881,158 @@
         <source>All municipalities</source>
         <target>All municipalities</target>
       </trans-unit>
+      <trans-unit id="HcjoZk_" resname="Choose a municipality">
+        <source>Choose a municipality</source>
+        <target>Choose a municipality</target>
+      </trans-unit>
+      <trans-unit id="vrgZS8R" resname="Move to">
+        <source>Move to</source>
+        <target>Move to</target>
+      </trans-unit>
+      <trans-unit id="MpqO824" resname="Choose a template">
+        <source>Choose a template</source>
+        <target>Choose a template</target>
+      </trans-unit>
+      <trans-unit id="GjZq2fp" resname="Mail template">
+        <source>Mail template</source>
+        <target>Mail template</target>
+      </trans-unit>
+      <trans-unit id="mvAetLa" resname="Choose a recipient">
+        <source>Choose a recipient</source>
+        <target>Choose a recipient</target>
+      </trans-unit>
+      <trans-unit id="UfrJhel" resname="Recipient">
+        <source>Recipient</source>
+        <target>Recipient</target>
+      </trans-unit>
+      <trans-unit id="RfS.Er3" resname="Choose documents">
+        <source>Choose documents</source>
+        <target>Choose documents</target>
+      </trans-unit>
+      <trans-unit id="CVsT4cX" resname="Attach case documents">
+        <source>Attach case documents</source>
+        <target>Attach case documents</target>
+      </trans-unit>
+      <trans-unit id="auofo_R" resname="Complainants">
+        <source>Complainants</source>
+        <target>Complainants</target>
+      </trans-unit>
+      <trans-unit id="Gcp_she" resname="Counterparties">
+        <source>Counterparties</source>
+        <target>Counterparties</target>
+      </trans-unit>
+      <trans-unit id="Nk0c9Hr" resname="Move case to different board">
+        <source>Move case to different board</source>
+        <target>Move case to different board</target>
+      </trans-unit>
+      <trans-unit id="7r3SSnf" resname="Confirm">
+        <source>Confirm</source>
+        <target>Confirm</target>
+      </trans-unit>
+      <trans-unit id="HLpcGqj" resname="Resume hearing">
+        <source>Resume hearing</source>
+        <target>Resume hearing</target>
+      </trans-unit>
+      <trans-unit id="g1.k8xM" resname="A case must have both a complainant and a counter part before entering the hearing phase.">
+        <source>A case must have both a complainant and a counter part before entering the hearing phase.</source>
+        <target>A case must have both a complainant and a counter part before entering the hearing phase.</target>
+      </trans-unit>
+      <trans-unit id="m2LE75V" resname="Cannot create new post while there is an unforwarded post">
+        <source>Cannot create new post while there is an unforwarded post</source>
+        <target>Cannot create new post while there is an unforwarded post</target>
+      </trans-unit>
+      <trans-unit id="MlTlhEZ" resname="Create response">
+        <source>Create response</source>
+        <target>Create response</target>
+      </trans-unit>
+      <trans-unit id="kNUge99" resname="Cannot end hearing while complainant or counterpart still has something to add">
+        <source>Cannot end hearing while complainant or counterpart still has something to add</source>
+        <target>Cannot end hearing while complainant or counterpart still has something to add</target>
+      </trans-unit>
+      <trans-unit id="o1QAYVY" resname="Cannot end hearing while there exists hearing post that has not been forwarded">
+        <source>Cannot end hearing while there exists hearing post that has not been forwarded</source>
+        <target>Cannot end hearing while there exists hearing post that has not been forwarded</target>
+      </trans-unit>
+      <trans-unit id="zat0sN2" resname="Start hearing">
+        <source>Start hearing</source>
+        <target>Start hearing</target>
+      </trans-unit>
+      <trans-unit id="73lQX8p" resname="Here you can process hearing posts sent by parties.">
+        <source>Here you can process hearing posts sent by parties.</source>
+        <target>Here you can process hearing posts sent by parties.</target>
+      </trans-unit>
+      <trans-unit id="wcEAnT8" resname="Update">
+        <source>Update</source>
+        <target>Update</target>
+      </trans-unit>
+      <trans-unit id="JlNuwQu" resname="No hearing posts have been receive yet.">
+        <source>No hearing posts have been receive yet.</source>
+        <target>No hearing posts have been receive yet.</target>
+      </trans-unit>
+      <trans-unit id="iotNX6x" resname="Hearing post">
+        <source>Hearing post</source>
+        <target>Hearing post</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target>Show</target>
+      </trans-unit>
+      <trans-unit id="8cZeFIF" resname="Forward">
+        <source>Forward</source>
+        <target>Forward</target>
+      </trans-unit>
+      <trans-unit id="2zeovmz" resname="Hearing has not yet been started.">
+        <source>Hearing has not yet been started.</source>
+        <target>Hearing has not yet been started.</target>
+      </trans-unit>
+      <trans-unit id="aduvTx7" resname="Create hearing post">
+        <source>Create hearing post</source>
+        <target>Create hearing post</target>
+      </trans-unit>
+      <trans-unit id="dpAPG.0" resname="Back">
+        <source>Back</source>
+        <target>Back</target>
+      </trans-unit>
+      <trans-unit id="7YhqBfy" resname="Hearing post edit">
+        <source>Hearing post edit</source>
+        <target>Hearing post edit</target>
+      </trans-unit>
+      <trans-unit id="jeVWPbQ" resname="Confirm changes">
+        <source>Confirm changes</source>
+        <target>Confirm changes</target>
+      </trans-unit>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target>Template</target>
+      </trans-unit>
+      <trans-unit id="yfBvKla" resname="Hearing post content">
+        <source>Hearing post content</source>
+        <target>Hearing post content</target>
+      </trans-unit>
+      <trans-unit id="OAs1gv3" resname="Document name">
+        <source>Document name</source>
+        <target>Document name</target>
+      </trans-unit>
+      <trans-unit id="Hl9Om1x" resname="Uploaded by">
+        <source>Uploaded by</source>
+        <target>Uploaded by</target>
+      </trans-unit>
+      <trans-unit id="rArhFm_" resname="Upload date">
+        <source>Upload date</source>
+        <target>Upload date</target>
+      </trans-unit>
+      <trans-unit id="delC5bN" resname="Functions">
+        <source>Functions</source>
+        <target>Functions</target>
+      </trans-unit>
+      <trans-unit id="niUK_XT" resname="Download document">
+        <source>Download document</source>
+        <target>Download document</target>
+      </trans-unit>
+      <trans-unit id="8qjJAnt" resname="No suitable boards">
+        <source>No suitable boards</source>
+        <target>No suitable boards</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

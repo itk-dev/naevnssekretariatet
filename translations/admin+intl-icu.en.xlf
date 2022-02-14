@@ -217,6 +217,18 @@
         <source>BoardRole</source>
         <target>BoardRole</target>
       </trans-unit>
+      <trans-unit id="F3LqinI" resname="List of case statuses. One per line. Board members will be able to see cases with the last status.">
+        <source>List of case statuses. One per line. Board members will be able to see cases with the last status.</source>
+        <target>List of case statuses. One per line. Board members will be able to see cases with the last status.</target>
+      </trans-unit>
+      <trans-unit id="MaL3E6u" resname="List of shortcuts. One per line. Format, 'Identifier: URL'. Identifier may not contain a colon (:). E.g. Aarhus Kommune: https://www.aarhus.dk/.">
+        <source>List of shortcuts. One per line. Format, 'Identifier: URL'. Identifier may not contain a colon (:). E.g. Aarhus Kommune: https://www.aarhus.dk/.</source>
+        <target>List of shortcuts. One per line. Format, 'Identifier: URL'. Identifier may not contain a colon (:). E.g. Aarhus Kommune: https://www.aarhus.dk/.</target>
+      </trans-unit>
+      <trans-unit id="MUvx5II" resname="Initials">
+        <source>Initials</source>
+        <target>Initials</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
