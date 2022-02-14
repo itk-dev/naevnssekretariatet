@@ -66,6 +66,11 @@ class User implements UserInterface, LoggableEntityInterface
      */
     private $boardMember;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $shortcuts;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -283,6 +288,18 @@ class User implements UserInterface, LoggableEntityInterface
     public function setBoardMember(?BoardMember $boardMember): self
     {
         $this->boardMember = $boardMember;
+
+        return $this;
+    }
+
+    public function getShortcuts(): ?string
+    {
+        return $this->shortcuts;
+    }
+
+    public function setShortcuts(?string $shortcuts): self
+    {
+        $this->shortcuts = $shortcuts;
 
         return $this;
     }

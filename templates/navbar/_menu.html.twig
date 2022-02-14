@@ -6,13 +6,7 @@
 <ul class="navbar-nav ml-auto px-3 px-lg-0 col-auto">
     {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
         <li class="nav-item dropdown">
-            {# TODO: Dropdown with shortcuts from Settings/External-shortcuts #}
-            <a class="btn btn-sm btn-dark d-block dropdown-toggle mb-2 mb-lg-0 border" href="#" id="external-shortcuts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Shortcuts'|trans({}, 'navbar') }}</a>
-            <div class="dropdown-menu" aria-labelledby="external-shortcuts">
-                <a class="dropdown-item" href="#">Genvej 1</a>
-                <a class="dropdown-item" href="#">Genvej 2</a>
-                <a class="dropdown-item" href="#">Genvej 3</a>
-            </div>
+            {{ render(controller('App\\Controller\\NavbarController::renderShortcuts')) }}
         </li>
         <li class="nav-item dropdown">
             {# TODO: Link to Create new  #}
