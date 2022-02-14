@@ -194,7 +194,8 @@
                                 <th scope="col">{% trans %}Name{% endtrans %}</th>
                                 <th scope="col">{% trans %}Party type{% endtrans %}</th>
                                 <th scope="col">{% trans %}Address{% endtrans %}</th>
-                                <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Identifier type{% endtrans %}</th>
+                                <th scope="col">{% trans %}CPR/CVR{% endtrans %}</th>
                                 <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
                                 <th scope="col">{% trans %}Journal number{% endtrans %}</th>
                                 <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
@@ -206,7 +207,8 @@
                                     <td>{{ party_data.party.name|e }}</td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
-                                    <td>{{ party_data.party.cpr|e }}</td>
+                                    <td>{{ party_data.party.identifierType|e }}</td>
+                                    <td>{{ party_data.party.identifier|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
                                     <td>{{ party_data.party.journalNumber|e }}</td>
                                     <td class="text-right">
@@ -242,7 +244,8 @@
                                 <th scope="col">{% trans %}Name{% endtrans %}</th>
                                 <th scope="col">{% trans %}Party type{% endtrans %}</th>
                                 <th scope="col">{% trans %}Address{% endtrans %}</th>
-                                <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Identifier type{% endtrans %}</th>
+                                <th scope="col">{% trans %}CPR/CVR{% endtrans %}</th>
                                 <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
                                 <th scope="col">{% trans %}Journal number{% endtrans %}</th>
                                 <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
@@ -254,7 +257,8 @@
                                     <td>{{ party_data.party.name|e }}</td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
-                                    <td>{{ party_data.party.cpr|e }}</td>
+                                    <td>{{ party_data.party.identifierType|e }}</td>
+                                    <td>{{ party_data.party.identifier|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
                                     <td>{{ party_data.party.journalNumber|e }}</td>
                                     <td class="text-right">

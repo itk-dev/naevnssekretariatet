@@ -54,9 +54,14 @@ class Party implements LoggableEntityInterface
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=32)
+     */
+    private $identifierType;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
-    private $cpr;
+    private $identifier;
 
     public function __construct()
     {
@@ -125,7 +130,8 @@ class Party implements LoggableEntityInterface
     {
         return [
             'name',
-            'CPR',
+            'identifierType',
+            'identifier',
             'address',
             'phoneNumber',
             'journalNumber',
@@ -144,14 +150,26 @@ class Party implements LoggableEntityInterface
         return $this;
     }
 
-    public function getCpr(): ?string
+    public function getIdentifierType(): ?string
     {
-        return $this->cpr;
+        return $this->identifierType;
     }
 
-    public function setCpr(string $cpr): self
+    public function setIdentifierType(string $identifierType): self
     {
-        $this->cpr = $cpr;
+        $this->identifierType = $identifierType;
+
+        return $this;
+    }
+
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier(string $identifier): self
+    {
+        $this->identifier = $identifier;
 
         return $this;
     }
