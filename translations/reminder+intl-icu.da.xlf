@@ -19,7 +19,7 @@
       </trans-unit>
       <trans-unit id="f70FC4t" resname="Here you can see a list of your own personal reminders and manage them.">
         <source>Here you can see a list of your own personal reminders and manage them.</source>
-        <target>Her kan du se dine personlige påmindelser samt håndtere dem.</target>
+        <target state="translated">Her kan du se og håndtere dine personlige påmindelser.</target>
       </trans-unit>
       <trans-unit id="7xc8BDd" resname="Casenumber">
         <source>Casenumber</source>

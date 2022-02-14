@@ -101,6 +101,10 @@
         <source>Delete document</source>
         <target>Delete document</target>
       </trans-unit>
+      <trans-unit id="gmq5sjf" resname="Please upload a valid document">
+        <source>Please upload a valid document</source>
+        <target>Please upload a valid document</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

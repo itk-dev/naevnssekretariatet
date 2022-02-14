@@ -19,7 +19,7 @@
       </trans-unit>
       <trans-unit id="W4H3DVm" resname="Document type">
         <source>Document type</source>
-        <target>Dokument type</target>
+        <target state="translated">Dokumenttype</target>
       </trans-unit>
       <trans-unit id="N0zZ0iD" resname="Created by">
         <source>Created by</source>
@@ -27,7 +27,7 @@
       </trans-unit>
       <trans-unit id="yl0jOnQ" resname="Created date">
         <source>Created date</source>
-        <target>Oprettelses dato</target>
+        <target state="translated">Oprettelsesdato</target>
       </trans-unit>
       <trans-unit id="delC5bN" resname="Functions">
         <source>Functions</source>
@@ -47,7 +47,7 @@
       </trans-unit>
       <trans-unit id="wgscFcd" resname="Select a document type">
         <source>Select a document type</source>
-        <target>Vælg dokument type</target>
+        <target state="translated">Vælg dokumenttype</target>
       </trans-unit>
       <trans-unit id="apXUKzK" resname="Chose a file">
         <source>Chose a file</source>
@@ -59,7 +59,7 @@
       </trans-unit>
       <trans-unit id="p9p3rZy" resname="Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
         <source>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
-        <target>Max fil størrelse: 10mb. Accepterede filformater: .pdf, .txt, .md, .jpg, .png, .webp</target>
+        <target state="translated">Max filstørrelse: 10mb. Accepterede filformater: .pdf, .txt, .md, .jpg, .png, .webp</target>
       </trans-unit>
       <trans-unit id="Hl9Om1x" resname="Uploaded by">
         <source>Uploaded by</source>
@@ -128,6 +128,10 @@
       <trans-unit id="2ZvNeLW" resname="Upload file">
         <source>Upload file</source>
         <target>Opret dokument</target>
+      </trans-unit>
+      <trans-unit id="gmq5sjf" resname="Please upload a valid document">
+        <source>Please upload a valid document</source>
+        <target state="needs-l10n">Upload venligst et gyldigt dokument</target>
       </trans-unit>
     </body>
   </file>

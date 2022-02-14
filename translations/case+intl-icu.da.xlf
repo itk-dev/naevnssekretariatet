@@ -43,7 +43,7 @@
       </trans-unit>
       <trans-unit id="QXTH4IP" resname="Answer on behalf of part">
         <source>Answer on behalf of part</source>
-        <target>Svar på partens vejne</target>
+        <target state="translated">Svar på partens vegne</target>
       </trans-unit>
       <trans-unit id="2uKLqSc" resname="No messages in this category">
         <source>No messages in this category</source>
@@ -271,7 +271,7 @@
       </trans-unit>
       <trans-unit id="xf9bYTI" resname="Edit basic information">
         <source>Edit basic information</source>
-        <target>Ændre stamoplysninger</target>
+        <target state="translated">Ændr stamoplysninger</target>
       </trans-unit>
       <trans-unit id="1LHqVwj" resname="Overview">
         <source>Overview</source>
@@ -291,7 +291,7 @@
       </trans-unit>
       <trans-unit id="WQvNeqY" resname="CPR number">
         <source>CPR number</source>
-        <target>CPR nummer</target>
+        <target state="translated">CPR–nummer</target>
       </trans-unit>
       <trans-unit id="MAUEDTa" resname="Telephone number">
         <source>Telephone number</source>
@@ -347,7 +347,7 @@
       </trans-unit>
       <trans-unit id="4n3Tx2Z" resname="Status info">
         <source>Status info</source>
-        <target>Status oplysninger</target>
+        <target state="translated">Statusoplysninger</target>
       </trans-unit>
       <trans-unit id="P4Mfiij" resname="Processinformation">
         <source>Processinformation</source>
@@ -407,7 +407,7 @@
       </trans-unit>
       <trans-unit id="uasmRr0" resname="Describe why the date has changed">
         <source>Describe why the date has changed</source>
-        <target>Hvorfor skal tidsfristen ændres</target>
+        <target state="translated">Hvorfor tidsfristen ændres</target>
       </trans-unit>
       <trans-unit id="Uz3lvy0" resname="This information is needed for journaling purpose">
         <source>This information is needed for journaling purpose</source>
@@ -427,11 +427,11 @@
       </trans-unit>
       <trans-unit id="ur6d2oU" resname="Start time">
         <source>Start time</source>
-        <target>Start tidspunkt</target>
+        <target state="translated">Starttidspunkt</target>
       </trans-unit>
       <trans-unit id="LkYAal7" resname="End time">
         <source>End time</source>
-        <target>Slut tidspunkt</target>
+        <target state="translated">Sluttidspunkt</target>
       </trans-unit>
       <trans-unit id="w4EvxKy" resname="Remove">
         <source>Remove</source>
@@ -443,11 +443,11 @@
       </trans-unit>
       <trans-unit id="pqgEMbA" resname="Reschedule">
         <source>Reschedule</source>
-        <target>Ændre tidsfrist</target>
+        <target state="translated">Ændr tidsfrist</target>
       </trans-unit>
       <trans-unit id="xNa3ck9" resname="Reschedule deadline">
         <source>Reschedule deadline</source>
-        <target>Ændre tidsfrist</target>
+        <target state="translated">Ændr tidsfrist</target>
       </trans-unit>
       <trans-unit id="J6Y6.ic" resname="Remove from agenda">
         <source>Remove from agenda</source>
@@ -491,7 +491,7 @@
       </trans-unit>
       <trans-unit id="_pH3Yo6" resname="Date created">
         <source>Date created</source>
-        <target>Oprettelses dato</target>
+        <target state="translated">Oprettelsesdato</target>
       </trans-unit>
       <trans-unit id="2MVnCtm" resname="Last changed">
         <source>Last changed</source>
@@ -511,7 +511,7 @@
       </trans-unit>
       <trans-unit id="1gLIib9" resname="Validate CPR number">
         <source>Validate CPR number</source>
-        <target>Valider CPR nummer</target>
+        <target state="translated">Valider CPR-nummer</target>
       </trans-unit>
       <trans-unit id="Iyyo8M8" resname="Validate address">
         <source>Validate address</source>
@@ -579,7 +579,7 @@
       </trans-unit>
       <trans-unit id="r6Y2tp2" resname="No current active agenda available">
         <source>No current active agenda available</source>
-        <target>Ingen aktive dagsordener til stede</target>
+        <target state="translated">Ingen aktive dagsordener</target>
       </trans-unit>
       <trans-unit id="3TV2EFD" resname="Active agenda">
         <source>Active agenda</source>
@@ -603,15 +603,15 @@
       </trans-unit>
       <trans-unit id="KUyOOJ4" resname="Agenda status">
         <source>Agenda status</source>
-        <target>Dagsordens status</target>
+        <target state="translated">Dagsordensstatus</target>
       </trans-unit>
       <trans-unit id="hAA_WCr" resname="Decision proposal">
         <source>Decision proposal</source>
-        <target>Afgørelses foreslag</target>
+        <target state="translated">Afgørelsesforslag</target>
       </trans-unit>
       <trans-unit id="0MdgX5D" resname="Update proposal">
         <source>Update proposal</source>
-        <target>Opdater foreslag</target>
+        <target state="translated">Opdater forslag</target>
       </trans-unit>
       <trans-unit id="QISCbyx" resname="Case presentation">
         <source>Case presentation</source>
@@ -639,7 +639,7 @@
       </trans-unit>
       <trans-unit id="GvhRkHM" resname="Size">
         <source>Size</source>
-        <target>Leje størrelse</target>
+        <target state="translated">Lejestørrelse</target>
       </trans-unit>
       <trans-unit id="tA9IUrc" resname="Create Case">
         <source>Create Case</source>
@@ -651,7 +651,7 @@
       </trans-unit>
       <trans-unit id="PKHq5DQ" resname="Complainant CPR">
         <source>Complainant CPR</source>
-        <target>Klagers CPR</target>
+        <target state="translated">Klagers CPR-nummer</target>
       </trans-unit>
       <trans-unit id="UqqMLr2" resname="Complainant street name and number">
         <source>Complainant street name and number</source>
@@ -671,7 +671,7 @@
       </trans-unit>
       <trans-unit id="11NLkDY" resname="Accused CPR">
         <source>Accused CPR</source>
-        <target>Modpart CPR</target>
+        <target state="translated">Modparts CPR-nummer</target>
       </trans-unit>
       <trans-unit id="OAXllaP" resname="Accused street name and number">
         <source>Accused street name and number</source>
@@ -679,11 +679,11 @@
       </trans-unit>
       <trans-unit id="aMi02hB" resname="Accused postal code">
         <source>Accused postal code</source>
-        <target>Modpart postnummer</target>
+        <target state="translated">Modparts postnummer</target>
       </trans-unit>
       <trans-unit id="VjJ5U6o" resname="Accused city">
         <source>Accused city</source>
-        <target>Modpart by</target>
+        <target state="translated">Modparts by</target>
       </trans-unit>
       <trans-unit id="XRZYp7m" resname="Accused cadastral number">
         <source>Accused cadastral number</source>
@@ -707,11 +707,11 @@
       </trans-unit>
       <trans-unit id="uvA.iav" resname="Lease postal code">
         <source>Lease postal code</source>
-        <target>Lejemål postnummer</target>
+        <target state="translated">Lejemåls postnummer</target>
       </trans-unit>
       <trans-unit id="zSTl5TQ" resname="Lease city">
         <source>Lease city</source>
-        <target>Lejemål by</target>
+        <target state="translated">Lejemåls by</target>
       </trans-unit>
       <trans-unit id="9p.SY0Z" resname="Big">
         <source>Big</source>
@@ -723,7 +723,7 @@
       </trans-unit>
       <trans-unit id="QYuwoY." resname="Lease type">
         <source>Lease type</source>
-        <target>Lejemål type</target>
+        <target state="translated">Lejemålstype</target>
       </trans-unit>
       <trans-unit id="d5H6QKn" resname="Fee paid">
         <source>Fee paid</source>
@@ -751,7 +751,7 @@
       </trans-unit>
       <trans-unit id="qZHakmv" resname="Lease rent at collection time">
         <source>Lease rent at collection time</source>
-        <target>Lejen på indbringelses tidspunkt</target>
+        <target state="translated">Lejen på indbringelsestidspunkt</target>
       </trans-unit>
       <trans-unit id="Ytf808U" resname="Lease security deposit">
         <source>Lease security deposit</source>
@@ -803,7 +803,7 @@
       </trans-unit>
       <trans-unit id="R1v4ZeU" resname="Rent at collection time">
         <source>Rent at collection time</source>
-        <target>Lejen på indbringelses tidspunkt</target>
+        <target state="translated">Lejen på indbringelsestidspunkt</target>
       </trans-unit>
       <trans-unit id="TdAyql4" resname="Security deposit">
         <source>Security deposit</source>
@@ -823,7 +823,7 @@
       </trans-unit>
       <trans-unit id="669PzEA" resname="Counterpart CPR">
         <source>Counterpart CPR</source>
-        <target>Modparts CPR</target>
+        <target state="translated">Modparts CPR-nummer</target>
       </trans-unit>
       <trans-unit id="ObNtONb" resname="Condition">
         <source>Condition</source>
@@ -911,7 +911,7 @@
       </trans-unit>
       <trans-unit id="AQx0Y8J" resname="Reschedule to">
         <source>Reschedule to</source>
-        <target>Ændre til</target>
+        <target state="translated">Ændr til</target>
       </trans-unit>
       <trans-unit id="SI9wKXG" resname="Reschedule processing deadline">
         <source>Reschedule processing deadline</source>
@@ -931,11 +931,11 @@
       </trans-unit>
       <trans-unit id="bU9FrLc" resname="Reschedule finish hearing deadline">
         <source>Reschedule finish hearing deadline</source>
-        <target>Ændre frist for afslutning af partshøring</target>
+        <target state="translated">Ændr frist for afslutning af partshøring</target>
       </trans-unit>
       <trans-unit id="QgExcvT" resname="Reschedule finish processing deadline">
         <source>Reschedule finish processing deadline</source>
-        <target>Ændre frist for afslutning af sagsbehandling</target>
+        <target state="translated">Ændr frist for afslutning af sagsbehandling</target>
       </trans-unit>
       <trans-unit id="YGhSFNx" resname="Finish hearing deadline">
         <source>Finish hearing deadline</source>
@@ -991,7 +991,7 @@
       </trans-unit>
       <trans-unit id="sqSFiwS" resname="Party type">
         <source>Party type</source>
-        <target>Parts type</target>
+        <target state="translated">Partstype</target>
       </trans-unit>
       <trans-unit id="2u52BrM" resname="Reset">
         <source>Reset</source>
@@ -1007,7 +1007,7 @@
       </trans-unit>
       <trans-unit id="eOHlIKW" resname="Both deadlines exceeded">
         <source>Both deadlines exceeded</source>
-        <target>Overskredet begge tidsfrister</target>
+        <target state="translated">Overskredet begge tidsfrister</target>
       </trans-unit>
       <trans-unit id="en4Z_eY" resname="No exceeded deadlines">
         <source>No exceeded deadlines</source>
@@ -1015,7 +1015,7 @@
       </trans-unit>
       <trans-unit id="wPtiqm7" resname="Select deadline filter">
         <source>Select deadline filter</source>
-        <target>Vælg et tidsfrist filter</target>
+        <target state="translated">Vælg et tidsfrist-filter</target>
       </trans-unit>
       <trans-unit id="WsxYcLd" resname="Cannot get url for BBR-Meddelelse">
         <source>Cannot get url for BBR-Meddelelse</source>
@@ -1023,11 +1023,11 @@
       </trans-unit>
       <trans-unit id="VaveQB2" resname="BBR data updated">
         <source>BBR data updated</source>
-        <target>BBR data opdateret</target>
+        <target state="translated">BBR-data opdateret</target>
       </trans-unit>
       <trans-unit id="mzHh8j0" resname="Cannot update BBR data">
         <source>Cannot update BBR data</source>
-        <target>Kan ikke opdatere BBR data</target>
+        <target state="translated">Kan ikke opdatere BBR-data</target>
       </trans-unit>
       <trans-unit id="ZLjpBRI" resname="Process deadline updated!">
         <source>Process deadline updated!</source>
@@ -1080,6 +1080,138 @@
       <trans-unit id="HcjoZk_" resname="Choose a municipality">
         <source>Choose a municipality</source>
         <target state="translated">Vælg kommune</target>
+      </trans-unit>
+      <trans-unit id="MpqO824" resname="Choose a template">
+        <source>Choose a template</source>
+        <target state="translated">Vælg en skabelon</target>
+      </trans-unit>
+      <trans-unit id="GjZq2fp" resname="Mail template">
+        <source>Mail template</source>
+        <target state="translated">Brevskabelon</target>
+      </trans-unit>
+      <trans-unit id="mvAetLa" resname="Choose a recipient">
+        <source>Choose a recipient</source>
+        <target state="translated">Vælg en modtager</target>
+      </trans-unit>
+      <trans-unit id="UfrJhel" resname="Recipient">
+        <source>Recipient</source>
+        <target state="translated">Modtager</target>
+      </trans-unit>
+      <trans-unit id="RfS.Er3" resname="Choose documents">
+        <source>Choose documents</source>
+        <target state="translated">Vælg dokumenter</target>
+      </trans-unit>
+      <trans-unit id="CVsT4cX" resname="Attach case documents">
+        <source>Attach case documents</source>
+        <target state="translated">Vedhæft sagsdokumenter</target>
+      </trans-unit>
+      <trans-unit id="auofo_R" resname="Complainants">
+        <source>Complainants</source>
+        <target state="translated">Klagere</target>
+      </trans-unit>
+      <trans-unit id="Gcp_she" resname="Counterparties">
+        <source>Counterparties</source>
+        <target state="translated">Modparter</target>
+      </trans-unit>
+      <trans-unit id="HLpcGqj" resname="Resume hearing">
+        <source>Resume hearing</source>
+        <target state="translated">Genoptag høring</target>
+      </trans-unit>
+      <trans-unit id="g1.k8xM" resname="A case must have both a complainant and a counter part before entering the hearing phase.">
+        <source>A case must have both a complainant and a counter part before entering the hearing phase.</source>
+        <target state="translated">En sag skal have både en klager og en modpart før den kan gå ind i høringsfasen.</target>
+      </trans-unit>
+      <trans-unit id="m2LE75V" resname="Cannot create new post while there is an unforwarded post">
+        <source>Cannot create new post while there is an unforwarded post</source>
+        <target state="translated">Nyt svar kan ikke oprettes når der findes et ikke-videresendt svar</target>
+      </trans-unit>
+      <trans-unit id="MlTlhEZ" resname="Create response">
+        <source>Create response</source>
+        <target state="translated">Opret svar</target>
+      </trans-unit>
+      <trans-unit id="kNUge99" resname="Cannot end hearing while complainant or counterpart still has something to add">
+        <source>Cannot end hearing while complainant or counterpart still has something to add</source>
+        <target state="translated">Høring kan ikke afsluttes så længe klager eller modpart har mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="o1QAYVY" resname="Cannot end hearing while there exists hearing post that has not been forwarded">
+        <source>Cannot end hearing while there exists hearing post that has not been forwarded</source>
+        <target state="translated">Høring kan ikke afsluttes når der findes svar som ikke er blevet videresendt</target>
+      </trans-unit>
+      <trans-unit id="zat0sN2" resname="Start hearing">
+        <source>Start hearing</source>
+        <target state="translated">Start høring</target>
+      </trans-unit>
+      <trans-unit id="73lQX8p" resname="Here you can process hearing posts sent by parties.">
+        <source>Here you can process hearing posts sent by parties.</source>
+        <target state="translated">Her kan du håndtere høringssvar indsendt af parter</target>
+      </trans-unit>
+      <trans-unit id="wcEAnT8" resname="Update">
+        <source>Update</source>
+        <target state="translated">Opdater</target>
+      </trans-unit>
+      <trans-unit id="7xWyVrM" resname="No hearing posts have been received yet.">
+        <source>No hearing posts have been received yet.</source>
+        <target state="translated">Ingen høringssvar modtaget.</target>
+      </trans-unit>
+      <trans-unit id="iotNX6x" resname="Hearing post">
+        <source>Hearing post</source>
+        <target state="translated">Høringssvar</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target state="translated">Vis</target>
+      </trans-unit>
+      <trans-unit id="8cZeFIF" resname="Forward">
+        <source>Forward</source>
+        <target state="translated">Videresend</target>
+      </trans-unit>
+      <trans-unit id="2zeovmz" resname="Hearing has not yet been started.">
+        <source>Hearing has not yet been started.</source>
+        <target state="translated">Høring er endnu ikke startet.</target>
+      </trans-unit>
+      <trans-unit id="aduvTx7" resname="Create hearing post">
+        <source>Create hearing post</source>
+        <target state="translated">Opret nyt høringssvar</target>
+      </trans-unit>
+      <trans-unit id="dpAPG.0" resname="Back">
+        <source>Back</source>
+        <target state="translated">Tilbage</target>
+      </trans-unit>
+      <trans-unit id="7YhqBfy" resname="Hearing post edit">
+        <source>Hearing post edit</source>
+        <target state="translated">Rediger høringssvar</target>
+      </trans-unit>
+      <trans-unit id="jeVWPbQ" resname="Confirm changes">
+        <source>Confirm changes</source>
+        <target state="translated">Bekræft ændringer</target>
+      </trans-unit>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target state="translated">Skabelon</target>
+      </trans-unit>
+      <trans-unit id="yfBvKla" resname="Hearing post content">
+        <source>Hearing post content</source>
+        <target state="translated">Høringssvarsindhold</target>
+      </trans-unit>
+      <trans-unit id="OAs1gv3" resname="Document name">
+        <source>Document name</source>
+        <target state="translated">Dokumentnavn</target>
+      </trans-unit>
+      <trans-unit id="Hl9Om1x" resname="Uploaded by">
+        <source>Uploaded by</source>
+        <target state="translated">Uploadet af</target>
+      </trans-unit>
+      <trans-unit id="rArhFm_" resname="Upload date">
+        <source>Upload date</source>
+        <target state="translated">Uploaddato</target>
+      </trans-unit>
+      <trans-unit id="delC5bN" resname="Functions">
+        <source>Functions</source>
+        <target state="translated">Funktioner</target>
+      </trans-unit>
+      <trans-unit id="niUK_XT" resname="Download document">
+        <source>Download document</source>
+        <target state="translated">Download dokument</target>
       </trans-unit>
     </body>
   </file>

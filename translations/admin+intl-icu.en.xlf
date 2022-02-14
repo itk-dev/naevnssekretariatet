@@ -5,17 +5,17 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="Sfc9b3p" resname="List of complainant party types. One per line. The first party type can be used for sorting cases.">
-        <source>List of complainant party types. One per line. The first party type can be used for sorting cases.</source>
-        <target>List of complainant party types. One per line. The first party type can be used for sorting cases.</target>
+      <trans-unit id="6bzwwVZ" resname="List of complainant party types (one per line). The first party type can be used for sorting cases.">
+        <source>List of complainant party types (one per line). The first party type can be used for sorting cases.</source>
+        <target>List of complainant party types (one per line). The first party type can be used for sorting cases.</target>
       </trans-unit>
-      <trans-unit id="ikn_uZ2" resname="List of counterparty types. One per line. The first party type can be used for sorting cases.">
-        <source>List of counterparty types. One per line. The first party type can be used for sorting cases.</source>
-        <target>List of counterparty types. One per line. The first party type can be used for sorting cases.</target>
+      <trans-unit id="XVtm1Zq" resname="List of counterparty types (one per line). The first party type can be used for sorting cases.">
+        <source>List of counterparty types (one per line). The first party type can be used for sorting cases.</source>
+        <target>List of counterparty types (one per line). The first party type can be used for sorting cases.</target>
       </trans-unit>
-      <trans-unit id="5k3cjlx" resname="List of case statuses. One per line.">
-        <source>List of case statuses. One per line.</source>
-        <target>List of case statuses. One per line.</target>
+      <trans-unit id="LW8L3eH" resname="List of case statuses (one per line).">
+        <source>List of case statuses (one per line).</source>
+        <target>List of case statuses (one per line).</target>
       </trans-unit>
       <trans-unit id="Zs2WiKK" resname="dashboard">
         <source>dashboard</source>
@@ -193,13 +193,13 @@
         <source>Add to part index</source>
         <target>Add to part index</target>
       </trans-unit>
-      <trans-unit id="bYZdb1o" resname="Finish hearing deadline(days)">
-        <source>Finish hearing deadline(days)</source>
-        <target>Finish hearing deadline(days)</target>
+      <trans-unit id="RoBaH.A" resname="Finish hearing deadline (days)">
+        <source>Finish hearing deadline (days)</source>
+        <target>Finish hearing deadline (days)</target>
       </trans-unit>
-      <trans-unit id="Nd6BVdz" resname="Finish processing case deadline(days)">
-        <source>Finish processing case deadline(days)</source>
-        <target>Finish processing case deadline(days)</target>
+      <trans-unit id="4ot9em3" resname="Finish processing case deadline (days)">
+        <source>Finish processing case deadline (days)</source>
+        <target>Finish processing case deadline (days)</target>
       </trans-unit>
       <trans-unit id="7lWBnRv" resname="Case Form Type">
         <source>Case Form Type</source>
@@ -216,6 +216,26 @@
       <trans-unit id="suC1YnM" resname="BoardRole">
         <source>BoardRole</source>
         <target>BoardRole</target>
+      </trans-unit>
+      <trans-unit id="xfGmwdX" resname="List of case statuses (one per line). Board members will be able to see cases with the last status.">
+        <source>List of case statuses (one per line). Board members will be able to see cases with the last status.</source>
+        <target>List of case statuses (one per line). Board members will be able to see cases with the last status.</target>
+      </trans-unit>
+      <trans-unit id="yknv5ud" resname="List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).">
+        <source>List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).</source>
+        <target>List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).</target>
+      </trans-unit>
+      <trans-unit id="MUvx5II" resname="Initials">
+        <source>Initials</source>
+        <target>Initials</target>
+      </trans-unit>
+      <trans-unit id="bYZdb1o" resname="Finish hearing deadline(days)">
+        <source>Finish hearing deadline(days)</source>
+        <target>Finish hearing deadline(days)</target>
+      </trans-unit>
+      <trans-unit id="Nd6BVdz" resname="Finish processing case deadline(days)">
+        <source>Finish processing case deadline(days)</source>
+        <target>Finish processing case deadline(days)</target>
       </trans-unit>
     </body>
   </file>

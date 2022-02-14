@@ -27,7 +27,7 @@
       </trans-unit>
       <trans-unit id="7rTCvQD" resname="CPR">
         <source>CPR</source>
-        <target>CPR nummer</target>
+        <target state="translated">CPR-nummer</target>
       </trans-unit>
       <trans-unit id="Vu_PIJV" resname="Address">
         <source>Address</source>
@@ -35,11 +35,11 @@
       </trans-unit>
       <trans-unit id="MG8bsgZ" resname="Phone number">
         <source>Phone number</source>
-        <target>Telefon nummer</target>
+        <target state="translated">Telefonnummer</target>
       </trans-unit>
       <trans-unit id="9gcREM5" resname="Journal number">
         <source>Journal number</source>
-        <target>Journal nummer</target>
+        <target state="translated">Journalnummer</target>
       </trans-unit>
       <trans-unit id="uq3fcPt" resname="Type">
         <source>Type</source>

@@ -105,6 +105,14 @@
         <source>Sunday</source>
         <target>Sunday</target>
       </trans-unit>
+      <trans-unit id="urN9Ykc" resname="See more">
+        <source>See more</source>
+        <target>See more</target>
+      </trans-unit>
+      <trans-unit id="5vSuyiT" resname="Municipality">
+        <source>Municipality</source>
+        <target>Municipality</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

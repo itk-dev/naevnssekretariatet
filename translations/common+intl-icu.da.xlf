@@ -59,7 +59,7 @@
       </trans-unit>
       <trans-unit id="B_k8nqL" resname="Open document">
         <source>Open document</source>
-        <target>Åben dokument</target>
+        <target state="translated">Åbn dokument</target>
       </trans-unit>
       <trans-unit id="BPbQmqh" resname="Delete document">
         <source>Delete document</source>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="Q9J9PC." resname="Show template file">
+        <source>Show template file</source>
+        <target>Show template file</target>
+      </trans-unit>
+      <trans-unit id="oX_9Ovd" resname="Preview template">
+        <source>Preview template</source>
+        <target>Preview template</target>
+      </trans-unit>
+      <trans-unit id="R0xEnk7" resname="Preview template data">
+        <source>Preview template data</source>
+        <target>Preview template data</target>
+      </trans-unit>
+      <trans-unit id="6QdVLZQ" resname="Preview template with data">
+        <source>Preview template with data</source>
+        <target>Preview template with data</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
