@@ -119,10 +119,6 @@ class DocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        if ($document instanceof DigitalPostDocument) {
-            throw new AccessDeniedHttpException(sprintf('Document of type %s cannot be deleted', get_class($document)));
-        }
-
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
             // Simply just soft delete by setting soft deleted to true
@@ -146,10 +142,6 @@ class DocumentController extends AbstractController
     public function copy(Request $request, Document $document, CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
-
-        if ($document instanceof DigitalPostDocument) {
-            throw new AccessDeniedHttpException(sprintf('Document of type %s cannot be copied', get_class($document)));
-        }
 
         // Find suitable cases
         $suitableCases = $this->copyHelper->findSuitableCases($case, $document);

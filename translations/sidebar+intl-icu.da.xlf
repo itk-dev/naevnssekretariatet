@@ -99,7 +99,7 @@
       </trans-unit>
       <trans-unit id="hAA_WCr" resname="Decision proposal">
         <source>Decision proposal</source>
-        <target>Afgørelses foreslag</target>
+        <target state="translated">Afgørelsesforslag</target>
       </trans-unit>
       <trans-unit id="bk_hPaS" resname="Inspection">
         <source>Inspection</source>

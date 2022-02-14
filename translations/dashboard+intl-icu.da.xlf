@@ -19,7 +19,7 @@
       </trans-unit>
       <trans-unit id="xDUT7g7" resname="Unassigned cases">
         <source>Unassigned cases</source>
-        <target>Ikke tildelte sager</target>
+        <target state="translated">Ikke-tildelte sager</target>
       </trans-unit>
       <trans-unit id="mJhuHWH" resname="My cases">
         <source>My cases</source>

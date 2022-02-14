@@ -51,7 +51,7 @@ class UserCrudController extends AbstractCrudController
         yield TextField::new('initials', 'Initials');
         yield AssociationField::new('favoriteMunicipality', 'Favorite municipality');
         yield TextareaField::new('shortcuts', 'Shortcuts')
-            ->setHelp($this->translator->trans("List of shortcuts. One per line. Format, 'Identifier: URL'. Identifier may not contain a colon (:). E.g. Aarhus Kommune: https://www.aarhus.dk/.", [], 'admin'))
+            ->setHelp($this->translator->trans("List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).", [], 'admin'))
         ;
     }
 }

@@ -119,7 +119,7 @@
       </trans-unit>
       <trans-unit id="p8Pk0Cg" resname="Publish to boardmembers">
         <source>Publish to boardmembers</source>
-        <target>Publisér til nævnsmedlemmer</target>
+        <target state="translated">Publiser til nævnsmedlemmer</target>
       </trans-unit>
       <trans-unit id="n1OzYSt" resname="Select recipient(s)">
         <source>Select recipient(s)</source>
@@ -235,15 +235,15 @@
       </trans-unit>
       <trans-unit id="0bvdoe6" resname="Send notice to board members informing them that they now has access to the agenda.">
         <source>Send notice to board members informing them that they now has access to the agenda.</source>
-        <target>Send besked til nævnsmedlemmer med besked om, at de nu har adgang til dagsordenen.</target>
+        <target state="translated">Send besked til nævnsmedlemmer med besked om at de nu har adgang til dagsordenen.</target>
       </trans-unit>
       <trans-unit id="7UP_NFQ" resname="Agenda must have status: ready, before being able to send notice to board members.">
         <source>Agenda must have status: ready, before being able to send notice to board members.</source>
-        <target>Dagsordenen skal have status: Klar, før du kan sende besked omkring adgang til nævnsmedlemmer.</target>
+        <target state="translated">Dagsordenen skal have status “klar” før du kan sende besked omkring adgang til nævnsmedlemmer.</target>
       </trans-unit>
       <trans-unit id="QuUbfCR" resname="Case decision proposal">
         <source>Case decision proposal</source>
-        <target>Sags afgørelses foreslag</target>
+        <target state="translated">Sags afgørelsesforslag</target>
       </trans-unit>
       <trans-unit id="quiZwMg" resname="Attached documents">
         <source>Attached documents</source>
@@ -251,7 +251,7 @@
       </trans-unit>
       <trans-unit id="QWB8PiK" resname="Documents that are already attached to agenda item">
         <source>Documents that are already attached to agenda item</source>
-        <target>Dokumenter som er vedhæftet dagsordenspunk</target>
+        <target state="translated">Dokumenter som er vedhæftet dagsordenspunkt</target>
       </trans-unit>
       <trans-unit id="1BCknPB" resname="Attach documents">
         <source>Attach documents</source>
@@ -259,11 +259,11 @@
       </trans-unit>
       <trans-unit id="OAs1gv3" resname="Document name">
         <source>Document name</source>
-        <target>Dokument navn</target>
+        <target state="translated">Dokumentnavn</target>
       </trans-unit>
       <trans-unit id="W4H3DVm" resname="Document type">
         <source>Document type</source>
-        <target>Dokument type</target>
+        <target state="translated">Dokumenttype</target>
       </trans-unit>
       <trans-unit id="Hl9Om1x" resname="Uploaded by">
         <source>Uploaded by</source>
@@ -271,7 +271,7 @@
       </trans-unit>
       <trans-unit id="rArhFm_" resname="Upload date">
         <source>Upload date</source>
-        <target>Oprettelses dato</target>
+        <target state="translated">Oprettelsesdato</target>
       </trans-unit>
       <trans-unit id="delC5bN" resname="Functions">
         <source>Functions</source>
@@ -299,7 +299,7 @@
       </trans-unit>
       <trans-unit id="0dUuar9" resname="Agenda item">
         <source>Agenda item</source>
-        <target>Dagsordendspunkt</target>
+        <target state="translated">Dagsordenspunkt</target>
       </trans-unit>
       <trans-unit id="bk_hPaS" resname="Inspection">
         <source>Inspection</source>
@@ -335,7 +335,7 @@
       </trans-unit>
       <trans-unit id="ak5D7v9" resname="Show letter">
         <source>Show letter</source>
-        <target>Vis brev </target>
+        <target state="translated">Vis brev</target>
       </trans-unit>
       <trans-unit id="4jlp0oT" resname="Tenant">
         <source>Tenant</source>
@@ -387,7 +387,7 @@
       </trans-unit>
       <trans-unit id="hAA_WCr" resname="Decision proposal">
         <source>Decision proposal</source>
-        <target>Afgørelses foreslag</target>
+        <target state="translated">Afgørelsesforslag</target>
       </trans-unit>
       <trans-unit id="XV7hV3U" resname="Presentation">
         <source>Presentation</source>
@@ -439,7 +439,7 @@
       </trans-unit>
       <trans-unit id="p9p3rZy" resname="Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
         <source>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
-        <target>Max fil størrelse: 10mb. Accepterede filformater: .pdf, .txt, .md, .jpg, .png, .webp</target>
+        <target state="translated">Max filstørrelse: 10mb. Accepterede filformater: .pdf, .txt, .md, .jpg, .png, .webp</target>
       </trans-unit>
       <trans-unit id="LqCaMFb" resname="Upload and remove documents">
         <source>Upload and remove documents</source>
@@ -451,11 +451,15 @@
       </trans-unit>
       <trans-unit id="UYfJ2iC" resname="Here you can see the decision proposal">
         <source>Here you can see the decision proposal</source>
-        <target>Her kan du se sagens afgørelses foreslag</target>
+        <target state="translated">Her kan du se sagens afgørelsesforslag</target>
       </trans-unit>
       <trans-unit id="UBddzDx" resname="Here you can see the case presentation">
         <source>Here you can see the case presentation</source>
         <target>Her kan du se sagens sagsfremstilling</target>
+      </trans-unit>
+      <trans-unit id="DhTdmrK" resname="Show case">
+        <source>Show case</source>
+        <target state="translated">Vis sag</target>
       </trans-unit>
     </body>
   </file>

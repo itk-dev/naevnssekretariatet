@@ -99,7 +99,7 @@
       </trans-unit>
       <trans-unit id="6jRHZCk" resname="AZ-ident">
         <source>AZ-ident</source>
-        <target>Az-ident</target>
+        <target state="translated">AZ-ident</target>
       </trans-unit>
       <trans-unit id="cC75Ie0" resname="First name">
         <source>First name</source>
@@ -123,7 +123,7 @@
       </trans-unit>
       <trans-unit id="9gcREM5" resname="Journal number">
         <source>Journal number</source>
-        <target>Journal nummer</target>
+        <target state="translated">Journalnummer</target>
       </trans-unit>
       <trans-unit id="lpzL089" resname="Email">
         <source>Email</source>
@@ -145,9 +145,9 @@
         <source>Add Subboard</source>
         <target>Tilføj undernævn</target>
       </trans-unit>
-      <trans-unit id="juBm4s0" resname="Default Deadline(days)">
-        <source>Default Deadline(days)</source>
-        <target>Standard tidsfrist(dage)</target>
+      <trans-unit id="NWsIm9Y" resname="Default Deadline (days)">
+        <source>Default Deadline (days)</source>
+        <target state="translated">Standardtidsfrist (dage)</target>
       </trans-unit>
       <trans-unit id="3iE04Og" resname="Back to the website">
         <source>Back to the website</source>
@@ -189,49 +189,57 @@
         <source>Add to part index</source>
         <target>Tilføj til partskartotek</target>
       </trans-unit>
-      <trans-unit id="y2ULwvC" resname="Hearing response deadline(days)">
-        <source>Hearing response deadline(days)</source>
-        <target>Partshøring svarfrist</target>
+      <trans-unit id="jeMLk7v" resname="Hearing response deadline (days)">
+        <source>Hearing response deadline (days)</source>
+        <target>Frist for svar på partshøring (dage)</target>
       </trans-unit>
-      <trans-unit id="bYZdb1o" resname="Finish hearing deadline(days)">
-        <source>Finish hearing deadline(days)</source>
-        <target>Afsluttet partshøringsfrist</target>
+      <trans-unit id="RoBaH.A" resname="Finish hearing deadline (days)">
+        <source>Finish hearing deadline (days)</source>
+        <target>Frist for afslutning af partshøring (dage)</target>
       </trans-unit>
-      <trans-unit id="Nd6BVdz" resname="Finish processing case deadline(days)">
-        <source>Finish processing case deadline(days)</source>
-        <target>Afsluttet sagsbehandlingsfrist</target>
+      <trans-unit id="4ot9em3" resname="Finish processing case deadline (days)">
+        <source>Finish processing case deadline (days)</source>
+        <target>Frist for afslutning af sagsbehandling (dage)</target>
       </trans-unit>
       <trans-unit id="7lWBnRv" resname="Case Form Type">
         <source>Case Form Type</source>
-        <target>Sag form type</target>
+        <target>Sagsformular</target>
       </trans-unit>
       <trans-unit id="4G27vkv" resname="Complainant party types">
         <source>Complainant party types</source>
-        <target>Klager typer</target>
+        <target>Klagertyper</target>
       </trans-unit>
       <trans-unit id="x.7GeB3" resname="Counter party types">
         <source>Counter party types</source>
-        <target>Modpart typer</target>
+        <target>Modpartstyper</target>
       </trans-unit>
       <trans-unit id="suC1YnM" resname="BoardRole">
         <source>BoardRole</source>
         <target>Nævnsroller</target>
       </trans-unit>
-      <trans-unit id="Sfc9b3p" resname="List of complainant party types. One per line. The first party type can be used for sorting cases.">
-        <source>List of complainant party types. One per line. The first party type can be used for sorting cases.</source>
-        <target>Liste af klager typer. En per linje. Der vil kunne sorteres på den første type på sagslisten.</target>
+      <trans-unit id="6bzwwVZ" resname="List of complainant party types (one per line). The first party type can be used for sorting cases.">
+        <source>List of complainant party types (one per line). The first party type can be used for sorting cases.</source>
+        <target>Liste af klagertyper (en pr. linje). Der vil kunne sorteres på den første type på sagslisten.</target>
       </trans-unit>
-      <trans-unit id="ikn_uZ2" resname="List of counterparty types. One per line. The first party type can be used for sorting cases.">
-        <source>List of counterparty types. One per line. The first party type can be used for sorting cases.</source>
-        <target>Liste af modparts typer. En per linje. Der vil kunne sorteres på den første type på sagslisten.</target>
+      <trans-unit id="XVtm1Zq" resname="List of counterparty types (one per line). The first party type can be used for sorting cases.">
+        <source>List of counterparty types (one per line). The first party type can be used for sorting cases.</source>
+        <target>Liste af modpartstyper (en pr. linje). Der vil kunne sorteres på den første type på sagslisten.</target>
       </trans-unit>
-      <trans-unit id="5k3cjlx" resname="List of case statuses. One per line.">
-        <source>List of case statuses. One per line.</source>
-        <target>Liste af sagsstatusser. En per linje.</target>
+      <trans-unit id="LW8L3eH" resname="List of case statuses (one per line).">
+        <source>List of case statuses (one per line).</source>
+        <target>Liste af sagsstatusser (en pr. linje).</target>
       </trans-unit>
       <trans-unit id="MUvx5II" resname="Initials">
         <source>Initials</source>
         <target state="translated">Initialer</target>
+      </trans-unit>
+      <trans-unit id="xfGmwdX" resname="List of case statuses (one per line). Board members will be able to see cases with the last status.">
+        <source>List of case statuses (one per line). Board members will be able to see cases with the last status.</source>
+        <target state="translated">Liste af sagsstatusser (en pr. linje). Nævnsmedlemmer kan se sager med den sidste status på listen.</target>
+      </trans-unit>
+      <trans-unit id="yknv5ud" resname="List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).">
+        <source>List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).</source>
+        <target state="translated">Liste af genveje (en pr. linje). Format: ‘ID: URL', fx Aarhus Kommune: https://www.aarhus.dk/. ID må ikke indeholde kolon (:).</target>
       </trans-unit>
     </body>
   </file>

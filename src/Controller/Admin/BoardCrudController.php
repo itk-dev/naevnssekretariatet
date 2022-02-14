@@ -66,17 +66,17 @@ class BoardCrudController extends AbstractCrudController
             ->setRequired('true')
         ;
 
-        yield IntegerField::new('hearingResponseDeadline', 'Hearing response deadline(days)');
-        yield IntegerField::new('finishHearingDeadlineDefault', 'Finish hearing deadline(days)');
-        yield IntegerField::new('finishProcessingDeadlineDefault', 'Finish processing case deadline(days)');
+        yield IntegerField::new('hearingResponseDeadline', 'Hearing response deadline (days)');
+        yield IntegerField::new('finishHearingDeadlineDefault', 'Finish hearing deadline (days)');
+        yield IntegerField::new('finishProcessingDeadlineDefault', 'Finish processing case deadline (days)');
         yield TextareaField::new('complainantTypes', 'Complainant party types')
-            ->setHelp($this->translator->trans('List of complainant party types. One per line. The first party type can be used for sorting cases.', [], 'admin'))
+            ->setHelp($this->translator->trans('List of complainant party types (one per line). The first party type can be used for sorting cases.', [], 'admin'))
         ;
         yield TextareaField::new('counterpartyTypes', 'Counter party types')
-            ->setHelp($this->translator->trans('List of counterparty types. One per line. The first party type can be used for sorting cases.', [], 'admin'))
+            ->setHelp($this->translator->trans('List of counterparty types (one per line). The first party type can be used for sorting cases.', [], 'admin'))
         ;
         yield TextareaField::new('statuses', 'Statuses')
-            ->setHelp($this->translator->trans('List of case statuses. One per line. Board members will be able to see cases with the last status.', [], 'admin'))
+            ->setHelp($this->translator->trans('List of case statuses (one per line). Board members will be able to see cases with the last status.', [], 'admin'))
         ;
     }
 }

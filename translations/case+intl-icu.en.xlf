@@ -965,9 +965,9 @@
         <source>Update</source>
         <target>Update</target>
       </trans-unit>
-      <trans-unit id="JlNuwQu" resname="No hearing posts have been receive yet.">
-        <source>No hearing posts have been receive yet.</source>
-        <target>No hearing posts have been receive yet.</target>
+      <trans-unit id="JlNuwQu" resname="No hearing posts have been received yet.">
+        <source>No hearing posts have been received yet.</source>
+        <target>No hearing posts have been received yet.</target>
       </trans-unit>
       <trans-unit id="iotNX6x" resname="Hearing post">
         <source>Hearing post</source>
