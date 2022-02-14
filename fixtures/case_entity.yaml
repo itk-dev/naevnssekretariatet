@@ -413,6 +413,8 @@ App\Entity\ResidentComplaintBoardCase:
     currentPlace: Oprettet
     shouldBeInspected: true
     casePartyRelation: ['@relation-1', '@relation-2']
+    sortingComplainant: Anne Nielsen
+    sortingCounterparty: Kirsten Jensen
 
   test-case-aarhus-2:
     leaseSize: 53
