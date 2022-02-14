@@ -1213,6 +1213,14 @@
         <source>Download document</source>
         <target state="translated">Download dokument</target>
       </trans-unit>
+      <trans-unit id="KIDnRq6" resname="Complainant has no more to add">
+        <source>Complainant has no more to add</source>
+        <target state="translated">Klager har ikke mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="vVbaAus" resname="Counterpart has no more to add">
+        <source>Counterpart has no more to add</source>
+        <target state="translated">Modpart har ikke mere at tilføje</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

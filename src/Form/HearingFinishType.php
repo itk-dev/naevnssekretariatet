@@ -33,9 +33,11 @@ class HearingFinishType extends AbstractType
     {
         $builder
             ->add('complainantHasNoMoreToAdd', CheckboxType::class, [
+                'label' => $this->translator->trans('Complainant has no more to add', [], 'case'),
                 'required' => false,
             ])
             ->add('counterpartHasNoMoreToAdd', CheckboxType::class, [
+                'label' => $this->translator->trans('Counterpart has no more to add', [], 'case'),
                 'required' => false,
             ])
         ;

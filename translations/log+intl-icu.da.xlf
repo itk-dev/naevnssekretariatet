@@ -93,6 +93,22 @@
         <source>Back to log</source>
         <target state="translated">Tilbage til journal</target>
       </trans-unit>
+      <trans-unit id="GnTPdoq" resname="Hearing post created">
+        <source>Hearing post created</source>
+        <target state="translated">Høringssvar oprettet</target>
+      </trans-unit>
+      <trans-unit id="Y1_yClD" resname="Hearing post updated">
+        <source>Hearing post updated</source>
+        <target state="translated">Høringssvar opdateret</target>
+      </trans-unit>
+      <trans-unit id="dvHE_Op" resname="Hearing created">
+        <source>Hearing created</source>
+        <target state="translated">Høring oprettet</target>
+      </trans-unit>
+      <trans-unit id="RiZ4M6r" resname="Hearing updated">
+        <source>Hearing updated</source>
+        <target state="translated">Høring opdateret</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
