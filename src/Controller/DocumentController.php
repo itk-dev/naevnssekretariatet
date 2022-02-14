@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
-use App\Entity\DigitalPostDocument;
 use App\Entity\Document;
 use App\Entity\User;
 use App\Exception\DocumentDirectoryException;
@@ -19,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
