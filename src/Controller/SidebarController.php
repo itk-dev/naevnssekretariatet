@@ -98,11 +98,11 @@ class SidebarController extends AbstractController
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing_index', 'case_hearing_start', 'case_hearing_post_create', 'case_hearing_post_show', 'case_hearing_post_edit'], $caseId, $activeRoute);
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['case_communication'], $caseId, $activeRoute);
 
-            // Currently, they do not wish to create case presentation and decision proposal via TVIST1
+            // Currently, they do not wish to create case presentation, decision proposal and decision via TVIST1
             // $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['case_presentation'], $caseId, $activeRoute);
             // $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['case_decision_proposal'], $caseId, $activeRoute);
+            // $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Decision', [], 'sidebar'), ['case_decision'], $caseId, $activeRoute);
 
-            $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Decision', [], 'sidebar'), ['case_decision'], $caseId, $activeRoute);
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['document_index', 'document_create', 'document_copy'], $caseId, $activeRoute);
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Notes', [], 'sidebar'), ['note_index', 'note_edit'], $caseId, $activeRoute);
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Log', [], 'sidebar'), ['case_log', 'case_log_entry_show'], $caseId, $activeRoute);
