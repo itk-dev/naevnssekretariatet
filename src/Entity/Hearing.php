@@ -12,6 +12,7 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=HearingRepository::class)
+ * @ORM\EntityListeners({"App\Logging\EntityListener\HearingListener"})
  */
 class Hearing implements LoggableEntityInterface
 {
@@ -121,11 +122,6 @@ class Hearing implements LoggableEntityInterface
         return $this;
     }
 
-    public function getLoggableProperties(): array
-    {
-        return [];
-    }
-
     public function getComplainantHasNoMoreToAdd(): bool
     {
         return $this->complainantHasNoMoreToAdd;
@@ -184,5 +180,16 @@ class Hearing implements LoggableEntityInterface
         $this->finishedOn = $finishedOn;
 
         return $this;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'complainantHasNoMoreToAdd',
+            'counterpartHasNoMoreToAdd',
+            'hasNewHearingPost',
+            'startedOn',
+            'finishedOn',
+        ];
     }
 }

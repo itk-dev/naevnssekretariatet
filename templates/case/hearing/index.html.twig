@@ -37,7 +37,7 @@
                 {% if hasSufficientParties %}
                     <a class="btn btn-primary" href="{{ path('case_hearing_start', {id: case.id}) }}" role="button">{% trans %}Start hearing{% endtrans %}</a>
                 {% else %}
-                    <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must have both a complainant and a counter part before entering the hearing phase.{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
+                    <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must have both a complainant and a counter part before entering the hearing phase.{% endtrans %}">{% trans %}Start hearing{% endtrans %}</button>
                 {% endif %}
             </div>
         {% endif %}
