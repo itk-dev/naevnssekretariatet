@@ -42,7 +42,6 @@ class MailTemplate
      * @ORM\Column(type="string", length=255)
      *
      * @var string
-     * @Assert\NotBlank()
      */
     private $templateFilename;
 

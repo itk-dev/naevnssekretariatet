@@ -1,0 +1,25 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Hearing post edit{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Hearing post edit{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('case_hearing_post_show', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Back{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button class="btn btn-primary float-right">{{ button_label|default('Confirm changes'|trans([], 'case', 'da')) }}</button>
+        {{ form_end(form) }}
+    </main>
+{% endblock %}

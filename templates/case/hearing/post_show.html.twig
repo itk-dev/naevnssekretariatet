@@ -1,0 +1,70 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Hearing post{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Hearing post{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            {% if not hearingPost.getForwardedOn %}
+                <a class="btn btn-primary" href="{{ path('case_hearing_post_edit', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Edit{% endtrans %}</a>
+            {% endif %}
+            <a class="btn btn-secondary" href="{{ path('case_hearing_index', {id: case.id}) }}">{% trans %}Back{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        <dl>
+            <dt>
+                {% trans %}Recipient{% endtrans %}
+            </dt>
+            <dd>
+                {{ hearingPost.recipient }}
+            </dd>
+            <dt>
+                {% trans %}Template{% endtrans %}
+            </dt>
+            <dd>
+                {{ hearingPost.template.name }}
+            </dd>
+            <dt>
+                {% trans %}Hearing post content{% endtrans %}
+            </dt>
+            <dd>
+                {{ hearingPost.content }}
+            </dd>
+        </dl>
+        <div class="table-responsive-sm"></div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{% trans %}Document name{% endtrans %}</th>
+                <th>{% trans %}Uploaded by{% endtrans %}</th>
+                <th>{% trans %}Upload date{% endtrans %}</th>
+                <th class="text-right">{% trans %}Functions{% endtrans %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for document in hearingPost.documents %}
+                <tr>
+                    <td>{{ document.documentName|e }}</td>
+                    <td>{{ document.uploadedBy|e }}</td>
+                    <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
+                    <td class="text-right">
+                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                            <!-- Download button -->
+                            <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}

@@ -95,7 +95,7 @@ class SidebarController extends AbstractController
         }
 
         if ($isCaseworker || $isAdministration) {
-            $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing'], $caseId, $activeRoute);
+            $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing_index', 'case_hearing_start', 'case_hearing_post_create', 'case_hearing_post_show', 'case_hearing_post_edit'], $caseId, $activeRoute);
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['case_communication'], $caseId, $activeRoute);
 
             // Currently, they do not wish to create case presentation and decision proposal via TVIST1

@@ -412,6 +412,7 @@ App\Entity\ResidentComplaintBoardCase:
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
     shouldBeInspected: true
+    casePartyRelation: ['@relation-1', '@relation-2']
 
   test-case-aarhus-2:
     leaseSize: 53

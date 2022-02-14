@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AgendaCaseItem;
+use App\Entity\CaseEntity;
 use App\Entity\Document;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -51,6 +52,23 @@ class DocumentRepository extends ServiceEntityRepository
                 }))
             ;
         }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getAvailableDocumentsForCase(CaseEntity $caseEntity)
+    {
+        $qb = $this->createQueryBuilder('d');
+
+        $qb
+            ->join('d.caseDocumentRelation', 'r')
+            ->where('r.softDeleted = false')
+            ->andWhere('r.case = :caseId')
+            ->setParameter('caseId', $caseEntity->getId(), 'uuid')
+        ;
 
         return $qb
             ->getQuery()
