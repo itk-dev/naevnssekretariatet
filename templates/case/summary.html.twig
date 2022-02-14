@@ -33,26 +33,6 @@
     },
 ] %}
 
-{% set casecommunication = [
-    {
-        "date": "19/01/2019",
-        "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a.",
-        "status": "unread"
-    },
-    {
-        "date": "19/01/2019",
-        "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
-    },
-    {
-        "date": "19/01/2019",
-        "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
-    },
-    {
-        "date": "19/01/2019",
-        "title": "Overskrift Pellentesque iaculis mi sapien, at convallis mauris rutrum a."
-    },
-] %}
-
 {% block title %}{% trans %}Casesummary{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -63,10 +43,11 @@
         </div>
         <div class="col-auto">
             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+                <a class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
                 {% if suitable_boards %}
-                    <a href="" role="button" class="btn btn-secondary" data-toggle="modal" data-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
+                    <a href="" role="button" class="btn btn-primary" data-toggle="modal" data-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
                 {% else %}
-                    <button disabled class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}No suitable boards{% endtrans %}">{% trans %}Move case{% endtrans %}</button>
+                    <button disabled class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}No suitable boards{% endtrans %}">{% trans %}Move case{% endtrans %}</button>
                 {% endif %}
                 {# TODO: Discuss what should happen with respect to deletion of case #}
                 <a class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
@@ -111,14 +92,15 @@
                     <div class="row">
                         <div class="col">
                             <div class="list-group">
-                                {% for item in casecommunication %}
-                                    <a href="#" class="list-group-item list-group-item-action {% if item.status is defined == "unread" %}active{% endif %}">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <span class="mr-3">{{ item.date|e }}</span>
-                                            <p class="mb-1">{{ item.title|e }}</p>
-                                        </div>
-                                    </a>
-                                {% endfor %}
+                                {# TODO: Show latest communication #}
+{#                                {% for item in casecommunication %}#}
+{#                                    <a href="#" class="list-group-item list-group-item-action {% if item.status is defined == "unread" %}active{% endif %}">#}
+{#                                        <div class="d-flex w-100 justify-content-between">#}
+{#                                            <span class="mr-3">{{ item.date|e }}</span>#}
+{#                                            <p class="mb-1">{{ item.title|e }}</p>#}
+{#                                        </div>#}
+{#                                    </a>#}
+{#                                {% endfor %}#}
                             </div>
                         </div>
                     </div>
@@ -152,17 +134,4 @@
             </div>
             </main>
         {% endif %}
-    <footer class="col-12 mt-3">
-        <div class="row">
-            <div class="col">
-                <a class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
-            </div>
-            {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                <div class="col-auto ml-auto">
-                    <a class="btn btn-secondary" href="#" role="button">{% trans %}Move case{% endtrans %}</a>
-                    <a class="btn btn-danger" href="#" role="button">{% trans %}Delete case{% endtrans %}</a>
-                </div>
-            {% endif %}
-        </div>
-    </footer>
 {% endblock %}
