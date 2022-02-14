@@ -19,7 +19,9 @@ class DocumentUploader
      * @var SluggerInterface
      */
     private $slugger;
-    private $documentDirectory;
+    private $baseDocumentDirectory;
+    private $documentDirectory = '';
+
     /**
      * @var Filesystem
      */
@@ -27,7 +29,7 @@ class DocumentUploader
 
     public function __construct(SluggerInterface $slugger, string $documentDirectory, Filesystem $filesystem)
     {
-        $this->documentDirectory = $documentDirectory;
+        $this->baseDocumentDirectory = rtrim($documentDirectory, '/');
         $this->filesystem = $filesystem;
         $this->slugger = $slugger;
     }
@@ -37,8 +39,7 @@ class DocumentUploader
      */
     public function specifyDirectory(string $directory)
     {
-        $this->documentDirectory = $this->documentDirectory.$directory;
-        $this->checkDocumentDirectory($this->documentDirectory, $this->filesystem);
+        $this->documentDirectory = trim($directory, '/');
     }
 
     /**
@@ -68,9 +69,9 @@ class DocumentUploader
         return $newFilename;
     }
 
-    public function getDirectory(): string
+    private function getDirectory(): string
     {
-        return $this->documentDirectory;
+        return $this->baseDocumentDirectory.'/'.$this->documentDirectory;
     }
 
     /**
@@ -78,7 +79,7 @@ class DocumentUploader
      */
     public function handleDownload(Document $document): Response
     {
-        $filepath = $this->documentDirectory.$document->getFilename();
+        $filepath = $this->getFilepath($document->getFilename());
         $response = new BinaryFileResponse($filepath);
         $disposition = HeaderUtils::makeDisposition(
             HeaderUtils::DISPOSITION_ATTACHMENT,
@@ -91,15 +92,17 @@ class DocumentUploader
     }
 
     /**
-     * Ensures document directory exists.
-     *
-     * @throws DocumentDirectoryException
+     * Get document file content.
      */
-    private function checkDocumentDirectory(string $documentDirectory, Filesystem $filesystem)
+    public function getFileContent(Document $document): string
     {
-        if (!$filesystem->exists($documentDirectory)) {
-            $message = sprintf('Document directory %s does not exist.', $documentDirectory);
-            throw new DocumentDirectoryException($message);
-        }
+        $filepath = $this->getFilepath($document->getFilename());
+
+        return file_get_contents($filepath);
+    }
+
+    private function getFilepath(string $filename): string
+    {
+        return $this->baseDocumentDirectory.'/'.$this->documentDirectory.'/'.$filename;
     }
 }

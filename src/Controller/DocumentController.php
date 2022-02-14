@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
+use App\Entity\DigitalPostDocument;
 use App\Entity\Document;
 use App\Entity\User;
 use App\Exception\DocumentDirectoryException;
@@ -18,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -117,6 +119,10 @@ class DocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
+        if ($document instanceof DigitalPostDocument) {
+            throw new AccessDeniedHttpException(sprintf('Document of type %s cannot be deleted', get_class($document)));
+        }
+
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
             // Simply just soft delete by setting soft deleted to true
@@ -140,6 +146,10 @@ class DocumentController extends AbstractController
     public function copy(Request $request, Document $document, CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
+
+        if ($document instanceof DigitalPostDocument) {
+            throw new AccessDeniedHttpException(sprintf('Document of type %s cannot be copied', get_class($document)));
+        }
 
         // Find suitable cases
         $suitableCases = $this->copyHelper->findSuitableCases($case, $document);

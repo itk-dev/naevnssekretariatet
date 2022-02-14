@@ -109,6 +109,33 @@ services:
         arguments:
             $documentDirectory: '%document_upload_directory%'
 
+    App\Service\DigitalPostHelper:
+        arguments:
+            $options:
+              digital_post_options:
+                digital_post_system_id: '%env(DIGITAL_POST_SYSTEM_ID)%'
+                digital_post_afsender_system: '%env(DIGITAL_POST_AFSENDER_SYSTEM)%'
+
+                digital_post_materiale_id: '%env(DIGITAL_POST_MATERIALE_ID)%'
+
+                digital_post_forsendelses_type: '%env(DIGITAL_POST_FORSENDELSES_TYPE)%'
+
+                azure_tenant_id: '%env(AZURE_TENANT_ID)%'
+                azure_application_id: '%env(AZURE_APPLICATION_ID)%'
+                azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
+
+                azure_key_vault_name: '%env(AZURE_KEY_VAULT_NAME)%'
+                azure_key_vault_secret: '%env(AZURE_KEY_VAULT_SECRET)%'
+                azure_key_vault_secret_version: '%env(AZURE_KEY_VAULT_SECRET_VERSION)%'
+
+                service_agreement_uuid: '%env(SERVICE_AGREEMENT_UUID)%'
+                user_system_uuid: '%env(USER_SYSTEM_UUID)%'
+                user_uuid: '%env(USER_UUID)%'
+
+                service_uuid: '%env(SERVICE_UUID)%'
+                service_endpoint: '%env(SERVICE_ENDPOINT)%'
+                service_contract: '%env(resolve:SERVICE_CONTRACT)%'
+
     # Setting level in config/packages/monolog.yaml does not work as expected
     # (cf. https://github.com/symfony/monolog-bundle/issues/322)
     App\Monolog\DoctrineHandler:

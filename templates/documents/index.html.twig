@@ -42,20 +42,26 @@
                     {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                         <td class="text-right">
                             <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                                {% if 'DigitalPostDocument' == class(document) %}
+                                    <button type="button" class="btn btn-secondary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Digital post document cannot be copied{% endtrans %}"><i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %} </span></button>
 
-                                <!-- Move button -->
-                                <a href="{{ url("document_copy", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Copy document to another case{% endtrans %}"><i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %} </span></a>
+                                    <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
 
-                                <!-- Download button -->
-                                <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
+                                    <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Digitial post document cannot be deleted{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                {% else %}
+                                    <!-- Copy button -->
+                                    <a href="{{ url("document_copy", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Copy document to another case{% endtrans %}"><i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %} </span></a>
 
-                                <!-- Delete button -->
+                                    <!-- Download button -->
+                                    <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
 
-                                <form id="myform" class="btn-group" method="post" action="{{ path('document_delete', {'id': case.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
-                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
-                                </form>
+                                    <!-- Delete button -->
+                                    <form id="myform" class="btn-group" method="post" action="{{ path('document_delete', {'id': case.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
+                                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                {% endif %}
                             </div>
                         </td>
                     {% endif %}

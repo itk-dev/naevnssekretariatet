@@ -51,7 +51,7 @@ class Document implements LoggableEntityInterface
     /**
      * @ORM\OneToMany(targetEntity="CaseDocumentRelation", mappedBy="document")
      */
-    private $caseDocumentRelation;
+    private $caseDocumentRelations;
 
     /**
      * @ORM\ManyToMany(targetEntity=AgendaCaseItem::class, mappedBy="documents")
@@ -66,7 +66,7 @@ class Document implements LoggableEntityInterface
     public function __construct()
     {
         $this->id = Uuid::v4();
-        $this->caseDocumentRelation = new ArrayCollection();
+        $this->caseDocumentRelations = new ArrayCollection();
         $this->agendaCaseItems = new ArrayCollection();
     }
 
@@ -138,15 +138,15 @@ class Document implements LoggableEntityInterface
     /**
      * @return Collection|CaseDocumentRelation[]
      */
-    public function getCaseDocumentRelation(): Collection
+    public function getCaseDocumentRelations(): Collection
     {
-        return $this->caseDocumentRelation;
+        return $this->caseDocumentRelations;
     }
 
     public function addCaseDocumentRelation(CaseDocumentRelation $caseDocumentRelation): self
     {
-        if (!$this->caseDocumentRelation->contains($caseDocumentRelation)) {
-            $this->caseDocumentRelation[] = $caseDocumentRelation;
+        if (!$this->caseDocumentRelations->contains($caseDocumentRelation)) {
+            $this->caseDocumentRelations[] = $caseDocumentRelation;
         }
 
         return $this;
@@ -154,7 +154,7 @@ class Document implements LoggableEntityInterface
 
     public function removeCaseDocumentRelation(CaseDocumentRelation $caseDocumentRelation): self
     {
-        $this->caseDocumentRelation->removeElement($caseDocumentRelation);
+        $this->caseDocumentRelations->removeElement($caseDocumentRelation);
 
         return $this;
     }

@@ -19,7 +19,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 
 #[AsCommand(
-    name: 'app:mail-template:render',
+    name: 'tvist1:mail-template:render',
     description: 'Render a mail template',
 )]
 class MailTemplateRenderCommand extends Command
