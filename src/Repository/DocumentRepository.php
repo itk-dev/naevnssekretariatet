@@ -39,7 +39,7 @@ class DocumentRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('d');
 
         $qb
-            ->join('d.caseDocumentRelation', 'r')
+            ->join('d.caseDocumentRelations', 'r')
             ->where('r.softDeleted = false')
             ->andWhere('r.case = :caseId')
             ->setParameter('caseId', $agendaCaseItem->getCaseEntity()->getId(), 'uuid')
