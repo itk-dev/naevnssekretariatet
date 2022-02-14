@@ -33,7 +33,7 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $claims = $this->getClaims($request);
+        $claims = $this->validateClaims($request);
 
         $providerKey = $claims['open_id_connect_provider'] ?? null;
         switch ($providerKey) {
