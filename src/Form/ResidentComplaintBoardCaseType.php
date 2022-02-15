@@ -39,12 +39,21 @@ class ResidentComplaintBoardCaseType extends AbstractType
         /** @var Board $board */
         $board = $options['board'];
 
+        $identifierTypeChoices = [
+            'CPR' => 'CPR',
+            'CVR' => 'CVR',
+        ];
+
         $builder
             ->add('complainant', TextType::class, [
                 'label' => $this->translator->trans('Complainant', [], 'case'),
             ])
-            ->add('complainantCPR', IntegerType::class, [
-                'label' => $this->translator->trans('Complainant CPR', [], 'case'),
+            ->add('complainantIdentifierType', ChoiceType::class, [
+                'label' => $this->translator->trans('Identifier type', [], 'case'),
+                'choices' => $identifierTypeChoices,
+            ])
+            ->add('complainantIdentifier', TextType::class, [
+                'label' => $this->translator->trans('Identifier', [], 'case'),
             ])
             ->add('complainantPhone', IntegerType::class, [
                 'label' => $this->translator->trans('Complainant phone', [], 'case'),
