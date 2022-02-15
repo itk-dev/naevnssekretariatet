@@ -1,0 +1,66 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'digital_post' %}
+
+{% block title %}{% trans %}Digital post{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Digital post{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('digital_post_index', {id: case.id}) }}">{% trans %}Back to digital post{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% macro show_document_content_button(case, document) %}
+    <a class="btn btn-outline-secondary btn-sm" target="document-content" href="{{ path('document_view', {id: case.id, document: document.id}) }}">{% trans %}Show{% endtrans %}</a>
+{% endmacro %}
+
+{% block content %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>{% trans %}Status{% endtrans %}</th>
+                <td>{{ digital_post.status ?? '–' }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Created at{% endtrans %}</th>
+                <td>{{ digital_post.createdAt ? digital_post.createdAt|date('Y-m-d H:i:s') : '–' }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Sent at{% endtrans %}</th>
+                <td>{{ digital_post.sentAt ? digital_post.sentAt|date('Y-m-d H:i:s') : '–' }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Document{% endtrans %}</th>
+                <td>
+                    {{ digital_post.document.documentName }}
+                    {{ _self.show_document_content_button(case, digital_post.document) }}
+                </td>
+            </tr>
+            {% if digital_post.attachments %}
+                <tr>
+                    <th>{% trans %}Attachments{% endtrans %}</th>
+                    <td>
+                        <table class="table table-borderless table-sm">
+                            {% for attachment in digital_post.attachments %}
+                                <tr>
+                                    <td>
+                                        {{ attachment.documentName }}
+                                        {{ _self.show_document_content_button(case, attachment) }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    {# @todo Make the iframe take up the remaining space on the page #}
+    <iframe name="document-content" style="border: none; width: 100%; height: 500px"></iframe>
+{% endblock %}

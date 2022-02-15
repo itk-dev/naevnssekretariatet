@@ -178,4 +178,19 @@ class DocumentController extends AbstractController
 
         return $response;
     }
+
+    /**
+     * @Route("/view/{document}", name="document_view", methods={"GET"})
+     *
+     * @throws DocumentDirectoryException
+     */
+    public function view(CaseEntity $case, Document $document, DocumentUploader $uploader): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $case);
+
+        $uploader->specifyDirectory('/case_documents/');
+        $response = $uploader->handleDownload($document, false);
+
+        return $response;
+    }
 }

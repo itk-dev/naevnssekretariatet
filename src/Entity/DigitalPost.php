@@ -3,16 +3,23 @@
 namespace App\Entity;
 
 use App\Entity\DigitalPost\Recipient;
+use App\Repository\DigitalPostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=DigitalPostRepository::class)
+ * @ORM\Table(indexes={
+ *     @ORM\Index(name="entity_idx", columns={"entity_type", "entity_id"})
+ * })
  */
 class DigitalPost
 {
+    use TimestampableEntity;
+
     public const STATUS_SENT = 'sent';
     public const STATUS_ERROR = 'error';
 
@@ -36,12 +43,12 @@ class DigitalPost
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private string $entityType;
+    private ?string $entityType;
 
     /**
      * @ORM\Column(type="uuid", nullable=true)
      */
-    private string $entityId;
+    private ?Uuid $entityId;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
@@ -111,7 +118,7 @@ class DigitalPost
         return $this;
     }
 
-    public function getEntityType(): string
+    public function getEntityType(): ?string
     {
         return $this->entityType;
     }
@@ -126,7 +133,7 @@ class DigitalPost
         return $this;
     }
 
-    public function getEntityId(): string
+    public function getEntityId(): ?Uuid
     {
         return $this->entityId;
     }
@@ -134,7 +141,7 @@ class DigitalPost
     /**
      * @return DigitalPost
      */
-    public function setEntityId(string $entityId): self
+    public function setEntityId(Uuid $entityId): self
     {
         $this->entityId = $entityId;
 
