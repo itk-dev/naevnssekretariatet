@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\CaseEntity;
+use App\Form\Embeddable\AddressLookupType;
 use App\Service\PartyHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -58,8 +59,10 @@ class PartyFormType extends AbstractType
             ->add('identifier', TextType::class, [
                 'label' => $this->translator->trans('Identifier', [], 'party'),
             ])
-            ->add('address', TextType::class, [
-                'label' => $this->translator->trans('Address', [], 'party'),
+            ->add('address', AddressLookupType::class, [
+                'label' => $this->translator->trans('Address', [], 'case'),
+                'lookup-placeholder' => $this->translator->trans('Look up address', [], 'case'),
+                'lookup-help' => $this->translator->trans('Look up an address to fill out the address fields', [], 'case'),
             ])
             ->add('phoneNumber', IntegerType::class, [
                 'label' => $this->translator->trans('Phone', [], 'party'),

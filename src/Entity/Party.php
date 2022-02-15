@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Embeddable\Address;
 use App\Logging\LoggableEntityInterface;
 use App\Repository\PartyRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,7 +22,7 @@ class Party implements LoggableEntityInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      * @Groups({"mail_template"})
      */
     private $address;
@@ -66,6 +67,7 @@ class Party implements LoggableEntityInterface
     public function __construct()
     {
         $this->id = Uuid::v4();
+        $this->address = new Address();
     }
 
     public function getId(): ?Uuid
@@ -73,16 +75,14 @@ class Party implements LoggableEntityInterface
         return $this->id;
     }
 
-    public function getAddress(): ?string
+    public function setAddress(Address $address): void
     {
-        return $this->address;
+        $this->$address = $address;
     }
 
-    public function setAddress(string $address): self
+    public function getAddress(): Address
     {
-        $this->address = $address;
-
-        return $this;
+        return $this->address;
     }
 
     public function getPhoneNumber(): ?string
