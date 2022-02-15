@@ -49,8 +49,8 @@
                             {% for attachment in digital_post.attachments %}
                                 <tr>
                                     <td>
-                                        {{ attachment.documentName }}
-                                        {{ _self.show_document_content_button(case, attachment) }}
+                                        {{ attachment.document.documentName }}
+                                        {{ _self.show_document_content_button(case, attachment.document) }}
                                     </td>
                                 </tr>
                             {% endfor %}

@@ -25,3 +25,11 @@ App\Entity\CaseDocumentRelation:
     case-document-relation-001:
         case: '@test-case-aarhus-1'
         document: '@document-001'
+
+    case-document-relation-attachment-001:
+        case: '@test-case-aarhus-1'
+        document: '@attachment-001'
+
+    case-document-relation-attachment-002:
+        case: '@test-case-aarhus-1'
+        document: '@attachment-002'

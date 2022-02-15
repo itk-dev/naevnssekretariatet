@@ -15,6 +15,7 @@ use Symfony\Component\Uid\Uuid;
  * @ORM\Table(indexes={
  *     @ORM\Index(name="entity_idx", columns={"entity_type", "entity_id"})
  * })
+ * @ORM\HasLifecycleCallbacks()
  */
 class DigitalPost
 {
@@ -34,11 +35,6 @@ class DigitalPost
      * @ORM\JoinColumn(nullable=false)
      */
     private $document;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Document::class)
-     */
-    private $attachments;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -70,6 +66,12 @@ class DigitalPost
      */
     private $recipients;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DigitalPostAttachment::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OrderBy({"position": "ASC"})
+     */
+    private $attachments;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -90,30 +92,6 @@ class DigitalPost
     public function setDocument(?Document $document): self
     {
         $this->document = $document;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Document[]
-     */
-    public function getAttachments(): Collection
-    {
-        return $this->attachments;
-    }
-
-    public function addAttachment(Document $attachment): self
-    {
-        if (!$this->attachments->contains($attachment)) {
-            $this->attachments[] = $attachment;
-        }
-
-        return $this;
-    }
-
-    public function removeAttachment(Document $attachment): self
-    {
-        $this->attachments->removeElement($attachment);
 
         return $this;
     }
@@ -217,5 +195,46 @@ class DigitalPost
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|DigitalPostAttachment[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(DigitalPostAttachment $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setDigitalPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(DigitalPostAttachment $attachment): self
+    {
+        if ($this->attachments->removeElement($attachment)) {
+            // set the owning side to null (unless already changed)
+            if ($attachment->getDigitalPost() === $this) {
+                $attachment->setDigitalPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateAttachmentPositions()
+    {
+        foreach ($this->getAttachments() as $index => $attachment) {
+            $attachment->setPosition($index);
+        }
     }
 }

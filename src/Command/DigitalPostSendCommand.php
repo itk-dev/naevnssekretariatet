@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Entity\DigitalPost;
-use App\Entity\Document;
+use App\Entity\DigitalPostAttachment;
 use App\Repository\DigitalPostRepository;
 use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
@@ -42,7 +42,7 @@ class DigitalPostSendCommand extends Command
             try {
                 $content = $this->documentUploader->getFileContent($digitalPost->getDocument());
                 $attachments = $digitalPost->getAttachments()
-                    ->map(fn (Document $document) => $this->documentUploader->getFileContent($document))
+                    ->map(fn (DigitalPostAttachment $attachment) => $this->documentUploader->getFileContent($attachment->getDocument()))
                     ->getValues()
                 ;
                 $previousResults = $digitalPost->getData()['results'] ?? [];
