@@ -1033,6 +1033,18 @@
         <source>No suitable boards</source>
         <target>No suitable boards</target>
       </trans-unit>
+      <trans-unit id="xwmzKet" resname="Identifier type">
+        <source>Identifier type</source>
+        <target>Identifier type</target>
+      </trans-unit>
+      <trans-unit id="mxBYf4S" resname="Identifier">
+        <source>Identifier</source>
+        <target>Identifier</target>
+      </trans-unit>
+      <trans-unit id="naWRCDF" resname="Look up address">
+        <source>Look up address</source>
+        <target>Look up address</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

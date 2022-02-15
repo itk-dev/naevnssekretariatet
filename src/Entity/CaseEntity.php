@@ -130,11 +130,6 @@ abstract class CaseEntity
     private $complainantAddress;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $complainantCPR;
-
-    /**
      * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="caseEntity")
      */
     private $reminders;
@@ -182,6 +177,16 @@ abstract class CaseEntity
      * @ORM\OneToOne(targetEntity=Hearing::class, inversedBy="caseEntity", cascade={"persist", "remove"})
      */
     private $hearing;
+
+    /**
+     * @ORM\Column(type="string", length=32)
+     */
+    private $complainantIdentifierType;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complainantIdentifier;
 
     public function __construct()
     {
@@ -397,26 +402,11 @@ abstract class CaseEntity
         return $this->complainantAddress;
     }
 
-    public function getComplainantCPR(): ?string
-    {
-        return $this->complainantCPR;
-    }
-
-    public function setComplainantCPR(string $complainantCPR): self
-    {
-        $this->complainantCPR = $complainantCPR;
-
-        return $this;
-    }
-
     public function __toString()
     {
         return $this->caseNumber;
     }
 
-    /**
-     * @return Collection|AgendaCaseItem[]
-     */
     public function getAgendaCaseItems(): Collection
     {
         return $this->agendaCaseItems;
@@ -444,9 +434,6 @@ abstract class CaseEntity
         return $this;
     }
 
-    /**
-     * @return Collection|Reminder[]
-     */
     public function getReminders(): Collection
     {
         return $this->reminders;
@@ -614,6 +601,30 @@ abstract class CaseEntity
     public function setHearing(?Hearing $hearing): self
     {
         $this->hearing = $hearing;
+
+        return $this;
+    }
+
+    public function getComplainantIdentifierType(): ?string
+    {
+        return $this->complainantIdentifierType;
+    }
+
+    public function setComplainantIdentifierType(string $complainantIdentifierType): self
+    {
+        $this->complainantIdentifierType = $complainantIdentifierType;
+
+        return $this;
+    }
+
+    public function getComplainantIdentifier(): ?string
+    {
+        return $this->complainantIdentifier;
+    }
+
+    public function setComplainantIdentifier(string $complainantIdentifier): self
+    {
+        $this->complainantIdentifier = $complainantIdentifier;
 
         return $this;
     }

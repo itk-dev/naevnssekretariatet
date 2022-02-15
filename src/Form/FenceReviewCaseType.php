@@ -6,9 +6,10 @@ use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Entity\FenceReviewCase;
 use App\Form\Embeddable\AddressLookupType;
+use App\Service\IdentifierChoices;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,10 +42,14 @@ class FenceReviewCaseType extends AbstractType
 
         $builder
             ->add('complainant', TextType::class, [
-            'label' => $this->translator->trans('Complainant', [], 'case'),
+                'label' => $this->translator->trans('Complainant', [], 'case'),
             ])
-            ->add('complainantCPR', IntegerType::class, [
-                'label' => $this->translator->trans('Complainant CPR', [], 'case'),
+            ->add('complainantIdentifierType', ChoiceType::class, [
+                'label' => $this->translator->trans('Identifier type', [], 'case'),
+                'choices' => IdentifierChoices::IDENTIFIER_TYPE_CHOICES,
+            ])
+            ->add('complainantIdentifier', TextType::class, [
+                'label' => $this->translator->trans('Identifier', [], 'case'),
             ])
             ->add('complainantAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Complainant address', [], 'case'),
@@ -57,8 +62,12 @@ class FenceReviewCaseType extends AbstractType
             ->add('accused', TextType::class, [
                 'label' => $this->translator->trans('Accused', [], 'case'),
             ])
-            ->add('accusedCPR', IntegerType::class, [
-                'label' => $this->translator->trans('Accused CPR', [], 'case'),
+            ->add('accusedIdentifierType', ChoiceType::class, [
+                'label' => $this->translator->trans('Identifier type', [], 'case'),
+                'choices' => IdentifierChoices::IDENTIFIER_TYPE_CHOICES,
+            ])
+            ->add('accusedIdentifier', TextType::class, [
+                'label' => $this->translator->trans('Identifier', [], 'case'),
             ])
             ->add('accusedAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Accused address', [], 'case'),

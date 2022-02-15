@@ -81,6 +81,18 @@
         <source>Landlord (administrator)</source>
         <target>Landlord (administrator)</target>
       </trans-unit>
+      <trans-unit id="xwmzKet" resname="Identifier type">
+        <source>Identifier type</source>
+        <target>Identifier type</target>
+      </trans-unit>
+      <trans-unit id="mxBYf4S" resname="Identifier">
+        <source>Identifier</source>
+        <target>Identifier</target>
+      </trans-unit>
+      <trans-unit id="Y9zriAC" resname="Phone">
+        <source>Phone</source>
+        <target>Phone</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
