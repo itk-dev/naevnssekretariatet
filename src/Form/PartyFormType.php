@@ -61,7 +61,7 @@ class PartyFormType extends AbstractType
                 'lookup-help' => $this->translator->trans('Look up an address to fill out the address fields', [], 'case'),
             ])
             ->add('phoneNumber', IntegerType::class, [
-                'label' => $this->translator->trans('Phone', [], 'party'),
+                'label' => $this->translator->trans('Phone number', [], 'party'),
             ])
             ->add('journalNumber', TextType::class, [
                 'label' => $this->translator->trans('Journal number', [], 'party'),
