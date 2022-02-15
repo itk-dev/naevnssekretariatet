@@ -400,7 +400,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 51
     complainant: Jens Jensen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '87654321'
     complainantAddress: '@test-case-aarhus-1-complainant-address'
     leaseAddress: '@test-case-aarhus-1-lease-address'
@@ -419,7 +419,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 53
     complainant: Jens Petersen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '23456789'
     complainantAddress: '@test-case-aarhus-2-complainant-address'
     leaseAddress: '@test-case-aarhus-2-lease-address'
@@ -436,7 +436,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 55
     complainant: Anton Per Hansen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '87655678'
     complainantAddress: '@test-case-aarhus-3-complainant-address'
     leaseAddress: '@test-case-aarhus-3-lease-address'
@@ -454,7 +454,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 61
     complainant: Helle Hansen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '87255678'
     complainantAddress: '@test-case-aarhus-4-complainant-address'
     leaseAddress: '@test-case-aarhus-4-lease-address'
@@ -472,7 +472,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 78
     complainant: Anne Jensen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '61655678'
     complainantAddress: '@test-case-aarhus-5-complainant-address'
     leaseAddress: '@test-case-aarhus-5-lease-address'
@@ -491,7 +491,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 87
     complainant: Malene Skriver
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '51650678'
     complainantAddress: '@test-case-aarhus-6-complainant-address'
     leaseAddress: '@test-case-aarhus-6-lease-address'
@@ -509,7 +509,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 84
     complainant: Karen Skriver
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '51657654'
     complainantAddress: '@test-case-aarhus-7-complainant-address'
     leaseAddress: '@test-case-aarhus-7-lease-address'
@@ -527,7 +527,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 84
     complainant: Helge Pedersen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '71654674'
     complainantAddress: '@test-case-aarhus-8-complainant-address'
     leaseAddress: '@test-case-aarhus-8-lease-address'
@@ -545,7 +545,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 121
     complainant: Kirsten Christensen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '71655674'
     complainantAddress: '@test-case-aarhus-9-complainant-address'
     leaseAddress: '@test-case-aarhus-9-lease-address'
@@ -565,7 +565,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 101
     complainant: Mette Susanne Larsen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '71257674'
     complainantAddress: '@test-case-aarhus-10-complainant-address'
     leaseAddress: '@test-case-aarhus-10-lease-address'
@@ -584,7 +584,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 83
     complainant: Susanne Birgitte Hanne
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '81453614'
     complainantAddress: '@test-case-aarhus-11-complainant-address'
     leaseAddress: '@test-case-aarhus-11-lease-address'
@@ -602,7 +602,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 45
     complainant: Molly Marianne Olsen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '81453614'
     complainantAddress: '@test-case-aarhus-12-complainant-address'
     leaseAddress: '@test-case-aarhus-12-lease-address'
@@ -621,7 +621,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 76
     complainant: Michael Olsen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '45368114'
     complainantAddress: '@test-case-aarhus-13-complainant-address'
     leaseAddress: '@test-case-aarhus-13-lease-address'
@@ -640,7 +640,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 67
     complainant: Jan Martin Sørensen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '81144536'
     complainantAddress: '@test-case-aarhus-14-complainant-address'
     leaseAddress: '@test-case-aarhus-14-lease-address'
@@ -658,7 +658,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 56
     complainant: Martin Jan Thomsen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '44453816'
     complainantAddress: '@test-case-aarhus-15-complainant-address'
     leaseAddress: '@test-case-aarhus-15-lease-address'
@@ -678,7 +678,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 76
     complainant: Charlotte Thomsen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '45381644'
     complainantAddress: '@test-case-aarhus-16-complainant-address'
     leaseAddress: '@test-case-aarhus-16-lease-address'
@@ -697,7 +697,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 44
     complainant: Tina Møller
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '38451644'
     complainantAddress: '@test-case-aarhus-17-complainant-address'
     leaseAddress: '@test-case-aarhus-17-lease-address'
@@ -715,7 +715,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 62
     complainant: Pia Johansen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '51638444'
     complainantAddress: '@test-case-aarhus-18-complainant-address'
     leaseAddress: '@test-case-aarhus-18-lease-address'
@@ -733,7 +733,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 98
     complainant: Jeppe Johansen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '63844514'
     complainantAddress: '@test-case-aarhus-19-complainant-address'
     leaseAddress: '@test-case-aarhus-19-lease-address'
@@ -752,7 +752,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 44
     complainant: Jeppe Johansen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '38445146'
     complainantAddress: '@test-case-aarhus-20-complainant-address'
     leaseAddress: '@test-case-aarhus-20-lease-address'
@@ -770,7 +770,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 55
     complainant: Søren Johansen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '38445146'
     complainantAddress: '@test-case-aarhus-21-complainant-address'
     leaseAddress: '@test-case-aarhus-21-lease-address'
@@ -788,7 +788,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 66
     complainant: Søren Johansen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '84465314'
     complainantAddress: '@test-case-aarhus-22-complainant-address'
     leaseAddress: '@test-case-aarhus-22-lease-address'
@@ -806,7 +806,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 81
     complainant: Bente Poulsen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '44465314'
     complainantAddress: '@test-case-aarhus-23-complainant-address'
     leaseAddress: '@test-case-aarhus-23-lease-address'
@@ -824,7 +824,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 34
     complainant: Rasmus Madsen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '46531444'
     complainantAddress: '@test-case-aarhus-24-complainant-address'
     leaseAddress: '@test-case-aarhus-24-lease-address'
@@ -844,7 +844,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 51
     complainant: Anne Jensen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '87674321'
     complainantAddress: '@test-case-randers-1-complainant-address'
     leaseAddress: '@test-case-randers-1-lease-address'
@@ -863,7 +863,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 73
     complainant: Anne Petersen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '23476711'
     complainantAddress: '@test-case-randers-2-complainant-address'
     leaseAddress: '@test-case-randers-2-lease-address'
@@ -881,7 +881,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 77
     complainant: Henrik Per Hansen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '87677611'
     complainantAddress: '@test-case-randers-3-complainant-address'
     leaseAddress: '@test-case-randers-3-lease-address'
@@ -900,7 +900,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 61
     complainant: Henrik Hansen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '87277611'
     complainantAddress: '@test-case-randers-4-complainant-address'
     leaseAddress: '@test-case-randers-4-lease-address'
@@ -918,7 +918,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 78
     complainant: Niels Jensen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '61677611'
     complainantAddress: '@test-case-randers-5-complainant-address'
     leaseAddress: '@test-case-randers-5-lease-address'
@@ -937,7 +937,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 87
     complainant: Niels Skriver
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '71670611'
     complainantAddress: '@test-case-randers-6-complainant-address'
     leaseAddress: '@test-case-randers-6-lease-address'
@@ -955,7 +955,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 84
     complainant: Anders Skriver
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '71677611'
     complainantAddress: '@test-case-randers-7-complainant-address'
     leaseAddress: '@test-case-randers-7-lease-address'
@@ -973,7 +973,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 84
     complainant: Anders Pedersen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '71674611'
     complainantAddress: '@test-case-randers-8-complainant-address'
     leaseAddress: '@test-case-randers-8-lease-address'
@@ -991,7 +991,7 @@ App\Entity\ResidentComplaintBoardCase:
     leaseSize: 121
     complainant: Inger Christensen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantPhone: '71677611'
     complainantAddress: '@test-case-randers-9-complainant-address'
     leaseAddress: '@test-case-randers-9-lease-address'
@@ -1009,10 +1009,10 @@ App\Entity\FenceReviewCase:
   test-case-fence-aarhus-1:
     accused: Anders And
     accusedIdentifierType: CPR
-    accusedIdentifier: '123456-7890'
+    accusedIdentifier: '1234567890'
     complainant: Jens Jensen
     complainantIdentifierType: CPR
-    complainantIdentifier: '123456-7890'
+    complainantIdentifier: '1234567890'
     complainantAddress: '@test-case-aarhus-1-complainant-address'
     accusedAddress: '@test-case-aarhus-1-lease-address'
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>

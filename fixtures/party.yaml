@@ -75,7 +75,7 @@ App\Entity\Party:
   party-1:
     name: Anne Nielsen
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-1'
     phoneNumber: '57209633'
     journalNumber: 8Dw1pRDy
@@ -84,7 +84,7 @@ App\Entity\Party:
   party-2:
     name: Kirsten Jensen
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-2'
     phoneNumber: '75568314'
     journalNumber: W3gXJ3j0
@@ -93,7 +93,7 @@ App\Entity\Party:
   party-3:
     name: Mette Hansen
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-3'
     phoneNumber: '80264719'
     journalNumber: RD1BO4UU
@@ -102,7 +102,7 @@ App\Entity\Party:
   party-4:
     name: Hanne Andersen
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-4'
     phoneNumber: '34223320'
     journalNumber:
@@ -111,7 +111,7 @@ App\Entity\Party:
   party-5:
     name: Helle Pedersen
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-5'
     phoneNumber: '88466494'
     journalNumber: cCjsCo8b
@@ -120,7 +120,7 @@ App\Entity\Party:
   party-6:
     name: Susanne Christensen
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-6'
     phoneNumber: '71952881'
     journalNumber: PxNzbIaZ
@@ -129,7 +129,7 @@ App\Entity\Party:
   party-7:
     name: Peter Sørensen
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-7'
     phoneNumber: '38261742'
     journalNumber:
@@ -138,7 +138,7 @@ App\Entity\Party:
   party-8:
     name: Michael Larsen
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-8'
     phoneNumber: '21336274'
     journalNumber:
@@ -147,7 +147,7 @@ App\Entity\Party:
   party-9:
     name: Jens Rasmussen
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-9'
     phoneNumber: '63374224'
     journalNumber: r1vvdBlg
@@ -156,7 +156,7 @@ App\Entity\Party:
   party-10:
     name: Lars Jørgensen
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-10'
     phoneNumber: '23616621'
     journalNumber: 6L9fwLpS
@@ -165,7 +165,7 @@ App\Entity\Party:
   party-11:
     name: Thomas Møller
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-11'
     phoneNumber: '92209974'
     journalNumber: uAo8LSBZ
@@ -174,7 +174,7 @@ App\Entity\Party:
   party-12:
     name: Henrik Schmidt
     identifierType: CPR
-    identifier: '123456-7890'
+    identifier: '1234567890'
     address: '@test-address-party-12'
     phoneNumber: '23479335'
     journalNumber: Qjelwawl
