@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -45,8 +46,16 @@ class PartyCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $identifierTypeChoices = [
+            'CPR' => 'CPR',
+            'CVR' => 'CVR',
+        ];
+
         yield TextField::new('name', 'Name');
-        yield TextField::new('cpr', 'CPR');
+        yield ChoiceField::new('identifierType', 'Identifier type')
+            ->setChoices($identifierTypeChoices)
+        ;
+        yield TextField::new('identifier', 'Identifier');
         yield TextField::new('address', 'Address');
         yield TextField::new('phoneNumber', 'Phone number');
         yield TextField::new('journalNumber', 'Journal number')
