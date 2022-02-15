@@ -6,6 +6,7 @@ use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Entity\FenceReviewCase;
 use App\Form\Embeddable\AddressLookupType;
+use App\Service\IdentifierChoices;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -39,18 +40,13 @@ class FenceReviewCaseType extends AbstractType
          */
         $board = $options['board'];
 
-        $identifierTypeChoices = [
-            'CPR' => 'CPR',
-            'CVR' => 'CVR',
-        ];
-
         $builder
             ->add('complainant', TextType::class, [
                 'label' => $this->translator->trans('Complainant', [], 'case'),
             ])
             ->add('complainantIdentifierType', ChoiceType::class, [
                 'label' => $this->translator->trans('Identifier type', [], 'case'),
-                'choices' => $identifierTypeChoices,
+                'choices' => IdentifierChoices::IDENTIFIER_TYPE_CHOICES,
             ])
             ->add('complainantIdentifier', TextType::class, [
                 'label' => $this->translator->trans('Identifier', [], 'case'),
@@ -68,7 +64,7 @@ class FenceReviewCaseType extends AbstractType
             ])
             ->add('accusedIdentifierType', ChoiceType::class, [
                 'label' => $this->translator->trans('Identifier type', [], 'case'),
-                'choices' => $identifierTypeChoices,
+                'choices' => IdentifierChoices::IDENTIFIER_TYPE_CHOICES,
             ])
             ->add('accusedIdentifier', TextType::class, [
                 'label' => $this->translator->trans('Identifier', [], 'case'),

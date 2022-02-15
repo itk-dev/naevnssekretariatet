@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Party;
 use App\Form\Embeddable\AddressType;
+use App\Service\IdentifierChoices;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
@@ -48,14 +49,9 @@ class PartyCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $identifierTypeChoices = [
-            'CPR' => 'CPR',
-            'CVR' => 'CVR',
-        ];
-
         yield TextField::new('name', 'Name');
         yield ChoiceField::new('identifierType', 'Identifier type')
-            ->setChoices($identifierTypeChoices)
+            ->setChoices(IdentifierChoices::IDENTIFIER_TYPE_CHOICES)
         ;
         yield TextField::new('identifier', 'Identifier');
         yield Field::new('address', 'Address')

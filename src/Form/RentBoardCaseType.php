@@ -6,6 +6,7 @@ use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Entity\RentBoardCase;
 use App\Form\Embeddable\AddressLookupType;
+use App\Service\IdentifierChoices;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -39,18 +40,13 @@ class RentBoardCaseType extends AbstractType
         /** @var Board $board */
         $board = $options['board'];
 
-        $identifierTypeChoices = [
-            'CPR' => 'CPR',
-            'CVR' => 'CVR',
-        ];
-
         $builder
             ->add('complainant', TextType::class, [
                 'label' => $this->translator->trans('Complainant', [], 'case'),
             ])
             ->add('complainantIdentifierType', ChoiceType::class, [
                 'label' => $this->translator->trans('Identifier type', [], 'case'),
-                'choices' => $identifierTypeChoices,
+                'choices' => IdentifierChoices::IDENTIFIER_TYPE_CHOICES,
             ])
             ->add('complainantIdentifier', TextType::class, [
                 'label' => $this->translator->trans('Identifier', [], 'case'),
