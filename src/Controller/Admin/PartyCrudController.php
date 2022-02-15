@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Party;
+use App\Form\Embeddable\AddressType;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
@@ -12,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -56,7 +58,9 @@ class PartyCrudController extends AbstractCrudController
             ->setChoices($identifierTypeChoices)
         ;
         yield TextField::new('identifier', 'Identifier');
-        yield TextField::new('address', 'Address');
+        yield Field::new('address', 'Address')
+            ->setFormType(AddressType::class)
+        ;
         yield TextField::new('phoneNumber', 'Phone number');
         yield TextField::new('journalNumber', 'Journal number')
             ->formatValue(function ($value) {
