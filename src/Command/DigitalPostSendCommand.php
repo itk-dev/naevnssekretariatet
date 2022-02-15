@@ -8,6 +8,7 @@ use App\Repository\DigitalPostRepository;
 use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +21,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class DigitalPostSendCommand extends Command
 {
-    public function __construct(private DigitalPostHelper $digitalPostHelper, private DigitalPostRepository $digitalPostRepository, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager)
+    public function __construct(private DigitalPostHelper $digitalPostHelper, private DigitalPostRepository $digitalPostRepository, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private LoggerInterface $databaseLogger)
     {
         parent::__construct(null);
     }
@@ -76,6 +77,7 @@ class DigitalPostSendCommand extends Command
                                 $io->error($result['message']);
                             }
                         } catch (\Exception $exception) {
+                            $this->databaseLogger->error($exception->getMessage());
                             $result = [
                                 'result' => 'exception',
                                 'message' => $exception->getMessage(),
@@ -109,7 +111,7 @@ class DigitalPostSendCommand extends Command
                        'message' => $exception->getMessage(),
                    ],
                 ]);
-                // @todo log the exception.
+                $this->databaseLogger->error($exception->getMessage());
                 $io->error(sprintf('Error: %s', $exception->getMessage()));
             }
         }
