@@ -77,7 +77,7 @@ class Party implements LoggableEntityInterface
 
     public function setAddress(Address $address): void
     {
-        $this->$address = $address;
+        $this->address = $address;
     }
 
     public function getAddress(): Address

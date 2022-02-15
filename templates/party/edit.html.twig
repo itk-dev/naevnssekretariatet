@@ -22,35 +22,39 @@
         {{ form_start(edit_party_form) }}
         <div class="form-row">
             <div class="col-md-6 mb-3">
-                <label >{% trans %}Name{% endtrans %}</label>
-                {{ form_widget(edit_party_form.name, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
+                {{ form_row(edit_party_form.name) }}
             </div>
-            <div class="col-md-6 mb-3">
-                <label >{% trans %}CPR{% endtrans %}</label>
-                {{ form_widget(edit_party_form.cpr, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
+            <div class="col-md-3 mb-3">
+                {{ form_row(edit_party_form.identifierType) }}
+            </div>
+            <div class="col-md-3 mb-3">
+                {{ form_row(edit_party_form.identifier) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                {{ form_row(edit_party_form.phoneNumber) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                {{ form_row(edit_party_form.address) }}
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-6 mb-3">
-                <label >{% trans %}Address{% endtrans %}</label>
-                {{ form_widget(edit_party_form.address, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
+                {{ form_row(edit_party_form.journalNumber) }}
             </div>
             <div class="col-md-6 mb-3">
-                <label >{% trans %}Phone number{% endtrans %}</label>
-                {{ form_widget(edit_party_form.phoneNumber, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                <label >{% trans %}Journal number{% endtrans %}</label>
-                {{ form_widget(edit_party_form.journalNumber, {'attr': {'type': 'text', 'class': 'form-control', 'required': false}}) }}
-            </div>
-            <div class="col-md-6 mb-3">
-                <label >{% trans %}Type{% endtrans %}</label>
-                {{ form_widget(edit_party_form.type, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
+                {{ form_row(edit_party_form.type) }}
             </div>
         </div>
         <button class="btn btn-primary float-right mt-3">{{ button_label|default('Edit party'|trans([], 'party', 'da')) }}</button>
         {{ form_end(edit_party_form) }}
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dawa-address-lookup') }}
 {% endblock %}

@@ -1,9 +1,82 @@
+App\Entity\Embeddable\Address:
+  test-address-party-1:
+    street: Nyborgvej
+    number: 54
+    city: Aarhus C
+    postalCode: 8000
+
+  test-address-party-2:
+    street: Lærkevej
+    number: 14
+    city: Aarhus N
+    postalCode: 8200
+
+  test-address-party-3:
+    street: Birkevej
+    number: 19
+    city: Aarhus V
+    postalCode: 8210
+
+  test-address-party-4:
+    street: Vibevej
+    number: 20
+    city: Brabrand
+    postalCode: 8220
+
+  test-address-party-5:
+    street: Vinkelvej
+    number: 94
+    city: Åbyhøj
+    postalCode: 8230
+
+  test-address-party-6:
+    street: Vestergade
+    number: 81
+    city: Risskov
+    postalCode: 8240
+
+  test-address-party-7:
+    street: Elmvevej
+    number: 42
+    city: Egå
+    postalCode: 8250
+
+  test-address-party-8:
+    street: Stationsvej
+    number: 74
+    city: Viby J
+    postalCode: 8260
+
+  test-address-party-9:
+    street: Skovvej
+    number: 24
+    city: Højbjerg
+    postalCode: 8270
+
+  test-address-party-10:
+    street: Nørregade
+    number: 21
+    city: Tranbjerg J
+    postalCode: 8310
+
+  test-address-party-11:
+    street: Drosselvej
+    number: 73
+    city: Mårslet
+    postalCode: 8320
+
+  test-address-party-12:
+    street: Skolevej
+    number: 35
+    city: Beder
+    postalCode: 8330
+
 App\Entity\Party:
   party-1:
     name: Anne Nielsen
     identifierType: CPR
     identifier: '123456-7890'
-    address: Nyborgvej 54, 8000 Aarhus C
+    address: '@test-address-party-1'
     phoneNumber: '57209633'
     journalNumber: 8Dw1pRDy
     isPartOfPartIndex: true
@@ -12,7 +85,7 @@ App\Entity\Party:
     name: Kirsten Jensen
     identifierType: CPR
     identifier: '123456-7890'
-    address: Lærkevej 14, 8200 Aarhus N
+    address: '@test-address-party-2'
     phoneNumber: '75568314'
     journalNumber: W3gXJ3j0
     isPartOfPartIndex: true
@@ -21,7 +94,7 @@ App\Entity\Party:
     name: Mette Hansen
     identifierType: CPR
     identifier: '123456-7890'
-    address: Birkevej 19, 8210 Aarhus V
+    address: '@test-address-party-3'
     phoneNumber: '80264719'
     journalNumber: RD1BO4UU
     isPartOfPartIndex: true
@@ -30,7 +103,7 @@ App\Entity\Party:
     name: Hanne Andersen
     identifierType: CPR
     identifier: '123456-7890'
-    address: Vibevej 20, 8220 Brabrand
+    address: '@test-address-party-4'
     phoneNumber: '34223320'
     journalNumber:
     isPartOfPartIndex: true
@@ -39,7 +112,7 @@ App\Entity\Party:
     name: Helle Pedersen
     identifierType: CPR
     identifier: '123456-7890'
-    address: Vinkelvej 94, 8230 Åbyhøj
+    address: '@test-address-party-5'
     phoneNumber: '88466494'
     journalNumber: cCjsCo8b
     isPartOfPartIndex: true
@@ -48,7 +121,7 @@ App\Entity\Party:
     name: Susanne Christensen
     identifierType: CPR
     identifier: '123456-7890'
-    address: Vestergade 81, 8240 Risskov
+    address: '@test-address-party-6'
     phoneNumber: '71952881'
     journalNumber: PxNzbIaZ
     isPartOfPartIndex: true
@@ -57,7 +130,7 @@ App\Entity\Party:
     name: Peter Sørensen
     identifierType: CPR
     identifier: '123456-7890'
-    address: Elmevej 42, 8250 Egå
+    address: '@test-address-party-7'
     phoneNumber: '38261742'
     journalNumber:
     isPartOfPartIndex: true
@@ -66,7 +139,7 @@ App\Entity\Party:
     name: Michael Larsen
     identifierType: CPR
     identifier: '123456-7890'
-    address: Stationsvej 74, 8260 Viby J
+    address: '@test-address-party-8'
     phoneNumber: '21336274'
     journalNumber:
     isPartOfPartIndex: true
@@ -75,7 +148,7 @@ App\Entity\Party:
     name: Jens Rasmussen
     identifierType: CPR
     identifier: '123456-7890'
-    address: Skovvej 24, 8270 Højbjerg
+    address: '@test-address-party-9'
     phoneNumber: '63374224'
     journalNumber: r1vvdBlg
     isPartOfPartIndex: true
@@ -84,7 +157,7 @@ App\Entity\Party:
     name: Lars Jørgensen
     identifierType: CPR
     identifier: '123456-7890'
-    address: Nørregade 21, 8310 Tranbjerg J
+    address: '@test-address-party-10'
     phoneNumber: '23616621'
     journalNumber: 6L9fwLpS
     isPartOfPartIndex: true
@@ -93,7 +166,7 @@ App\Entity\Party:
     name: Thomas Møller
     identifierType: CPR
     identifier: '123456-7890'
-    address: Drosselvej 73, 8320 Mårslet
+    address: '@test-address-party-11'
     phoneNumber: '92209974'
     journalNumber: uAo8LSBZ
     isPartOfPartIndex: true
@@ -102,7 +175,7 @@ App\Entity\Party:
     name: Henrik Schmidt
     identifierType: CPR
     identifier: '123456-7890'
-    address: Skolevej 35, 8330 Beder
+    address: '@test-address-party-12'
     phoneNumber: '23479335'
     journalNumber: Qjelwawl
     isPartOfPartIndex: true
