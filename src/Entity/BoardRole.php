@@ -84,7 +84,7 @@ class BoardRole
 
     public function __toString()
     {
-        return $this->board->getName().' '.$this->getTitle();
+        return $this->board->__toString().' '.$this->getTitle();
     }
 
     public function getBoard(): ?Board

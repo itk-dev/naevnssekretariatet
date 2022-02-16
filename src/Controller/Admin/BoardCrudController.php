@@ -64,6 +64,7 @@ class BoardCrudController extends AbstractCrudController
                 'Fence review form' => 'FenceReviewCaseType',
             ])
             ->setRequired('true')
+            ->hideOnIndex()
         ;
 
         yield IntegerField::new('hearingResponseDeadline', 'Hearing response deadline (days)');
