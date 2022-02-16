@@ -33,12 +33,6 @@
             <dd>
                 {{ hearingPost.template.name }}
             </dd>
-            <dt>
-                {% trans %}Hearing post content{% endtrans %}
-            </dt>
-            <dd>
-                {{ hearingPost.content }}
-            </dd>
         </dl>
         <div class="table-responsive-sm"></div>
         <table class="table table-striped">
@@ -51,15 +45,15 @@
             </tr>
             </thead>
             <tbody>
-            {% for document in hearingPost.documents %}
+            {% for attachment in hearingPost.attachments %}
                 <tr>
-                    <td>{{ document.documentName|e }}</td>
-                    <td>{{ document.uploadedBy|e }}</td>
-                    <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
+                    <td>{{ attachment.document.documentName|e }}</td>
+                    <td>{{ attachment.document.uploadedBy|e }}</td>
+                    <td>{{ attachment.document.uploadedAt|date('d/m/Y') }}</td>
                     <td class="text-right">
                         <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
                             <!-- Download button -->
-                            <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
+                            <a href="{{ url("document_download", {id: case.id, document_id: attachment.document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
                         </div>
                     </td>
                 </tr>

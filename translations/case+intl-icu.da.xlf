@@ -1233,6 +1233,22 @@
         <source>Look up address</source>
         <target state="translated">Fremsøg adresse</target>
       </trans-unit>
+      <trans-unit id="g2sZA9Z" resname="Select a document">
+        <source>Select a document</source>
+        <target state="translated">Vælg et dokument</target>
+      </trans-unit>
+      <trans-unit id="R60pl4B" resname="Save hearing post">
+        <source>Save hearing post</source>
+        <target state="translated">Gem høringssvar</target>
+      </trans-unit>
+      <trans-unit id="anRJZ3." resname="Add another attachment">
+        <source>Add another attachment</source>
+        <target state="translated">Vedhæft dokument</target>
+      </trans-unit>
+      <trans-unit id="4X60eZQ" resname="Remove document">
+        <source>Remove document</source>
+        <target state="translated">Fjern dokument</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

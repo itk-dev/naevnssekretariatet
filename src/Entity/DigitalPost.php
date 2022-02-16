@@ -233,8 +233,9 @@ class DigitalPost
      */
     public function updateAttachmentPositions()
     {
-        foreach ($this->getAttachments() as $index => $attachment) {
-            $attachment->setPosition($index);
+        $index = 0;
+        foreach ($this->getAttachments() as $attachment) {
+            $attachment->setPosition($index++);
         }
     }
 }

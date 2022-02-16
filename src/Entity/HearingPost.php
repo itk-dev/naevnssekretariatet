@@ -9,10 +9,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=HearingPostRepository::class)
  * @ORM\EntityListeners({"App\Logging\EntityListener\HearingPostListener"})
+ * @ORM\HasLifecycleCallbacks()
  */
 class HearingPost implements LoggableEntityInterface
 {
@@ -37,14 +39,11 @@ class HearingPost implements LoggableEntityInterface
     private $recipient;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\OneToMany(targetEntity=HearingPostAttachment::class, mappedBy="hearingPost", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OrderBy({"position": "ASC"})
+     * @Assert\Valid()
      */
-    private $content;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="hearingPost")
-     */
-    private $documents;
+    private $attachments;
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
@@ -61,6 +60,12 @@ class HearingPost implements LoggableEntityInterface
     {
         $this->id = Uuid::v4();
         $this->documents = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return self::class.'#'.$this->getId();
     }
 
     public function getId(): ?Uuid
@@ -92,43 +97,35 @@ class HearingPost implements LoggableEntityInterface
         return $this;
     }
 
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
     /**
-     * @return Collection|Document[]
+     * @return Collection|HearingPostAttachment[]
      */
-    public function getDocuments(): Collection
+    public function getAttachments(): Collection
     {
-        return $this->documents;
+        return $this->attachments;
     }
 
-    public function addDocument(Document $document): self
+    public function addAttachment(HearingPostAttachment $attachment): self
     {
-        if (!$this->documents->contains($document)) {
-            $this->documents[] = $document;
-            $document->setHearingPost($this);
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setHearingPost($this);
+            // Mark hearing as updated.
+            $this->updatedAt = new \DateTime();
         }
 
         return $this;
     }
 
-    public function removeDocument(Document $document): self
+    public function removeAttachment(HearingPostAttachment $attachment): self
     {
-        if ($this->documents->removeElement($document)) {
+        if ($this->attachments->removeElement($attachment)) {
             // set the owning side to null (unless already changed)
-            if ($document->getHearingPost() === $this) {
-                $document->setHearingPost(null);
+            if ($attachment->getHearingPost() === $this) {
+                $attachment->setHearingPost(null);
             }
+            // Mark hearing as updated.
+            $this->updatedAt = new \DateTime();
         }
 
         return $this;
@@ -166,5 +163,17 @@ class HearingPost implements LoggableEntityInterface
             'template',
             'forwardedOn',
         ];
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateAttachmentPositions()
+    {
+        $index = 0;
+        foreach ($this->getAttachments() as $attachment) {
+            $attachment->setPosition($index++);
+        }
     }
 }

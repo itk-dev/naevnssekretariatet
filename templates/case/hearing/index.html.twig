@@ -115,14 +115,14 @@
                             <div id="{{ collapse|e }}" class="{{ collapse_variable }}" aria-labelledby="{{ header|e }}" data-parent="#accordionAllHearingPosts">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-6" aria-label="message content">
-                                            <p>{{ post.content|e }}</p>
-                                        </div>
-                                        <div class="col-md-3" aria-label="attachments">
+                                        <div class="col" aria-label="attachments">
                                             <p class="text-muted">
-                                                {% for document in post.documents %}
-                                                    <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}">{{ document.documentName }}</a>;
-                                                {% endfor %}
+                                                {% for attachment in post.attachments -%}
+                                                    <a href="{{ url("document_download", {id: case.id, document_id: attachment.document.id}) }}">{{ attachment.document.documentName }}</a>
+                                                    {%- if not loop.last -%}
+                                                        ;
+                                                    {% endif %}
+                                                {%- endfor %}
                                             </p>
                                         </div>
                                     </div>
