@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CaseEntity;
 use App\Entity\DigitalPost;
 use App\Repository\DigitalPostRepository;
+use Doctrine\Common\Collections\Criteria;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@ class DigitalPostController extends AbstractController
     {
         return $this->render('case/communication/digital_post/index.html.twig', [
             'case' => $case,
-            'digital_posts' => $digitalPostRepository->findByEntity($case),
+            'digital_posts' => $digitalPostRepository->findByEntity($case, [], ['createdAt' => Criteria::DESC]),
         ]);
     }
 

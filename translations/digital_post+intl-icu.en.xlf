@@ -45,6 +45,10 @@
         <source>Attachments</source>
         <target>Attachments</target>
       </trans-unit>
+      <trans-unit id="HoVoqCw" resname="Recipients">
+        <source>Recipients</source>
+        <target>Recipients</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

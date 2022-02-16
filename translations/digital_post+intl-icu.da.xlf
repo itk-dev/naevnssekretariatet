@@ -45,6 +45,10 @@
         <source>Attachments</source>
         <target state="translated">Bilag</target>
       </trans-unit>
+      <trans-unit id="HoVoqCw" resname="Recipients">
+        <source>Recipients</source>
+        <target state="translated">Modtagere</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

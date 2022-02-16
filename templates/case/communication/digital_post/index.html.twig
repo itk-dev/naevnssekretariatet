@@ -16,8 +16,8 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>{% trans %}Status{% endtrans %}</th>
                 <th>{% trans %}Created at{% endtrans %}</th>
+                <th>{% trans %}Status{% endtrans %}</th>
                 <th>{% trans %}Sent at{% endtrans %}</th>
                 <th>{% trans %}Document{% endtrans %}</th>
                 <th class="number">{% trans %}Number of attachments{% endtrans %}</th>
@@ -27,8 +27,8 @@
         <tbody>
             {% for digital_post in digital_posts %}
                 <tr>
-                    <td>{{ digital_post.status ?? '–' }}</td>
                     <td>{{ digital_post.createdAt ? digital_post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ digital_post.status ?? '–' }}</td>
                     <td>{{ digital_post.sentAt ? digital_post.sentAt|date('Y-m-d H:i:s') : '–' }}</td>
                     <td>{{ digital_post.document.documentName }}</td>
                     <td class="number">{{ digital_post.attachments|length }}</td>

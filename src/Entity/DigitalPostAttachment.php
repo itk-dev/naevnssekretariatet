@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DigitalPostAttachmentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=DigitalPostAttachmentRepository::class)
@@ -13,8 +14,7 @@ class DigitalPostAttachment
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
@@ -36,7 +36,12 @@ class DigitalPostAttachment
      */
     private $position;
 
-    public function getId(): ?int
+    public function __construct()
+    {
+        $this->id = Uuid::v4();
+    }
+
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
