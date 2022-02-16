@@ -16,7 +16,7 @@ services:
       - app
     environment:
       - PHP_MAX_EXECUTION_TIME=30
-      - PHP_MEMORY_LIMIT=128M
+      - PHP_MEMORY_LIMIT=256M
       - COMPOSER_VERSION=2
     depends_on:
         - collabora
