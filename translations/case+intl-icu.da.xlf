@@ -1221,6 +1221,18 @@
         <source>Counterpart has no more to add</source>
         <target state="translated">Modpart har ikke mere at tilføje</target>
       </trans-unit>
+      <trans-unit id="xwmzKet" resname="Identifier type">
+        <source>Identifier type</source>
+        <target state="translated">Id-type</target>
+      </trans-unit>
+      <trans-unit id="mxBYf4S" resname="Identifier">
+        <source>Identifier</source>
+        <target state="translated">Id</target>
+      </trans-unit>
+      <trans-unit id="naWRCDF" resname="Look up address">
+        <source>Look up address</source>
+        <target state="translated">Fremsøg adresse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

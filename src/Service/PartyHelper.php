@@ -64,7 +64,8 @@ class PartyHelper
     public function setUpFormData(Party $party, CasePartyRelation $relation, FormInterface $form): FormInterface
     {
         $form->get('name')->setData($party->getName());
-        $form->get('cpr')->setData($party->getCpr());
+        $form->get('identifierType')->setData($party->getIdentifierType());
+        $form->get('identifier')->setData($party->getIdentifier());
         $form->get('address')->setData($party->getAddress());
         $form->get('phoneNumber')->setData($party->getPhoneNumber());
         $form->get('journalNumber')->setData($party->getJournalNumber());
@@ -76,7 +77,8 @@ class PartyHelper
     public function handleEditParty(Party $party, CasePartyRelation $relation, $data)
     {
         $party->setName($data['name']);
-        $party->setCpr($data['cpr']);
+        $party->setIdentifierType($data['identifierType']);
+        $party->setIdentifier($data['identifier']);
         $party->setAddress($data['address']);
         $party->setPhoneNumber($data['phoneNumber']);
         $party->setJournalNumber($data['journalNumber']);
@@ -88,7 +90,8 @@ class PartyHelper
     public function handleAddPartyForm(CaseEntity $case, Party $party, $data)
     {
         $party->setName($data['name']);
-        $party->setCpr($data['cpr']);
+        $party->setIdentifierType($data['identifierType']);
+        $party->setIdentifier($data['identifier']);
         $party->setAddress($data['address']);
         $party->setPhoneNumber($data['phoneNumber']);
         $party->setJournalNumber($data['journalNumber']);

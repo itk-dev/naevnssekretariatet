@@ -25,7 +25,7 @@ class MailTemplateMacroCrudController extends AbstractCrudController
     {
         return $crud
             ->setEntityLabelInPlural('Mail template macros')
-            ->setEntityLabelInSingular('mail template macro')
+            ->setEntityLabelInSingular('Mail template macro')
             ;
     }
 

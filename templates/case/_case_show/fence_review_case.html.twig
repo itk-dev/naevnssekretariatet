@@ -32,11 +32,11 @@
                             </div>
                             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                             <div class="form-group col-md-6">
-                                <label for="inputBasicInformation2">{% trans %}CPR number{% endtrans %}</label>
+                                <label for="inputBasicInformation2">{% trans %}Identifier{% endtrans %}</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="inputBasicInformation2" value="{{ case.complainantCPR }}" readonly>
+                                    <input type="text" class="form-control" id="inputBasicInformation2" value="{{ case.complainantIdentifier }}" readonly>
                                     {# TODO: Show status depending on validation result #}
-                                    {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate CPR number'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
+                                    {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
                                     {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
                                     {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
                                     {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
@@ -55,20 +55,19 @@
                         <legend>{% trans %}Counterpart{% endtrans %}</legend>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputBasicInformation8">{% trans %}Counterpart name{% endtrans %}</label>
-                                <input type="text" class="form-control" id="inputBasicInformation8" value="{{ case.accused }}" readonly>
+                                <label for="inputBasicInformation3">{% trans %}Counterpart name{% endtrans %}</label>
+                                <input type="text" class="form-control" id="inputBasicInformation3" value="{{ case.accused }}" readonly>
                             </div>
                             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                                 <div class="form-group col-md-6">
-                                    <label for="inputBasicInformation9">{% trans %}Counterpart CPR{% endtrans %}</label>
+                                    <label for="inputBasicInformation4">{% trans %}Identifier{% endtrans %}</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" id="inputBasicInformation9" value="{{ case.accusedCPR }}" readonly>
+                                        <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.accusedIdentifier }}" readonly>
                                         {# TODO: Show status depending on validation result #}
-                                        {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate CPR number'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
+                                        {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
                                         {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
                                         {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
                                         {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
-                                        {#</div>   #}
                                     </div>
                                 </div>
                             {% endif %}
@@ -84,12 +83,12 @@
                         <legend>{% trans %}Case specifics{% endtrans %}</legend>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputBasicInformation15">{% trans %}Complaint fee in DKK{% endtrans %}</label>
-                                <input type="text" class="form-control" id="inputBasicInformation15" value="{{ case.complaintCategory.fee }}" readonly>
+                                <label for="inputBasicInformation5">{% trans %}Complaint fee in DKK{% endtrans %}</label>
+                                <input type="text" class="form-control" id="inputBasicInformation5" value="{{ case.complaintCategory.fee }}" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputBasicInformation16">{% trans %}Complaint category{% endtrans %}</label>
-                                <input type="text" class="form-control" id="inputBasicInformation16" value="{{ case.complaintCategory.name }}" readonly>
+                                <label for="inputBasicInformation6">{% trans %}Complaint category{% endtrans %}</label>
+                                <input type="text" class="form-control" id="inputBasicInformation6" value="{{ case.complaintCategory.name }}" readonly>
                             </div>
                         </div>
                     </fieldset>
@@ -103,14 +102,14 @@
                     <fieldset>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="inputBasicInformation17">{% trans %}Conditions{% endtrans %}</label>
-                                <textarea readonly class="form-control" id="inputBasicInformation17" rows="8">{{ case.conditions }}</textarea>
+                                <label for="inputBasicInformation7">{% trans %}Conditions{% endtrans %}</label>
+                                <textarea readonly class="form-control" id="inputBasicInformation7" rows="8">{{ case.conditions }}</textarea>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="inputBasicInformation18">{% trans %}Claim{% endtrans %}</label>
-                                <textarea readonly class="form-control" id="inputBasicInformation18" rows="8">{{ case.complainantClaim }}</textarea>
+                                <label for="inputBasicInformation8">{% trans %}Claim{% endtrans %}</label>
+                                <textarea readonly class="form-control" id="inputBasicInformation8" rows="8">{{ case.complainantClaim }}</textarea>
                             </div>
                         </div>
                     </fieldset>
@@ -127,7 +126,7 @@
                                 <th scope="col">{% trans %}Name{% endtrans %}</th>
                                 <th scope="col">{% trans %}Party type{% endtrans %}</th>
                                 <th scope="col">{% trans %}Address{% endtrans %}</th>
-                                <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Identifier{% endtrans %}</th>
                                 <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
                                 <th scope="col">{% trans %}Journal number{% endtrans %}</th>
                                 <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
@@ -139,7 +138,7 @@
                                     <td>{{ party_data.party.name|e }}</td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
-                                    <td>{{ party_data.party.cpr|e }}</td>
+                                    <td>{{ party_data.party.identifier|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
                                     <td>{{ party_data.party.journalNumber|e }}</td>
                                     <td class="text-right">
@@ -174,7 +173,7 @@
                                 <th scope="col">{% trans %}Name{% endtrans %}</th>
                                 <th scope="col">{% trans %}Party type{% endtrans %}</th>
                                 <th scope="col">{% trans %}Address{% endtrans %}</th>
-                                <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Identifier{% endtrans %}</th>
                                 <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
                                 <th scope="col">{% trans %}Journal number{% endtrans %}</th>
                                 <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
@@ -186,7 +185,7 @@
                                     <td>{{ party_data.party.name|e }}</td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
-                                    <td>{{ party_data.party.cpr|e }}</td>
+                                    <td>{{ party_data.party.identifier|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
                                     <td>{{ party_data.party.journalNumber|e }}</td>
                                     <td class="text-right">

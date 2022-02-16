@@ -237,6 +237,34 @@
         <source>Finish processing case deadline(days)</source>
         <target>Finish processing case deadline(days)</target>
       </trans-unit>
+      <trans-unit id="IeSesrK" resname="Log">
+        <source>Log</source>
+        <target>Log</target>
+      </trans-unit>
+      <trans-unit id="_ZRJeYh" resname="Mail templates">
+        <source>Mail templates</source>
+        <target>Mail templates</target>
+      </trans-unit>
+      <trans-unit id="hm3NmOy" resname="Macros">
+        <source>Macros</source>
+        <target>Macros</target>
+      </trans-unit>
+      <trans-unit id="Rul40MG" resname="Shortcuts">
+        <source>Shortcuts</source>
+        <target>Shortcuts</target>
+      </trans-unit>
+      <trans-unit id="GjZq2fp" resname="Mail template">
+        <source>Mail template</source>
+        <target>Mail template</target>
+      </trans-unit>
+      <trans-unit id="F8b4Mcy" resname="Mail template macros">
+        <source>Mail template macros</source>
+        <target>Mail template macros</target>
+      </trans-unit>
+      <trans-unit id="Uou4pI1" resname="Mail template macro">
+        <source>Mail template macro</source>
+        <target>Mail template macro</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -33,10 +33,10 @@
                         </div>
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                             <div class="form-group col-md-3">
-                                <label>{% trans %}CPR number{% endtrans %}</label>
+                                <label>{% trans %}Identifier{% endtrans %}</label>
                                 <div class="input-group mb-3">
                                     {# TODO: Input correct CPR when property exists #}
-                                    <input type="text" class="form-control" value="{{ case.complainantCPR }}" readonly>
+                                    <input type="text" class="form-control" value="{{ case.complainantIdentifier }}" readonly>
                                     {#  <div class="input-group-append">#}
                                     {# TODO: Show status depending on validation result #}
                                     {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate CPR number'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
@@ -194,7 +194,7 @@
                                 <th scope="col">{% trans %}Name{% endtrans %}</th>
                                 <th scope="col">{% trans %}Party type{% endtrans %}</th>
                                 <th scope="col">{% trans %}Address{% endtrans %}</th>
-                                <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Identifier{% endtrans %}</th>
                                 <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
                                 <th scope="col">{% trans %}Journal number{% endtrans %}</th>
                                 <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
@@ -206,7 +206,7 @@
                                     <td>{{ party_data.party.name|e }}</td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
-                                    <td>{{ party_data.party.cpr|e }}</td>
+                                    <td>{{ party_data.party.identifier|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
                                     <td>{{ party_data.party.journalNumber|e }}</td>
                                     <td class="text-right">
@@ -242,7 +242,7 @@
                                 <th scope="col">{% trans %}Name{% endtrans %}</th>
                                 <th scope="col">{% trans %}Party type{% endtrans %}</th>
                                 <th scope="col">{% trans %}Address{% endtrans %}</th>
-                                <th scope="col">{% trans %}CPR number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Identifier{% endtrans %}</th>
                                 <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
                                 <th scope="col">{% trans %}Journal number{% endtrans %}</th>
                                 <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
@@ -254,7 +254,7 @@
                                     <td>{{ party_data.party.name|e }}</td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
-                                    <td>{{ party_data.party.cpr|e }}</td>
+                                    <td>{{ party_data.party.identifier|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
                                     <td>{{ party_data.party.journalNumber|e }}</td>
                                     <td class="text-right">

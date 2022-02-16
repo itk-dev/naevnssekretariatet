@@ -1,6 +1,18 @@
 App\Entity\DigitalPost:
     digital-post-001:
         document: '@document-001'
+        entityType: 'App\Entity\ResidentComplaintBoardCase'
+        entityId: '@test-case-aarhus-1->id'
+
+App\Entity\DigitalPostAttachment:
+    digital-post-attachment-001:
+        digitalPost: '@digital-post-001'
+        document: '@attachment-001'
+        position: 0
+    digital-post-attachment-002:
+        digitalPost: '@digital-post-001'
+        document: '@attachment-002'
+        position: 1
 
 App\Entity\DigitalPost\Recipient:
     recipient-001:

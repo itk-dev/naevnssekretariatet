@@ -38,14 +38,19 @@ class FenceReviewCase extends CaseEntity
     private $accusedAddress;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $accusedCPR;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $accusedCadastralNumber;
+
+    /**
+     * @ORM\Column(type="string", length=32)
+     */
+    private $accusedIdentifierType;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $accusedIdentifier;
 
     public function __construct()
     {
@@ -101,18 +106,6 @@ class FenceReviewCase extends CaseEntity
         return $this;
     }
 
-    public function getAccusedCPR(): ?string
-    {
-        return $this->accusedCPR;
-    }
-
-    public function setAccusedCPR(string $accusedCPR): self
-    {
-        $this->accusedCPR = $accusedCPR;
-
-        return $this;
-    }
-
     public function getAccusedCadastralNumber(): ?string
     {
         return $this->accusedCadastralNumber;
@@ -142,5 +135,29 @@ class FenceReviewCase extends CaseEntity
     public function updateSortingAddress()
     {
         $this->setSortingAddress($this->getComplainantAddress()->__toString());
+    }
+
+    public function getAccusedIdentifierType(): ?string
+    {
+        return $this->accusedIdentifierType;
+    }
+
+    public function setAccusedIdentifierType(string $accusedIdentifierType): self
+    {
+        $this->accusedIdentifierType = $accusedIdentifierType;
+
+        return $this;
+    }
+
+    public function getAccusedIdentifier(): ?string
+    {
+        return $this->accusedIdentifier;
+    }
+
+    public function setAccusedIdentifier(string $accusedIdentifier): self
+    {
+        $this->accusedIdentifier = $accusedIdentifier;
+
+        return $this;
     }
 }

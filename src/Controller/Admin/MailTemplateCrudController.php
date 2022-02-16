@@ -29,7 +29,7 @@ class MailTemplateCrudController extends AbstractCrudController
     {
         return $crud
             ->setEntityLabelInPlural('Mail templates')
-            ->setEntityLabelInSingular('mail template')
+            ->setEntityLabelInSingular('Mail template')
             ->overrideTemplate('crud/detail', 'admin/mail-template/detail.html.twig')
             ;
     }

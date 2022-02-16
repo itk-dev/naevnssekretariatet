@@ -298,9 +298,7 @@ class CaseController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        return $this->render('case/communication.html.twig', [
-            'case' => $case,
-        ]);
+        return $this->redirectToRoute('digital_post_index', ['id' => $case->getId()]);
     }
 
     /**

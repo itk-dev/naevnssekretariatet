@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Embeddable\Address;
 use App\Logging\LoggableEntityInterface;
 use App\Repository\PartyRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,7 +22,7 @@ class Party implements LoggableEntityInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      * @Groups({"mail_template"})
      */
     private $address;
@@ -54,13 +55,19 @@ class Party implements LoggableEntityInterface
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=32)
+     */
+    private $identifierType;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
-    private $cpr;
+    private $identifier;
 
     public function __construct()
     {
         $this->id = Uuid::v4();
+        $this->address = new Address();
     }
 
     public function getId(): ?Uuid
@@ -68,16 +75,14 @@ class Party implements LoggableEntityInterface
         return $this->id;
     }
 
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): self
+    public function setAddress(Address $address): void
     {
         $this->address = $address;
+    }
 
-        return $this;
+    public function getAddress(): Address
+    {
+        return $this->address;
     }
 
     public function getPhoneNumber(): ?string
@@ -125,7 +130,8 @@ class Party implements LoggableEntityInterface
     {
         return [
             'name',
-            'CPR',
+            'identifierType',
+            'identifier',
             'address',
             'phoneNumber',
             'journalNumber',
@@ -144,14 +150,26 @@ class Party implements LoggableEntityInterface
         return $this;
     }
 
-    public function getCpr(): ?string
+    public function getIdentifierType(): ?string
     {
-        return $this->cpr;
+        return $this->identifierType;
     }
 
-    public function setCpr(string $cpr): self
+    public function setIdentifierType(string $identifierType): self
     {
-        $this->cpr = $cpr;
+        $this->identifierType = $identifierType;
+
+        return $this;
+    }
+
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier(string $identifier): self
+    {
+        $this->identifier = $identifier;
 
         return $this;
     }
