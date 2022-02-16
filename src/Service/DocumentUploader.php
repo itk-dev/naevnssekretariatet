@@ -77,16 +77,18 @@ class DocumentUploader
     /**
      * Downloads document.
      */
-    public function handleDownload(Document $document): Response
+    public function handleDownload(Document $document, bool $forceDownload = true): Response
     {
         $filepath = $this->getFilepath($document->getFilename());
         $response = new BinaryFileResponse($filepath);
-        $disposition = HeaderUtils::makeDisposition(
-            HeaderUtils::DISPOSITION_ATTACHMENT,
-            $document->getFilename()
-        );
+        if ($forceDownload) {
+            $disposition = HeaderUtils::makeDisposition(
+                HeaderUtils::DISPOSITION_ATTACHMENT,
+                $document->getFilename()
+            );
 
-        $response->headers->set('Content-Disposition', $disposition);
+            $response->headers->set('Content-Disposition', $disposition);
+        }
 
         return $response;
     }

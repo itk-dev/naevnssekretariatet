@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="sxA19uy" resname="Digital post">
+        <source>Digital post</source>
+        <target>Digital post</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target>Created at</target>
+      </trans-unit>
+      <trans-unit id="N2zgT9." resname="Sent at">
+        <source>Sent at</source>
+        <target>Sent at</target>
+      </trans-unit>
+      <trans-unit id="1r2MCu7" resname="Document">
+        <source>Document</source>
+        <target>Document</target>
+      </trans-unit>
+      <trans-unit id="zO.LKLJ" resname="Number of attachments">
+        <source>Number of attachments</source>
+        <target>Number of attachments</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target>Show</target>
+      </trans-unit>
+      <trans-unit id="qxt9E.9" resname="No digital posts">
+        <source>No digital posts</source>
+        <target>No digital posts</target>
+      </trans-unit>
+      <trans-unit id="0SKFZW_" resname="Back to digital post">
+        <source>Back to digital post</source>
+        <target>Back to digital post</target>
+      </trans-unit>
+      <trans-unit id="Y03hFHd" resname="Attachments">
+        <source>Attachments</source>
+        <target>Attachments</target>
+      </trans-unit>
+      <trans-unit id="HoVoqCw" resname="Recipients">
+        <source>Recipients</source>
+        <target>Recipients</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

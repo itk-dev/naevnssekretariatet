@@ -3,16 +3,24 @@
 namespace App\Entity;
 
 use App\Entity\DigitalPost\Recipient;
+use App\Repository\DigitalPostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=DigitalPostRepository::class)
+ * @ORM\Table(indexes={
+ *     @ORM\Index(name="entity_idx", columns={"entity_type", "entity_id"})
+ * })
+ * @ORM\HasLifecycleCallbacks()
  */
 class DigitalPost
 {
+    use TimestampableEntity;
+
     public const STATUS_SENT = 'sent';
     public const STATUS_ERROR = 'error';
 
@@ -29,19 +37,14 @@ class DigitalPost
     private $document;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Document::class)
-     */
-    private $attachments;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private string $entityType;
+    private ?string $entityType;
 
     /**
      * @ORM\Column(type="uuid", nullable=true)
      */
-    private string $entityId;
+    private ?Uuid $entityId;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
@@ -62,6 +65,12 @@ class DigitalPost
      * @ORM\OneToMany(targetEntity=Recipient::class, mappedBy="digitalPost", orphanRemoval=true)
      */
     private $recipients;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DigitalPostAttachment::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OrderBy({"position": "ASC"})
+     */
+    private $attachments;
 
     public function __construct()
     {
@@ -87,31 +96,7 @@ class DigitalPost
         return $this;
     }
 
-    /**
-     * @return Collection|Document[]
-     */
-    public function getAttachments(): Collection
-    {
-        return $this->attachments;
-    }
-
-    public function addAttachment(Document $attachment): self
-    {
-        if (!$this->attachments->contains($attachment)) {
-            $this->attachments[] = $attachment;
-        }
-
-        return $this;
-    }
-
-    public function removeAttachment(Document $attachment): self
-    {
-        $this->attachments->removeElement($attachment);
-
-        return $this;
-    }
-
-    public function getEntityType(): string
+    public function getEntityType(): ?string
     {
         return $this->entityType;
     }
@@ -126,7 +111,7 @@ class DigitalPost
         return $this;
     }
 
-    public function getEntityId(): string
+    public function getEntityId(): ?Uuid
     {
         return $this->entityId;
     }
@@ -134,7 +119,7 @@ class DigitalPost
     /**
      * @return DigitalPost
      */
-    public function setEntityId(string $entityId): self
+    public function setEntityId(Uuid $entityId): self
     {
         $this->entityId = $entityId;
 
@@ -210,5 +195,46 @@ class DigitalPost
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|DigitalPostAttachment[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(DigitalPostAttachment $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setDigitalPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(DigitalPostAttachment $attachment): self
+    {
+        if ($this->attachments->removeElement($attachment)) {
+            // set the owning side to null (unless already changed)
+            if ($attachment->getDigitalPost() === $this) {
+                $attachment->setDigitalPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateAttachmentPositions()
+    {
+        foreach ($this->getAttachments() as $index => $attachment) {
+            $attachment->setPosition($index);
+        }
     }
 }

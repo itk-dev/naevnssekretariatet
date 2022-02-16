@@ -18,4 +18,12 @@ class DigitalPostRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, DigitalPost::class);
     }
+
+    public function findByEntity(object $entity, array $criteria = [], array $orderBy = null, $limit = null, $offset = null): array
+    {
+        $criteria['entityType'] = get_class($entity);
+        $criteria['entityId'] = $entity->getId();
+
+        return $this->findBy($criteria, $orderBy, $limit, $offset);
+    }
 }
