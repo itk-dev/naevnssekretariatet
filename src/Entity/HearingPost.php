@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Logging\LoggableEntityInterface;
 use App\Repository\HearingPostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,8 +12,9 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=HearingPostRepository::class)
+ * @ORM\EntityListeners({"App\Logging\EntityListener\HearingPostListener"})
  */
-class HearingPost
+class HearingPost implements LoggableEntityInterface
 {
     use TimestampableEntity;
 
@@ -154,5 +156,15 @@ class HearingPost
         $this->forwardedOn = $forwardedOn;
 
         return $this;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'recipient',
+            'documents',
+            'template',
+            'forwardedOn',
+        ];
     }
 }

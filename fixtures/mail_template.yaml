@@ -22,3 +22,12 @@ App\Entity\MailTemplate:
     description: |-
       Multi-page template with page header and footer
     templateFilename: <uploadFile(mail_template/mail_template_header_footer.docx, templateFile, App\Entity\MailTemplate)>
+
+  mail-template-hearing-001:
+    type: hearing
+    name: Hearing template 001
+    description: |-
+      Skabelon for oprettelse af forelæggelse.
+
+      Brug det som start i en høring.
+    templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>

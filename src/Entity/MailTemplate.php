@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Logging\LoggableEntityInterface;
 use App\Repository\MailTemplateRepository;
 use App\Traits\BlameableEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,7 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass=MailTemplateRepository::class)
  * @Vich\Uploadable
  */
-class MailTemplate
+class MailTemplate implements LoggableEntityInterface
 {
     use BlameableEntity;
     use TimestampableEntity;
@@ -134,5 +135,15 @@ class MailTemplate
         $this->type = $type;
 
         return $this;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'name',
+            'description',
+            'templateFilename',
+            'type',
+        ];
     }
 }

@@ -93,6 +93,22 @@
         <source>Data</source>
         <target>Data</target>
       </trans-unit>
+      <trans-unit id="GnTPdoq" resname="Hearing post created">
+        <source>Hearing post created</source>
+        <target>Hearing post created</target>
+      </trans-unit>
+      <trans-unit id="Y1_yClD" resname="Hearing post updated">
+        <source>Hearing post updated</source>
+        <target>Hearing post updated</target>
+      </trans-unit>
+      <trans-unit id="dvHE_Op" resname="Hearing created">
+        <source>Hearing created</source>
+        <target>Hearing created</target>
+      </trans-unit>
+      <trans-unit id="RiZ4M6r" resname="Hearing updated">
+        <source>Hearing updated</source>
+        <target>Hearing updated</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

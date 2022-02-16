@@ -1033,6 +1033,14 @@
         <source>No suitable boards</source>
         <target>No suitable boards</target>
       </trans-unit>
+      <trans-unit id="KIDnRq6" resname="Complainant has no more to add">
+        <source>Complainant has no more to add</source>
+        <target>Complainant has no more to add</target>
+      </trans-unit>
+      <trans-unit id="vVbaAus" resname="Counterpart has no more to add">
+        <source>Counterpart has no more to add</source>
+        <target>Counterpart has no more to add</target>
+      </trans-unit>
       <trans-unit id="xwmzKet" resname="Identifier type">
         <source>Identifier type</source>
         <target>Identifier type</target>

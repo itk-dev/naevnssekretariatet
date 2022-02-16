@@ -1213,6 +1213,14 @@
         <source>Download document</source>
         <target state="translated">Download dokument</target>
       </trans-unit>
+      <trans-unit id="KIDnRq6" resname="Complainant has no more to add">
+        <source>Complainant has no more to add</source>
+        <target state="translated">Klager har ikke mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="vVbaAus" resname="Counterpart has no more to add">
+        <source>Counterpart has no more to add</source>
+        <target state="translated">Modpart har ikke mere at tilføje</target>
+      </trans-unit>
       <trans-unit id="xwmzKet" resname="Identifier type">
         <source>Identifier type</source>
         <target state="translated">Id-type</target>
@@ -1223,7 +1231,7 @@
       </trans-unit>
       <trans-unit id="naWRCDF" resname="Look up address">
         <source>Look up address</source>
-        <target state="needs-l10n">Fremsøg adresse</target>
+        <target state="translated">Fremsøg adresse</target>
       </trans-unit>
     </body>
   </file>
