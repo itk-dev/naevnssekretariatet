@@ -139,7 +139,7 @@
       </trans-unit>
       <trans-unit id="Auee2PY" resname="Complainant category">
         <source>Complainant category</source>
-        <target>Klagekategori</target>
+        <target>Klagetype</target>
       </trans-unit>
       <trans-unit id="A8h1npn" resname="Hearing">
         <source>Hearing</source>
@@ -167,7 +167,7 @@
       </trans-unit>
       <trans-unit id="SaPHHYy" resname="Complaint category">
         <source>Complaint category</source>
-        <target>Sagstype</target>
+        <target>Klagetype</target>
       </trans-unit>
       <trans-unit id="kg5BPH1" resname="Status">
         <source>Status</source>

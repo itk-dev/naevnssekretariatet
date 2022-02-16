@@ -11,11 +11,11 @@
       </trans-unit>
       <trans-unit id="SaPHHYy" resname="Complaint category">
         <source>Complaint category</source>
-        <target>Sagstype</target>
+        <target>Klagetyper</target>
       </trans-unit>
       <trans-unit id="3na35C4" resname="Complaint categories">
         <source>Complaint categories</source>
-        <target>Sagstyper</target>
+        <target>Klagetyper</target>
       </trans-unit>
       <trans-unit id="5vSuyiT" resname="Municipality">
         <source>Municipality</source>
@@ -63,7 +63,7 @@
       </trans-unit>
       <trans-unit id="0SSiJv_" resname="Add complaint category">
         <source>Add complaint category</source>
-        <target>Tilføj sagstype</target>
+        <target>Tilføj klagetype</target>
       </trans-unit>
       <trans-unit id="hOPtAc4" resname="Add municipality">
         <source>Add municipality</source>
