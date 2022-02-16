@@ -3,7 +3,6 @@
 namespace App\Logging\EntityListener;
 
 use App\Entity\Hearing;
-use App\Entity\Party;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Security\Core\Security;
 

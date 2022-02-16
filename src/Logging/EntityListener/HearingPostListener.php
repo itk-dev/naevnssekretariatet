@@ -2,7 +2,6 @@
 
 namespace App\Logging\EntityListener;
 
-use App\Entity\Hearing;
 use App\Entity\HearingPost;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Security\Core\Security;
@@ -26,7 +25,6 @@ class HearingPostListener extends AbstractEntityListener
 
     public function logActivity(string $action, LifecycleEventArgs $args): void
     {
-
         $em = $args->getEntityManager();
 
         /** @var HearingPost $hearingPost */
