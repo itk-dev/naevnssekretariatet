@@ -269,6 +269,38 @@
         <source>Mail template macro</source>
         <target state="translated">Brevskabelonmakro</target>
       </trans-unit>
+      <trans-unit id="kStF.jD" resname="The value to insert to use the macro in a template, i.e. if the name is &lt;code&gt;name_and_address&lt;/code&gt; then &lt;code&gt;${name_and_address}&lt;/code&gt; can be used in the template.">
+        <source>The value to insert to use the macro in a template, i.e. if the name is &lt;code&gt;name_and_address&lt;/code&gt; then &lt;code&gt;${name_and_address}&lt;/code&gt; can be used in the template.</source>
+        <target><![CDATA[Værdien der skal indsættes i skabelonen, f.eks. hvis makroen er <code>navn</code> så kan <code>${navn}</code> bruges i skabelonen.]]></target>
+      </trans-unit>
+      <trans-unit id="3Qx4nzD" resname="The content of the expanded macro.">
+        <source>The content of the expanded macro.</source>
+        <target>Indholdet af den udvidede makro</target>
+      </trans-unit>
+      <trans-unit id=".GZdt2y" resname="Select template types that this macro can be used for. If no template types are selected, the macro can be used in all templates.">
+        <source>Select template types that this macro can be used for. If no template types are selected, the macro can be used in all templates.</source>
+        <target>Vælg de skabelontyper hvor denne makro skal kunne bruges. Hvis ingen skabelontyper vælges vil makroen kunne bruges i alle skabelontyper.</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Beskrivelse</target>
+      </trans-unit>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target>Skabelon</target>
+      </trans-unit>
+      <trans-unit id="wyWbfaC" resname="Template Types">
+        <source>Template Types</source>
+        <target>Skabelontyper</target>
+      </trans-unit>
+      <trans-unit id="R70pB1_" resname="Content">
+        <source>Content</source>
+        <target>Indhold</target>
+      </trans-unit>
+      <trans-unit id="zfFuwRW" resname="Macro">
+        <source>Macro</source>
+        <target>Makro</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
