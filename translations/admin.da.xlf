@@ -175,7 +175,7 @@
       </trans-unit>
       <trans-unit id="W4H3DVm" resname="Document type">
         <source>Document type</source>
-        <target>Dokumenttype</target>
+        <target state="translated">Dokumenttype</target>
       </trans-unit>
       <trans-unit id="n8ctBXR" resname="Document types">
         <source>Document types</source>
@@ -240,6 +240,34 @@
       <trans-unit id="yknv5ud" resname="List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).">
         <source>List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).</source>
         <target state="translated">Liste af genveje (en pr. linje). Format: ‘ID: URL', fx Aarhus Kommune: https://www.aarhus.dk/. ID må ikke indeholde kolon (:).</target>
+      </trans-unit>
+      <trans-unit id="IeSesrK" resname="Log">
+        <source>Log</source>
+        <target state="translated">Log</target>
+      </trans-unit>
+      <trans-unit id="_ZRJeYh" resname="Mail templates">
+        <source>Mail templates</source>
+        <target state="translated">Brevskabeloner</target>
+      </trans-unit>
+      <trans-unit id="hm3NmOy" resname="Macros">
+        <source>Macros</source>
+        <target state="translated">Makroer</target>
+      </trans-unit>
+      <trans-unit id="Rul40MG" resname="Shortcuts">
+        <source>Shortcuts</source>
+        <target state="translated">Genveje</target>
+      </trans-unit>
+      <trans-unit id="GjZq2fp" resname="Mail template">
+        <source>Mail template</source>
+        <target state="translated">Brevskabelon</target>
+      </trans-unit>
+      <trans-unit id="F8b4Mcy" resname="Mail template macros">
+        <source>Mail template macros</source>
+        <target state="translated">Brevskabelonmakroer</target>
+      </trans-unit>
+      <trans-unit id="Uou4pI1" resname="Mail template macro">
+        <source>Mail template macro</source>
+        <target state="translated">Brevskabelonmakro</target>
       </trans-unit>
     </body>
   </file>
