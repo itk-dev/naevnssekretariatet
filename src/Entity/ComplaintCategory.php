@@ -145,7 +145,6 @@ class ComplaintCategory implements LoggableEntityInterface
     public function getLoggableProperties(): array
     {
         return [
-            'id',
             'name',
         ];
     }

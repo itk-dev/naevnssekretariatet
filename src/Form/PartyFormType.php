@@ -68,7 +68,7 @@ class PartyFormType extends AbstractType
                 'required' => false,
             ])
             ->add('type', ChoiceType::class, [
-                'label' => $this->translator->trans('Journal number', [], 'party'),
+                'label' => $this->translator->trans('Type', [], 'party'),
                 'choices' => $this->partyHelper->getAllPartyTypes($case),
             ])
         ;
