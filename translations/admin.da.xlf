@@ -11,7 +11,7 @@
       </trans-unit>
       <trans-unit id="SaPHHYy" resname="Complaint category">
         <source>Complaint category</source>
-        <target>Klagetyper</target>
+        <target>Klagetype</target>
       </trans-unit>
       <trans-unit id="3na35C4" resname="Complaint categories">
         <source>Complaint categories</source>

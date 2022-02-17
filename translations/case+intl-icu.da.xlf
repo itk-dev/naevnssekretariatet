@@ -137,10 +137,6 @@
         <source>Complainant postal code</source>
         <target>Klagers postnummer</target>
       </trans-unit>
-      <trans-unit id="Auee2PY" resname="Complainant category">
-        <source>Complainant category</source>
-        <target>Klagetype</target>
-      </trans-unit>
       <trans-unit id="A8h1npn" resname="Hearing">
         <source>Hearing</source>
         <target>Partshøring</target>
