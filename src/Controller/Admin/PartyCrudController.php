@@ -52,8 +52,12 @@ class PartyCrudController extends AbstractCrudController
         yield TextField::new('name', 'Name');
         yield ChoiceField::new('identifierType', 'Identifier type')
             ->setChoices(IdentifierChoices::IDENTIFIER_TYPE_CHOICES)
+            ->onlyOnForms()
         ;
-        yield TextField::new('identifier', 'Identifier');
+        yield TextField::new('identifier', 'Identifier')
+            // Hide the CPR/CVR a bit.
+            ->onlyOnForms()
+        ;
         yield Field::new('address', 'Address')
             ->setFormType(AddressType::class)
         ;

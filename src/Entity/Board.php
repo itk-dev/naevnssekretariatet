@@ -140,7 +140,7 @@ class Board implements LoggableEntityInterface
 
     public function __toString()
     {
-        return $this->name;
+        return $this->name.' '.$this->getMunicipality()->getName();
     }
 
     /**

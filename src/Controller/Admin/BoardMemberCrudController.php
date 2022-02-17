@@ -38,11 +38,11 @@ class BoardMemberCrudController extends AbstractCrudController
         yield AssociationField::new('boards', 'Board')
             ->setRequired(true)
             ->formatValue(function ($value, BoardMember $member) {
-                $roles = $member->getBoards()->map(function (Board $board) {
+                $boards = $member->getBoards()->map(function (Board $board) {
                     return $board->__toString();
                 });
 
-                return implode(', ', $roles->getValues());
+                return implode(', ', $boards->getValues());
             })
         ;
         yield AssociationField::new('municipality', 'Municipality')

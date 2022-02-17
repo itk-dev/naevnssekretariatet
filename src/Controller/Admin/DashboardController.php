@@ -45,7 +45,14 @@ class DashboardController extends AbstractDashboardController
     {
         $routeBuilder = $this->get(AdminUrlGenerator::class);
 
-        return $this->redirect($routeBuilder->setController(ComplaintCategoryCrudController::class)->generateUrl());
+        $redirectUrl = $routeBuilder
+            ->setController(UserCrudController::class)
+            ->setAction(Action::EDIT)
+            ->setEntityId($this->getUser()->getId())
+            ->generateUrl()
+        ;
+
+        return $this->redirect($redirectUrl);
     }
 
     public function configureDashboard(): Dashboard
@@ -84,20 +91,20 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoRoute('Back to the website', '', 'default');
-        yield MenuItem::linkToCrud('Complaint category', '', ComplaintCategory::class);
         yield MenuItem::linkToCrud('Municipality', '', Municipality::class);
         yield MenuItem::linkToCrud('Board', '', Board::class);
         yield MenuItem::linkToCrud('Board roles', '', BoardRole::class);
         yield MenuItem::linkToCrud('Boardmember', '', BoardMember::class);
         yield MenuItem::linkToCrud('Part Index', '', Party::class);
+        yield MenuItem::linkToCrud('Complaint category', '', ComplaintCategory::class);
         yield MenuItem::linkToCrud('Document types', '', UploadedDocumentType::class);
-        yield MenuItem::linkToCrud('Log', '', LogEntry::class);
         yield MenuItem::subMenu('Mail templates', null)
             ->setSubItems([
                 MenuItem::linkToCrud('Mail templates', '', MailTemplate::class),
                 MenuItem::linkToCrud('Macros', '', MailTemplateMacro::class),
             ])
         ;
+        yield MenuItem::linkToCrud('Log', '', LogEntry::class);
         yield MenuItem::linkToCrud('User Settings', '', User::class)
             ->setAction('edit')
             ->setEntityId($this->getUser()->getId())
