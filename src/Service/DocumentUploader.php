@@ -69,7 +69,7 @@ class DocumentUploader
         return $newFilename;
     }
 
-    private function getDirectory(): string
+    public function getDirectory(): string
     {
         return $this->baseDocumentDirectory.'/'.$this->documentDirectory;
     }
