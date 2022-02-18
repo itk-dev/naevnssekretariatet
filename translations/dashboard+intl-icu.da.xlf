@@ -9,10 +9,6 @@
         <source>Dashboard</source>
         <target>Sagsoverblik</target>
       </trans-unit>
-      <trans-unit id="DKXIbLs" resname="Select municipality">
-        <source>Select municipality</source>
-        <target>Vælg kommune</target>
-      </trans-unit>
       <trans-unit id="1tW3xKJ" resname="Cases with reached reminders">
         <source>Cases with reached reminders</source>
         <target>Sager med overskredne påmindelser</target>
@@ -40,18 +36,6 @@
       <trans-unit id="IyYCnqA" resname="Deadline reached">
         <source>Deadline reached</source>
         <target>Tidsfrist udløbet</target>
-      </trans-unit>
-      <trans-unit id="LEdr3yo" resname="Cases tenant complaints">
-        <source>Cases tenant complaints</source>
-        <target>Sager til beboerklagenævnet</target>
-      </trans-unit>
-      <trans-unit id="9fdtHvG" resname="Cases rent complaints">
-        <source>Cases rent complaints</source>
-        <target>Sager til huslejenævnet</target>
-      </trans-unit>
-      <trans-unit id="lhiogEj" resname="Cases fence complaints">
-        <source>Cases fence complaints</source>
-        <target>Sager til hegnsnævnet</target>
       </trans-unit>
       <trans-unit id="LdYqDXZ" resname="Cases opened more than 30 days ago">
         <source>Cases opened more than 30 days ago</source>

@@ -121,10 +121,6 @@
         <source>Publish to boardmembers</source>
         <target state="translated">Publiser til nævnsmedlemmer</target>
       </trans-unit>
-      <trans-unit id="n1OzYSt" resname="Select recipient(s)">
-        <source>Select recipient(s)</source>
-        <target state="translated">Vælg modtagere</target>
-      </trans-unit>
       <trans-unit id="tQJcc1A" resname="Remarks">
         <source>Remarks</source>
         <target>Bemærkninger</target>
@@ -189,10 +185,6 @@
         <source>Save changes</source>
         <target>Gem rettelser</target>
       </trans-unit>
-      <trans-unit id="Y44kn0o" resname="Filter">
-        <source>Filter</source>
-        <target>Filtrer</target>
-      </trans-unit>
       <trans-unit id="7Qd.PYE" resname="Open">
         <source>Open</source>
         <target>Åben</target>
@@ -208,10 +200,6 @@
       <trans-unit id="VxoboO2" resname="Not-closed">
         <source>Not-closed</source>
         <target>Ikke afsluttet</target>
-      </trans-unit>
-      <trans-unit id="smYKhqC" resname="Change municipality">
-        <source>Change municipality</source>
-        <target>Ændr kommune</target>
       </trans-unit>
       <trans-unit id=".PmDXnU" resname="Cannot delete finished agenda">
         <source>Cannot delete finished agenda</source>

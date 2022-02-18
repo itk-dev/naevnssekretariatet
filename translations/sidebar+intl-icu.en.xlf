@@ -57,10 +57,6 @@
         <source>Communication</source>
         <target>Communication</target>
       </trans-unit>
-      <trans-unit id="ZArkuvl" resname="Decision">
-        <source>Decision</source>
-        <target>Decision</target>
-      </trans-unit>
       <trans-unit id="tOkp2Lz" resname="Documents">
         <source>Documents</source>
         <target>Documents</target>

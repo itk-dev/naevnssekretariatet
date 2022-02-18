@@ -25,10 +25,6 @@
         <source>Note content</source>
         <target state="translated">Noteindhold</target>
       </trans-unit>
-      <trans-unit id="hl6J3nj" resname="Upload">
-        <source>Upload</source>
-        <target>Rediger</target>
-      </trans-unit>
       <trans-unit id="inUlsUk" resname="Notes">
         <source>Notes</source>
         <target>Noter</target>

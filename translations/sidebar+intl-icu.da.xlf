@@ -57,10 +57,6 @@
         <source>Documents</source>
         <target>Dokumentoversigt</target>
       </trans-unit>
-      <trans-unit id="ZArkuvl" resname="Decision">
-        <source>Decision</source>
-        <target>Afgørelse</target>
-      </trans-unit>
       <trans-unit id="inUlsUk" resname="Notes">
         <source>Notes</source>
         <target>Noter</target>
@@ -92,14 +88,6 @@
       <trans-unit id="0dUuar9" resname="Agenda item">
         <source>Agenda item</source>
         <target>Dagsordenspunkt</target>
-      </trans-unit>
-      <trans-unit id="QISCbyx" resname="Case presentation">
-        <source>Case presentation</source>
-        <target>Sagsfremstilling</target>
-      </trans-unit>
-      <trans-unit id="hAA_WCr" resname="Decision proposal">
-        <source>Decision proposal</source>
-        <target state="translated">Afgørelsesforslag</target>
       </trans-unit>
       <trans-unit id="bk_hPaS" resname="Inspection">
         <source>Inspection</source>

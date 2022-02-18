@@ -13,10 +13,6 @@
         <source>List of counterparty types (one per line). The first party type can be used for sorting cases.</source>
         <target>List of counterparty types (one per line). The first party type can be used for sorting cases.</target>
       </trans-unit>
-      <trans-unit id="LW8L3eH" resname="List of case statuses (one per line).">
-        <source>List of case statuses (one per line).</source>
-        <target>List of case statuses (one per line).</target>
-      </trans-unit>
       <trans-unit id="Zs2WiKK" resname="dashboard">
         <source>dashboard</source>
         <target>dashboard</target>
@@ -228,14 +224,6 @@
       <trans-unit id="MUvx5II" resname="Initials">
         <source>Initials</source>
         <target>Initials</target>
-      </trans-unit>
-      <trans-unit id="bYZdb1o" resname="Finish hearing deadline(days)">
-        <source>Finish hearing deadline(days)</source>
-        <target>Finish hearing deadline(days)</target>
-      </trans-unit>
-      <trans-unit id="Nd6BVdz" resname="Finish processing case deadline(days)">
-        <source>Finish processing case deadline(days)</source>
-        <target>Finish processing case deadline(days)</target>
       </trans-unit>
       <trans-unit id="IeSesrK" resname="Log">
         <source>Log</source>
