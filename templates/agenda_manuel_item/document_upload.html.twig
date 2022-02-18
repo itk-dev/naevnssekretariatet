@@ -24,25 +24,11 @@
     <main role="main" class="col-12">
 
         {{ form_start(document_form) }}
-        <div>
-            <label >{% trans %}Document name{% endtrans %}</label>
-            {{ form_widget(document_form.documentName, {'attr': {'type': 'text', 'class': 'form-control', 'aria-describedby': 'helpNameId', 'required': true}}) }}
-            <small id="helpNameId" class="form-text text-muted">{% trans %}Provide a recognizable name for the document{% endtrans %}</small>
-        </div>
+        {{ form_row(document_form.documentName) }}
+        {{ form_row(document_form.type) }}
+        {{ form_row(document_form.filename) }}
 
-        <div>
-            <label >{% trans %}Select a document type{% endtrans %}</label>
-            {{ form_widget(document_form.type, {'attr': {'class': 'form-control', 'aria-describedby': 'helpTypeId', 'required': true}}) }}
-            <small id="helpTypeId" class="form-text text-muted">{% trans %}Provide a document type{% endtrans %}</small>
-        </div>
-
-        <div>
-            <label >{% trans %}Chose a file{% endtrans %}</label>
-            {{ form_widget(document_form.filename, {'attr': {'type': 'file', 'class': 'form-control-file', 'aria-describedby': 'helpFileId', 'required': true}}) }}
-            <small id="helpFileId" class="form-text text-muted">{% trans %}Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls{% endtrans %}</small>
-        </div>
-        <button class="btn btn-success float-right">{{ button_label|default('Upload'|trans([], 'documents', 'da')) }}</button>
-
-        {{ form_end(document_form) }}
+        <button class="btn btn-success float-right">{{ button_label|default('Upload'|trans([], 'documents')) }}</button>
+        {{ form_rest(document_form) }}
     </main>
 {% endblock %}
