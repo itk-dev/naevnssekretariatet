@@ -60,6 +60,16 @@ class LogEntryHelper
         $translatedData = [];
         foreach ($data as $propertyPath => $value) {
             $label = $this->translatePropertyPath($propertyPath);
+
+            // Fixes overwriting of logged properties
+            if (isset($translatedData[$label])) {
+                $label = $propertyPath;
+            }
+
+            if (isset($translatedData[$label])) {
+                // Here label is the original $propertyPath, which should never really happen
+                $label = $label.uniqid();
+            }
             $translatedData[$label] = is_array($value) ? $this->getTranslatedData($value) : $value;
         }
 
