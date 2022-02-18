@@ -45,6 +45,7 @@ class HearingController extends AbstractController
         if (null === $hearing) {
             $hearing = new Hearing();
             $case->setHearing($hearing);
+            $hearing->setCaseEntity($case);
 
             $this->entityManager->persist($hearing);
             $this->entityManager->flush();

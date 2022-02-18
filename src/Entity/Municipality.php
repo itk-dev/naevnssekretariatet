@@ -172,7 +172,6 @@ class Municipality implements LoggableEntityInterface
     public function getLoggableProperties(): array
     {
         return [
-            'id',
             'name',
         ];
     }
