@@ -449,6 +449,10 @@
         <source>Show case</source>
         <target>Show case</target>
       </trans-unit>
+      <trans-unit id="8VCI9Yd" resname="Back to agenda">
+        <source>Back to agenda</source>
+        <target>Back to agenda</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

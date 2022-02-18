@@ -461,6 +461,10 @@
         <source>Show case</source>
         <target state="translated">Vis sag</target>
       </trans-unit>
+      <trans-unit id="8VCI9Yd" resname="Back to agenda">
+        <source>Back to agenda</source>
+        <target state="translated">Til dagsorden</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
