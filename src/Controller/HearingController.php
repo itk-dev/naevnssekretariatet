@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
+use App\Entity\DigitalPost;
+use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
 use App\Entity\Hearing;
 use App\Entity\HearingPost;
@@ -249,7 +251,28 @@ class HearingController extends AbstractController
             throw new HearingException();
         }
 
-        // TODO: Send digital post envelope containing hearing post
+        // Create DigitalPost
+        $digitalPost = new DigitalPost();
+        $digitalPost->setDocument($hearingPost->getDocument());
+        $digitalPost->setEntityType(get_class($case));
+        $digitalPost->setEntityId($case->getId());
+
+        // Handle attachments
+        $attachments = $hearingPost->getAttachments();
+
+        foreach ($attachments as $attachment) {
+            $digitalPostAttachment = new DigitalPostAttachment();
+            $digitalPostAttachment->setPosition($attachment->getPosition());
+            $digitalPostAttachment->setDocument($attachment->getDocument());
+            $digitalPostAttachment->setDigitalPost($digitalPost);
+
+            $digitalPost->addAttachment($digitalPostAttachment);
+
+            $this->entityManager->persist($digitalPostAttachment);
+        }
+
+        $this->entityManager->persist($digitalPost);
+
         $today = new DateTime('today');
         $hearingPost->setForwardedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
