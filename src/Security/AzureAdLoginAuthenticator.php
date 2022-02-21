@@ -60,7 +60,7 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
         $roleArrayAssociative = [
             'SuperAdmin' => 'ROLE_SUPER_ADMIN',
             'Admin' => 'ROLE_ADMIN',
-            'Administrator' => 'ROLE_ADMINISTRATOR',
+            'Administrator' => 'ROLE_ADMINISTRATION',
             'Sagsbehandler' => 'ROLE_CASEWORKER',
         ];
 
