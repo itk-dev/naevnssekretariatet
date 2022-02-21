@@ -132,13 +132,19 @@ class HearingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $hearingPost->setHearing($hearing);
 
-            // Handle document upload
+            // Create new file from template
+            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
+
+            // Compute fitting name
+            $updatedFileName = $slugger->slug($hearingPost->getTemplate()->getName()).'-'.uniqid().'.pdf';
+
+            // Move file
             $documentUploader->specifyDirectory('/case_documents/');
-            $fileName = $documentUploader->uploadFileFromTemplate($hearingPost->getTemplate(), $case);
+            $updatedFileName = $documentUploader->uploadFile($fileName);
 
             // Create document
             $document = new Document();
-            $document->setFilename($fileName);
+            $document->setFilename($updatedFileName);
             $document->setDocumentName($hearingPost->getTitle());
             $document->setHearingPost($hearingPost);
             $hearingPost->setDocument($document);
@@ -207,14 +213,17 @@ class HearingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // It is not sufficient to recreate document only if mail template is switched
 
-            // Recreate document
+            // Create new file
+            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
+
+            // For now we just overwrite completely
+            $currentDocumentFileName = $hearingPost->getDocument()->getFilename();
             $documentUploader->specifyDirectory('/case_documents/');
-            $fileName = $documentUploader->uploadFileFromTemplate($hearingPost->getTemplate(), $case);
+            $documentUploader->replaceFile($fileName, $currentDocumentFileName);
 
             // Update Document
             /** @var User $user */
             $user = $this->getUser();
-            $hearingPost->getDocument()->setFilename($fileName);
             $hearingPost->getDocument()->setDocumentName($hearingPost->getTitle());
             $hearingPost->getDocument()->setUploadedBy($user);
             $hearingPost->getDocument()->setUploadedAt(new DateTime('now'));

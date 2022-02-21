@@ -2,9 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\CaseEntity;
 use App\Entity\Document;
-use App\Entity\MailTemplate;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use Symfony\Component\Filesystem\Filesystem;
@@ -29,17 +27,11 @@ class DocumentUploader
      */
     private $filesystem;
 
-    /**
-     * @var MailTemplateHelper
-     */
-    private $mailTemplateHelper;
-
-    public function __construct(SluggerInterface $slugger, string $documentDirectory, Filesystem $filesystem, MailTemplateHelper $mailTemplateHelper)
+    public function __construct(SluggerInterface $slugger, string $documentDirectory, Filesystem $filesystem)
     {
         $this->baseDocumentDirectory = rtrim($documentDirectory, '/');
         $this->filesystem = $filesystem;
         $this->slugger = $slugger;
-        $this->mailTemplateHelper = $mailTemplateHelper;
     }
 
     /**
@@ -116,17 +108,35 @@ class DocumentUploader
         return $this->baseDocumentDirectory.'/'.$this->documentDirectory.'/'.$filename;
     }
 
-    public function uploadFileFromTemplate(MailTemplate $mailTemplate, CaseEntity $case): string
+    /**
+     * Move a file into an upload folder.
+     *
+     * @return string the full path of the uploaded file
+     */
+    public function uploadFile(string $filePath)
     {
-        // Create new file from template
-        $fileName = $this->mailTemplateHelper->renderMailTemplate($mailTemplate, $case);
+        $filename = pathinfo($filePath, PATHINFO_FILENAME);
+        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
 
-        // Compute fitting name
-        $updatedFileName = $this->slugger->slug($mailTemplate->getName()).'-'.uniqid().'.pdf';
+        $safeFilename = $this->slugger->slug($filename);
+        $newFilename = $safeFilename.'-'.uniqid().'.'.$extension;
 
-        // Move into correct directory and rename
-        $this->filesystem->rename($fileName, $this->getDirectory().'/'.$updatedFileName, true);
+        $targetPath = $this->getDirectory().'/'.$newFilename;
+        $this->filesystem->rename($filePath, $targetPath);
 
-        return $updatedFileName;
+        return $targetPath;
+    }
+
+    /**
+     * Moves file to new place and overwrites if file already exists.
+     *
+     * @return string the full path of the uploaded file
+     */
+    public function replaceFile(string $filePath, string $filename)
+    {
+        $targetPath = $this->getDirectory().'/'.pathinfo($filename, PATHINFO_BASENAME);
+        $this->filesystem->rename($filePath, $targetPath, true);
+
+        return $targetPath;
     }
 }
