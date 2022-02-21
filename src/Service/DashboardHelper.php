@@ -80,11 +80,20 @@ class DashboardHelper
             'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
-        $count = array_sum(array_column($row, 'count'));
+        // TODO: When all rows are fully implemented update beneath
+//        $count = array_sum(array_column($row, 'count'));
+        // Fix to avoid counting -1 which represent not implemented yet
+        $counts = array_column($row, 'count');
+        $sum = 0;
+        foreach ($counts as $count) {
+            if (-1 !== $count) {
+                $sum += $count;
+            }
+        }
 
         return [
             'label' => $this->translator->trans('My cases', [], 'dashboard'),
-            'count' => $count,
+            'count' => $sum,
             'rows' => $row,
         ];
     }
@@ -150,11 +159,20 @@ class DashboardHelper
                 'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['board' => $board]),
             ];
 
-            $boardCount = array_sum(array_column($rows, 'count'));
+            // TODO: When all rows are fully implemented update beneath
+//            $boardCount = array_sum(array_column($rows, 'count'));
+            // Fix to avoid counting -1 which represent not implemented yet
+            $counts = array_column($rows, 'count');
+            $boardSum = 0;
+            foreach ($counts as $count) {
+                if (-1 !== $count) {
+                    $boardSum += $count;
+                }
+            }
 
             $boardsInformation[] = [
                 'label' => $board->getName(),
-                'count' => $boardCount,
+                'count' => $boardSum,
                 'rows' => $rows,
             ];
         }
