@@ -59,7 +59,7 @@ jobs:
           key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ matrix.php }}-composer-
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Unit tests
         run: phpdbg -qrr ./bin/phpunit --coverage-clover=coverage/unit.xml
 
@@ -151,7 +151,7 @@ jobs:
           key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ matrix.php }}-composer-
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: php-cs-fixer
         run: phpdbg -qrr ./vendor/bin/php-cs-fixer fix --dry-run
 
@@ -181,7 +181,7 @@ jobs:
           key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ matrix.php }}-composer-
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: php-cs-fixer
         run: phpdbg -qrr ./vendor/bin/twigcs templates
 
