@@ -2,7 +2,9 @@
 
 namespace App\Service;
 
+use App\Entity\CaseEntity;
 use App\Entity\Document;
+use App\Entity\MailTemplate;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use Symfony\Component\Filesystem\Filesystem;
@@ -27,11 +29,17 @@ class DocumentUploader
      */
     private $filesystem;
 
-    public function __construct(SluggerInterface $slugger, string $documentDirectory, Filesystem $filesystem)
+    /**
+     * @var MailTemplateHelper
+     */
+    private $mailTemplateHelper;
+
+    public function __construct(SluggerInterface $slugger, string $documentDirectory, Filesystem $filesystem, MailTemplateHelper $mailTemplateHelper)
     {
         $this->baseDocumentDirectory = rtrim($documentDirectory, '/');
         $this->filesystem = $filesystem;
         $this->slugger = $slugger;
+        $this->mailTemplateHelper = $mailTemplateHelper;
     }
 
     /**
@@ -108,11 +116,17 @@ class DocumentUploader
         return $this->baseDocumentDirectory.'/'.$this->documentDirectory.'/'.$filename;
     }
 
-    /**
-     * Moves file to new place and overwrites if file already exists.
-     */
-    public function moveFile(string $originalFileName, string $updatedFileName)
+    public function uploadFileFromTemplate(MailTemplate $mailTemplate, CaseEntity $case): string
     {
-        $this->filesystem->rename($originalFileName, $this->getDirectory().'/'.$updatedFileName, true);
+        // Create new file from template
+        $fileName = $this->mailTemplateHelper->renderMailTemplate($mailTemplate, $case);
+
+        // Compute fitting name
+        $updatedFileName = $this->slugger->slug($mailTemplate->getName()).'-'.uniqid().'.pdf';
+
+        // Move into correct directory and rename
+        $this->filesystem->rename($fileName, $this->getDirectory().'/'.$updatedFileName, true);
+
+        return $updatedFileName;
     }
 }
