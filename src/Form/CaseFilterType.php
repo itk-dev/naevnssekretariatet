@@ -213,6 +213,11 @@ class CaseFilterType extends AbstractType
                         switch ($filterChoice) {
                             case CaseSpecialFilterStatuses::IN_HEARING:
                                 // TODO: When hearing implemented: modify query builder correctly with cases having an active hearing
+                                $qb = $filterQuery->getQueryBuilder();
+                                $qb->join('c.hearing', 'h')
+                                    ->where('h.startedOn IS NOT NULL')
+                                    ->andWhere('h.finishedOn IS NULL')
+                                ;
                                 break;
                             case CaseSpecialFilterStatuses::NEW_HEARING_POST:
                                 // TODO: When hearing implemented: modify query builder correctly with cases containing new hearing post
