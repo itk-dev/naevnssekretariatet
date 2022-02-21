@@ -97,6 +97,10 @@
         <source>Case</source>
         <target>Case</target>
       </trans-unit>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target>Decision</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
