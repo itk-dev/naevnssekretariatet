@@ -97,6 +97,10 @@
         <source>Back to agenda</source>
         <target>Til dagsorden</target>
       </trans-unit>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target state="translated">Afgørelse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

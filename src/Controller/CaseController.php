@@ -33,7 +33,6 @@ use App\Service\AddressHelper;
 use App\Service\BBRHelper;
 use App\Service\CaseManager;
 use App\Service\LogEntryHelper;
-use App\Service\MailTemplateHelper;
 use App\Service\MunicipalityHelper;
 use App\Service\PartyHelper;
 use App\Service\WorkflowService;
@@ -299,21 +298,6 @@ class CaseController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $case);
 
         return $this->redirectToRoute('digital_post_index', ['id' => $case->getId()]);
-    }
-
-    /**
-     * @Route("/{id}/decision", name="case_decision", methods={"GET"})
-     */
-    public function decision(CaseEntity $case, MailTemplateHelper $mailTemplateHelper): Response
-    {
-        $this->denyAccessUnlessGranted('edit', $case);
-
-        $mailTemplates = $mailTemplateHelper->getTemplates('decision');
-
-        return $this->render('case/decision.html.twig', [
-            'case' => $case,
-            'mail_templates' => $mailTemplates,
-        ]);
     }
 
     /**

@@ -1055,11 +1055,35 @@
       </trans-unit>
       <trans-unit id="fozSBW2" resname="Title">
         <source>Title</source>
-        <target state="needs-l10n">Emne</target>
+        <target state="translated">Emne</target>
       </trans-unit>
       <trans-unit id="huykMiK" resname="Choose a title for the hearing post">
         <source>Choose a title for the hearing post</source>
         <target state="translated">Vælg et emne for høringssvar</target>
+      </trans-unit>
+      <trans-unit id="HoVoqCw" resname="Recipients">
+        <source>Recipients</source>
+        <target state="translated">Modtagere</target>
+      </trans-unit>
+      <trans-unit id="klZUvl_" resname="Upload decision">
+        <source>Upload decision</source>
+        <target state="translated">Upload afgørelse</target>
+      </trans-unit>
+      <trans-unit id="goGD.qy" resname="Please upload a pdf">
+        <source>Please upload a pdf</source>
+        <target state="translated">Vælg en PDF</target>
+      </trans-unit>
+      <trans-unit id="2vVH2gl" resname="Back to decisions">
+        <source>Back to decisions</source>
+        <target state="translated">Tilbage til afgørelser</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target state="translated">Oprettet</target>
+      </trans-unit>
+      <trans-unit id="y181RZk" resname="Create new note">
+        <source>Create new note</source>
+        <target state="translated">Opret ny note</target>
       </trans-unit>
     </body>
   </file>

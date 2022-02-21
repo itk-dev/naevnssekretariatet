@@ -261,7 +261,8 @@ class HearingController extends AbstractController
             ->setName($hearingPost->getRecipient()->getName())
             ->setIdentifierType($hearingPost->getRecipient()->getIdentifierType())
             ->setIdentifier($hearingPost->getRecipient()->getIdentifier())
-            ->setAddress($hearingPost->getRecipient()->getAddress());
+            ->setAddress($hearingPost->getRecipient()->getAddress())
+        ;
         $digitalPost->addRecipient($recipient);
 
         // Handle attachments

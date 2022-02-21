@@ -1,0 +1,72 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Decision{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Decision{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('case_decision', {id: case.id}) }}">{% trans %}Back to decisions{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% macro show_document_content_button(case, document) %}
+    <a target="document-content" href="{{ path('document_view', {id: case.id, document: document.id}) }}">
+        {{ document.documentName }}
+    </a>
+{% endmacro %}
+
+{% block content %}
+    <div class="col">
+        <dl class="row">
+            <dt class="col-sm-3">{% trans %}Created at{% endtrans %}</dt>
+            <dd class="col-sm-9">{{ decision.createdAt ? decision.createdAt|date('Y-m-d H:i:s') : '–' }}</dd>
+
+            <dt class="col-sm-3">{% trans %}Recipients{% endtrans %}</dt>
+            <dd class="col-sm-9">
+                <ul class="list-unstyled">
+                    {% for party in decision.recipients %}
+                        <li>{{ party.name }} ({{ party.identifierType }}: {{ party.identifier }}); {{ party.address }}</li>
+                    {% endfor %}
+                </ul>
+            </dd>
+
+            <dt class="col-sm-3">{% trans %}Document{% endtrans %}</dt>
+            <dd class="col-sm-9">
+                {{ _self.show_document_content_button(case, decision.document) }}
+            </dd>
+
+            {% if decision.attachments %}
+                <dt class="col-sm-3">{% trans %}Attachments{% endtrans %}</dt>
+                <dd class="col-sm-9">
+                    <ol class="list-unstyled">
+                        {% for attachment in decision.attachments %}
+                            <li>
+                                {{ _self.show_document_content_button(case, attachment.document) }}
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </dd>
+            {% endif %}
+        </dl>
+
+        <iframe name="document-content" style="border: none; width: 100%;" src="about:blank"></iframe>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Compute height if iframe element to make it take up (most of) the remaining space on the page.
+        window.addEventListener('load', function () {
+            const iframe = document.querySelector('[name="document-content"]');
+            const rect = iframe.getBoundingClientRect()
+            iframe.style.height = (window.innerHeight-rect.top-40)+'px'
+        })
+    </script>
+{% endblock %}

@@ -1065,6 +1065,26 @@
         <source>Choose a title for the hearing post</source>
         <target>Choose a title for the hearing post</target>
       </trans-unit>
+      <trans-unit id="HoVoqCw" resname="Recipients">
+        <source>Recipients</source>
+        <target>Recipients</target>
+      </trans-unit>
+      <trans-unit id="klZUvl_" resname="Upload decision">
+        <source>Upload decision</source>
+        <target>Upload decision</target>
+      </trans-unit>
+      <trans-unit id="goGD.qy" resname="Please upload a pdf">
+        <source>Please upload a pdf</source>
+        <target>Please upload a pdf</target>
+      </trans-unit>
+      <trans-unit id="2vVH2gl" resname="Back to decisions">
+        <source>Back to decisions</source>
+        <target>Back to decisions</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target>Created at</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
