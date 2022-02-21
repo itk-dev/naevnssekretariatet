@@ -145,7 +145,7 @@ class HearingController extends AbstractController
             // Create document
             $document = new Document();
             $document->setFilename($updatedFileName);
-            $document->setDocumentName($hearingPost->getDocumentName());
+            $document->setDocumentName($hearingPost->getTitle());
             $document->setHearingPost($hearingPost);
             $hearingPost->setDocument($document);
 
@@ -224,7 +224,7 @@ class HearingController extends AbstractController
             // Update Document
             /** @var User $user */
             $user = $this->getUser();
-            $hearingPost->getDocument()->setDocumentName($hearingPost->getDocumentName());
+            $hearingPost->getDocument()->setDocumentName($hearingPost->getTitle());
             $hearingPost->getDocument()->setUploadedBy($user);
             $hearingPost->getDocument()->setUploadedAt(new DateTime('now'));
 

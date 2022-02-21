@@ -1249,13 +1249,17 @@
         <source>Remove document</source>
         <target state="translated">Fjern dokument</target>
       </trans-unit>
-      <trans-unit id="wr_sKPo" resname="Choose a name for the document created">
-        <source>Choose a name for the document created</source>
-        <target state="translated">Vælg et navn til det oprettede dokument</target>
-      </trans-unit>
       <trans-unit id="1r2MCu7" resname="Document">
         <source>Document</source>
         <target state="translated">Dokument</target>
+      </trans-unit>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target state="needs-l10n">Emne</target>
+      </trans-unit>
+      <trans-unit id="huykMiK" resname="Choose a title for the hearing post">
+        <source>Choose a title for the hearing post</source>
+        <target state="translated">Vælg et emne for høringssvar</target>
       </trans-unit>
     </body>
   </file>

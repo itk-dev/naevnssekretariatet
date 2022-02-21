@@ -45,9 +45,9 @@ class HearingPostType extends AbstractType
         }
 
         $builder
-            ->add('documentName', TextType::class, [
-                'label' => $this->translator->trans('Document name', [], 'case'),
-                'help' => $this->translator->trans('Choose a name for the document created', [], 'case'),
+            ->add('title', TextType::class, [
+                'label' => $this->translator->trans('Title', [], 'case'),
+                'help' => $this->translator->trans('Choose a title for the hearing post', [], 'case'),
             ])
             ->add('template', ChoiceType::class, [
                 'placeholder' => $this->translator->trans('Choose a template', [], 'case'),

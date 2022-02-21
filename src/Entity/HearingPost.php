@@ -64,7 +64,7 @@ class HearingPost implements LoggableEntityInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $documentName;
+    private $title;
 
     public function __construct()
     {
@@ -167,6 +167,7 @@ class HearingPost implements LoggableEntityInterface
     public function getLoggableProperties(): array
     {
         return [
+            'title',
             'recipient',
             'template',
             'forwardedOn',
@@ -197,14 +198,14 @@ class HearingPost implements LoggableEntityInterface
         return $this;
     }
 
-    public function getDocumentName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->documentName;
+        return $this->title;
     }
 
-    public function setDocumentName(string $documentName): self
+    public function setTitle(string $title): self
     {
-        $this->documentName = $documentName;
+        $this->title = $title;
 
         return $this;
     }
