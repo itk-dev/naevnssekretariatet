@@ -25,7 +25,8 @@ App\Entity\User:
 
   user-tess-holst:
     name: Tess Holst
-    email: board-member@example.com
+    # Must match the email generated in App\Security\AzureAdLoginAuthenticator::getBoardMemberUser.
+    email: '1111610556@cpr.example.com'
     roles: [ROLE_BOARD_MEMBER]
     favoriteMunicipality: '@municipality-aarhus'
     boardMember: '@board-member-tess-holst'
