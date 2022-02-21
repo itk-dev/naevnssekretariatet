@@ -18,6 +18,12 @@
     </div>
 {% endblock %}
 
+{% macro show_document_content_button(case, document) %}
+    <a target="document-content" href="{{ path('document_view', {id: case.id, document: document.id}) }}">
+        {{ document.documentName }}
+    </a>
+{% endmacro %}
+
 {% block content %}
     <main role="main" class="col-12 mt-3">
         <dl>
@@ -34,37 +40,39 @@
                 {{ hearingPost.template.name }}
             </dd>
             <dt>
-                {% trans %}Hearing post content{% endtrans %}
+                {% trans %}Document{% endtrans %}
             </dt>
             <dd>
-                {{ hearingPost.content }}
+                {{ _self.show_document_content_button(case, hearingPost.document) }}
             </dd>
+            {% if hearingPost.attachments %}
+                <dt>
+                    {% trans %}Attachments{% endtrans %}
+                </dt>
+                <dd>
+                    <ol class="list-unstyled">
+                        {% for attachment in hearingPost.attachments %}
+                            <li>
+                                {{ _self.show_document_content_button(case, attachment.document) }}
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </dd>
+            {% endif %}
         </dl>
-        <div class="table-responsive-sm"></div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{% trans %}Document name{% endtrans %}</th>
-                <th>{% trans %}Uploaded by{% endtrans %}</th>
-                <th>{% trans %}Upload date{% endtrans %}</th>
-                <th class="text-right">{% trans %}Functions{% endtrans %}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for document in hearingPost.documents %}
-                <tr>
-                    <td>{{ document.documentName|e }}</td>
-                    <td>{{ document.uploadedBy|e }}</td>
-                    <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
-                    <td class="text-right">
-                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
-                            <!-- Download button -->
-                            <a href="{{ url("document_download", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        <iframe name="document-content" style="border: none; width: 100%;" src="about:blank"></iframe>
     </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Compute height if iframe element to make it take up (most of) the remaining space on the page.
+        window.addEventListener('load', function () {
+            const iframe = document.querySelector('[name="document-content"]');
+            const rect = iframe.getBoundingClientRect()
+            iframe.style.height = (window.innerHeight-rect.top-40)+'px'
+        })
+    </script>
 {% endblock %}

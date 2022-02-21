@@ -2,22 +2,30 @@
 
 namespace App\Controller;
 
+use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
+use App\Entity\DigitalPost;
+use App\Entity\DigitalPostAttachment;
+use App\Entity\Document;
 use App\Entity\Hearing;
 use App\Entity\HearingPost;
+use App\Entity\User;
 use App\Exception\HearingException;
 use App\Form\HearingFinishType;
 use App\Form\HearingPostType;
 use App\Repository\DocumentRepository;
 use App\Repository\HearingPostRepository;
+use App\Service\DocumentUploader;
 use App\Service\MailTemplateHelper;
 use App\Service\PartyHelper;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/case")
@@ -99,7 +107,7 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearing}/create", name="case_hearing_post_create")
      */
-    public function hearingPostCreate(CaseEntity $case, DocumentRepository $documentRepository, Hearing $hearing, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
+    public function hearingPostCreate(CaseEntity $case, DocumentUploader $documentUploader, DocumentRepository $documentRepository, Hearing $hearing, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request, SluggerInterface $slugger, Filesystem $filesystem): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -123,7 +131,37 @@ class HearingController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $hearingPost->setHearing($hearing);
+
+            // Create new file from template
+            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
+
+            // Compute fitting name
+            $updatedFileName = $slugger->slug($hearingPost->getTemplate()->getName()).'-'.uniqid().'.pdf';
+
+            // Move file
+            $documentUploader->specifyDirectory('/case_documents/');
+            $updatedFileName = $documentUploader->uploadFile($fileName);
+
+            // Create document
+            $document = new Document();
+            $document->setFilename($updatedFileName);
+            $document->setDocumentName($hearingPost->getTitle());
+            $document->setHearingPost($hearingPost);
+            $hearingPost->setDocument($document);
+
+            /** @var User $user */
+            $user = $this->getUser();
+            $document->setUploadedBy($user);
+            $document->setType('Hearing');
+
+            // Create case document relation
+            $relation = new CaseDocumentRelation();
+            $relation->setCase($case);
+            $relation->setDocument($document);
+
             $hearing->setHasNewHearingPost(true);
+            $this->entityManager->persist($relation);
+            $this->entityManager->persist($document);
             $this->entityManager->persist($hearingPost);
             $this->entityManager->flush();
 
@@ -152,7 +190,7 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/edit", name="case_hearing_post_edit")
      */
-    public function hearingPostEdit(CaseEntity $case, DocumentRepository $documentRepository, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
+    public function hearingPostEdit(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, Filesystem $filesystem, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -173,6 +211,23 @@ class HearingController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // It is not sufficient to recreate document only if mail template is switched
+
+            // Create new file
+            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
+
+            // For now we just overwrite completely
+            $currentDocumentFileName = $hearingPost->getDocument()->getFilename();
+            $documentUploader->specifyDirectory('/case_documents/');
+            $documentUploader->replaceFile($fileName, $currentDocumentFileName);
+
+            // Update Document
+            /** @var User $user */
+            $user = $this->getUser();
+            $hearingPost->getDocument()->setDocumentName($hearingPost->getTitle());
+            $hearingPost->getDocument()->setUploadedBy($user);
+            $hearingPost->getDocument()->setUploadedAt(new DateTime('now'));
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('case_hearing_post_show', ['case' => $case->getId(), 'hearingPost' => $hearingPost->getId()]);
@@ -186,7 +241,7 @@ class HearingController extends AbstractController
     }
 
     /**
-     * @Route("/{case}/hearing/{hearingPost}/forward", name="case_hearing_post_forward")
+     * @Route("/{case}/hearing/{hearingPost}/forward", name="case_hearing_post_forward", methods={"POST"})
      */
     public function hearingPostForward(CaseEntity $case, HearingPost $hearingPost): Response
     {
@@ -196,7 +251,33 @@ class HearingController extends AbstractController
             throw new HearingException();
         }
 
-        // TODO: Send digital post envelope containing hearing post
+        // Create DigitalPost
+        $digitalPost = new DigitalPost();
+        $digitalPost->setDocument($hearingPost->getDocument());
+        $digitalPost->setEntityType(get_class($case));
+        $digitalPost->setEntityId($case->getId());
+
+        $recipient = (new DigitalPost\Recipient())
+            ->setName($hearingPost->getRecipient()->getName())
+            ->setIdentifierType($hearingPost->getRecipient()->getIdentifierType())
+            ->setIdentifier($hearingPost->getRecipient()->getIdentifier())
+            ->setAddress($hearingPost->getRecipient()->getAddress());
+        $digitalPost->addRecipient($recipient);
+
+        // Handle attachments
+        $attachments = $hearingPost->getAttachments();
+
+        foreach ($attachments as $attachment) {
+            $digitalPostAttachment = new DigitalPostAttachment();
+            $digitalPostAttachment->setDocument($attachment->getDocument());
+
+            $digitalPost->addAttachment($digitalPostAttachment);
+
+            $this->entityManager->persist($digitalPostAttachment);
+        }
+
+        $this->entityManager->persist($digitalPost);
+
         $today = new DateTime('today');
         $hearingPost->setForwardedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);

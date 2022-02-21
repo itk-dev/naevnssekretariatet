@@ -1,0 +1,17 @@
+ul#attachment-fields-list {
+    list-style: none;
+    padding: 0;
+
+    label {
+        display: none;
+    }
+
+    div[id^="hearing_post_attachments_"] {
+        display: flex;
+
+        div:nth-child(1) {
+            flex-grow: 1;
+            margin-right: 1em;
+        }
+    }
+}

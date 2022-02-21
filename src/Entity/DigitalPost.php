@@ -62,7 +62,7 @@ class DigitalPost
     private $sentAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Recipient::class, mappedBy="digitalPost", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Recipient::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist"})
      */
     private $recipients;
 
@@ -233,8 +233,9 @@ class DigitalPost
      */
     public function updateAttachmentPositions()
     {
-        foreach ($this->getAttachments() as $index => $attachment) {
-            $attachment->setPosition($index);
+        $index = 0;
+        foreach ($this->getAttachments() as $attachment) {
+            $attachment->setPosition($index++);
         }
     }
 }

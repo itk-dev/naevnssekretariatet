@@ -69,7 +69,7 @@ class DocumentUploader
         return $newFilename;
     }
 
-    private function getDirectory(): string
+    public function getDirectory(): string
     {
         return $this->baseDocumentDirectory.'/'.$this->documentDirectory;
     }
@@ -106,5 +106,37 @@ class DocumentUploader
     private function getFilepath(string $filename): string
     {
         return $this->baseDocumentDirectory.'/'.$this->documentDirectory.'/'.$filename;
+    }
+
+    /**
+     * Move a file into an upload folder.
+     *
+     * @return string the full path of the uploaded file
+     */
+    public function uploadFile(string $filePath)
+    {
+        $filename = pathinfo($filePath, PATHINFO_FILENAME);
+        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+
+        $safeFilename = $this->slugger->slug($filename);
+        $newFilename = $safeFilename.'-'.uniqid().'.'.$extension;
+
+        $targetPath = $this->getDirectory().'/'.$newFilename;
+        $this->filesystem->rename($filePath, $targetPath);
+
+        return $targetPath;
+    }
+
+    /**
+     * Moves file to new place and overwrites if file already exists.
+     *
+     * @return string the full path of the uploaded file
+     */
+    public function replaceFile(string $filePath, string $filename)
+    {
+        $targetPath = $this->getDirectory().'/'.pathinfo($filename, PATHINFO_BASENAME);
+        $this->filesystem->rename($filePath, $targetPath, true);
+
+        return $targetPath;
     }
 }

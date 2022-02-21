@@ -2,12 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\Document;
 use App\Entity\HearingPost;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -38,7 +37,6 @@ class HearingPostType extends AbstractType
     {
         $caseParties = $options['case_parties'];
         $availableTemplateChoices = $options['mail_template_choices'];
-        $availableCaseDocuments = $options['available_case_documents'];
 
         $templateChoices = [];
 
@@ -47,6 +45,10 @@ class HearingPostType extends AbstractType
         }
 
         $builder
+            ->add('title', TextType::class, [
+                'label' => $this->translator->trans('Title', [], 'case'),
+                'help' => $this->translator->trans('Choose a title for the hearing post', [], 'case'),
+            ])
             ->add('template', ChoiceType::class, [
                 'placeholder' => $this->translator->trans('Choose a template', [], 'case'),
                 'label' => $this->translator->trans('Mail template', [], 'case'),
@@ -57,18 +59,18 @@ class HearingPostType extends AbstractType
                 'label' => $this->translator->trans('Recipient', [], 'case'),
                 'choices' => $caseParties,
             ])
-            ->add('content', TextareaType::class, [
-                'label' => $this->translator->trans('Content', [], 'case'),
-            ])
-            ->add('documents', EntityType::class, [
-                'class' => Document::class,
-                'choices' => $availableCaseDocuments,
-                'placeholder' => $this->translator->trans('Choose documents', [], 'case'),
+            ->add('attachments', CollectionType::class, [
                 'label' => $this->translator->trans('Attach case documents', [], 'case'),
-                'multiple' => true,
-                'by_reference' => false,
-                'expanded' => true,
                 'required' => false,
+                'entry_type' => HearingPostAttachmentType::class,
+                'entry_options' => [
+                    'available_case_documents' => $options['available_case_documents'],
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                // Post update
+                'by_reference' => false,
             ])
         ;
     }

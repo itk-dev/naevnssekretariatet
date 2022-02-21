@@ -1037,6 +1037,34 @@
         <source>Look up address</source>
         <target>Look up address</target>
       </trans-unit>
+      <trans-unit id="g2sZA9Z" resname="Select a document">
+        <source>Select a document</source>
+        <target>Select a document</target>
+      </trans-unit>
+      <trans-unit id="R60pl4B" resname="Save hearing post">
+        <source>Save hearing post</source>
+        <target>Save hearing post</target>
+      </trans-unit>
+      <trans-unit id="anRJZ3." resname="Add another attachment">
+        <source>Add another attachment</source>
+        <target>Add another attachment</target>
+      </trans-unit>
+      <trans-unit id="4X60eZQ" resname="Remove document">
+        <source>Remove document</source>
+        <target>Remove document</target>
+      </trans-unit>
+      <trans-unit id="1r2MCu7" resname="Document">
+        <source>Document</source>
+        <target>Document</target>
+      </trans-unit>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="huykMiK" resname="Choose a title for the hearing post">
+        <source>Choose a title for the hearing post</source>
+        <target>Choose a title for the hearing post</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
