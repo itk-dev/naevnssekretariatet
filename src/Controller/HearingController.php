@@ -262,9 +262,7 @@ class HearingController extends AbstractController
 
         foreach ($attachments as $attachment) {
             $digitalPostAttachment = new DigitalPostAttachment();
-            $digitalPostAttachment->setPosition($attachment->getPosition());
             $digitalPostAttachment->setDocument($attachment->getDocument());
-            $digitalPostAttachment->setDigitalPost($digitalPost);
 
             $digitalPost->addAttachment($digitalPostAttachment);
 
