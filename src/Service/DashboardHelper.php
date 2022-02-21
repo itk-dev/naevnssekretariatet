@@ -44,17 +44,18 @@ class DashboardHelper
             'count' => $this->caseRepository->findCountOfCasesWithActiveHearingBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
+        // TODO: Show new hearing post again when it has been implemented
         // Has new party submission
-        $newPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
-            'assignedTo' => $user->getId(),
-            'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
-        ]]);
-
-        $row[] = [
-            'label' => $this->translator->trans('New post', [], 'dashboard'),
-            'url' => $newPartySubmissionUrl,
-            'count' => $this->caseRepository->findCountOfCasesWithNewHearingPostBy(['municipality' => $municipality, 'assignedTo' => $user]),
-        ];
+//        $newPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
+//            'assignedTo' => $user->getId(),
+//            'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
+//        ]]);
+//
+//        $row[] = [
+//            'label' => $this->translator->trans('New post', [], 'dashboard'),
+//            'url' => $newPartySubmissionUrl,
+//            'count' => $this->caseRepository->findCountOfCasesWithNewHearingPostBy(['municipality' => $municipality, 'assignedTo' => $user]),
+//        ];
 
         // On agenda
         $agendaUrl = $this->router->generate('case_index', ['case_filter' => [
@@ -114,17 +115,18 @@ class DashboardHelper
                 'count' => $this->caseRepository->findCountOfCasesWithActiveHearingBy(['board' => $board]),
             ];
 
+            // TODO: Show new hearing post again when it has been implemented
             // Has new party submission
-            $boardNewPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
-                'board' => $board->getId(),
-                'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
-            ]]);
-
-            $rows[] = [
-                'label' => $this->translator->trans('New post', [], 'dashboard'),
-                'url' => $boardNewPartySubmissionUrl,
-                'count' => $this->caseRepository->findCountOfCasesWithNewHearingPostBy(['board' => $board]),
-            ];
+//            $boardNewPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
+//                'board' => $board->getId(),
+//                'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
+//            ]]);
+//
+//            $rows[] = [
+//                'label' => $this->translator->trans('New post', [], 'dashboard'),
+//                'url' => $boardNewPartySubmissionUrl,
+//                'count' => $this->caseRepository->findCountOfCasesWithNewHearingPostBy(['board' => $board]),
+//            ];
 
             // On agenda
             $boardAgendaUrl = $this->router->generate('case_index', ['case_filter' => [

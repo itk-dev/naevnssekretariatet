@@ -128,8 +128,24 @@ class CaseEntityRepository extends ServiceEntityRepository
 
     public function findCountOfCasesWithActiveHearingBy(array $criteria): int
     {
-        // TODO: Update beneath when hearing stuff has been implemented
-        return -1;
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->select('count(c.id)')
+            ->join('c.hearing', 'h')
+            ->where('h.startedOn IS NOT NULL')
+            ->andWhere('h.finishedOn IS NULL')
+        ;
+
+        foreach ($criteria as $key => $value) {
+            // TODO: Update beneath to include objects without an id, e.g. scalar types
+            $parameterValue = $value->getId()->toBinary();
+            $parameterName = uniqid($key);
+            $qb->andWhere('c.'.$key.'= :'.$parameterName)
+                ->setParameter($parameterName, $parameterValue)
+            ;
+        }
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
     public function findCountOfCasesWithNewHearingPostBy(array $criteria): int
