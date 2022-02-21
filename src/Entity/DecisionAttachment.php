@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DecisionAttachmentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DecisionAttachmentRepository::class)
@@ -20,12 +21,14 @@ class DecisionAttachment
     /**
      * @ORM\ManyToOne(targetEntity=Decision::class, inversedBy="attachments")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull()
      */
     private $decision;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull()
      */
     private $document;
 

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DecisionRepository::class)
@@ -36,8 +37,9 @@ class Decision
     private $caseEntity;
 
     /**
-     * @ORM\OneToMany(targetEntity=DecisionAttachment::class, mappedBy="decision", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=DecisionAttachment::class, mappedBy="decision", orphanRemoval=true, cascade={"persist"})
      * @ORM\OrderBy({"position": "ASC"})
+     * @Assert\Valid
      */
     private $attachments;
 
@@ -45,6 +47,11 @@ class Decision
      * @ORM\ManyToMany(targetEntity=Party::class)
      */
     private $recipients;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
 
     public function __construct()
     {
@@ -144,6 +151,18 @@ class Decision
     public function removeRecipient(Party $recipient): self
     {
         $this->recipients->removeElement($recipient);
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }
