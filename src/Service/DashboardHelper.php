@@ -44,17 +44,18 @@ class DashboardHelper
             'count' => $this->caseRepository->findCountOfCasesWithActiveHearingBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
+        // TODO: Show new hearing post again when it has been implemented
         // Has new party submission
-        $newPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
-            'assignedTo' => $user->getId(),
-            'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
-        ]]);
-
-        $row[] = [
-            'label' => $this->translator->trans('New post', [], 'dashboard'),
-            'url' => $newPartySubmissionUrl,
-            'count' => $this->caseRepository->findCountOfCasesWithNewHearingPostBy(['municipality' => $municipality, 'assignedTo' => $user]),
-        ];
+//        $newPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
+//            'assignedTo' => $user->getId(),
+//            'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
+//        ]]);
+//
+//        $row[] = [
+//            'label' => $this->translator->trans('New post', [], 'dashboard'),
+//            'url' => $newPartySubmissionUrl,
+//            'count' => $this->caseRepository->findCountOfCasesWithNewHearingPostBy(['municipality' => $municipality, 'assignedTo' => $user]),
+//        ];
 
         // On agenda
         $agendaUrl = $this->router->generate('case_index', ['case_filter' => [
@@ -80,20 +81,11 @@ class DashboardHelper
             'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
-        // TODO: When all rows are fully implemented update beneath
-//        $count = array_sum(array_column($row, 'count'));
-        // Fix to avoid counting -1 which represent not implemented yet
-        $counts = array_column($row, 'count');
-        $sum = 0;
-        foreach ($counts as $count) {
-            if (-1 !== $count) {
-                $sum += $count;
-            }
-        }
+        $count = array_sum(array_column($row, 'count'));
 
         return [
             'label' => $this->translator->trans('My cases', [], 'dashboard'),
-            'count' => $sum,
+            'count' => $count,
             'rows' => $row,
         ];
     }
@@ -123,17 +115,18 @@ class DashboardHelper
                 'count' => $this->caseRepository->findCountOfCasesWithActiveHearingBy(['board' => $board]),
             ];
 
+            // TODO: Show new hearing post again when it has been implemented
             // Has new party submission
-            $boardNewPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
-                'board' => $board->getId(),
-                'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
-            ]]);
-
-            $rows[] = [
-                'label' => $this->translator->trans('New post', [], 'dashboard'),
-                'url' => $boardNewPartySubmissionUrl,
-                'count' => $this->caseRepository->findCountOfCasesWithNewHearingPostBy(['board' => $board]),
-            ];
+//            $boardNewPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
+//                'board' => $board->getId(),
+//                'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
+//            ]]);
+//
+//            $rows[] = [
+//                'label' => $this->translator->trans('New post', [], 'dashboard'),
+//                'url' => $boardNewPartySubmissionUrl,
+//                'count' => $this->caseRepository->findCountOfCasesWithNewHearingPostBy(['board' => $board]),
+//            ];
 
             // On agenda
             $boardAgendaUrl = $this->router->generate('case_index', ['case_filter' => [
@@ -159,20 +152,11 @@ class DashboardHelper
                 'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['board' => $board]),
             ];
 
-            // TODO: When all rows are fully implemented update beneath
-//            $boardCount = array_sum(array_column($rows, 'count'));
-            // Fix to avoid counting -1 which represent not implemented yet
-            $counts = array_column($rows, 'count');
-            $boardSum = 0;
-            foreach ($counts as $count) {
-                if (-1 !== $count) {
-                    $boardSum += $count;
-                }
-            }
+            $boardCount = array_sum(array_column($rows, 'count'));
 
             $boardsInformation[] = [
                 'label' => $board->getName(),
-                'count' => $boardSum,
+                'count' => $boardCount,
                 'rows' => $rows,
             ];
         }
