@@ -131,7 +131,7 @@
       </trans-unit>
       <trans-unit id="gmq5sjf" resname="Please upload a valid document">
         <source>Please upload a valid document</source>
-        <target state="needs-l10n">Upload venligst et gyldigt dokument</target>
+        <target state="translated">Upload venligst et gyldigt dokument</target>
       </trans-unit>
     </body>
   </file>

@@ -265,6 +265,38 @@
         <source>Mail template macro</source>
         <target>Mail template macro</target>
       </trans-unit>
+      <trans-unit id="kStF.jD" resname="The value to insert to use the macro in a template, i.e. if the name is &lt;code&gt;name_and_address&lt;/code&gt; then &lt;code&gt;${name_and_address}&lt;/code&gt; can be used in the template.">
+        <source>The value to insert to use the macro in a template, i.e. if the name is &lt;code&gt;name_and_address&lt;/code&gt; then &lt;code&gt;${name_and_address}&lt;/code&gt; can be used in the template.</source>
+        <target><![CDATA[The value to insert to use the macro in a template, i.e. if the name is <code>name_and_address</code> then <code>${name_and_address}</code> can be used in the template.]]></target>
+      </trans-unit>
+      <trans-unit id="3Qx4nzD" resname="The content of the expanded macro.">
+        <source>The content of the expanded macro.</source>
+        <target>The content of the expanded macro.</target>
+      </trans-unit>
+      <trans-unit id=".GZdt2y" resname="Select template types that this macro can be used for. If no template types are selected, the macro can be used in all templates.">
+        <source>Select template types that this macro can be used for. If no template types are selected, the macro can be used in all templates.</source>
+        <target>Select template types that this macro can be used for. If no template types are selected, the macro can be used in all templates.</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target>Template</target>
+      </trans-unit>
+      <trans-unit id="wyWbfaC" resname="Template Types">
+        <source>Template Types</source>
+        <target>Template Types</target>
+      </trans-unit>
+      <trans-unit id="R70pB1_" resname="Content">
+        <source>Content</source>
+        <target>Content</target>
+      </trans-unit>
+      <trans-unit id="zfFuwRW" resname="Macro">
+        <source>Macro</source>
+        <target>Macro</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

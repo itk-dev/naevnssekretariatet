@@ -152,11 +152,10 @@ class SidebarController extends AbstractController
         // $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['agenda_case_item_presentation'], $agendaId, $agendaItemId, $activeRoute),
         // $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['agenda_case_item_decision_proposal'], $agendaId, $agendaItemId, $activeRoute),
 
-        if ($isInspection && ($isCaseworker || $isAdministration)) {
-            $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_case_item_inspection', 'agenda_case_item_inspection_letter'], $agendaId, $agendaItemId, $activeRoute);
-        }
-
-        $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Back to agenda', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute);
+        //TODO: For Phase one they will not be making inspection letters through TVIST1
+//        if ($isInspection && ($isCaseworker || $isAdministration)) {
+//            $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_case_item_inspection', 'agenda_case_item_inspection_letter'], $agendaId, $agendaItemId, $activeRoute);
+//        }
 
         return $this->render('sidebar/_submenu.html.twig', [
             'submenu_items' => $submenuItems,
@@ -168,7 +167,6 @@ class SidebarController extends AbstractController
         $submenuItems = [
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Agenda item', [], 'sidebar'), ['agenda_item_edit'], $agendaId, $agendaItemId, $activeRoute),
             $this->generateAgendaItemSubmenuItem($this->translator->trans('Documents', [], 'sidebar'), ['agenda_manuel_item_documents', 'agenda_manuel_item_upload_document'], $agendaId, $agendaItemId, $activeRoute),
-            $this->generateSubmenuItem($this->translator->trans('Back to agenda', [], 'sidebar'), ['agenda_show'], $agendaId, $activeRoute),
         ];
 
         return $this->render('sidebar/_submenu.html.twig', [

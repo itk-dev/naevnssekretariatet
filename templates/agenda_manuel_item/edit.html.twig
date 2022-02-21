@@ -16,6 +16,9 @@
                 <p class="text-muted"><small>{% trans %}Edit agenda item{% endtrans %}</small></p>
             {% endif %}
         </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ url('agenda_show', {id: agenda_item.agenda.id}) }}" role="button">{% trans %}Back to agenda{% endtrans %}</a>
+        </div>
     </div>
 {% endblock %}
 

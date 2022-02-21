@@ -17,6 +17,7 @@
             {% endif %}
         </div>
         <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ url('agenda_show', {id: agenda_item.agenda.id}) }}" role="button">{% trans %}Back to agenda{% endtrans %}</a>
             <a class="btn btn-primary" href="{{ url('case_summary', {id: agenda_item.caseEntity.id}) }}" role="button">{% trans %}Show case{% endtrans %}</a>
         </div>
     </div>

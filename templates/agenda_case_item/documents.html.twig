@@ -16,6 +16,7 @@
         </div>
         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
             <div class="col-auto">
+                <a class="btn btn-secondary" href="{{ url('agenda_show', {id: agenda_item.agenda.id}) }}" role="button">{% trans %}Back to agenda{% endtrans %}</a>
                 <a class="btn btn-primary {% if agenda.isFinished() %} disabled {% endif %}" href="{{ url('agenda_case_item_document_attach', {id: agenda.id, agenda_item_id: agenda_item.id}) }}" role="button">{% trans %}Attach documents{% endtrans %}</a>
             </div>
         {% endif %}
