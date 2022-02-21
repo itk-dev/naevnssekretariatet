@@ -107,4 +107,12 @@ class DocumentUploader
     {
         return $this->baseDocumentDirectory.'/'.$this->documentDirectory.'/'.$filename;
     }
+
+    /**
+     * Moves file to new place and overwrites if file already exists.
+     */
+    public function moveFile(string $originalFileName, string $updatedFileName)
+    {
+        $this->filesystem->rename($originalFileName, $this->getDirectory().'/'.$updatedFileName, true);
+    }
 }

@@ -136,11 +136,11 @@ class HearingController extends AbstractController
             $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
 
             // Compute fitting name
-            $documentUploader->specifyDirectory('/case_documents/');
             $updatedFileName = $slugger->slug($hearingPost->getTemplate()->getName()).'-'.uniqid().'.pdf';
 
-            // Rename file
-            $filesystem->rename($fileName, $documentUploader->getDirectory().'/'.$updatedFileName, true);
+            // Move file
+            $documentUploader->specifyDirectory('/case_documents/');
+            $documentUploader->moveFile($fileName, $updatedFileName);
 
             // Create document
             $document = new Document();
@@ -219,7 +219,7 @@ class HearingController extends AbstractController
             // For now we just overwrite completely
             $currentDocumentFileName = $hearingPost->getDocument()->getFilename();
             $documentUploader->specifyDirectory('/case_documents/');
-            $filesystem->rename($fileName, $documentUploader->getDirectory().'/'.$currentDocumentFileName, true);
+            $documentUploader->moveFile($fileName, $currentDocumentFileName);
 
             // Update Document
             /** @var User $user */
