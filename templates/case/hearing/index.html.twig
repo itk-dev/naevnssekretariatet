@@ -137,7 +137,9 @@
                                         <div class="col">
                                             <a class="btn btn-primary" href="{{ path('case_hearing_post_show', {case: case.id, hearingPost: post.id}) }}" role="button">{% trans %}Show{% endtrans %}</a>
                                             {% if not post.getForwardedOn %}
-                                                <a class="btn btn-warning" href="{{ path('case_hearing_post_forward', {case: case.id, hearingPost: post.id}) }}" role="button">{% trans %}Forward{% endtrans %}</a>
+                                                <form action="{{ path('case_hearing_post_forward', {case: case.id, hearingPost: post.id}) }}" method="post" style="display: inline-block">
+                                                    <button class="btn btn-warning">{% trans %}Forward{% endtrans %}</button>
+                                                </form>
                                             {% endif %}
                                         </div>
                                     </div>

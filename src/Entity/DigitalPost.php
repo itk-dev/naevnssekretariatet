@@ -62,7 +62,7 @@ class DigitalPost
     private $sentAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Recipient::class, mappedBy="digitalPost", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Recipient::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist"})
      */
     private $recipients;
 

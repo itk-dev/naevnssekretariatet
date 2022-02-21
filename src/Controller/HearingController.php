@@ -241,7 +241,7 @@ class HearingController extends AbstractController
     }
 
     /**
-     * @Route("/{case}/hearing/{hearingPost}/forward", name="case_hearing_post_forward")
+     * @Route("/{case}/hearing/{hearingPost}/forward", name="case_hearing_post_forward", methods={"POST"})
      */
     public function hearingPostForward(CaseEntity $case, HearingPost $hearingPost): Response
     {
@@ -256,6 +256,13 @@ class HearingController extends AbstractController
         $digitalPost->setDocument($hearingPost->getDocument());
         $digitalPost->setEntityType(get_class($case));
         $digitalPost->setEntityId($case->getId());
+
+        $recipient = (new DigitalPost\Recipient())
+            ->setName($hearingPost->getRecipient()->getName())
+            ->setIdentifierType($hearingPost->getRecipient()->getIdentifierType())
+            ->setIdentifier($hearingPost->getRecipient()->getIdentifier())
+            ->setAddress($hearingPost->getRecipient()->getAddress());
+        $digitalPost->addRecipient($recipient);
 
         // Handle attachments
         $attachments = $hearingPost->getAttachments();
