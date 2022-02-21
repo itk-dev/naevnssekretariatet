@@ -6,6 +6,7 @@ use App\Entity\HearingPost;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -44,6 +45,10 @@ class HearingPostType extends AbstractType
         }
 
         $builder
+            ->add('documentName', TextType::class, [
+                'label' => $this->translator->trans('Document name', [], 'case'),
+                'help' => $this->translator->trans('Choose a name for the document created', [], 'case'),
+            ])
             ->add('template', ChoiceType::class, [
                 'placeholder' => $this->translator->trans('Choose a template', [], 'case'),
                 'label' => $this->translator->trans('Mail template', [], 'case'),

@@ -61,6 +61,11 @@ class HearingPost implements LoggableEntityInterface
      */
     private $document;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $documentName;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -188,6 +193,18 @@ class HearingPost implements LoggableEntityInterface
     public function setDocument(?Document $document): self
     {
         $this->document = $document;
+
+        return $this;
+    }
+
+    public function getDocumentName(): ?string
+    {
+        return $this->documentName;
+    }
+
+    public function setDocumentName(string $documentName): self
+    {
+        $this->documentName = $documentName;
 
         return $this;
     }

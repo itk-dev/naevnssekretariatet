@@ -1069,6 +1069,14 @@
         <source>Remove document</source>
         <target>Remove document</target>
       </trans-unit>
+      <trans-unit id="wr_sKPo" resname="Choose a name for the document created">
+        <source>Choose a name for the document created</source>
+        <target>Choose a name for the document created</target>
+      </trans-unit>
+      <trans-unit id="1r2MCu7" resname="Document">
+        <source>Document</source>
+        <target>Document</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
