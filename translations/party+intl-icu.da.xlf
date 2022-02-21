@@ -25,14 +25,6 @@
         <source>Name</source>
         <target>Navn</target>
       </trans-unit>
-      <trans-unit id="7rTCvQD" resname="CPR">
-        <source>CPR</source>
-        <target state="translated">CPR-nummer</target>
-      </trans-unit>
-      <trans-unit id="Vu_PIJV" resname="Address">
-        <source>Address</source>
-        <target>Adresse</target>
-      </trans-unit>
       <trans-unit id="MG8bsgZ" resname="Phone number">
         <source>Phone number</source>
         <target state="translated">Telefonnummer</target>

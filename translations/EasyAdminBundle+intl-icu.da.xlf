@@ -9,14 +9,6 @@
         <source>label.form.empty_value</source>
         <target>Ingen</target>
       </trans-unit>
-      <trans-unit id="r2IGHZo" resname="user.logged_in_as">
-        <source>user.logged_in_as</source>
-        <target>Logget ind som</target>
-      </trans-unit>
-      <trans-unit id="xxVfXla" resname="user.anonymous">
-        <source>user.anonymous</source>
-        <target>Anonym bruger</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>

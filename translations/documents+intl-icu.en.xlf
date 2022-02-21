@@ -53,17 +53,9 @@
         <source>Provide a recognizable name for the document</source>
         <target>Provide a recognizable name for the document</target>
       </trans-unit>
-      <trans-unit id="wgscFcd" resname="Select a document type">
-        <source>Select a document type</source>
-        <target>Select a document type</target>
-      </trans-unit>
       <trans-unit id="KmdBDvj" resname="Provide a document type">
         <source>Provide a document type</source>
         <target>Provide a document type</target>
-      </trans-unit>
-      <trans-unit id="apXUKzK" resname="Chose a file">
-        <source>Chose a file</source>
-        <target>Chose a file</target>
       </trans-unit>
       <trans-unit id="p9p3rZy" resname="Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
         <source>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>

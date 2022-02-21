@@ -129,14 +129,6 @@
         <source>Complainant address</source>
         <target>Klagers adresse</target>
       </trans-unit>
-      <trans-unit id="NOBF55P" resname="Complainant phone number">
-        <source>Complainant phone number</source>
-        <target>Klagers telefonnummer</target>
-      </trans-unit>
-      <trans-unit id="KWST_ym" resname="Complainant postal code">
-        <source>Complainant postal code</source>
-        <target>Klagers postnummer</target>
-      </trans-unit>
       <trans-unit id="A8h1npn" resname="Hearing">
         <source>Hearing</source>
         <target>Partshøring</target>
@@ -201,66 +193,6 @@
         <source>Add reminder</source>
         <target>Tilføj påmindelse</target>
       </trans-unit>
-      <trans-unit id="IeSesrK" resname="Log">
-        <source>Log</source>
-        <target>Log</target>
-      </trans-unit>
-      <trans-unit id="rDm9OIj" resname="Dato">
-        <source>Dato</source>
-        <target>Dato</target>
-      </trans-unit>
-      <trans-unit id="6jRHZCk" resname="AZ-ident">
-        <source>AZ-ident</source>
-        <target>AZ-ident</target>
-      </trans-unit>
-      <trans-unit id="uq3fcPt" resname="Type">
-        <source>Type</source>
-        <target>Type</target>
-      </trans-unit>
-      <trans-unit id="Um4Ah8w" resname="Description">
-        <source>Description</source>
-        <target>Beskrivelse</target>
-      </trans-unit>
-      <trans-unit id="inUlsUk" resname="Notes">
-        <source>Notes</source>
-        <target>Noter</target>
-      </trans-unit>
-      <trans-unit id="y181RZk" resname="Create new note">
-        <source>Create new note</source>
-        <target>Opret ny note</target>
-      </trans-unit>
-      <trans-unit id="Myd0kC4" resname="Hide quick note">
-        <source>Hide quick note</source>
-        <target>Fjern opret note</target>
-      </trans-unit>
-      <trans-unit id="_CT5F_I" resname="Show quick note">
-        <source>Show quick note</source>
-        <target>Vis opret note</target>
-      </trans-unit>
-      <trans-unit id="VK5uJNs" resname="Add a descriptive subject for ease of finding the note later on">
-        <source>Add a descriptive subject for ease of finding the note later on</source>
-        <target>Tilføj et beskrivende emne for lettere at kunne finde noten senere</target>
-      </trans-unit>
-      <trans-unit id="0psjY1J" resname="Note content">
-        <source>Note content</source>
-        <target>Note indhold</target>
-      </trans-unit>
-      <trans-unit id="ZQHhztj" resname="Save note">
-        <source>Save note</source>
-        <target>Opret note</target>
-      </trans-unit>
-      <trans-unit id="vvGWCAh" resname="List of existion notes">
-        <source>List of existion notes</source>
-        <target>Overblik over noter på sagen</target>
-      </trans-unit>
-      <trans-unit id="cezsiM6" resname="All notes">
-        <source>All notes</source>
-        <target>Alle noter</target>
-      </trans-unit>
-      <trans-unit id="ndqry5I" resname="Add a quick note">
-        <source>Add a quick note</source>
-        <target>Tilføj en note</target>
-      </trans-unit>
       <trans-unit id="DiWTxj9" resname="Create representative">
         <source>Create representative</source>
         <target>Opret repræsentant</target>
@@ -277,17 +209,9 @@
         <source>Lease</source>
         <target>Lejemål</target>
       </trans-unit>
-      <trans-unit id="VmP9so5" resname="Date for receiving complaint">
-        <source>Date for receiving complaint</source>
-        <target>Klage modtaget</target>
-      </trans-unit>
       <trans-unit id=".UpoVLi" resname="Complaint fee in DKK">
         <source>Complaint fee in DKK</source>
         <target>Klagegebyr</target>
-      </trans-unit>
-      <trans-unit id="WQvNeqY" resname="CPR number">
-        <source>CPR number</source>
-        <target state="translated">CPR–nummer</target>
       </trans-unit>
       <trans-unit id="MAUEDTa" resname="Telephone number">
         <source>Telephone number</source>
@@ -313,22 +237,6 @@
         <source>Validate the legitimacy of the address by pressing the validate button</source>
         <target state="translated">Valider adressen ved at klikke på “Valider adresse”-knappen</target>
       </trans-unit>
-      <trans-unit id="MpAtaJD" resname="Alternative address">
-        <source>Alternative address</source>
-        <target>Alternativ adresse</target>
-      </trans-unit>
-      <trans-unit id="povv.af" resname="Property number">
-        <source>Property number</source>
-        <target>Ejendomsnummer</target>
-      </trans-unit>
-      <trans-unit id="Nm5f9MJ" resname="Property name">
-        <source>Property name</source>
-        <target>Ejendoms kaldenavn</target>
-      </trans-unit>
-      <trans-unit id="R9DJka7" resname="Property type">
-        <source>Property type</source>
-        <target>Boligtype</target>
-      </trans-unit>
       <trans-unit id="3NHVIj9" resname="Name">
         <source>Name</source>
         <target>Navn</target>
@@ -336,10 +244,6 @@
       <trans-unit id="9gcREM5" resname="Journal number">
         <source>Journal number</source>
         <target>Journalnr.</target>
-      </trans-unit>
-      <trans-unit id="2_1xXCk" resname="Edit tenant">
-        <source>Edit tenant</source>
-        <target>Rediger lejer</target>
       </trans-unit>
       <trans-unit id="4n3Tx2Z" resname="Status info">
         <source>Status info</source>
@@ -356,10 +260,6 @@
       <trans-unit id="Cz2n9yX" resname="Current casestatus">
         <source>Current casestatus</source>
         <target>Aktuel sagsstatus</target>
-      </trans-unit>
-      <trans-unit id="b4JB5A4" resname="Parties hearing">
-        <source>Parties hearing</source>
-        <target>Partshøring</target>
       </trans-unit>
       <trans-unit id="m.0YbeZ" resname="Initiative assigne">
         <source>Initiative assigne</source>
@@ -385,14 +285,6 @@
         <source>Process</source>
         <target>Process</target>
       </trans-unit>
-      <trans-unit id="D99IX1v" resname="Agenda">
-        <source>Agenda</source>
-        <target>Dagsorden</target>
-      </trans-unit>
-      <trans-unit id="r7_xSJO" resname="Add case to selected agenda">
-        <source>Add case to selected agenda</source>
-        <target>Tilføj sag til dagsorden</target>
-      </trans-unit>
       <trans-unit id="5fhyS2t" resname="Enter a new date">
         <source>Enter a new date</source>
         <target>Vælg en ny dato</target>
@@ -408,10 +300,6 @@
       <trans-unit id="Uz3lvy0" resname="This information is needed for journaling purpose">
         <source>This information is needed for journaling purpose</source>
         <target>Denne information skal bruges i forbindelse med jorunalisering</target>
-      </trans-unit>
-      <trans-unit id="dKps013" resname="Selected agenda">
-        <source>Selected agenda</source>
-        <target>Valgt dagsorden</target>
       </trans-unit>
       <trans-unit id="SBbL.XS" resname="Board">
         <source>Board</source>
@@ -429,10 +317,6 @@
         <source>End time</source>
         <target state="translated">Sluttidspunkt</target>
       </trans-unit>
-      <trans-unit id="w4EvxKy" resname="Remove">
-        <source>Remove</source>
-        <target>Fjern</target>
-      </trans-unit>
       <trans-unit id="3Qrnpcv" resname="Save changes">
         <source>Save changes</source>
         <target>Gem ændringer</target>
@@ -444,10 +328,6 @@
       <trans-unit id="xNa3ck9" resname="Reschedule deadline">
         <source>Reschedule deadline</source>
         <target state="translated">Ændr tidsfrist</target>
-      </trans-unit>
-      <trans-unit id="J6Y6.ic" resname="Remove from agenda">
-        <source>Remove from agenda</source>
-        <target>Fjern fra dagsorden</target>
       </trans-unit>
       <trans-unit id="M4PGNGw" resname="Casesummary">
         <source>Casesummary</source>
@@ -573,10 +453,6 @@
         <source>Add case to agenda</source>
         <target>Tilføj til dagsorden</target>
       </trans-unit>
-      <trans-unit id="r6Y2tp2" resname="No current active agenda available">
-        <source>No current active agenda available</source>
-        <target state="translated">Ingen aktive dagsordener</target>
-      </trans-unit>
       <trans-unit id="3TV2EFD" resname="Active agenda">
         <source>Active agenda</source>
         <target>Aktiv dagsorden</target>
@@ -617,14 +493,6 @@
         <source>Choose a board</source>
         <target>Vælg et nævn</target>
       </trans-unit>
-      <trans-unit id="_TefpIO" resname="Sub board">
-        <source>Sub board</source>
-        <target>Undernævn</target>
-      </trans-unit>
-      <trans-unit id="1UAwgie" resname="Choose a sub board board">
-        <source>Choose a sub board board</source>
-        <target>Vælg et undernævn</target>
-      </trans-unit>
       <trans-unit id="j1Jgg.v" resname="Complainant phone">
         <source>Complainant phone</source>
         <target>Klagers telefonnummer</target>
@@ -633,29 +501,9 @@
         <source>Select a complaint category</source>
         <target>Vælg en klagetype</target>
       </trans-unit>
-      <trans-unit id="GvhRkHM" resname="Size">
-        <source>Size</source>
-        <target state="translated">Lejestørrelse</target>
-      </trans-unit>
-      <trans-unit id="tA9IUrc" resname="Create Case">
-        <source>Create Case</source>
-        <target>Opret sag</target>
-      </trans-unit>
       <trans-unit id="bPuFPO8" resname="Create new Case">
         <source>Create new Case</source>
         <target>Opret ny sag</target>
-      </trans-unit>
-      <trans-unit id="PKHq5DQ" resname="Complainant CPR">
-        <source>Complainant CPR</source>
-        <target state="translated">Klagers CPR-nummer</target>
-      </trans-unit>
-      <trans-unit id="UqqMLr2" resname="Complainant street name and number">
-        <source>Complainant street name and number</source>
-        <target>Klagers vej og vejnr.</target>
-      </trans-unit>
-      <trans-unit id="6raqS39" resname="Complainant city">
-        <source>Complainant city</source>
-        <target>Klagers by</target>
       </trans-unit>
       <trans-unit id="sFKfeQz" resname="Complainant cadastral number">
         <source>Complainant cadastral number</source>
@@ -664,22 +512,6 @@
       <trans-unit id="UcF5Wrz" resname="Accused">
         <source>Accused</source>
         <target>Modpart</target>
-      </trans-unit>
-      <trans-unit id="11NLkDY" resname="Accused CPR">
-        <source>Accused CPR</source>
-        <target state="translated">Modparts CPR-nummer</target>
-      </trans-unit>
-      <trans-unit id="OAXllaP" resname="Accused street name and number">
-        <source>Accused street name and number</source>
-        <target>Modpart vej og vejnr.</target>
-      </trans-unit>
-      <trans-unit id="aMi02hB" resname="Accused postal code">
-        <source>Accused postal code</source>
-        <target state="translated">Modparts postnummer</target>
-      </trans-unit>
-      <trans-unit id="VjJ5U6o" resname="Accused city">
-        <source>Accused city</source>
-        <target state="translated">Modparts by</target>
       </trans-unit>
       <trans-unit id="XRZYp7m" resname="Accused cadastral number">
         <source>Accused cadastral number</source>
@@ -696,18 +528,6 @@
       <trans-unit id="kovWgmq" resname="Has vacated">
         <source>Has vacated</source>
         <target>Er fraflyttet</target>
-      </trans-unit>
-      <trans-unit id="liFq6DR" resname="Lease street name and number">
-        <source>Lease street name and number</source>
-        <target>Lejemål vej og vejnr.</target>
-      </trans-unit>
-      <trans-unit id="uvA.iav" resname="Lease postal code">
-        <source>Lease postal code</source>
-        <target state="translated">Lejemåls postnummer</target>
-      </trans-unit>
-      <trans-unit id="zSTl5TQ" resname="Lease city">
-        <source>Lease city</source>
-        <target state="translated">Lejemåls by</target>
       </trans-unit>
       <trans-unit id="9p.SY0Z" resname="Big">
         <source>Big</source>
@@ -817,10 +637,6 @@
         <source>Counterpart name</source>
         <target>Modparts navn</target>
       </trans-unit>
-      <trans-unit id="669PzEA" resname="Counterpart CPR">
-        <source>Counterpart CPR</source>
-        <target state="translated">Modparts CPR-nummer</target>
-      </trans-unit>
       <trans-unit id="ObNtONb" resname="Condition">
         <source>Condition</source>
         <target>Forhold</target>
@@ -832,10 +648,6 @@
       <trans-unit id="yB1Z2So" resname="Lease address">
         <source>Lease address</source>
         <target>Lejemålets adresse</target>
-      </trans-unit>
-      <trans-unit id="qd76FPI" resname="Show BBR-Meddelelse for lease">
-        <source>Show BBR-Meddelelse for lease</source>
-        <target state="translated">Vis BBR-Meddelelse for lejemål</target>
       </trans-unit>
       <trans-unit id="do5djkp" resname="Show BBR-Meddelelse for lease (PDF)">
         <source>Show BBR-Meddelelse for lease (PDF)</source>
@@ -908,14 +720,6 @@
       <trans-unit id="AQx0Y8J" resname="Reschedule to">
         <source>Reschedule to</source>
         <target state="translated">Ændr til</target>
-      </trans-unit>
-      <trans-unit id="SI9wKXG" resname="Reschedule processing deadline">
-        <source>Reschedule processing deadline</source>
-        <target>Rediger sagsbehandlingsfrist</target>
-      </trans-unit>
-      <trans-unit id="uKdkYxr" resname="Case processing finish deadline">
-        <source>Case processing finish deadline</source>
-        <target>Afsluttet sagsbehandlingsfrist</target>
       </trans-unit>
       <trans-unit id="N9rZHfe" resname="days ago">
         <source>days ago</source>

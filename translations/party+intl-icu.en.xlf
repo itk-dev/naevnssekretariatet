@@ -25,14 +25,6 @@
         <source>Name</source>
         <target>Name</target>
       </trans-unit>
-      <trans-unit id="7rTCvQD" resname="CPR">
-        <source>CPR</source>
-        <target>CPR</target>
-      </trans-unit>
-      <trans-unit id="Vu_PIJV" resname="Address">
-        <source>Address</source>
-        <target>Address</target>
-      </trans-unit>
       <trans-unit id="MG8bsgZ" resname="Phone number">
         <source>Phone number</source>
         <target>Phone number</target>
@@ -88,10 +80,6 @@
       <trans-unit id="mxBYf4S" resname="Identifier">
         <source>Identifier</source>
         <target>Identifier</target>
-      </trans-unit>
-      <trans-unit id="Y9zriAC" resname="Phone">
-        <source>Phone</source>
-        <target>Phone</target>
       </trans-unit>
     </body>
   </file>

@@ -61,18 +61,6 @@
         <source>Create reminder</source>
         <target>Opret påmindelse</target>
       </trans-unit>
-      <trans-unit id="uCDKt07" resname="active reminders">
-        <source>active reminders</source>
-        <target>aktive påmindelser</target>
-      </trans-unit>
-      <trans-unit id="S5sqsW3" resname="active reminder">
-        <source>active reminder</source>
-        <target>aktiv påmindelse</target>
-      </trans-unit>
-      <trans-unit id="NWWysNz" resname="No active reminders">
-        <source>No active reminders</source>
-        <target>Ingen aktive påmindelser</target>
-      </trans-unit>
       <trans-unit id="HxNTsFX" resname="Edit reminder">
         <source>Edit reminder</source>
         <target>Rediger påmindelse</target>
@@ -112,22 +100,6 @@
       <trans-unit id="hz.vdg5" resname="Sunday">
         <source>Sunday</source>
         <target>Søndag</target>
-      </trans-unit>
-      <trans-unit id="vk88k.W" resname="Select period">
-        <source>Select period</source>
-        <target>Vælg tidsperiode</target>
-      </trans-unit>
-      <trans-unit id="UqfaRgF" resname="Next 7 days">
-        <source>Next 7 days</source>
-        <target>De næste 7 dage</target>
-      </trans-unit>
-      <trans-unit id="qcydPfe" resname="Next 14 days">
-        <source>Next 14 days</source>
-        <target>De næste 14 dage</target>
-      </trans-unit>
-      <trans-unit id="ycRLTHH" resname="Next 30 days">
-        <source>Next 30 days</source>
-        <target>De næste 30 dage</target>
       </trans-unit>
       <trans-unit id="RGQGnCA" resname="No reminders within the week.">
         <source>No reminders within the week.</source>

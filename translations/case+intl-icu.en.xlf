@@ -105,10 +105,6 @@
         <source>Complainant</source>
         <target>Complainant</target>
       </trans-unit>
-      <trans-unit id="PKHq5DQ" resname="Complainant CPR">
-        <source>Complainant CPR</source>
-        <target>Complainant CPR</target>
-      </trans-unit>
       <trans-unit id="10nq6fg" resname="Complainant address">
         <source>Complainant address</source>
         <target>Complainant address</target>
@@ -128,10 +124,6 @@
       <trans-unit id="UcF5Wrz" resname="Accused">
         <source>Accused</source>
         <target>Accused</target>
-      </trans-unit>
-      <trans-unit id="11NLkDY" resname="Accused CPR">
-        <source>Accused CPR</source>
-        <target>Accused CPR</target>
       </trans-unit>
       <trans-unit id="C.aUTDz" resname="Accused address">
         <source>Accused address</source>
@@ -333,10 +325,6 @@
         <source>Telephone number</source>
         <target>Telephone number</target>
       </trans-unit>
-      <trans-unit id="WQvNeqY" resname="CPR number">
-        <source>CPR number</source>
-        <target>CPR number</target>
-      </trans-unit>
       <trans-unit id="1gLIib9" resname="Validate CPR number">
         <source>Validate CPR number</source>
         <target>Validate CPR number</target>
@@ -464,10 +452,6 @@
       <trans-unit id="79xVjum" resname="Counterpart name">
         <source>Counterpart name</source>
         <target>Counterpart name</target>
-      </trans-unit>
-      <trans-unit id="669PzEA" resname="Counterpart CPR">
-        <source>Counterpart CPR</source>
-        <target>Counterpart CPR</target>
       </trans-unit>
       <trans-unit id="bU9FrLc" resname="Reschedule finish hearing deadline">
         <source>Reschedule finish hearing deadline</source>

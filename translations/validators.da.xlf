@@ -379,7 +379,7 @@
       </trans-unit>
       <trans-unit id="FDRZr.s" resname="This value should satisfy at least one of the following constraints:">
         <source>This value should satisfy at least one of the following constraints:</source>
-        <target>Værdien skal overholde mindst én af følgende krav::</target>
+        <target>Værdien skal overholde mindst én af følgende krav:</target>
       </trans-unit>
       <trans-unit id="WwY0IGI" resname="Each element of this collection should satisfy its own set of constraints.">
         <source>Each element of this collection should satisfy its own set of constraints.</source>
@@ -523,7 +523,7 @@
       </trans-unit>
       <trans-unit id="lY5Mzyl" resname="Please enter a valid email address.">
         <source>Please enter a valid email address.</source>
-        <target>Indtast venligst en gyldig emailaddresse.</target>
+        <target>Indtast venligst en gyldig e-mailadresse.</target>
       </trans-unit>
       <trans-unit id="TzSC4.o" resname="Please select a valid option.">
         <source>Please select a valid option.</source>
