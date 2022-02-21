@@ -188,6 +188,11 @@ abstract class CaseEntity
      */
     private $complainantIdentifier;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Decision::class, mappedBy="caseEntity", orphanRemoval=true)
+     */
+    private $decisions;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -199,6 +204,7 @@ abstract class CaseEntity
         $this->reminders = new ArrayCollection();
         $this->finishHearingDeadline = new \DateTime('today');
         $this->finishProcessingDeadline = new \DateTime('today');
+        $this->decisions = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -625,6 +631,36 @@ abstract class CaseEntity
     public function setComplainantIdentifier(string $complainantIdentifier): self
     {
         $this->complainantIdentifier = $complainantIdentifier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Decision[]
+     */
+    public function getDecisions(): Collection
+    {
+        return $this->decisions;
+    }
+
+    public function addDecision(Decision $decision): self
+    {
+        if (!$this->decisions->contains($decision)) {
+            $this->decisions[] = $decision;
+            $decision->setCaseEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDecision(Decision $decision): self
+    {
+        if ($this->decisions->removeElement($decision)) {
+            // set the owning side to null (unless already changed)
+            if ($decision->getCaseEntity() === $this) {
+                $decision->setCaseEntity(null);
+            }
+        }
 
         return $this;
     }
