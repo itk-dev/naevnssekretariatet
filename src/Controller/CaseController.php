@@ -447,7 +447,7 @@ class CaseController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('BBR data updated', [], 'case'));
         } catch (\Exception $exception) {
-            $this->addFlash('error', new TranslatableMessage('Cannot update BBR data', [], 'case'));
+            $this->addFlash('error', new TranslatableMessage('Cannot update BBR data ({message})', ['message' => $exception->getMessage()], 'case'));
         }
 
         // Send user back to where he came from.
@@ -583,9 +583,9 @@ class CaseController extends AbstractController
                 return $this->redirect($redirectUrl);
             } catch (\Exception $exception) {
                 if ($request->get('ajax')) {
-                    $form->addError(new FormError($translator->trans('Invalid address', [], 'case')));
+                    $form->addError(new FormError($translator->trans('Invalid address ({message})', ['message' => $exception->getMessage()], 'case')));
                 } else {
-                    $this->addFlash('error', new TranslatableMessage('Error validating address', [], 'case'));
+                    $this->addFlash('error', new TranslatableMessage('Error validating address ({message})', ['message' => $exception->getMessage()], 'case'));
                 }
             }
         }

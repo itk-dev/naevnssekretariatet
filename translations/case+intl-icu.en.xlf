@@ -233,10 +233,6 @@
         <source>BBR data updated</source>
         <target>BBR data updated</target>
       </trans-unit>
-      <trans-unit id="mzHh8j0" resname="Cannot update BBR data">
-        <source>Cannot update BBR data</source>
-        <target>Cannot update BBR data</target>
-      </trans-unit>
       <trans-unit id="ZLjpBRI" resname="Process deadline updated!">
         <source>Process deadline updated!</source>
         <target>Process deadline updated!</target>
@@ -248,14 +244,6 @@
       <trans-unit id="bmiw4cB" resname="Address validated">
         <source>Address validated</source>
         <target>Address validated</target>
-      </trans-unit>
-      <trans-unit id="TJu1Sbp" resname="Invalid address">
-        <source>Invalid address</source>
-        <target>Invalid address</target>
-      </trans-unit>
-      <trans-unit id="PKqe.03" resname="Error validating address">
-        <source>Error validating address</source>
-        <target>Error validating address</target>
       </trans-unit>
       <trans-unit id="oi4LH8P" resname="Road">
         <source>Road</source>
@@ -1088,6 +1076,42 @@
       <trans-unit id="xHRIEsS" resname="Choose a title for the decision">
         <source>Choose a title for the decision</source>
         <target>Choose a title for the decision</target>
+      </trans-unit>
+      <trans-unit id="Rh.AKW9" resname="Cannot update BBR data ({message})">
+        <source>Cannot update BBR data ({message})</source>
+        <target>Cannot update BBR data ({message})</target>
+      </trans-unit>
+      <trans-unit id="L_OYkFe" resname="Invalid address ({message})">
+        <source>Invalid address ({message})</source>
+        <target>Invalid address ({message})</target>
+      </trans-unit>
+      <trans-unit id="paIptTk" resname="Error validating address ({message})">
+        <source>Error validating address ({message})</source>
+        <target>Error validating address ({message})</target>
+      </trans-unit>
+      <trans-unit id="m34cDS6" resname="Ambiguous address: {address}">
+        <source>Ambiguous address: {address}</source>
+        <target>Ambiguous address: {address}</target>
+      </trans-unit>
+      <trans-unit id="cSZdvhV" resname="Invalid address: {address}">
+        <source>Invalid address: {address}</source>
+        <target>Invalid address: {address}</target>
+      </trans-unit>
+      <trans-unit id="cYDhA4d" resname="Cannot get adgangsadresse for address {address}">
+        <source>Cannot get adgangsadresse for address {address}</source>
+        <target>Cannot get adgangsadresse for address {address}</target>
+      </trans-unit>
+      <trans-unit id=".CHnYIg" resname="Invalid or unknown address: {address}">
+        <source>Invalid or unknown address: {address}</source>
+        <target>Invalid or unknown address: {address}</target>
+      </trans-unit>
+      <trans-unit id="PKqe.03" resname="Error validating address">
+        <source>Error validating address</source>
+        <target>Error validating address</target>
+      </trans-unit>
+      <trans-unit id="TJu1Sbp" resname="Invalid address">
+        <source>Invalid address</source>
+        <target>Invalid address</target>
       </trans-unit>
     </body>
   </file>

@@ -17,29 +17,19 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
 class BBRHelper implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    private PropertyAccessorInterface $propertyAccessor;
-    private BBRDataRepository $bbrDataRepository;
-    private EntityManagerInterface $entityManager;
-    private HttpClientInterface $httpClient;
     private array $options;
 
-    public function __construct(PropertyAccessorInterface $propertyAccessor, BBRDataRepository $bbrDataRepository, EntityManagerInterface $entityManager, HttpClientInterface $httpClient, array $bbrHelperOptions)
+    public function __construct(private PropertyAccessorInterface $propertyAccessor, private BBRDataRepository $bbrDataRepository, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private TranslatorInterface $translator, array $bbrHelperOptions)
     {
-        $this->propertyAccessor = $propertyAccessor;
-        $this->bbrDataRepository = $bbrDataRepository;
-        $this->entityManager = $entityManager;
-        $this->httpClient = $httpClient;
-        $this->options = $bbrHelperOptions;
-
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
-
         $this->options = $resolver->resolve($bbrHelperOptions);
     }
 
@@ -150,7 +140,7 @@ class BBRHelper implements LoggerAwareInterface
 
         $addressData = $this->getAddressData($address);
         if (!isset($addressData['adgangsadresse']['id'])) {
-            throw $this->createException(sprintf('Cannot get adgangsadresse for address %s', $address));
+            throw $this->createException($this->translator->trans('Cannot get adgangsadresse for address {address}', ['address' => $address], 'case'));
         }
         $accessAddressId = $addressData['adgangsadresse']['id'];
 
@@ -168,7 +158,7 @@ class BBRHelper implements LoggerAwareInterface
         // Dig for best match
         $item = $this->findBestAddressMatch($this->normalizeAddress($address), $items, 'Adresse');
         if (null === $item) {
-            throw $this->createException(sprintf('Invalid or unknown address: %s', $address));
+            throw $this->createException($this->translator->trans('Invalid or unknown address: {address}', ['address' => $address], 'case'));
         }
 
         return 'https://bbr.dk/pls/wwwdata/get_ois_pck.show_bbr_meddelelse_pdf?'.http_build_query([
@@ -264,9 +254,9 @@ class BBRHelper implements LoggerAwareInterface
                 return $data['resultater'][0]['adresse'];
             }
         } catch (\Throwable $throwable) {
-            throw $this->createException(sprintf('Invalid address: %s', $address), $throwable->getCode(), $throwable);
+            throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => $address], 'case'), $throwable->getCode(), $throwable);
         }
 
-        throw $this->createException(sprintf('Invalid address: %s', $address));
+        throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => $address], 'case'));
     }
 }
