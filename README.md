@@ -160,6 +160,47 @@ The following roles and, hence, authentication providers can be requested:
 | admin        | administrator           |
 | board-member | board member            |
 
+
+## Cron job
+
+In TVIST1 there are several necessary commands used for updating statuses,
+sending digital post etc. These can conveniently be run via cron jobs.
+
+With cron you could run a specific console command every night at 02:00
+by adding the following to your crontab:
+
+```cron
+0 2 * * * /usr/bin/env php path/to/tvist1/bin/console tvist1:some:command
+```
+
+The commands that need execution are
+
+### Updating reminders
+
+```cron
+0 2 * * * /usr/bin/env php path/to/tvist1/bin/console tvist1:update-reminder
+```
+
+Updates reminder statuses at 02:00.
+
+### Updating case deadlines
+
+```cron
+0 2 * * * /usr/bin/env php path/to/tvist1/bin/console tvist1:update-case-deadlines
+```
+
+Updates case deadline statuses at at 02:00.
+
+### Send digital post
+
+```cron
+*/5 * * * * /usr/bin/env php path/to/tvist1/bin/console tvist1:digital-post:send
+```
+
+Sends unsent digital post every 5 minutes.
+
+
+
 ## Running the tests
 
 See the [TESTING.md](docs/TESTING.md) documentation for more information.
