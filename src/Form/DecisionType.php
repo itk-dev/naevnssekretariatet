@@ -41,7 +41,7 @@ class DecisionType extends AbstractType
 
         $builder->add('title', TextType::class, [
                 'label' => $this->translator->trans('Title', [], 'case'),
-                'help' => $this->translator->trans('Choose a title for the hearing post', [], 'case'),
+                'help' => $this->translator->trans('Choose a title for the decision', [], 'case'),
             ])
             ->add('recipients', EntityType::class, [
                 'class' => Party::class,
