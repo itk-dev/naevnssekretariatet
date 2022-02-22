@@ -757,14 +757,6 @@
         <source>Address validated</source>
         <target state="translated">Adresse valideret</target>
       </trans-unit>
-      <trans-unit id="PKqe.03" resname="Error validating address">
-        <source>Error validating address</source>
-        <target state="translated">Fejl under validering af adresse</target>
-      </trans-unit>
-      <trans-unit id="TJu1Sbp" resname="Invalid address">
-        <source>Invalid address</source>
-        <target state="translated">Ugyldig adresse</target>
-      </trans-unit>
       <trans-unit id="juVzI6b" resname="All statuses">
         <source>All statuses</source>
         <target>Alle statusser</target>
@@ -824,10 +816,6 @@
       <trans-unit id="VaveQB2" resname="BBR data updated">
         <source>BBR data updated</source>
         <target state="translated">BBR-data opdateret</target>
-      </trans-unit>
-      <trans-unit id="mzHh8j0" resname="Cannot update BBR data">
-        <source>Cannot update BBR data</source>
-        <target state="translated">Kan ikke opdatere BBR-data</target>
       </trans-unit>
       <trans-unit id="ZLjpBRI" resname="Process deadline updated!">
         <source>Process deadline updated!</source>
@@ -1088,6 +1076,42 @@
       <trans-unit id="xHRIEsS" resname="Choose a title for the decision">
         <source>Choose a title for the decision</source>
         <target state="translated">Vælg en titel for afgørelsen</target>
+      </trans-unit>
+      <trans-unit id="Rh.AKW9" resname="Cannot update BBR data ({message})">
+        <source>Cannot update BBR data ({message})</source>
+        <target state="translated">Kan ikke opdatere BBR-data ({message})</target>
+      </trans-unit>
+      <trans-unit id="L_OYkFe" resname="Invalid address ({message})">
+        <source>Invalid address ({message})</source>
+        <target state="translated">Ugyldig adresse ({message})</target>
+      </trans-unit>
+      <trans-unit id="paIptTk" resname="Error validating address ({message})">
+        <source>Error validating address ({message})</source>
+        <target state="translated">Fejl under validering af adresse ({message})</target>
+      </trans-unit>
+      <trans-unit id="m34cDS6" resname="Ambiguous address: {address}">
+        <source>Ambiguous address: {address}</source>
+        <target state="translated">Tvetydig adresse: {address}</target>
+      </trans-unit>
+      <trans-unit id="cSZdvhV" resname="Invalid address: {address}">
+        <source>Invalid address: {address}</source>
+        <target state="translated">Ugyldig adresse: {address}</target>
+      </trans-unit>
+      <trans-unit id="cYDhA4d" resname="Cannot get adgangsadresse for address {address}">
+        <source>Cannot get adgangsadresse for address {address}</source>
+        <target state="translated">Adgangsadresse for adressen {address} kan ikke findes</target>
+      </trans-unit>
+      <trans-unit id=".CHnYIg" resname="Invalid or unknown address: {address}">
+        <source>Invalid or unknown address: {address}</source>
+        <target state="translated">Ugyldig eller ukendt adresse: {address}</target>
+      </trans-unit>
+      <trans-unit id="PKqe.03" resname="Error validating address">
+        <source>Error validating address</source>
+        <target state="translated">Fej under validering af adresse</target>
+      </trans-unit>
+      <trans-unit id="TJu1Sbp" resname="Invalid address">
+        <source>Invalid address</source>
+        <target state="translated">Ugyldig adresse</target>
       </trans-unit>
     </body>
   </file>

@@ -14,21 +14,15 @@ use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
 class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
 {
     use LoggerAwareTrait;
 
-    private PropertyAccessorInterface $propertyAccessor;
-    private EntityManagerInterface $entityManager;
-    private HttpClientInterface $httpClient;
-
-    public function __construct(PropertyAccessorInterface $propertyAccessor, EntityManagerInterface $entityManager, HttpClientInterface $httpClient, array $bbrHelperOptions)
+    public function __construct(private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private TranslatorInterface $translator)
     {
-        $this->propertyAccessor = $propertyAccessor;
-        $this->entityManager = $entityManager;
-        $this->httpClient = $httpClient;
     }
 
     /**
@@ -96,13 +90,13 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
             }
 
             if (count($data) > 1) {
-                throw $this->createException(sprintf('Ambiguous address: %s', (string) $address));
+                throw $this->createException($this->translator->trans('Ambiguous address: {address}', ['address' => (string) $address], 'case'));
             }
         } catch (\Throwable $throwable) {
-            throw $this->createException(sprintf('Invalid address: %s', (string) $address), $throwable->getCode(), $throwable);
+            throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => (string) $address], 'case'), $throwable->getCode(), $throwable);
         }
 
-        throw $this->createException(sprintf('Invalid address: %s', (string) $address));
+        throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => (string) $address], 'case'));
     }
 
     /**
