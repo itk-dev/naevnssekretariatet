@@ -2,6 +2,33 @@
 
 {% trans_default_domain 'case' %}
 
+{# @See https://symfony.com/doc/current/form/form_themes.html#creating-a-form-theme-in-the-same-template-as-the-form #}
+{% form_theme form _self %}
+
+{# @See https://github.com/symfony/symfony/issues/19514#issuecomment-1013738644 #}
+{% block choice_widget_expanded -%}
+    <div {{ block('widget_container_attributes') }}>
+            {% if form.children['placeholder'] is defined %}
+                {{- form_widget(form.children['placeholder'], {
+                    parent_label_class: label_attr.class|default(''),
+                    translation_domain: choice_translation_domain,
+                    valid: valid,
+                }) -}}
+            {% endif %}
+            {% for name, choices in form.vars.choices %}
+                <div class='choice_category'>
+                    <strong>{{ name }}</strong>
+                </div>
+                <div class="my-radio-group">
+                    {% for key, choice in choices %}
+                        {{- form_widget(form[key]) -}}
+                        {{- form_label(form[key]) -}}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+    </div>
+{%- endblock choice_widget_expanded %}
+
 {% block title %}{% trans %}Create decision{% endtrans %}{% endblock %}
 
 {% block header %}
