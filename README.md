@@ -160,7 +160,6 @@ The following roles and, hence, authentication providers can be requested:
 | admin        | administrator           |
 | board-member | board member            |
 
-
 ## Cron job
 
 In TVIST1 there are several necessary commands used for updating statuses,
@@ -198,8 +197,6 @@ Updates case deadline statuses at at 02:00.
 ```
 
 Sends unsent digital post every 5 minutes.
-
-
 
 ## Running the tests
 
