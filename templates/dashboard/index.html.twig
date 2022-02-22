@@ -2,17 +2,6 @@
 
 {% trans_default_domain 'dashboard' %}
 
-{% set inactive_cases = [
-    {
-        "link": "#",
-        "caseid": "2207",
-        "title": "Remember to add signed documents",
-        "description": "Here is a casesummery id tincidunt massa quam quis nunc.",
-        "status": "Open",
-        "date": "2. sep 2020"
-    },
-] %}
-
 {% block title %}{% trans %}Dashboard{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -37,8 +26,9 @@
         <div class="row mb-5">
             {% include "dashboard/_grid_information.html.twig" with grid_information %}
         </div>
-        <h2 class="h3"><i class="fas fa-undo mr-2"></i>{% trans %}Cases opened more than 30 days ago{% endtrans %}</h2>
-        {% include "dashboard/_inactive_cases.html.twig" with inactive_cases %}
+        {# TODO: Resolve when cases are considered inactive and then show this again #}
+{#        <h2 class="h3"><i class="fas fa-undo mr-2"></i>{% trans %}Cases opened more than 30 days ago{% endtrans %}</h2>#}
+{#        {% include "dashboard/_inactive_cases.html.twig" with inactive_cases %}#}
     </main>
     <aside role="aside" class="col-md-2">
         {% include "dashboard/_upcoming_reminders.html.twig" with upcoming_reminders %}
