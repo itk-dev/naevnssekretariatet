@@ -135,9 +135,6 @@ class HearingController extends AbstractController
             // Create new file from template
             $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
 
-            // Compute fitting name
-//            $updatedFileName = $slugger->slug($hearingPost->getTemplate()->getName()).'-'.uniqid().'.pdf';
-
             // Move file
             $documentUploader->specifyDirectory('/case_documents/');
             $updatedFileName = $documentUploader->uploadFile($fileName);
