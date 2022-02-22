@@ -16,6 +16,7 @@
 {% block content %}
     <main role="main" class="col-12 mt-3">
         {% if agenda.isReady() %}
+            {# TODO: Add template functionality and add submit button #}
             {{ form(broadcast_form) }}
         {% else %}
             <p>{% trans %}Agenda must have status: ready, before being able to send notice to board members.{% endtrans %}</p>

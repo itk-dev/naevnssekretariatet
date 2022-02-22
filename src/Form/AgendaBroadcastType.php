@@ -4,7 +4,6 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -35,9 +34,6 @@ class AgendaBroadcastType extends AbstractType
             ])
             ->add('contents', TextareaType::class, [
                 'label' => $this->translator->trans('Contents', [], 'agenda'),
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('Broadcast agenda', [], 'agenda'),
             ])
         ;
     }

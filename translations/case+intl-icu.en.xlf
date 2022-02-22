@@ -1085,6 +1085,10 @@
         <source>Created at</source>
         <target>Created at</target>
       </trans-unit>
+      <trans-unit id="xHRIEsS" resname="Choose a title for the decision">
+        <source>Choose a title for the decision</source>
+        <target>Choose a title for the decision</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

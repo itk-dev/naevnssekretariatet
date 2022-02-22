@@ -111,7 +111,7 @@ class DocumentUploader
     /**
      * Move a file into an upload folder.
      *
-     * @return string the full path of the uploaded file
+     * @return string the filename of the uploaded path
      */
     public function uploadFile(string $filePath)
     {
@@ -124,19 +124,19 @@ class DocumentUploader
         $targetPath = $this->getDirectory().'/'.$newFilename;
         $this->filesystem->rename($filePath, $targetPath);
 
-        return $targetPath;
+        return basename($targetPath);
     }
 
     /**
      * Moves file to new place and overwrites if file already exists.
      *
-     * @return string the full path of the uploaded file
+     * @return string the filename of the uploaded path
      */
     public function replaceFile(string $filePath, string $filename)
     {
         $targetPath = $this->getDirectory().'/'.pathinfo($filename, PATHINFO_BASENAME);
         $this->filesystem->rename($filePath, $targetPath, true);
 
-        return $targetPath;
+        return basename($targetPath);
     }
 }

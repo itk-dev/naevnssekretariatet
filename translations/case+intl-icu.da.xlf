@@ -1085,6 +1085,10 @@
         <source>Create new note</source>
         <target state="translated">Opret ny note</target>
       </trans-unit>
+      <trans-unit id="xHRIEsS" resname="Choose a title for the decision">
+        <source>Choose a title for the decision</source>
+        <target state="translated">Vælg en titel for afgørelsen</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
