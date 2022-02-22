@@ -172,6 +172,20 @@ by adding the following to your crontab:
 0 2 * * * /usr/bin/env php path/to/tvist1/bin/console tvist1:some:command
 ```
 
+Or if using docker
+
+```cron
+0 2 * * * (cd path/to/tvist1/ && docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec phpfpm bin/console tvist1:some:command) > /dev/null 2>&1; /usr/local/bin/cron-exit-status -c 'TVIST1 some command' -v $?
+```
+
+where
+
+```cron
+> /dev/null 2>&1; /usr/local/bin/cron-exit-status -c 'TVIST1 some command' -v $?
+```
+
+Ensures that nothing is output in the terminal and helps debugging at a later stage.
+
 The commands that need execution are
 
 ### Updating reminders
