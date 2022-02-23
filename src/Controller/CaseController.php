@@ -170,14 +170,19 @@ class CaseController extends AbstractController
     /**
      * @Route("/new", name="case_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, CaseManager $caseManager): Response
+    public function new(Request $request, CaseManager $caseManager, MunicipalityHelper $municipalityHelper): Response
     {
         if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
             throw new AccessDeniedException();
         }
 
+        // Find active municipality with purpose of preselecting it in case creation form
+        $activeMunicipality = $municipalityHelper->getActiveMunicipality();
+
         // We pass along a case entity to make sure we can extract municipality and board in CaseEntityType
-        $form = $this->createForm(CaseEntityType::class, new ResidentComplaintBoardCase());
+        $form = $this->createForm(CaseEntityType::class, new ResidentComplaintBoardCase(), [
+            'active_municipality' => $activeMunicipality,
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
