@@ -2461,12 +2461,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/datafordeler-php-client.git",
-                "reference": "0ac84ac5bafb788f1cfa9bddd33a5f142c001a36"
+                "reference": "619145e7ebe07a1c59084abfa481f9dd835984c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/0ac84ac5bafb788f1cfa9bddd33a5f142c001a36",
-                "reference": "0ac84ac5bafb788f1cfa9bddd33a5f142c001a36",
+                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/619145e7ebe07a1c59084abfa481f9dd835984c5",
+                "reference": "619145e7ebe07a1c59084abfa481f9dd835984c5",
                 "shasum": ""
             },
             "require": {
@@ -2514,7 +2514,7 @@
                 "source": "https://github.com/itk-dev/datafordeler-php-client/tree/develop",
                 "issues": "https://github.com/itk-dev/datafordeler-php-client/issues"
             },
-            "time": "2021-11-25T09:37:30+00:00"
+            "time": "2022-02-23T14:44:58+00:00"
         },
         {
             "name": "itk-dev/openid-connect",
