@@ -92,15 +92,14 @@
                     <div class="row">
                         <div class="col">
                             <div class="list-group">
-                                {# TODO: Show latest communication #}
-{#                                {% for item in casecommunication %}#}
-{#                                    <a href="#" class="list-group-item list-group-item-action {% if item.status is defined == "unread" %}active{% endif %}">#}
-{#                                        <div class="d-flex w-100 justify-content-between">#}
-{#                                            <span class="mr-3">{{ item.date|e }}</span>#}
-{#                                            <p class="mb-1">{{ item.title|e }}</p>#}
-{#                                        </div>#}
-{#                                    </a>#}
-{#                                {% endfor %}#}
+                                {% for communication in communications %}
+                                    <a href="{{ url("digital_post_show", {id: case.id, 'digitalPost': communication.id}) }}" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span class="mr-3">{{ communication.createdAt|date('d/m/Y') }}</span>
+                                            <p class="mb-1 text-truncate">{{ communication.document.documentName|e }}</p>
+                                        </div>
+                                    </a>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
