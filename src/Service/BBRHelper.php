@@ -86,7 +86,10 @@ class BBRHelper implements LoggerAwareInterface
             $husnummer = $darService->adresseTilHusnummer($addressId);
             $bbrService = new BBRPublic($client);
 
-            $bbrData['bygning'] = $bbrService->bygning(['Husnummer' => $husnummer]);
+            $bygning = $bbrService->bygning(['Husnummer' => $husnummer]);
+            // Sort by building number.
+            usort($bygning, static fn ($a, $b) => (($a['byg007Bygningsnummer'] ?? null) <=> ($b['byg007Bygningsnummer'] ?? null)));
+            $bbrData['bygning'] = $bygning;
 
             $bbrData['enhed'] = $bbrService->enhed(['AdresseIdentificerer' => $addressId]);
         } catch (\Exception $exception) {
@@ -139,10 +142,10 @@ class BBRHelper implements LoggerAwareInterface
         }
 
         $addressData = $this->getAddressData($address);
-        if (!isset($addressData['adgangsadresse']['id'])) {
+        if (!isset($addressData['adgangsadresseid'])) {
             throw $this->createException($this->translator->trans('Cannot get adgangsadresse for address {address}', ['address' => $address], 'case'));
         }
-        $accessAddressId = $addressData['adgangsadresse']['id'];
+        $accessAddressId = $addressData['adgangsadresseid'];
 
         $response = $this->httpClient->request('GET', 'https://bbr.dk/pls/wwwdata/get_ois_pck.nyuuid2ejd', [
             'query' => ['i_addressid' => $accessAddressId],
