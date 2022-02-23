@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Board;
+use App\Entity\CaseEntity;
 use App\Entity\Municipality;
 use App\Repository\BoardRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -12,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CaseEntityType extends AbstractType
@@ -20,10 +22,21 @@ class CaseEntityType extends AbstractType
     {
     }
 
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => CaseEntity::class,
+            'active_municipality' => null,
+        ]);
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $activeMunicipality = $options['active_municipality'];
+
         $builder->add('municipality', EntityType::class, [
             'class' => Municipality::class,
+            'data' => $activeMunicipality,
             'label' => $this->translator->trans('Municipality', [], 'case'),
             'placeholder' => $this->translator->trans('Choose a municipality', [], 'case'),
         ]);
