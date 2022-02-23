@@ -146,4 +146,9 @@ class MailTemplate implements LoggableEntityInterface
             'type',
         ];
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

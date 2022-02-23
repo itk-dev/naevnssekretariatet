@@ -22,6 +22,7 @@ use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MailTemplateHelper
 {
@@ -32,7 +33,7 @@ class MailTemplateHelper
      */
     private $options;
 
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, array $mailTemplateHelperOptions)
+    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, private TranslatorInterface $translator, array $mailTemplateHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -41,7 +42,17 @@ class MailTemplateHelper
 
     public function getMailTemplateTypeChoices(): array
     {
-        return array_flip(array_map(static fn (array $spec) => $spec['label'], $this->options['template_types']));
+        $templateTypes = array_flip(array_map(static fn (array $spec) => $spec['label'], $this->options['template_types']));
+
+        foreach ($templateTypes as $key => $value) {
+            $translatedKey = $this->translator->trans($key, [], 'mail_template');
+            $templateTypes[$translatedKey] = $value;
+            unset($templateTypes[$key]);
+        }
+
+        ksort($templateTypes);
+
+        return $templateTypes;
     }
 
     /**

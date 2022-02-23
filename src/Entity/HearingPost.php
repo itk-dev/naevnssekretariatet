@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,12 +30,14 @@ class HearingPost implements LoggableEntityInterface
     /**
      * @ORM\ManyToOne(targetEntity=Hearing::class, inversedBy="hearingPosts")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"mail_template"})
      */
     private $hearing;
 
     /**
      * @ORM\ManyToOne(targetEntity=Party::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"mail_template"})
      */
     private $recipient;
 
@@ -63,6 +66,7 @@ class HearingPost implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"mail_template"})
      */
     private $title;
 
