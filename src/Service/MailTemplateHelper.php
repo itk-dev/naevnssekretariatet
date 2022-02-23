@@ -44,15 +44,16 @@ class MailTemplateHelper
     {
         $templateTypes = array_flip(array_map(static fn (array $spec) => $spec['label'], $this->options['template_types']));
 
+        $translatedTemplateTypes = [];
+
         foreach ($templateTypes as $key => $value) {
             $translatedKey = $this->translator->trans($key, [], 'mail_template');
-            $templateTypes[$translatedKey] = $value;
-            unset($templateTypes[$key]);
+            $translatedTemplateTypes[$translatedKey] = $value;
         }
 
-        ksort($templateTypes);
+        ksort($translatedTemplateTypes);
 
-        return $templateTypes;
+        return $translatedTemplateTypes;
     }
 
     /**
