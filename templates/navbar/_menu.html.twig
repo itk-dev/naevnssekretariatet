@@ -8,13 +8,8 @@
         <li class="nav-item dropdown">
             {{ render(controller('App\\Controller\\NavbarController::renderShortcuts')) }}
         </li>
-        <li class="nav-item dropdown">
-            {# TODO: Link to Create new  #}
-            <a class="btn btn-sm btn-success d-block dropdown-toggle mb-2 mb-lg-0" href="#" id="create-new" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Create new'|trans({}, 'navbar') }}</a>
-            <div class="dropdown-menu" aria-labelledby="create-new">
-                <a class="dropdown-item" href="{{ path('case_new') }}">{{ 'New case'|trans({}, 'navbar') }}</a>
-                <a class="dropdown-item" href="#">{{ 'New agenda'|trans({}, 'navbar') }}</a>
-            </div>
+        <li class="nav-item">
+            <a class="btn btn-sm btn-success" href="{{ path('case_new') }}">{{ 'New case'|trans({}, 'navbar') }}</a>
         </li>
         <li class="nav-item">
             {{ render(controller('App\\Controller\\NavbarController::renderReminders')) }}
