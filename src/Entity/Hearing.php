@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -31,6 +32,7 @@ class Hearing implements LoggableEntityInterface
 
     /**
      * @ORM\OneToOne(targetEntity=CaseEntity::class, mappedBy="hearing", cascade={"persist", "remove"})
+     * @Groups({"mail_template"})
      */
     private $caseEntity;
 

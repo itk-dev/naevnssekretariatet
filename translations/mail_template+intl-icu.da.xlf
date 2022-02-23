@@ -21,6 +21,18 @@
         <source>Preview template with data</source>
         <target state="translated">Vis skabelon udfyldt med data</target>
       </trans-unit>
+      <trans-unit id="bk_hPaS" resname="Inspection">
+        <source>Inspection</source>
+        <target state="translated">Besigtigelse</target>
+      </trans-unit>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target state="translated">Afgørelse</target>
+      </trans-unit>
+      <trans-unit id="A8h1npn" resname="Hearing">
+        <source>Hearing</source>
+        <target state="translated">Høring</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
