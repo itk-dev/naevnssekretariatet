@@ -25,6 +25,7 @@ use App\Form\MunicipalitySelectorType;
 use App\Repository\AgendaCaseItemRepository;
 use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
+use App\Repository\DigitalPostRepository;
 use App\Repository\LogEntryRepository;
 use App\Repository\MunicipalityRepository;
 use App\Repository\NoteRepository;
@@ -147,17 +148,21 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/summary", name="case_summary", methods={"GET", "POST"})
      */
-    public function summary(BoardRepository $boardRepository, CaseEntity $case, NoteRepository $noteRepository, WorkflowService $workflowService, Request $request): Response
+    public function summary(BoardRepository $boardRepository, CaseEntity $case, NoteRepository $noteRepository, DigitalPostRepository $digitalPostRepository): Response
     {
         $this->denyAccessUnlessGranted('view', $case);
 
-        $notes = $noteRepository->findMostRecentNotesByCase($case, 4);
+        $numberOfShownItems = 4;
+
+        $notes = $noteRepository->findMostRecentNotesByCase($case, $numberOfShownItems);
+        $communications = $digitalPostRepository->findByEntity($case, [], ['createdAt' => Criteria::DESC], $numberOfShownItems);
 
         $suitableBoards = $boardRepository->findDifferentSuitableBoards($case->getBoard());
 
         return $this->render('case/summary.html.twig', [
             'case' => $case,
             'notes' => $notes,
+            'communications' => $communications,
             'suitable_boards' => $suitableBoards,
         ]);
     }
