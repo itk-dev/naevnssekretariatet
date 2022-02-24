@@ -37,6 +37,9 @@
                     </div>
                 {% endif %}
                 <div class="col-auto ml-2">
+                    {{ form_widget(filter_form.activeFilter) }}
+                </div>
+                <div class="col-auto ml-2">
                     {# Todo: Just reset filter rather than refresh page although it yields the same result #}
                     <a class="btn btn-secondary" href="{{ path('case_index') }}" role="button">{% trans %}Reset{% endtrans %}</a>
                 </div>

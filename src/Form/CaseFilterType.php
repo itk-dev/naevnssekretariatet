@@ -6,6 +6,7 @@ use App\Entity\Board;
 use App\Entity\Municipality;
 use App\Entity\User;
 use App\Repository\BoardRepository;
+use App\Repository\CaseEntityRepository;
 use App\Repository\UserRepository;
 use App\Service\AgendaStatus;
 use App\Service\CaseDeadlineStatuses;
@@ -29,6 +30,10 @@ class CaseFilterType extends AbstractType
      */
     private $boardRepository;
     /**
+     * @var CaseEntityRepository
+     */
+    private $caseEntityRepository;
+    /**
      * @var FilterHelper
      */
     private $filterHelper;
@@ -41,9 +46,10 @@ class CaseFilterType extends AbstractType
      */
     private $userRepository;
 
-    public function __construct(BoardRepository $boardRepository, FilterHelper $filterHelper, TranslatorInterface $translator, UserRepository $userRepository)
+    public function __construct(BoardRepository $boardRepository, CaseEntityRepository $caseEntityRepository, FilterHelper $filterHelper, TranslatorInterface $translator, UserRepository $userRepository)
     {
         $this->boardRepository = $boardRepository;
+        $this->caseEntityRepository = $caseEntityRepository;
         $this->filterHelper = $filterHelper;
         $this->translator = $translator;
         $this->userRepository = $userRepository;
@@ -238,5 +244,33 @@ class CaseFilterType extends AbstractType
                 ])
             ;
         }
+
+        $builder->add('activeFilter', Filters\ChoiceFilterType::class, [
+            'choices' => [
+                $this->translator->trans('Active', [], 'case') => CaseSpecialFilterStatuses::ACTIVE,
+                $this->translator->trans('Not active', [], 'case') => CaseSpecialFilterStatuses::NOT_ACTIVE,
+            ],
+            'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
+                if (empty($values['value'])) {
+                    return null;
+                }
+
+                $filterChoice = $values['value'];
+
+                // Modify query builder according to filter choice
+                switch ($filterChoice) {
+                    case CaseSpecialFilterStatuses::ACTIVE:
+                        $this->caseEntityRepository->updateQueryBuilderWithBoardFinishStatuses($filterQuery->getQueryBuilder(), false);
+                        break;
+                    case CaseSpecialFilterStatuses::NOT_ACTIVE:
+                        $this->caseEntityRepository->updateQueryBuilderWithBoardFinishStatuses($filterQuery->getQueryBuilder(), true);
+                        break;
+                }
+
+                return $filterQuery->createCondition($filterQuery->getExpr()->andX(), []);
+            },
+            'label' => false,
+            'placeholder' => $this->translator->trans('Select active or not', [], 'case'),
+        ]);
     }
 }
