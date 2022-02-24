@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/linuxserver/libreoffice
-FROM linuxserver/libreoffice
+FROM linuxserver/libreoffice:7.2.2
 
 # https://github.com/unoconv/unoconv#installing-unoconv
 # RUN apk add --update --no-cache unoconv npm
