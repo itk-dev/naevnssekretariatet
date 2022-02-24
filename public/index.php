@@ -15,6 +15,8 @@ if ($_SERVER['APP_DEBUG']) {
     Debug::enable();
 }
 
+date_default_timezone_set($_SERVER['DEFAULT_TIME_ZONE'] ?? 'Europe/Copenhagen');
+
 $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
