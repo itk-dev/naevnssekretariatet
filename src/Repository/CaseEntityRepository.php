@@ -76,7 +76,7 @@ class CaseEntityRepository extends ServiceEntityRepository
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function findCountOfCasesAndWithActiveAgendaBy(array $criteria, bool $getFinished = true): int
+    public function findCountOfCasesAndWithActiveAgendaBy(array $criteria, bool $getActive = true): int
     {
         $qb = $this->createQueryBuilder('c');
 
@@ -96,7 +96,7 @@ class CaseEntityRepository extends ServiceEntityRepository
             ;
         }
 
-        $this->updateQueryWithAndContainingBoardOrExpressions($qb, $getFinished);
+        $this->updateQueryWithAndContainingBoardOrExpressions($qb, $getActive);
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
@@ -107,7 +107,7 @@ class CaseEntityRepository extends ServiceEntityRepository
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function findCountOfCasesWithSomeExceededDeadlineBy(array $criteria, bool $getFinished = true): int
+    public function findCountOfCasesWithSomeExceededDeadlineBy(array $criteria, bool $getActive = true): int
     {
         $qb = $this->createQueryBuilder('c');
 
@@ -125,12 +125,12 @@ class CaseEntityRepository extends ServiceEntityRepository
             ;
         }
 
-        $this->updateQueryWithAndContainingBoardOrExpressions($qb, $getFinished);
+        $this->updateQueryWithAndContainingBoardOrExpressions($qb, $getActive);
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findCountOfCasesWithActiveHearingBy(array $criteria, bool $getFinished = true): int
+    public function findCountOfCasesWithActiveHearingBy(array $criteria, bool $getActive = true): int
     {
         $qb = $this->createQueryBuilder('c');
 
@@ -149,12 +149,12 @@ class CaseEntityRepository extends ServiceEntityRepository
             ;
         }
 
-        $this->updateQueryWithAndContainingBoardOrExpressions($qb, $getFinished);
+        $this->updateQueryWithAndContainingBoardOrExpressions($qb, $getActive);
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findCountOfCasesWithNewHearingPostBy(array $criteria): int
+    public function findCountOfCasesWithNewHearingPostBy(array $criteria, bool $getActive = true): int
     {
         // TODO: Update beneath when hearing stuff has been implemented
         return -1;
@@ -190,7 +190,7 @@ class CaseEntityRepository extends ServiceEntityRepository
         return $qb;
     }
 
-    public function updateQueryBuilderWithBoardFinishStatuses(QueryBuilder $qb, bool $getFinished = true): QueryBuilder
+    public function updateQueryBuilderWithBoardFinishStatuses(QueryBuilder $qb, bool $getActive = true): QueryBuilder
     {
         $boardRepository = $this->getEntityManager()->getRepository(Board::class);
         $boards = $boardRepository->findAll();
@@ -208,10 +208,10 @@ class CaseEntityRepository extends ServiceEntityRepository
             $statusDQLVariable = 'board_finish_status_'.$count;
             $boardDQLVariable = 'board_'.$count;
 
-            if ($getFinished) {
-                $qb->orWhere('c.currentPlace = :'.$statusDQLVariable.' AND c.board = :'.$boardDQLVariable);
-            } else {
+            if ($getActive) {
                 $qb->orWhere('c.currentPlace != :'.$statusDQLVariable.' AND c.board = :'.$boardDQLVariable);
+            } else {
+                $qb->orWhere('c.currentPlace = :'.$statusDQLVariable.' AND c.board = :'.$boardDQLVariable);
             }
 
             $qb
@@ -224,7 +224,7 @@ class CaseEntityRepository extends ServiceEntityRepository
         return $qb;
     }
 
-    public function findCountOfCases(array $criteria, bool $getFinished = true): int
+    public function findCountOfCases(array $criteria, bool $getActive = true): int
     {
         $qb = $this->createQueryBuilder('c');
 
@@ -239,12 +239,12 @@ class CaseEntityRepository extends ServiceEntityRepository
             ;
         }
 
-        $this->updateQueryWithAndContainingBoardOrExpressions($qb, $getFinished);
+        $this->updateQueryWithAndContainingBoardOrExpressions($qb, $getActive);
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
-    private function updateQueryWithAndContainingBoardOrExpressions(QueryBuilder $qb, bool $getFinished)
+    public function updateQueryWithAndContainingBoardOrExpressions(QueryBuilder $qb, bool $getActive = true)
     {
         // Expression to collect an or expression per board
         $boardExpression = $qb->expr()->orX();
@@ -266,14 +266,14 @@ class CaseEntityRepository extends ServiceEntityRepository
             $statusDQLVariable = 'board_finish_status_'.$count;
             $boardDQLVariable = 'board_'.$count;
 
-            if ($getFinished) {
+            if ($getActive) {
                 $boardExpression->add($qb->expr()->andX(
-                    $qb->expr()->eq('c.currentPlace', ':'.$statusDQLVariable),
+                    $qb->expr()->neq('c.currentPlace', ':'.$statusDQLVariable),
                     $qb->expr()->eq('c.board', ':'.$boardDQLVariable),
                 ));
             } else {
                 $boardExpression->add($qb->expr()->andX(
-                    $qb->expr()->neq('c.currentPlace', ':'.$statusDQLVariable),
+                    $qb->expr()->eq('c.currentPlace', ':'.$statusDQLVariable),
                     $qb->expr()->eq('c.board', ':'.$boardDQLVariable),
                 ));
             }

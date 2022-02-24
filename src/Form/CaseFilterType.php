@@ -260,10 +260,10 @@ class CaseFilterType extends AbstractType
                 // Modify query builder according to filter choice
                 switch ($filterChoice) {
                     case CaseSpecialFilterStatuses::ACTIVE:
-                        $this->caseEntityRepository->updateQueryBuilderWithBoardFinishStatuses($filterQuery->getQueryBuilder(), false);
+                        $this->caseEntityRepository->updateQueryWithAndContainingBoardOrExpressions($filterQuery->getQueryBuilder());
                         break;
                     case CaseSpecialFilterStatuses::NOT_ACTIVE:
-                        $this->caseEntityRepository->updateQueryBuilderWithBoardFinishStatuses($filterQuery->getQueryBuilder(), true);
+                        $this->caseEntityRepository->updateQueryWithAndContainingBoardOrExpressions($filterQuery->getQueryBuilder(), false);
                         break;
                 }
 

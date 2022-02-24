@@ -42,7 +42,7 @@ class DashboardHelper
         $row[] = [
             'label' => $this->translator->trans('Hearing in progress', [], 'dashboard'),
             'url' => $hearingUrl,
-            'count' => $this->caseRepository->findCountOfCasesWithActiveHearingBy(['municipality' => $municipality, 'assignedTo' => $user], false),
+            'count' => $this->caseRepository->findCountOfCasesWithActiveHearingBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
         // TODO: Show new hearing post again when it has been implemented
@@ -69,7 +69,7 @@ class DashboardHelper
         $row[] = [
             'label' => $this->translator->trans('On agenda', [], 'dashboard'),
             'url' => $agendaUrl,
-            'count' => $this->caseRepository->findCountOfCasesAndWithActiveAgendaBy(['municipality' => $municipality, 'assignedTo' => $user], false),
+            'count' => $this->caseRepository->findCountOfCasesAndWithActiveAgendaBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
         // Has exceeded one or more deadlines
@@ -82,11 +82,11 @@ class DashboardHelper
         $row[] = [
             'label' => $this->translator->trans('Deadline reached', [], 'dashboard'),
             'url' => $exceededDeadlineUrl,
-            'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['municipality' => $municipality, 'assignedTo' => $user], false),
+            'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
         // All my cases
-        $allMyCasesCount = $this->caseRepository->findCountOfCases(['municipality' => $municipality, 'assignedTo' => $user], false);
+        $allMyCasesCount = $this->caseRepository->findCountOfCases(['municipality' => $municipality, 'assignedTo' => $user]);
 
         $allMyCasesUrl = $this->router->generate('case_index', ['case_filter' => [
             'assignedTo' => $user->getId(),
@@ -124,7 +124,7 @@ class DashboardHelper
             $rows[] = [
                 'label' => $this->translator->trans('Hearing in progress', [], 'dashboard'),
                 'url' => $boardHearingUrl,
-                'count' => $this->caseRepository->findCountOfCasesWithActiveHearingBy(['board' => $board], false),
+                'count' => $this->caseRepository->findCountOfCasesWithActiveHearingBy(['board' => $board]),
             ];
 
             // TODO: Show new hearing post again when it has been implemented
@@ -151,7 +151,7 @@ class DashboardHelper
             $rows[] = [
                 'label' => $this->translator->trans('On agenda', [], 'dashboard'),
                 'url' => $boardAgendaUrl,
-                'count' => $this->caseRepository->findCountOfCasesAndWithActiveAgendaBy(['board' => $board], false),
+                'count' => $this->caseRepository->findCountOfCasesAndWithActiveAgendaBy(['board' => $board]),
             ];
 
             // Has exceeded one or more deadlines
@@ -164,11 +164,11 @@ class DashboardHelper
             $rows[] = [
                 'label' => $this->translator->trans('Deadline reached', [], 'dashboard'),
                 'url' => $boardExceededDeadlineUrl,
-                'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['board' => $board], false),
+                'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['board' => $board]),
             ];
 
             // All board cases
-            $allBoardCount = $this->caseRepository->findCountOfCases(['board' => $board], false);
+            $allBoardCount = $this->caseRepository->findCountOfCases(['board' => $board]);
 
             $allBoardCases = $this->router->generate('case_index', ['case_filter' => [
                 'board' => $board->getId(),
