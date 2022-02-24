@@ -91,16 +91,21 @@ class BBRHelper implements LoggerAwareInterface
             // Sort by building number.
             usort($bygning, static fn ($a, $b) => (($a['byg007Bygningsnummer'] ?? null) <=> ($b['byg007Bygningsnummer'] ?? null)));
 
-            // Try to find a BFE number and en ejendomsrelation.
-            $bfeNummer = null;
-            $darBfeService = new DAR_BFE_Public($client);
-            if (null === $bfeNummer && $bfe = $darBfeService->husnummerTilBygningBfe($husnummer)) {
-                $bfeNummer = $bfe['jordstykkeList'][0]['samletFastEjendom'] ?? null;
-            }
-            if (null === $bfeNummer && $bfe = $darBfeService->husnummerTilBygningBfe($husnummer)) {
-                // @fixme will we ever end up here?
-                // @todo $bfeNummer = ?
-            }
+            // Try to find a BFE number from husnummer using the DAR BFE service.
+            $bfeNummer = (function () use ($husnummer, $client) {
+                $darBfeService = new DAR_BFE_Public($client);
+
+                if ($bfe = $darBfeService->husnummerTilBygningBfe($husnummer)) {
+                    return $bfe['jordstykkeList'][0]['samletFastEjendom'] ?? null;
+                }
+
+                // @todo will we ever end up here?
+                if ($bfe = $darBfeService->husnummerTilBygningBfe($husnummer)) {
+                    // @todo return ?
+                }
+
+                return null;
+            })();
 
             if (null !== $bfeNummer) {
                 $bbrData['ejendomsrelation'] = $bbrService->ejendomsrelation(['BFENummer' => $bfeNummer]);
