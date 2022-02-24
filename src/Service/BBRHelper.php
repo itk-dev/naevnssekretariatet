@@ -165,7 +165,7 @@ class BBRHelper implements LoggerAwareInterface
                 ]);
         }
 
-        return null;
+        throw $this->createException($this->translator->trans('Cannot get url for BBR-meddelelse for {address}', ['address' => $address], 'case'));
     }
 
     /**

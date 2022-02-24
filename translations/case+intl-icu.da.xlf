@@ -1113,6 +1113,10 @@
         <source>Invalid address</source>
         <target state="translated">Ugyldig adresse</target>
       </trans-unit>
+      <trans-unit id="Qx57C0n" resname="Cannot get url for BBR-meddelelse for {address}">
+        <source>Cannot get url for BBR-meddelelse for {address}</source>
+        <target state="translated">Url til BBR-meddelelse for {address} kan ikke findes</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
