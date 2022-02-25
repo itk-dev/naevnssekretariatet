@@ -19,7 +19,7 @@ services:
       - PHP_MEMORY_LIMIT=256M
       - COMPOSER_VERSION=2
     depends_on:
-        - collabora
+        - libreoffice-api
     volumes:
       - .:/app:delegated
 
