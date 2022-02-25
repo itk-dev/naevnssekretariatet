@@ -32,7 +32,6 @@ class SearchController extends AbstractController
             $escapedSearch = $searchService->escapeStringForLike($search, '\\');
 
             $qb->orWhere('c.caseNumber LIKE :search');
-//            $qb->setParameter(':search', '%'.$escapedSearch.'%');
             $qb->orWhere('c.sortingAddress LIKE :search');
             $qb->setParameter(':search', '%'.$escapedSearch.'%');
         }
