@@ -36,6 +36,7 @@ class DashboardHelper
         $hearingUrl = $this->router->generate('case_index', ['case_filter' => [
             'assignedTo' => $user->getId(),
             'specialStateFilter' => CaseSpecialFilterStatuses::IN_HEARING,
+            'activeFilter' => CaseSpecialFilterStatuses::ACTIVE,
         ]]);
 
         $row[] = [
@@ -49,6 +50,7 @@ class DashboardHelper
 //        $newPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
 //            'assignedTo' => $user->getId(),
 //            'specialStateFilter' => CaseSpecialFilterStatuses::NEW_HEARING_POST,
+//            'activeFilter' => CaseSpecialFilterStatuses::ACTIVE,
 //        ]]);
 //
 //        $row[] = [
@@ -61,6 +63,7 @@ class DashboardHelper
         $agendaUrl = $this->router->generate('case_index', ['case_filter' => [
             'assignedTo' => $user->getId(),
             'specialStateFilter' => CaseSpecialFilterStatuses::ON_AGENDA,
+            'activeFilter' => CaseSpecialFilterStatuses::ACTIVE,
         ]]);
 
         $row[] = [
@@ -73,6 +76,7 @@ class DashboardHelper
         $exceededDeadlineUrl = $this->router->generate('case_index', ['case_filter' => [
             'assignedTo' => $user->getId(),
             'deadlines' => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
+            'activeFilter' => CaseSpecialFilterStatuses::ACTIVE,
         ]]);
 
         $row[] = [
@@ -81,11 +85,18 @@ class DashboardHelper
             'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['municipality' => $municipality, 'assignedTo' => $user]),
         ];
 
-        $count = array_sum(array_column($row, 'count'));
+        // All my cases
+        $allMyCasesCount = $this->caseRepository->findCountOfCases(['municipality' => $municipality, 'assignedTo' => $user]);
+
+        $allMyCasesUrl = $this->router->generate('case_index', ['case_filter' => [
+            'assignedTo' => $user->getId(),
+            'activeFilter' => CaseSpecialFilterStatuses::ACTIVE,
+        ]]);
 
         return [
             'label' => $this->translator->trans('My cases', [], 'dashboard'),
-            'count' => $count,
+            'url' => $allMyCasesUrl,
+            'count' => $allMyCasesCount,
             'rows' => $row,
         ];
     }
@@ -107,6 +118,7 @@ class DashboardHelper
             $boardHearingUrl = $this->router->generate('case_index', ['case_filter' => [
                 'board' => $board->getId(),
                 'specialStateFilter' => CaseSpecialFilterStatuses::IN_HEARING,
+                'activeFilter' => CaseSpecialFilterStatuses::ACTIVE,
             ]]);
 
             $rows[] = [
@@ -116,6 +128,7 @@ class DashboardHelper
             ];
 
             // TODO: Show new hearing post again when it has been implemented
+            // TODO: Remember to add $getFinished options
             // Has new party submission
 //            $boardNewPartySubmissionUrl = $this->router->generate('case_index', ['case_filter' => [
 //                'board' => $board->getId(),
@@ -132,6 +145,7 @@ class DashboardHelper
             $boardAgendaUrl = $this->router->generate('case_index', ['case_filter' => [
                 'board' => $board->getId(),
                 'specialStateFilter' => CaseSpecialFilterStatuses::ON_AGENDA,
+                'activeFilter' => CaseSpecialFilterStatuses::ACTIVE,
             ]]);
 
             $rows[] = [
@@ -144,6 +158,7 @@ class DashboardHelper
             $boardExceededDeadlineUrl = $this->router->generate('case_index', ['case_filter' => [
                 'board' => $board->getId(),
                 'deadlines' => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
+                'activeFilter' => CaseSpecialFilterStatuses::ACTIVE,
             ]]);
 
             $rows[] = [
@@ -152,11 +167,18 @@ class DashboardHelper
                 'count' => $this->caseRepository->findCountOfCasesWithSomeExceededDeadlineBy(['board' => $board]),
             ];
 
-            $boardCount = array_sum(array_column($rows, 'count'));
+            // All board cases
+            $allBoardCount = $this->caseRepository->findCountOfCases(['board' => $board]);
+
+            $allBoardCases = $this->router->generate('case_index', ['case_filter' => [
+                'board' => $board->getId(),
+                'activeFilter' => CaseSpecialFilterStatuses::ACTIVE,
+            ]]);
 
             $boardsInformation[] = [
                 'label' => $board->getName(),
-                'count' => $boardCount,
+                'url' => $allBoardCases,
+                'count' => $allBoardCount,
                 'rows' => $rows,
             ];
         }

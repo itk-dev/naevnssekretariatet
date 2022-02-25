@@ -6,6 +6,7 @@ use App\Entity\Board;
 use App\Entity\Municipality;
 use App\Entity\User;
 use App\Repository\BoardRepository;
+use App\Repository\CaseEntityRepository;
 use App\Repository\UserRepository;
 use App\Service\AgendaStatus;
 use App\Service\CaseDeadlineStatuses;
@@ -24,29 +25,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CaseFilterType extends AbstractType
 {
-    /**
-     * @var BoardRepository
-     */
-    private $boardRepository;
-    /**
-     * @var FilterHelper
-     */
-    private $filterHelper;
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    public function __construct(BoardRepository $boardRepository, FilterHelper $filterHelper, TranslatorInterface $translator, UserRepository $userRepository)
+    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseEntityRepository, private FilterHelper $filterHelper, private TranslatorInterface $translator, private UserRepository $userRepository)
     {
-        $this->boardRepository = $boardRepository;
-        $this->filterHelper = $filterHelper;
-        $this->translator = $translator;
-        $this->userRepository = $userRepository;
     }
 
     public function getBlockPrefix()
@@ -238,5 +218,56 @@ class CaseFilterType extends AbstractType
                 ])
             ;
         }
+
+        $builder->add('activeFilter', Filters\ChoiceFilterType::class, [
+            'choices' => [
+                $this->translator->trans('Active', [], 'case') => CaseSpecialFilterStatuses::ACTIVE,
+                $this->translator->trans('Not active', [], 'case') => CaseSpecialFilterStatuses::NOT_ACTIVE,
+            ],
+            'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
+                if (empty($values['value'])) {
+                    return null;
+                }
+
+                $filterChoice = $values['value'];
+
+                // Base expression and parameters
+                $expression = $filterQuery->getExpr()->orX();
+                $parameters = [];
+
+                $boardRepository = $this->boardRepository;
+                $boards = $boardRepository->findAll();
+
+                $count = 0;
+                foreach ($boards as $board) {
+                    $rawPlaces = explode(
+                        PHP_EOL,
+                        trim($board->getStatuses())
+                    );
+
+                    $finishedStatus = trim(end($rawPlaces));
+
+                    // Construct different variable names for each board
+                    $statusDQLVariable = 'board_finish_status_'.$count;
+                    $boardDQLVariable = 'board_'.$count;
+
+                    $expression->add($filterQuery->getExpr()->andX(
+                        CaseSpecialFilterStatuses::ACTIVE === $filterChoice
+                            ? $filterQuery->getExpr()->neq('c.currentPlace', ':'.$statusDQLVariable)
+                            : $filterQuery->getExpr()->eq('c.currentPlace', ':'.$statusDQLVariable),
+                        $filterQuery->getExpr()->eq('c.board', ':'.$boardDQLVariable),
+                    ));
+
+                    $parameters[$statusDQLVariable] = $finishedStatus;
+                    $parameters[$boardDQLVariable] = $board->getId()->toBinary();
+
+                    ++$count;
+                }
+
+                return $filterQuery->createCondition($expression, $parameters);
+            },
+            'label' => false,
+            'placeholder' => $this->translator->trans('Select a general status filter', [], 'case'),
+        ]);
     }
 }

@@ -9,6 +9,7 @@ use App\Service\AgendaStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -76,7 +77,7 @@ class CaseEntityRepository extends ServiceEntityRepository
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function findCountOfCasesAndWithActiveAgendaBy(array $criteria): int
+    public function findCountOfCasesAndWithActiveAgendaBy(array $criteria, bool $getActive = true): int
     {
         $qb = $this->createQueryBuilder('c');
 
@@ -87,14 +88,9 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->setParameter('agenda_status', AgendaStatus::FINISHED)
         ;
 
-        foreach ($criteria as $key => $value) {
-            // TODO: Update beneath to include objects without an id, e.g. scalar types
-            $parameterValue = $value->getId()->toBinary();
-            $parameterName = uniqid($key);
-            $qb->andWhere('c.'.$key.'= :'.$parameterName)
-                ->setParameter($parameterName, $parameterValue)
-            ;
-        }
+        $this->applyCriteriaToQueryBuilder($qb, $criteria);
+
+        $qb->andWhere($this->getExprWithBoardFinishStatuses($qb, $getActive));
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
@@ -105,7 +101,7 @@ class CaseEntityRepository extends ServiceEntityRepository
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function findCountOfCasesWithSomeExceededDeadlineBy(array $criteria): int
+    public function findCountOfCasesWithSomeExceededDeadlineBy(array $criteria, bool $getActive = true): int
     {
         $qb = $this->createQueryBuilder('c');
 
@@ -114,19 +110,14 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->setParameter('isExceeded', true)
         ;
 
-        foreach ($criteria as $key => $value) {
-            // TODO: Update beneath to include objects without an id, e.g. scalar types
-            $parameterValue = $value->getId()->toBinary();
-            $parameterName = uniqid($key);
-            $qb->andWhere('c.'.$key.'= :'.$parameterName)
-                ->setParameter($parameterName, $parameterValue)
-            ;
-        }
+        $this->applyCriteriaToQueryBuilder($qb, $criteria);
+
+        $qb->andWhere($this->getExprWithBoardFinishStatuses($qb, $getActive));
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findCountOfCasesWithActiveHearingBy(array $criteria): int
+    public function findCountOfCasesWithActiveHearingBy(array $criteria, bool $getActive = true): int
     {
         $qb = $this->createQueryBuilder('c');
 
@@ -136,19 +127,14 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->andWhere('h.finishedOn IS NULL')
         ;
 
-        foreach ($criteria as $key => $value) {
-            // TODO: Update beneath to include objects without an id, e.g. scalar types
-            $parameterValue = $value->getId()->toBinary();
-            $parameterName = uniqid($key);
-            $qb->andWhere('c.'.$key.'= :'.$parameterName)
-                ->setParameter($parameterName, $parameterValue)
-            ;
-        }
+        $this->applyCriteriaToQueryBuilder($qb, $criteria);
+
+        $qb->andWhere($this->getExprWithBoardFinishStatuses($qb, $getActive));
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findCountOfCasesWithNewHearingPostBy(array $criteria): int
+    public function findCountOfCasesWithNewHearingPostBy(array $criteria, bool $getActive = true): int
     {
         // TODO: Update beneath when hearing stuff has been implemented
         return -1;
@@ -165,7 +151,7 @@ class CaseEntityRepository extends ServiceEntityRepository
         ;
 
         // The status that is considered finished may vary from board to board
-        $qb = $this->updateQueryBuilderWithBoardFinishStatuses($qb);
+        $qb->orWhere($this->getExprWithBoardFinishStatuses($qb, false));
 
         return $qb;
     }
@@ -174,18 +160,23 @@ class CaseEntityRepository extends ServiceEntityRepository
     {
         $qb->leftJoin('c.agendaCaseItems', 'aci')
             ->leftJoin('aci.agenda', 'a')
-            ->where(':boardMember MEMBER OF a.boardmembers')
-            ->setParameter('boardMember', $boardMember->getId()->toBinary())
         ;
 
-        // The status that is considered finished may vary from board to board
-        $qb = $this->updateQueryBuilderWithBoardFinishStatuses($qb);
+        $orExp = $qb->expr()->orX();
+
+        $orExp->add($qb->expr()->isMemberOf(':boardMember', 'a.boardmembers'));
+        $qb->setParameter('boardMember', $boardMember->getId()->toBinary());
+
+        $orExp->add($this->getExprWithBoardFinishStatuses($qb, false));
+
+        $qb->andWhere($orExp);
 
         return $qb;
     }
 
-    private function updateQueryBuilderWithBoardFinishStatuses(QueryBuilder $qb): QueryBuilder
+    public function getExprWithBoardFinishStatuses(QueryBuilder $qb, bool $getActive = true): Expr\Orx
     {
+        $boardExpression = $qb->expr()->orX();
         $boardRepository = $this->getEntityManager()->getRepository(Board::class);
         $boards = $boardRepository->findAll();
 
@@ -202,13 +193,45 @@ class CaseEntityRepository extends ServiceEntityRepository
             $statusDQLVariable = 'board_finish_status_'.$count;
             $boardDQLVariable = 'board_'.$count;
 
-            $qb->orWhere('c.currentPlace = :'.$statusDQLVariable.' AND c.board = :'.$boardDQLVariable)
+            $boardExpression->add($qb->expr()->andX(
+                $getActive
+                    ? $qb->expr()->neq('c.currentPlace', ':'.$statusDQLVariable)
+                    : $qb->expr()->eq('c.currentPlace', ':'.$statusDQLVariable),
+                $qb->expr()->eq('c.board', ':'.$boardDQLVariable),
+            ));
+
+            $qb
                 ->setParameter($statusDQLVariable, $finishedStatus)
                 ->setParameter($boardDQLVariable, $board->getId()->toBinary())
             ;
             ++$count;
         }
 
-        return $qb;
+        return $boardExpression;
+    }
+
+    public function findCountOfCases(array $criteria, bool $getActive = true): int
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->select('count(c.id)');
+
+        $this->applyCriteriaToQueryBuilder($qb, $criteria);
+
+        $qb->andWhere($this->getExprWithBoardFinishStatuses($qb, $getActive));
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    private function applyCriteriaToQueryBuilder(QueryBuilder $qb, array $criteria)
+    {
+        foreach ($criteria as $key => $value) {
+            // TODO: Update beneath to include objects without an id, e.g. scalar types
+            $parameterValue = $value->getId()->toBinary();
+            $parameterName = uniqid($key);
+            $qb->andWhere('c.'.$key.'= :'.$parameterName)
+                ->setParameter($parameterName, $parameterValue)
+            ;
+        }
     }
 }

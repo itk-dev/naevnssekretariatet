@@ -64,8 +64,10 @@
                             </div>
                         </td>
                     </tr>
-                    {{ render(controller('App\\Controller\\CaseReminderController:new', {id: case.id})) }}
-                    {{ render(controller('App\\Controller\\CaseController:assignCaseworker', {id: case.id})) }}
+                    {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+                        {{ render(controller('App\\Controller\\CaseReminderController:new', {id: case.id})) }}
+                        {{ render(controller('App\\Controller\\CaseController:assignCaseworker', {id: case.id})) }}
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
