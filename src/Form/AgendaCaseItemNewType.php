@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\AgendaCaseItem;
 use App\Entity\Board;
 use App\Entity\CaseEntity;
-use App\Repository\CaseEntityRepository;
+use App\Service\BoardHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,19 +16,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AgendaCaseItemNewType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-    /**
-     * @var CaseEntityRepository
-     */
-    private $caseRepository;
-
-    public function __construct(CaseEntityRepository $caseRepository, TranslatorInterface $translator)
+    public function __construct(private BoardHelper $boardHelper, private TranslatorInterface $translator)
     {
-        $this->caseRepository = $caseRepository;
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -44,12 +33,10 @@ class AgendaCaseItemNewType extends AbstractType
         /** @var Board $board */
         $board = $options['board'];
 
-        $casesWithBoardAndWithoutActiveAgenda = $this->caseRepository->findReadyCasesWithoutActiveAgendaByBoard($board);
-
         $builder
             ->add('caseEntity', EntityType::class, [
                 'class' => CaseEntity::class,
-                'choices' => $casesWithBoardAndWithoutActiveAgenda,
+                'choices' => $this->boardHelper->getCasesReadyForAgendaByBoardAndSuitableBoards($board),
                 'choice_label' => function ($caseEntity) {
                     $caseNumber = $caseEntity->getCaseNumber();
                     $isInspection = $caseEntity->getShouldBeInspected();
