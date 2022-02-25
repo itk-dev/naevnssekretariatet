@@ -193,17 +193,12 @@ class CaseEntityRepository extends ServiceEntityRepository
             $statusDQLVariable = 'board_finish_status_'.$count;
             $boardDQLVariable = 'board_'.$count;
 
-            if ($getActive) {
-                $boardExpression->add($qb->expr()->andX(
-                    $qb->expr()->neq('c.currentPlace', ':'.$statusDQLVariable),
-                    $qb->expr()->eq('c.board', ':'.$boardDQLVariable),
-                ));
-            } else {
-                $boardExpression->add($qb->expr()->andX(
-                    $qb->expr()->eq('c.currentPlace', ':'.$statusDQLVariable),
-                    $qb->expr()->eq('c.board', ':'.$boardDQLVariable),
-                ));
-            }
+            $boardExpression->add($qb->expr()->andX(
+                $getActive
+                    ? $qb->expr()->neq('c.currentPlace', ':'.$statusDQLVariable)
+                    : $qb->expr()->eq('c.currentPlace', ':'.$statusDQLVariable),
+                $qb->expr()->eq('c.board', ':'.$boardDQLVariable),
+            ));
 
             $qb
                 ->setParameter($statusDQLVariable, $finishedStatus)

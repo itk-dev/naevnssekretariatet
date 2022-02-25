@@ -25,34 +25,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CaseFilterType extends AbstractType
 {
-    /**
-     * @var BoardRepository
-     */
-    private $boardRepository;
-    /**
-     * @var CaseEntityRepository
-     */
-    private $caseEntityRepository;
-    /**
-     * @var FilterHelper
-     */
-    private $filterHelper;
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    public function __construct(BoardRepository $boardRepository, CaseEntityRepository $caseEntityRepository, FilterHelper $filterHelper, TranslatorInterface $translator, UserRepository $userRepository)
+    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseEntityRepository, private FilterHelper $filterHelper, private TranslatorInterface $translator, private UserRepository $userRepository)
     {
-        $this->boardRepository = $boardRepository;
-        $this->caseEntityRepository = $caseEntityRepository;
-        $this->filterHelper = $filterHelper;
-        $this->translator = $translator;
-        $this->userRepository = $userRepository;
     }
 
     public function getBlockPrefix()
@@ -258,14 +232,8 @@ class CaseFilterType extends AbstractType
                 $filterChoice = $values['value'];
 
                 // Modify query builder according to filter choice
-                switch ($filterChoice) {
-                    case CaseSpecialFilterStatuses::ACTIVE:
-                        $filterQuery->getQueryBuilder()->andWhere($this->caseEntityRepository->getExprWithBoardFinishStatuses($filterQuery->getQueryBuilder()));
-                        break;
-                    case CaseSpecialFilterStatuses::NOT_ACTIVE:
-                        $filterQuery->getQueryBuilder()->andWhere($this->caseEntityRepository->getExprWithBoardFinishStatuses($filterQuery->getQueryBuilder(), false));
-                        break;
-                }
+
+                $filterQuery->getQueryBuilder()->andWhere($this->caseEntityRepository->getExprWithBoardFinishStatuses($filterQuery->getQueryBuilder(), CaseSpecialFilterStatuses::ACTIVE === $filterChoice));
 
                 return $filterQuery->createCondition($filterQuery->getExpr()->andX(), []);
             },
