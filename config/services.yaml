@@ -78,8 +78,8 @@ services:
                 upload_destination: '%kernel.project_dir%/upload/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination
                 template_file_directory: '%kernel.project_dir%/upload/mail-templates'
-                colabora_http_client_options:
-                    base_uri: '%env(COLLABORA_API_BASE_URL)%'
+                libreoffice_http_client_options:
+                    base_uri: '%env(LIBREOFFICE_API_BASE_URL)%'
                     verify_peer: false
                     verify_host: false
 

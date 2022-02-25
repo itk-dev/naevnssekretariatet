@@ -39,7 +39,7 @@ To get a local copy up and running follow these simple steps.
 
    ```shell
    docker-compose pull
-   docker-compose up --detach
+   docker-compose up --detach --build
    ```
 
 3. Install composer packages

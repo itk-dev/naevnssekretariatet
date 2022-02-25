@@ -126,21 +126,20 @@ class MailTemplateHelper
         $this->setTemplateValues($values, $templateProcessor);
         $processedFileName = $templateProcessor->save();
 
-        $client = HttpClient::create($this->options['colabora_http_client_options']);
+        $client = HttpClient::create($this->options['libreoffice_http_client_options']);
         $formFields = [
             'data' => DataPart::fromPath($processedFileName),
         ];
         $formData = new FormDataPart($formFields);
 
-        // https://sdk.collaboraonline.com/docs/conversion_api.html
         try {
-            $response = $client->request('POST', '/lool/convert-to/pdf', [
+            $response = $client->request('POST', '/convert-to/pdf', [
                 'headers' => $formData->getPreparedHeaders()->toArray(),
                 'body' => $formData->bodyToIterable(),
             ]);
             $content = $response->getContent();
         } catch (ClientException|TransportException $exception) {
-            $this->logger->critical(sprintf('Error talking to Collabora: %s', $exception->getMessage()), ['exception' => $exception]);
+            $this->logger->critical(sprintf('Error talking to Libreoffice: %s', $exception->getMessage()), ['exception' => $exception]);
             throw new MailTemplateException(sprintf('Error rendering mail template %s', $mailTemplate->getName()), $exception->getCode(), $exception);
         }
 
@@ -271,7 +270,7 @@ class MailTemplateHelper
             'template_types',
             'upload_destination',
             'template_file_directory',
-            'colabora_http_client_options',
+            'libreoffice_http_client_options',
         ]);
         $resolver->setAllowedTypes('template_types', 'array');
     }
