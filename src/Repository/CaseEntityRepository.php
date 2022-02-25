@@ -88,14 +88,7 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->setParameter('agenda_status', AgendaStatus::FINISHED)
         ;
 
-        foreach ($criteria as $key => $value) {
-            // TODO: Update beneath to include objects without an id, e.g. scalar types
-            $parameterValue = $value->getId()->toBinary();
-            $parameterName = uniqid($key);
-            $qb->andWhere('c.'.$key.'= :'.$parameterName)
-                ->setParameter($parameterName, $parameterValue)
-            ;
-        }
+        $this->applyCriteriaToQueryBuilder($qb, $criteria);
 
         $qb->andWhere($this->getExprWithBoardFinishStatuses($qb, $getActive));
 
@@ -117,14 +110,7 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->setParameter('isExceeded', true)
         ;
 
-        foreach ($criteria as $key => $value) {
-            // TODO: Update beneath to include objects without an id, e.g. scalar types
-            $parameterValue = $value->getId()->toBinary();
-            $parameterName = uniqid($key);
-            $qb->andWhere('c.'.$key.'= :'.$parameterName)
-                ->setParameter($parameterName, $parameterValue)
-            ;
-        }
+        $this->applyCriteriaToQueryBuilder($qb, $criteria);
 
         $qb->andWhere($this->getExprWithBoardFinishStatuses($qb, $getActive));
 
@@ -141,14 +127,7 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->andWhere('h.finishedOn IS NULL')
         ;
 
-        foreach ($criteria as $key => $value) {
-            // TODO: Update beneath to include objects without an id, e.g. scalar types
-            $parameterValue = $value->getId()->toBinary();
-            $parameterName = uniqid($key);
-            $qb->andWhere('c.'.$key.'= :'.$parameterName)
-                ->setParameter($parameterName, $parameterValue)
-            ;
-        }
+        $this->applyCriteriaToQueryBuilder($qb, $criteria);
 
         $qb->andWhere($this->getExprWithBoardFinishStatuses($qb, $getActive));
 
@@ -242,6 +221,15 @@ class CaseEntityRepository extends ServiceEntityRepository
 
         $qb->select('count(c.id)');
 
+        $this->applyCriteriaToQueryBuilder($qb, $criteria);
+
+        $qb->andWhere($this->getExprWithBoardFinishStatuses($qb, $getActive));
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    private function applyCriteriaToQueryBuilder(QueryBuilder $qb, array $criteria)
+    {
         foreach ($criteria as $key => $value) {
             // TODO: Update beneath to include objects without an id, e.g. scalar types
             $parameterValue = $value->getId()->toBinary();
@@ -250,9 +238,5 @@ class CaseEntityRepository extends ServiceEntityRepository
                 ->setParameter($parameterName, $parameterValue)
             ;
         }
-
-        $qb->andWhere($this->getExprWithBoardFinishStatuses($qb, $getActive));
-
-        return (int) $qb->getQuery()->getSingleScalarResult();
     }
 }
