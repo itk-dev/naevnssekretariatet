@@ -86,7 +86,7 @@ class Address implements LoggableEntityInterface
         return $this->floor;
     }
 
-    public function setFloor(string $floor): self
+    public function setFloor(?string $floor): self
     {
         $this->floor = $floor;
 
@@ -98,7 +98,7 @@ class Address implements LoggableEntityInterface
         return $this->side;
     }
 
-    public function setSide(string $side): self
+    public function setSide(?string $side): self
     {
         $this->side = $side;
 
