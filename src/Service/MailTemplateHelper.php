@@ -132,11 +132,6 @@ class MailTemplateHelper
         ];
         $formData = new FormDataPart($formFields);
 
-        echo var_export([
-                 'headers' => $formData->getPreparedHeaders()->toArray(),
-                 'body' => $formData->bodyToIterable(),
-             ], true);
-
         try {
             $response = $client->request('POST', '/convert-to/pdf', [
                 'headers' => $formData->getPreparedHeaders()->toArray(),
