@@ -22,6 +22,7 @@ use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MailTemplateHelper
 {
@@ -32,7 +33,7 @@ class MailTemplateHelper
      */
     private $options;
 
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, array $mailTemplateHelperOptions)
+    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, private TranslatorInterface $translator, array $mailTemplateHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -41,7 +42,18 @@ class MailTemplateHelper
 
     public function getMailTemplateTypeChoices(): array
     {
-        return array_flip(array_map(static fn (array $spec) => $spec['label'], $this->options['template_types']));
+        $templateTypes = array_flip(array_map(static fn (array $spec) => $spec['label'], $this->options['template_types']));
+
+        $translatedTemplateTypes = [];
+
+        foreach ($templateTypes as $key => $value) {
+            $translatedKey = $this->translator->trans($key, [], 'mail_template');
+            $translatedTemplateTypes[$translatedKey] = $value;
+        }
+
+        ksort($translatedTemplateTypes);
+
+        return $translatedTemplateTypes;
     }
 
     /**
@@ -114,21 +126,20 @@ class MailTemplateHelper
         $this->setTemplateValues($values, $templateProcessor);
         $processedFileName = $templateProcessor->save();
 
-        $client = HttpClient::create($this->options['colabora_http_client_options']);
+        $client = HttpClient::create($this->options['libreoffice_http_client_options']);
         $formFields = [
             'data' => DataPart::fromPath($processedFileName),
         ];
         $formData = new FormDataPart($formFields);
 
-        // https://sdk.collaboraonline.com/docs/conversion_api.html
         try {
-            $response = $client->request('POST', '/lool/convert-to/pdf', [
+            $response = $client->request('POST', '/convert-to/pdf', [
                 'headers' => $formData->getPreparedHeaders()->toArray(),
                 'body' => $formData->bodyToIterable(),
             ]);
             $content = $response->getContent();
         } catch (ClientException|TransportException $exception) {
-            $this->logger->critical(sprintf('Error talking to Collabora: %s', $exception->getMessage()), ['exception' => $exception]);
+            $this->logger->critical(sprintf('Error talking to Libreoffice: %s', $exception->getMessage()), ['exception' => $exception]);
             throw new MailTemplateException(sprintf('Error rendering mail template %s', $mailTemplate->getName()), $exception->getCode(), $exception);
         }
 
@@ -259,7 +270,7 @@ class MailTemplateHelper
             'template_types',
             'upload_destination',
             'template_file_directory',
-            'colabora_http_client_options',
+            'libreoffice_http_client_options',
         ]);
         $resolver->setAllowedTypes('template_types', 'array');
     }

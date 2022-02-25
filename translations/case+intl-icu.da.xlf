@@ -1125,6 +1125,10 @@
         <source>Select a general status filter</source>
         <target state="needs-l10n">Vælg et generelt status filter</target>
       </trans-unit>
+      <trans-unit id="Qx57C0n" resname="Cannot get url for BBR-meddelelse for {address}">
+        <source>Cannot get url for BBR-meddelelse for {address}</source>
+        <target state="translated">Url til BBR-meddelelse for {address} kan ikke findes</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

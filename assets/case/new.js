@@ -1,4 +1,11 @@
 /* global $, Event */
+
+// On load trigger change once to preselect municipality
+window.addEventListener('load', function () {
+  const $municipality = $('#case_entity_municipality')
+  $municipality.trigger('change')
+})
+
 window.addEventListener('ajaxload', function () {
   const $municipality = $('#case_entity_municipality')
 

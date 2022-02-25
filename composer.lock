@@ -2461,12 +2461,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/datafordeler-php-client.git",
-                "reference": "0ac84ac5bafb788f1cfa9bddd33a5f142c001a36"
+                "reference": "619145e7ebe07a1c59084abfa481f9dd835984c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/0ac84ac5bafb788f1cfa9bddd33a5f142c001a36",
-                "reference": "0ac84ac5bafb788f1cfa9bddd33a5f142c001a36",
+                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/619145e7ebe07a1c59084abfa481f9dd835984c5",
+                "reference": "619145e7ebe07a1c59084abfa481f9dd835984c5",
                 "shasum": ""
             },
             "require": {
@@ -2514,7 +2514,7 @@
                 "source": "https://github.com/itk-dev/datafordeler-php-client/tree/develop",
                 "issues": "https://github.com/itk-dev/datafordeler-php-client/issues"
             },
-            "time": "2021-11-25T09:37:30+00:00"
+            "time": "2022-02-23T14:44:58+00:00"
         },
         {
             "name": "itk-dev/openid-connect",
@@ -11797,16 +11797,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.12",
+            "version": "9.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "c011a0b6aaa4acd2f39b7f51fb4ad4442b6ec631"
+                "reference": "deac8540cb7bd40b2b8cfa679b76202834fd04e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/c011a0b6aaa4acd2f39b7f51fb4ad4442b6ec631",
-                "reference": "c011a0b6aaa4acd2f39b7f51fb4ad4442b6ec631",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/deac8540cb7bd40b2b8cfa679b76202834fd04e8",
+                "reference": "deac8540cb7bd40b2b8cfa679b76202834fd04e8",
                 "shasum": ""
             },
             "require": {
@@ -11862,7 +11862,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.12"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.13"
             },
             "funding": [
                 {
@@ -11870,7 +11870,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-23T06:30:26+00:00"
+            "time": "2022-02-23T17:02:38+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

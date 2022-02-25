@@ -1125,6 +1125,10 @@
         <source>Select a general status filter</source>
         <target>Select a general status filter</target>
       </trans-unit>
+      <trans-unit id="Qx57C0n" resname="Cannot get url for BBR-meddelelse for {address}">
+        <source>Cannot get url for BBR-meddelelse for {address}</source>
+        <target>Cannot get url for BBR-meddelelse for {address}</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

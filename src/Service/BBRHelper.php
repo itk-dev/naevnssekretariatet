@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use ItkDev\Datafordeler\Client;
 use ItkDev\Datafordeler\Service\BBR\V1\BBRPublic;
 use ItkDev\Datafordeler\Service\DAR\V1\DAR;
+use ItkDev\Datafordeler\Service\DAR\V1\DAR_BFE_Public;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpClient\HttpClient;
@@ -86,7 +87,31 @@ class BBRHelper implements LoggerAwareInterface
             $husnummer = $darService->adresseTilHusnummer($addressId);
             $bbrService = new BBRPublic($client);
 
-            $bbrData['bygning'] = $bbrService->bygning(['Husnummer' => $husnummer]);
+            $bygning = $bbrService->bygning(['Husnummer' => $husnummer]);
+            // Sort by building number.
+            usort($bygning, static fn ($a, $b) => (($a['byg007Bygningsnummer'] ?? null) <=> ($b['byg007Bygningsnummer'] ?? null)));
+
+            // Try to find a BFE number from husnummer using the DAR BFE service.
+            $bfeNummer = (function () use ($husnummer, $client) {
+                $darBfeService = new DAR_BFE_Public($client);
+
+                if ($bfe = $darBfeService->husnummerTilBygningBfe($husnummer)) {
+                    return $bfe['jordstykkeList'][0]['samletFastEjendom'] ?? null;
+                }
+
+                // @todo will we ever end up here?
+                if ($bfe = $darBfeService->husnummerTilBygningBfe($husnummer)) {
+                    // @todo return ?
+                }
+
+                return null;
+            })();
+
+            if (null !== $bfeNummer) {
+                $bbrData['ejendomsrelation'] = $bbrService->ejendomsrelation(['BFENummer' => $bfeNummer]);
+            }
+
+            $bbrData['bygning'] = $bygning;
 
             $bbrData['enhed'] = $bbrService->enhed(['AdresseIdentificerer' => $addressId]);
         } catch (\Exception $exception) {
@@ -123,48 +148,24 @@ class BBRHelper implements LoggerAwareInterface
      * @param string $address the address
      * @param string $format  The format. Current only 'pdf' is supported.
      *
-     * @return string The url to the BBR-Meddelelse
-     *
-     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
-     * @throws \InvalidArgumentException
+     * @return string the url to the BBR-Meddelelse if any
      */
-    public function getBBRMeddelelseUrl(string $address, string $format = 'pdf'): string
+    public function getBBRMeddelelseUrl(string $address, string $format = 'pdf'): ?string
     {
         if ('pdf' !== $format) {
             throw $this->createException(sprintf('Invalid format: %s', $format));
         }
 
-        $addressData = $this->getAddressData($address);
-        if (!isset($addressData['adgangsadresse']['id'])) {
-            throw $this->createException($this->translator->trans('Cannot get adgangsadresse for address {address}', ['address' => $address], 'case'));
-        }
-        $accessAddressId = $addressData['adgangsadresse']['id'];
-
-        $response = $this->httpClient->request('GET', 'https://bbr.dk/pls/wwwdata/get_ois_pck.nyuuid2ejd', [
-            'query' => ['i_addressid' => $accessAddressId],
-        ]);
-
-        $xml = new \SimpleXMLElement($response->getContent());
-        // Convert to list of associative arrays.
-        $items = [];
-        foreach ($xml->RealProperty as $el) {
-            $items[] = json_decode(json_encode($el), true);
+        $bbrData = $this->getBBRData($address);
+        $ejendomsrelation = $bbrData->getData()['ejendomsrelation'] ?? null;
+        if (isset($ejendomsrelation[0]['kommunekode'], $ejendomsrelation[0]['ejendomsnummer'])) {
+            return 'https://bbr.dk/pls/wwwdata/get_ois_pck.show_bbr_meddelelse_pdf?'.http_build_query([
+                    'i_municipalitycode' => $ejendomsrelation[0]['kommunekode'],
+                    'i_realpropertyidentifier' => $ejendomsrelation[0]['ejendomsnummer'],
+                ]);
         }
 
-        // Dig for best match
-        $item = $this->findBestAddressMatch($this->normalizeAddress($address), $items, 'Adresse');
-        if (null === $item) {
-            throw $this->createException($this->translator->trans('Invalid or unknown address: {address}', ['address' => $address], 'case'));
-        }
-
-        return 'https://bbr.dk/pls/wwwdata/get_ois_pck.show_bbr_meddelelse_pdf?'.http_build_query([
-                'i_municipalitycode' => $item['MunicipalityCode'],
-                'i_realpropertyidentifier' => $item['MunicipalRealPropertyIdentifier'],
-            ]);
+        throw $this->createException($this->translator->trans('Cannot get url for BBR-meddelelse for {address}', ['address' => $address], 'case'));
     }
 
     /**

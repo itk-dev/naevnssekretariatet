@@ -58,27 +58,28 @@ services:
             $mailTemplateHelperOptions:
                 template_types:
                     inspection_letter:
-                        label: Inspection letter
+                        label: Inspection
                         entity_class_names:
+                            # TODO: Modify when inspection is reintroduced
                             - App\Entity\ResidentComplaintBoardCase
+                            - App\Entity\FenceReviewCase
+                            - App\Entity\RentBoardCase
                     decision:
                         label: Decision
                         entity_class_names:
-                            # - App\Entity\ResidentComplaintBoardCase
+                            - App\Entity\ResidentComplaintBoardCase
                             - App\Entity\FenceReviewCase
                             - App\Entity\RentBoardCase
                     hearing:
-                      label: Hearing
-                      entity_class_names:
-                        - App\Entity\ResidentComplaintBoardCase
-                        - App\Entity\FenceReviewCase
-                        - App\Entity\RentBoardCase
+                        label: Hearing
+                        entity_class_names:
+                            - App\Entity\HearingPost
 
                 upload_destination: '%kernel.project_dir%/upload/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination
                 template_file_directory: '%kernel.project_dir%/upload/mail-templates'
-                colabora_http_client_options:
-                    base_uri: '%env(COLLABORA_API_BASE_URL)%'
+                libreoffice_http_client_options:
+                    base_uri: '%env(LIBREOFFICE_API_BASE_URL)%'
                     verify_peer: false
                     verify_host: false
 
