@@ -231,11 +231,40 @@ class CaseFilterType extends AbstractType
 
                 $filterChoice = $values['value'];
 
-                // Modify query builder according to filter choice
+                // Base expression and parameters
+                $expression = $filterQuery->getExpr()->orX();
+                $parameters = [];
 
-                $filterQuery->getQueryBuilder()->andWhere($this->caseEntityRepository->getExprWithBoardFinishStatuses($filterQuery->getQueryBuilder(), CaseSpecialFilterStatuses::ACTIVE === $filterChoice));
+                $boardRepository = $this->boardRepository;
+                $boards = $boardRepository->findAll();
 
-                return $filterQuery->createCondition($filterQuery->getExpr()->andX(), []);
+                $count = 0;
+                foreach ($boards as $board) {
+                    $rawPlaces = explode(
+                        PHP_EOL,
+                        trim($board->getStatuses())
+                    );
+
+                    $finishedStatus = trim(end($rawPlaces));
+
+                    // Construct different variable names for each board
+                    $statusDQLVariable = 'board_finish_status_'.$count;
+                    $boardDQLVariable = 'board_'.$count;
+
+                    $expression->add($filterQuery->getExpr()->andX(
+                        CaseSpecialFilterStatuses::ACTIVE === $filterChoice
+                            ? $filterQuery->getExpr()->neq('c.currentPlace', ':'.$statusDQLVariable)
+                            : $filterQuery->getExpr()->eq('c.currentPlace', ':'.$statusDQLVariable),
+                        $filterQuery->getExpr()->eq('c.board', ':'.$boardDQLVariable),
+                    ));
+
+                    $parameters[$statusDQLVariable] = $finishedStatus;
+                    $parameters[$boardDQLVariable] = $board->getId()->toBinary();
+
+                    ++$count;
+                }
+
+                return $filterQuery->createCondition($expression, $parameters);
             },
             'label' => false,
             'placeholder' => $this->translator->trans('Select a general status filter', [], 'case'),
