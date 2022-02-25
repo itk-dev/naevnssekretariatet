@@ -21,24 +21,13 @@ class BoardHelper
     {
         $caseChoices = [];
 
-        $mainBoard = [];
-        // Find cases for board
-        foreach ($this->caseRepository->findReadyCasesWithoutActiveAgendaByBoard($board) as $case) {
-            $mainBoard[$case->__toString()] = $case;
-        }
-
-        $caseChoices[$board->getName()] = $mainBoard;
+        $caseChoices[$board->getName()] = $this->caseRepository->findReadyCasesWithoutActiveAgendaByBoard($board);
 
         // Find cases for suitable boards
         $suitableBoards = $this->boardRepository->findDifferentSuitableBoards($board);
 
         foreach ($suitableBoards as $suitableBoard) {
-            $suitableBoardCases = [];
-            foreach ($this->caseRepository->findReadyCasesWithoutActiveAgendaByBoard($suitableBoard) as $case) {
-                $suitableBoardCases[$case->__toString()] = $case;
-            }
-
-            $caseChoices[$suitableBoard->getName()] = $suitableBoardCases;
+            $caseChoices[$suitableBoard->getName()] = $this->caseRepository->findReadyCasesWithoutActiveAgendaByBoard($suitableBoard);
         }
 
         return $caseChoices;
