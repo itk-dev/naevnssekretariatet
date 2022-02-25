@@ -270,7 +270,7 @@ class CaseFilterType extends AbstractType
                 return $filterQuery->createCondition($filterQuery->getExpr()->andX(), []);
             },
             'label' => false,
-            'placeholder' => $this->translator->trans('Select active or not', [], 'case'),
+            'placeholder' => $this->translator->trans('Select a general status filter', [], 'case'),
         ]);
     }
 }
