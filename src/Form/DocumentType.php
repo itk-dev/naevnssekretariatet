@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -44,24 +45,29 @@ class DocumentType extends AbstractType
                 'choice_label' => 'name',
                 'help' => $this->translator->trans('Provide a document type', [], 'documents'),
             ])
-            ->add('filename', FileType::class, [
+            ->add('files', FileType::class, [
                 'label' => $this->translator->trans('Upload file', [], 'documents'),
                 'help' => $this->translator->trans('Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls', [], 'documents'),
                 'mapped' => false,
+                'multiple' => true,
                 'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
-                            'application/msword',
-                            'application/vnd.ms-excel',
-                            'text/plain',
-                            'image/jpeg',
-                            'image/png',
-                            'video/mp4',
+                    new All([
+                        'constraints' => [
+                            new File([
+                                'maxSize' => '1024k',
+                                'mimeTypes' => [
+                                    'application/pdf',
+                                    'application/x-pdf',
+                                    'application/msword',
+                                    'application/vnd.ms-excel',
+                                    'text/plain',
+                                    'image/jpeg',
+                                    'image/png',
+                                    'video/mp4',
+                                ],
+                                'mimeTypesMessage' => $this->translator->trans('Please upload a valid document', [], 'documents'),
+                            ]),
                         ],
-                        'mimeTypesMessage' => $this->translator->trans('Please upload a valid document', [], 'documents'),
                     ]),
                 ],
             ])
