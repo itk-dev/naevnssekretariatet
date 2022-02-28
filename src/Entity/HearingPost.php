@@ -14,10 +14,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=HearingPostRepository::class)
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"hearingPost" = "HearingPost", "hearingPostRequest" = "HearingPostRequest", "hearingPostResponse" = "HearingPostResponse"})
  * @ORM\EntityListeners({"App\Logging\EntityListener\HearingPostListener"})
  * @ORM\HasLifecycleCallbacks()
  */
-class HearingPost implements LoggableEntityInterface
+abstract class HearingPost implements LoggableEntityInterface
 {
     use TimestampableEntity;
 

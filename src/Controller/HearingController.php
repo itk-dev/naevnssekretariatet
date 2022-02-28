@@ -9,6 +9,7 @@ use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
 use App\Entity\Hearing;
 use App\Entity\HearingPost;
+use App\Entity\HearingPostRequest;
 use App\Entity\User;
 use App\Exception\HearingException;
 use App\Form\HearingFinishType;
@@ -118,7 +119,7 @@ class HearingController extends AbstractController
         $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
         $mailTemplates = $mailTemplateHelper->getTemplates('hearing');
 
-        $hearingPost = new HearingPost();
+        $hearingPost = new HearingPostRequest();
 
         $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
 
