@@ -46,8 +46,8 @@ class DocumentType extends AbstractType
                 'help' => $this->translator->trans('Provide a document type', [], 'documents'),
             ])
             ->add('files', FileType::class, [
-                'label' => $this->translator->trans('Upload file', [], 'documents'),
-                'help' => $this->translator->trans('Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls', [], 'documents'),
+                'label' => $this->translator->trans('Files', [], 'documents'),
+                'help' => $this->translator->trans('Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls', [], 'documents'),
                 'mapped' => false,
                 'multiple' => true,
                 'constraints' => [
