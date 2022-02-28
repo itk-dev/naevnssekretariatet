@@ -1129,6 +1129,50 @@
         <source>Cannot get url for BBR-meddelelse for {address}</source>
         <target>Cannot get url for BBR-meddelelse for {address}</target>
       </trans-unit>
+      <trans-unit id="4EJtWoD" resname="Choose a sender">
+        <source>Choose a sender</source>
+        <target>Choose a sender</target>
+      </trans-unit>
+      <trans-unit id="wpn5uFy" resname="Sender">
+        <source>Sender</source>
+        <target>Sender</target>
+      </trans-unit>
+      <trans-unit id="gILChLs" resname="Choose a document">
+        <source>Choose a document</source>
+        <target>Choose a document</target>
+      </trans-unit>
+      <trans-unit id="cpEu3W3" resname="Create request">
+        <source>Create request</source>
+        <target>Create request</target>
+      </trans-unit>
+      <trans-unit id="Jr1OWv0" resname="Create hearing request">
+        <source>Create hearing request</source>
+        <target>Create hearing request</target>
+      </trans-unit>
+      <trans-unit id="s7uYftY" resname="HearingPostResponse">
+        <source>HearingPostResponse</source>
+        <target>HearingPostResponse</target>
+      </trans-unit>
+      <trans-unit id="cE5WFuO" resname="HearingPostRequest">
+        <source>HearingPostRequest</source>
+        <target>HearingPostRequest</target>
+      </trans-unit>
+      <trans-unit id="R1lJisK" resname="Create">
+        <source>Create</source>
+        <target>Create</target>
+      </trans-unit>
+      <trans-unit id="SpslKEu" resname="Cannot create new post while a response or answer needs processing">
+        <source>Cannot create new post while a response or answer needs processing</source>
+        <target>Cannot create new post while a response or answer needs processing</target>
+      </trans-unit>
+      <trans-unit id="qlYKhOE" resname="Cannot end hearing while a response or answer needs processing">
+        <source>Cannot end hearing while a response or answer needs processing</source>
+        <target>Cannot end hearing while a response or answer needs processing</target>
+      </trans-unit>
+      <trans-unit id="YAesvjC" resname="Approve">
+        <source>Approve</source>
+        <target>Approve</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

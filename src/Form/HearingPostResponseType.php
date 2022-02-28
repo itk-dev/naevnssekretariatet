@@ -2,17 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\HearingPost;
-use App\Entity\HearingPostRequest;
+use App\Entity\HearingPostResponse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class HearingPostType extends AbstractType
+class HearingPostResponseType extends AbstractType
 {
     /**
      * @var TranslatorInterface
@@ -27,9 +25,8 @@ class HearingPostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => HearingPost::class,
+            'data_class' => HearingPostResponse::class,
             'case_parties' => null,
-            'mail_template_choices' => null,
             'available_case_documents' => null,
         ]);
     }
@@ -37,28 +34,25 @@ class HearingPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $caseParties = $options['case_parties'];
-        $availableTemplateChoices = $options['mail_template_choices'];
+        $availableCaseDocuments = $options['available_case_documents'];
 
-        $templateChoices = [];
+        $documentChoices = [];
 
-        foreach ($availableTemplateChoices as $template) {
-            $templateChoices[$template->getName()] = $template;
+        foreach ($availableCaseDocuments as $document) {
+            $documentChoices[$document->getDocumentName()] = $document;
         }
 
         $builder
-            ->add('title', TextType::class, [
-                'label' => $this->translator->trans('Title', [], 'case'),
-                'help' => $this->translator->trans('Choose a title for the hearing post', [], 'case'),
-            ])
-            ->add('template', ChoiceType::class, [
-                'placeholder' => $this->translator->trans('Choose a template', [], 'case'),
-                'label' => $this->translator->trans('Mail template', [], 'case'),
-                'choices' => $templateChoices,
-            ])
-            ->add('recipient', ChoiceType::class, [
-                'placeholder' => $this->translator->trans('Choose a recipient', [], 'case'),
-                'label' => $this->translator->trans('Recipient', [], 'case'),
+            ->add('sender', ChoiceType::class, [
+                'placeholder' => $this->translator->trans('Choose a sender', [], 'case'),
+                'label' => $this->translator->trans('Sender', [], 'case'),
                 'choices' => $caseParties,
+            ])
+            ->add('document', ChoiceType::class, [
+                'placeholder' => $this->translator->trans('Choose a document', [], 'case'),
+                'label' => $this->translator->trans('Document', [], 'case'),
+                'required' => true,
+                'choices' => $documentChoices,
             ])
             ->add('attachments', CollectionType::class, [
                 'label' => $this->translator->trans('Attach case documents', [], 'case'),
