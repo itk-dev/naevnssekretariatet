@@ -2,12 +2,12 @@
 
 {% trans_default_domain 'case' %}
 
-{% block title %}{% trans %}Create hearing request{% endtrans %}{% endblock %}
+{% block title %}{{ translated_title|e }}{% endblock %}
 
 {% block header %}
     <div class="row">
         <div class="col">
-            <h1>{% trans %}Create hearing request{% endtrans %}</h1>
+            <h1>{{ translated_title|e }}</h1>
         </div>
         <div class="col-auto">
             <a class="btn btn-secondary" href="{{ path('case_hearing_index', {id: case.id}) }}">{% trans %}Back{% endtrans %}</a>

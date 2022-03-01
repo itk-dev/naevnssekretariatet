@@ -1173,6 +1173,10 @@
         <source>Approve</source>
         <target>Approve</target>
       </trans-unit>
+      <trans-unit id="BxjIsJq" resname="Create hearing response">
+        <source>Create hearing response</source>
+        <target>Create hearing response</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

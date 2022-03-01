@@ -27,13 +27,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/case")
  */
 class HearingController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager, private TranslatorInterface $translator)
     {
     }
 
@@ -138,6 +139,7 @@ class HearingController extends AbstractController
         }
 
         return $this->render('case/hearing/post_create.html.twig', [
+            'translated_title' => $this->translator->trans('Create hearing response', [], 'case'),
             'case' => $case,
             'form' => $form->createView(),
         ]);
@@ -205,6 +207,7 @@ class HearingController extends AbstractController
         }
 
         return $this->render('case/hearing/post_create.html.twig', [
+            'translated_title' => $this->translator->trans('Create hearing request', [], 'case'),
             'case' => $case,
             'form' => $form->createView(),
         ]);
