@@ -45,9 +45,9 @@
         <source>Documents</source>
         <target>Documents</target>
       </trans-unit>
-      <trans-unit id="UHrmcab" resname="Upload document">
-        <source>Upload document</source>
-        <target>Upload document</target>
+      <trans-unit id="q8fpiSg" resname="Files">
+        <source>Files</source>
+        <target>Files</target>
       </trans-unit>
       <trans-unit id="eA.VRbI" resname="Provide a recognizable name for the document">
         <source>Provide a recognizable name for the document</source>
@@ -57,9 +57,9 @@
         <source>Provide a document type</source>
         <target>Provide a document type</target>
       </trans-unit>
-      <trans-unit id="p9p3rZy" resname="Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
-        <source>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
-        <target>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
+      <trans-unit id="ANOqFOP" resname="Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
+        <source>Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
+        <target>Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
       </trans-unit>
       <trans-unit id="Hl9Om1x" resname="Uploaded by">
         <source>Uploaded by</source>

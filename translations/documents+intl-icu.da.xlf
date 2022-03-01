@@ -25,13 +25,13 @@
         <source>Cancel</source>
         <target>Annuller</target>
       </trans-unit>
-      <trans-unit id="UHrmcab" resname="Upload document">
-        <source>Upload document</source>
-        <target>Opret dokument</target>
+      <trans-unit id="q8fpiSg" resname="Files">
+        <source>Files</source>
+        <target state="translated">Filer</target>
       </trans-unit>
-      <trans-unit id="p9p3rZy" resname="Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
-        <source>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
-        <target state="translated">Max filstørrelse: 10mb. Accepterede filformater: .pdf, .txt, .md, .jpg, .png, .webp</target>
+      <trans-unit id="ANOqFOP" resname="Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
+        <source>Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
+        <target state="translated">Upload en eller flere filer. Maks. filstørrelse: 10mb. Accepterede filformater: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
       </trans-unit>
       <trans-unit id="Hl9Om1x" resname="Uploaded by">
         <source>Uploaded by</source>
