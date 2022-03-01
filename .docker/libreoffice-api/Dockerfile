@@ -28,7 +28,7 @@ EXPOSE 9980
 
 WORKDIR /app
 
-COPY app/server.js app/package*.json /app
+COPY app/server.js app/package*.json /app/
 RUN npm install
 
 COPY docker-entrypoint.sh /usr/local/bin/
