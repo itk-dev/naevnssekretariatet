@@ -108,6 +108,7 @@ abstract class CaseEntity
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignedCases")
+     * @Groups({"mail_template"})
      */
     private $assignedTo;
 
