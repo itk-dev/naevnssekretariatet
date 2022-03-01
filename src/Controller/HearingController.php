@@ -74,11 +74,8 @@ class HearingController extends AbstractController
 
         // Detect whether most recent hearing post has been forwarded or even exists
         $mostRecentPost = reset($hearingPosts);
-        if ($mostRecentPost instanceof HearingPostResponse) {
-            $requiresProcessing = $mostRecentPost && !$mostRecentPost->getApprovedOn();
-        } else {
-            $requiresProcessing = $mostRecentPost && !$mostRecentPost->getForwardedOn();
-        }
+
+        $requiresProcessing = $mostRecentPost instanceof HearingPostResponse ? !$mostRecentPost->getApprovedOn() : $mostRecentPost && !$mostRecentPost->getForwardedOn();
 
         return $this->render('case/hearing/index.html.twig', [
             'case' => $case,
