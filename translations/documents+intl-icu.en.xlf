@@ -57,10 +57,6 @@
         <source>Provide a document type</source>
         <target>Provide a document type</target>
       </trans-unit>
-      <trans-unit id="ANOqFOP" resname="Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
-        <source>Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
-        <target>Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
-      </trans-unit>
       <trans-unit id="Hl9Om1x" resname="Uploaded by">
         <source>Uploaded by</source>
         <target>Uploaded by</target>
@@ -96,6 +92,14 @@
       <trans-unit id="gmq5sjf" resname="Please upload a valid document">
         <source>Please upload a valid document</source>
         <target>Please upload a valid document</target>
+      </trans-unit>
+      <trans-unit id="64TSSiU" resname="Upload one or more files. Max file size: 80mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
+        <source>Upload one or more files. Max file size: 80mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
+        <target>Upload one or more files. Max file size: 80mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
+      </trans-unit>
+      <trans-unit id="UHrmcab" resname="Upload document">
+        <source>Upload document</source>
+        <target>Upload document</target>
       </trans-unit>
     </body>
   </file>

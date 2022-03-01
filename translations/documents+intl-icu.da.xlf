@@ -29,10 +29,6 @@
         <source>Files</source>
         <target state="translated">Filer</target>
       </trans-unit>
-      <trans-unit id="ANOqFOP" resname="Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
-        <source>Upload one or more files. Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
-        <target state="translated">Upload en eller flere filer. Maks. filstørrelse: 10mb. Accepterede filformater: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
-      </trans-unit>
       <trans-unit id="Hl9Om1x" resname="Uploaded by">
         <source>Uploaded by</source>
         <target>Oprettet af</target>
@@ -96,6 +92,14 @@
       <trans-unit id="gmq5sjf" resname="Please upload a valid document">
         <source>Please upload a valid document</source>
         <target state="translated">Upload venligst et gyldigt dokument</target>
+      </trans-unit>
+      <trans-unit id="64TSSiU" resname="Upload one or more files. Max file size: 80mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
+        <source>Upload one or more files. Max file size: 80mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
+        <target state="translated">Upload en eller flere filer. Maks. filstørrelse: 80mb. Accepterede filformater: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
+      </trans-unit>
+      <trans-unit id="UHrmcab" resname="Upload document">
+        <source>Upload document</source>
+        <target state="needs-l10n">Upload dokument</target>
       </trans-unit>
     </body>
   </file>
