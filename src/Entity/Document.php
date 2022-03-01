@@ -59,7 +59,7 @@ class Document implements LoggableEntityInterface
     private $agendaCaseItems;
 
     /**
-     * @ORM\ManyToOne(targetEntity=HearingPost::class, inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity=HearingPost::class, inversedBy="document")
      */
     private $hearingPost;
 

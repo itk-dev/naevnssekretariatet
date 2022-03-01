@@ -9,10 +9,13 @@ use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
 use App\Entity\Hearing;
 use App\Entity\HearingPost;
+use App\Entity\HearingPostRequest;
+use App\Entity\HearingPostResponse;
 use App\Entity\User;
 use App\Exception\HearingException;
 use App\Form\HearingFinishType;
-use App\Form\HearingPostType;
+use App\Form\HearingPostRequestType;
+use App\Form\HearingPostResponseType;
 use App\Repository\DocumentRepository;
 use App\Repository\HearingPostRepository;
 use App\Service\DocumentUploader;
@@ -21,25 +24,24 @@ use App\Service\PartyHelper;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/case")
  */
 class HearingController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager, private TranslatorInterface $translator)
     {
     }
 
     /**
      * @Route("/{id}/hearing", name="case_hearing_index")
      */
-    public function hearing(CaseEntity $case, HearingPostRepository $hearingPostRepository, PartyHelper $partyHelper, Request $request): Response
+    public function index(CaseEntity $case, HearingPostRepository $hearingPostRepository, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -73,7 +75,8 @@ class HearingController extends AbstractController
 
         // Detect whether most recent hearing post has been forwarded or even exists
         $mostRecentPost = reset($hearingPosts);
-        $hasNewUnforwardedPost = $mostRecentPost && !$mostRecentPost->getForwardedOn();
+
+        $requiresProcessing = $mostRecentPost instanceof HearingPostResponse ? !$mostRecentPost->getApprovedOn() : $mostRecentPost && !$mostRecentPost->getForwardedOn();
 
         return $this->render('case/hearing/index.html.twig', [
             'case' => $case,
@@ -81,7 +84,7 @@ class HearingController extends AbstractController
             'posts' => $hearingPosts,
             'neitherPartyHasAnythingToAdd' => $neitherPartyHasAnythingToAdd,
             'hasSufficientParties' => $hasSufficientParties,
-            'hasNewUnforwardedPost' => $hasNewUnforwardedPost,
+            'requiresProcessing' => $requiresProcessing,
             'form' => $form->createView(),
         ]);
     }
@@ -105,9 +108,47 @@ class HearingController extends AbstractController
     }
 
     /**
-     * @Route("/{case}/hearing/{hearing}/create", name="case_hearing_post_create")
+     * @Route("/{case}/hearing/{hearing}/response/create", name="case_hearing_post_response_create")
      */
-    public function hearingPostCreate(CaseEntity $case, DocumentUploader $documentUploader, DocumentRepository $documentRepository, Hearing $hearing, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request, SluggerInterface $slugger, Filesystem $filesystem): Response
+    public function hearingPostResponseCreate(CaseEntity $case, DocumentRepository $documentRepository, Hearing $hearing, PartyHelper $partyHelper, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $case);
+
+        if ($hearing->getFinishedOn()) {
+            throw new HearingException();
+        }
+
+        $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
+        $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
+
+        $hearingPost = new HearingPostResponse();
+
+        $form = $this->createForm(HearingPostResponseType::class, $hearingPost, [
+            'case_parties' => $availableParties,
+            'available_case_documents' => $caseDocuments,
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $hearingPost->setHearing($hearing);
+
+            $this->entityManager->persist($hearingPost);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId(), 'hearing' => $hearing->getId()]);
+        }
+
+        return $this->render('case/hearing/post_create.html.twig', [
+            'translated_title' => $this->translator->trans('Create hearing response', [], 'case'),
+            'case' => $case,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{case}/hearing/{hearing}/request/create", name="case_hearing_post_request_create")
+     */
+    public function hearingPostRequestCreate(CaseEntity $case, DocumentUploader $documentUploader, DocumentRepository $documentRepository, Hearing $hearing, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -118,11 +159,11 @@ class HearingController extends AbstractController
         $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
         $mailTemplates = $mailTemplateHelper->getTemplates('hearing');
 
-        $hearingPost = new HearingPost();
+        $hearingPost = new HearingPostRequest();
 
         $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
 
-        $form = $this->createForm(HearingPostType::class, $hearingPost, [
+        $form = $this->createForm(HearingPostRequestType::class, $hearingPost, [
             'case_parties' => $availableParties,
             'mail_template_choices' => $mailTemplates,
             'available_case_documents' => $caseDocuments,
@@ -166,6 +207,7 @@ class HearingController extends AbstractController
         }
 
         return $this->render('case/hearing/post_create.html.twig', [
+            'translated_title' => $this->translator->trans('Create hearing request', [], 'case'),
             'case' => $case,
             'form' => $form->createView(),
         ]);
@@ -185,9 +227,43 @@ class HearingController extends AbstractController
     }
 
     /**
-     * @Route("/{case}/hearing/{hearingPost}/edit", name="case_hearing_post_edit")
+     * @Route("/{case}/hearing/{hearingPost}/response/edit", name="case_hearing_post_response_edit")
      */
-    public function hearingPostEdit(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, Filesystem $filesystem, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
+    public function hearingPostResponseEdit(CaseEntity $case, DocumentRepository $documentRepository, HearingPost $hearingPost, PartyHelper $partyHelper, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $case);
+
+        if ($hearingPost->getHearing()->getFinishedOn()) {
+            throw new HearingException();
+        }
+
+        $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
+        $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
+
+        $form = $this->createForm(HearingPostResponseType::class, $hearingPost, [
+            'case_parties' => $availableParties,
+            'available_case_documents' => $caseDocuments,
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($hearingPost);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('case_hearing_post_show', ['case' => $case->getId(), 'hearingPost' => $hearingPost->getId()]);
+        }
+
+        return $this->render('case/hearing/post_edit.html.twig', [
+            'case' => $case,
+            'hearingPost' => $hearingPost,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{case}/hearing/{hearingPost}/request/edit", name="case_hearing_post_request_edit")
+     */
+    public function hearingPostRequestEdit(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -200,7 +276,7 @@ class HearingController extends AbstractController
 
         $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
 
-        $form = $this->createForm(HearingPostType::class, $hearingPost, [
+        $form = $this->createForm(HearingPostRequestType::class, $hearingPost, [
             'case_parties' => $availableParties,
             'mail_template_choices' => $mailTemplates,
             'available_case_documents' => $caseDocuments,
@@ -235,6 +311,24 @@ class HearingController extends AbstractController
             'hearingPost' => $hearingPost,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{case}/hearing/{hearingPost}/approve", name="case_hearing_post_approve", methods={"POST"})
+     */
+    public function hearingPostApprove(CaseEntity $case, HearingPostResponse $hearingPost): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $case);
+
+        if ($hearingPost->getHearing()->getFinishedOn()) {
+            throw new HearingException();
+        }
+        $today = new DateTime('today');
+        $hearingPost->setApprovedOn($today);
+        $hearingPost->getHearing()->setHasNewHearingPost(false);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
 
     /**

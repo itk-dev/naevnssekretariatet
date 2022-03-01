@@ -915,7 +915,7 @@
       </trans-unit>
       <trans-unit id="MlTlhEZ" resname="Create response">
         <source>Create response</source>
-        <target state="translated">Opret svar</target>
+        <target state="translated">Opret høringssvar</target>
       </trans-unit>
       <trans-unit id="kNUge99" resname="Cannot end hearing while complainant or counterpart still has something to add">
         <source>Cannot end hearing while complainant or counterpart still has something to add</source>
@@ -1115,19 +1115,67 @@
       </trans-unit>
       <trans-unit id="kjQGlYm" resname="Active">
         <source>Active</source>
-        <target state="needs-l10n">Aktiv</target>
+        <target state="translated">Aktiv</target>
       </trans-unit>
       <trans-unit id="RQWvkuK" resname="Not active">
         <source>Not active</source>
-        <target state="needs-l10n">Ikke aktiv</target>
+        <target state="translated">Ikke aktiv</target>
       </trans-unit>
       <trans-unit id="jPdd51O" resname="Select a general status filter">
         <source>Select a general status filter</source>
-        <target state="needs-l10n">Vælg et generelt status filter</target>
+        <target state="translated">Vælg et generelt status filter</target>
       </trans-unit>
       <trans-unit id="Qx57C0n" resname="Cannot get url for BBR-meddelelse for {address}">
         <source>Cannot get url for BBR-meddelelse for {address}</source>
         <target state="translated">Url til BBR-meddelelse for {address} kan ikke findes</target>
+      </trans-unit>
+      <trans-unit id="4EJtWoD" resname="Choose a sender">
+        <source>Choose a sender</source>
+        <target state="translated">Vælg en afsender</target>
+      </trans-unit>
+      <trans-unit id="wpn5uFy" resname="Sender">
+        <source>Sender</source>
+        <target state="translated">Afsender</target>
+      </trans-unit>
+      <trans-unit id="gILChLs" resname="Choose a document">
+        <source>Choose a document</source>
+        <target state="translated">Vælg et dokument</target>
+      </trans-unit>
+      <trans-unit id="cpEu3W3" resname="Create request">
+        <source>Create request</source>
+        <target state="translated">Opret høringsbrev</target>
+      </trans-unit>
+      <trans-unit id="Jr1OWv0" resname="Create hearing request">
+        <source>Create hearing request</source>
+        <target state="translated">Opret høringsbrev</target>
+      </trans-unit>
+      <trans-unit id="s7uYftY" resname="HearingPostResponse">
+        <source>HearingPostResponse</source>
+        <target state="translated">Høringssvar</target>
+      </trans-unit>
+      <trans-unit id="cE5WFuO" resname="HearingPostRequest">
+        <source>HearingPostRequest</source>
+        <target state="translated">Høringsbrev</target>
+      </trans-unit>
+      <trans-unit id="R1lJisK" resname="Create">
+        <source>Create</source>
+        <target state="translated">Opret</target>
+      </trans-unit>
+      <trans-unit id="SpslKEu" resname="Cannot create new post while a response or answer needs processing">
+        <source>Cannot create new post while a response or answer needs processing</source>
+        <target state="translated">Kan ikke oprette nyt mens noget mangler at blive behandlet</target>
+      </trans-unit>
+      <trans-unit id="qlYKhOE" resname="Cannot end hearing while a response or answer needs processing">
+        <source>Cannot end hearing while a response or answer needs processing</source>
+        <target state="translated">Kan ikke afslutte høring mens noget mangler at blive behandlet</target>
+      </trans-unit>
+      <trans-unit id="YAesvjC" resname="Approve">
+        <source>Approve</source>
+        <target state="translated">Godkend</target>
+      </trans-unit>
+      <trans-unit id="BxjIsJq" resname="Create hearing response">
+        <source>Create hearing response</source>
+        <target state="translated">Opret høringssvar</target>
       </trans-unit>
     </body>
   </file>

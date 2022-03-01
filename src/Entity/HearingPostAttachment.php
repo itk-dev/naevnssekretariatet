@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Logging\LoggableEntityInterface;
 use App\Repository\HearingPostAttachmentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
@@ -10,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=HearingPostAttachmentRepository::class)
  */
-class HearingPostAttachment
+class HearingPostAttachment implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
@@ -81,5 +82,13 @@ class HearingPostAttachment
         $this->position = $position;
 
         return $this;
+    }
+
+    public function getLoggableProperties(): array
+    {
+        return [
+            'document',
+            'position',
+        ];
     }
 }

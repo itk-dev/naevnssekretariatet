@@ -14,10 +14,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=HearingPostRepository::class)
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"hearingPost" = "HearingPost", "hearingPostRequest" = "HearingPostRequest", "hearingPostResponse" = "HearingPostResponse"})
  * @ORM\EntityListeners({"App\Logging\EntityListener\HearingPostListener"})
  * @ORM\HasLifecycleCallbacks()
  */
-class HearingPost implements LoggableEntityInterface
+abstract class HearingPost implements LoggableEntityInterface
 {
     use TimestampableEntity;
 
@@ -35,13 +38,6 @@ class HearingPost implements LoggableEntityInterface
     private $hearing;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Party::class)
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"mail_template"})
-     */
-    private $recipient;
-
-    /**
      * @ORM\OneToMany(targetEntity=HearingPostAttachment::class, mappedBy="hearingPost", orphanRemoval=true, cascade={"persist"})
      * @ORM\OrderBy({"position": "ASC"})
      * @Assert\Valid()
@@ -49,26 +45,9 @@ class HearingPost implements LoggableEntityInterface
     private $attachments;
 
     /**
-     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $template;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $forwardedOn;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Document::class)
      */
     private $document;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"mail_template"})
-     */
-    private $title;
 
     public function __construct()
     {
@@ -94,18 +73,6 @@ class HearingPost implements LoggableEntityInterface
     public function setHearing(?Hearing $hearing): self
     {
         $this->hearing = $hearing;
-
-        return $this;
-    }
-
-    public function getRecipient(): ?Party
-    {
-        return $this->recipient;
-    }
-
-    public function setRecipient(Party $recipient): self
-    {
-        $this->recipient = $recipient;
 
         return $this;
     }
@@ -144,40 +111,6 @@ class HearingPost implements LoggableEntityInterface
         return $this;
     }
 
-    public function getTemplate(): ?MailTemplate
-    {
-        return $this->template;
-    }
-
-    public function setTemplate(?MailTemplate $template): self
-    {
-        $this->template = $template;
-
-        return $this;
-    }
-
-    public function getForwardedOn(): ?\DateTimeInterface
-    {
-        return $this->forwardedOn;
-    }
-
-    public function setForwardedOn(?\DateTimeInterface $forwardedOn): self
-    {
-        $this->forwardedOn = $forwardedOn;
-
-        return $this;
-    }
-
-    public function getLoggableProperties(): array
-    {
-        return [
-            'title',
-            'recipient',
-            'template',
-            'forwardedOn',
-        ];
-    }
-
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -198,18 +131,6 @@ class HearingPost implements LoggableEntityInterface
     public function setDocument(?Document $document): self
     {
         $this->document = $document;
-
-        return $this;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
 
         return $this;
     }

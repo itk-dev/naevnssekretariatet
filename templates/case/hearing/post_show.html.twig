@@ -10,8 +10,11 @@
             <h1>{% trans %}Hearing post{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            {% if not hearingPost.getForwardedOn %}
-                <a class="btn btn-primary" href="{{ path('case_hearing_post_edit', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Edit{% endtrans %}</a>
+            {% if hearingPost.forwardedOn is defined and not hearingPost.getForwardedOn %}
+                <a class="btn btn-primary" href="{{ path('case_hearing_post_request_edit', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Edit{% endtrans %}</a>
+            {% endif %}
+            {% if hearingPost.approvedOn is defined and not hearingPost.approvedOn %}
+                <a class="btn btn-primary" href="{{ path('case_hearing_post_response_edit', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Edit{% endtrans %}</a>
             {% endif %}
             <a class="btn btn-secondary" href="{{ path('case_hearing_index', {id: case.id}) }}">{% trans %}Back{% endtrans %}</a>
         </div>
@@ -27,18 +30,33 @@
 {% block content %}
     <main role="main" class="col-12 mt-3">
         <dl>
-            <dt>
-                {% trans %}Recipient{% endtrans %}
-            </dt>
-            <dd>
-                {{ hearingPost.recipient }}
-            </dd>
-            <dt>
-                {% trans %}Template{% endtrans %}
-            </dt>
-            <dd>
-                {{ hearingPost.template.name }}
-            </dd>
+
+            {% if hearingPost.recipient is defined %}
+                <dt>
+                    {% trans %}Recipient{% endtrans %}
+                </dt>
+
+                <dd>
+                    {{ hearingPost.recipient }}
+                </dd>
+            {% endif %}
+            {% if hearingPost.sender is defined %}
+                <dt>
+                    {% trans %}Sender{% endtrans %}
+                </dt>
+
+                <dd>
+                    {{ hearingPost.sender }}
+                </dd>
+            {% endif %}
+            {% if hearingPost.template is defined %}
+                <dt>
+                    {% trans %}Template{% endtrans %}
+                </dt>
+                <dd>
+                    {{ hearingPost.template.name }}
+                </dd>
+            {% endif %}
             <dt>
                 {% trans %}Document{% endtrans %}
             </dt>
