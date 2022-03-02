@@ -18,6 +18,7 @@ use App\Form\HearingPostRequestType;
 use App\Form\HearingPostResponseType;
 use App\Repository\DocumentRepository;
 use App\Repository\HearingPostRepository;
+use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
 use App\Service\MailTemplateHelper;
 use App\Service\PartyHelper;
@@ -334,7 +335,7 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/forward", name="case_hearing_post_forward", methods={"POST"})
      */
-    public function hearingPostForward(CaseEntity $case, HearingPost $hearingPost): Response
+    public function hearingPostForward(CaseEntity $case, HearingPostRequest $hearingPost, DigitalPostHelper $digitalPostHelper): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -342,33 +343,57 @@ class HearingController extends AbstractController
             throw new HearingException();
         }
 
-        // Create DigitalPost
-        $digitalPost = new DigitalPost();
-        $digitalPost->setDocument($hearingPost->getDocument());
-        $digitalPost->setEntityType(get_class($case));
-        $digitalPost->setEntityId($case->getId());
+        //Create DigitalPost attachments without linking them to a specific DigitalPost
+        $digitalPostAttachments = [];
 
-        $recipient = (new DigitalPost\Recipient())
-            ->setName($hearingPost->getRecipient()->getName())
-            ->setIdentifierType($hearingPost->getRecipient()->getIdentifierType())
-            ->setIdentifier($hearingPost->getRecipient()->getIdentifier())
-            ->setAddress($hearingPost->getRecipient()->getAddress())
-        ;
-        $digitalPost->addRecipient($recipient);
-
-        // Handle attachments
         $attachments = $hearingPost->getAttachments();
 
         foreach ($attachments as $attachment) {
             $digitalPostAttachment = new DigitalPostAttachment();
             $digitalPostAttachment->setDocument($attachment->getDocument());
-
-            $digitalPost->addAttachment($digitalPostAttachment);
-
-            $this->entityManager->persist($digitalPostAttachment);
+            $digitalPostAttachments[] = $digitalPostAttachment;
         }
 
-        $this->entityManager->persist($digitalPost);
+        // Handle recipients
+        $digitalPostRecipients = [];
+
+        $digitalPostRecipients[] = (new DigitalPost\Recipient())
+            ->setName($hearingPost->getRecipient()->getName())
+            ->setIdentifierType($hearingPost->getRecipient()->getIdentifierType())
+            ->setIdentifier($hearingPost->getRecipient()->getIdentifier())
+            ->setAddress($hearingPost->getRecipient()->getAddress())
+        ;
+
+        $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+
+//
+//        // Create DigitalPost
+//        $digitalPost = new DigitalPost();
+//        $digitalPost->setDocument($hearingPost->getDocument());
+//        $digitalPost->setEntityType(get_class($case));
+//        $digitalPost->setEntityId($case->getId());
+//
+//        $recipient = (new DigitalPost\Recipient())
+//            ->setName($hearingPost->getRecipient()->getName())
+//            ->setIdentifierType($hearingPost->getRecipient()->getIdentifierType())
+//            ->setIdentifier($hearingPost->getRecipient()->getIdentifier())
+//            ->setAddress($hearingPost->getRecipient()->getAddress())
+//        ;
+//        $digitalPost->addRecipient($recipient);
+//
+//        // Handle attachments
+//        $attachments = $hearingPost->getAttachments();
+//
+//        foreach ($attachments as $attachment) {
+//            $digitalPostAttachment = new DigitalPostAttachment();
+//            $digitalPostAttachment->setDocument($attachment->getDocument());
+//
+//            $digitalPost->addAttachment($digitalPostAttachment);
+//
+//            $this->entityManager->persist($digitalPostAttachment);
+//        }
+//
+//        $this->entityManager->persist($digitalPost);
 
         $today = new DateTime('today');
         $hearingPost->setForwardedOn($today);
