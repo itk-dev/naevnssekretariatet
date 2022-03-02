@@ -72,6 +72,11 @@ class DigitalPost
      */
     private $attachments;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $subject;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -237,5 +242,17 @@ class DigitalPost
         foreach ($this->getAttachments() as $attachment) {
             $attachment->setPosition($index++);
         }
+    }
+
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(string $subject): self
+    {
+        $this->subject = $subject;
+
+        return $this;
     }
 }

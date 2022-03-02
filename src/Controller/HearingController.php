@@ -364,7 +364,7 @@ class HearingController extends AbstractController
             ->setAddress($hearingPost->getRecipient()->getAddress())
         ;
 
-        $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+        $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
 
 //
 //        // Create DigitalPost

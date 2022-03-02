@@ -77,7 +77,7 @@ class DigitalPostHelper extends DigitalPost
         return $result;
     }
 
-    public function createDigitalPost(Document $document, string $entityType, Uuid $entityId, array $digitalPostAttachments, array $digitalPostRecipients): void
+    public function createDigitalPost(Document $document, string $subject, string $entityType, Uuid $entityId, array $digitalPostAttachments, array $digitalPostRecipients): void
     {
         $digitalPosts = [];
 
@@ -103,6 +103,10 @@ class DigitalPostHelper extends DigitalPost
         $currentDigitalPost->setEntityType($entityType);
         $currentDigitalPost->setEntityId($entityId);
 
+        // Subject might depend on attachments in case multiple digital posts are needed,
+        // but we add it here and modify it later if necessary
+        $currentDigitalPost->setSubject($subject);
+
         $this->entityManager->persist($currentDigitalPost);
 
         if (count($digitalPostAttachments) > 0) {
@@ -126,6 +130,7 @@ class DigitalPostHelper extends DigitalPost
                     $currentDigitalPost->setDocument($document);
                     $currentDigitalPost->setEntityType($entityType);
                     $currentDigitalPost->setEntityId($entityId);
+                    $currentDigitalPost->setSubject($subject);
 
                     $this->entityManager->persist($currentDigitalPost);
                     $this->entityManager->flush();
