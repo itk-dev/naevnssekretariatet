@@ -12,6 +12,7 @@ use App\Entity\User;
 use App\Form\DecisionType;
 use App\Repository\DecisionRepository;
 use App\Repository\DocumentRepository;
+use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
 use App\Service\PartyHelper;
 use Doctrine\Common\Collections\Criteria;
@@ -49,7 +50,7 @@ class DecisionController extends AbstractController
     /**
      * @Route("/create", name="case_decision_create")
      */
-    public function create(CaseEntity $case, DocumentUploader $documentUploader, DocumentRepository $documentRepository, PartyHelper $partyHelper, Request $request): Response
+    public function create(CaseEntity $case, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, DocumentRepository $documentRepository, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -90,38 +91,35 @@ class DecisionController extends AbstractController
             $decision->setDocument($document);
             $decision->setCaseEntity($case);
 
-            // Create DigitalPost
-            $digitalPost = new DigitalPost();
-            $digitalPost->setDocument($decision->getDocument());
-            $digitalPost->setEntityType(get_class($case));
-            $digitalPost->setEntityId($case->getId());
+            $this->entityManager->persist($decision);
+            $this->entityManager->persist($document);
+            $this->entityManager->persist($relation);
 
-            foreach ($decision->getRecipients() as $recipient) {
-                $recipient = (new DigitalPost\Recipient())
-                    ->setName($recipient->getName())
-                    ->setIdentifierType($recipient->getIdentifierType())
-                    ->setIdentifier($recipient->getIdentifier())
-                    ->setAddress($recipient->getAddress())
-                ;
-                $digitalPost->addRecipient($recipient);
-            }
+            //Create DigitalPost attachments without linking them to a specific DigitalPost
+            $digitalPostAttachments = [];
 
-            // Handle attachments
             $attachments = $decision->getAttachments();
 
             foreach ($attachments as $attachment) {
                 $digitalPostAttachment = new DigitalPostAttachment();
                 $digitalPostAttachment->setDocument($attachment->getDocument());
-
-                $digitalPost->addAttachment($digitalPostAttachment);
-
-                $this->entityManager->persist($digitalPostAttachment);
+                $digitalPostAttachments[] = $digitalPostAttachment;
             }
 
-            $this->entityManager->persist($digitalPost);
-            $this->entityManager->persist($decision);
-            $this->entityManager->persist($document);
-            $this->entityManager->persist($relation);
+            // Handle recipients
+            $digitalPostRecipients = [];
+
+            foreach ($decision->getRecipients() as $recipient) {
+                $digitalPostRecipients[] = (new DigitalPost\Recipient())
+                    ->setName($recipient->getName())
+                    ->setIdentifierType($recipient->getIdentifierType())
+                    ->setIdentifier($recipient->getIdentifier())
+                    ->setAddress($recipient->getAddress())
+                ;
+            }
+
+            $digitalPostHelper->createDigitalPost($document, $decision->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('case_decision', ['id' => $case->getId()]);

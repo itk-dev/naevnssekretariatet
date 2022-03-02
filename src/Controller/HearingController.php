@@ -366,35 +366,6 @@ class HearingController extends AbstractController
 
         $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
 
-//
-//        // Create DigitalPost
-//        $digitalPost = new DigitalPost();
-//        $digitalPost->setDocument($hearingPost->getDocument());
-//        $digitalPost->setEntityType(get_class($case));
-//        $digitalPost->setEntityId($case->getId());
-//
-//        $recipient = (new DigitalPost\Recipient())
-//            ->setName($hearingPost->getRecipient()->getName())
-//            ->setIdentifierType($hearingPost->getRecipient()->getIdentifierType())
-//            ->setIdentifier($hearingPost->getRecipient()->getIdentifier())
-//            ->setAddress($hearingPost->getRecipient()->getAddress())
-//        ;
-//        $digitalPost->addRecipient($recipient);
-//
-//        // Handle attachments
-//        $attachments = $hearingPost->getAttachments();
-//
-//        foreach ($attachments as $attachment) {
-//            $digitalPostAttachment = new DigitalPostAttachment();
-//            $digitalPostAttachment->setDocument($attachment->getDocument());
-//
-//            $digitalPost->addAttachment($digitalPostAttachment);
-//
-//            $this->entityManager->persist($digitalPostAttachment);
-//        }
-//
-//        $this->entityManager->persist($digitalPost);
-
         $today = new DateTime('today');
         $hearingPost->setForwardedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
