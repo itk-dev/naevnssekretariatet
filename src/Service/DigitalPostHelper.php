@@ -149,14 +149,32 @@ class DigitalPostHelper extends DigitalPost
 
                 $this->entityManager->flush();
             }
-            // Now handle the pointers between digital posts if there are more than one digital post entity
+
+            $digitalPosts[] = $currentDigitalPost;
+
+            // Modify subject and pointers of digital post if more than one was created
+            $numberOfDigitalPosts = count($digitalPosts);
+
+            $previous = null;
+            if ($numberOfDigitalPosts > 1) {
+                $counter = 1;
+                foreach ($digitalPosts as $digitalPost) {
+                    assert($digitalPost instanceof DigitalPostEntity);
+                    if ($previous) {
+                        $digitalPost->setPrevious($previous);
+                        $previous->setNext($digitalPost);
+                    }
+                    $newSubject = $digitalPost->getSubject().' '.$counter.'/'.$numberOfDigitalPosts;
+                    $digitalPost->setSubject($newSubject);
+                    $previous = $digitalPost;
+                    ++$counter;
+                }
+            }
         } else {
             // Simply persist and flush
             $this->entityManager->persist($currentDigitalPost);
             $this->entityManager->flush();
         }
-
-        // TODO: Modify title of digital post if more than one was created
     }
 
     protected function acquireLock(): bool

@@ -30,6 +30,24 @@
             <dt class="col-sm-3">{% trans %}Subject{% endtrans %}</dt>
             <dd class="col-sm-9">{{ digital_post.subject }}</dd>
 
+            {% if digital_post.next %}
+                <dt class="col-sm-3">{% trans %}Next{% endtrans %}</dt>
+                <dd class="col-sm-9">
+                    <a href="{{ path('digital_post_show', {'id': case.id, 'digitalPost': digital_post.next.id}) }}">
+                        {{ digital_post.next.subject }}
+                    </a>
+                </dd>
+            {% endif %}
+
+            {% if digital_post.previous %}
+                <dt class="col-sm-3">{% trans %}Previous{% endtrans %}</dt>
+                <dd class="col-sm-9">
+                    <a href="{{ path('digital_post_show', {'id': case.id, 'digitalPost': digital_post.previous.id}) }}">
+                        {{ digital_post.previous.subject }}
+                    </a>
+                </dd>
+            {% endif %}
+
             <dt class="col-sm-3">{% trans %}Status{% endtrans %}</dt>
             <dd class="col-sm-9">{{ digital_post.status ?? '–' }}</dd>
 

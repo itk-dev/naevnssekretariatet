@@ -77,6 +77,16 @@ class DigitalPost
      */
     private $subject;
 
+    /**
+     * @ORM\OneToOne(targetEntity=DigitalPost::class, cascade={"persist", "remove"})
+     */
+    private $next;
+
+    /**
+     * @ORM\OneToOne(targetEntity=DigitalPost::class, cascade={"persist", "remove"})
+     */
+    private $previous;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -252,6 +262,30 @@ class DigitalPost
     public function setSubject(string $subject): self
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getNext(): ?self
+    {
+        return $this->next;
+    }
+
+    public function setNext(?self $next): self
+    {
+        $this->next = $next;
+
+        return $this;
+    }
+
+    public function getPrevious(): ?self
+    {
+        return $this->previous;
+    }
+
+    public function setPrevious(?self $previous): self
+    {
+        $this->previous = $previous;
 
         return $this;
     }
