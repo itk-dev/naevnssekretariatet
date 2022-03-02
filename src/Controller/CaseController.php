@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AgendaCaseItem;
 use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
@@ -13,6 +14,7 @@ use App\Exception\BoardMemberException;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
+use App\Form\CaseDeleteType;
 use App\Form\CaseEntityType;
 use App\Form\CaseFilterType;
 use App\Form\CaseMoveType;
@@ -31,6 +33,7 @@ use App\Repository\MunicipalityRepository;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
 use App\Service\AddressHelper;
+use App\Service\AgendaStatus;
 use App\Service\BBRHelper;
 use App\Service\CaseManager;
 use App\Service\LogEntryHelper;
@@ -158,12 +161,22 @@ class CaseController extends AbstractController
         $communications = $digitalPostRepository->findByEntity($case, [], ['createdAt' => Criteria::DESC], $numberOfShownItems);
 
         $suitableBoards = $boardRepository->findDifferentSuitableBoards($case->getBoard());
+        // Check if case is deletable
+        $isDeletable = true;
+        // Case is not deletable if case is on active agenda
+        foreach ($case->getAgendaCaseItems() as $agendaCaseItem) {
+            assert($agendaCaseItem instanceof AgendaCaseItem);
+            if (AgendaStatus::FINISHED !== $agendaCaseItem->getAgenda()->getStatus()) {
+                $isDeletable = false;
+            }
+        }
 
         return $this->render('case/summary.html.twig', [
             'case' => $case,
             'notes' => $notes,
             'communications' => $communications,
             'suitable_boards' => $suitableBoards,
+            'is_deletable' => $isDeletable,
         ]);
     }
 
@@ -630,6 +643,35 @@ class CaseController extends AbstractController
 
         return $this->render('case/_move_case.html.twig', [
             'move_form' => $moveForm->createView(),
+            'case' => $case,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/delete", name="case_delete", methods={"POST"})
+     */
+    public function delete(CaseEntity $case, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $case);
+
+        $deleteForm = $this->createForm(CaseDeleteType::class, $case);
+
+        $deleteForm->handleRequest($request);
+
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $case->setSoftDeleted(true);
+            $now = new \DateTime('now');
+            $case->setSoftDeletedAt($now);
+
+            $this->getDoctrine()->getManager()->flush();
+
+            $redirectUrl = $this->generateUrl('default', ['id' => $case->getId()]);
+
+            return $this->redirect($redirectUrl);
+        }
+
+        return $this->render('case/_delete.html.twig', [
+            'delete_form' => $deleteForm->createView(),
             'case' => $case,
         ]);
     }
