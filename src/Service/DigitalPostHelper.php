@@ -85,6 +85,7 @@ class DigitalPostHelper extends DigitalPost
 
         // Setup first DigitalPost
         $currentDigitalPost = new DigitalPostBase();
+        $digitalPosts[] = $currentDigitalPost;
 
         // Handle attachments and add extra digital post entities if necessary due to size or number of attachments
         $sizeLimit = (int) $this->serviceOptions['restriction_options']['total_filesize_allowed'];
@@ -107,8 +108,6 @@ class DigitalPostHelper extends DigitalPost
         // but we add it here and modify it later if necessary
         $currentDigitalPost->setSubject($subject);
 
-        $this->entityManager->persist($currentDigitalPost);
-
         if (count($digitalPostAttachments) > 0) {
             foreach ($digitalPostAttachments as $attachment) {
                 assert($attachment instanceof DigitalPostAttachment);
@@ -118,9 +117,9 @@ class DigitalPostHelper extends DigitalPost
                 // Check if adding attachment would violate restrictions
                 if ($currentSizeOfDigitalPost + $attachmentSize >= $sizeLimit || $currentDigitalPost->getAttachments()->count() >= $attachmentLimit) {
                     // Persist current digital post entity and make new for current attachment
-                    $digitalPosts[] = $currentDigitalPost;
 
                     $currentDigitalPost = new DigitalPostBase();
+                    $digitalPosts[] = $currentDigitalPost;
 
                     // Handle non-attachment properties on DigitalPost
                     foreach ($digitalPostRecipients as $recipient) {
@@ -132,39 +131,31 @@ class DigitalPostHelper extends DigitalPost
                     $currentDigitalPost->setEntityId($entityId);
                     $currentDigitalPost->setSubject($subject);
 
-                    $this->entityManager->persist($currentDigitalPost);
-
                     $currentSizeOfDigitalPost = $mainDocumentSize;
                 }
 
                 // Add current attachment
-                $attachment->setPosition($currentDigitalPost->getAttachments()->count() + 1);
                 $currentDigitalPost->addAttachment($attachment);
                 $this->entityManager->persist($attachment);
 
                 $currentSizeOfDigitalPost += $attachmentSize;
             }
+        }
 
-            $digitalPosts[] = $currentDigitalPost;
+        // Modify subject and pointers of digital post if more than one was created
+        $numberOfDigitalPosts = count($digitalPosts);
 
-            // Modify subject and pointers of digital post if more than one was created
-            $numberOfDigitalPosts = count($digitalPosts);
-
-            $previous = null;
-            if ($numberOfDigitalPosts > 1) {
-                foreach ($digitalPosts as $index => $digitalPost) {
-                    assert($digitalPost instanceof DigitalPostBase);
-                    if ($previous) {
-                        $previous->setNext($digitalPost);
-                    }
-                    $newSubject = sprintf('%s (%d/%d)', $digitalPost->getSubject(), $index + 1, $numberOfDigitalPosts);
-                    $digitalPost->setSubject($newSubject);
-                    $previous = $digitalPost;
-                }
+        foreach ($digitalPosts as $index => $digitalPost) {
+            assert($digitalPost instanceof DigitalPostBase);
+            if ($index > 0) {
+                $digitalPost->setPrevious($digitalPosts[$index - 1]);
             }
-        } else {
-            // Simply persist and flush
-            $this->entityManager->persist($currentDigitalPost);
+            if ($numberOfDigitalPosts > 1) {
+                $newSubject = sprintf('%s (%d/%d)', $digitalPost->getSubject(), $index + 1, $numberOfDigitalPosts);
+                $digitalPost->setSubject($newSubject);
+            }
+
+            $this->entityManager->persist($digitalPost);
         }
 
         $this->entityManager->flush();
