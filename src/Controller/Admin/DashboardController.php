@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Board;
 use App\Entity\BoardMember;
 use App\Entity\BoardRole;
+use App\Entity\CaseEntity;
 use App\Entity\ComplaintCategory;
 use App\Entity\MailTemplate;
 use App\Entity\MailTemplateMacro;
@@ -103,6 +104,9 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Mail templates', '', MailTemplate::class),
                 MenuItem::linkToCrud('Macros', '', MailTemplateMacro::class),
             ])
+        ;
+        yield MenuItem::linkToCrud('Deleted cases', '', CaseEntity::class)
+            ->setPermission('ROLE_ADMIN')
         ;
         yield MenuItem::linkToCrud('Log', '', LogEntry::class);
         yield MenuItem::linkToCrud('User Settings', '', User::class)

@@ -1177,6 +1177,26 @@
         <source>Create hearing response</source>
         <target state="translated">Opret høringssvar</target>
       </trans-unit>
+      <trans-unit id="2CEeJOg" resname="Reasoning">
+        <source>Reasoning</source>
+        <target state="translated">Begrundelse</target>
+      </trans-unit>
+      <trans-unit id="ncr8wvB" resname="Please provide a reason for deletion of the case">
+        <source>Please provide a reason for deletion of the case</source>
+        <target state="translated">Giv venligst en begrundelse for sletning af sagen</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target state="translated">Anuller</target>
+      </trans-unit>
+      <trans-unit id="_lckPcD" resname="Confirm deletion">
+        <source>Confirm deletion</source>
+        <target state="translated">Bekræft sletning</target>
+      </trans-unit>
+      <trans-unit id="Esn9xCt" resname="Cannot delete case that is on active agenda">
+        <source>Cannot delete case that is on active agenda</source>
+        <target state="translated">Kan ikke slette sag der er på aktiv dagsorden</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
