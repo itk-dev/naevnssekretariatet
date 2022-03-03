@@ -9,20 +9,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DocumentType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator, private int $maxFileSize)
     {
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -47,14 +42,14 @@ class DocumentType extends AbstractType
             ])
             ->add('files', FileType::class, [
                 'label' => $this->translator->trans('Files', [], 'documents'),
-                'help' => $this->translator->trans('Upload one or more files. Max file size: 80mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls', [], 'documents'),
+                'help' => new TranslatableMessage('Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls', ['{size}' => $this->formatBytes($this->maxFileSize)], 'documents'),
                 'mapped' => false,
                 'multiple' => true,
                 'constraints' => [
                     new All([
                         'constraints' => [
                             new File([
-                                'maxSize' => '80M',
+                                'maxSize' => $this->maxFileSize,
                                 'mimeTypes' => [
                                     'application/pdf',
                                     'application/x-pdf',
@@ -72,5 +67,18 @@ class DocumentType extends AbstractType
                 ],
             ])
         ;
+    }
+
+    public function formatBytes($bytes, $precision = 2): string
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1000));
+        $pow = min($pow, count($units) - 1);
+
+        $bytes /= pow(1000, $pow);
+
+        return round($bytes, $precision).' '.$units[$pow];
     }
 }

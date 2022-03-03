@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\DigitalPost as DigitalPostEntity;
+use App\Entity\DigitalPost as DigitalPostBase;
 use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
 use App\Entity\Embeddable\Address;
@@ -79,22 +79,23 @@ class DigitalPostHelper extends DigitalPost
 
     public function createDigitalPost(Document $document, string $subject, string $entityType, Uuid $entityId, array $digitalPostAttachments, array $digitalPostRecipients): void
     {
+        $this->documentUploader->specifyDirectory('/case_documents/');
+
         $digitalPosts = [];
 
         // Setup first DigitalPost
-        $currentDigitalPost = new DigitalPostEntity();
+        $currentDigitalPost = new DigitalPostBase();
 
         // Handle attachments and add extra digital post entities if necessary due to size or number of attachments
-        // Size limit for attachments and main document combined is 80mb
-        // The max number of attachments per digital post is 10
-        $documentPath = $this->getFilePath($document);
+        $sizeLimit = (int) $this->serviceOptions['restriction_options']['total_filesize_allowed'];
+        $attachmentLimit = (int) $this->serviceOptions['restriction_options']['number_of_attachments_allowed'];
+
+        $documentPath = $this->documentUploader->getFilepath($document->getFilename());
         $currentSizeOfDigitalPost = $mainDocumentSize = filesize($documentPath);
-        $sizeLimit = 80 * (10 ** 6);
-        $attachmentLimit = 10;
 
         // Handle non-attachment properties on DigitalPost
         foreach ($digitalPostRecipients as $recipient) {
-            assert($recipient instanceof DigitalPostEntity\Recipient);
+            assert($recipient instanceof DigitalPostBase\Recipient);
             $currentDigitalPost->addRecipient($recipient);
         }
 
@@ -111,7 +112,7 @@ class DigitalPostHelper extends DigitalPost
         if (count($digitalPostAttachments) > 0) {
             foreach ($digitalPostAttachments as $attachment) {
                 assert($attachment instanceof DigitalPostAttachment);
-                $attachmentSize = filesize($this->getFilePath($attachment->getDocument()));
+                $attachmentSize = filesize($this->documentUploader->getFilepath($attachment->getDocument()->getFilename()));
                 // Attachments are made from documents i.e. we are guaranteed they are less than 80mb
 
                 // Check if adding attachment would violate restrictions
@@ -119,7 +120,7 @@ class DigitalPostHelper extends DigitalPost
                     // Persist current digital post entity and make new for current attachment
                     $digitalPosts[] = $currentDigitalPost;
 
-                    $currentDigitalPost = new DigitalPostEntity();
+                    $currentDigitalPost = new DigitalPostBase();
 
                     // Handle non-attachment properties on DigitalPost
                     foreach ($digitalPostRecipients as $recipient) {
@@ -152,7 +153,7 @@ class DigitalPostHelper extends DigitalPost
             $previous = null;
             if ($numberOfDigitalPosts > 1) {
                 foreach ($digitalPosts as $index => $digitalPost) {
-                    assert($digitalPost instanceof DigitalPostEntity);
+                    assert($digitalPost instanceof DigitalPostBase);
                     if ($previous) {
                         $digitalPost->setPrevious($previous);
                         $previous->setNext($digitalPost);
@@ -189,13 +190,7 @@ class DigitalPostHelper extends DigitalPost
     {
         $resolver->setRequired([
             'digital_post_options',
+            'restriction_options',
         ]);
-    }
-
-    private function getFilePath(Document $document): string
-    {
-        $this->documentUploader->specifyDirectory('/case_documents/');
-
-        return $this->documentUploader->getDirectory().'/'.$document->getFilename();
     }
 }
