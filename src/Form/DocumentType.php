@@ -42,7 +42,7 @@ class DocumentType extends AbstractType
             ])
             ->add('files', FileType::class, [
                 'label' => $this->translator->trans('Files', [], 'documents'),
-                'help' => new TranslatableMessage('Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls', ['{size}' => $this->formatBytes($this->maxFileSize)], 'documents'),
+                'help' => new TranslatableMessage('Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls', ['{size}' => $this->getMinimumMaximumFileSizeRestriction()], 'documents'),
                 'mapped' => false,
                 'multiple' => true,
                 'constraints' => [
@@ -69,15 +69,49 @@ class DocumentType extends AbstractType
         ;
     }
 
+    public function getMinimumMaximumFileSizeRestriction(): string
+    {
+        static $maxSize = -1;
+
+        if ($maxSize < 0) {
+            // Start with post_max_size.
+            $postMaxSize = $this->parseSize(ini_get('post_max_size'));
+            if ($postMaxSize > 0) {
+                $maxSize = $postMaxSize;
+            }
+
+            // If upload_max_size is less, then reduce. Except if upload_max_size is
+            // zero, which indicates no limit.
+            $uploadMax = $this->parseSize(ini_get('upload_max_filesize'));
+            if ($uploadMax > 0 && $uploadMax < $maxSize) {
+                $maxSize = $uploadMax;
+            }
+        }
+
+        return $this->formatBytes($maxSize);
+    }
+
+    public function parseSize(string $size): float
+    {
+        $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
+        $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
+        if ($unit) {
+            // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
+            return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
+        } else {
+            return round($size);
+        }
+    }
+
     public function formatBytes($bytes, $precision = 2): string
     {
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
         $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1000));
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
         $pow = min($pow, count($units) - 1);
 
-        $bytes /= pow(1000, $pow);
+        $bytes /= pow(1024, $pow);
 
         return round($bytes, $precision).' '.$units[$pow];
     }
