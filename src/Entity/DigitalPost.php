@@ -87,6 +87,11 @@ class DigitalPost
      */
     private $previous;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $totalFileSize = 0;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -296,6 +301,18 @@ class DigitalPost
         }
 
         $this->previous = $previous;
+
+        return $this;
+    }
+
+    public function getTotalFileSize(): ?int
+    {
+        return $this->totalFileSize;
+    }
+
+    public function setTotalFileSize(int $totalFileSize): self
+    {
+        $this->totalFileSize = $totalFileSize;
 
         return $this;
     }

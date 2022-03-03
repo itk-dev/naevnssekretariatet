@@ -84,65 +84,61 @@ class DigitalPostHelper extends DigitalPost
         $digitalPosts = [];
 
         // Setup first DigitalPost
-        $currentDigitalPost = new DigitalPostBase();
-        $digitalPosts[] = $currentDigitalPost;
+        $digitalPost = new DigitalPostBase();
+        $digitalPosts[] = $digitalPost;
 
-        // Handle attachments and add extra digital post entities if necessary due to size or number of attachments
+        // Digital post restrictions on size and number of attachments
         $sizeLimit = (int) $this->serviceOptions['restriction_options']['total_filesize_allowed'];
         $attachmentLimit = (int) $this->serviceOptions['restriction_options']['number_of_attachments_allowed'];
-
-        $documentPath = $this->documentUploader->getFilepath($document->getFilename());
-        $currentSizeOfDigitalPost = $mainDocumentSize = filesize($documentPath);
 
         // Handle non-attachment properties on DigitalPost
         foreach ($digitalPostRecipients as $recipient) {
             assert($recipient instanceof DigitalPostBase\Recipient);
-            $currentDigitalPost->addRecipient($recipient);
+            $digitalPost->addRecipient($recipient);
         }
 
-        $currentDigitalPost->setDocument($document);
-        $currentDigitalPost->setEntityType($entityType);
-        $currentDigitalPost->setEntityId($entityId);
+        $digitalPost->setDocument($document);
+        $documentPath = $this->documentUploader->getFilepath($document->getFilename());
+        $digitalPost->setTotalFileSize(filesize($documentPath));
+        $digitalPost->setEntityType($entityType);
+        $digitalPost->setEntityId($entityId);
 
         // Subject might depend on attachments in case multiple digital posts are needed,
         // but we add it here and modify it later if necessary
-        $currentDigitalPost->setSubject($subject);
+        $digitalPost->setSubject($subject);
 
         if (count($digitalPostAttachments) > 0) {
             foreach ($digitalPostAttachments as $attachment) {
                 assert($attachment instanceof DigitalPostAttachment);
                 $attachmentSize = filesize($this->documentUploader->getFilepath($attachment->getDocument()->getFilename()));
-                // Attachments are made from documents i.e. we are guaranteed they are less than 80mb
 
                 // Check if adding attachment would violate restrictions
-                if ($currentSizeOfDigitalPost + $attachmentSize >= $sizeLimit || $currentDigitalPost->getAttachments()->count() >= $attachmentLimit) {
-                    // Persist current digital post entity and make new for current attachment
+                if ($digitalPost->getTotalFileSize() + $attachmentSize >= $sizeLimit || $digitalPost->getAttachments()->count() >= $attachmentLimit) {
+                    // Make new DigitalPost for current and remaining attachments
 
-                    $currentDigitalPost = new DigitalPostBase();
-                    $digitalPosts[] = $currentDigitalPost;
+                    $digitalPost = new DigitalPostBase();
+                    $digitalPosts[] = $digitalPost;
 
                     // Handle non-attachment properties on DigitalPost
                     foreach ($digitalPostRecipients as $recipient) {
-                        $currentDigitalPost->addRecipient($recipient);
+                        $digitalPost->addRecipient($recipient);
                     }
 
-                    $currentDigitalPost->setDocument($document);
-                    $currentDigitalPost->setEntityType($entityType);
-                    $currentDigitalPost->setEntityId($entityId);
-                    $currentDigitalPost->setSubject($subject);
-
-                    $currentSizeOfDigitalPost = $mainDocumentSize;
+                    $digitalPost->setDocument($document);
+                    $digitalPost->setTotalFileSize(filesize($documentPath));
+                    $digitalPost->setEntityType($entityType);
+                    $digitalPost->setEntityId($entityId);
+                    $digitalPost->setSubject($subject);
                 }
 
                 // Add current attachment
-                $currentDigitalPost->addAttachment($attachment);
+                $digitalPost->addAttachment($attachment);
+                $digitalPost->setTotalFileSize($digitalPost->getTotalFileSize() + $attachmentSize);
                 $this->entityManager->persist($attachment);
-
-                $currentSizeOfDigitalPost += $attachmentSize;
             }
         }
 
-        // Modify subject and pointers of digital post if more than one was created
+        // Modify subject, pointers and persist digital posts
         $numberOfDigitalPosts = count($digitalPosts);
 
         foreach ($digitalPosts as $index => $digitalPost) {
