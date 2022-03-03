@@ -155,7 +155,6 @@ class DigitalPostHelper extends DigitalPost
                 foreach ($digitalPosts as $index => $digitalPost) {
                     assert($digitalPost instanceof DigitalPostBase);
                     if ($previous) {
-                        $digitalPost->setPrevious($previous);
                         $previous->setNext($digitalPost);
                     }
                     $newSubject = sprintf('%s (%d/%d)', $digitalPost->getSubject(), $index + 1, $numberOfDigitalPosts);

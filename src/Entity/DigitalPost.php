@@ -78,12 +78,12 @@ class DigitalPost
     private $subject;
 
     /**
-     * @ORM\OneToOne(targetEntity=DigitalPost::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=DigitalPost::class, inversedBy="previous", cascade={"persist", "remove"})
      */
     private $next;
 
     /**
-     * @ORM\OneToOne(targetEntity=DigitalPost::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=DigitalPost::class, mappedBy="next", cascade={"persist", "remove"})
      */
     private $previous;
 
@@ -285,6 +285,16 @@ class DigitalPost
 
     public function setPrevious(?self $previous): self
     {
+        // unset the owning side of the relation if necessary
+        if (null === $previous && null !== $this->previous) {
+            $this->previous->setNext(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if (null !== $previous && $previous->getNext() !== $this) {
+            $previous->setNext($this);
+        }
+
         $this->previous = $previous;
 
         return $this;
