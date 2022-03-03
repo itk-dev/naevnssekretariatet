@@ -174,9 +174,16 @@ class DigitalPostHelper extends DigitalPost
 
     private function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired([
-            'digital_post_options',
-            'restriction_options',
-        ]);
+        $resolver
+            ->setRequired('digital_post_options')
+        ;
+
+        $resolver
+            ->setRequired('restriction_options')
+            ->setDefault('restriction_options', function (OptionsResolver $optionsResolver) {
+                $optionsResolver->setRequired('number_of_attachments_allowed');
+                $optionsResolver->setRequired('total_filesize_allowed');
+            })
+        ;
     }
 }
