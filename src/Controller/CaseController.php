@@ -13,6 +13,7 @@ use App\Exception\BoardMemberException;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
+use App\Form\CaseDeleteType;
 use App\Form\CaseEntityType;
 use App\Form\CaseFilterType;
 use App\Form\CaseMoveType;
@@ -43,6 +44,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -164,6 +166,7 @@ class CaseController extends AbstractController
             'notes' => $notes,
             'communications' => $communications,
             'suitable_boards' => $suitableBoards,
+            'is_deletable' => $this->isDeletable($case),
         ]);
     }
 
@@ -632,5 +635,50 @@ class CaseController extends AbstractController
             'move_form' => $moveForm->createView(),
             'case' => $case,
         ]);
+    }
+
+    /**
+     * @Route("/{id}/delete", name="case_delete", methods={"POST"})
+     */
+    public function delete(CaseEntity $case, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('delete', $case);
+
+        if (!$this->isDeletable($case)) {
+            $message = 'Attempted to delete non-deletable case.';
+            throw new BadRequestException($message);
+        }
+
+        $deleteForm = $this->createForm(CaseDeleteType::class, $case);
+
+        $deleteForm->handleRequest($request);
+
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $case->setSoftDeleted(true);
+            $now = new \DateTime('now');
+            $case->setSoftDeletedAt($now);
+
+            $this->getDoctrine()->getManager()->flush();
+
+            $redirectUrl = $this->generateUrl('default', ['id' => $case->getId()]);
+
+            return $this->redirect($redirectUrl);
+        }
+
+        return $this->render('case/_delete.html.twig', [
+            'delete_form' => $deleteForm->createView(),
+            'case' => $case,
+        ]);
+    }
+
+    /**
+     * Checks if case can be deleted.
+     */
+    private function isDeletable(CaseEntity $case): bool
+    {
+        // If it is in hearing or has been in hearing it is not deletable
+        $hasBeenInHearing = $case->getHearing() && ($case->getHearing()->getStartedOn() || $case->getHearing()->getFinishedOn());
+        // If it has been on agenda or is on agenda it is also not deletable
+        return $case->getAgendaCaseItems()->isEmpty() && !$hasBeenInHearing;
     }
 }

@@ -289,6 +289,18 @@
         <source>Macro</source>
         <target>Makro</target>
       </trans-unit>
+      <trans-unit id="PGNBskn" resname="Case number">
+        <source>Case number</source>
+        <target state="translated">Sagsnummer</target>
+      </trans-unit>
+      <trans-unit id="3ev2XTv" resname="Removal reason">
+        <source>Removal reason</source>
+        <target state="translated">Begrundelse</target>
+      </trans-unit>
+      <trans-unit id="5qxAFk0" resname="Deleted cases">
+        <source>Deleted cases</source>
+        <target state="translated">Slettede sager</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

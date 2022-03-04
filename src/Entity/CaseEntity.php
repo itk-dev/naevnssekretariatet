@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Embeddable\Address;
 use App\Repository\CaseEntityRepository;
+use App\Traits\SoftDeletableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class CaseEntity
 {
+    use SoftDeletableEntity;
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -192,6 +194,11 @@ abstract class CaseEntity
      * @ORM\OneToMany(targetEntity=Decision::class, mappedBy="caseEntity", orphanRemoval=true)
      */
     private $decisions;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $removalReason;
 
     public function __construct()
     {
@@ -413,6 +420,9 @@ abstract class CaseEntity
         return $this->caseNumber;
     }
 
+    /**
+     * @return Collection|AgendaCaseItem[]
+     */
     public function getAgendaCaseItems(): Collection
     {
         return $this->agendaCaseItems;
@@ -661,6 +671,18 @@ abstract class CaseEntity
                 $decision->setCaseEntity(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRemovalReason(): ?string
+    {
+        return $this->removalReason;
+    }
+
+    public function setRemovalReason(?string $removalReason): self
+    {
+        $this->removalReason = $removalReason;
 
         return $this;
     }

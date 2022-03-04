@@ -1177,6 +1177,26 @@
         <source>Create hearing response</source>
         <target>Create hearing response</target>
       </trans-unit>
+      <trans-unit id="ncr8wvB" resname="Please provide a reason for deletion of the case">
+        <source>Please provide a reason for deletion of the case</source>
+        <target>Please provide a reason for deletion of the case</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="_lckPcD" resname="Confirm deletion">
+        <source>Confirm deletion</source>
+        <target>Confirm deletion</target>
+      </trans-unit>
+      <trans-unit id="_Bq4NN5" resname="Reason">
+        <source>Reason</source>
+        <target>Reason</target>
+      </trans-unit>
+      <trans-unit id="TgRaVQ." resname="Cannot delete case that has been in hearing or on an agenda">
+        <source>Cannot delete case that has been in hearing or on an agenda</source>
+        <target>Cannot delete case that has been in hearing or on an agenda</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
