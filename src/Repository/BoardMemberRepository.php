@@ -44,7 +44,8 @@ class BoardMemberRepository extends ServiceEntityRepository
                      ON abm.board_member_id = m.id
                    JOIN agenda a
                      ON abm.agenda_id = a.id
-            WHERE  a.id = :agenda_id 
+            WHERE  a.id = :agenda_id
+                   AND br.board_id = :board_id
         ';
 
         $stmt = $em->getConnection()->prepare($sql);
@@ -52,6 +53,7 @@ class BoardMemberRepository extends ServiceEntityRepository
         return $stmt->executeQuery(
             [
                 ':agenda_id' => $agenda->getId()->toBinary(),
+                ':board_id' => $agenda->getBoard()->getId()->toBinary(),
             ]
         )->fetchAllAssociative();
     }
