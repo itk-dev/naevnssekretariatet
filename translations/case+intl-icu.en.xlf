@@ -1197,6 +1197,10 @@
         <source>Reason</source>
         <target>Reason</target>
       </trans-unit>
+      <trans-unit id="TgRaVQ." resname="Cannot delete case that has been in hearing or on an agenda">
+        <source>Cannot delete case that has been in hearing or on an agenda</source>
+        <target>Cannot delete case that has been in hearing or on an agenda</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -52,7 +52,7 @@
                 {% if is_deletable %}
                     <a href="" role="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_case" data-placement="auto" title="{% trans %}Delete case{% endtrans %}">{% trans %}Delete case{% endtrans %}</a>
                 {% else %}
-                    <button disabled class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete case that is on active agenda{% endtrans %}">{% trans %}Delete case{% endtrans %}</button>
+                    <button disabled class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete case that has been in hearing or on an agenda{% endtrans %}">{% trans %}Delete case{% endtrans %}</button>
                 {% endif %}
                 {{ render(controller('App\\Controller\\CaseController:delete', {id: case.id})) }}
                 {{ render(controller('App\\Controller\\CaseController:move', {id: case.id})) }}

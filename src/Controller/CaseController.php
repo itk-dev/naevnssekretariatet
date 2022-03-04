@@ -32,7 +32,6 @@ use App\Repository\MunicipalityRepository;
 use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
 use App\Service\AddressHelper;
-use App\Service\AgendaStatus;
 use App\Service\BBRHelper;
 use App\Service\CaseManager;
 use App\Service\LogEntryHelper;
@@ -160,14 +159,12 @@ class CaseController extends AbstractController
         $communications = $digitalPostRepository->findByEntity($case, [], ['createdAt' => Criteria::DESC], $numberOfShownItems);
 
         $suitableBoards = $boardRepository->findDifferentSuitableBoards($case->getBoard());
+
         // Check if case is deletable
-        $isDeletable = true;
-        // Case is not deletable if case is on active agenda
-        foreach ($case->getAgendaCaseItems() as $agendaCaseItem) {
-            if (AgendaStatus::FINISHED !== $agendaCaseItem->getAgenda()->getStatus()) {
-                $isDeletable = false;
-            }
-        }
+        // If it is in hearing or has been in hearing it is not deletable
+        $hasBeenInHearing = $case->getHearing() && ($case->getHearing()->getStartedOn() || $case->getHearing()->getFinishedOn());
+        // If it has been on agenda or is on agenda it is also not deletable
+        $isDeletable = $case->getAgendaCaseItems()->isEmpty() && !$hasBeenInHearing;
 
         return $this->render('case/summary.html.twig', [
             'case' => $case,

@@ -1189,13 +1189,13 @@
         <source>Confirm deletion</source>
         <target state="translated">Bekræft sletning</target>
       </trans-unit>
-      <trans-unit id="Esn9xCt" resname="Cannot delete case that is on active agenda">
-        <source>Cannot delete case that is on active agenda</source>
-        <target state="translated">Kan ikke slette sag der er på aktiv dagsorden</target>
-      </trans-unit>
       <trans-unit id="_Bq4NN5" resname="Reason">
         <source>Reason</source>
         <target state="translated">Begrundelse</target>
+      </trans-unit>
+      <trans-unit id="TgRaVQ." resname="Cannot delete case that has been in hearing or on an agenda">
+        <source>Cannot delete case that has been in hearing or on an agenda</source>
+        <target state="translated">Kan ikke slette sag der har været i høring eller på en dagsorden</target>
       </trans-unit>
     </body>
   </file>
