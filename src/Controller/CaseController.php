@@ -644,8 +644,6 @@ class CaseController extends AbstractController
     {
         $this->denyAccessUnlessGranted('delete', $case);
 
-        $redirectUrl = $this->generateUrl('default', ['id' => $case->getId()]);
-
         if (!$this->isDeletable($case)) {
             $message = 'Attempted to delete non-deletable case.';
             throw new BadRequestException($message);
@@ -661,6 +659,8 @@ class CaseController extends AbstractController
             $case->setSoftDeletedAt($now);
 
             $this->getDoctrine()->getManager()->flush();
+
+            $redirectUrl = $this->generateUrl('default', ['id' => $case->getId()]);
 
             return $this->redirect($redirectUrl);
         }
@@ -679,7 +679,6 @@ class CaseController extends AbstractController
         // If it is in hearing or has been in hearing it is not deletable
         $hasBeenInHearing = $case->getHearing() && ($case->getHearing()->getStartedOn() || $case->getHearing()->getFinishedOn());
         // If it has been on agenda or is on agenda it is also not deletable
-
         return $case->getAgendaCaseItems()->isEmpty() && !$hasBeenInHearing;
     }
 }
