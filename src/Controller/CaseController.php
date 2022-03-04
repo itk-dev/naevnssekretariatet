@@ -44,6 +44,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -160,18 +161,12 @@ class CaseController extends AbstractController
 
         $suitableBoards = $boardRepository->findDifferentSuitableBoards($case->getBoard());
 
-        // Check if case is deletable
-        // If it is in hearing or has been in hearing it is not deletable
-        $hasBeenInHearing = $case->getHearing() && ($case->getHearing()->getStartedOn() || $case->getHearing()->getFinishedOn());
-        // If it has been on agenda or is on agenda it is also not deletable
-        $isDeletable = $case->getAgendaCaseItems()->isEmpty() && !$hasBeenInHearing;
-
         return $this->render('case/summary.html.twig', [
             'case' => $case,
             'notes' => $notes,
             'communications' => $communications,
             'suitable_boards' => $suitableBoards,
-            'is_deletable' => $isDeletable,
+            'is_deletable' => $this->isDeletable($case),
         ]);
     }
 
@@ -649,6 +644,13 @@ class CaseController extends AbstractController
     {
         $this->denyAccessUnlessGranted('delete', $case);
 
+        $redirectUrl = $this->generateUrl('default', ['id' => $case->getId()]);
+
+        if (!$this->isDeletable($case)) {
+            $message = 'Attempted to delete non-deletable case.';
+            throw new BadRequestException($message);
+        }
+
         $deleteForm = $this->createForm(CaseDeleteType::class, $case);
 
         $deleteForm->handleRequest($request);
@@ -660,8 +662,6 @@ class CaseController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            $redirectUrl = $this->generateUrl('default', ['id' => $case->getId()]);
-
             return $this->redirect($redirectUrl);
         }
 
@@ -669,5 +669,17 @@ class CaseController extends AbstractController
             'delete_form' => $deleteForm->createView(),
             'case' => $case,
         ]);
+    }
+
+    /**
+     * Checks if case can be deleted.
+     */
+    private function isDeletable(CaseEntity $case): bool
+    {
+        // If it is in hearing or has been in hearing it is not deletable
+        $hasBeenInHearing = $case->getHearing() && ($case->getHearing()->getStartedOn() || $case->getHearing()->getFinishedOn());
+        // If it has been on agenda or is on agenda it is also not deletable
+
+        return $case->getAgendaCaseItems()->isEmpty() && !$hasBeenInHearing;
     }
 }
