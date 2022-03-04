@@ -13,6 +13,7 @@ use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -79,20 +80,28 @@ class AgendaManuelItemDocumentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             // Extract filename and handle it
             // Users will only see document name, not filename
-            $file = $form->get('filename')->getData();
+            $documentName = $document->getDocumentName();
+            /** @var UploadedFile[] $files */
+            $files = $form->get('files')->getData();
 
-            $newFilename = $this->documentUploader->upload($file);
+            foreach ($files as $file) {
+                $document = (new Document())
+                    ->setDocumentName(sprintf('%s – %s', $documentName, $file->getClientOriginalName()))
+                    ->setType($document->getType())
+                ;
+                $newFilename = $this->documentUploader->upload($file);
 
-            // Set filename, document name and creator/uploader
-            $document->setFilename($newFilename);
+                // Set filename, document name, creator and case
+                $document->setFilename($newFilename);
 
-            /** @var User $uploader */
-            $uploader = $this->getUser();
-            $document->setUploadedBy($uploader);
+                /** @var User $uploader */
+                $uploader = $this->getUser();
+                $document->setUploadedBy($uploader);
 
-            $agendaItem->addDocument($document);
+                $agendaItem->addDocument($document);
 
-            $this->entityManager->persist($document);
+                $this->entityManager->persist($document);
+            }
             $this->entityManager->flush();
 
             return $this->redirectToRoute('agenda_manuel_item_documents', [
