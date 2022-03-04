@@ -46,16 +46,16 @@
                 <a class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
                 {% if suitable_boards %}
                     <a href="" role="button" class="btn btn-primary" data-toggle="modal" data-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
+                    {{ render(controller('App\\Controller\\CaseController:move', {id: case.id})) }}
                 {% else %}
                     <button disabled class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}No suitable boards{% endtrans %}">{% trans %}Move case{% endtrans %}</button>
                 {% endif %}
                 {% if is_deletable %}
                     <a href="" role="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_case" data-placement="auto" title="{% trans %}Delete case{% endtrans %}">{% trans %}Delete case{% endtrans %}</a>
+                    {{ render(controller('App\\Controller\\CaseController:delete', {id: case.id})) }}
                 {% else %}
                     <button disabled class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete case that has been in hearing or on an agenda{% endtrans %}">{% trans %}Delete case{% endtrans %}</button>
                 {% endif %}
-                {{ render(controller('App\\Controller\\CaseController:delete', {id: case.id})) }}
-                {{ render(controller('App\\Controller\\CaseController:move', {id: case.id})) }}
             {% endif %}
         </div>
     </div>
