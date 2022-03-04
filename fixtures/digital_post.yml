@@ -3,6 +3,7 @@ App\Entity\DigitalPost:
         document: '@document-001'
         entityType: 'App\Entity\ResidentComplaintBoardCase'
         entityId: '@test-case-aarhus-1->id'
+        subject: 'Some interesting title'
 
 App\Entity\DigitalPostAttachment:
     digital-post-attachment-001:

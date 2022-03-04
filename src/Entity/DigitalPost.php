@@ -72,6 +72,26 @@ class DigitalPost
      */
     private $attachments;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $subject;
+
+    /**
+     * @ORM\OneToOne(targetEntity=DigitalPost::class, inversedBy="previous", cascade={"persist", "remove"})
+     */
+    private $next;
+
+    /**
+     * @ORM\OneToOne(targetEntity=DigitalPost::class, mappedBy="next", cascade={"persist", "remove"})
+     */
+    private $previous;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $totalFileSize = 0;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -237,5 +257,63 @@ class DigitalPost
         foreach ($this->getAttachments() as $attachment) {
             $attachment->setPosition($index++);
         }
+    }
+
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(string $subject): self
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getNext(): ?self
+    {
+        return $this->next;
+    }
+
+    public function setNext(?self $next): self
+    {
+        $this->next = $next;
+
+        return $this;
+    }
+
+    public function getPrevious(): ?self
+    {
+        return $this->previous;
+    }
+
+    public function setPrevious(?self $previous): self
+    {
+        // unset the owning side of the relation if necessary
+        if (null === $previous && null !== $this->previous) {
+            $this->previous->setNext(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if (null !== $previous && $previous->getNext() !== $this) {
+            $previous->setNext($this);
+        }
+
+        $this->previous = $previous;
+
+        return $this;
+    }
+
+    public function getTotalFileSize(): ?int
+    {
+        return $this->totalFileSize;
+    }
+
+    public function setTotalFileSize(int $totalFileSize): self
+    {
+        $this->totalFileSize = $totalFileSize;
+
+        return $this;
     }
 }

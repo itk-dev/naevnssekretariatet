@@ -64,14 +64,14 @@ class DigitalPostSendCommand extends Command
                                     $recipient->getIdentifier(),
                                     $recipient->getName(),
                                     $recipient->getAddress(),
-                                    $digitalPost->getDocument()->getDocumentName(),
+                                    $digitalPost->getSubject(),
                                     $content,
                                     $attachments
                                 );
                             } else {
                                 $result = [
                                     'result' => 'error',
-                                    'message' => sprint('Unhandled identifier type: %s',
+                                    'message' => sprintf('Unhandled identifier type: %s',
                                         $recipient->getIdentifierType()),
                                 ];
                                 $io->error($result['message']);

@@ -103,7 +103,7 @@ class DocumentUploader
         return file_get_contents($filepath);
     }
 
-    private function getFilepath(string $filename): string
+    public function getFilepath(string $filename): string
     {
         return $this->baseDocumentDirectory.'/'.$this->documentDirectory.'/'.$filename;
     }

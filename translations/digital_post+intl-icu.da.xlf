@@ -49,6 +49,18 @@
         <source>Recipients</source>
         <target state="translated">Modtagere</target>
       </trans-unit>
+      <trans-unit id="aJcSg4Q" resname="Subject">
+        <source>Subject</source>
+        <target state="translated">Emne</target>
+      </trans-unit>
+      <trans-unit id="H.V6Kdf" resname="Next">
+        <source>Next</source>
+        <target state="translated">Næste</target>
+      </trans-unit>
+      <trans-unit id="pXsIpIC" resname="Previous">
+        <source>Previous</source>
+        <target state="translated">Forrige</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

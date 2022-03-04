@@ -17,7 +17,6 @@ services:
         bind:
             $leeway: '%env(LEEWAY)%'
 
-
             $bbrHelperOptions:
                 datafordeler_api_username: '%env(DATAFORDELER_API_USERNAME)%'
                 datafordeler_api_password: '%env(DATAFORDELER_API_PASSWORD)%'
@@ -137,8 +136,16 @@ services:
                 service_endpoint: '%env(SERVICE_ENDPOINT)%'
                 service_contract: '%env(resolve:SERVICE_CONTRACT)%'
 
+              restriction_options:
+                  number_of_attachments_allowed: '%env(NUMBER_OF_ATTACHMENTS_ALLOWED)%'
+                  total_filesize_allowed: '%env(TOTAL_FILESIZE_ALLOWED)%'
+
     # Setting level in config/packages/monolog.yaml does not work as expected
     # (cf. https://github.com/symfony/monolog-bundle/issues/322)
     App\Monolog\DoctrineHandler:
         arguments:
             $level: error
+
+    App\Form\DocumentType:
+        arguments:
+            $maxFileSize: '%env(FILE_MAX_SIZE)%'
