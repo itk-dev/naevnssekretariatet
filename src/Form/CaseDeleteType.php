@@ -29,7 +29,7 @@ class CaseDeleteType extends AbstractType
     {
         $builder
             ->add('removalReason', TextareaType::class, [
-                'label' => $this->translator->trans('Reasoning', [], 'case'),
+                'label' => $this->translator->trans('Reason', [], 'case'),
                 'help' => $this->translator->trans('Please provide a reason for deletion of the case', [], 'case'),
                 'attr' => [
                     'rows' => 6,

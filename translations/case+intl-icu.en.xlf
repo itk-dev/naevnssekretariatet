@@ -1177,10 +1177,6 @@
         <source>Create hearing response</source>
         <target>Create hearing response</target>
       </trans-unit>
-      <trans-unit id="2CEeJOg" resname="Reasoning">
-        <source>Reasoning</source>
-        <target>Reasoning</target>
-      </trans-unit>
       <trans-unit id="ncr8wvB" resname="Please provide a reason for deletion of the case">
         <source>Please provide a reason for deletion of the case</source>
         <target>Please provide a reason for deletion of the case</target>
@@ -1196,6 +1192,10 @@
       <trans-unit id="Esn9xCt" resname="Cannot delete case that is on active agenda">
         <source>Cannot delete case that is on active agenda</source>
         <target>Cannot delete case that is on active agenda</target>
+      </trans-unit>
+      <trans-unit id="_Bq4NN5" resname="Reason">
+        <source>Reason</source>
+        <target>Reason</target>
       </trans-unit>
     </body>
   </file>

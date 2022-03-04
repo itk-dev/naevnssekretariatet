@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\AgendaCaseItem;
 use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
@@ -165,7 +164,6 @@ class CaseController extends AbstractController
         $isDeletable = true;
         // Case is not deletable if case is on active agenda
         foreach ($case->getAgendaCaseItems() as $agendaCaseItem) {
-            assert($agendaCaseItem instanceof AgendaCaseItem);
             if (AgendaStatus::FINISHED !== $agendaCaseItem->getAgenda()->getStatus()) {
                 $isDeletable = false;
             }
@@ -652,7 +650,7 @@ class CaseController extends AbstractController
      */
     public function delete(CaseEntity $case, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('edit', $case);
+        $this->denyAccessUnlessGranted('delete', $case);
 
         $deleteForm = $this->createForm(CaseDeleteType::class, $case);
 

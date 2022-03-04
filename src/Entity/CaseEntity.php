@@ -420,6 +420,9 @@ abstract class CaseEntity
         return $this->caseNumber;
     }
 
+    /**
+     * @return Collection|AgendaCaseItem[]
+     */
     public function getAgendaCaseItems(): Collection
     {
         return $this->agendaCaseItems;
