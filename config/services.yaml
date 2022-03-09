@@ -149,3 +149,23 @@ services:
     App\Form\DocumentType:
         arguments:
             $maxFileSize: '%env(FILE_MAX_SIZE)%'
+
+    App\Service\CprHelper:
+        arguments:
+
+            $options:
+                azure_tenant_id: '%env(AZURE_TENANT_ID)%'
+                azure_application_id: '%env(AZURE_APPLICATION_ID)%'
+                azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
+
+                azure_key_vault_name: '%env(AZURE_KEY_VAULT_NAME)%'
+                azure_key_vault_secret: '%env(AZURE_KEY_VAULT_SECRET)%'
+                azure_key_vault_secret_version: '%env(AZURE_KEY_VAULT_SECRET_VERSION)%'
+
+                serviceplatformen_cpr_service_agreement_uuid: '%env(SERVICEPLATFORMEN_CPR_SERVICE_AGREEMENT_UUID)%'
+                serviceplatformen_cpr_user_system_uuid: '%env(SERVICEPLATFORMEN_CPR_USER_SYSTEM_UUID)%'
+                serviceplatformen_cpr_user_uuid: '%env(SERVICEPLATFORMEN_CPR_USER_UUID)%'
+
+                serviceplatformen_cpr_service_uuid: '%env(SERVICEPLATFORMEN_CPR_SERVICE_UUID)%'
+                serviceplatformen_cpr_service_endpoint: '%env(SERVICEPLATFORMEN_CPR_SERVICE_ENDPOINT)%'
+                serviceplatformen_cpr_service_contract: '%env(resolve:SERVICEPLATFORMEN_CPR_SERVICE_CONTRACT)%'
