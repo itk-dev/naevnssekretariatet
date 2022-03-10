@@ -48,7 +48,7 @@ class RentBoardCaseType extends AbstractType
             ->add('lookupIdentifier', ButtonType::class, [
                 'label' => $this->translator->trans('Find information from identifier', [], 'case'),
                 'attr' => [
-                    'class' => 'btn-primary btn identify-lookup',
+                    'class' => 'btn-primary btn identification-lookup',
                     'data-specifier' => 'complainant',
                 ],
             ])

@@ -400,7 +400,6 @@ App\Entity\Embeddable\Identification:
     type: CPR
     identifier: 1234567890
 
-
 App\Entity\ResidentComplaintBoardCase:
   test-case-aarhus-1:
     leaseSize: 51

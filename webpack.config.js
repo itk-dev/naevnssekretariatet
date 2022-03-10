@@ -29,7 +29,7 @@ Encore
   .addEntry('ajax-forms', './assets/ajax-forms.js')
   .addEntry('municipality_select', './assets/municipality/select.js')
   .addEntry('dawa-address-lookup', './assets/dawa-address-lookup.js')
-  .addEntry('identifier-lookup', './assets/case/identifier-lookup.js')
+  .addEntry('identification-lookup', './assets/case/identification-lookup.js')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 //  .enableStimulusBridge('./assets/controllers.json')

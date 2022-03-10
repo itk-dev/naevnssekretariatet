@@ -256,4 +256,21 @@ class ResidentComplaintBoardCase extends CaseEntity
             'complainantPhone',
         ];
     }
+
+    public function getIdentificationInvalidationProperties(): array
+    {
+        return [
+            'complainantIdentification' => [
+                'complainant',
+                'complainantIdentification.type',
+                'complainantIdentification.identifier',
+                'complainantAddress.street',
+                'complainantAddress.number',
+                'complainantAddress.floor',
+                'complainantAddress.side',
+                'complainantAddress.postalCode',
+                'complainantAddress.city',
+            ],
+        ];
+    }
 }

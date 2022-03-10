@@ -152,7 +152,6 @@ services:
 
     App\Service\CprHelper:
         arguments:
-
             $options:
                 azure_tenant_id: '%env(AZURE_TENANT_ID)%'
                 azure_application_id: '%env(AZURE_APPLICATION_ID)%'

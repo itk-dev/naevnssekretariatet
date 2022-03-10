@@ -671,5 +671,24 @@ abstract class CaseEntity
         return $this;
     }
 
-    abstract public function getNonRelevantComplainantPropertiesWithRespectToValidation(): array;
+    /**
+     * Returns array indicating identification properties and the properties that upon change should result in invalidation of Identification.
+     *
+     * Example:
+     * [
+     * 'complainantIdentification' => [
+     *      // Depends on values of
+     *      'complainant'
+     *      'complainantAddress'
+     *      ...
+     *  ],
+     *  'accusedIdentification' => [
+     *      // Depends on values of
+     *      'accused'
+     *      'accusedAddress'
+     *      ...
+     *  ],
+     * ]
+     */
+    abstract public function getIdentificationInvalidationProperties(): array;
 }

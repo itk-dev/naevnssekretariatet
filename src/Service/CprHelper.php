@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\CaseEntity;
 use App\Entity\Embeddable\Address;
 use App\Entity\Embeddable\Identification;
-use App\Entity\FenceReviewCase;
 use App\Exception\CprException;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -226,14 +225,11 @@ class CprHelper implements EventSubscriberInterface
             }
 
             // Check that changed property warrants a change of complainant validatedAt
-            if (str_contains($propertyPath, 'complainant') && !in_array($propertyPath, $object->getNonRelevantComplainantPropertiesWithRespectToValidation()) && !str_contains($propertyPath, 'validatedAt')) {
-                $object->getComplainantIdentification()->setValidatedAt(null);
-            }
-
-            // If FenceReviewCase we should also check accused properties
-            if ($object instanceof FenceReviewCase) {
-                if (str_contains($propertyPath, 'accused') && !in_array($propertyPath, $object->getNonRelevantAccusedPropertiesWithRespectToValidation()) && !str_contains($propertyPath, 'validatedAt')) {
-                    $object->getAccusedIdentification()->setValidatedAt(null);
+            foreach ($object->getIdentificationInvalidationProperties() as $identificationProperty => $invalidationProperties) {
+                if (in_array($propertyPath, $invalidationProperties) && !str_contains($propertyPath, 'validatedAt')) {
+                    /** @var Identification $id */
+                    $id = $this->propertyAccessor->getValue($object, $identificationProperty);
+                    $id->setValidatedAt(null);
                 }
             }
         }

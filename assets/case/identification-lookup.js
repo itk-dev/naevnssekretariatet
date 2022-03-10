@@ -1,12 +1,11 @@
 /* global $ */
 
 window.addEventListener('ajaxload', function () {
-  const lookupElements = $('.identify-lookup')
+  const lookupElements = $('.identification-lookup')
 
   for (const lookupElement of lookupElements) {
     const $lookupButton = $('#' + lookupElement.id)
     const htmlIdPrefix = '#' + lookupElement.id.substring(0, lookupElement.id.lastIndexOf('_')) + '_' + $lookupButton.data('specifier')
-    console.log(htmlIdPrefix)
     $lookupButton.on('click', function () {
       const $identifierType = $(htmlIdPrefix + 'Identification_type').val()
       const $identifier = $(htmlIdPrefix + 'Identification_identifier').val()

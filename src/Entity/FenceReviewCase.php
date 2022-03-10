@@ -144,18 +144,31 @@ class FenceReviewCase extends CaseEntity
         $this->accusedIdentification = $accusedIdentification;
     }
 
-    public function getNonRelevantComplainantPropertiesWithRespectToValidation(): array
+    public function getIdentificationInvalidationProperties(): array
     {
         return [
-            'complainantClaim',
-            'complainantCadastralNumber',
-        ];
-    }
-
-    public function getNonRelevantAccusedPropertiesWithRespectToValidation(): array
-    {
-        return [
-            'accusedCadastralNumber',
+            'complainantIdentification' => [
+                'complainant',
+                'complainantIdentification.type',
+                'complainantIdentification.identifier',
+                'complainantAddress.street',
+                'complainantAddress.number',
+                'complainantAddress.floor',
+                'complainantAddress.side',
+                'complainantAddress.postalCode',
+                'complainantAddress.city',
+            ],
+            'accusedIdentification' => [
+                'accused',
+                'accusedIdentification.type',
+                'accusedIdentification.identifier',
+                'accusedAddress.street',
+                'accusedAddress.number',
+                'accusedAddress.floor',
+                'accusedAddress.side',
+                'accusedAddress.postalCode',
+                'accusedAddress.city',
+            ],
         ];
     }
 }

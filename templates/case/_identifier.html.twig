@@ -7,7 +7,7 @@
     <input type="text" class="form-control" value="{{ id.identifier }}" readonly>
 </div>
 <div class="form-group col-md-3">
-    <label>&nbsp;</label>
+    <label class="invisible">{% trans %}Validate{% endtrans %}</label>
     {% if id.validatedAt %}
         <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Identification validated at {validation_time}'|trans({'validation_time': id.validatedAt|date}) }}"><i class="fas fa-check-circle"></i> {% trans %}Identifier validated{% endtrans %}</span>
     {% else %}
