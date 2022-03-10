@@ -3,7 +3,6 @@
 namespace App\Command;
 
 use App\Entity\DigitalPost;
-use App\Entity\DigitalPostAttachment;
 use App\Repository\DigitalPostRepository;
 use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
@@ -41,10 +40,11 @@ class DigitalPostSendCommand extends Command
 
             try {
                 $content = $this->documentUploader->getFileContent($digitalPost->getDocument());
-                $attachments = $digitalPost->getAttachments()
-                    ->map(fn (DigitalPostAttachment $attachment) => $this->documentUploader->getFileContent($attachment->getDocument()))
-                    ->getValues()
-                ;
+                $attachments = [];
+                foreach ($digitalPost->getAttachments() as $attachment) {
+                    $attachments[$attachment->getDocument()->getDocumentName()] = $this->documentUploader->getFileContent($attachment->getDocument());
+                }
+
                 $previousResults = $digitalPost->getData()['results'] ?? [];
                 $results = [];
                 foreach ($digitalPost->getRecipients() as $recipient) {
