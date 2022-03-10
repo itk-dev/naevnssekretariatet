@@ -6,10 +6,10 @@ use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Entity\FenceReviewCase;
 use App\Form\Embeddable\AddressLookupType;
-use App\Service\IdentifierChoices;
+use App\Form\Embeddable\IdentificationType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,15 +41,18 @@ class FenceReviewCaseType extends AbstractType
         $board = $options['board'];
 
         $builder
+            ->add('complainantIdentification', IdentificationType::class, [
+                'label' => false,
+            ])
+            ->add('lookupIdentifier', ButtonType::class, [
+                'label' => $this->translator->trans('Find information from identifier', [], 'case'),
+                'attr' => [
+                    'class' => 'btn-primary btn identify-lookup',
+                    'data-specifier' => 'complainant',
+                ],
+            ])
             ->add('complainant', TextType::class, [
                 'label' => $this->translator->trans('Complainant', [], 'case'),
-            ])
-            ->add('complainantIdentifierType', ChoiceType::class, [
-                'label' => $this->translator->trans('Identifier type', [], 'case'),
-                'choices' => IdentifierChoices::IDENTIFIER_TYPE_CHOICES,
-            ])
-            ->add('complainantIdentifier', TextType::class, [
-                'label' => $this->translator->trans('Identifier', [], 'case'),
             ])
             ->add('complainantAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Complainant address', [], 'case'),
@@ -59,15 +62,18 @@ class FenceReviewCaseType extends AbstractType
             ->add('complainantCadastralNumber', TextType::class, [
                 'label' => $this->translator->trans('Complainant cadastral number', [], 'case'),
             ])
+            ->add('accusedIdentification', IdentificationType::class, [
+                'label' => false,
+            ])
+            ->add('lookupAccusedIdentifier', ButtonType::class, [
+                'label' => $this->translator->trans('Find information from identifier', [], 'case'),
+                'attr' => [
+                    'class' => 'btn-primary btn identify-lookup',
+                    'data-specifier' => 'accused',
+                ],
+            ])
             ->add('accused', TextType::class, [
                 'label' => $this->translator->trans('Accused', [], 'case'),
-            ])
-            ->add('accusedIdentifierType', ChoiceType::class, [
-                'label' => $this->translator->trans('Identifier type', [], 'case'),
-                'choices' => IdentifierChoices::IDENTIFIER_TYPE_CHOICES,
-            ])
-            ->add('accusedIdentifier', TextType::class, [
-                'label' => $this->translator->trans('Identifier', [], 'case'),
             ])
             ->add('accusedAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Accused address', [], 'case'),

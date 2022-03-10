@@ -6,9 +6,10 @@ use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Form\Embeddable\AddressLookupType;
-use App\Service\IdentifierChoices;
+use App\Form\Embeddable\IdentificationType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -41,15 +42,18 @@ class ResidentComplaintBoardCaseType extends AbstractType
         $board = $options['board'];
 
         $builder
+            ->add('complainantIdentification', IdentificationType::class, [
+                'label' => false,
+            ])
+            ->add('lookupIdentifier', ButtonType::class, [
+                'label' => $this->translator->trans('Find information from identifier', [], 'case'),
+                'attr' => [
+                    'class' => 'btn-primary btn identify-lookup',
+                    'data-specifier' => 'complainant',
+                ],
+            ])
             ->add('complainant', TextType::class, [
                 'label' => $this->translator->trans('Complainant', [], 'case'),
-            ])
-            ->add('complainantIdentifierType', ChoiceType::class, [
-                'label' => $this->translator->trans('Identifier type', [], 'case'),
-                'choices' => IdentifierChoices::IDENTIFIER_TYPE_CHOICES,
-            ])
-            ->add('complainantIdentifier', TextType::class, [
-                'label' => $this->translator->trans('Identifier', [], 'case'),
             ])
             ->add('complainantPhone', IntegerType::class, [
                 'label' => $this->translator->trans('Complainant phone', [], 'case'),

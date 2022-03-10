@@ -23,7 +23,7 @@
                 <fieldset>
                     <legend>{% trans %}Complainant{% endtrans %}</legend>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>{% trans %}Complainant name{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.complainant }}" readonly>
                         </div>
@@ -32,20 +32,7 @@
                             <input type="text" class="form-control" value="{{ case.complainantPhone }}" readonly>
                         </div>
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                            <div class="form-group col-md-3">
-                                <label>{% trans %}Identifier{% endtrans %}</label>
-                                <div class="input-group mb-3">
-                                    {# TODO: Input correct CPR when property exists #}
-                                    <input type="text" class="form-control" value="{{ case.complainantIdentifier }}" readonly>
-                                    {#  <div class="input-group-append">#}
-                                    {# TODO: Show status depending on validation result #}
-                                    {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate CPR number'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
-                                    {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
-                                    {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
-                                    {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
-                                    {#</div>   #}
-                                </div>
-                            </div>
+                            {% include 'case/_identifier.html.twig' with {case: case, id_property: 'complainantIdentification', address_property: 'complainantAddress', name_property: 'complainant'} %}
                         {% endif %}
                     </div>
 

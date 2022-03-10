@@ -262,4 +262,11 @@ class RentBoardCase extends CaseEntity
     {
         $this->setSortingAddress($this->getLeaseAddress()->__toString());
     }
+
+    public function getNonRelevantComplainantPropertiesWithRespectToValidation(): array
+    {
+        return [
+            'complainantPhone',
+        ];
+    }
 }

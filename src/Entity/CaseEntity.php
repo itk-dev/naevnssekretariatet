@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Embeddable\Address;
+use App\Entity\Embeddable\Identification;
 use App\Repository\CaseEntityRepository;
 use App\Traits\SoftDeletableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -181,14 +182,10 @@ abstract class CaseEntity
     private $hearing;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
+     * @Groups({"mail_template"})
      */
-    private $complainantIdentifierType;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $complainantIdentifier;
+    private $complainantIdentification;
 
     /**
      * @ORM\OneToMany(targetEntity=Decision::class, mappedBy="caseEntity", orphanRemoval=true)
@@ -212,6 +209,7 @@ abstract class CaseEntity
         $this->finishHearingDeadline = new \DateTime('today');
         $this->finishProcessingDeadline = new \DateTime('today');
         $this->decisions = new ArrayCollection();
+        $this->complainantIdentification = new Identification();
     }
 
     public function getId(): ?Uuid
@@ -621,28 +619,14 @@ abstract class CaseEntity
         return $this;
     }
 
-    public function getComplainantIdentifierType(): ?string
+    public function getComplainantIdentification(): Identification
     {
-        return $this->complainantIdentifierType;
+        return $this->complainantIdentification;
     }
 
-    public function setComplainantIdentifierType(string $complainantIdentifierType): self
+    public function setComplainantIdentification(Identification $complainantIdentification): void
     {
-        $this->complainantIdentifierType = $complainantIdentifierType;
-
-        return $this;
-    }
-
-    public function getComplainantIdentifier(): ?string
-    {
-        return $this->complainantIdentifier;
-    }
-
-    public function setComplainantIdentifier(string $complainantIdentifier): self
-    {
-        $this->complainantIdentifier = $complainantIdentifier;
-
-        return $this;
+        $this->complainantIdentification = $complainantIdentification;
     }
 
     /**
@@ -686,4 +670,6 @@ abstract class CaseEntity
 
         return $this;
     }
+
+    abstract public function getNonRelevantComplainantPropertiesWithRespectToValidation(): array;
 }
