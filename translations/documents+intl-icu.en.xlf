@@ -101,6 +101,10 @@
         <source>Upload document</source>
         <target>Upload document</target>
       </trans-unit>
+      <trans-unit id="nyq6vU9" resname="Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
+        <source>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
+        <target>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

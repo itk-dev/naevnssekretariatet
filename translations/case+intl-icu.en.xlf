@@ -1197,6 +1197,54 @@
         <source>Cannot delete case that has been in hearing or on an agenda</source>
         <target>Cannot delete case that has been in hearing or on an agenda</target>
       </trans-unit>
+      <trans-unit id="xL.OK65" resname="Identification type">
+        <source>Identification type</source>
+        <target>Identification type</target>
+      </trans-unit>
+      <trans-unit id="kfYGsy3" resname="Identification">
+        <source>Identification</source>
+        <target>Identification</target>
+      </trans-unit>
+      <trans-unit id="Q2VFI5o" resname="Find information from identifier">
+        <source>Find information from identifier</source>
+        <target>Find information from identifier</target>
+      </trans-unit>
+      <trans-unit id="iElv9db" resname="PNR not found">
+        <source>PNR not found</source>
+        <target>PNR not found</target>
+      </trans-unit>
+      <trans-unit id="VpgqnWg" resname="Case data not match CPR register data">
+        <source>Case data not match CPR register data</source>
+        <target>Case data not match CPR register data</target>
+      </trans-unit>
+      <trans-unit id="z4DMqxu" resname="Identification validated">
+        <source>Identification validated</source>
+        <target>Identification validated</target>
+      </trans-unit>
+      <trans-unit id="4LMIBIB" resname="Invalid identifier ({message})">
+        <source>Invalid identifier ({message})</source>
+        <target>Invalid identifier ({message})</target>
+      </trans-unit>
+      <trans-unit id="6iklZ47" resname="Error validating identifier ({message})">
+        <source>Error validating identifier ({message})</source>
+        <target>Error validating identifier ({message})</target>
+      </trans-unit>
+      <trans-unit id="Xoa3cgZ" resname="Identification validated at {validation_time}">
+        <source>Identification validated at {validation_time}</source>
+        <target>Identification validated at {validation_time}</target>
+      </trans-unit>
+      <trans-unit id="H51PvjA" resname="Identifier validated">
+        <source>Identifier validated</source>
+        <target>Identifier validated</target>
+      </trans-unit>
+      <trans-unit id="BaRwwLi" resname="Validate identifier">
+        <source>Validate identifier</source>
+        <target>Validate identifier</target>
+      </trans-unit>
+      <trans-unit id="Anx60OS" resname="Validate the legitimacy of the identifier by pressing the validate button">
+        <source>Validate the legitimacy of the identifier by pressing the validate button</source>
+        <target>Validate the legitimacy of the identifier by pressing the validate button</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
