@@ -249,4 +249,28 @@ class ResidentComplaintBoardCase extends CaseEntity
     {
         $this->setSortingAddress($this->getLeaseAddress()->__toString());
     }
+
+    public function getNonRelevantComplainantPropertiesWithRespectToValidation(): array
+    {
+        return [
+            'complainantPhone',
+        ];
+    }
+
+    public function getIdentificationInvalidationProperties(): array
+    {
+        return [
+            'complainantIdentification' => [
+                'complainant',
+                'complainantIdentification.type',
+                'complainantIdentification.identifier',
+                'complainantAddress.street',
+                'complainantAddress.number',
+                'complainantAddress.floor',
+                'complainantAddress.side',
+                'complainantAddress.postalCode',
+                'complainantAddress.city',
+            ],
+        ];
+    }
 }

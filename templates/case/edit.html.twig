@@ -23,5 +23,6 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('identification-lookup') }}
     {{ encore_entry_script_tags('dawa-address-lookup') }}
 {% endblock %}

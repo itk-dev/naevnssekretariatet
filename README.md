@@ -160,6 +160,31 @@ The following roles and, hence, authentication providers can be requested:
 | admin        | administrator           |
 | board-member | board member            |
 
+## CPR lookup service
+
+The following environment variables must be set in the `.env.local` file:
+
+```shell
+# Azure
+AZURE_TENANT_ID='xyz'
+AZURE_APPLICATION_ID='xyz'
+AZURE_CLIENT_SECRET='xyz'
+
+# Azure key vault
+AZURE_KEY_VAULT_NAME='xyz'
+AZURE_KEY_VAULT_SECRET='xyz'
+AZURE_KEY_VAULT_SECRET_VERSION='xyz'
+
+# CPR lookup
+SERVICEPLATFORMEN_CPR_SERVICE_AGREEMENT_UUID='xyz'
+SERVICEPLATFORMEN_CPR_USER_SYSTEM_UUID='xyz'
+SERVICEPLATFORMEN_CPR_USER_UUID='xyz'
+
+SERVICEPLATFORMEN_CPR_SERVICE_UUID='xyz'
+SERVICEPLATFORMEN_CPR_SERVICE_ENDPOINT='https://xyz.com'
+SERVICEPLATFORMEN_CPR_SERVICE_CONTRACT='%kernel.project_dir%/vendor/itk-dev/serviceplatformen/resources/person-base-data-extended-service-contract/wsdl/context/PersonBaseDataExtendedService.wsdl'
+```
+
 ## Cron job
 
 In TVIST1 there are several necessary commands used for updating statuses,

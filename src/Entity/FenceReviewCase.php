@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Embeddable\Address;
+use App\Entity\Embeddable\Identification;
 use App\Repository\FenceReviewCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,19 +44,15 @@ class FenceReviewCase extends CaseEntity
     private $accusedCadastralNumber;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
      */
-    private $accusedIdentifierType;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $accusedIdentifier;
+    private $accusedIdentification;
 
     public function __construct()
     {
         parent::__construct();
         $this->accusedAddress = new Address();
+        $this->accusedIdentification = new Identification();
     }
 
     public function getConditions(): ?string
@@ -137,27 +134,41 @@ class FenceReviewCase extends CaseEntity
         $this->setSortingAddress($this->getComplainantAddress()->__toString());
     }
 
-    public function getAccusedIdentifierType(): ?string
+    public function getAccusedIdentification(): Identification
     {
-        return $this->accusedIdentifierType;
+        return $this->accusedIdentification;
     }
 
-    public function setAccusedIdentifierType(string $accusedIdentifierType): self
+    public function setAccusedIdentification(Identification $accusedIdentification): void
     {
-        $this->accusedIdentifierType = $accusedIdentifierType;
-
-        return $this;
+        $this->accusedIdentification = $accusedIdentification;
     }
 
-    public function getAccusedIdentifier(): ?string
+    public function getIdentificationInvalidationProperties(): array
     {
-        return $this->accusedIdentifier;
-    }
-
-    public function setAccusedIdentifier(string $accusedIdentifier): self
-    {
-        $this->accusedIdentifier = $accusedIdentifier;
-
-        return $this;
+        return [
+            'complainantIdentification' => [
+                'complainant',
+                'complainantIdentification.type',
+                'complainantIdentification.identifier',
+                'complainantAddress.street',
+                'complainantAddress.number',
+                'complainantAddress.floor',
+                'complainantAddress.side',
+                'complainantAddress.postalCode',
+                'complainantAddress.city',
+            ],
+            'accusedIdentification' => [
+                'accused',
+                'accusedIdentification.type',
+                'accusedIdentification.identifier',
+                'accusedAddress.street',
+                'accusedAddress.number',
+                'accusedAddress.floor',
+                'accusedAddress.side',
+                'accusedAddress.postalCode',
+                'accusedAddress.city',
+            ],
+        ];
     }
 }

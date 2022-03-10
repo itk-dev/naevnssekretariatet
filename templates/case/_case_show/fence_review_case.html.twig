@@ -31,17 +31,7 @@
                                 <input type="text" class="form-control" id="inputBasicInformation1" value="{{ case.complainant }}" readonly>
                             </div>
                             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                            <div class="form-group col-md-6">
-                                <label for="inputBasicInformation2">{% trans %}Identifier{% endtrans %}</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="inputBasicInformation2" value="{{ case.complainantIdentifier }}" readonly>
-                                    {# TODO: Show status depending on validation result #}
-                                    {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
-                                    {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
-                                    {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
-                                    {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
-                                </div>
-                            </div>
+                                {% include 'case/_identifier.html.twig' with {case: case, id_property: 'complainantIdentification', address_property: 'complainantAddress', name_property: 'complainant'} %}
                             {% endif %}
                         </div>
 
@@ -59,17 +49,7 @@
                                 <input type="text" class="form-control" id="inputBasicInformation3" value="{{ case.accused }}" readonly>
                             </div>
                             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                                <div class="form-group col-md-6">
-                                    <label for="inputBasicInformation4">{% trans %}Identifier{% endtrans %}</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.accusedIdentifier }}" readonly>
-                                        {# TODO: Show status depending on validation result #}
-                                        {# Not yet validated #} <button class="btn btn-secondary" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Validate'|trans([], 'case', 'da') }}"><i class="fas fa-check-circle"></i></button>
-                                        {# Success <button class="btn btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="CPR number is validated"><i class="fas fa-check-circle"></i></button>#}
-                                        {# Warning <button class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="auto" title="Warning could not validate"><i class="fas fa-exclamation-circle"></i></button>#}
-                                        {# Failed <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="auto" title="Error validating"><i class="fas fa-times-circle"></i></button>#}
-                                    </div>
-                                </div>
+                                {% include 'case/_identifier.html.twig' with {case: case, id_property: 'accusedIdentification', address_property: 'accusedAddress', name_property: 'accused'} %}
                             {% endif %}
                         </div>
 

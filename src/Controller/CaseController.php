@@ -10,6 +10,7 @@ use App\Entity\LogEntry;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Entity\User;
 use App\Exception\BoardMemberException;
+use App\Exception\CprException;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
@@ -34,6 +35,7 @@ use App\Repository\UserRepository;
 use App\Service\AddressHelper;
 use App\Service\BBRHelper;
 use App\Service\CaseManager;
+use App\Service\CprHelper;
 use App\Service\LogEntryHelper;
 use App\Service\MunicipalityHelper;
 use App\Service\PartyHelper;
@@ -680,5 +682,77 @@ class CaseController extends AbstractController
         $hasBeenInHearing = $case->getHearing() && ($case->getHearing()->getStartedOn() || $case->getHearing()->getFinishedOn());
         // If it has been on agenda or is on agenda it is also not deletable
         return $case->getAgendaCaseItems()->isEmpty() && !$hasBeenInHearing;
+    }
+
+    /**
+     * @Route("/{id}/validate-identifier/{idProperty}/{addressProperty}/{nameProperty}", name="case_validate_identifier", methods={"GET", "POST"})
+     */
+    public function validateIdentifier(Request $request, CaseEntity $case, CprHelper $cprHelper, string $idProperty, string $addressProperty, string $nameProperty, TranslatorInterface $translator): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $case);
+
+        $form = $this->createformbuilder()->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                // TODO: Distinguish between identifier type i.e. CPR and CVR
+                $cprHelper->validateCpr($case, $idProperty, $addressProperty, $nameProperty);
+                $this->addFlash('success', new TranslatableMessage('Identification validated', [], 'case'));
+
+                // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
+                if ($request->get('ajax')) {
+                    return new JsonResponse(true);
+                }
+
+                // Send user back to where he came from.
+                $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
+
+                return $this->redirect($redirectUrl);
+            } catch (\Exception $exception) {
+                if ($request->get('ajax')) {
+                    $form->addError(new FormError($translator->trans('Invalid identifier ({message})', ['message' => $exception->getMessage()], 'case')));
+                } else {
+                    $this->addFlash('error', new TranslatableMessage('Error validating identifier ({message})', ['message' => $exception->getMessage()], 'case'));
+                }
+            }
+        }
+
+        return $this->render('case/_validate_identifier.html.twig', [
+            'form' => $form->createView(),
+            'case' => $case,
+            'id_property' => $idProperty,
+            'address_property' => $addressProperty,
+            'name_property' => $nameProperty,
+        ]);
+    }
+
+    /**
+     * @Route("/new/apply-identifier-data", name="case_new_apply_identifier_data", methods={"GET", "POST"})
+     */
+    public function applyIdentifierData(CprHelper $cprHelper, Request $request): Response
+    {
+        $type = $request->request->get('type');
+        $identifier = $request->request->get('identifier');
+
+        try {
+            // TODO: Distinguish between identifier type i.e. CPR and CVR
+            $data = 'CPR' == $type ? $cprHelper->lookupCPR($identifier) : [];
+        } catch (CprException) {
+            return new JsonResponse();
+        }
+
+        $dataArray = json_decode(json_encode($data), true);
+        $neededData = [];
+
+        $neededData['name'] = $dataArray['persondata']['navn']['personadresseringsnavn'];
+        $neededData['street'] = $dataArray['adresse']['aktuelAdresse']['vejadresseringsnavn'];
+        $neededData['number'] = ltrim($dataArray['adresse']['aktuelAdresse']['husnummer'], '0');
+        $neededData['floor'] = array_key_exists('etage', $dataArray['adresse']['aktuelAdresse']) ? $dataArray['adresse']['aktuelAdresse']['etage'] : [];
+        $neededData['side'] = array_key_exists('sidedoer', $dataArray['adresse']['aktuelAdresse']) ? ltrim($dataArray['adresse']['aktuelAdresse']['sidedoer'], '0') : [];
+        $neededData['postalCode'] = $dataArray['adresse']['aktuelAdresse']['postnummer'];
+        $neededData['city'] = $dataArray['adresse']['aktuelAdresse']['postdistrikt'];
+
+        return new JsonResponse($neededData);
     }
 }

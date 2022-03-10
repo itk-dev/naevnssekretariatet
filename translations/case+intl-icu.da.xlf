@@ -1197,6 +1197,54 @@
         <source>Cannot delete case that has been in hearing or on an agenda</source>
         <target state="translated">Kan ikke slette sag der har været i høring eller på en dagsorden</target>
       </trans-unit>
+      <trans-unit id="xL.OK65" resname="Identification type">
+        <source>Identification type</source>
+        <target state="translated">Id type</target>
+      </trans-unit>
+      <trans-unit id="kfYGsy3" resname="Identification">
+        <source>Identification</source>
+        <target state="translated">Identifikation</target>
+      </trans-unit>
+      <trans-unit id="Q2VFI5o" resname="Find information from identifier">
+        <source>Find information from identifier</source>
+        <target state="translated">Udfyld information via id opslag</target>
+      </trans-unit>
+      <trans-unit id="iElv9db" resname="PNR not found">
+        <source>PNR not found</source>
+        <target state="translated">CPR nummer ikke fundet</target>
+      </trans-unit>
+      <trans-unit id="VpgqnWg" resname="Case data not match CPR register data">
+        <source>Case data not match CPR register data</source>
+        <target state="translated">Sags data stemmer ikke overens med CPR register</target>
+      </trans-unit>
+      <trans-unit id="z4DMqxu" resname="Identification validated">
+        <source>Identification validated</source>
+        <target state="translated">Id valideret</target>
+      </trans-unit>
+      <trans-unit id="4LMIBIB" resname="Invalid identifier ({message})">
+        <source>Invalid identifier ({message})</source>
+        <target state="translated">Id kunne ikke valideres ({message})</target>
+      </trans-unit>
+      <trans-unit id="6iklZ47" resname="Error validating identifier ({message})">
+        <source>Error validating identifier ({message})</source>
+        <target state="translated">Fejl under validering ({message})</target>
+      </trans-unit>
+      <trans-unit id="Xoa3cgZ" resname="Identification validated at {validation_time}">
+        <source>Identification validated at {validation_time}</source>
+        <target state="translated">Id valideret {validation_time}</target>
+      </trans-unit>
+      <trans-unit id="H51PvjA" resname="Identifier validated">
+        <source>Identifier validated</source>
+        <target state="translated">Id valideret</target>
+      </trans-unit>
+      <trans-unit id="BaRwwLi" resname="Validate identifier">
+        <source>Validate identifier</source>
+        <target state="translated">Valider id</target>
+      </trans-unit>
+      <trans-unit id="Anx60OS" resname="Validate the legitimacy of the identifier by pressing the validate button">
+        <source>Validate the legitimacy of the identifier by pressing the validate button</source>
+        <target state="translated">Valider id'et ved at klikke på “Valider id”-knappen </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
