@@ -34,6 +34,7 @@ class CprHelper implements EventSubscriberInterface
      */
     private Client $guzzleClient;
     private array $serviceOptions;
+    private PersonBaseDataExtendedService $service;
 
     public function __construct(private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private TranslatorInterface $translator, array $options)
     {
@@ -49,10 +50,12 @@ class CprHelper implements EventSubscriberInterface
      */
     public function lookupCPR(string $cpr)
     {
-        $service = $this->setupService();
+        if (!isset($this->service)) {
+            $this->setupService();
+        }
 
         try {
-            $response = $service->personLookup($cpr);
+            $response = $this->service->personLookup($cpr);
         } catch (NoPnrFoundException $e) {
             throw new CprException($this->translator->trans('PNR not found', [], 'case'), $e->getCode(), $e);
         } catch (ServiceException $e) {
@@ -65,7 +68,7 @@ class CprHelper implements EventSubscriberInterface
     /**
      * @throws CprException
      */
-    private function setupService(): PersonBaseDataExtendedService
+    private function setupService()
     {
         $certificateLocator = $this->getAzureKeyVaultCertificateLocator(
             $this->serviceOptions['azure_tenant_id'],
@@ -105,7 +108,7 @@ class CprHelper implements EventSubscriberInterface
             $this->serviceOptions['serviceplatformen_cpr_user_uuid']
         );
 
-        return new PersonBaseDataExtendedService($soapClient, $requestGenerator);
+        $this->service = new PersonBaseDataExtendedService($soapClient, $requestGenerator);
     }
 
     private function configureOptions(OptionsResolver $resolver)
