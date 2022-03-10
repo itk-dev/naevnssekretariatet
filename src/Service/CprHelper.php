@@ -34,7 +34,6 @@ class CprHelper implements EventSubscriberInterface
      */
     private Client $guzzleClient;
     private array $serviceOptions;
-    private PersonBaseDataExtendedService $service;
 
     public function __construct(private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private TranslatorInterface $translator, array $options)
     {
@@ -43,8 +42,6 @@ class CprHelper implements EventSubscriberInterface
         $this->configureOptions($resolver);
 
         $this->serviceOptions = $resolver->resolve($options);
-
-        $this->service = $this->setupService();
     }
 
     /**
@@ -52,8 +49,10 @@ class CprHelper implements EventSubscriberInterface
      */
     public function lookupCPR(string $cpr)
     {
+        $service = $this->setupService();
+
         try {
-            $response = $this->service->personLookup($cpr);
+            $response = $service->personLookup($cpr);
         } catch (NoPnrFoundException $e) {
             throw new CprException($this->translator->trans('PNR not found', [], 'case'), $e->getCode(), $e);
         } catch (ServiceException $e) {
