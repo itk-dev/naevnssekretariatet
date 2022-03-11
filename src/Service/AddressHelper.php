@@ -33,7 +33,7 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
     public function validateAddress(CaseEntity $case, string $property, bool $flush = true): bool
     {
         $address = $this->getAddress($case, $property);
-        $addressData = $this->fetchAddressData($address);
+        $addressData = $this->fetchAddressData((string) $address);
         $address->setValidatedAt(new \DateTimeImmutable());
 
         if ($flush) {
@@ -62,41 +62,36 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
     }
 
     /**
-     * Fetch address data using https://dawadocs.dataforsyningen.dk/dok/api/adresse#s%C3%B8gning.
+     * Get an address object from a stringified address using Adresse datavask.
+     *
+     * @see https://dawadocs.dataforsyningen.dk/dok/api/adresse#datavask
      *
      * @throws AddressException
      */
-    private function fetchAddressData(Address $address): array
+    private function fetchAddressData(string $address): array
     {
         try {
             $client = HttpClient::create([
-                'base_uri' => 'https://api.dataforsyningen.dk/adresser',
+                'base_uri' => 'https://api.dataforsyningen.dk/datavask/adresser',
             ]);
 
             $response = $client->request('GET', '', [
                 'query' => [
-                    'postnr' => $address->getPostalCode(),
-                    'vejnavn' => $address->getStreet(),
-                    'husnr' => $address->getNumber(),
-                    'etage' => $address->getFloor(),
-                    'dør' => $address->getSide(),
+                    'betegnelse' => $address,
                 ],
             ]);
 
             $data = $response->toArray();
-
-            if (1 === count($data)) {
-                return reset($data);
-            }
-
-            if (count($data) > 1) {
-                throw $this->createException($this->translator->trans('Ambiguous address: {address}', ['address' => (string) $address], 'case'));
+            // We only accept exact matches
+            if (($data['kategori'] ?? null == 'A')
+                && isset($data['resultater'][0]['adresse'])) {
+                return $data['resultater'][0]['adresse'];
             }
         } catch (\Throwable $throwable) {
-            throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => (string) $address], 'case'), $throwable->getCode(), $throwable);
+            throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => $address], 'case'), $throwable->getCode(), $throwable);
         }
 
-        throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => (string) $address], 'case'));
+        throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => $address], 'case'));
     }
 
     /**
