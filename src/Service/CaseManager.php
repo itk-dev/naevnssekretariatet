@@ -4,39 +4,21 @@ namespace App\Service;
 
 use App\Entity\Board;
 use App\Entity\CaseEntity;
+use App\Entity\Embeddable\Address;
 use App\Repository\CaseEntityRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Lock\LockFactory;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class CaseManager implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
-    /**
-     * @var CaseEntityRepository
-     */
-    private $caseRepository;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var LockFactory
-     */
-    private $lockFactory;
-    /**
-     * @var WorkflowService
-     */
-    private $workflowService;
 
-    public function __construct(CaseEntityRepository $caseRepository, EntityManagerInterface $entityManager, LockFactory $lockFactory, WorkflowService $workflowService)
+    public function __construct(private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService)
     {
-        $this->caseRepository = $caseRepository;
-        $this->entityManager = $entityManager;
-        $this->lockFactory = $lockFactory;
-        $this->workflowService = $workflowService;
     }
 
     public function generateCaseNumber(): string
@@ -146,5 +128,23 @@ class CaseManager implements LoggerAwareInterface
         if (!$isDryRun) {
             $this->entityManager->flush();
         }
+    }
+
+    public function getCaseIdentificationValues(CaseEntity $case, string $addressProperty, string $nameProperty): array
+    {
+        /** @var Address $address */
+        $address = $this->propertyAccessor->getValue($case, $addressProperty);
+        $name = $this->propertyAccessor->getValue($case, $nameProperty);
+
+        $data = [];
+        $data['name'] = $name;
+        $data['street'] = $address->getStreet();
+        $data['number'] = $address->getNumber();
+        $data['floor'] = $address->getFloor() ?? '';
+        $data['side'] = $address->getSide() ?? '';
+        $data['postalCode'] = $address->getPostalCode();
+        $data['city'] = $address->getCity();
+
+        return $data;
     }
 }

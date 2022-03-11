@@ -160,7 +160,7 @@ The following roles and, hence, authentication providers can be requested:
 | admin        | administrator           |
 | board-member | board member            |
 
-## CPR lookup service
+## CPR and CVR lookup service
 
 The following environment variables must be set in the `.env.local` file:
 
@@ -170,12 +170,11 @@ AZURE_TENANT_ID='xyz'
 AZURE_APPLICATION_ID='xyz'
 AZURE_CLIENT_SECRET='xyz'
 
-# Azure key vault
-AZURE_KEY_VAULT_NAME='xyz'
-AZURE_KEY_VAULT_SECRET='xyz'
-AZURE_KEY_VAULT_SECRET_VERSION='xyz'
-
 # CPR lookup
+AZURE_KEY_VAULT_CPR_NAME='xyz'
+AZURE_KEY_VAULT_CPR_SECRET='xyz'
+AZURE_KEY_VAULT_CPR_SECRET_VERSION='xyz'
+
 SERVICEPLATFORMEN_CPR_SERVICE_AGREEMENT_UUID='xyz'
 SERVICEPLATFORMEN_CPR_USER_SYSTEM_UUID='xyz'
 SERVICEPLATFORMEN_CPR_USER_UUID='xyz'
@@ -183,6 +182,20 @@ SERVICEPLATFORMEN_CPR_USER_UUID='xyz'
 SERVICEPLATFORMEN_CPR_SERVICE_UUID='xyz'
 SERVICEPLATFORMEN_CPR_SERVICE_ENDPOINT='https://xyz.com'
 SERVICEPLATFORMEN_CPR_SERVICE_CONTRACT='%kernel.project_dir%/vendor/itk-dev/serviceplatformen/resources/person-base-data-extended-service-contract/wsdl/context/PersonBaseDataExtendedService.wsdl'
+
+# CVR lookup
+AZURE_KEY_VAULT_CVR_NAME='xyz'
+AZURE_KEY_VAULT_CVR_SECRET='xyz'
+AZURE_KEY_VAULT_CVR_SECRET_VERSION='xyz'
+
+SERVICEPLATFORMEN_CVR_SERVICE_AGREEMENT_UUID='xyz'
+SERVICEPLATFORMEN_CVR_USER_SYSTEM_UUID='xyz'
+SERVICEPLATFORMEN_CVR_USER_UUID='xyz'
+
+SERVICEPLATFORMEN_CVR_SERVICE_UUID='xyz'
+SERVICEPLATFORMEN_CVR_SERVICE_ENDPOINT='https://xyz.com'
+SERVICEPLATFORMEN_CVR_SERVICE_CONTRACT='%kernel.project_dir%/vendor/itk-dev/serviceplatformen/resources/online-service-contract/wsdl/context/OnlineService.wsdl'
+
 ```
 
 ## Cron job

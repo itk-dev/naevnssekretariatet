@@ -10,7 +10,6 @@ use App\Entity\LogEntry;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Entity\User;
 use App\Exception\BoardMemberException;
-use App\Exception\CprException;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
@@ -35,7 +34,7 @@ use App\Repository\UserRepository;
 use App\Service\AddressHelper;
 use App\Service\BBRHelper;
 use App\Service\CaseManager;
-use App\Service\CprHelper;
+use App\Service\IdentificationHelper;
 use App\Service\LogEntryHelper;
 use App\Service\MunicipalityHelper;
 use App\Service\PartyHelper;
@@ -50,6 +49,7 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Translation\TranslatableMessage;
@@ -687,7 +687,7 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/validate-identifier/{idProperty}/{addressProperty}/{nameProperty}", name="case_validate_identifier", methods={"GET", "POST"})
      */
-    public function validateIdentifier(Request $request, CaseEntity $case, CprHelper $cprHelper, string $idProperty, string $addressProperty, string $nameProperty, TranslatorInterface $translator): Response
+    public function validateIdentifier(Request $request, CaseEntity $case, IdentificationHelper $identificationHelper, string $idProperty, string $addressProperty, string $nameProperty, TranslatorInterface $translator, PropertyAccessorInterface $propertyAccessor): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -696,8 +696,8 @@ class CaseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                // TODO: Distinguish between identifier type i.e. CPR and CVR
-                $cprHelper->validateCpr($case, $idProperty, $addressProperty, $nameProperty);
+                $identificationHelper->validateIdentification($case, $idProperty, $addressProperty, $nameProperty);
+
                 $this->addFlash('success', new TranslatableMessage('Identification validated', [], 'case'));
 
                 // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
@@ -730,29 +730,11 @@ class CaseController extends AbstractController
     /**
      * @Route("/new/apply-identifier-data", name="case_new_apply_identifier_data", methods={"GET", "POST"})
      */
-    public function applyIdentifierData(CprHelper $cprHelper, Request $request): Response
+    public function applyIdentifierData(IdentificationHelper $identificationHelper, Request $request): Response
     {
         $type = $request->request->get('type');
         $identifier = $request->request->get('identifier');
 
-        try {
-            // TODO: Distinguish between identifier type i.e. CPR and CVR
-            $data = 'CPR' == $type ? $cprHelper->lookupCPR($identifier) : [];
-        } catch (CprException) {
-            return new JsonResponse();
-        }
-
-        $dataArray = json_decode(json_encode($data), true);
-        $neededData = [];
-
-        $neededData['name'] = $dataArray['persondata']['navn']['personadresseringsnavn'];
-        $neededData['street'] = $dataArray['adresse']['aktuelAdresse']['vejadresseringsnavn'];
-        $neededData['number'] = ltrim($dataArray['adresse']['aktuelAdresse']['husnummer'], '0');
-        $neededData['floor'] = array_key_exists('etage', $dataArray['adresse']['aktuelAdresse']) ? $dataArray['adresse']['aktuelAdresse']['etage'] : [];
-        $neededData['side'] = array_key_exists('sidedoer', $dataArray['adresse']['aktuelAdresse']) ? ltrim($dataArray['adresse']['aktuelAdresse']['sidedoer'], '0') : [];
-        $neededData['postalCode'] = $dataArray['adresse']['aktuelAdresse']['postnummer'];
-        $neededData['city'] = $dataArray['adresse']['aktuelAdresse']['postdistrikt'];
-
-        return new JsonResponse($neededData);
+        return $identificationHelper->fetchIdentifierData($identifier, $type);
     }
 }

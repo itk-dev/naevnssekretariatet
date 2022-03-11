@@ -1245,6 +1245,14 @@
         <source>Validate the legitimacy of the identifier by pressing the validate button</source>
         <target>Validate the legitimacy of the identifier by pressing the validate button</target>
       </trans-unit>
+      <trans-unit id="Y1M23kg" resname="CVR not found">
+        <source>CVR not found</source>
+        <target>CVR not found</target>
+      </trans-unit>
+      <trans-unit id="o1.7I6V" resname="Case data not match CVR register data">
+        <source>Case data not match CVR register data</source>
+        <target>Case data not match CVR register data</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

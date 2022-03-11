@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Entity\CaseEntity;
 use App\Entity\Embeddable\Identification;
-use App\Exception\CprException;
+use App\Exception\CvrException;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use Http\Adapter\Guzzle7\Client as GuzzleAdapter;
@@ -15,21 +15,21 @@ use ItkDev\Serviceplatformen\Certificate\AzureKeyVaultCertificateLocator;
 use ItkDev\Serviceplatformen\Certificate\CertificateLocatorInterface;
 use ItkDev\Serviceplatformen\Certificate\Exception\CertificateLocatorException;
 use ItkDev\Serviceplatformen\Request\InvocationContextRequestGenerator;
-use ItkDev\Serviceplatformen\Service\Exception\NoPnrFoundException;
+use ItkDev\Serviceplatformen\Service\Exception\NoCvrFoundException;
 use ItkDev\Serviceplatformen\Service\Exception\ServiceException;
-use ItkDev\Serviceplatformen\Service\PersonBaseDataExtendedService;
+use ItkDev\Serviceplatformen\Service\OnlineService;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class CprHelper
+class CvrHelper
 {
     /**
      * The client.
      */
     private Client $guzzleClient;
     private array $serviceOptions;
-    private PersonBaseDataExtendedService $service;
+    private OnlineService $service;
 
     public function __construct(private CaseManager $caseManager, private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private TranslatorInterface $translator, array $options)
     {
@@ -41,27 +41,27 @@ class CprHelper
     }
 
     /**
-     * @throws CprException
+     * @throws CvrException
      */
-    public function lookupCPR(string $cpr)
+    public function lookupCvr(string $cvr)
     {
         if (!isset($this->service)) {
             $this->setupService();
         }
 
         try {
-            $response = $this->service->personLookup($cpr);
-        } catch (NoPnrFoundException $e) {
-            throw new CprException($this->translator->trans('PNR not found', [], 'case'), $e->getCode(), $e);
+            $response = $this->service->getLegalUnit($cvr);
+        } catch (NoCvrFoundException $e) {
+            throw new CvrException($this->translator->trans('CVR not found', [], 'case'), $e->getCode(), $e);
         } catch (ServiceException $e) {
-            throw new CprException($e->getMessage(), $e->getCode(), $e);
+            throw new CvrException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $response;
     }
 
     /**
-     * @throws CprException
+     * @throws CvrException
      */
     private function setupService()
     {
@@ -77,52 +77,52 @@ class CprHelper
         try {
             $pathToCertificate = $certificateLocator->getAbsolutePathToCertificate();
         } catch (CertificateLocatorException $e) {
-            throw new CprException($e->getMessage(), $e->getCode());
+            throw new CvrException($e->getMessage(), $e->getCode());
         }
 
         $options = [
             'local_cert' => $pathToCertificate,
             'passphrase' => $certificateLocator->getPassphrase(),
-            'location' => $this->serviceOptions['serviceplatformen_cpr_service_endpoint'],
+            'location' => $this->serviceOptions['serviceplatformen_cvr_service_endpoint'],
         ];
 
-        if (!realpath($this->serviceOptions['serviceplatformen_cpr_service_contract'])) {
-            throw new CprException(sprintf('The path (%s) to the service contract is invalid.', $this->serviceOptions['serviceplatformen_cpr_service_contract']));
+        if (!realpath($this->serviceOptions['serviceplatformen_cvr_service_contract'])) {
+            throw new CvrException(sprintf('The path (%s) to the service contract is invalid.', $this->serviceOptions['serviceplatformen_cvr_service_contract']));
         }
 
         try {
-            $soapClient = new \SoapClient($this->serviceOptions['serviceplatformen_cpr_service_contract'], $options);
+            $soapClient = new \SoapClient($this->serviceOptions['serviceplatformen_cvr_service_contract'], $options);
         } catch (\SoapFault $e) {
-            throw new CprException($e->getMessage(), $e->getCode());
+            throw new CvrException($e->getMessage(), $e->getCode());
         }
 
         $requestGenerator = new InvocationContextRequestGenerator(
-            $this->serviceOptions['serviceplatformen_cpr_service_agreement_uuid'],
-            $this->serviceOptions['serviceplatformen_cpr_user_system_uuid'],
-            $this->serviceOptions['serviceplatformen_cpr_service_uuid'],
-            $this->serviceOptions['serviceplatformen_cpr_user_uuid']
+            $this->serviceOptions['serviceplatformen_cvr_service_agreement_uuid'],
+            $this->serviceOptions['serviceplatformen_cvr_user_system_uuid'],
+            $this->serviceOptions['serviceplatformen_cvr_service_uuid'],
+            $this->serviceOptions['serviceplatformen_cvr_user_uuid']
         );
 
-        $this->service = new PersonBaseDataExtendedService($soapClient, $requestGenerator);
+        $this->service = new OnlineService($soapClient, $requestGenerator);
     }
 
     private function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setRequired([
-                    'azure_tenant_id',
-                    'azure_application_id',
-                    'azure_client_secret',
-                    'azure_key_vault_name',
-                    'azure_key_vault_secret',
-                    'azure_key_vault_secret_version',
-                    'serviceplatformen_cpr_service_agreement_uuid',
-                    'serviceplatformen_cpr_user_system_uuid',
-                    'serviceplatformen_cpr_user_uuid',
-                    'serviceplatformen_cpr_service_uuid',
-                    'serviceplatformen_cpr_service_endpoint',
-                    'serviceplatformen_cpr_service_contract',
-                ],
+                'azure_tenant_id',
+                'azure_application_id',
+                'azure_client_secret',
+                'azure_key_vault_name',
+                'azure_key_vault_secret',
+                'azure_key_vault_secret_version',
+                'serviceplatformen_cvr_service_agreement_uuid',
+                'serviceplatformen_cvr_user_system_uuid',
+                'serviceplatformen_cvr_user_uuid',
+                'serviceplatformen_cvr_service_uuid',
+                'serviceplatformen_cvr_service_endpoint',
+                'serviceplatformen_cvr_service_contract',
+            ],
             )
         ;
     }
@@ -164,25 +164,24 @@ class CprHelper
     }
 
     /**
-     * Validates that case data agree with CPR lookup data.
+     * Validates that case data agree with CVR lookup data.
      *
-     * @throws CprException
+     * @throws CvrException
      */
-    public function validateCpr(CaseEntity $case, string $idProperty, string $addressProperty, string $nameProperty): bool
+    public function validateCvr(CaseEntity $case, string $idProperty, string $addressProperty, string $nameProperty): bool
     {
         $caseIdentificationRelevantData = $this->caseManager->getCaseIdentificationValues($case, $addressProperty, $nameProperty);
 
-        // Get CPR register data
         /** @var Identification $id */
         $id = $this->propertyAccessor->getValue($case, $idProperty);
 
-        $cprData = $this->lookupCPR($id->getIdentifier());
-        $cprDataArray = json_decode(json_encode($cprData), true);
+        $cvrData = $this->lookupCvr($id->getIdentifier());
+        $cvrDataArray = json_decode(json_encode($cvrData), true);
 
-        $cprIdentificationRelevantData = $this->collectRelevantData($cprDataArray);
+        $cvrIdentificationRelevantData = $this->collectRelevantData($cvrDataArray);
 
-        if ($caseIdentificationRelevantData != $cprIdentificationRelevantData) {
-            throw new CprException($this->translator->trans('Case data not match CPR register data', [], 'case'));
+        if ($caseIdentificationRelevantData != $cvrIdentificationRelevantData) {
+            throw new CvrException($this->translator->trans('Case data not match CVR register data', [], 'case'));
         }
 
         $id->setValidatedAt(new \DateTime('now'));
@@ -195,13 +194,13 @@ class CprHelper
     {
         $relevantData = [];
 
-        $relevantData['name'] = $data['persondata']['navn']['personadresseringsnavn'];
-        $relevantData['street'] = $data['adresse']['aktuelAdresse']['vejadresseringsnavn'];
-        $relevantData['number'] = ltrim($data['adresse']['aktuelAdresse']['husnummer'], '0');
-        $relevantData['floor'] = array_key_exists('etage', $data['adresse']['aktuelAdresse']) ? $data['adresse']['aktuelAdresse']['etage'] : '';
-        $relevantData['side'] = array_key_exists('sidedoer', $data['adresse']['aktuelAdresse']) ? ltrim($data['adresse']['aktuelAdresse']['sidedoer'], '0') : '';
-        $relevantData['postalCode'] = $data['adresse']['aktuelAdresse']['postnummer'];
-        $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'];
+        $relevantData['name'] = $data['GetLegalUnitResponse']['LegalUnit']['LegalUnitName']['name'];
+        $relevantData['street'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetName'];
+        $relevantData['number'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetBuildingIdentifier'];
+        $relevantData['floor'] = array_key_exists('FloorIdentifier', $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['FloorIdentifier'] : '';
+        $relevantData['side'] = array_key_exists('SuiteIdentifier', $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['SuiteIdentifier'] : '';
+        $relevantData['postalCode'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['PostCodeIdentifier'];
+        $relevantData['city'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['DistrictName'];
 
         return $relevantData;
     }

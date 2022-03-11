@@ -10,6 +10,7 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Lock\LockFactory;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class CaseManagerTest extends TestCase
 {
@@ -18,6 +19,7 @@ class CaseManagerTest extends TestCase
     private $caseManager;
     private $mockEntityManager;
     private $lockFactory;
+    private $propertyAccessor;
 
     protected function setUp(): void
     {
@@ -27,11 +29,13 @@ class CaseManagerTest extends TestCase
         $this->mockWorkflowService = $this->createMock(WorkflowService::class);
         $this->mockEntityManager = $this->createMock(EntityManagerInterface::class);
         $this->lockFactory = $this->createMock(LockFactory::class);
+        $this->propertyAccessor = $this->createMock(PropertyAccessorInterface::class);
 
         $this->caseManager = new CaseManager(
             $this->mockCaseRepository,
             $this->mockEntityManager,
             $this->lockFactory,
+            $this->propertyAccessor,
             $this->mockWorkflowService
         );
     }
