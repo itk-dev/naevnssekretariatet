@@ -3,13 +3,9 @@
 namespace App\Service;
 
 use App\Entity\CaseEntity;
-use App\Entity\Embeddable\Address;
 use App\Entity\Embeddable\Identification;
 use App\Exception\CprException;
-use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Doctrine\ORM\Events;
 use GuzzleHttp\Client;
 use Http\Adapter\Guzzle7\Client as GuzzleAdapter;
 use Http\Factory\Guzzle\RequestFactory;
@@ -26,7 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class CprHelper implements EventSubscriberInterface
+class CprHelper
 {
     /**
      * The client.
@@ -35,7 +31,7 @@ class CprHelper implements EventSubscriberInterface
     private array $serviceOptions;
     private PersonBaseDataExtendedService $service;
 
-    public function __construct(private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private TranslatorInterface $translator, array $options)
+    public function __construct(private CaseManager $caseManager, private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private TranslatorInterface $translator, array $options)
     {
         $this->guzzleClient = new Client();
         $resolver = new OptionsResolver();
@@ -174,36 +170,19 @@ class CprHelper implements EventSubscriberInterface
      */
     public function validateCpr(CaseEntity $case, string $idProperty, string $addressProperty, string $nameProperty): bool
     {
+        $caseIdentificationRelevantData = $this->caseManager->getCaseIdentificationValues($case, $addressProperty, $nameProperty);
+
+        // Get CPR register data
         /** @var Identification $id */
         $id = $this->propertyAccessor->getValue($case, $idProperty);
-        /** @var Address $address */
-        $address = $this->propertyAccessor->getValue($case, $addressProperty);
-        $name = $this->propertyAccessor->getValue($case, $nameProperty);
-
-        $data = [];
-        $data['name']['caseData'] = $name;
-        $data['street']['caseData'] = $address->getStreet();
-        $data['number']['caseData'] = $address->getNumber();
-        $data['floor']['caseData'] = $address->getFloor() ?? [];
-        $data['side']['caseData'] = $address->getSide() ?? '';
-        $data['postalCode']['caseData'] = $address->getPostalCode();
-        $data['city']['caseData'] = $address->getCity();
 
         $cprData = $this->lookupCPR($id->getIdentifier());
         $cprDataArray = json_decode(json_encode($cprData), true);
 
-        $data['name']['cprData'] = $cprDataArray['persondata']['navn']['personadresseringsnavn'];
-        $data['street']['cprData'] = $cprDataArray['adresse']['aktuelAdresse']['vejadresseringsnavn'];
-        $data['number']['cprData'] = ltrim($cprDataArray['adresse']['aktuelAdresse']['husnummer'], '0');
-        $data['floor']['cprData'] = array_key_exists('etage', $cprDataArray['adresse']['aktuelAdresse']) ? $cprDataArray['adresse']['aktuelAdresse']['etage'] : '';
-        $data['side']['cprData'] = array_key_exists('sidedoer', $cprDataArray['adresse']['aktuelAdresse']) ? ltrim($cprDataArray['adresse']['aktuelAdresse']['sidedoer'], '0') : '';
-        $data['postalCode']['cprData'] = $cprDataArray['adresse']['aktuelAdresse']['postnummer'];
-        $data['city']['cprData'] = $cprDataArray['adresse']['aktuelAdresse']['postdistrikt'];
+        $cprIdentificationRelevantData = $this->collectRelevantData($cprDataArray);
 
-        foreach ($data as $comparisonValues) {
-            if ($comparisonValues['caseData'] != $comparisonValues['cprData']) {
-                throw new CprException($this->translator->trans('Case data not match CPR register data', [], 'case'));
-            }
+        if ($caseIdentificationRelevantData != $cprIdentificationRelevantData) {
+            throw new CprException($this->translator->trans('Case data not match CPR register data', [], 'case'));
         }
 
         $id->setValidatedAt(new \DateTime('now'));
@@ -212,33 +191,18 @@ class CprHelper implements EventSubscriberInterface
         return true;
     }
 
-    /**
-     * Set Identification.validatedAt to null when changing relevant properties.
-     */
-    public function preUpdate(PreUpdateEventArgs $args)
+    public function collectRelevantData(array $data): array
     {
-        $object = $args->getObject();
-        $changeSet = $args->getEntityChangeSet();
-        foreach ($changeSet as $propertyPath => $value) {
-            if (!$object instanceof CaseEntity) {
-                continue;
-            }
+        $relevantData = [];
 
-            // Check that changed property warrants a change of complainant validatedAt
-            foreach ($object->getIdentificationInvalidationProperties() as $identificationProperty => $invalidationProperties) {
-                if (in_array($propertyPath, $invalidationProperties) && !str_contains($propertyPath, 'validatedAt')) {
-                    /** @var Identification $id */
-                    $id = $this->propertyAccessor->getValue($object, $identificationProperty);
-                    $id->setValidatedAt(null);
-                }
-            }
-        }
-    }
+        $relevantData['name'] = $data['persondata']['navn']['personadresseringsnavn'];
+        $relevantData['street'] = $data['adresse']['aktuelAdresse']['vejadresseringsnavn'];
+        $relevantData['number'] = ltrim($data['adresse']['aktuelAdresse']['husnummer'], '0');
+        $relevantData['floor'] = array_key_exists('etage', $data['adresse']['aktuelAdresse']) ? $data['adresse']['aktuelAdresse']['etage'] : '';
+        $relevantData['side'] = array_key_exists('sidedoer', $data['adresse']['aktuelAdresse']) ? ltrim($data['adresse']['aktuelAdresse']['sidedoer'], '0') : '';
+        $relevantData['postalCode'] = $data['adresse']['aktuelAdresse']['postnummer'];
+        $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'];
 
-    public function getSubscribedEvents()
-    {
-        return [
-            Events::preUpdate,
-        ];
+        return $relevantData;
     }
 }

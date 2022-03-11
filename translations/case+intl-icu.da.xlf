@@ -1251,7 +1251,7 @@
       </trans-unit>
       <trans-unit id="o1.7I6V" resname="Case data not match CVR register data">
         <source>Case data not match CVR register data</source>
-        <target state="needs-l10n">Sags data stemmer ikek overens med CVR register</target>
+        <target state="needs-l10n">Sags data stemmer ikke overens med CVR register</target>
       </trans-unit>
     </body>
   </file>

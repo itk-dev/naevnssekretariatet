@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Entity\CaseEntity;
-use App\Entity\Embeddable\Address;
 use App\Entity\Embeddable\Identification;
 use App\Exception\CvrException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,7 +31,7 @@ class CvrHelper
     private array $serviceOptions;
     private OnlineService $service;
 
-    public function __construct(private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private TranslatorInterface $translator, array $options)
+    public function __construct(private CaseManager $caseManager, private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private TranslatorInterface $translator, array $options)
     {
         $this->guzzleClient = new Client();
         $resolver = new OptionsResolver();
@@ -171,41 +170,38 @@ class CvrHelper
      */
     public function validateCvr(CaseEntity $case, string $idProperty, string $addressProperty, string $nameProperty): bool
     {
+        $caseIdentificationRelevantData = $this->caseManager->getCaseIdentificationValues($case, $addressProperty, $nameProperty);
+
         /** @var Identification $id */
         $id = $this->propertyAccessor->getValue($case, $idProperty);
-        /** @var Address $address */
-        $address = $this->propertyAccessor->getValue($case, $addressProperty);
-        $name = $this->propertyAccessor->getValue($case, $nameProperty);
-
-        $data = [];
-        $data['name']['caseData'] = $name;
-        $data['street']['caseData'] = $address->getStreet();
-        $data['number']['caseData'] = $address->getNumber();
-        $data['floor']['caseData'] = $address->getFloor() ?? '';
-        $data['side']['caseData'] = $address->getSide() ?? '';
-        $data['postalCode']['caseData'] = $address->getPostalCode();
-        $data['city']['caseData'] = $address->getCity();
 
         $cvrData = $this->lookupCvr($id->getIdentifier());
         $cvrDataArray = json_decode(json_encode($cvrData), true);
 
-        $data['name']['cvrData'] = $cvrDataArray['GetLegalUnitResponse']['LegalUnit']['LegalUnitName']['name'];
-        $data['street']['cvrData'] = $cvrDataArray['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetName'];
-        $data['number']['cvrData'] = $cvrDataArray['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetBuildingIdentifier'];
-        $data['floor']['cvrData'] = array_key_exists('FloorIdentifier', $cvrDataArray['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $cvrDataArray['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['FloorIdentifier'] : '';
-        $data['side']['cvrData'] = array_key_exists('SuiteIdentifier', $cvrDataArray['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $cvrDataArray['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['SuiteIdentifier'] : '';
-        $data['postalCode']['cvrData'] = $cvrDataArray['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['PostCodeIdentifier'];
-        $data['city']['cvrData'] = $cvrDataArray['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['DistrictName'];
+        $cvrIdentificationRelevantData = $this->collectRelevantData($cvrDataArray);
 
-        foreach ($data as $comparisonValues) {
-            if ($comparisonValues['caseData'] != $comparisonValues['cvrData']) {
-                throw new CvrException($this->translator->trans('Case data not match CVR register data', [], 'case'));
-            }
+        if ($caseIdentificationRelevantData != $cvrIdentificationRelevantData) {
+            throw new CvrException($this->translator->trans('Case data not match CVR register data', [], 'case'));
         }
 
         $id->setValidatedAt(new \DateTime('now'));
         $this->entityManager->flush();
 
         return true;
+    }
+
+    public function collectRelevantData(array $data): array
+    {
+        $relevantData = [];
+
+        $relevantData['name'] = $data['GetLegalUnitResponse']['LegalUnit']['LegalUnitName']['name'];
+        $relevantData['street'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetName'];
+        $relevantData['number'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetBuildingIdentifier'];
+        $relevantData['floor'] = array_key_exists('FloorIdentifier', $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['FloorIdentifier'] : '';
+        $relevantData['side'] = array_key_exists('SuiteIdentifier', $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['SuiteIdentifier'] : '';
+        $relevantData['postalCode'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['PostCodeIdentifier'];
+        $relevantData['city'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['DistrictName'];
+
+        return $relevantData;
     }
 }
