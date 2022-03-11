@@ -1219,11 +1219,11 @@
       </trans-unit>
       <trans-unit id="z4DMqxu" resname="Identification validated">
         <source>Identification validated</source>
-        <target state="translated">Id valideret</target>
+        <target state="translated">Identifikation valideret</target>
       </trans-unit>
       <trans-unit id="4LMIBIB" resname="Invalid identifier ({message})">
         <source>Invalid identifier ({message})</source>
-        <target state="translated">Id kunne ikke valideres ({message})</target>
+        <target state="translated">Identifikation kunne ikke valideres ({message})</target>
       </trans-unit>
       <trans-unit id="6iklZ47" resname="Error validating identifier ({message})">
         <source>Error validating identifier ({message})</source>
@@ -1244,6 +1244,14 @@
       <trans-unit id="Anx60OS" resname="Validate the legitimacy of the identifier by pressing the validate button">
         <source>Validate the legitimacy of the identifier by pressing the validate button</source>
         <target state="translated">Valider id'et ved at klikke på “Valider id”-knappen </target>
+      </trans-unit>
+      <trans-unit id="Y1M23kg" resname="CVR not found">
+        <source>CVR not found</source>
+        <target state="needs-l10n">CVR nummer ikke fundet</target>
+      </trans-unit>
+      <trans-unit id="o1.7I6V" resname="Case data not match CVR register data">
+        <source>Case data not match CVR register data</source>
+        <target state="needs-l10n">Sags data stemmer ikek overens med CVR register</target>
       </trans-unit>
     </body>
   </file>
