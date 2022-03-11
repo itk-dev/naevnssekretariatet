@@ -45,20 +45,18 @@
                     <td>{{ document.uploadedBy|e }}</td>
                     <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
                     <td class="text-right">
-                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
-                            <!-- Download button -->
-                            <a href="{{ url("agenda_case_item_document_download", {id: agenda.id, agenda_item_id: agenda_item.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
-                            {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                                <!-- Delete button -->
-                                {% if not agenda.isFinished() %}
-                                <form class="" method="post" action="{{ path('agenda_case_item_document_delete', {'id': agenda.id, 'agenda_item_id': agenda_item.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                        <!-- Download button -->
+                        <a href="{{ url("agenda_case_item_document_download", {id: agenda.id, agenda_item_id: agenda_item.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
+                        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
+                            <!-- Delete button -->
+                            {% if not agenda.isFinished() %}
+                                <form class="btn" style="margin:0; padding:0; display:inline;" method="post" action="{{ path('agenda_case_item_document_delete', {'id': agenda.id, 'agenda_item_id': agenda_item.id, 'document_id': document.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
                                     <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
                                 </form>
-                                {% endif %}
                             {% endif %}
-                        </div>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

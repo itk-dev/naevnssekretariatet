@@ -127,7 +127,7 @@
                                 <a class="btn btn-link" data-referer-query-name="referer" href="{{ path('case_bbr_meddelelse', {id: case.id, addressProperty: 'leaseAddress'}) }}">{% trans %}Show BBR-Meddelelse for lease (PDF){% endtrans %}</a>
                             </div>
                             <div class="col text-right">
-                                <form data-referer-query-name="referer" class="btn-group" method="post" action="{{ path('case_bbr_data_update', {id: case.id, addressProperty: 'leaseAddress'}) }}">
+                                <form data-referer-query-name="referer" class="btn" method="post" action="{{ path('case_bbr_data_update', {id: case.id, addressProperty: 'leaseAddress'}) }}">
                                     <button class="btn btn-secondary">{% trans %}Update BBR data{% endtrans %}</button>
                                 </form>
                             </div>
@@ -199,19 +199,16 @@
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
                                     <td>{{ party_data.party.journalNumber|e }}</td>
                                     <td class="text-right">
-                                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                                        <!-- Edit button -->
+                                        <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
 
-                                            <!-- Edit button -->
-                                            <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+                                        <!-- Delete button -->
 
-                                            <!-- Delete button -->
-
-                                            <form class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party_data.party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party_data.party.id) }}">
-                                                <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                        </div>
+                                        <form class="btn" style="margin:0; padding:0; display:inline;" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party_data.party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party_data.party.id) }}">
+                                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -247,19 +244,16 @@
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
                                     <td>{{ party_data.party.journalNumber|e }}</td>
                                     <td class="text-right">
-                                        <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+                                        <!-- Edit button -->
+                                        <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
 
-                                            <!-- Edit button -->
-                                            <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+                                        <!-- Delete button -->
 
-                                            <!-- Delete button -->
-
-                                            <form class="btn-group" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party_data.party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party_data.party.id) }}">
-                                                <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                        </div>
+                                        <form class="btn" style="margin:0; padding:0; display:inline;" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party_data.party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party_data.party.id) }}">
+                                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             {% endfor %}

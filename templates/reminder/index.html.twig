@@ -36,21 +36,16 @@
                         <td>{{ reminder.date|date('j F Y') }}</td>
                         <td>{{ reminder.content|e }}</td>
                         <td>
-
-                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
-                                {# TODO: Figure out how to style beneath form button correctly #}
-                                <!-- Complete button -->
-                                <form method="post" action="{{ path('reminder_complete', {'id': reminder.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to complete this reminder?{% endtrans %}');">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('complete' ~ reminder.id) }}">
-                                    <button class="btn btn-success" data-toggle="tooltip" data-placement="auto" title="{% trans %}Mark as completed{% endtrans %}"><i class="fas fa-check-circle"></i></button>
-                                </form>
-                                <!-- Edit button -->
-                                <a href="" role="button" class="btn btn-warning" data-toggle="modal" data-target="#reminder_edit{{ reminder.id }}" data-placement="auto" title="{% trans %}Edit reminder{% endtrans %}"><i class="fas fa-pen"></i><span class="sr-only">{% trans %}Edit reminder{% endtrans %}</span></a>
-                                <!-- Show case button -->
-                                <a href="{{ url('case_summary', {id: reminder.caseEntity.id}) }}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ reminder.caseEntity.casenumber|e }}"><i class="fas fa-file-alt"></i><span class="sr-only">"{% trans %}Show case{% endtrans %} {{ reminder.caseEntity.casenumber|e }}"</span></a>
-                            </div>
-
+                            <!-- Complete button -->
+                            <form method="post" class="btn" style="margin:0; padding:0; display:inline;" action="{{ path('reminder_complete', {'id': reminder.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to complete this reminder?{% endtrans %}');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('complete' ~ reminder.id) }}">
+                                <button class="btn btn-success" data-toggle="tooltip" data-placement="auto" title="{% trans %}Mark as completed{% endtrans %}"><i class="fas fa-check-circle"></i></button>
+                            </form>
+                            <!-- Edit button -->
+                            <a href="" role="button" class="btn btn-warning" data-toggle="modal" data-target="#reminder_edit{{ reminder.id }}" data-placement="auto" title="{% trans %}Edit reminder{% endtrans %}"><i class="fas fa-pen"></i><span class="sr-only">{% trans %}Edit reminder{% endtrans %}</span></a>
+                            <!-- Show case button -->
+                            <a href="{{ url('case_summary', {id: reminder.caseEntity.id}) }}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ reminder.caseEntity.casenumber|e }}"><i class="fas fa-file-alt"></i><span class="sr-only">"{% trans %}Show case{% endtrans %} {{ reminder.caseEntity.casenumber|e }}"</span></a>
                         </td>
                     </tr>
                     {{ render(controller(

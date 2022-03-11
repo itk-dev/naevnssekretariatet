@@ -44,12 +44,9 @@
                         <td>{{ document.uploadedBy|e }}</td>
                         <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
                         <td class="text-right">
-                            <div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
-                                <!-- Download button -->
-                                <div class="form-check">
-                                    <input type="checkbox" name="documents[]" class="form-check-input" id="exampleCheck1" value="{{ document.id }}">
-                                    <label class="form-check-label" for="exampleCheck1">{% trans %}Attach{% endtrans %}</label>
-                                </div>
+                            <div class="form-check">
+                                <input type="checkbox" name="documents[]" class="form-check-input" id="exampleCheck1" value="{{ document.id }}">
+                                <label class="form-check-label" for="exampleCheck1">{% trans %}Attach{% endtrans %}</label>
                             </div>
                         </td>
                     </tr>
