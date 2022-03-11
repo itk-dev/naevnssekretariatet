@@ -26,14 +26,15 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
     }
 
     /**
-     * Validate an address.
+     * Validate a case address.
      *
      * @throws AddressException
      */
-    public function validateAddress(CaseEntity $case, string $property, bool $flush = true): bool
+    public function validateCaseAddress(CaseEntity $case, string $property, bool $flush = true): bool
     {
         $address = $this->getAddress($case, $property);
         $addressData = $this->fetchAddressData((string) $address);
+
         $address->setValidatedAt(new \DateTimeImmutable());
 
         if ($flush) {
@@ -68,7 +69,7 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
      *
      * @throws AddressException
      */
-    private function fetchAddressData(string $address): array
+    public function fetchAddressData(string $address): array
     {
         try {
             $client = HttpClient::create([
@@ -83,7 +84,7 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
 
             $data = $response->toArray();
             // We only accept exact matches
-            if (($data['kategori'] ?? null == 'A')
+            if (in_array($data['kategori'] ?? null, ['A'])
                 && isset($data['resultater'][0]['adresse'])) {
                 return $data['resultater'][0]['adresse'];
             }
