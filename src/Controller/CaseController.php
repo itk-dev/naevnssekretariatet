@@ -584,7 +584,7 @@ class CaseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $addressHelper->validateAddress($case, $addressProperty);
+                $addressHelper->validateCaseAddress($case, $addressProperty);
                 $this->addFlash('success', new TranslatableMessage('Address validated', [], 'case'));
 
                 // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.

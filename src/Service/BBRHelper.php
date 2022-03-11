@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\BBRData;
 use App\Entity\CaseEntity;
 use App\Entity\Embeddable\Address;
+use App\Exception\AddressException;
 use App\Exception\BBRException;
 use App\Repository\BBRDataRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,7 +15,6 @@ use ItkDev\Datafordeler\Service\DAR\V1\DAR;
 use ItkDev\Datafordeler\Service\DAR\V1\DAR_BFE_Public;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -27,7 +27,7 @@ class BBRHelper implements LoggerAwareInterface
 
     private array $options;
 
-    public function __construct(private PropertyAccessorInterface $propertyAccessor, private BBRDataRepository $bbrDataRepository, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private TranslatorInterface $translator, array $bbrHelperOptions)
+    public function __construct(private AddressHelper $addressHelper, private PropertyAccessorInterface $propertyAccessor, private BBRDataRepository $bbrDataRepository, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private TranslatorInterface $translator, array $bbrHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -168,29 +168,6 @@ class BBRHelper implements LoggerAwareInterface
         throw $this->createException($this->translator->trans('Cannot get url for BBR-meddelelse for {address}', ['address' => $address], 'case'));
     }
 
-    /**
-     * Find best address match in a list of address objects.
-     *
-     * @return float|mixed|null
-     */
-    private function findBestAddressMatch(string $value, array $items, string $key)
-    {
-        $bestMatch = [
-            'percentage' => 0.0,
-        ];
-        foreach ($items as $item) {
-            if (isset($item[$key])) {
-                similar_text($value, $this->normalizeAddress($item[$key]), $percentage);
-                if ($percentage > $bestMatch['percentage']) {
-                    $bestMatch['percentage'] = $percentage;
-                    $bestMatch['item'] = $item;
-                }
-            }
-        }
-
-        return $bestMatch['item'] ?? null;
-    }
-
     private function getAddress($entity, string $property): Address
     {
         $address = $this->propertyAccessor->getValue($entity, $property);
@@ -217,47 +194,16 @@ class BBRHelper implements LoggerAwareInterface
     }
 
     /**
-     * Get an address object from a stringified address using Adgangsadresse datavask.
-     *
-     * @see https://dawadocs.dataforsyningen.dk/dok/api/adgangsadresse#datavask
-     */
-    public function getAccessAddressData(string $address): array
-    {
-        return $this->fetchAddressData($address, 'adgangsadresser');
-    }
-
-    /**
-     * Get an address object from a stringified address using Adresse datavask.
-     *
-     * @see https://dawadocs.dataforsyningen.dk/dok/api/adresse#datavask
+     * @throws BBRException
      */
     public function getAddressData(string $address): array
     {
-        return $this->fetchAddressData($address, 'adresser');
-    }
-
-    private function fetchAddressData(string $address, string $path): array
-    {
         try {
-            $client = HttpClient::create([
-                'base_uri' => 'https://api.dataforsyningen.dk/datavask/',
-            ]);
-
-            $response = $client->request('GET', $path, [
-                'query' => [
-                    'betegnelse' => $address,
-                ],
-            ]);
-
-            $data = $response->toArray();
-            if (in_array($data['kategori'] ?? null, ['A', 'B'])
-                && isset($data['resultater'][0]['adresse'])) {
-                return $data['resultater'][0]['adresse'];
-            }
-        } catch (\Throwable $throwable) {
-            throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => $address], 'case'), $throwable->getCode(), $throwable);
+            $addressData = $this->addressHelper->fetchAddressData($address);
+        } catch (AddressException $e) {
+            throw $this->createException($e->getMessage(), $e->getCode(), $e);
         }
 
-        throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => $address], 'case'));
+        return $addressData;
     }
 }
