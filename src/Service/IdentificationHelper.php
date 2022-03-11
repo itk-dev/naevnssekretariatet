@@ -14,6 +14,8 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class IdentificationHelper implements EventSubscriberInterface
 {
+    public const IDENTIFIER_TYPE_CPR = 'CPR';
+
     public function __construct(private CprHelper $cprHelper, private CvrHelper $cvrHelper, private PropertyAccessorInterface $propertyAccessor)
     {
     }
@@ -27,7 +29,7 @@ class IdentificationHelper implements EventSubscriberInterface
         /** @var Identification $identification */
         $identification = $this->propertyAccessor->getValue($case, $idProperty);
 
-        if ('CPR' === $identification->getType()) {
+        if (self::IDENTIFIER_TYPE_CPR === $identification->getType()) {
             $this->cprHelper->validateCpr($case, $idProperty, $addressProperty, $nameProperty);
         } else {
             $this->cvrHelper->validateCvr($case, $idProperty, $addressProperty, $nameProperty);
@@ -37,14 +39,14 @@ class IdentificationHelper implements EventSubscriberInterface
     public function fetchIdentifierData(string $identifier, string $type): JsonResponse
     {
         try {
-            $data = 'CPR' == $type ? $this->cprHelper->lookupCPR($identifier) : $this->cvrHelper->lookupCvr($identifier);
+            $data = self::IDENTIFIER_TYPE_CPR == $type ? $this->cprHelper->lookupCPR($identifier) : $this->cvrHelper->lookupCvr($identifier);
         } catch (CprException|CvrException) {
             return new JsonResponse();
         }
 
         $dataArray = json_decode(json_encode($data), true);
 
-        $relevantData = 'CPR' == $type ? $this->cprHelper->collectRelevantData($dataArray) : $this->cvrHelper->collectRelevantData($dataArray);
+        $relevantData = self::IDENTIFIER_TYPE_CPR == $type ? $this->cprHelper->collectRelevantData($dataArray) : $this->cvrHelper->collectRelevantData($dataArray);
 
         return new JsonResponse($relevantData);
     }
