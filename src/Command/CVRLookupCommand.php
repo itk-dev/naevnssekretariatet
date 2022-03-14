@@ -37,7 +37,12 @@ class CVRLookupCommand extends Command
         $cvr = $input->getArgument('cpr-number');
 
         try {
-            $this->cvrHelper->testCvrDatafordeler((int) $cvr);
+            $CVRData = $this->cvrHelper->testCvrDatafordeler((int) $cvr);
+
+            $output->writeln([
+                $cvr,
+                json_encode($CVRData, JSON_PRETTY_PRINT),
+            ]);
         } catch (GuzzleException $e) {
             throw new CprException('test');
         } catch (CertificateLocatorException $e) {
