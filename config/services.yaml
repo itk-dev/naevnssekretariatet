@@ -172,18 +172,18 @@ services:
     App\Service\CvrHelper:
       arguments:
         $options:
-          azure_tenant_id: '%env(AZURE_TENANT_ID)%'
-          azure_application_id: '%env(AZURE_APPLICATION_ID)%'
-          azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
+          azure_tenant_id_test: '%env(AZURE_TENANT_ID_TEST)%'
+          azure_application_id_test: '%env(AZURE_APPLICATION_ID_TEST)%'
+          azure_client_secret_test: '%env(AZURE_CLIENT_SECRET_TEST)%'
 
-          azure_key_vault_name: '%env(AZURE_KEY_VAULT_CVR_NAME)%'
-          azure_key_vault_secret: '%env(AZURE_KEY_VAULT_CVR_SECRET)%'
-          azure_key_vault_secret_version: '%env(AZURE_KEY_VAULT_CVR_SECRET_VERSION)%'
+          azure_key_vault_name_test: '%env(AZURE_KEY_VAULT_CVR_NAME_TEST)%'
+          azure_key_vault_secret_test: '%env(AZURE_KEY_VAULT_CVR_SECRET_TEST)%'
+          azure_key_vault_secret_version_test: '%env(AZURE_KEY_VAULT_CVR_SECRET_VERSION_TEST)%'
 
-          serviceplatformen_cvr_service_agreement_uuid: '%env(SERVICEPLATFORMEN_CVR_SERVICE_AGREEMENT_UUID)%'
-          serviceplatformen_cvr_user_system_uuid: '%env(SERVICEPLATFORMEN_CVR_USER_SYSTEM_UUID)%'
-          serviceplatformen_cvr_user_uuid: '%env(SERVICEPLATFORMEN_CVR_USER_UUID)%'
-
-          serviceplatformen_cvr_service_uuid: '%env(SERVICEPLATFORMEN_CVR_SERVICE_UUID)%'
-          serviceplatformen_cvr_service_endpoint: '%env(SERVICEPLATFORMEN_CVR_SERVICE_ENDPOINT)%'
-          serviceplatformen_cvr_service_contract: '%env(resolve:SERVICEPLATFORMEN_CVR_SERVICE_CONTRACT)%'
+#          datafordeler_cvr_service_agreement_uuid_test: '%env(DATAFORDELER_CVR_SERVICE_AGREEMENT_UUID_TEST)%'
+#          datafordeler_cvr_user_system_uuid_test: '%env(DATAFORDELER_CVR_USER_SYSTEM_UUID_TEST)%'
+#          datafordeler_cvr_user_uuid_test: '%env(DATAFORDELER_CVR_USER_UUID_TEST)%'
+#
+#          datafordeler_cvr_service_uuid_test: '%env(DATAFORDELER_CVR_SERVICE_UUID_TEST)%'
+#          datafordeler_cvr_service_endpoint_test: '%env(DATAFORDELER_CVR_SERVICE_ENDPOINT_TEST)%'
+#          datafordeler_cvr_service_contract_test: '%env(resolve:DATAFORDELER_CVR_SERVICE_CONTRACT_TEST)%'

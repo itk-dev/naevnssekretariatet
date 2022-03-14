@@ -7,10 +7,12 @@ use App\Entity\Embeddable\Identification;
 use App\Exception\CvrException;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Http\Adapter\Guzzle7\Client as GuzzleAdapter;
 use Http\Factory\Guzzle\RequestFactory;
 use ItkDev\AzureKeyVault\Authorisation\VaultToken;
 use ItkDev\AzureKeyVault\KeyVault\VaultSecret;
+use ItkDev\Datafordeler\Service\CVR\V1\HentCVRData;
 use ItkDev\Serviceplatformen\Certificate\AzureKeyVaultCertificateLocator;
 use ItkDev\Serviceplatformen\Certificate\CertificateLocatorInterface;
 use ItkDev\Serviceplatformen\Certificate\Exception\CertificateLocatorException;
@@ -40,88 +42,90 @@ class CvrHelper
         $this->serviceOptions = $resolver->resolve($options);
     }
 
-    /**
-     * @throws CvrException
-     */
-    public function lookupCvr(string $cvr)
-    {
-        if (!isset($this->service)) {
-            $this->setupService();
-        }
+//    /**
+//     * @throws CvrException
+//     */
+//    public function lookupCvr(string $cvr)
+//    {
+//        if (!isset($this->service)) {
+//            $this->setupService();
+//        }
+//
+//        try {
+//            $response = $this->service->getLegalUnit($cvr);
+//        } catch (NoCvrFoundException $e) {
+//            throw new CvrException($this->translator->trans('CVR not found', [], 'case'), $e->getCode(), $e);
+//        } catch (ServiceException $e) {
+//            throw new CvrException($e->getMessage(), $e->getCode(), $e);
+//        }
+//
+//        return $response;
+//    }
 
-        try {
-            $response = $this->service->getLegalUnit($cvr);
-        } catch (NoCvrFoundException $e) {
-            throw new CvrException($this->translator->trans('CVR not found', [], 'case'), $e->getCode(), $e);
-        } catch (ServiceException $e) {
-            throw new CvrException($e->getMessage(), $e->getCode(), $e);
-        }
-
-        return $response;
-    }
-
-    /**
-     * @throws CvrException
-     */
-    private function setupService()
-    {
-        $certificateLocator = $this->getAzureKeyVaultCertificateLocator(
-            $this->serviceOptions['azure_tenant_id'],
-            $this->serviceOptions['azure_application_id'],
-            $this->serviceOptions['azure_client_secret'],
-            $this->serviceOptions['azure_key_vault_name'],
-            $this->serviceOptions['azure_key_vault_secret'],
-            $this->serviceOptions['azure_key_vault_secret_version']
-        );
-
-        try {
-            $pathToCertificate = $certificateLocator->getAbsolutePathToCertificate();
-        } catch (CertificateLocatorException $e) {
-            throw new CvrException($e->getMessage(), $e->getCode());
-        }
-
-        $options = [
-            'local_cert' => $pathToCertificate,
-            'passphrase' => $certificateLocator->getPassphrase(),
-            'location' => $this->serviceOptions['serviceplatformen_cvr_service_endpoint'],
-        ];
-
-        if (!realpath($this->serviceOptions['serviceplatformen_cvr_service_contract'])) {
-            throw new CvrException(sprintf('The path (%s) to the service contract is invalid.', $this->serviceOptions['serviceplatformen_cvr_service_contract']));
-        }
-
-        try {
-            $soapClient = new \SoapClient($this->serviceOptions['serviceplatformen_cvr_service_contract'], $options);
-        } catch (\SoapFault $e) {
-            throw new CvrException($e->getMessage(), $e->getCode());
-        }
-
-        $requestGenerator = new InvocationContextRequestGenerator(
-            $this->serviceOptions['serviceplatformen_cvr_service_agreement_uuid'],
-            $this->serviceOptions['serviceplatformen_cvr_user_system_uuid'],
-            $this->serviceOptions['serviceplatformen_cvr_service_uuid'],
-            $this->serviceOptions['serviceplatformen_cvr_user_uuid']
-        );
-
-        $this->service = new OnlineService($soapClient, $requestGenerator);
-    }
+//    /**
+//     * @throws CvrException
+//     */
+//    private function setupService()
+//    {
+//        $certificateLocator = $this->getAzureKeyVaultCertificateLocator(
+//            $this->serviceOptions['azure_tenant_id'],
+//            $this->serviceOptions['azure_application_id'],
+//            $this->serviceOptions['azure_client_secret'],
+//            $this->serviceOptions['azure_key_vault_name'],
+//            $this->serviceOptions['azure_key_vault_secret'],
+//            $this->serviceOptions['azure_key_vault_secret_version']
+//        );
+//
+//        try {
+//            $pathToCertificate = $certificateLocator->getAbsolutePathToCertificate();
+//        } catch (CertificateLocatorException $e) {
+//            throw new CvrException($e->getMessage(), $e->getCode());
+//        }
+//
+//        $options = [
+//            'local_cert' => $pathToCertificate,
+//            'passphrase' => $certificateLocator->getPassphrase(),
+//            'location' => $this->serviceOptions['serviceplatformen_cvr_service_endpoint'],
+//        ];
+//
+//        if (!realpath($this->serviceOptions['serviceplatformen_cvr_service_contract'])) {
+//            throw new CvrException(sprintf('The path (%s) to the service contract is invalid.', $this->serviceOptions['serviceplatformen_cvr_service_contract']));
+//        }
+//
+//        try {
+//            $soapClient = new \SoapClient($this->serviceOptions['serviceplatformen_cvr_service_contract'], $options);
+//        } catch (\SoapFault $e) {
+//            throw new CvrException($e->getMessage(), $e->getCode());
+//        }
+//
+//        $requestGenerator = new InvocationContextRequestGenerator(
+//            $this->serviceOptions['serviceplatformen_cvr_service_agreement_uuid'],
+//            $this->serviceOptions['serviceplatformen_cvr_user_system_uuid'],
+//            $this->serviceOptions['serviceplatformen_cvr_service_uuid'],
+//            $this->serviceOptions['serviceplatformen_cvr_user_uuid']
+//        );
+//
+//        $this->service = new OnlineService($soapClient, $requestGenerator);
+//    }
 
     private function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setRequired([
-                'azure_tenant_id',
-                'azure_application_id',
-                'azure_client_secret',
-                'azure_key_vault_name',
-                'azure_key_vault_secret',
-                'azure_key_vault_secret_version',
-                'serviceplatformen_cvr_service_agreement_uuid',
-                'serviceplatformen_cvr_user_system_uuid',
-                'serviceplatformen_cvr_user_uuid',
-                'serviceplatformen_cvr_service_uuid',
-                'serviceplatformen_cvr_service_endpoint',
-                'serviceplatformen_cvr_service_contract',
+                'azure_tenant_id_test',
+                'azure_application_id_test',
+                'azure_client_secret_test',
+                'azure_key_vault_name_test',
+                'azure_key_vault_secret_test',
+                'azure_key_vault_secret_version_test',
+//                'serviceplatformen_cvr_service_agreement_uuid',
+//                'serviceplatformen_cvr_user_system_uuid',
+//                'serviceplatformen_cvr_user_uuid',
+//                'serviceplatformen_cvr_service_uuid',
+//                'serviceplatformen_cvr_service_endpoint',
+//                'serviceplatformen_cvr_service_contract',
+//                'datafordeler_api_username',
+//                'datafordeler_api_password',
             ],
             )
         ;
@@ -163,45 +167,70 @@ class CvrHelper
         );
     }
 
+//    /**
+//     * Validates that case data agree with CVR lookup data.
+//     *
+//     * @throws CvrException
+//     */
+//    public function validateCvr(CaseEntity $case, string $idProperty, string $addressProperty, string $nameProperty): bool
+//    {
+//        $caseIdentificationRelevantData = $this->caseManager->getCaseIdentificationValues($case, $addressProperty, $nameProperty);
+//
+//        /** @var Identification $id */
+//        $id = $this->propertyAccessor->getValue($case, $idProperty);
+//
+//        $cvrData = $this->lookupCvr($id->getIdentifier());
+//        $cvrDataArray = json_decode(json_encode($cvrData), true);
+//
+//        $cvrIdentificationRelevantData = $this->collectRelevantData($cvrDataArray);
+//
+//        if ($caseIdentificationRelevantData != $cvrIdentificationRelevantData) {
+//            throw new CvrException($this->translator->trans('Case data not match CVR register data', [], 'case'));
+//        }
+//
+//        $id->setValidatedAt(new \DateTime('now'));
+//        $this->entityManager->flush();
+//
+//        return true;
+//    }
+
+//    public function collectRelevantData(array $data): array
+//    {
+//        $relevantData = [];
+//
+//        $relevantData['name'] = $data['GetLegalUnitResponse']['LegalUnit']['LegalUnitName']['name'];
+//        $relevantData['street'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetName'];
+//        $relevantData['number'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetBuildingIdentifier'];
+//        $relevantData['floor'] = array_key_exists('FloorIdentifier', $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['FloorIdentifier'] : '';
+//        $relevantData['side'] = array_key_exists('SuiteIdentifier', $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['SuiteIdentifier'] : '';
+//        $relevantData['postalCode'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['PostCodeIdentifier'];
+//        $relevantData['city'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['DistrictName'];
+//
+//        return $relevantData;
+//    }
+
     /**
-     * Validates that case data agree with CVR lookup data.
-     *
-     * @throws CvrException
+     * @throws CertificateLocatorException
+     * @throws GuzzleException
      */
-    public function validateCvr(CaseEntity $case, string $idProperty, string $addressProperty, string $nameProperty): bool
+    public function testCvrDatafordeler(string $cvr)
     {
-        $caseIdentificationRelevantData = $this->caseManager->getCaseIdentificationValues($case, $addressProperty, $nameProperty);
+        $certificateLocator = $this->getAzureKeyVaultCertificateLocator(
+            $this->serviceOptions['azure_tenant_id_test'],
+            $this->serviceOptions['azure_application_id_test'],
+            $this->serviceOptions['azure_client_secret_test'],
+            $this->serviceOptions['azure_key_vault_name_test'],
+            $this->serviceOptions['azure_key_vault_secret_test'],
+            $this->serviceOptions['azure_key_vault_secret_version_test']
+        );
 
-        /** @var Identification $id */
-        $id = $this->propertyAccessor->getValue($case, $idProperty);
+        $apiUrl = 'https://test03-s5-certservices.datafordeler.dk/CVR/HentCVRData/1/rest/hentVirksomhedMedCVRNummer?pCVRNummer='.$cvr;
 
-        $cvrData = $this->lookupCvr($id->getIdentifier());
-        $cvrDataArray = json_decode(json_encode($cvrData), true);
+        $client = new Client();
+        $res = $client->request('GET', $apiUrl, [
+            'cert' => $certificateLocator->getAbsolutePathToCertificate(),
+        ]);
 
-        $cvrIdentificationRelevantData = $this->collectRelevantData($cvrDataArray);
-
-        if ($caseIdentificationRelevantData != $cvrIdentificationRelevantData) {
-            throw new CvrException($this->translator->trans('Case data not match CVR register data', [], 'case'));
-        }
-
-        $id->setValidatedAt(new \DateTime('now'));
-        $this->entityManager->flush();
-
-        return true;
-    }
-
-    public function collectRelevantData(array $data): array
-    {
-        $relevantData = [];
-
-        $relevantData['name'] = $data['GetLegalUnitResponse']['LegalUnit']['LegalUnitName']['name'];
-        $relevantData['street'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetName'];
-        $relevantData['number'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetBuildingIdentifier'];
-        $relevantData['floor'] = array_key_exists('FloorIdentifier', $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['FloorIdentifier'] : '';
-        $relevantData['side'] = array_key_exists('SuiteIdentifier', $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['SuiteIdentifier'] : '';
-        $relevantData['postalCode'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['PostCodeIdentifier'];
-        $relevantData['city'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['DistrictName'];
-
-        return $relevantData;
+        return $res;
     }
 }
