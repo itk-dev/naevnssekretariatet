@@ -2,11 +2,8 @@
 
 namespace App\Command;
 
-use App\Exception\CprException;
 use App\Exception\CvrException;
 use App\Service\CvrHelper;
-use GuzzleHttp\Exception\GuzzleException;
-use ItkDev\Serviceplatformen\Certificate\Exception\CertificateLocatorException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

@@ -184,18 +184,10 @@ SERVICEPLATFORMEN_CPR_SERVICE_ENDPOINT='https://xyz.com'
 SERVICEPLATFORMEN_CPR_SERVICE_CONTRACT='%kernel.project_dir%/vendor/itk-dev/serviceplatformen/resources/person-base-data-extended-service-contract/wsdl/context/PersonBaseDataExtendedService.wsdl'
 
 # CVR lookup
-AZURE_KEY_VAULT_CVR_NAME='xyz'
-AZURE_KEY_VAULT_CVR_SECRET='xyz'
-AZURE_KEY_VAULT_CVR_SECRET_VERSION='xyz'
+AZURE_KEY_VAULT_DATAFORDELER_SECRET='xyz'
+AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSION='xyz'
 
-SERVICEPLATFORMEN_CVR_SERVICE_AGREEMENT_UUID='xyz'
-SERVICEPLATFORMEN_CVR_USER_SYSTEM_UUID='xyz'
-SERVICEPLATFORMEN_CVR_USER_UUID='xyz'
-
-SERVICEPLATFORMEN_CVR_SERVICE_UUID='xyz'
-SERVICEPLATFORMEN_CVR_SERVICE_ENDPOINT='https://xyz.com'
-SERVICEPLATFORMEN_CVR_SERVICE_CONTRACT='%kernel.project_dir%/vendor/itk-dev/serviceplatformen/resources/online-service-contract/wsdl/context/OnlineService.wsdl'
-
+DATAFORDELER_CVR_LOOKUP_BASE_URL='https://xyz.com'
 ```
 
 ## Cron job

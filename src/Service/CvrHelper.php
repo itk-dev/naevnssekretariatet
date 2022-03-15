@@ -13,7 +13,6 @@ use Http\Factory\Guzzle\RequestFactory;
 use ItkDev\AzureKeyVault\Authorisation\VaultToken;
 use ItkDev\AzureKeyVault\Exception\SecretException;
 use ItkDev\AzureKeyVault\Exception\TokenException;
-use ItkDev\AzureKeyVault\KeyVault\VaultCertificate;
 use ItkDev\AzureKeyVault\KeyVault\VaultSecret;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
@@ -46,6 +45,7 @@ class CvrHelper
                 'azure_key_vault_name_test',
                 'azure_key_vault_secret_test',
                 'azure_key_vault_secret_version_test',
+                'datafordeler_cvr_lookup_base_url',
             ],
             )
         ;
@@ -66,7 +66,7 @@ class CvrHelper
                 $this->serviceOptions['azure_key_vault_secret_version_test']
             );
 
-            $apiUrl = 'https://test03-s5-certservices.datafordeler.dk/CVR/HentCVRData/1/rest/hentVirksomhedMedCVRNummer?pCVRNummer='.$cvr;
+            $apiUrl = $this->serviceOptions['datafordeler_cvr_lookup_base_url'].$cvr;
 
             $client = new Client();
             $res = $client->request('GET', $apiUrl, [

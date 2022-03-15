@@ -170,15 +170,17 @@ services:
                 serviceplatformen_cpr_service_contract: '%env(resolve:SERVICEPLATFORMEN_CPR_SERVICE_CONTRACT)%'
 
     App\Service\CvrHelper:
-      arguments:
-        $options:
-          azure_tenant_id_test: '%env(AZURE_TENANT_ID_TEST)%'
-          azure_application_id_test: '%env(AZURE_APPLICATION_ID_TEST)%'
-          azure_client_secret_test: '%env(AZURE_CLIENT_SECRET_TEST)%'
+        arguments:
+            $options:
+              azure_tenant_id: '%env(AZURE_TENANT_ID)%'
+              azure_application_id: '%env(AZURE_APPLICATION_ID)%'
+              azure_client_secre: '%env(AZURE_CLIENT_SECRET)%'
 
-          azure_key_vault_name_test: '%env(AZURE_KEY_VAULT_CVR_NAME_TEST)%'
-          azure_key_vault_secret_test: '%env(AZURE_KEY_VAULT_CVR_SECRET_TEST)%'
-          azure_key_vault_secret_version_test: '%env(AZURE_KEY_VAULT_CVR_SECRET_VERSION_TEST)%'
+              azure_key_vault_name: '%env(AZURE_KEY_VAULT_CVR_NAME)%'
+              azure_key_vault_datafordeler_secret: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET)%'
+              azure_key_vault_datafordeler_secret_version: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSIONT)%'
+
+              datafordeler_cvr_lookup_base_url: '%env(DATAFORDELER_CVR_LOOKUP_BASE_URL)'
 
 #          datafordeler_cvr_service_agreement_uuid_test: '%env(DATAFORDELER_CVR_SERVICE_AGREEMENT_UUID_TEST)%'
 #          datafordeler_cvr_user_system_uuid_test: '%env(DATAFORDELER_CVR_USER_SYSTEM_UUID_TEST)%'
