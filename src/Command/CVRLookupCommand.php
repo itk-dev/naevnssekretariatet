@@ -37,12 +37,10 @@ class CVRLookupCommand extends Command
         try {
             $cvrData = $this->cvrHelper->lookupCvr($cvr);
 
-            var_dump($this->cvrHelper->collectRelevantData($cvrData));
-
-//            $output->writeln([
-//                $cvr,
-//                json_encode($cvrData, JSON_PRETTY_PRINT),
-//            ]);
+            $output->writeln([
+                $cvr,
+                json_encode($cvrData, JSON_PRETTY_PRINT),
+            ]);
         } catch (CvrException $e) {
             $output->write($e->getMessage());
         }
