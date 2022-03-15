@@ -176,7 +176,7 @@ services:
               azure_application_id: '%env(AZURE_APPLICATION_ID)%'
               azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
 
-              azure_key_vault_name: '%env(AZURE_KEY_VAULT_NAME)%'
+              azure_key_vault_name: '%env(AZURE_KEY_VAULT_DATAFORDELER_NAME)%'
               azure_key_vault_datafordeler_secret: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET)%'
               azure_key_vault_datafordeler_secret_version: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSION)%'
 
