@@ -38,12 +38,14 @@ class CVRLookupCommand extends Command
         $cvr = $input->getArgument('cpr-number');
 
         try {
-            $CVRData = $this->cvrHelper->lookupCvr((int) $cvr);
+            $cvrData = $this->cvrHelper->lookupCvr($cvr);
 
-            $output->writeln([
-                $cvr,
-                json_encode($CVRData, JSON_PRETTY_PRINT),
-            ]);
+            var_dump($this->cvrHelper->collectRelevantData($cvrData));
+
+//            $output->writeln([
+//                $cvr,
+//                json_encode($cvrData, JSON_PRETTY_PRINT),
+//            ]);
         } catch (CvrException $e) {
             $output->write($e->getMessage());
         }

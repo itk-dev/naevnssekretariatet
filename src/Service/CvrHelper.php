@@ -2,7 +2,10 @@
 
 namespace App\Service;
 
+use App\Entity\CaseEntity;
+use App\Entity\Embeddable\Identification;
 use App\Exception\CvrException;
+use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Http\Adapter\Guzzle7\Client as GuzzleAdapter;
@@ -13,6 +16,8 @@ use ItkDev\AzureKeyVault\Exception\TokenException;
 use ItkDev\AzureKeyVault\KeyVault\VaultCertificate;
 use ItkDev\AzureKeyVault\KeyVault\VaultSecret;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CvrHelper
 {
@@ -22,7 +27,7 @@ class CvrHelper
     private Client $guzzleClient;
     private array $serviceOptions;
 
-    public function __construct(array $options)
+    public function __construct(private CaseManager $caseManager, private EntityManagerInterface $entityManager, private PropertyAccessorInterface $propertyAccessor, private TranslatorInterface $translator, array $options)
     {
         $this->guzzleClient = new Client();
         $resolver = new OptionsResolver();
@@ -41,11 +46,37 @@ class CvrHelper
                 'azure_key_vault_name_test',
                 'azure_key_vault_secret_test',
                 'azure_key_vault_secret_version_test',
-//                'datafordeler_api_username',
-//                'datafordeler_api_password',
             ],
             )
         ;
+    }
+
+    /**
+     * @throws CvrException
+     */
+    public function lookupCvr(string $cvr)
+    {
+        try {
+            $certificate = $this->getAbsolutePathToSecret(
+                $this->serviceOptions['azure_tenant_id_test'],
+                $this->serviceOptions['azure_application_id_test'],
+                $this->serviceOptions['azure_client_secret_test'],
+                $this->serviceOptions['azure_key_vault_name_test'],
+                $this->serviceOptions['azure_key_vault_secret_test'],
+                $this->serviceOptions['azure_key_vault_secret_version_test']
+            );
+
+            $apiUrl = 'https://test03-s5-certservices.datafordeler.dk/CVR/HentCVRData/1/rest/hentVirksomhedMedCVRNummer?pCVRNummer='.$cvr;
+
+            $client = new Client();
+            $res = $client->request('GET', $apiUrl, [
+                'cert' => $certificate,
+            ]);
+        } catch (SecretException|TokenException|GuzzleException $e) {
+            throw new CvrException($e->getMessage(), $e->getCode(), $e);
+        }
+
+        return json_decode((string) $res->getBody(), true);
     }
 
     /**
@@ -81,6 +112,48 @@ class CvrHelper
     }
 
     /**
+     * Validates that case data agree with CVR lookup data.
+     *
+     * @throws CvrException
+     */
+    public function validateCvr(CaseEntity $case, string $idProperty, string $addressProperty, string $nameProperty): bool
+    {
+        $caseIdentificationRelevantData = $this->caseManager->getCaseIdentificationValues($case, $addressProperty, $nameProperty);
+
+        /** @var Identification $id */
+        $id = $this->propertyAccessor->getValue($case, $idProperty);
+
+        $cvrData = $this->lookupCvr($id->getIdentifier());
+        $cvrDataArray = json_decode(json_encode($cvrData), true);
+
+        $cvrIdentificationRelevantData = $this->collectRelevantData($cvrDataArray);
+
+        if ($caseIdentificationRelevantData != $cvrIdentificationRelevantData) {
+            throw new CvrException($this->translator->trans('Case data not match CVR register data', [], 'case'));
+        }
+
+        $id->setValidatedAt(new \DateTime('now'));
+        $this->entityManager->flush();
+
+        return true;
+    }
+
+    public function collectRelevantData(array $data): array
+    {
+        $relevantData = [];
+
+        $relevantData['name'] = $data['virksomhedsnavn']['vaerdi'];
+        $relevantData['street'] = $data['beliggenhedsadresse']['CVRAdresse_vejnavn'];
+        $relevantData['number'] = array_key_exists('CVRAdresse_husnummerFra', $data['beliggenhedsadresse']) ? $data['beliggenhedsadresse']['CVRAdresse_husnummerFra'] : '';
+        $relevantData['floor'] = array_key_exists('CVRAdresse_etagebetegnelse', $data['beliggenhedsadresse']) ? $data['beliggenhedsadresse']['CVRAdresse_etagebetegnelse'] : '';
+        $relevantData['side'] = array_key_exists('CVRAdresse_doerbetegnelse', $data['beliggenhedsadresse']) ? $data['beliggenhedsadresse']['CVRAdresse_doerbetegnelse'] : '';
+        $relevantData['postalCode'] = $data['beliggenhedsadresse']['CVRAdresse_postnummer'];
+        $relevantData['city'] = array_key_exists('CVRAdresse_postdistrikt', $data['beliggenhedsadresse']) ? $data['beliggenhedsadresse']['CVRAdresse_postdistrikt'] : '';
+
+        return $relevantData;
+    }
+
+    /**
      * Taken from itk-dev serviceplatformen.
      *
      * @see https://github.com/itk-dev/serviceplatformen/blob/develop/src/Certificate/AzureKeyVaultCertificateLocator.php
@@ -105,75 +178,5 @@ class CvrHelper
         $streamMetaData = stream_get_meta_data($tmpFile);
 
         return $streamMetaData['uri'];
-    }
-
-//    /**
-//     * Validates that case data agree with CVR lookup data.
-//     *
-//     * @throws CvrException
-//     */
-//    public function validateCvr(CaseEntity $case, string $idProperty, string $addressProperty, string $nameProperty): bool
-//    {
-//        $caseIdentificationRelevantData = $this->caseManager->getCaseIdentificationValues($case, $addressProperty, $nameProperty);
-//
-//        /** @var Identification $id */
-//        $id = $this->propertyAccessor->getValue($case, $idProperty);
-//
-//        $cvrData = $this->lookupCvr($id->getIdentifier());
-//        $cvrDataArray = json_decode(json_encode($cvrData), true);
-//
-//        $cvrIdentificationRelevantData = $this->collectRelevantData($cvrDataArray);
-//
-//        if ($caseIdentificationRelevantData != $cvrIdentificationRelevantData) {
-//            throw new CvrException($this->translator->trans('Case data not match CVR register data', [], 'case'));
-//        }
-//
-//        $id->setValidatedAt(new \DateTime('now'));
-//        $this->entityManager->flush();
-//
-//        return true;
-//    }
-
-//    public function collectRelevantData(array $data): array
-//    {
-//        $relevantData = [];
-//
-//        $relevantData['name'] = $data['GetLegalUnitResponse']['LegalUnit']['LegalUnitName']['name'];
-//        $relevantData['street'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetName'];
-//        $relevantData['number'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['StreetBuildingIdentifier'];
-//        $relevantData['floor'] = array_key_exists('FloorIdentifier', $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['FloorIdentifier'] : '';
-//        $relevantData['side'] = array_key_exists('SuiteIdentifier', $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']) ? $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['SuiteIdentifier'] : '';
-//        $relevantData['postalCode'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['PostCodeIdentifier'];
-//        $relevantData['city'] = $data['GetLegalUnitResponse']['LegalUnit']['AddressOfficial']['AddressPostalExtended']['DistrictName'];
-//
-//        return $relevantData;
-//    }
-
-    /**
-     * @throws CvrException
-     */
-    public function lookupCvr(string $cvr)
-    {
-        try {
-            $certificate = $this->getAbsolutePathToSecret(
-                $this->serviceOptions['azure_tenant_id_test'],
-                $this->serviceOptions['azure_application_id_test'],
-                $this->serviceOptions['azure_client_secret_test'],
-                $this->serviceOptions['azure_key_vault_name_test'],
-                $this->serviceOptions['azure_key_vault_secret_test'],
-                $this->serviceOptions['azure_key_vault_secret_version_test']
-            );
-
-            $apiUrl = 'https://test03-s5-certservices.datafordeler.dk/CVR/HentCVRData/1/rest/hentVirksomhedMedCVRNummer?pCVRNummer='.$cvr;
-
-            $client = new Client();
-            $res = $client->request('GET', $apiUrl, [
-                'cert' => $certificate,
-            ]);
-        } catch (SecretException|TokenException|GuzzleException $e) {
-            throw new CvrException($e->getMessage(), $e->getCode(), $e);
-        }
-
-        return (string) $res->getBody();
     }
 }
