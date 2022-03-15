@@ -2,19 +2,16 @@
 
 namespace App\Service;
 
-use App\Entity\CaseEntity;
-use App\Entity\Embeddable\Identification;
 use App\Exception\CvrException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Http\Adapter\Guzzle7\Client as GuzzleAdapter;
 use Http\Factory\Guzzle\RequestFactory;
-use Itkdev\AzureKeyVault\Authorisation\VaultToken;
-use Itkdev\AzureKeyVault\KeyVault\VaultCertificate;
-use Itkdev\AzureKeyVault\KeyVault\VaultSecret;
-use ItkDev\Serviceplatformen\Certificate\AzureKeyVaultCertificateLocator;
-use ItkDev\Serviceplatformen\Certificate\CertificateLocatorInterface;
-use ItkDev\Serviceplatformen\Certificate\Exception\CertificateLocatorException;
+use ItkDev\AzureKeyVault\Authorisation\VaultToken;
+use ItkDev\AzureKeyVault\Exception\SecretException;
+use ItkDev\AzureKeyVault\Exception\TokenException;
+use ItkDev\AzureKeyVault\KeyVault\VaultCertificate;
+use ItkDev\AzureKeyVault\KeyVault\VaultSecret;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CvrHelper
@@ -52,16 +49,19 @@ class CvrHelper
     }
 
     /**
-     * Get absolute path to certificate.
+     * Get absolute path to secret.
+     *
+     * @throws TokenException
+     * @throws SecretException
      */
-    private function getAzureKeyVaultCertificateLocator(
+    private function getAbsolutePathToSecret(
         string $tenantId,
         string $applicationId,
         string $clientSecret,
         string $keyVaultName,
         string $keyVaultSecret,
         string $keyVaultSecretVersion
-    ): CertificateLocatorInterface {
+    ): string {
         $httpClient = new GuzzleAdapter($this->guzzleClient);
         $requestFactory = new RequestFactory();
 
@@ -73,28 +73,38 @@ class CvrHelper
             $clientSecret
         );
 
-        // Certificates
-        // This requires a PSR-18 compatible http client and a PSR-17 compatible request factory.
-        // Get vault with the name 'testVault' using the access token.
-        $vaultCertificate = new VaultCertificate($httpClient, $requestFactory, $keyVaultName, $token->getAccessToken());
+        $vaultSecret = new VaultSecret($httpClient, $requestFactory, $keyVaultName, $token->getAccessToken());
 
-        $cert = $vaultCertificate->getCertificate($keyVaultSecret, $keyVaultSecretVersion);
+        $secret = $vaultSecret->getSecret($keyVaultSecret, $keyVaultSecretVersion);
 
+        return $this->getAbsoluteTmpPathByContent($secret);
+    }
 
-//        $vault = new VaultSecret(
-//            $httpClient,
-//            $requestFactory,
-//            $keyVaultName,
-//            $token->getAccessToken()
-//        );
+    /**
+     * Taken from itk-dev serviceplatformen.
+     *
+     * @see https://github.com/itk-dev/serviceplatformen/blob/develop/src/Certificate/AzureKeyVaultCertificateLocator.php
+     *
+     * Creates a temporary file with the provided content and returns the absolute path to the temporary file.
+     *
+     * The file will be removed from the filesystem when no more references exists to the file.
+     *
+     * @param string $content the content of the temporary file
+     *
+     * @return string the absolute path to the temporary file
+     */
+    private function getAbsoluteTmpPathByContent(string $content): string
+    {
+        // Static variables is stored in the global variable area and destroyed during the shutdown phase.
+        // This ensures that there are no references to the file when the code has executed and thus is deleted.
+        // The variable must be declared static before the temporary file is assigned to the variable or else PHP
+        // thinks you are assigning values to a constant.
+        static $tmpFile = null;
+        $tmpFile = tmpfile();
+        fwrite($tmpFile, $content);
+        $streamMetaData = stream_get_meta_data($tmpFile);
 
-        return $cert->getCert();
-
-//        return new AzureKeyVaultCertificateLocator(
-//            $vault,
-//            $keyVaultSecret,
-//            $keyVaultSecretVersion
-//        );
+        return $streamMetaData['uri'];
     }
 
 //    /**
@@ -140,27 +150,29 @@ class CvrHelper
 //    }
 
     /**
-     * @throws CertificateLocatorException
-     * @throws GuzzleException
+     * @throws CvrException
      */
-    public function testCvrDatafordeler(string $cvr)
+    public function lookupCvr(string $cvr)
     {
-        $certificate = $this->getAzureKeyVaultCertificateLocator(
-            $this->serviceOptions['azure_tenant_id_test'],
-            $this->serviceOptions['azure_application_id_test'],
-            $this->serviceOptions['azure_client_secret_test'],
-            $this->serviceOptions['azure_key_vault_name_test'],
-            $this->serviceOptions['azure_key_vault_secret_test'],
-            $this->serviceOptions['azure_key_vault_secret_version_test']
-        );
+        try {
+            $certificate = $this->getAbsolutePathToSecret(
+                $this->serviceOptions['azure_tenant_id_test'],
+                $this->serviceOptions['azure_application_id_test'],
+                $this->serviceOptions['azure_client_secret_test'],
+                $this->serviceOptions['azure_key_vault_name_test'],
+                $this->serviceOptions['azure_key_vault_secret_test'],
+                $this->serviceOptions['azure_key_vault_secret_version_test']
+            );
 
-        $apiUrl = 'https://test03-s5-certservices.datafordeler.dk/CVR/HentCVRData/1/rest/hentVirksomhedMedCVRNummer?pCVRNummer='.$cvr;
+            $apiUrl = 'https://test03-s5-certservices.datafordeler.dk/CVR/HentCVRData/1/rest/hentVirksomhedMedCVRNummer?pCVRNummer='.$cvr;
 
-        $client = new Client();
-        $res = $client->request('GET', $apiUrl, [
-//            'cert' => $certificateLocator->getAbsolutePathToCertificate(),
-            'cert' => $certificate,
-        ]);
+            $client = new Client();
+            $res = $client->request('GET', $apiUrl, [
+                'cert' => $certificate,
+            ]);
+        } catch (SecretException|TokenException|GuzzleException $e) {
+            throw new CvrException($e->getMessage(), $e->getCode(), $e);
+        }
 
         return (string) $res->getBody();
     }

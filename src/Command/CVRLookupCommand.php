@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Exception\CprException;
+use App\Exception\CvrException;
 use App\Service\CvrHelper;
 use GuzzleHttp\Exception\GuzzleException;
 use ItkDev\Serviceplatformen\Certificate\Exception\CertificateLocatorException;
@@ -37,20 +38,15 @@ class CVRLookupCommand extends Command
         $cvr = $input->getArgument('cpr-number');
 
         try {
-            $CVRData = $this->cvrHelper->testCvrDatafordeler((int) $cvr);
+            $CVRData = $this->cvrHelper->lookupCvr((int) $cvr);
 
-            var_dump($CVRData);
-            die(__FILE__);
             $output->writeln([
                 $cvr,
                 json_encode($CVRData, JSON_PRETTY_PRINT),
             ]);
-        } catch (GuzzleException $e) {
-            throw new CprException('test');
-        } catch (CertificateLocatorException $e) {
-            throw new CprException('test2');
+        } catch (CvrException $e) {
+            $output->write($e->getMessage());
         }
-
 
         return Command::SUCCESS;
     }

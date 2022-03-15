@@ -175,10 +175,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/itk-dev/datafordeler-php-client"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/itk-dev/AzureKeyVaultPhp"
         }
     ]
 }
