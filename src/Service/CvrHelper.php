@@ -39,12 +39,12 @@ class CvrHelper
     {
         $resolver
             ->setRequired([
-                'azure_tenant_id_test',
-                'azure_application_id_test',
-                'azure_client_secret_test',
-                'azure_key_vault_name_test',
-                'azure_key_vault_secret_test',
-                'azure_key_vault_secret_version_test',
+                'azure_tenant_id',
+                'azure_application_id',
+                'azure_client_secret',
+                'azure_key_vault_name',
+                'azure_key_vault_datafordeler_secret',
+                'azure_key_vault_datafordeler_secret_version',
                 'datafordeler_cvr_lookup_base_url',
             ],
             )
@@ -58,12 +58,12 @@ class CvrHelper
     {
         try {
             $certificate = $this->getAbsolutePathToSecret(
-                $this->serviceOptions['azure_tenant_id_test'],
-                $this->serviceOptions['azure_application_id_test'],
-                $this->serviceOptions['azure_client_secret_test'],
-                $this->serviceOptions['azure_key_vault_name_test'],
-                $this->serviceOptions['azure_key_vault_secret_test'],
-                $this->serviceOptions['azure_key_vault_secret_version_test']
+                $this->serviceOptions['azure_tenant_id'],
+                $this->serviceOptions['azure_application_id'],
+                $this->serviceOptions['azure_client_secret'],
+                $this->serviceOptions['azure_key_vault_name'],
+                $this->serviceOptions['azure_key_vault_datafordeler_secret'],
+                $this->serviceOptions['azure_key_vault_datafordeler_secret_version']
             );
 
             $apiUrl = $this->serviceOptions['datafordeler_cvr_lookup_base_url'].$cvr;

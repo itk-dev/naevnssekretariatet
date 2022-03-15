@@ -174,11 +174,11 @@ services:
             $options:
               azure_tenant_id: '%env(AZURE_TENANT_ID)%'
               azure_application_id: '%env(AZURE_APPLICATION_ID)%'
-              azure_client_secre: '%env(AZURE_CLIENT_SECRET)%'
+              azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
 
-              azure_key_vault_name: '%env(AZURE_KEY_VAULT_CVR_NAME)%'
+              azure_key_vault_name: '%env(AZURE_KEY_VAULT_NAME)%'
               azure_key_vault_datafordeler_secret: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET)%'
-              azure_key_vault_datafordeler_secret_version: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSIONT)%'
+              azure_key_vault_datafordeler_secret_version: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSION)%'
 
               datafordeler_cvr_lookup_base_url: '%env(DATAFORDELER_CVR_LOOKUP_BASE_URL)'
 
