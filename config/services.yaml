@@ -180,7 +180,7 @@ services:
               azure_key_vault_datafordeler_secret: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET)%'
               azure_key_vault_datafordeler_secret_version: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSION)%'
 
-              datafordeler_cvr_lookup_base_url: '%env(DATAFORDELER_CVR_LOOKUP_BASE_URL)'
+              datafordeler_cvr_lookup_base_url: '%env(DATAFORDELER_CVR_LOOKUP_BASE_URL)%'
 
 #          datafordeler_cvr_service_agreement_uuid_test: '%env(DATAFORDELER_CVR_SERVICE_AGREEMENT_UUID_TEST)%'
 #          datafordeler_cvr_user_system_uuid_test: '%env(DATAFORDELER_CVR_USER_SYSTEM_UUID_TEST)%'
