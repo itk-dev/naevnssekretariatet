@@ -34,6 +34,7 @@
         "friendsofsymfony/ckeditor-bundle": "^2.3",
         "friendsoftwig/twigcs": "^5.0",
         "gedmo/doctrine-extensions": "^3.0",
+        "itk-dev/azure-key-vault-php": "^1.0",
         "itk-dev/datafordeler-php-client": "dev-develop",
         "itk-dev/openid-connect-bundle": "dev-develop",
         "itk-dev/serviceplatformen": "dev-feature/digital-post",
@@ -174,6 +175,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/itk-dev/datafordeler-php-client"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/itk-dev/AzureKeyVaultPhp"
         }
     ]
 }

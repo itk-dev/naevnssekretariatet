@@ -39,6 +39,8 @@ class CVRLookupCommand extends Command
         try {
             $CVRData = $this->cvrHelper->testCvrDatafordeler((int) $cvr);
 
+            var_dump($CVRData);
+            die(__FILE__);
             $output->writeln([
                 $cvr,
                 json_encode($CVRData, JSON_PRETTY_PRINT),

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d220161696d9b93cbf0fcd48dc3b722",
+    "content-hash": "ec8b2d054430923f89992c593de974ce",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2434,7 +2434,37 @@
                     "ItkDev\\AzureKeyVault\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "check": [
+                    "@check-coding-standards"
+                ],
+                "check-coding-standards/php-cs-fixer": [
+                    "php-cs-fixer --config=.php_cs.dist fix --dry-run --format=checkstyle"
+                ],
+                "check-coding-standards/phpcs": [
+                    "phpcs --standard=phpcs.xml.dist"
+                ],
+                "check-coding-standards": [
+                    "@check-coding-standards/php-cs-fixer",
+                    "@check-coding-standards/phpcs"
+                ],
+                "apply-coding-standards/php-cs-fixer": [
+                    "php-cs-fixer --config=.php_cs.dist fix"
+                ],
+                "apply-coding-standards/phpcs": [
+                    "phpcbf --standard=phpcs.xml.dist"
+                ],
+                "apply-coding-standards": [
+                    "@apply-coding-standards/php-cs-fixer",
+                    "@apply-coding-standards/phpcs"
+                ],
+                "actions/phpcs": [
+                    "phpcs --standard=phpcs.xml.dist --report=checkstyle"
+                ],
+                "actions/phpcsfixer": [
+                    "php-cs-fixer --config=.php_cs.dist fix --dry-run --diff --diff-format=udiff"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -2450,8 +2480,8 @@
                 "key vault"
             ],
             "support": {
-                "issues": "https://github.com/itk-dev/AzureKeyVaultPhp/issues",
-                "source": "https://github.com/itk-dev/AzureKeyVaultPhp/tree/1.0.0"
+                "source": "https://github.com/itk-dev/AzureKeyVaultPhp/tree/1.0.0",
+                "issues": "https://github.com/itk-dev/AzureKeyVaultPhp/issues"
             },
             "time": "2021-02-08T11:39:53+00:00"
         },

@@ -5,24 +5,17 @@ namespace App\Service;
 use App\Entity\CaseEntity;
 use App\Entity\Embeddable\Identification;
 use App\Exception\CvrException;
-use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Http\Adapter\Guzzle7\Client as GuzzleAdapter;
 use Http\Factory\Guzzle\RequestFactory;
-use ItkDev\AzureKeyVault\Authorisation\VaultToken;
-use ItkDev\AzureKeyVault\KeyVault\VaultSecret;
-use ItkDev\Datafordeler\Service\CVR\V1\HentCVRData;
+use Itkdev\AzureKeyVault\Authorisation\VaultToken;
+use Itkdev\AzureKeyVault\KeyVault\VaultCertificate;
+use Itkdev\AzureKeyVault\KeyVault\VaultSecret;
 use ItkDev\Serviceplatformen\Certificate\AzureKeyVaultCertificateLocator;
 use ItkDev\Serviceplatformen\Certificate\CertificateLocatorInterface;
 use ItkDev\Serviceplatformen\Certificate\Exception\CertificateLocatorException;
-use ItkDev\Serviceplatformen\Request\InvocationContextRequestGenerator;
-use ItkDev\Serviceplatformen\Service\Exception\NoCvrFoundException;
-use ItkDev\Serviceplatformen\Service\Exception\ServiceException;
-use ItkDev\Serviceplatformen\Service\OnlineService;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CvrHelper
 {
@@ -31,9 +24,8 @@ class CvrHelper
      */
     private Client $guzzleClient;
     private array $serviceOptions;
-    private OnlineService $service;
 
-    public function __construct(private CaseManager $caseManager, private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private TranslatorInterface $translator, array $options)
+    public function __construct(array $options)
     {
         $this->guzzleClient = new Client();
         $resolver = new OptionsResolver();
@@ -41,72 +33,6 @@ class CvrHelper
 
         $this->serviceOptions = $resolver->resolve($options);
     }
-
-//    /**
-//     * @throws CvrException
-//     */
-//    public function lookupCvr(string $cvr)
-//    {
-//        if (!isset($this->service)) {
-//            $this->setupService();
-//        }
-//
-//        try {
-//            $response = $this->service->getLegalUnit($cvr);
-//        } catch (NoCvrFoundException $e) {
-//            throw new CvrException($this->translator->trans('CVR not found', [], 'case'), $e->getCode(), $e);
-//        } catch (ServiceException $e) {
-//            throw new CvrException($e->getMessage(), $e->getCode(), $e);
-//        }
-//
-//        return $response;
-//    }
-
-//    /**
-//     * @throws CvrException
-//     */
-//    private function setupService()
-//    {
-//        $certificateLocator = $this->getAzureKeyVaultCertificateLocator(
-//            $this->serviceOptions['azure_tenant_id'],
-//            $this->serviceOptions['azure_application_id'],
-//            $this->serviceOptions['azure_client_secret'],
-//            $this->serviceOptions['azure_key_vault_name'],
-//            $this->serviceOptions['azure_key_vault_secret'],
-//            $this->serviceOptions['azure_key_vault_secret_version']
-//        );
-//
-//        try {
-//            $pathToCertificate = $certificateLocator->getAbsolutePathToCertificate();
-//        } catch (CertificateLocatorException $e) {
-//            throw new CvrException($e->getMessage(), $e->getCode());
-//        }
-//
-//        $options = [
-//            'local_cert' => $pathToCertificate,
-//            'passphrase' => $certificateLocator->getPassphrase(),
-//            'location' => $this->serviceOptions['serviceplatformen_cvr_service_endpoint'],
-//        ];
-//
-//        if (!realpath($this->serviceOptions['serviceplatformen_cvr_service_contract'])) {
-//            throw new CvrException(sprintf('The path (%s) to the service contract is invalid.', $this->serviceOptions['serviceplatformen_cvr_service_contract']));
-//        }
-//
-//        try {
-//            $soapClient = new \SoapClient($this->serviceOptions['serviceplatformen_cvr_service_contract'], $options);
-//        } catch (\SoapFault $e) {
-//            throw new CvrException($e->getMessage(), $e->getCode());
-//        }
-//
-//        $requestGenerator = new InvocationContextRequestGenerator(
-//            $this->serviceOptions['serviceplatformen_cvr_service_agreement_uuid'],
-//            $this->serviceOptions['serviceplatformen_cvr_user_system_uuid'],
-//            $this->serviceOptions['serviceplatformen_cvr_service_uuid'],
-//            $this->serviceOptions['serviceplatformen_cvr_user_uuid']
-//        );
-//
-//        $this->service = new OnlineService($soapClient, $requestGenerator);
-//    }
 
     private function configureOptions(OptionsResolver $resolver)
     {
@@ -118,12 +44,6 @@ class CvrHelper
                 'azure_key_vault_name_test',
                 'azure_key_vault_secret_test',
                 'azure_key_vault_secret_version_test',
-//                'serviceplatformen_cvr_service_agreement_uuid',
-//                'serviceplatformen_cvr_user_system_uuid',
-//                'serviceplatformen_cvr_user_uuid',
-//                'serviceplatformen_cvr_service_uuid',
-//                'serviceplatformen_cvr_service_endpoint',
-//                'serviceplatformen_cvr_service_contract',
 //                'datafordeler_api_username',
 //                'datafordeler_api_password',
             ],
@@ -153,18 +73,28 @@ class CvrHelper
             $clientSecret
         );
 
-        $vault = new VaultSecret(
-            $httpClient,
-            $requestFactory,
-            $keyVaultName,
-            $token->getAccessToken()
-        );
+        // Certificates
+        // This requires a PSR-18 compatible http client and a PSR-17 compatible request factory.
+        // Get vault with the name 'testVault' using the access token.
+        $vaultCertificate = new VaultCertificate($httpClient, $requestFactory, $keyVaultName, $token->getAccessToken());
 
-        return new AzureKeyVaultCertificateLocator(
-            $vault,
-            $keyVaultSecret,
-            $keyVaultSecretVersion
-        );
+        $cert = $vaultCertificate->getCertificate($keyVaultSecret, $keyVaultSecretVersion);
+
+
+//        $vault = new VaultSecret(
+//            $httpClient,
+//            $requestFactory,
+//            $keyVaultName,
+//            $token->getAccessToken()
+//        );
+
+        return $cert->getCert();
+
+//        return new AzureKeyVaultCertificateLocator(
+//            $vault,
+//            $keyVaultSecret,
+//            $keyVaultSecretVersion
+//        );
     }
 
 //    /**
@@ -215,7 +145,7 @@ class CvrHelper
      */
     public function testCvrDatafordeler(string $cvr)
     {
-        $certificateLocator = $this->getAzureKeyVaultCertificateLocator(
+        $certificate = $this->getAzureKeyVaultCertificateLocator(
             $this->serviceOptions['azure_tenant_id_test'],
             $this->serviceOptions['azure_application_id_test'],
             $this->serviceOptions['azure_client_secret_test'],
@@ -228,9 +158,10 @@ class CvrHelper
 
         $client = new Client();
         $res = $client->request('GET', $apiUrl, [
-            'cert' => $certificateLocator->getAbsolutePathToCertificate(),
+//            'cert' => $certificateLocator->getAbsolutePathToCertificate(),
+            'cert' => $certificate,
         ]);
 
-        return $res;
+        return (string) $res->getBody();
     }
 }
