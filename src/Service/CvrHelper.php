@@ -142,13 +142,13 @@ class CvrHelper
     {
         $relevantData = [];
 
-        $relevantData['name'] = $data['virksomhedsnavn']['vaerdi'];
-        $relevantData['street'] = $data['beliggenhedsadresse']['CVRAdresse_vejnavn'];
-        $relevantData['number'] = array_key_exists('CVRAdresse_husnummerFra', $data['beliggenhedsadresse']) ? $data['beliggenhedsadresse']['CVRAdresse_husnummerFra'] : '';
-        $relevantData['floor'] = array_key_exists('CVRAdresse_etagebetegnelse', $data['beliggenhedsadresse']) ? $data['beliggenhedsadresse']['CVRAdresse_etagebetegnelse'] : '';
-        $relevantData['side'] = array_key_exists('CVRAdresse_doerbetegnelse', $data['beliggenhedsadresse']) ? $data['beliggenhedsadresse']['CVRAdresse_doerbetegnelse'] : '';
-        $relevantData['postalCode'] = $data['beliggenhedsadresse']['CVRAdresse_postnummer'];
-        $relevantData['city'] = array_key_exists('CVRAdresse_postdistrikt', $data['beliggenhedsadresse']) ? $data['beliggenhedsadresse']['CVRAdresse_postdistrikt'] : '';
+        $relevantData['name'] = $data['virksomhedsnavn']['vaerdi'] ?? '';
+        $relevantData['street'] = $data['beliggenhedsadresse']['CVRAdresse_vejnavn'] ?? '';
+        $relevantData['number'] = $data['beliggenhedsadresse']['CVRAdresse_husnummerFra'] ?? '';
+        $relevantData['floor'] = $data['beliggenhedsadresse']['CVRAdresse_etagebetegnelse'] ?? '';
+        $relevantData['side'] = $data['beliggenhedsadresse']['CVRAdresse_doerbetegnelse'] ?? '';
+        $relevantData['postalCode'] = $data['beliggenhedsadresse']['CVRAdresse_postnummer'] ?? '';
+        $relevantData['city'] = $data['beliggenhedsadresse']['CVRAdresse_postdistrikt'] ?? '';
 
         return $relevantData;
     }
