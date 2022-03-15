@@ -170,20 +170,14 @@ services:
                 serviceplatformen_cpr_service_contract: '%env(resolve:SERVICEPLATFORMEN_CPR_SERVICE_CONTRACT)%'
 
     App\Service\CvrHelper:
-      arguments:
-        $options:
-          azure_tenant_id: '%env(AZURE_TENANT_ID)%'
-          azure_application_id: '%env(AZURE_APPLICATION_ID)%'
-          azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
+        arguments:
+            $options:
+              azure_tenant_id: '%env(AZURE_TENANT_ID)%'
+              azure_application_id: '%env(AZURE_APPLICATION_ID)%'
+              azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
 
-          azure_key_vault_name: '%env(AZURE_KEY_VAULT_CVR_NAME)%'
-          azure_key_vault_secret: '%env(AZURE_KEY_VAULT_CVR_SECRET)%'
-          azure_key_vault_secret_version: '%env(AZURE_KEY_VAULT_CVR_SECRET_VERSION)%'
+              azure_key_vault_name: '%env(AZURE_KEY_VAULT_DATAFORDELER_NAME)%'
+              azure_key_vault_datafordeler_secret: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET)%'
+              azure_key_vault_datafordeler_secret_version: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSION)%'
 
-          serviceplatformen_cvr_service_agreement_uuid: '%env(SERVICEPLATFORMEN_CVR_SERVICE_AGREEMENT_UUID)%'
-          serviceplatformen_cvr_user_system_uuid: '%env(SERVICEPLATFORMEN_CVR_USER_SYSTEM_UUID)%'
-          serviceplatformen_cvr_user_uuid: '%env(SERVICEPLATFORMEN_CVR_USER_UUID)%'
-
-          serviceplatformen_cvr_service_uuid: '%env(SERVICEPLATFORMEN_CVR_SERVICE_UUID)%'
-          serviceplatformen_cvr_service_endpoint: '%env(SERVICEPLATFORMEN_CVR_SERVICE_ENDPOINT)%'
-          serviceplatformen_cvr_service_contract: '%env(resolve:SERVICEPLATFORMEN_CVR_SERVICE_CONTRACT)%'
+              datafordeler_cvr_lookup_base_url: '%env(DATAFORDELER_CVR_LOOKUP_BASE_URL)%'
