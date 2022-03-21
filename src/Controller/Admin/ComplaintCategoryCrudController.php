@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -33,8 +34,15 @@ class ComplaintCategoryCrudController extends AbstractCrudController
         yield NumberField::new('fee', 'Fee')
             ->setRequired(true)
         ;
-        yield AssociationField::new('board', 'Board')
+        yield AssociationField::new('boards', 'Boards')
             ->setRequired(true)
+            ->formatValue(function ($value, ComplaintCategory $category) {
+                $boards = $category->getBoards()->map(function (Board $board) {
+                    return $board->__toString();
+                });
+
+                return implode(', ', $boards->getValues());
+            })
         ;
         yield AssociationField::new('municipality', 'Municipality')
             ->setRequired(true)

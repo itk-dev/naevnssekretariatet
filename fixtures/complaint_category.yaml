@@ -2,89 +2,89 @@ App\Entity\ComplaintCategory:
   security-deposit-complaint-aarhus:
     name: Depositums sag
     fee: 199
-    board: '@resident-complaint-board-aarhus'
+    boards: [ '@resident-complaint-board-aarhus' ]
     municipality: '@municipality-aarhus'
 
   security-deposit-complaint-randers:
     name: Depositums sag
     fee: 219
-    board: '@resident-complaint-board-randers'
+    boards: [ '@resident-complaint-board-randers' ]
     municipality: '@municipality-randers'
 
   maintenance-complaint-aarhus:
     name: Vedligeholdelses sag
     fee: 179
-    board: '@resident-complaint-board-aarhus'
+    boards: [ '@resident-complaint-board-aarhus' ]
     municipality: '@municipality-aarhus'
 
   maintenance-complaint-randers:
     name: Vedligeholdelses sag
     fee: 189
-    board: '@resident-complaint-board-randers'
+    boards: [ '@resident-complaint-board-randers' ]
     municipality: '@municipality-randers'
 
   water-heat-electricity-complaint-aarhus:
     name: Vand-, varme- og elregnskaber
     fee: 179
-    board: '@resident-complaint-board-aarhus'
+    boards: [ '@resident-complaint-board-aarhus' ]
     municipality: '@municipality-aarhus'
 
   water-heat-electricity-complaint-randers:
     name: Vand-, varme- og elregnskaber
     fee: 189
-    board: '@resident-complaint-board-randers'
+    boards: [ '@resident-complaint-board-randers' ]
     municipality: '@municipality-randers'
 
   improvement-compensation-complaint-aarhus:
     name: Vedligeholdelse og istandsættelse ved fraflytning
     fee: 270
-    board: '@resident-complaint-board-aarhus'
+    boards: [ '@resident-complaint-board-aarhus' ]
     municipality: '@municipality-aarhus'
 
   improvement-compensation-complaint-randers:
     name: Vedligeholdelse og istandsættelse ved fraflytning
     fee: 270
-    board: '@resident-complaint-board-randers'
+    boards: [ '@resident-complaint-board-randers' ]
     municipality: '@municipality-randers'
 
   telecommunications-service-complaint-aarhus:
     name: Betaling for fællesantenne og adgang til teletjeneste
     fee: 159
-    board: '@resident-complaint-board-aarhus'
+    boards: [ '@resident-complaint-board-aarhus' ]
     municipality: '@municipality-aarhus'
 
   telecommunications-service-complaint-randers:
     name: Betaling for fællesantenne og adgang til teletjeneste
     fee: 230
-    board: '@resident-complaint-board-randers'
+    boards: [ '@resident-complaint-board-randers' ]
     municipality: '@municipality-randers'
 
   rent-size-complaint-aarhus:
     name: Lejestørrelse
     fee: 201
-    board: '@rent-board-aarhus'
+    boards: [ '@rent-board-aarhus' ]
     municipality: '@municipality-aarhus'
 
   rent-increase-complaint-aarhus:
     name: Lejeforhøjelser
     fee: 201
-    board: '@rent-board-aarhus'
+    boards: [ '@rent-board-aarhus' ]
     municipality: '@municipality-aarhus'
 
   rent-size-complaint-randers:
     name: Lejestørrelse
     fee: 201
-    board: '@rent-board-randers'
+    boards: [ '@rent-board-randers' ]
     municipality: '@municipality-randers'
 
   rent-increase-complaint-randers:
     name: Lejeforhøjelser
     fee: 201
-    board: '@rent-board-randers'
+    boards: [ '@rent-board-randers' ]
     municipality: '@municipality-randers'
 
   fence-complaint-aarhus:
     name: Fence
     fee: 87
-    board: '@fence-board-aarhus'
+    boards: [ '@fence-board-aarhus' ]
     municipality: '@municipality-aarhus'
