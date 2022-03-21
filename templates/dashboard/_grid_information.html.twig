@@ -4,19 +4,18 @@
 
 {% for column in grid_information %}
     <div class="col-md-6 col-lg-3 mb-5 mb-md-2 grid-information">
-        <div class="grid-header">
-            <a href="{{ column.url }}">
-                <h3>
-                    <div class="label">
-                        <i class="fas fa-list mr-2"></i>
-                        {{ column.label }}
-                    </div>
-                    <div class="count">
-                        <span class="badge badge-dark ml-2">{{ column.count }}</span>
-                    </div>
-                </h3>
-            </a>
-        </div>
+        <a href="{{ column.url }}">
+            <h3 class="grid-header">
+                <div class="label">
+                    <i class="fas fa-list mr-2"></i>
+                    {{ column.label }}
+                </div>
+                <div class="count">
+                    <span class="badge badge-dark ml-2">{{ column.count }}</span>
+                </div>
+            </h3>
+        </a>
+
         {% for row in column.rows %}
             {% set button_style = button_styles[loop.index0 % button_styles|length] %}
             <a class="btn btn-{{ button_style }} btn-lg btn-block" href="{{ row.url }}">
