@@ -5,11 +5,12 @@ namespace App\Entity;
 use App\Entity\Embeddable\Address;
 use App\Entity\Embeddable\Identification;
 use App\Repository\CaseEntityRepository;
+use App\Traits\BlameableEntity;
 use App\Traits\SoftDeletableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -23,7 +24,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class CaseEntity
 {
+    use BlameableEntity;
     use SoftDeletableEntity;
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -45,23 +49,10 @@ abstract class CaseEntity
     private $municipality;
 
     /**
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     * @Groups({"mail_template"})
-     */
-    private $createdAt;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"mail_template"})
      */
     private $caseNumber;
-
-    /**
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=ComplaintCategory::class, inversedBy="caseEntities")
@@ -241,18 +232,6 @@ abstract class CaseEntity
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getCaseNumber(): ?string
     {
         return $this->caseNumber;
@@ -261,18 +240,6 @@ abstract class CaseEntity
     public function setCaseNumber(string $caseNumber): self
     {
         $this->caseNumber = $caseNumber;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
