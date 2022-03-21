@@ -42,7 +42,7 @@
                         <td>{{ document.documentName|e }}</td>
                         <td>{{ document.type|e }}</td>
                         <td>{{ document.uploadedBy|e }}</td>
-                        <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
+                        <td>{{ document.uploadedAt|date(format_date) }}</td>
                         <td class="text-right">
                             <div class="form-check">
                                 <input type="checkbox" name="documents[]" class="form-check-input" id="exampleCheck1" value="{{ document.id }}">

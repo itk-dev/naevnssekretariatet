@@ -100,7 +100,7 @@
                             <section class="col-md-12 mt-5 mt-md-0">
                                 <div class="row">
                                     <div class="col">
-                                        <p class="m-0 mt-2">{{ agenda_item.startTime|date('H:i') }}</p>
+                                        <p class="m-0 mt-2">{{ agenda_item.startTime|date(format_time) }}</p>
                                         {% set difference = date(agenda_item.endTime).diff(date(agenda_item.startTime)) %}
                                         {% set diff_hours = difference.h %}
                                         {% set diff_minutes = difference.i %}

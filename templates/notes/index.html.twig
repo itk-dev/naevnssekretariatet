@@ -78,7 +78,7 @@
                                     <p class="pt-2">{% trans %}By{% endtrans %} {{ note.createdBy|e }}</p>
                                 </div>
                                 <div class="col-auto">
-                                    <p class="pt-2">{{ note.updatedAt|date('d/m/Y H:i') }}</p>
+                                    <p class="pt-2">{{ note.updatedAt|date(format_datetime) }}</p>
                                 </div>
                                 <div class="col-auto">
                                     <!-- Edit button -->

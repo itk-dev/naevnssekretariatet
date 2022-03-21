@@ -2,8 +2,8 @@
 
 {% trans_default_domain 'case' %}
 
-{% set createdate = case.createdAt|date('d/m/Y') %}
-{% set updatedate = case.updatedAt|date('d/m/Y') %}
+{% set createdate = case.createdAt|date(format_date) %}
+{% set updatedate = case.updatedAt|date(format_date) %}
 {% set assigned_caseworker = case.assignedTo.name ?? 'Unassigned'|trans({}, 'case') %}
 
 {% set caseinfo = [
@@ -98,7 +98,7 @@
                                 {% for communication in communications %}
                                     <a href="{{ url("digital_post_show", {id: case.id, 'digitalPost': communication.id}) }}" class="list-group-item list-group-item-action">
                                         <div class="d-flex w-100 justify-content-between">
-                                            <span class="mr-3">{{ communication.createdAt|date('d/m/Y') }}</span>
+                                            <span class="mr-3">{{ communication.createdAt|date(format_date) }}</span>
                                             <p class="mb-1 text-truncate">{{ communication.document.documentName|e }}</p>
                                         </div>
                                     </a>
@@ -124,7 +124,7 @@
                                     {% set note_id = note.id|e %}
                                     <a href="{{ url("note_index", {id: case.id, 'noteShown': note_id}) }}" class="list-group-item list-group-item-action">
                                         <div class="d-flex w-100 justify-content-between">
-                                            <span class="mr-3">{{ note.createdAt|date('d/m/Y') }}</span>
+                                            <span class="mr-3">{{ note.createdAt|date(format_date) }}</span>
                                             <p class="mb-1 text-truncate">{{ note.subject|e }}</p>
                                         </div>
                                     </a>
