@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Board;
 use App\Entity\BoardMember;
 use App\Entity\BoardRole;
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -37,6 +38,9 @@ class BoardMemberCrudController extends AbstractCrudController
         ;
         yield AssociationField::new('boards', 'Board')
             ->setRequired(true)
+            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
+                return $queryBuilder->orderBy('entity.name', 'ASC');
+            })
             ->formatValue(function ($value, BoardMember $member) {
                 $boards = $member->getBoards()->map(function (Board $board) {
                     return $board->__toString();
@@ -46,12 +50,18 @@ class BoardMemberCrudController extends AbstractCrudController
             })
         ;
         yield AssociationField::new('municipality', 'Municipality')
+            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
+                return $queryBuilder->orderBy('entity.name', 'ASC');
+            })
             ->setRequired(true)
         ;
         yield AssociationField::new('boardRoles', 'BoardRole')
             ->setFormTypeOptions([
                 'by_reference' => false,
             ])
+            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
+                return $queryBuilder->orderBy('entity.title', 'ASC');
+            })
             ->formatValue(function ($value, BoardMember $member) {
                 $roles = $member->getBoardRoles()->map(function (BoardRole $boardRole) {
                     return $boardRole->__toString();

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\BoardRole;
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -29,6 +30,10 @@ class BoardRoleCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('title', 'Title');
-        yield AssociationField::new('board', 'Board');
+        yield AssociationField::new('board', 'Board')
+            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
+                return $queryBuilder->orderBy('entity.name', 'ASC');
+            })
+        ;
     }
 }

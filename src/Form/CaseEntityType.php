@@ -6,6 +6,7 @@ use App\Entity\Board;
 use App\Entity\CaseEntity;
 use App\Entity\Municipality;
 use App\Repository\BoardRepository;
+use App\Repository\MunicipalityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -18,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CaseEntityType extends AbstractType
 {
-    public function __construct(private TranslatorInterface $translator, private BoardRepository $boardRepository)
+    public function __construct(private TranslatorInterface $translator, private BoardRepository $boardRepository, private MunicipalityRepository $municipalityRepository)
     {
     }
 
@@ -36,6 +37,7 @@ class CaseEntityType extends AbstractType
 
         $builder->add('municipality', EntityType::class, [
             'class' => Municipality::class,
+            'choices' => $this->municipalityRepository->findBy([], ['name' => 'ASC']),
             'data' => $activeMunicipality,
             'label' => $this->translator->trans('Municipality', [], 'case'),
             'placeholder' => $this->translator->trans('Choose a municipality', [], 'case'),
@@ -45,7 +47,7 @@ class CaseEntityType extends AbstractType
         $addBoardFormModifier = function (FormInterface $form, $municipalityId = null) {
             if (null != $municipalityId) {
                 // No municipality chosen - show board form child
-                $boardChoices = $this->boardRepository->findBy(['municipality' => $municipalityId]);
+                $boardChoices = $this->boardRepository->findBy(['municipality' => $municipalityId], ['name' => 'ASC']);
 
                 $form->add('board', EntityType::class, [
                     'class' => Board::class,

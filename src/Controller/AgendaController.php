@@ -132,7 +132,11 @@ class AgendaController extends AbstractController
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
+            10 /*limit per page*/,
+            [
+                'defaultSortFieldName' => 'a.date',
+                'defaultSortDirection' => 'ASC',
+            ]
         );
 
         $pagination->setCustomParameters(['align' => 'center']);
