@@ -41,6 +41,9 @@
                     <td>{{ document.uploadedAt|date('d/m/Y') }}</td>
                     {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                         <td class="text-right">
+                            <!-- Edit button -->
+                            <a href="{{ url("document_edit", {id: case.id, document: document.id}) }}" role="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit document{% endtrans %}"><i class="fas fa-edit"></i><span class="sr-only">{% trans %}Edit document{% endtrans %} </span></a>
+
                             <!-- Copy button -->
                             <a href="{{ url("document_copy", {id: case.id, document_id: document.id}) }}" role="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Copy document to another case{% endtrans %}"><i class="fas fa-copy"></i><span class="sr-only">{% trans %}Copy document to another case{% endtrans %} </span></a>
 

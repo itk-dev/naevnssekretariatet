@@ -7,7 +7,7 @@
 {% block header %}
     <div class="row">
         <div class="col">
-            <h1>{% trans %}Upload document{% endtrans %}</h1>
+            <h1>{% trans %}Edit document{% endtrans %}</h1>
         </div>
         <div class="col-auto">
             <a class="btn btn-secondary" href="{{ url('document_index', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
@@ -19,10 +19,11 @@
     <main role="main" class="col-12 mt-3">
         {{ form_start(document_form) }}
             {{ form_row(document_form.documentName) }}
-            {{ form_row(document_form.type) }}
-            {{ form_row(document_form.files) }}
+            {% if document_form.type is defined %}
+                {{ form_row(document_form.type) }}
+            {% endif %}
 
-            <button class="btn btn-success float-right">{{ button_label|default('Upload'|trans([], 'documents')) }}</button>
+            <button class="btn btn-success float-right">{{ button_label|default('Update document'|trans([], 'documents')) }}</button>
             {{ form_rest(document_form) }}
         {{ form_end(document_form) }}
     </main>

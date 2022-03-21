@@ -105,6 +105,10 @@
         <source>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
         <target>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
       </trans-unit>
+      <trans-unit id="Yw8ueOH" resname="Edit document">
+        <source>Edit document</source>
+        <target>Edit document</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

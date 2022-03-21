@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Document;
 use App\Entity\UploadedDocumentType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DocumentType extends AbstractType
 {
-    public function __construct(private TranslatorInterface $translator, private int $maxFileSize)
+    public function __construct(private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private int $maxFileSize)
     {
     }
 
@@ -29,6 +31,9 @@ class DocumentType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $entity = $builder->getData();
+        $isNewDocument = !$this->entityManager->contains($entity);
+
         $builder
             ->add('documentName', null, [
                 'label' => $this->translator->trans('Document name', [], 'documents'),
@@ -39,34 +44,55 @@ class DocumentType extends AbstractType
                 'label' => $this->translator->trans('Document type', [], 'documents'),
                 'choice_label' => 'name',
                 'help' => $this->translator->trans('Provide a document type', [], 'documents'),
-            ])
-            ->add('files', FileType::class, [
-                'label' => $this->translator->trans('Files', [], 'documents'),
-                'help' => new TranslatableMessage('Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls', ['{size}' => $this->getMinimumMaximumFileSizeRestriction()], 'documents'),
-                'mapped' => false,
-                'multiple' => true,
-                'constraints' => [
-                    new All([
-                        'constraints' => [
-                            new File([
-                                'maxSize' => $this->maxFileSize,
-                                'mimeTypes' => [
-                                    'application/pdf',
-                                    'application/x-pdf',
-                                    'application/msword',
-                                    'application/vnd.ms-excel',
-                                    'text/plain',
-                                    'image/jpeg',
-                                    'image/png',
-                                    'video/mp4',
-                                ],
-                                'mimeTypesMessage' => $this->translator->trans('Please upload a valid document', [], 'documents'),
-                            ]),
-                        ],
-                    ]),
-                ],
+                'placeholder' => $this->translator->trans('Select document type', [], 'documents'),
             ])
         ;
+
+        // Add a transformer from string to UploadedDocumentType and back.
+        $builder->get('type')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($name) {
+                    return $this->entityManager->getRepository(UploadedDocumentType::class)->findOneBy(['name' => $name]);
+                },
+                function (UploadedDocumentType $type) {
+                    return $type->getName();
+                }
+            ))
+        ;
+
+        // Allow files only on new documents.
+        if ($isNewDocument) {
+            $builder
+                ->add('files', FileType::class, [
+                    'label' => $this->translator->trans('Files', [], 'documents'),
+                    'help' => new TranslatableMessage('Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls',
+                        ['{size}' => $this->getMinimumMaximumFileSizeRestriction()], 'documents'),
+                    'mapped' => false,
+                    'multiple' => true,
+                    'constraints' => [
+                        new All([
+                            'constraints' => [
+                                new File([
+                                    'maxSize' => $this->maxFileSize,
+                                    'mimeTypes' => [
+                                        'application/pdf',
+                                        'application/x-pdf',
+                                        'application/msword',
+                                        'application/vnd.ms-excel',
+                                        'text/plain',
+                                        'image/jpeg',
+                                        'image/png',
+                                        'video/mp4',
+                                    ],
+                                    'mimeTypesMessage' => $this->translator->trans('Please upload a valid document', [],
+                                        'documents'),
+                                ]),
+                            ],
+                        ]),
+                    ],
+                ])
+            ;
+        }
     }
 
     public function getMinimumMaximumFileSizeRestriction(): string
