@@ -299,7 +299,7 @@
       </trans-unit>
       <trans-unit id="Uz3lvy0" resname="This information is needed for journaling purpose">
         <source>This information is needed for journaling purpose</source>
-        <target>Denne information skal bruges i forbindelse med jorunalisering</target>
+        <target>Denne information skal bruges i forbindelse med journalisering</target>
       </trans-unit>
       <trans-unit id="SBbL.XS" resname="Board">
         <source>Board</source>
