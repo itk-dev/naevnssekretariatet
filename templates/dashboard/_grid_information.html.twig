@@ -19,7 +19,14 @@
         </div>
         {% for row in column.rows %}
             {% set button_style = button_styles[loop.index0 % button_styles|length] %}
-            <a class="btn btn-{{ button_style }} btn-lg btn-block" href="{{ row.url }}">{{ row.label }}<span class="badge badge-light ml-2">{{ row.count }}</span></a>
+            <a class="btn btn-{{ button_style }} btn-lg btn-block" href="{{ row.url }}">
+                <div class="grid-row">
+                    <div class="label">{{ row.label }}</div>
+                    <div class="count">
+                        <span class="badge badge-light ml-2">{{ row.count }}</span>
+                    </div>
+                </div>
+            </a>
         {% endfor %}
     </div>
 {% endfor %}

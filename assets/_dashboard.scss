@@ -1,20 +1,18 @@
 .grid-information {
-    .grid-header {
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 
-        h3 {
-            display: flex;
-            justify-content: space-between;
+    h3, .grid-row {
+        display: flex;
+        justify-content: space-between;
 
-            .label {
-                flex-shrink: 1;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
+        .label {
+            flex-shrink: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }
