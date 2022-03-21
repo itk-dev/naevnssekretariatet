@@ -65,6 +65,7 @@ class BoardMemberRepository extends ServiceEntityRepository
             ->setParameter('board', $agenda->getBoard()->getId()->toBinary())
             ->andWhere(':agenda NOT MEMBER OF bm.agendas')
             ->setParameter('agenda', $agenda->getId()->toBinary())
+            ->orderBy('bm.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;

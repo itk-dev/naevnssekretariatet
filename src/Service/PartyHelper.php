@@ -19,7 +19,7 @@ class PartyHelper
 
     public function findPartyIndexChoices(CaseEntity $case): array
     {
-        $partyChoices = $this->partyRepository->findBy(['isPartOfPartIndex' => true]);
+        $partyChoices = $this->partyRepository->findBy(['isPartOfPartIndex' => true], ['name' => 'ASC']);
 
         $alreadyAddedNonDeletedRelations = $this->relationRepository->findBy(['case' => $case, 'softDeleted' => false]);
 
@@ -281,6 +281,11 @@ class PartyHelper
             $complainants[$relation->getParty()->getName().', '.$relation->getType()] = $relation->getParty();
         }
 
+        // Sort alphabetically
+        if (count($complainants) > 1) {
+            uasort($complainants, static fn ($a, $b) => strcmp($a->getName(), $b->getName()));
+        }
+
         $counterpartyRelations = $this->relationRepository
             ->findBy([
                 'case' => $case,
@@ -292,6 +297,11 @@ class PartyHelper
         $counterparties = [];
         foreach ($counterpartyRelations as $relation) {
             $counterparties[$relation->getParty()->getName().', '.$relation->getType()] = $relation->getParty();
+        }
+
+        // Sort alphabetically
+        if (count($counterparties) > 1) {
+            uasort($counterparties, static fn ($a, $b) => strcmp($a->getName(), $b->getName()));
         }
 
         return [$this->translator->trans('Complainants', [], 'case') => $complainants, $this->translator->trans('Counterparties', [], 'case') => $counterparties];

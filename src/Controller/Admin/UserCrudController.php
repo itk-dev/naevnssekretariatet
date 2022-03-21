@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Repository\MunicipalityRepository;
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -15,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserCrudController extends AbstractCrudController
 {
-    public function __construct(private TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator, private MunicipalityRepository $municipalityRepository)
     {
     }
 
@@ -49,7 +51,11 @@ class UserCrudController extends AbstractCrudController
             ->setFormTypeOptions(['disabled' => true])
         ;
         yield TextField::new('initials', 'Initials');
-        yield AssociationField::new('favoriteMunicipality', 'Favorite municipality');
+        yield AssociationField::new('favoriteMunicipality', 'Favorite municipality')
+            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
+                return $queryBuilder->orderBy('entity.name', 'ASC');
+            })
+        ;
         yield TextareaField::new('shortcuts', 'Shortcuts')
             ->setHelp($this->translator->trans("List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).", [], 'admin'))
         ;

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\ComplaintCategory;
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -34,9 +35,15 @@ class ComplaintCategoryCrudController extends AbstractCrudController
             ->setRequired(true)
         ;
         yield AssociationField::new('board', 'Board')
+            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
+                return $queryBuilder->orderBy('entity.name', 'ASC');
+            })
             ->setRequired(true)
         ;
         yield AssociationField::new('municipality', 'Municipality')
+            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
+                return $queryBuilder->orderBy('entity.name', 'ASC');
+            })
             ->setRequired(true)
         ;
     }

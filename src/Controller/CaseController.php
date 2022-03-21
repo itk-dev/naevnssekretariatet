@@ -70,7 +70,7 @@ class CaseController extends AbstractController
         }
 
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
-        $municipalities = $municipalityRepository->findAll();
+        $municipalities = $municipalityRepository->findBy([], ['name' => 'ASC']);
 
         $municipalityForm = $this->createForm(MunicipalitySelectorType::class, null, [
             'municipalities' => $municipalities,
@@ -136,7 +136,11 @@ class CaseController extends AbstractController
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
+            10 /*limit per page*/,
+            [
+                'defaultSortFieldName' => 'c.caseNumber',
+                'defaultSortDirection' => 'ASC',
+            ]
         );
 
         $pagination->setCustomParameters(['align' => 'center']);

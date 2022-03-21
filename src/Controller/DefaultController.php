@@ -38,7 +38,7 @@ class DefaultController extends AbstractController
 
         // Find chosen municipality or choose one
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
-        $municipalities = $municipalityRepository->findAll();
+        $municipalities = $municipalityRepository->findBy([], ['name' => 'ASC']);
 
         // Show reminders accordingly to chosen municipality
         $upcomingReminders = $reminderHelper->getRemindersWithinWeekByUserAndMunicipalityGroupedByDay($user, $activeMunicipality);
@@ -49,7 +49,7 @@ class DefaultController extends AbstractController
         $unassignedCases = $caseRepository->findBy([
             'assignedTo' => null,
             'municipality' => $activeMunicipality,
-        ]);
+        ], ['caseNumber' => 'ASC']);
 
         $municipalityForm = $this->createForm(MunicipalitySelectorType::class, null, [
             'municipalities' => $municipalities,

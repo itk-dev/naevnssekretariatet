@@ -7,6 +7,7 @@ use App\Entity\ComplaintCategory;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Form\Embeddable\AddressLookupType;
 use App\Form\Embeddable\IdentificationType;
+use App\Repository\ComplaintCategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -21,11 +22,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ResidentComplaintBoardCaseType extends AbstractType
 {
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator, private ComplaintCategoryRepository $categoryRepository)
     {
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -74,7 +72,7 @@ class ResidentComplaintBoardCaseType extends AbstractType
             ])
             ->add('complaintCategory', EntityType::class, [
                 'class' => ComplaintCategory::class,
-                'choices' => $board->getComplaintCategories(),
+                'choices' => $this->categoryRepository->findBy(['board' => $board], ['name' => 'ASC']),
                 'label' => $this->translator->trans('Complaint category', [], 'case'),
                 'placeholder' => $this->translator->trans('Select a complaint category', [], 'case'),
             ])
