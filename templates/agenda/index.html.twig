@@ -9,11 +9,6 @@
         <div class="col">
             <h1>{% trans %}Agendas{% endtrans %}</h1>
         </div>
-        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-            <div class="col-auto">
-                <a class="btn btn-success" href="create" role="button">{% trans %}Create agenda{% endtrans %}</a>
-            </div>
-        {% endif %}
     </div>
     <div class="row">
         <div class="col-3">
