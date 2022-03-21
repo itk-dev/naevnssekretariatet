@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\Repository\MunicipalityRepository;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -17,7 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserCrudController extends AbstractCrudController
 {
-    public function __construct(private TranslatorInterface $translator, private MunicipalityRepository $municipalityRepository)
+    public function __construct(private TranslatorInterface $translator)
     {
     }
 

@@ -282,9 +282,7 @@ class PartyHelper
         }
 
         // Sort alphabetically
-        if (count($complainants) > 1) {
-            uasort($complainants, static fn ($a, $b) => strcmp($a->getName(), $b->getName()));
-        }
+        uasort($complainants, static fn ($a, $b) => $a->getName() <=> $b->getName());
 
         $counterpartyRelations = $this->relationRepository
             ->findBy([
@@ -300,9 +298,7 @@ class PartyHelper
         }
 
         // Sort alphabetically
-        if (count($counterparties) > 1) {
-            uasort($counterparties, static fn ($a, $b) => strcmp($a->getName(), $b->getName()));
-        }
+        uasort($counterparties, static fn ($a, $b) => $a->getName() <=> $b->getName());
 
         return [$this->translator->trans('Complainants', [], 'case') => $complainants, $this->translator->trans('Counterparties', [], 'case') => $counterparties];
     }
