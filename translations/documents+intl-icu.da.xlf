@@ -103,7 +103,7 @@
       </trans-unit>
       <trans-unit id="Yw8ueOH" resname="Edit document">
         <source>Edit document</source>
-        <target state="needs-l10n">Rediger dokument</target>
+        <target state="translated">Rediger dokument</target>
       </trans-unit>
     </body>
   </file>
