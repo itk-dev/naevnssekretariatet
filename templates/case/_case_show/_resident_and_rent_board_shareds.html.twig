@@ -124,7 +124,7 @@
                     {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-link" data-referer-query-name="referer" href="{{ path('case_bbr_meddelelse', {id: case.id, addressProperty: 'leaseAddress'}) }}">{% trans %}Show BBR-Meddelelse for lease (PDF){% endtrans %}</a>
+                                <a class="btn btn-link external" target="_blank" data-referer-query-name="referer" href="{{ path('case_bbr_meddelelse', {id: case.id, addressProperty: 'leaseAddress'}) }}">{% trans %}Show BBR-Meddelelse for lease (PDF){% endtrans %}</a>
                             </div>
                             <div class="col text-right">
                                 <form data-referer-query-name="referer" class="btn" method="post" action="{{ path('case_bbr_data_update', {id: case.id, addressProperty: 'leaseAddress'}) }}">
