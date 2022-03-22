@@ -89,7 +89,7 @@
                         <td>{{ case.complaintCategory.name|e }}</td>
                         <td>{{ case.currentPlace|e }}</td>
                         {# Todo: Replace with correct deadline when it is decided which one is the correct one #}
-                        <td>{{ case.createdAt|date('d/m/Y') }}</td>
+                        <td>{{ case.createdAt|date(format_date) }}</td>
                         <td>{{ case.sortingAddress|e }}</td>
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                             <td>{{ case.sortingComplainant|e }}</td>

@@ -29,7 +29,7 @@
         <tbody>
         {% for decision in decisions %}
             <tr>
-                <td>{{ decision.createdAt ? decision.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ decision.createdAt ? decision.createdAt|date(format_datetime) : '' }}</td>
                 <td>{{ decision.document.documentName }}</td>
                 <td class="number">{{ decision.attachments|length }}</td>
                 <td>
