@@ -117,6 +117,30 @@ class DocumentController extends AbstractController
     }
 
     /**
+     * @Route("/edit/{document}", name="document_edit", methods={"GET", "POST"})
+     *
+     * @throws FileMovingException
+     * @throws DocumentDirectoryException
+     */
+    public function edit(CaseEntity $case, Document $document, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $case);
+        $form = $this->createForm(DocumentType::class, $document);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('document_index', ['id' => $case->getId()]);
+        }
+
+        return $this->render('documents/edit.html.twig', [
+            'case' => $case,
+            'document_form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{document_id}", name="document_delete", methods={"DELETE"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
