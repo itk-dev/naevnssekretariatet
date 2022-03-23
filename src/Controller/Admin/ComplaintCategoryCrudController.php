@@ -44,8 +44,5 @@ class ComplaintCategoryCrudController extends AbstractCrudController
                 return implode(', ', $boards->getValues());
             })
         ;
-        yield AssociationField::new('municipality', 'Municipality')
-            ->setRequired(true)
-        ;
     }
 }

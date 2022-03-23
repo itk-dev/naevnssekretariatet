@@ -32,12 +32,6 @@ class ComplaintCategory implements LoggableEntityInterface
     private $fee;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="complaintCategories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $municipality;
-
-    /**
      * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="complaintCategory")
      */
     private $caseEntities;
@@ -79,18 +73,6 @@ class ComplaintCategory implements LoggableEntityInterface
     public function setFee(?float $fee): self
     {
         $this->fee = $fee;
-
-        return $this;
-    }
-
-    public function getMunicipality(): ?Municipality
-    {
-        return $this->municipality;
-    }
-
-    public function setMunicipality(?Municipality $municipality): self
-    {
-        $this->municipality = $municipality;
 
         return $this;
     }
