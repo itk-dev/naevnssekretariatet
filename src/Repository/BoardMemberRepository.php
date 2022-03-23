@@ -69,6 +69,6 @@ class BoardMemberRepository extends ServiceEntityRepository
             ->orderBy('bm.name', 'ASC')
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }
