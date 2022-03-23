@@ -9,9 +9,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BoardMemberCrudController extends AbstractCrudController
 {
+    public function __construct(private TranslatorInterface $translator)
+    {
+    }
+
     public static function getEntityFqcn(): string
     {
         return BoardMember::class;
@@ -49,6 +54,7 @@ class BoardMemberCrudController extends AbstractCrudController
 
                 return implode(', ', $roles->getValues());
             })
+            ->setHelp($this->translator->trans('Remember that a boardmember may only have one role per board. ', [], 'admin'))
         ;
     }
 }

@@ -105,6 +105,14 @@
         <source>Edit document</source>
         <target state="translated">Rediger dokument</target>
       </trans-unit>
+      <trans-unit id="SLrmA2F" resname="Select document type">
+        <source>Select document type</source>
+        <target state="needs-l10n">Vælg en dokumenttype</target>
+      </trans-unit>
+      <trans-unit id="Oi.B2NK" resname="Update document">
+        <source>Update document</source>
+        <target state="needs-l10n">Opdater dokument</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
