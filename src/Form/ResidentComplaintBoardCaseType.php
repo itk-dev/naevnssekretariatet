@@ -61,9 +61,18 @@ class ResidentComplaintBoardCaseType extends AbstractType
                 'lookup-placeholder' => $this->translator->trans('Look up complainant address', [], 'case'),
                 'lookup-help' => $this->translator->trans('Look up an address to fill out the address fields', [], 'case'),
             ])
-            ->add('hasVacated', CheckboxType::class, [
+            ->add('hasVacated', ChoiceType::class, [
+                'choices' => [
+                    $this->translator->trans('Yes', [], 'case') => true,
+                    $this->translator->trans('No', [], 'case') => false,
+                ],
                 'label' => $this->translator->trans('Has vacated', [], 'case'),
-                'required' => false,
+            ])
+            ->add('copyAddress', ButtonType::class, [
+                'label' => $this->translator->trans('Copy above address', [], 'case'),
+                'attr' => [
+                    'class' => 'btn-primary btn',
+                ],
             ])
             ->add('leaseAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Lease address', [], 'case'),

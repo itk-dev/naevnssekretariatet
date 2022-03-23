@@ -1253,6 +1253,10 @@
         <source>Case data not match CVR register data</source>
         <target>Case data not match CVR register data</target>
       </trans-unit>
+      <trans-unit id="xXzCkfm" resname="Copy above address">
+        <source>Copy above address</source>
+        <target>Copy above address</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

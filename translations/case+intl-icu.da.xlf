@@ -1247,11 +1247,15 @@
       </trans-unit>
       <trans-unit id="Y1M23kg" resname="CVR not found">
         <source>CVR not found</source>
-        <target state="needs-l10n">CVR nummer ikke fundet</target>
+        <target state="translated">CVR nummer ikke fundet</target>
       </trans-unit>
       <trans-unit id="o1.7I6V" resname="Case data not match CVR register data">
         <source>Case data not match CVR register data</source>
-        <target state="needs-l10n">Sags data stemmer ikke overens med CVR register</target>
+        <target state="translated">Sags data stemmer ikke overens med CVR register</target>
+      </trans-unit>
+      <trans-unit id="xXzCkfm" resname="Copy above address">
+        <source>Copy above address</source>
+        <target state="translated">Kopier overstående adresse til lejemål</target>
       </trans-unit>
     </body>
   </file>
