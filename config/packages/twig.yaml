@@ -6,7 +6,7 @@ twig:
         format_time: 'H:i'
         format_datetime: 'd/m/Y H:i'
         format_weekday: 'l'
-    form_themes: ['bootstrap_4_layout.html.twig']
+    form_themes: ['bootstrap_4_layout.html.twig', 'form/theme.html.twig']
 
     date:
       format: 'd/m/Y H:i'

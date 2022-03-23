@@ -1,0 +1,46 @@
+{# @see https://symfony.com/doc/current/form/form_themes.html#reusing-parts-of-a-built-in-form-theme #}
+{% use 'bootstrap_4_layout.html.twig' %}
+
+{% block form_widget_compound %}
+    {% if class(value) == 'Address' %}
+        <div {{ block('widget_container_attributes') }}>
+            <div class="form-row">
+                <div class="col-md-6">
+                    {{ form_row(form.street) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.number) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.floor) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.side) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2">
+                    {{ form_row(form.postalCode) }}
+                </div>
+                <div class="col-md-10">
+                    {{ form_row(form.city) }}
+                </div>
+            </div>
+            {{ form_rest(form) }}
+        </div>
+    {% elseif class(value) == 'Identification' %}
+        <div {{ block('widget_container_attributes') }}>
+            <div class="form-row">
+                <div class="col-md-2">
+                    {{ form_row(form.type) }}
+                </div>
+                <div class="col-md-10">
+                    {{ form_row(form.identifier) }}
+                </div>
+            </div>
+            {{ form_rest(form) }}
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

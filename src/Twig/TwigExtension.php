@@ -31,9 +31,9 @@ class TwigExtension extends AbstractExtension
         return $result;
     }
 
-    public function getClass($object): string
+    public function getClass($object): ?string
     {
-        return (new \ReflectionClass($object))->getShortName();
+        return is_object($object) ? (new \ReflectionClass($object))->getShortName() : null;
     }
 
     public function withUnit(string $formattedNumber, string $unit): string
