@@ -49,12 +49,6 @@ class BoardMemberCrudController extends AbstractCrudController
                 return implode(', ', $boards->getValues());
             })
         ;
-        yield AssociationField::new('municipality', 'Municipality')
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                return $queryBuilder->orderBy('entity.name', 'ASC');
-            })
-            ->setRequired(true)
-        ;
         yield AssociationField::new('boardRoles', 'BoardRole')
             ->setFormTypeOptions([
                 'by_reference' => false,
