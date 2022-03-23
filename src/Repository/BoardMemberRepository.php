@@ -61,13 +61,14 @@ class BoardMemberRepository extends ServiceEntityRepository
     public function getAvailableBoardMembersByAgenda(Agenda $agenda): array
     {
         return $this->createQueryBuilder('bm')
-            ->where(':board MEMBER OF bm.boards')
+            ->join('bm.boardRoles', 'br')
+            ->where('br.board = :board')
             ->setParameter('board', $agenda->getBoard()->getId()->toBinary())
             ->andWhere(':agenda NOT MEMBER OF bm.agendas')
             ->setParameter('agenda', $agenda->getId()->toBinary())
             ->orderBy('bm.name', 'ASC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
 }

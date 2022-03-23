@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Board;
 use App\Entity\BoardMember;
 use App\Entity\BoardRole;
 use Doctrine\ORM\QueryBuilder;
@@ -35,19 +34,6 @@ class BoardMemberCrudController extends AbstractCrudController
         yield TextField::new('cpr', 'CPR')
             // Hide the CPR a bit.
             ->onlyOnForms()
-        ;
-        yield AssociationField::new('boards', 'Board')
-            ->setRequired(true)
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                return $queryBuilder->orderBy('entity.name', 'ASC');
-            })
-            ->formatValue(function ($value, BoardMember $member) {
-                $boards = $member->getBoards()->map(function (Board $board) {
-                    return $board->__toString();
-                });
-
-                return implode(', ', $boards->getValues());
-            })
         ;
         yield AssociationField::new('boardRoles', 'BoardRole')
             ->setFormTypeOptions([
