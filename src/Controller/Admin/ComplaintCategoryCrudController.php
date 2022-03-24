@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\Board;
 use App\Entity\ComplaintCategory;
-use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
