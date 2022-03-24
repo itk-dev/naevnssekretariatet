@@ -9,11 +9,6 @@
         <div class="col">
             <h1>{% trans %}Agendas{% endtrans %}</h1>
         </div>
-        {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-            <div class="col-auto">
-                <a class="btn btn-success" href="create" role="button">{% trans %}Create agenda{% endtrans %}</a>
-            </div>
-        {% endif %}
     </div>
     <div class="row">
         <div class="col-3">
@@ -70,9 +65,9 @@
                 {% for agenda in pagination %}
                     <tr>
                         <td>{{ agenda.board|e }}</td>
-                        <td>{{ agenda.date is empty ? "" : agenda.date|date('j F Y') }}</td>
-                        <td>{{ agenda.start is empty ? "" : agenda.start|date('H:i') }}</td>
-                        <td>{{ agenda.end is empty ? "" : agenda.end|date('H:i') }}</td>
+                        <td>{{ agenda.date is empty ? "" : agenda.date|date(format_date) }}</td>
+                        <td>{{ agenda.start is empty ? "" : agenda.start|date(format_time) }}</td>
+                        <td>{{ agenda.end is empty ? "" : agenda.end|date(format_time) }}</td>
                         <td>{{ agenda.status|trans({}, 'agenda_status') }}</td>
                         <td class="text-right">
                             <!-- Show button -->

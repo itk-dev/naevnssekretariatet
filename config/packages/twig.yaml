@@ -2,4 +2,12 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         site_name: '%site_name%'
+        format_date: 'd/m/Y'
+        format_time: 'H:i'
+        format_datetime: 'd/m/Y H:i'
+        format_weekday: 'l'
     form_themes: ['bootstrap_4_layout.html.twig']
+
+    date:
+      format: 'd/m/Y H:i'
+      timezone: Europe/Copenhagen

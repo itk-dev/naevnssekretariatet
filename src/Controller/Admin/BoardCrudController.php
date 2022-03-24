@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Board;
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -55,7 +56,11 @@ class BoardCrudController extends AbstractCrudController
     {
         yield TextField::new('name', 'Name');
 
-        yield AssociationField::new('municipality', 'Municipality');
+        yield AssociationField::new('municipality', 'Municipality')
+            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
+                return $queryBuilder->orderBy('entity.name', 'ASC');
+            })
+        ;
 
         yield ChoiceField::new('caseFormType', 'Case Form Type')
             ->setChoices([

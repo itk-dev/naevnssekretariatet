@@ -49,6 +49,7 @@
                 <h2>{% trans %}Deadlines{% endtrans %}</h2>
                 <p>{% trans %}In the section Deadlines you can see the currently active deadlines{% endtrans %}</p>
                 <div class="table-responsive">
+                    {% set today = date("today") %}
                     <table class="table table-striped">
                         <thead class="thead-inverse">
                         <tr>
@@ -57,23 +58,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Parthøringstidsfrist</td>
-                            <td>01.07.2020, 14 dage tilbage. <a class="btn btn-primary float-right" href="#reschedule-deadline" role="button" data-toggle="modal" data-target="#rescheduleDeadline"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a></td>
-                        </tr>
+                        {# TODO: Awaiting more implementation of hearing #}
+{#                        <tr>#}
+{#                            <td>Parthøringstidsfrist</td>#}
+{#                            <td>01.07.2020, 14 dage tilbage. <a class="btn btn-primary float-right" href="#reschedule-deadline" role="button" data-toggle="modal" data-target="#rescheduleDeadline"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a></td>#}
+{#                        </tr>#}
                         <tr>
                             <td>{% trans %}Finish hearing deadline{% endtrans %}</td>
-                            {% set finished_hearing_difference = date("today"|date).diff(case.finishHearingDeadline) %}
+                            {% set finished_hearing_difference = today.diff(case.finishHearingDeadline) %}
                             <td>
-                                {{ case.finishHearingDeadline|date('d/m/Y') }}, {{ finished_hearing_difference.days|e }} {{ finished_hearing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
+                                {{ case.finishHearingDeadline|date(format_date) }}, {{ finished_hearing_difference.days|e }} {{ finished_hearing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
                                 <a class="btn btn-primary float-right" href="" role="button" data-toggle="modal" data-target="#reschedule_finish_hearing_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                             </td>
                         </tr>
                         <tr>
                             <td>{% trans %}Case finish processing deadline{% endtrans %}</td>
-                            {% set finished_processing_difference = date("today"|date).diff(case.finishProcessingDeadline) %}
+                            {% set finished_processing_difference = today.diff(case.finishProcessingDeadline) %}
                             <td>
-                                {{ case.finishProcessingDeadline|date('d/m/Y') }}, {{ finished_processing_difference.days|e }} {{ finished_processing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
+                                {{ case.finishProcessingDeadline|date(format_date) }}, {{ finished_processing_difference.days|e }} {{ finished_processing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
                                 <a class="btn btn-primary float-right" href="" role="button" data-toggle="modal" data-target="#reschedule_finish_process_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                             </td>
                         </tr>
@@ -129,9 +131,9 @@
                                         <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
                                     {% endif %}
                                 </td>
-                                <td>{{ active_agenda.agenda.date|date('j M Y') }}</td>
-                                <td>{{ active_agenda.agenda.start|date('H:i') }}</td>
-                                <td>{{ active_agenda.agenda.end|date('H:i') }}</td>
+                                <td>{{ active_agenda.agenda.date|date(format_date) }}</td>
+                                <td>{{ active_agenda.agenda.start|date(format_time) }}</td>
+                                <td>{{ active_agenda.agenda.end|date(format_time) }}</td>
                                 <td>{{ active_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
                                 <td class="text-right">
                                     <a href="{{ url('agenda_show', {id: active_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
@@ -168,9 +170,9 @@
                                         <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
                                     {% endif %}
                                 </td>
-                                <td>{{ finished_agenda.agenda.date|date('j M Y') }}</td>
-                                <td>{{ finished_agenda.agenda.start|date('H:i') }}</td>
-                                <td>{{ finished_agenda.agenda.end|date('H:i') }}</td>
+                                <td>{{ finished_agenda.agenda.date|date(format_date) }}</td>
+                                <td>{{ finished_agenda.agenda.start|date(format_time) }}</td>
+                                <td>{{ finished_agenda.agenda.end|date(format_time) }}</td>
                                 <td>{{ finished_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
                                 <td class="text-right">
                                     <a href="{{ url('agenda_show', {id: finished_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>

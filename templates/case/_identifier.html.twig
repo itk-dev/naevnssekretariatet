@@ -9,7 +9,7 @@
 <div class="form-group col-md-3">
     <label class="invisible">{% trans %}Validate{% endtrans %}</label>
     {% if id.validatedAt %}
-        <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Identification validated at {validation_time}'|trans({'validation_time': id.validatedAt|date}) }}"><i class="fas fa-check-circle"></i> {% trans %}Identifier validated{% endtrans %}</span>
+        <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Identification validated at {validation_time}'|trans({'validation_time': id.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans %}Identifier validated{% endtrans %}</span>
     {% else %}
         {{ render(controller('App\\Controller\\CaseController:validateIdentifier', {id: case.id, idProperty: id_property, addressProperty: address_property, nameProperty: name_property})) }}
     {% endif %}

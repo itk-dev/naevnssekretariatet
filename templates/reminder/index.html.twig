@@ -33,7 +33,7 @@
                         <td>{{ reminder.caseEntity.caseNumber|e }}</td>
                         <td>{{ reminder.caseEntity.municipality.name|e }}</td>
                         <td>{{ reminder.status|trans({}, 'reminder') }}</td>
-                        <td>{{ reminder.date|date('j F Y') }}</td>
+                        <td>{{ reminder.date|date(format_date) }}</td>
                         <td>{{ reminder.content|e }}</td>
                         <td>
                             <!-- Complete button -->

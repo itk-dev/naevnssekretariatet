@@ -127,7 +127,7 @@
       </trans-unit>
       <trans-unit id="10nq6fg" resname="Complainant address">
         <source>Complainant address</source>
-        <target>Klagers adresse</target>
+        <target>Adresse</target>
       </trans-unit>
       <trans-unit id="A8h1npn" resname="Hearing">
         <source>Hearing</source>
@@ -215,7 +215,7 @@
       </trans-unit>
       <trans-unit id="MAUEDTa" resname="Telephone number">
         <source>Telephone number</source>
-        <target>Klagers telefonnummer</target>
+        <target>Telefonnummer</target>
       </trans-unit>
       <trans-unit id="oi4LH8P" resname="Road">
         <source>Road</source>
@@ -299,7 +299,7 @@
       </trans-unit>
       <trans-unit id="Uz3lvy0" resname="This information is needed for journaling purpose">
         <source>This information is needed for journaling purpose</source>
-        <target>Denne information skal bruges i forbindelse med jorunalisering</target>
+        <target>Denne information skal bruges i forbindelse med journalisering</target>
       </trans-unit>
       <trans-unit id="SBbL.XS" resname="Board">
         <source>Board</source>
@@ -495,7 +495,7 @@
       </trans-unit>
       <trans-unit id="j1Jgg.v" resname="Complainant phone">
         <source>Complainant phone</source>
-        <target>Klagers telefonnummer</target>
+        <target>Telefonnummer</target>
       </trans-unit>
       <trans-unit id="Xzo8ESE" resname="Select a complaint category">
         <source>Select a complaint category</source>
@@ -507,7 +507,7 @@
       </trans-unit>
       <trans-unit id="sFKfeQz" resname="Complainant cadastral number">
         <source>Complainant cadastral number</source>
-        <target>Klagers matr.nr.</target>
+        <target>Matr.nr.</target>
       </trans-unit>
       <trans-unit id="UcF5Wrz" resname="Accused">
         <source>Accused</source>
@@ -595,7 +595,7 @@
       </trans-unit>
       <trans-unit id="f6wAbuN" resname="Complainant name">
         <source>Complainant name</source>
-        <target>Klagers navn</target>
+        <target>Navn</target>
       </trans-unit>
       <trans-unit id="jzfGRUD" resname="Case specifics">
         <source>Case specifics</source>
@@ -767,7 +767,7 @@
       </trans-unit>
       <trans-unit id="xGEOv7m" resname="Look up complainant address">
         <source>Look up complainant address</source>
-        <target>Fremsøg klagers adresse</target>
+        <target>Fremsøg adresse</target>
       </trans-unit>
       <trans-unit id="bpOcnZE" resname="Look up an address to fill out the address fields">
         <source>Look up an address to fill out the address fields</source>
@@ -1247,11 +1247,15 @@
       </trans-unit>
       <trans-unit id="Y1M23kg" resname="CVR not found">
         <source>CVR not found</source>
-        <target state="needs-l10n">CVR nummer ikke fundet</target>
+        <target state="translated">CVR nummer ikke fundet</target>
       </trans-unit>
       <trans-unit id="o1.7I6V" resname="Case data not match CVR register data">
         <source>Case data not match CVR register data</source>
-        <target state="needs-l10n">Sags data stemmer ikke overens med CVR register</target>
+        <target state="translated">Sags data stemmer ikke overens med CVR register</target>
+      </trans-unit>
+      <trans-unit id="xXzCkfm" resname="Copy above address">
+        <source>Copy above address</source>
+        <target state="translated">Kopier overstående adresse til lejemål</target>
       </trans-unit>
     </body>
   </file>

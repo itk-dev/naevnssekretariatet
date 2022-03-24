@@ -11,7 +11,7 @@
       </trans-unit>
       <trans-unit id="OAs1gv3" resname="Document name">
         <source>Document name</source>
-        <target>Dokument navn</target>
+        <target>Dokumentnavn</target>
       </trans-unit>
       <trans-unit id="W4H3DVm" resname="Document type">
         <source>Document type</source>
@@ -100,6 +100,10 @@
       <trans-unit id="nyq6vU9" resname="Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
         <source>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
         <target state="translated">Upload en eller flere filer. Maks. filstørrelse: {size}. Accepterede filformater: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
+      </trans-unit>
+      <trans-unit id="Yw8ueOH" resname="Edit document">
+        <source>Edit document</source>
+        <target state="translated">Rediger dokument</target>
       </trans-unit>
     </body>
   </file>

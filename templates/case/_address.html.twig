@@ -35,7 +35,7 @@
                 <div class="form-group col-md-6">
                     <label class="invisible">{% trans %}Validate{% endtrans %}</label>
                     {% if address.validatedAt %}
-                        <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Address validated at {validation_time}'|trans({'validation_time': address.validatedAt|date}) }}"><i class="fas fa-check-circle"></i> {% trans %}Address validated{% endtrans %}</span>
+                        <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Address validated at {validation_time}'|trans({'validation_time': address.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans %}Address validated{% endtrans %}</span>
                     {% else %}
                         {# Render ajax form #}
                         {{ render(controller('App\\Controller\\CaseController:validateAddress', {id: case.id, addressProperty: address_property})) }}
