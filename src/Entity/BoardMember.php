@@ -37,17 +37,6 @@ class BoardMember
     private $agendas;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Board::class, inversedBy="boardMembers")
-     */
-    private $boards;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="boardMembers")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $municipality;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $cpr;
@@ -57,7 +46,6 @@ class BoardMember
         $this->id = Uuid::v4();
         $this->boardRoles = new ArrayCollection();
         $this->agendas = new ArrayCollection();
-        $this->boards = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -134,42 +122,6 @@ class BoardMember
     public function __toString()
     {
         return $this->name;
-    }
-
-    /**
-     * @return Collection|Board[]
-     */
-    public function getBoards(): Collection
-    {
-        return $this->boards;
-    }
-
-    public function addBoard(Board $board): self
-    {
-        if (!$this->boards->contains($board)) {
-            $this->boards[] = $board;
-        }
-
-        return $this;
-    }
-
-    public function removeBoard(Board $board): self
-    {
-        $this->boards->removeElement($board);
-
-        return $this;
-    }
-
-    public function getMunicipality(): ?Municipality
-    {
-        return $this->municipality;
-    }
-
-    public function setMunicipality(?Municipality $municipality): self
-    {
-        $this->municipality = $municipality;
-
-        return $this;
     }
 
     public function getCpr(): ?string

@@ -297,6 +297,10 @@
         <source>Deleted cases</source>
         <target>Deleted cases</target>
       </trans-unit>
+      <trans-unit id="HEZy6.j" resname="Remember that a boardmember may only have one role per board. ">
+        <source>Remember that a boardmember may only have one role per board. </source>
+        <target>Remember that a boardmember may only have one role per board. </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

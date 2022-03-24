@@ -109,6 +109,14 @@
         <source>Edit document</source>
         <target>Edit document</target>
       </trans-unit>
+      <trans-unit id="SLrmA2F" resname="Select document type">
+        <source>Select document type</source>
+        <target>Select document type</target>
+      </trans-unit>
+      <trans-unit id="Oi.B2NK" resname="Update document">
+        <source>Update document</source>
+        <target>Update document</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
