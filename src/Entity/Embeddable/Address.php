@@ -60,7 +60,7 @@ class Address implements LoggableEntityInterface
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private $extraAddressInformation;
+    private $extraInformation;
 
     public function getStreet(): string
     {
@@ -180,14 +180,14 @@ class Address implements LoggableEntityInterface
         return $address;
     }
 
-    public function getExtraAddressInformation(): ?string
+    public function getExtraInformation(): ?string
     {
-        return $this->extraAddressInformation;
+        return $this->extraInformation;
     }
 
-    public function setExtraAddressInformation(?string $extraAddressInformation): self
+    public function setExtraInformation(?string $extraInformation): self
     {
-        $this->extraAddressInformation = $extraAddressInformation;
+        $this->extraInformation = $extraInformation;
 
         return $this;
     }
