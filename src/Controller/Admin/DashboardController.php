@@ -84,7 +84,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureUserMenu(UserInterface $user): UserMenu
     {
-        // See AbstractDashboardController configureUserMenu method, here without unnecessary features such as logout removed
+        // See AbstractDashboardController configureUserMenu method, here with unnecessary features such as logout removed
         return UserMenu::new()
             ->displayUserName()
             ->setName($user->getName())
