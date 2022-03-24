@@ -119,6 +119,12 @@ class ResidentComplaintBoardCaseType extends AbstractType
                 'label' => $this->translator->trans('Lease regulated rent', [], 'case'),
                 'required' => false,
             ])
+            ->add('leaseRegulatedAt', DateType::class, [
+                'widget' => 'single_text',
+                'input_format' => 'dd-MM-yyyy',
+                'label' => $this->translator->trans('Lease regulated at', [], 'case'),
+                'required' => false,
+            ])
             ->add('leaseRentAtCollectionTime', IntegerType::class, [
                 'label' => $this->translator->trans('Lease rent at collection time', [], 'case'),
                 'required' => false,
