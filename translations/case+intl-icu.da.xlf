@@ -1265,6 +1265,10 @@
         <source>Create party</source>
         <target state="translated">Opret part</target>
       </trans-unit>
+      <trans-unit id="EE6DD9s" resname="Extra complaint category information">
+        <source>Extra complaint category information</source>
+        <target state="translated">Ekstra klagetype information</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

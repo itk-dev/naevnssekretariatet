@@ -189,6 +189,11 @@ abstract class CaseEntity
      */
     private $removalReason;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $extraComplaintCategoryInformation;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -659,4 +664,16 @@ abstract class CaseEntity
      * ]
      */
     abstract public function getIdentificationInvalidationProperties(): array;
+
+    public function getExtraComplaintCategoryInformation(): ?string
+    {
+        return $this->extraComplaintCategoryInformation;
+    }
+
+    public function setExtraComplaintCategoryInformation(?string $extraComplaintCategoryInformation): self
+    {
+        $this->extraComplaintCategoryInformation = $extraComplaintCategoryInformation;
+
+        return $this;
+    }
 }
