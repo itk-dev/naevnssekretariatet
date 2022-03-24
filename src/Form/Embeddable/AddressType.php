@@ -49,6 +49,10 @@ class AddressType extends AbstractType
             ->add('city', TextType::class, [
                 'label' => $this->translator->trans('City', [], 'address'),
             ])
+            ->add('extraAddressInformation', TextType::class, [
+                'label' => $this->translator->trans('Extra address information', [], 'address'),
+                'required' => false,
+            ])
         ;
     }
 }

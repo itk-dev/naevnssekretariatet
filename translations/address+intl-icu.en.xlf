@@ -29,6 +29,10 @@
         <source>City</source>
         <target>City</target>
       </trans-unit>
+      <trans-unit id=".ZzqKgg" resname="Extra address information">
+        <source>Extra address information</source>
+        <target>Extra address information</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
