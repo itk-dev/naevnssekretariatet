@@ -48,13 +48,25 @@ class MailTemplateController extends AbstractController
     /**
      * @Route("/data/{id}", name="data")
      */
-    public function data(MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper): Response
+    public function data(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper, AdminUrlGenerator $adminUrlGenerator): Response
     {
-        // @todo error handling.
-        $entity = $mailTemplateHelper->getPreviewEntity($mailTemplate);
-        $data = $mailTemplateHelper->getTemplateData($mailTemplate, $entity);
+        try {
+            $entity = $mailTemplateHelper->getPreviewEntity($mailTemplate);
+            $data = $mailTemplateHelper->getTemplateData($mailTemplate, $entity);
 
-        return new JsonResponse($data);
+            return new JsonResponse($data);
+        } catch (MailTemplateException $exception) {
+            $this->addFlash('danger', $exception->getMessage());
+
+            // Redirect to referer or crud controller on error.
+            return $this->redirect(
+                $request->headers->get('referer') ?? $adminUrlGenerator
+                    ->setController(MailTemplateCrudController::class)
+                    ->setAction(Action::DETAIL)
+                    ->setEntityId($mailTemplate->getId())
+                    ->generateUrl()
+            );
+        }
     }
 
     /**

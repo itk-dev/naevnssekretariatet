@@ -82,7 +82,7 @@ class MailTemplateHelper
             }
         }
 
-        throw new \InvalidArgumentException(sprintf('Cannot get preview entity for mail template %s of type %s', $mailTemplate->getName(), $mailTemplate->getType()));
+        throw new MailTemplateException(sprintf('Cannot get preview entity for mail template %s of type %s', $mailTemplate->getName(), $mailTemplate->getType()));
     }
 
     public function getTemplateData(MailTemplate $mailTemplate, $entity, bool $expandMacros = true): array
@@ -101,7 +101,7 @@ class MailTemplateHelper
                     if ($element instanceof Text) {
                         return $element->getText();
                     }
-                    throw new \RuntimeException(sprintf('Unhandled element: %s', get_class($element)));
+                    throw new MailTemplateException(sprintf('Unhandled element: %s', get_class($element)));
                 }, $value->getElements()));
             }
             if ($expandMacros) {
