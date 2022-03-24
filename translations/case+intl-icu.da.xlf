@@ -1233,18 +1233,6 @@
         <source>Identification validated at {validation_time}</source>
         <target state="translated">Id valideret {validation_time}</target>
       </trans-unit>
-      <trans-unit id="H51PvjA" resname="Identifier validated">
-        <source>Identifier validated</source>
-        <target state="translated">Id valideret</target>
-      </trans-unit>
-      <trans-unit id="BaRwwLi" resname="Validate identifier">
-        <source>Validate identifier</source>
-        <target state="translated">Valider id</target>
-      </trans-unit>
-      <trans-unit id="Anx60OS" resname="Validate the legitimacy of the identifier by pressing the validate button">
-        <source>Validate the legitimacy of the identifier by pressing the validate button</source>
-        <target state="translated">Valider id'et ved at klikke på “Valider id”-knappen </target>
-      </trans-unit>
       <trans-unit id="Y1M23kg" resname="CVR not found">
         <source>CVR not found</source>
         <target state="translated">CVR nummer ikke fundet</target>
@@ -1256,6 +1244,22 @@
       <trans-unit id="xXzCkfm" resname="Copy above address">
         <source>Copy above address</source>
         <target state="translated">Kopier overstående adresse til lejemål</target>
+      </trans-unit>
+      <trans-unit id="7BMIb4L" resname="Identifier ({type})">
+        <source>Identifier ({type})</source>
+        <target state="translated">{type}-nummer</target>
+      </trans-unit>
+      <trans-unit id="xLUTsvV" resname="Identifier ({type}) validated">
+        <source>Identifier ({type}) validated</source>
+        <target state="translated">{type}-nummer valideret</target>
+      </trans-unit>
+      <trans-unit id="0f4rwML" resname="Validate identifier ({type})">
+        <source>Validate identifier ({type})</source>
+        <target state="translated">Valider {type}-nummer</target>
+      </trans-unit>
+      <trans-unit id="144hTBg" resname="Validate the legitimacy of the identifier by pressing the Validate identifier ({type}) button">
+        <source>Validate the legitimacy of the identifier by pressing the Validate identifier ({type}) button</source>
+        <target state="translated">Valider {type}-nummeret ved at klikke på “Valider {type}-nummer”-knappen</target>
       </trans-unit>
     </body>
   </file>

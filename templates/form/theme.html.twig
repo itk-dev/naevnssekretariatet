@@ -30,13 +30,12 @@
         </div>
     {% elseif class(value) == 'Identification' %}
         <div {{ block('widget_container_attributes') }}>
-            <div class="form-row">
-                <div class="col-md-2">
-                    {{ form_row(form.type) }}
+            {{ form_label(form.identifier) }}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    {{ form_widget(form.type) }}
                 </div>
-                <div class="col-md-10">
-                    {{ form_row(form.identifier) }}
-                </div>
+                {{ form_widget(form.identifier) }}
             </div>
             {{ form_rest(form) }}
         </div>
