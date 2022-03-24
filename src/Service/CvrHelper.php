@@ -129,7 +129,7 @@ class CvrHelper
         $cvrIdentificationRelevantData = $this->collectRelevantData($cvrDataArray);
 
         if ($caseIdentificationRelevantData != $cvrIdentificationRelevantData) {
-            throw new CvrException($this->translator->trans('Case data not match CVR register data', [], 'case'));
+            throw new CvrException($this->translator->trans('Case data not match CVR data', [], 'case'));
         }
 
         $id->setValidatedAt(new \DateTime('now'));

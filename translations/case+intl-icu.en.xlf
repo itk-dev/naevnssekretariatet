@@ -1213,9 +1213,9 @@
         <source>PNR not found</source>
         <target>PNR not found</target>
       </trans-unit>
-      <trans-unit id="VpgqnWg" resname="Case data not match CPR register data">
-        <source>Case data not match CPR register data</source>
-        <target>Case data not match CPR register data</target>
+      <trans-unit id="VpgqnWg" resname="Case data not match CPR data">
+        <source>Case data not match CPR data</source>
+        <target>Case data not match CPR data</target>
       </trans-unit>
       <trans-unit id="z4DMqxu" resname="Identification validated">
         <source>Identification validated</source>
@@ -1249,9 +1249,9 @@
         <source>CVR not found</source>
         <target>CVR not found</target>
       </trans-unit>
-      <trans-unit id="o1.7I6V" resname="Case data not match CVR register data">
-        <source>Case data not match CVR register data</source>
-        <target>Case data not match CVR register data</target>
+      <trans-unit id="o1.7I6V" resname="Case data not match CVR data">
+        <source>Case data not match CVR data</source>
+        <target>Case data not match CVR data</target>
       </trans-unit>
       <trans-unit id="xXzCkfm" resname="Copy above address">
         <source>Copy above address</source>
