@@ -547,7 +547,7 @@
       </trans-unit>
       <trans-unit id="E0wfEXl" resname="Lease started">
         <source>Lease started</source>
-        <target>Lejemål påbegyndt</target>
+        <target>Lejeforhold påbegyndt</target>
       </trans-unit>
       <trans-unit id="Zixr61X" resname="Lease size">
         <source>Lease size</source>
