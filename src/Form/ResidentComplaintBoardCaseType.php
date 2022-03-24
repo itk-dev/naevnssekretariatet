@@ -81,7 +81,7 @@ class ResidentComplaintBoardCaseType extends AbstractType
             ])
             ->add('complaintCategory', EntityType::class, [
                 'class' => ComplaintCategory::class,
-                'choices' => $this->categoryRepository->findBy(['board' => $board], ['name' => 'ASC']),
+                'choices' => $this->categoryRepository->findComplaintCategoriesByBoard($board),
                 'label' => $this->translator->trans('Complaint category', [], 'case'),
                 'placeholder' => $this->translator->trans('Select a complaint category', [], 'case'),
             ])
