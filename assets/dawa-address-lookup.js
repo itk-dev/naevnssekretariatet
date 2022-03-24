@@ -5,6 +5,11 @@ const dawa = require('dawa-autocomplete2')
 
 const initializeDawaLookup = () => {
   $('[data-dawa-address-lookup]').each(function () {
+    if ($(this).find('.data-address-lookup').length > 0) {
+      // If data-address-lookup already exists simply return doing nothing
+      return
+    }
+
     const config = $(this).data('dawa-address-lookup')
     const selectorPattern = config['selector-pattern'] ?? null
     if (selectorPattern) {
@@ -12,6 +17,7 @@ const initializeDawaLookup = () => {
       if (config.placeholder) {
         input.attr('placeholder', config.placeholder)
       }
+
       const form = $('<div class="form-group data-address-lookup"/>')
       form.append(input)
 
