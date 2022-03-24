@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,32 +20,13 @@ class ComplaintCategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, ComplaintCategory::class);
     }
 
-    // /**
-    //  * @return ComplaintCategory[] Returns an array of ComplaintCategory objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findComplaintCategoriesByBoard(Board $board)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+        return $this->createQueryBuilder('cc')
+            ->where(':board MEMBER OF cc.boards')
+            ->setParameter(':board', $board->getId()->toBinary())
+            ->orderBy('cc.name', 'ASC')
+            ->getQuery()->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?ComplaintCategory
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
