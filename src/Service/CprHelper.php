@@ -172,7 +172,7 @@ class CprHelper
     {
         $caseIdentificationRelevantData = $this->caseManager->getCaseIdentificationValues($case, $addressProperty, $nameProperty);
 
-        // Get CPR register data
+        // Get CPR data
         /** @var Identification $id */
         $id = $this->propertyAccessor->getValue($case, $idProperty);
 
@@ -182,7 +182,7 @@ class CprHelper
         $cprIdentificationRelevantData = $this->collectRelevantData($cprDataArray);
 
         if ($caseIdentificationRelevantData != $cprIdentificationRelevantData) {
-            throw new CprException($this->translator->trans('Case data not match CPR register data', [], 'case'));
+            throw new CprException($this->translator->trans('Case data not match CPR data', [], 'case'));
         }
 
         $id->setValidatedAt(new \DateTime('now'));

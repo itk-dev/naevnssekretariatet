@@ -1199,7 +1199,7 @@
       </trans-unit>
       <trans-unit id="xL.OK65" resname="Identification type">
         <source>Identification type</source>
-        <target state="translated">Id type</target>
+        <target state="translated">Id-type</target>
       </trans-unit>
       <trans-unit id="kfYGsy3" resname="Identification">
         <source>Identification</source>
@@ -1211,11 +1211,11 @@
       </trans-unit>
       <trans-unit id="iElv9db" resname="PNR not found">
         <source>PNR not found</source>
-        <target state="translated">CPR nummer ikke fundet</target>
+        <target state="translated">CPR-nummer ikke fundet</target>
       </trans-unit>
-      <trans-unit id="VpgqnWg" resname="Case data not match CPR register data">
-        <source>Case data not match CPR register data</source>
-        <target state="translated">Sags data stemmer ikke overens med CPR register</target>
+      <trans-unit id="VpgqnWg" resname="Case data not match CPR data">
+        <source>Case data not match CPR data</source>
+        <target state="translated">Sagsdata stemmer ikke overens med CPR</target>
       </trans-unit>
       <trans-unit id="z4DMqxu" resname="Identification validated">
         <source>Identification validated</source>
@@ -1231,7 +1231,7 @@
       </trans-unit>
       <trans-unit id="Xoa3cgZ" resname="Identification validated at {validation_time}">
         <source>Identification validated at {validation_time}</source>
-        <target state="translated">Id valideret {validation_time}</target>
+        <target state="translated">Identifikation valideret {validation_time}</target>
       </trans-unit>
       <trans-unit id="H51PvjA" resname="Identifier validated">
         <source>Identifier validated</source>
@@ -1247,11 +1247,11 @@
       </trans-unit>
       <trans-unit id="Y1M23kg" resname="CVR not found">
         <source>CVR not found</source>
-        <target state="translated">CVR nummer ikke fundet</target>
+        <target state="translated">CVR-nummer ikke fundet</target>
       </trans-unit>
-      <trans-unit id="o1.7I6V" resname="Case data not match CVR register data">
-        <source>Case data not match CVR register data</source>
-        <target state="translated">Sags data stemmer ikke overens med CVR register</target>
+      <trans-unit id="o1.7I6V" resname="Case data not match CVR data">
+        <source>Case data not match CVR data</source>
+        <target state="translated">Sagsdata stemmer ikke overens med CVR</target>
       </trans-unit>
       <trans-unit id="xXzCkfm" resname="Copy above address">
         <source>Copy above address</source>
