@@ -7,11 +7,13 @@ use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserCrudController extends AbstractCrudController
@@ -38,6 +40,8 @@ class UserCrudController extends AbstractCrudController
     {
         return $crud
             ->setPageTitle('edit', 'Edit user information')
+            // Disable search bar
+            ->setSearchFields(null)
         ;
     }
 
@@ -58,5 +62,13 @@ class UserCrudController extends AbstractCrudController
         yield TextareaField::new('shortcuts', 'Shortcuts')
             ->setHelp($this->translator->trans("List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).", [], 'admin'))
         ;
+    }
+
+    /**
+     * Throws exception if user attempts to visit index page.
+     */
+    public function index(AdminContext $context)
+    {
+        throw new AccessDeniedException('Access denied');
     }
 }
