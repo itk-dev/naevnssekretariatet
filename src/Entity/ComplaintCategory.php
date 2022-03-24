@@ -32,26 +32,20 @@ class ComplaintCategory implements LoggableEntityInterface
     private $fee;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="complaintCategories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $board;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="complaintCategories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $municipality;
-
-    /**
      * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="complaintCategory")
      */
     private $caseEntities;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Board::class, inversedBy="complaintCategories")
+     */
+    private $boards;
 
     public function __construct()
     {
         $this->id = Uuid::v4();
         $this->caseEntities = new ArrayCollection();
+        $this->boards = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -79,30 +73,6 @@ class ComplaintCategory implements LoggableEntityInterface
     public function setFee(?float $fee): self
     {
         $this->fee = $fee;
-
-        return $this;
-    }
-
-    public function getBoard(): ?Board
-    {
-        return $this->board;
-    }
-
-    public function setBoard(?Board $board): self
-    {
-        $this->board = $board;
-
-        return $this;
-    }
-
-    public function getMunicipality(): ?Municipality
-    {
-        return $this->municipality;
-    }
-
-    public function setMunicipality(?Municipality $municipality): self
-    {
-        $this->municipality = $municipality;
 
         return $this;
     }
@@ -147,5 +117,29 @@ class ComplaintCategory implements LoggableEntityInterface
         return [
             'name',
         ];
+    }
+
+    /**
+     * @return Collection|Board[]
+     */
+    public function getBoards(): Collection
+    {
+        return $this->boards;
+    }
+
+    public function addBoard(Board $board): self
+    {
+        if (!$this->boards->contains($board)) {
+            $this->boards[] = $board;
+        }
+
+        return $this;
+    }
+
+    public function removeBoard(Board $board): self
+    {
+        $this->boards->removeElement($board);
+
+        return $this;
     }
 }

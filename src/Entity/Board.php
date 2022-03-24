@@ -37,11 +37,6 @@ class Board implements LoggableEntityInterface
     private $municipality;
 
     /**
-     * @ORM\OneToMany(targetEntity=ComplaintCategory::class, mappedBy="board")
-     */
-    private $complaintCategories;
-
-    /**
      * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="board")
      */
     private $caseEntities;
@@ -94,13 +89,18 @@ class Board implements LoggableEntityInterface
      */
     private $finishHearingDeadlineDefault;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ComplaintCategory::class, mappedBy="boards")
+     */
+    private $complaintCategories;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
-        $this->complaintCategories = new ArrayCollection();
         $this->caseEntities = new ArrayCollection();
         $this->boardRoles = new ArrayCollection();
         $this->agendas = new ArrayCollection();
+        $this->complaintCategories = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -135,36 +135,6 @@ class Board implements LoggableEntityInterface
     public function __toString()
     {
         return $this->name.' '.$this->getMunicipality()->getName();
-    }
-
-    /**
-     * @return Collection|ComplaintCategory[]
-     */
-    public function getComplaintCategories(): Collection
-    {
-        return $this->complaintCategories;
-    }
-
-    public function addComplaintCategory(ComplaintCategory $complaintCategory): self
-    {
-        if (!$this->complaintCategories->contains($complaintCategory)) {
-            $this->complaintCategories[] = $complaintCategory;
-            $complaintCategory->setBoard($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComplaintCategory(ComplaintCategory $complaintCategory): self
-    {
-        if ($this->complaintCategories->removeElement($complaintCategory)) {
-            // set the owning side to null (unless already changed)
-            if ($complaintCategory->getBoard() === $this) {
-                $complaintCategory->setBoard(null);
-            }
-        }
-
-        return $this;
     }
 
     /**
@@ -347,6 +317,33 @@ class Board implements LoggableEntityInterface
     public function setFinishHearingDeadlineDefault(int $finishHearingDeadlineDefault): self
     {
         $this->finishHearingDeadlineDefault = $finishHearingDeadlineDefault;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ComplaintCategory[]
+     */
+    public function getComplaintCategories(): Collection
+    {
+        return $this->complaintCategories;
+    }
+
+    public function addComplaintCategory(ComplaintCategory $complaintCategory): self
+    {
+        if (!$this->complaintCategories->contains($complaintCategory)) {
+            $this->complaintCategories[] = $complaintCategory;
+            $complaintCategory->addBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComplaintCategory(ComplaintCategory $complaintCategory): self
+    {
+        if ($this->complaintCategories->removeElement($complaintCategory)) {
+            $complaintCategory->removeBoard($this);
+        }
 
         return $this;
     }
