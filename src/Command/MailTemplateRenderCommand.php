@@ -35,7 +35,8 @@ class MailTemplateRenderCommand extends Command
             ->addArgument('template', InputArgument::REQUIRED, 'Template name or id')
             ->addOption('entity-type', null, InputOption::VALUE_REQUIRED, 'The entity type to use for data')
             ->addOption('entity-id', null, InputOption::VALUE_REQUIRED, 'The entity id to use for data')
-            ->addOption('output', null, InputOption::VALUE_REQUIRED, 'Write rendered template to file in stead af stdout')
+            ->addOption('output', null, InputOption::VALUE_REQUIRED, 'Write rendered template to file instead of stdout')
+            ->addOption('dump-data', null, InputOption::VALUE_NONE, 'Dump template data (JSON) to stdout')
         ;
     }
 
@@ -76,12 +77,29 @@ class MailTemplateRenderCommand extends Command
             }
         }
 
+        if (null === $entity) {
+            $entity = $this->templateHelper->getPreviewEntity($mailTemplate);
+        }
+
+        $dumpData = $input->getOption('dump-data');
+        $outputName = $input->getOption('output');
+
+        if ($dumpData) {
+            $data = $this->templateHelper->getTemplateData($mailTemplate, $entity);
+            $output->writeln(json_encode($data));
+            // If we don't have an output file name to write the pdf to, we stop
+            // now.
+            if (!$outputName) {
+                return Command::SUCCESS;
+            }
+        }
+
         $filename = $this->templateHelper->renderMailTemplate($mailTemplate, $entity);
 
-        if ($output = $input->getOption('output')) {
-            $this->filesystem->mkdir(dirname($output), 0755);
-            $this->filesystem->rename($filename, $output, true);
-            $io->success(sprintf('Rendered template written to file: %s', $output));
+        if (null !== $outputName) {
+            $this->filesystem->mkdir(dirname($outputName), 0755);
+            $this->filesystem->rename($filename, $outputName, true);
+            $io->success(sprintf('Rendered template written to file: %s', $outputName));
         } else {
             readfile($filename);
         }

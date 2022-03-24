@@ -10,6 +10,8 @@ use App\Repository\MailTemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Mapping\MappingException;
 use PhpOffice\PhpWord\Element\AbstractElement;
+use PhpOffice\PhpWord\Element\Text;
+use PhpOffice\PhpWord\Element\TextBreak;
 use PhpOffice\PhpWord\Element\TextRun;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Psr\Log\LoggerInterface;
@@ -80,15 +82,41 @@ class MailTemplateHelper
             }
         }
 
-        throw new \InvalidArgumentException(sprintf('Cannot get preview entity for mail template %s of type %s', $mailTemplate->getName(), $mailTemplate->getType()));
+        throw new MailTemplateException(sprintf('Cannot get preview entity for mail template %s of type %s', $mailTemplate->getName(), $mailTemplate->getType()));
     }
 
-    public function getTemplateData(MailTemplate $mailTemplate, $entity): array
+    public function getTemplateData(MailTemplate $mailTemplate, $entity, bool $expandMacros = true): array
     {
         $templateFileName = $this->getTemplateFile($mailTemplate);
         $templateProcessor = new TemplateProcessor($templateFileName);
 
-        return $this->getValues($entity, $templateProcessor);
+        $values = $this->getValues($entity, $templateProcessor);
+        $macroValues = $this->getMacroValues($mailTemplate);
+        foreach ($macroValues as $macro => $value) {
+            if ($value instanceof TextRun) {
+                $value = implode('', array_map(static function (AbstractElement $element) {
+                    if ($element instanceof TextBreak) {
+                        return PHP_EOL;
+                    }
+                    if ($element instanceof Text) {
+                        return $element->getText();
+                    }
+                    throw new MailTemplateException(sprintf('Unhandled element: %s', get_class($element)));
+                }, $value->getElements()));
+            }
+            if ($expandMacros) {
+                $value = preg_replace_callback(
+                    '/\$\{(?P<key>[^}]+)\}/',
+                    static function (array $matches) use ($values) {
+                        return $values[$matches['key']] ?? $matches[0];
+                    },
+                    $value
+                );
+            }
+            $values[$macro] = $value;
+        }
+
+        return $values;
     }
 
     /**
@@ -103,24 +131,9 @@ class MailTemplateHelper
         $templateProcessor = new TemplateProcessor($templateFileName);
 
         // Handle macros.
-        $templateType = $mailTemplate->getType();
-        $macros = $this->mailTemplateMacroRepository->findByTemplateType($templateType);
-        foreach ($macros as $macro) {
-            $lines = explode(PHP_EOL, trim($macro->getContent()));
-            // Handle line breaks in macro content.
-            if (count($lines) > 1) {
-                $element = new TextRun();
-                foreach ($lines as $index => $line) {
-                    if ($index > 0) {
-                        $element->addTextBreak();
-                    }
-                    $element->addText($line);
-                }
-            } else {
-                $element = $macro->getContent();
-            }
-
-            $this->setTemplateValue($macro->getMacro(), $element, $templateProcessor);
+        $macroValues = $this->getMacroValues($mailTemplate);
+        foreach ($macroValues as $macro => $value) {
+            $this->setTemplateValue($macro, $value, $templateProcessor);
         }
         $values = $this->getValues($entity, $templateProcessor);
         $this->setTemplateValues($values, $templateProcessor);
@@ -205,18 +218,51 @@ class MailTemplateHelper
         $values['today'] = (new \DateTimeImmutable('today'))->format(\DateTimeImmutable::ATOM);
 
         foreach ($placeHolders as $placeHolder) {
-            // Handle placeholders on the form «key»:«format», e.g.
+            // Handle placeholders on the form «key»|format(«format»), e.g.
             //   case.inspection_date:dd/mm/yyyy
-            if (preg_match('/^(?P<key>[^:]+):(?P<format>.+)$/', $placeHolder, $matches)) {
-                [, $key, $format] = $matches;
+            if (preg_match('/^(?P<key>.+)\|(?P<filter>[a-z]+)\((?P<argument>.+)\)$/', $placeHolder, $matches)) {
+                [, $key, $filter, $argument] = $matches;
                 if (isset($values[$key])) {
-                    $values[$placeHolder] = $this->formatValue($values[$key], $format);
+                    $argument = trim($argument, '\'"');
+                    $values[$placeHolder] = match ($filter) {
+                        'append' => $values[$key].$argument,
+                        'prepend' => $argument.$values[$key],
+                        'format' => $this->formatValue($values[$key], $argument),
+                        default => $values[$key],
+                    };
                 }
             }
         }
 
         // Set empty string values for all template variables without a value.
         $values += array_map(static function ($count) { return ''; }, $templateProcessor->getVariableCount());
+
+        return $values;
+    }
+
+    private function getMacroValues(MailTemplate $mailTemplate): array
+    {
+        $values = [];
+
+        $templateType = $mailTemplate->getType();
+        $macros = $this->mailTemplateMacroRepository->findByTemplateType($templateType);
+        foreach ($macros as $macro) {
+            $lines = explode(PHP_EOL, trim($macro->getContent()));
+            // Handle line breaks in macro content.
+            if (count($lines) > 1) {
+                $element = new TextRun();
+                foreach ($lines as $index => $line) {
+                    if ($index > 0) {
+                        $element->addTextBreak();
+                    }
+                    $element->addText($line);
+                }
+            } else {
+                $element = $macro->getContent();
+            }
+
+            $values[$macro->getMacro()] = $element;
+        }
 
         return $values;
     }
