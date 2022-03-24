@@ -1261,6 +1261,10 @@
         <source>Validate the legitimacy of the identifier by pressing the Validate identifier ({type}) button</source>
         <target state="translated">Valider {type}-nummeret ved at klikke på “Valider {type}-nummer”-knappen</target>
       </trans-unit>
+      <trans-unit id=".ZzqKgg" resname="Extra address information">
+        <source>Extra address information</source>
+        <target state="translated">Ekstra adresse information</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
