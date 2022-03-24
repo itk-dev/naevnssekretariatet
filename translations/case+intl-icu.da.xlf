@@ -1267,7 +1267,7 @@
       </trans-unit>
       <trans-unit id="EE6DD9s" resname="Extra complaint category information">
         <source>Extra complaint category information</source>
-        <target state="translated">Ekstra klagetype information</target>
+        <target state="translated">Ekstra klagetypeinformation</target>
       </trans-unit>
     </body>
   </file>
