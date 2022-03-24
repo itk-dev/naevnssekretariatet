@@ -22,7 +22,7 @@ services:
       - PHP_POST_MAX_SIZE=700M
       - COMPOSER_VERSION=2
     depends_on:
-        - libreoffice-api
+      - libreoffice-api
     volumes:
       - .:/app:delegated
 
