@@ -57,6 +57,11 @@ class Address implements LoggableEntityInterface
      */
     private $bbrData;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $extraInformation;
+
     public function getStreet(): string
     {
         return $this->street;
@@ -173,6 +178,18 @@ class Address implements LoggableEntityInterface
         $address .= ' '.$this->getCity();
 
         return $address;
+    }
+
+    public function getExtraInformation(): ?string
+    {
+        return $this->extraInformation;
+    }
+
+    public function setExtraInformation(?string $extraInformation): self
+    {
+        $this->extraInformation = $extraInformation;
+
+        return $this;
     }
 
     public function getLoggableProperties(): array

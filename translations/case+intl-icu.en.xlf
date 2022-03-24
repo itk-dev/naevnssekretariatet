@@ -1261,6 +1261,10 @@
         <source>Validate the legitimacy of the identifier by pressing the Validate identifier ({type}) button</source>
         <target>Validate the legitimacy of the identifier by pressing the Validate identifier ({type}) button</target>
       </trans-unit>
+      <trans-unit id=".ZzqKgg" resname="Extra address information">
+        <source>Extra address information</source>
+        <target>Extra address information</target>
+      </trans-unit>
       <trans-unit id="t8q4toE" resname="Create party">
         <source>Create party</source>
         <target>Create party</target>

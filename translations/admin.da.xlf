@@ -305,6 +305,10 @@
         <source>Remember that a boardmember may only have one role per board. </source>
         <target state="translated">Husk, at et nævnsmedlem kun må have en rolle per nævn.</target>
       </trans-unit>
+      <trans-unit id=".ZzqKgg" resname="Extra address information">
+        <source>Extra address information</source>
+        <target state="translated">__Extra address information</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
