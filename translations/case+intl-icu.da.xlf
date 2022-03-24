@@ -1213,7 +1213,7 @@
         <source>PNR not found</source>
         <target state="translated">CPR-nummer ikke fundet</target>
       </trans-unit>
-      <trans-unit id="VpgqnWg" resname="Case data not match CPR data">
+      <trans-unit id="QE2Xtss" resname="Case data not match CPR data">
         <source>Case data not match CPR data</source>
         <target state="translated">Sagsdata stemmer ikke overens med CPR</target>
       </trans-unit>
@@ -1237,7 +1237,7 @@
         <source>CVR not found</source>
         <target state="translated">CVR-nummer ikke fundet</target>
       </trans-unit>
-      <trans-unit id="o1.7I6V" resname="Case data not match CVR data">
+      <trans-unit id="W1AP7_f" resname="Case data not match CVR data">
         <source>Case data not match CVR data</source>
         <target state="translated">Sagsdata stemmer ikke overens med CVR</target>
       </trans-unit>
@@ -1264,6 +1264,10 @@
       <trans-unit id=".ZzqKgg" resname="Extra address information">
         <source>Extra address information</source>
         <target state="translated">Ekstra adresse information</target>
+      </trans-unit>
+      <trans-unit id="t8q4toE" resname="Create party">
+        <source>Create party</source>
+        <target state="translated">Opret part</target>
       </trans-unit>
     </body>
   </file>

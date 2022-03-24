@@ -12,7 +12,7 @@
         </div>
         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
             <div class="col-auto">
-                <a class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create representative{% endtrans %}</a>
+                <a class="btn btn-success" href="{{ url('party_add', {id: case.id}) }}" role="button">{% trans %}Create party{% endtrans %}</a>
                 <a class="btn btn-primary" href="{{ url('case_edit', {id: case.id}) }}" role="button">{% trans %}Edit basic information{% endtrans %}</a>
             </div>
         {% endif %}

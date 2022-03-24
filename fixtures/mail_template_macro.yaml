@@ -22,12 +22,28 @@ App\Entity\MailTemplateMacro:
     name: Page header text
     macro: page_header_text
     content: |-
-        This is a header generated on ${today:dd/mm/yyyy}
+        This is a header generated on ${today|format("dd/MM/yyyy")}
     templateTypes: []
 
   mail-template-macro-page-footer-text:
     name: Page footer text
     macro: page_footer_text
     content: |-
-        This is a footer generated on ${today:dd/mm/yyyy}
+        This is a footer generated on ${today|format("dd/MM/yyyy")}
+    templateTypes: []
+
+  closing_from_attorney:
+    name: Closing from attorney
+    macro: closing_from_attorney
+    content: |-
+        Venlig hilsen
+        ${assignedTo.name|prepend('f. ')}
+    templateTypes: []
+
+  closing_from_case_worker:
+    name: Closing from case worker
+    macro: closing_from_case_worker
+    content: |-
+        Venlig hilsen
+        ${assignedTo.name|append(' (sagsbehandler)')}
     templateTypes: []
