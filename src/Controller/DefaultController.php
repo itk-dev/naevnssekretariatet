@@ -75,16 +75,6 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="app_logout")
-     */
-    public function logout(): Response
-    {
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
-    }
-
-    /**
      * @Route("/user-settings", name="user_settings")
      */
     public function redirectToUserSettings(AdminUrlGenerator $urlGenerator): Response

@@ -26,7 +26,6 @@
             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                 <a class="dropdown-item" href="{{ path('user_settings') }}">{% trans %}User settings{% endtrans %}</a>
             {% endif %}
-            <a class="dropdown-item" href="{{ path('app_logout') }}">{% trans %}Log out{% endtrans %}</a>
         </div>
     </li>
 </ul>
