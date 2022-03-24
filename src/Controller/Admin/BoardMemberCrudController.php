@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Board;
 use App\Entity\BoardMember;
 use App\Entity\BoardRole;
 use Doctrine\ORM\QueryBuilder;
@@ -10,9 +9,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BoardMemberCrudController extends AbstractCrudController
 {
+    public function __construct(private TranslatorInterface $translator)
+    {
+    }
+
     public static function getEntityFqcn(): string
     {
         return BoardMember::class;
@@ -36,25 +40,6 @@ class BoardMemberCrudController extends AbstractCrudController
             // Hide the CPR a bit.
             ->onlyOnForms()
         ;
-        yield AssociationField::new('boards', 'Board')
-            ->setRequired(true)
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                return $queryBuilder->orderBy('entity.name', 'ASC');
-            })
-            ->formatValue(function ($value, BoardMember $member) {
-                $boards = $member->getBoards()->map(function (Board $board) {
-                    return $board->__toString();
-                });
-
-                return implode(', ', $boards->getValues());
-            })
-        ;
-        yield AssociationField::new('municipality', 'Municipality')
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                return $queryBuilder->orderBy('entity.name', 'ASC');
-            })
-            ->setRequired(true)
-        ;
         yield AssociationField::new('boardRoles', 'BoardRole')
             ->setFormTypeOptions([
                 'by_reference' => false,
@@ -69,6 +54,7 @@ class BoardMemberCrudController extends AbstractCrudController
 
                 return implode(', ', $roles->getValues());
             })
+            ->setHelp($this->translator->trans('Remember that a boardmember may only have one role per board. ', [], 'admin'))
         ;
     }
 }

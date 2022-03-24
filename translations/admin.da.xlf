@@ -301,6 +301,10 @@
         <source>Deleted cases</source>
         <target state="translated">Slettede sager</target>
       </trans-unit>
+      <trans-unit id="HEZy6.j" resname="Remember that a boardmember may only have one role per board. ">
+        <source>Remember that a boardmember may only have one role per board. </source>
+        <target state="translated">Husk, at et nævnsmedlem kun må have en rolle per nævn.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

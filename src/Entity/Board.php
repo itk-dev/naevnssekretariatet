@@ -78,11 +78,6 @@ class Board implements LoggableEntityInterface
     private $agendas;
 
     /**
-     * @ORM\ManyToMany(targetEntity=BoardMember::class, mappedBy="boards")
-     */
-    private $boardMembers;
-
-    /**
      * @Assert\Positive
      * @ORM\Column(type="integer")
      */
@@ -105,7 +100,6 @@ class Board implements LoggableEntityInterface
         $this->caseEntities = new ArrayCollection();
         $this->boardRoles = new ArrayCollection();
         $this->agendas = new ArrayCollection();
-        $this->boardMembers = new ArrayCollection();
         $this->complaintCategories = new ArrayCollection();
     }
 
@@ -298,33 +292,6 @@ class Board implements LoggableEntityInterface
             if ($agenda->getBoard() === $this) {
                 $agenda->setBoard(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|BoardMember[]
-     */
-    public function getBoardMembers(): Collection
-    {
-        return $this->boardMembers;
-    }
-
-    public function addBoardMember(BoardMember $boardMember): self
-    {
-        if (!$this->boardMembers->contains($boardMember)) {
-            $this->boardMembers[] = $boardMember;
-            $boardMember->addBoard($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBoardMember(BoardMember $boardMember): self
-    {
-        if ($this->boardMembers->removeElement($boardMember)) {
-            $boardMember->removeBoard($this);
         }
 
         return $this;
