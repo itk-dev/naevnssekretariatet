@@ -1269,6 +1269,10 @@
         <source>Create party</source>
         <target>Create party</target>
       </trans-unit>
+      <trans-unit id="EE6DD9s" resname="Extra complaint category information">
+        <source>Extra complaint category information</source>
+        <target>Extra complaint category information</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

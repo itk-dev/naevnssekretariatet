@@ -87,6 +87,10 @@ class FenceReviewCaseType extends AbstractType
                 'label' => $this->translator->trans('Complaint category', [], 'case'),
                 'placeholder' => $this->translator->trans('Select a complaint category', [], 'case'),
             ])
+            ->add('extraComplaintCategoryInformation', TextType::class, [
+                'label' => $this->translator->trans('Extra complaint category information', [], 'case'),
+                'required' => false,
+            ])
             ->add('conditions', TextareaType::class, [
                 'label' => $this->translator->trans('Conditions', [], 'case'),
                 'attr' => [
