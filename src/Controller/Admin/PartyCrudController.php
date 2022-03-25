@@ -62,15 +62,6 @@ class PartyCrudController extends AbstractCrudController
             ->setFormType(AddressType::class)
         ;
         yield TextField::new('phoneNumber', 'Phone number');
-        yield TextField::new('journalNumber', 'Journal number')
-            ->formatValue(function ($value) {
-                if (null === $value) {
-                    return $this->translator->trans('Empty', [], 'admin');
-                }
-
-                return $value;
-            })
-        ;
         yield BooleanField::new('isPartOfPartIndex', 'Add to part index')
             ->hideOnIndex()
         ;

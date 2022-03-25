@@ -165,10 +165,6 @@
         <source>Name and address protected</source>
         <target>Name and address protected</target>
       </trans-unit>
-      <trans-unit id="9gcREM5" resname="Journal number">
-        <source>Journal number</source>
-        <target>Journal number</target>
-      </trans-unit>
       <trans-unit id="lpzL089" resname="Email">
         <source>Email</source>
         <target>Email</target>

@@ -29,10 +29,6 @@
         <source>Phone number</source>
         <target state="translated">Telefonnummer</target>
       </trans-unit>
-      <trans-unit id="9gcREM5" resname="Journal number">
-        <source>Journal number</source>
-        <target state="translated">Journalnummer</target>
-      </trans-unit>
       <trans-unit id="uq3fcPt" resname="Type">
         <source>Type</source>
         <target>Type</target>
