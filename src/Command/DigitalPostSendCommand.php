@@ -6,6 +6,7 @@ use App\Entity\DigitalPost;
 use App\Repository\DigitalPostRepository;
 use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
+use App\Service\IdentificationHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -59,7 +60,8 @@ class DigitalPostSendCommand extends Command
                         $result = $previousResult;
                     } else {
                         try {
-                            if ('cpr' === $recipient->getIdentifierType()) {
+                            switch ($recipient->getIdentifierType()) {
+                            case IdentificationHelper::IDENTIFIER_TYPE_CPR:
                                 $result = $this->digitalPostHelper->sendDigitalPost(
                                     $recipient->getIdentifier(),
                                     $recipient->getName(),
@@ -68,13 +70,22 @@ class DigitalPostSendCommand extends Command
                                     $content,
                                     $attachments
                                 );
-                            } else {
+                                break;
+
+                            // case IdentificationHelper::IDENTIFIER_TYPE_CVR:
+                            //     // @todo
+                            //     break;
+
+                            default:
                                 $result = [
                                     'result' => 'error',
-                                    'message' => sprintf('Unhandled identifier type: %s',
-                                        $recipient->getIdentifierType()),
+                                    'message' => sprintf(
+                                        'Unhandled identifier type: %s',
+                                        $recipient->getIdentifierType()
+                                    ),
                                 ];
                                 $io->error($result['message']);
+                                break;
                             }
                         } catch (\Exception $exception) {
                             $this->databaseLogger->error($exception->getMessage());
