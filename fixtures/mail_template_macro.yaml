@@ -1,20 +1,20 @@
 App\Entity\MailTemplateMacro:
   mail-template-macro-001:
-    name: Party name and address
-    macro: party_name_and_address
+    name: Bringer name and address
+    macro: bringer_name_and_address
     content: |-
-        ${party}
-        ${partyAddress.street} ${partyAddress.number}
-        ${partyAddress.postalCode} ${partyAddress.city}
+        ${bringer}
+        ${bringerAddress.street} ${bringerAddress.number}
+        ${bringerAddress.postalCode} ${bringerAddress.city}
     templateTypes: []
 
   mail-template-macro-002:
-    name: Complainant name and address (inspection letter)
-    macro: complainant_name_and_address
+    name: Bringer name and address (inspection letter)
+    macro: bringer_name_and_address
     content: |-
-        ${complainant}
-        ${complainantAddress.street} ${complainantAddress.number}
-        ${complainantAddress.postalCode} ${complainantAddress.city}
+        ${bringer}
+        ${bringerAddress.street} ${bringerAddress.number}
+        ${bringerAddress.postalCode} ${bringerAddress.city}
     templateTypes:
         - inspection_letter
 
