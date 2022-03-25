@@ -2,19 +2,19 @@
 
 namespace App\Command;
 
-use App\Exception\CvrException;
-use App\Service\CvrHelper;
+use App\Exception\CprException;
+use App\Service\CprHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CVRLookupCommand extends Command
+class CPRLookupCommand extends Command
 {
-    protected static $defaultName = 'tvist1:cvr:lookup';
-    protected static $defaultDescription = 'Looks up CVR number';
+    protected static $defaultName = 'tvist1:cpr:lookup';
+    protected static $defaultDescription = 'Looks up CPR number';
 
-    public function __construct(private CvrHelper $cvrHelper)
+    public function __construct(private CprHelper $cprHelper)
     {
         parent::__construct();
     }
@@ -23,22 +23,22 @@ class CVRLookupCommand extends Command
     {
         $this
             ->setDescription(self::$defaultDescription)
-            ->addArgument('cvr-number', InputArgument::REQUIRED, 'CVR number to look up')
+            ->addArgument('cpr-number', InputArgument::REQUIRED, 'CPR number to look up')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $cvr = $input->getArgument('cvr-number');
+        $cpr = $input->getArgument('cpr-number');
 
         try {
-            $cvrData = $this->cvrHelper->lookupCvr($cvr);
+            $cprData = $this->cprHelper->lookupCpr($cpr);
 
             $output->writeln([
-                $cvr,
-                json_encode($cvrData, JSON_PRETTY_PRINT),
+                $cpr,
+                json_encode($cprData, JSON_PRETTY_PRINT),
             ]);
-        } catch (CvrException $e) {
+        } catch (CprException $e) {
             $output->write($e->getMessage());
         }
 
