@@ -1,48 +1,50 @@
 {# @see https://symfony.com/doc/current/form/form_themes.html#reusing-parts-of-a-built-in-form-theme #}
 {% use 'bootstrap_4_layout.html.twig' %}
 
-{% block form_widget_compound %}
-    {% if class(value) == 'Address' %}
-        <div {{ block('widget_container_attributes') }}>
-            <div class="form-row">
-                <div class="col-md-6">
-                    {{ form_row(form.street) }}
-                </div>
-                <div class="col-md-2">
-                    {{ form_row(form.number) }}
-                </div>
-                <div class="col-md-2">
-                    {{ form_row(form.floor) }}
-                </div>
-                <div class="col-md-2">
-                    {{ form_row(form.side) }}
-                </div>
+{% block identification_widget %}
+    <div {{ block('widget_container_attributes') }}>
+        {{ form_label(form.identifier) }}
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                {{ form_widget(form.type) }}
             </div>
-            <div class="form-row">
-                <div class="col-md-2">
-                    {{ form_row(form.postalCode) }}
-                </div>
-                <div class="col-md-4">
-                    {{ form_row(form.city) }}
-                </div>
-                <div class="col-md-6">
-                    {{ form_row(form.extraInformation) }}
-                </div>
-            </div>
-            {{ form_rest(form) }}
+            {{ form_widget(form.identifier) }}
         </div>
-    {% elseif class(value) == 'Identification' %}
-        <div {{ block('widget_container_attributes') }}>
-            {{ form_label(form.identifier) }}
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    {{ form_widget(form.type) }}
-                </div>
-                {{ form_widget(form.identifier) }}
+        {{ form_rest(form) }}
+    </div>
+{% endblock %}
+
+{% block address_widget %}
+    <div {{ block('widget_container_attributes') }}>
+        <div class="form-row">
+            <div class="col-md-6">
+                {{ form_row(form.street) }}
             </div>
-            {{ form_rest(form) }}
+            <div class="col-md-2">
+                {{ form_row(form.number) }}
+            </div>
+            <div class="col-md-2">
+                {{ form_row(form.floor) }}
+            </div>
+            <div class="col-md-2">
+                {{ form_row(form.side) }}
+            </div>
         </div>
-    {% else %}
-        {{ parent() }}
-    {% endif %}
+        <div class="form-row">
+            <div class="col-md-2">
+                {{ form_row(form.postalCode) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.city) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.extraInformation) }}
+            </div>
+        </div>
+        {{ form_rest(form) }}
+    </div>
+{% endblock %}
+
+{% block address_lookup_widget %}
+    {{ block('address_widget') }}
 {% endblock %}
