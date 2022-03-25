@@ -65,7 +65,7 @@ class Board implements LoggableEntityInterface
     /**
      * @ORM\Column(type="text")
      */
-    private $complainantTypes;
+    private $partyTypes;
 
     /**
      * @ORM\Column(type="text")
@@ -243,14 +243,14 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
-    public function getComplainantTypes(): ?string
+    public function getPartyTypes(): ?string
     {
-        return $this->complainantTypes;
+        return $this->partyTypes;
     }
 
-    public function setComplainantTypes(string $complainantTypes): self
+    public function setPartyTypes(string $partyTypes): self
     {
-        $this->complainantTypes = $complainantTypes;
+        $this->partyTypes = $partyTypes;
 
         return $this;
     }

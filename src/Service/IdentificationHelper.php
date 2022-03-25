@@ -63,7 +63,7 @@ class IdentificationHelper implements EventSubscriberInterface
                 continue;
             }
 
-            // Check that changed property warrants a change of complainant validatedAt
+            // Check that changed property warrants a change of bringer validatedAt
             foreach ($object->getIdentificationInvalidationProperties() as $identificationProperty => $invalidationProperties) {
                 if (in_array($propertyPath, $invalidationProperties) && !str_contains($propertyPath, 'validatedAt')) {
                     /** @var Identification $id */

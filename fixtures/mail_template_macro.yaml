@@ -1,11 +1,11 @@
 App\Entity\MailTemplateMacro:
   mail-template-macro-001:
-    name: Complainant name and address
-    macro: complainant_name_and_address
+    name: Party name and address
+    macro: party_name_and_address
     content: |-
-        ${complainant}
-        ${complainantAddress.street} ${complainantAddress.number}
-        ${complainantAddress.postalCode} ${complainantAddress.city}
+        ${party}
+        ${partyAddress.street} ${partyAddress.number}
+        ${partyAddress.postalCode} ${partyAddress.city}
     templateTypes: []
 
   mail-template-macro-002:

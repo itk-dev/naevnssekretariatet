@@ -52,8 +52,8 @@ class PartyHelper
             $existingRelation->setSoftDeletedAt(null);
         }
 
-        if ($type === $this->getSortingComplainantType($case)) {
-            $case->setSortingComplainant($party->getName());
+        if ($type === $this->getSortingPartyType($case)) {
+            $case->setSortingParty($party->getName());
         } elseif ($type === $this->getSortingCounterpartyType($case)) {
             $case->setSortingCounterparty($party->getName());
         }
@@ -106,8 +106,8 @@ class PartyHelper
         $relation->setParty($party);
         $relation->setType($data['type']);
 
-        if ($data['type'] === $this->getSortingComplainantType($case)) {
-            $case->setSortingComplainant($data['name']);
+        if ($data['type'] === $this->getSortingPartyType($case)) {
+            $case->setSortingParty($data['name']);
         } elseif ($data['type'] === $this->getSortingCounterpartyType($case)) {
             $case->setSortingCounterparty($data['name']);
         }
@@ -129,17 +129,17 @@ class PartyHelper
 
     public function getAllPartyTypes(CaseEntity $case): array
     {
-        $complainantTypes = $this->getComplainantTypesByCase($case);
+        $partyTypes = $this->getPartyTypesByCase($case);
         $counterpartyTypes = $this->getCounterpartyTypesByCase($case);
 
-        return array_merge($complainantTypes, $counterpartyTypes);
+        return array_merge($partyTypes, $counterpartyTypes);
     }
 
-    public function getComplainantTypesByCase(CaseEntity $case): array
+    public function getPartyTypesByCase(CaseEntity $case): array
     {
         $rawTypes = explode(
             PHP_EOL,
-            $case->getBoard()->getComplainantTypes()
+            $case->getBoard()->getPartyTypes()
         );
 
         return $this->getTrimmedTypes($rawTypes);
@@ -173,21 +173,21 @@ class PartyHelper
      */
     public function getRelevantPartiesByCase(CaseEntity $case): array
     {
-        $complainantRelations = $this->relationRepository
+        $partyRelations = $this->relationRepository
             ->findBy([
                 'case' => $case,
-                'type' => $this->getComplainantTypesByCase($case),
+                'type' => $this->getPartyTypesByCase($case),
                 'softDeleted' => false,
             ])
         ;
 
-        $complainants = array_map(
+        $parties = array_map(
             function ($relation) {
                 return [
                     'party' => $relation->getParty(),
                     'type' => $relation->getType(),
                 ];
-            }, $complainantRelations
+            }, $partyRelations
         );
 
         $counterpartyRelations = $this->relationRepository
@@ -207,14 +207,14 @@ class PartyHelper
             }, $counterpartyRelations
         );
 
-        return ['complainants' => $complainants, 'counterparties' => $counterparties];
+        return ['parties' => $parties, 'counterparties' => $counterparties];
     }
 
-    public function getSortingComplainant(CaseEntity $case): ?string
+    public function getSortingParty(CaseEntity $case): ?string
     {
-        $type = $this->getSortingComplainantType($case);
+        $type = $this->getSortingPartyType($case);
 
-        $complainantRelation = $this->relationRepository
+        $partyRelation = $this->relationRepository
             ->findOneBy([
                 'case' => $case,
                 'type' => $type,
@@ -222,7 +222,7 @@ class PartyHelper
             ])
         ;
 
-        return $complainantRelation ? $complainantRelation->getParty()->getName() : null;
+        return $partyRelation ? $partyRelation->getParty()->getName() : null;
     }
 
     public function getSortingCounterparty(CaseEntity $case): ?string
@@ -242,9 +242,9 @@ class PartyHelper
 
     public function updateSortingProperties(CaseEntity $case)
     {
-        $sortingComplainant = $this->getSortingComplainant($case);
-        if (null !== $sortingComplainant) {
-            $case->setSortingComplainant($sortingComplainant);
+        $sortingParty = $this->getSortingParty($case);
+        if (null !== $sortingParty) {
+            $case->setSortingParty($sortingParty);
         }
         $sortingCounterparty = $this->getSortingCounterparty($case);
         if (null !== $sortingCounterparty) {
@@ -252,11 +252,11 @@ class PartyHelper
         }
     }
 
-    private function getSortingComplainantType(CaseEntity $case)
+    private function getSortingPartyType(CaseEntity $case)
     {
-        $complainantTypes = $this->getComplainantTypesByCase($case);
+        $partyTypes = $this->getPartyTypesByCase($case);
         // Return first entry in array
-        return reset($complainantTypes);
+        return reset($partyTypes);
     }
 
     private function getSortingCounterpartyType(CaseEntity $case)
@@ -268,21 +268,21 @@ class PartyHelper
 
     public function getRelevantPartiesForHearingPostByCase(CaseEntity $case): array
     {
-        $complainantRelations = $this->relationRepository
+        $partyRelations = $this->relationRepository
             ->findBy([
                 'case' => $case,
-                'type' => $this->getComplainantTypesByCase($case),
+                'type' => $this->getPartyTypesByCase($case),
                 'softDeleted' => false,
             ])
         ;
 
-        $complainants = [];
-        foreach ($complainantRelations as $relation) {
-            $complainants[$relation->getParty()->getName().', '.$relation->getType()] = $relation->getParty();
+        $parties = [];
+        foreach ($partyRelations as $relation) {
+            $parties[$relation->getParty()->getName().', '.$relation->getType()] = $relation->getParty();
         }
 
         // Sort alphabetically
-        uasort($complainants, static fn ($a, $b) => $a->getName() <=> $b->getName());
+        uasort($parties, static fn ($a, $b) => $a->getName() <=> $b->getName());
 
         $counterpartyRelations = $this->relationRepository
             ->findBy([
@@ -300,6 +300,6 @@ class PartyHelper
         // Sort alphabetically
         uasort($counterparties, static fn ($a, $b) => $a->getName() <=> $b->getName());
 
-        return [$this->translator->trans('Complainants', [], 'case') => $complainants, $this->translator->trans('Counterparties', [], 'case') => $counterparties];
+        return [$this->translator->trans('Parties', [], 'case') => $parties, $this->translator->trans('Counterparties', [], 'case') => $counterparties];
     }
 }

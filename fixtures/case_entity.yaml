@@ -1,5 +1,5 @@
 App\Entity\Embeddable\Address:
-  test-case-aarhus-1-complainant-address:
+  test-case-aarhus-1-bringer-address:
     street: Aarhusvej
     number: 117
     city: Aarhus C
@@ -11,7 +11,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus C
     postalCode: 8000
 
-  test-case-aarhus-2-complainant-address:
+  test-case-aarhus-2-bringer-address:
     street: Randersvej
     number: 119
     city: Brabrand
@@ -23,7 +23,7 @@ App\Entity\Embeddable\Address:
     city: Brabrand
     postalCode: 8220
 
-  test-case-aarhus-3-complainant-address:
+  test-case-aarhus-3-bringer-address:
     street: Skejbygårdsvej
     number: 1
     city: Aarhus N
@@ -35,7 +35,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus N
     postalCode: 8200
 
-  test-case-aarhus-4-complainant-address:
+  test-case-aarhus-4-bringer-address:
     street: Skejbygårdsvej
     number: 21
     city: Risskov
@@ -47,7 +47,7 @@ App\Entity\Embeddable\Address:
     city: Risskov
     postalCode: 8240
 
-  test-case-aarhus-5-complainant-address:
+  test-case-aarhus-5-bringer-address:
     street: Jens Baggesensvej
     number: 27
     city: Aarhus N
@@ -59,7 +59,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus N
     postalCode: 8200
 
-  test-case-aarhus-6-complainant-address:
+  test-case-aarhus-6-bringer-address:
     street: Andevej
     number: 192
     city: Aarhus C
@@ -71,7 +71,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus C
     postalCode: 8000
 
-  test-case-aarhus-7-complainant-address:
+  test-case-aarhus-7-bringer-address:
     street: Silkeborgvej
     number: 192
     city: Aarhus V
@@ -83,7 +83,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus V
     postalCode: 8210
 
-  test-case-aarhus-8-complainant-address:
+  test-case-aarhus-8-bringer-address:
     street: Silkeborgvej
     number: 13
     city: Aarhus C
@@ -95,7 +95,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus C
     postalCode: 8000
 
-  test-case-aarhus-9-complainant-address:
+  test-case-aarhus-9-bringer-address:
     street: Holmevej
     number: 45
     city: Aarhus C
@@ -107,7 +107,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus C
     postalCode: 8000
 
-  test-case-aarhus-10-complainant-address:
+  test-case-aarhus-10-bringer-address:
     street: Holmevej
     number: 29
     city: Aarhus C
@@ -119,7 +119,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus C
     postalCode: 8000
 
-  test-case-aarhus-11-complainant-address:
+  test-case-aarhus-11-bringer-address:
     street: Sømandsvej
     number: 2
     city: Aarhus C
@@ -131,7 +131,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus C
     postalCode: 8000
 
-  test-case-aarhus-12-complainant-address:
+  test-case-aarhus-12-bringer-address:
     street: Landevej
     number: 5
     city: Beder
@@ -143,7 +143,7 @@ App\Entity\Embeddable\Address:
     city: Beder
     postalCode: 83310
 
-  test-case-aarhus-13-complainant-address:
+  test-case-aarhus-13-bringer-address:
     street: Nyringen
     number: 5
     city: Aarhus V
@@ -155,7 +155,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus V
     postalCode: 8210
 
-  test-case-aarhus-14-complainant-address:
+  test-case-aarhus-14-bringer-address:
     street: Nyringen
     number: 9
     city: Aarhus V
@@ -167,7 +167,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus V
     postalCode: 8210
 
-  test-case-aarhus-15-complainant-address:
+  test-case-aarhus-15-bringer-address:
     street: Nyringen
     number: 53
     city: Aarhus V
@@ -179,7 +179,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus V
     postalCode: 8210
 
-  test-case-aarhus-16-complainant-address:
+  test-case-aarhus-16-bringer-address:
     street: Risskov vej
     number: 245
     city: Risskov
@@ -191,7 +191,7 @@ App\Entity\Embeddable\Address:
     city: Risskov
     postalCode: 8240
 
-  test-case-aarhus-17-complainant-address:
+  test-case-aarhus-17-bringer-address:
     street: Egå vej
     number: 5
     city: Egå
@@ -203,7 +203,7 @@ App\Entity\Embeddable\Address:
     city: Egå
     postalCode: 8250
 
-  test-case-aarhus-18-complainant-address:
+  test-case-aarhus-18-bringer-address:
     street: Malling vej
     number: 98
     city: Malling
@@ -215,7 +215,7 @@ App\Entity\Embeddable\Address:
     city: Malling
     postalCode: 8340
 
-  test-case-aarhus-19-complainant-address:
+  test-case-aarhus-19-bringer-address:
     street: Trige vej
     number: 98
     city: Trige
@@ -227,7 +227,7 @@ App\Entity\Embeddable\Address:
     city: Trige
     postalCode: 8380
 
-  test-case-aarhus-20-complainant-address:
+  test-case-aarhus-20-bringer-address:
     street: Sabro vej
     number: 37
     city: Sabro
@@ -239,7 +239,7 @@ App\Entity\Embeddable\Address:
     city: Sabro
     postalCode: 8471
 
-  test-case-aarhus-21-complainant-address:
+  test-case-aarhus-21-bringer-address:
     street: Sabro vej
     number: 37
     city: Sabro
@@ -251,7 +251,7 @@ App\Entity\Embeddable\Address:
     city: Sabro
     postalCode: 8471
 
-  test-case-aarhus-22-complainant-address:
+  test-case-aarhus-22-bringer-address:
     street: Skolegade
     number: 19
     city: Aarhus C
@@ -263,7 +263,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus C
     postalCode: 8000
 
-  test-case-aarhus-23-complainant-address:
+  test-case-aarhus-23-bringer-address:
     street: Skolegade
     number: 29
     city: Aarhus C
@@ -275,7 +275,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus C
     postalCode: 8000
 
-  test-case-aarhus-24-complainant-address:
+  test-case-aarhus-24-bringer-address:
     street: Skolegade
     number: 32
     city: Aarhus C
@@ -287,7 +287,7 @@ App\Entity\Embeddable\Address:
     city: Aarhus C
     postalCode: 8000
 
-  test-case-randers-1-complainant-address:
+  test-case-randers-1-bringer-address:
     street: Skolevej
     number: 117
     city: Randers C
@@ -299,7 +299,7 @@ App\Entity\Embeddable\Address:
     city: Randers C
     postalCode: 8900
 
-  test-case-randers-2-complainant-address:
+  test-case-randers-2-bringer-address:
     street: Skolevej
     number: 119
     city: Randers C
@@ -311,7 +311,7 @@ App\Entity\Embeddable\Address:
     city: Randers C
     postalCode: 8900
 
-  test-case-randers-3-complainant-address:
+  test-case-randers-3-bringer-address:
     street: Skolevej
     number: 11
     city: Randers C
@@ -323,7 +323,7 @@ App\Entity\Embeddable\Address:
     city: Randers C
     postalCode: 8900
 
-  test-case-randers-4-complainant-address:
+  test-case-randers-4-bringer-address:
     street: Skolevej
     number: 21
     city: Randers C
@@ -335,7 +335,7 @@ App\Entity\Embeddable\Address:
     city: Randers C
     postalCode: 8900
 
-  test-case-randers-5-complainant-address:
+  test-case-randers-5-bringer-address:
     street: Skolevej
     number: 27
     city: Randers C
@@ -347,7 +347,7 @@ App\Entity\Embeddable\Address:
     city: Randers C
     postalCode: 8900
 
-  test-case-randers-6-complainant-address:
+  test-case-randers-6-bringer-address:
     street: Slotspladsen
     number: 192
     city: Randers C
@@ -359,7 +359,7 @@ App\Entity\Embeddable\Address:
     city: Randers C
     postalCode: 8900
 
-  test-case-randers-7-complainant-address:
+  test-case-randers-7-bringer-address:
     street: Slotspladsen
     number: 192
     city: Randers C
@@ -371,7 +371,7 @@ App\Entity\Embeddable\Address:
     city: Randers C
     postalCode: 8900
 
-  test-case-randers-8-complainant-address:
+  test-case-randers-8-bringer-address:
     street: Slotspladsen
     number: 13
     city: Randers C
@@ -383,7 +383,7 @@ App\Entity\Embeddable\Address:
     city: Randers C
     postalCode: 8900
 
-  test-case-randers-9-complainant-address:
+  test-case-randers-9-bringer-address:
     street: Snaregade
     number: 47
     city: Randers C
@@ -403,10 +403,10 @@ App\Entity\Embeddable\Identification:
 App\Entity\ResidentComplaintBoardCase:
   test-case-aarhus-1:
     leaseSize: 51
-    complainant: Jens Jensen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '87654321'
-    complainantAddress: '@test-case-aarhus-1-complainant-address'
+    bringer: Jens Jensen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '87654321'
+    bringerAddress: '@test-case-aarhus-1-bringer-address'
     leaseAddress: '@test-case-aarhus-1-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -418,15 +418,15 @@ App\Entity\ResidentComplaintBoardCase:
     currentPlace: Oprettet
     shouldBeInspected: true
     casePartyRelation: ['@relation-1', '@relation-2']
-    sortingComplainant: Anne Nielsen
+    sortingParty: Anne Nielsen
     sortingCounterparty: Kirsten Jensen
 
   test-case-aarhus-2:
     leaseSize: 53
-    complainant: Jens Petersen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '23456789'
-    complainantAddress: '@test-case-aarhus-2-complainant-address'
+    bringer: Jens Petersen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '23456789'
+    bringerAddress: '@test-case-aarhus-2-bringer-address'
     leaseAddress: '@test-case-aarhus-2-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -439,10 +439,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-3:
     leaseSize: 55
-    complainant: Anton Per Hansen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '87655678'
-    complainantAddress: '@test-case-aarhus-3-complainant-address'
+    bringer: Anton Per Hansen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '87655678'
+    bringerAddress: '@test-case-aarhus-3-bringer-address'
     leaseAddress: '@test-case-aarhus-3-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -456,10 +456,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-4:
     leaseSize: 61
-    complainant: Helle Hansen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '87255678'
-    complainantAddress: '@test-case-aarhus-4-complainant-address'
+    bringer: Helle Hansen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '87255678'
+    bringerAddress: '@test-case-aarhus-4-bringer-address'
     leaseAddress: '@test-case-aarhus-4-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -473,10 +473,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-5:
     leaseSize: 78
-    complainant: Anne Jensen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '61655678'
-    complainantAddress: '@test-case-aarhus-5-complainant-address'
+    bringer: Anne Jensen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '61655678'
+    bringerAddress: '@test-case-aarhus-5-bringer-address'
     leaseAddress: '@test-case-aarhus-5-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -491,10 +491,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-6:
     leaseSize: 87
-    complainant: Malene Skriver
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '51650678'
-    complainantAddress: '@test-case-aarhus-6-complainant-address'
+    bringer: Malene Skriver
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '51650678'
+    bringerAddress: '@test-case-aarhus-6-bringer-address'
     leaseAddress: '@test-case-aarhus-6-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -508,10 +508,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-7:
     leaseSize: 84
-    complainant: Karen Skriver
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '51657654'
-    complainantAddress: '@test-case-aarhus-7-complainant-address'
+    bringer: Karen Skriver
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '51657654'
+    bringerAddress: '@test-case-aarhus-7-bringer-address'
     leaseAddress: '@test-case-aarhus-7-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -525,10 +525,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-8:
     leaseSize: 84
-    complainant: Helge Pedersen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '71654674'
-    complainantAddress: '@test-case-aarhus-8-complainant-address'
+    bringer: Helge Pedersen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '71654674'
+    bringerAddress: '@test-case-aarhus-8-bringer-address'
     leaseAddress: '@test-case-aarhus-8-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -542,10 +542,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-9:
     leaseSize: 121
-    complainant: Kirsten Christensen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '71655674'
-    complainantAddress: '@test-case-aarhus-9-complainant-address'
+    bringer: Kirsten Christensen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '71655674'
+    bringerAddress: '@test-case-aarhus-9-bringer-address'
     leaseAddress: '@test-case-aarhus-9-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -561,10 +561,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-10:
     leaseSize: 101
-    complainant: Mette Susanne Larsen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '71257674'
-    complainantAddress: '@test-case-aarhus-10-complainant-address'
+    bringer: Mette Susanne Larsen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '71257674'
+    bringerAddress: '@test-case-aarhus-10-bringer-address'
     leaseAddress: '@test-case-aarhus-10-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -579,10 +579,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-11:
     leaseSize: 83
-    complainant: Susanne Birgitte Hanne
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '81453614'
-    complainantAddress: '@test-case-aarhus-11-complainant-address'
+    bringer: Susanne Birgitte Hanne
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '81453614'
+    bringerAddress: '@test-case-aarhus-11-bringer-address'
     leaseAddress: '@test-case-aarhus-11-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -596,10 +596,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-12:
     leaseSize: 45
-    complainant: Molly Marianne Olsen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '81453614'
-    complainantAddress: '@test-case-aarhus-12-complainant-address'
+    bringer: Molly Marianne Olsen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '81453614'
+    bringerAddress: '@test-case-aarhus-12-bringer-address'
     leaseAddress: '@test-case-aarhus-12-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -614,10 +614,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-13:
     leaseSize: 76
-    complainant: Michael Olsen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '45368114'
-    complainantAddress: '@test-case-aarhus-13-complainant-address'
+    bringer: Michael Olsen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '45368114'
+    bringerAddress: '@test-case-aarhus-13-bringer-address'
     leaseAddress: '@test-case-aarhus-13-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -632,10 +632,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-14:
     leaseSize: 67
-    complainant: Jan Martin Sørensen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '81144536'
-    complainantAddress: '@test-case-aarhus-14-complainant-address'
+    bringer: Jan Martin Sørensen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '81144536'
+    bringerAddress: '@test-case-aarhus-14-bringer-address'
     leaseAddress: '@test-case-aarhus-14-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -649,10 +649,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-15:
     leaseSize: 56
-    complainant: Martin Jan Thomsen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '44453816'
-    complainantAddress: '@test-case-aarhus-15-complainant-address'
+    bringer: Martin Jan Thomsen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '44453816'
+    bringerAddress: '@test-case-aarhus-15-bringer-address'
     leaseAddress: '@test-case-aarhus-15-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -668,10 +668,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-16:
     leaseSize: 76
-    complainant: Charlotte Thomsen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '45381644'
-    complainantAddress: '@test-case-aarhus-16-complainant-address'
+    bringer: Charlotte Thomsen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '45381644'
+    bringerAddress: '@test-case-aarhus-16-bringer-address'
     leaseAddress: '@test-case-aarhus-16-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -686,10 +686,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-17:
     leaseSize: 44
-    complainant: Tina Møller
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '38451644'
-    complainantAddress: '@test-case-aarhus-17-complainant-address'
+    bringer: Tina Møller
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '38451644'
+    bringerAddress: '@test-case-aarhus-17-bringer-address'
     leaseAddress: '@test-case-aarhus-17-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -703,10 +703,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-18:
     leaseSize: 62
-    complainant: Pia Johansen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '51638444'
-    complainantAddress: '@test-case-aarhus-18-complainant-address'
+    bringer: Pia Johansen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '51638444'
+    bringerAddress: '@test-case-aarhus-18-bringer-address'
     leaseAddress: '@test-case-aarhus-18-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -720,10 +720,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-19:
     leaseSize: 98
-    complainant: Jeppe Johansen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '63844514'
-    complainantAddress: '@test-case-aarhus-19-complainant-address'
+    bringer: Jeppe Johansen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '63844514'
+    bringerAddress: '@test-case-aarhus-19-bringer-address'
     leaseAddress: '@test-case-aarhus-19-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -738,10 +738,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-20:
     leaseSize: 44
-    complainant: Jeppe Johansen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '38445146'
-    complainantAddress: '@test-case-aarhus-20-complainant-address'
+    bringer: Jeppe Johansen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '38445146'
+    bringerAddress: '@test-case-aarhus-20-bringer-address'
     leaseAddress: '@test-case-aarhus-20-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -755,10 +755,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-21:
     leaseSize: 55
-    complainant: Søren Johansen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '38445146'
-    complainantAddress: '@test-case-aarhus-21-complainant-address'
+    bringer: Søren Johansen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '38445146'
+    bringerAddress: '@test-case-aarhus-21-bringer-address'
     leaseAddress: '@test-case-aarhus-21-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -772,10 +772,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-22:
     leaseSize: 66
-    complainant: Søren Johansen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '84465314'
-    complainantAddress: '@test-case-aarhus-22-complainant-address'
+    bringer: Søren Johansen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '84465314'
+    bringerAddress: '@test-case-aarhus-22-bringer-address'
     leaseAddress: '@test-case-aarhus-22-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -789,10 +789,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-23:
     leaseSize: 81
-    complainant: Bente Poulsen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '44465314'
-    complainantAddress: '@test-case-aarhus-23-complainant-address'
+    bringer: Bente Poulsen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '44465314'
+    bringerAddress: '@test-case-aarhus-23-bringer-address'
     leaseAddress: '@test-case-aarhus-23-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -806,10 +806,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-aarhus-24:
     leaseSize: 34
-    complainant: Rasmus Madsen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '46531444'
-    complainantAddress: '@test-case-aarhus-24-complainant-address'
+    bringer: Rasmus Madsen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '46531444'
+    bringerAddress: '@test-case-aarhus-24-bringer-address'
     leaseAddress: '@test-case-aarhus-24-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -825,10 +825,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-randers-1:
     leaseSize: 51
-    complainant: Anne Jensen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '87674321'
-    complainantAddress: '@test-case-randers-1-complainant-address'
+    bringer: Anne Jensen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '87674321'
+    bringerAddress: '@test-case-randers-1-bringer-address'
     leaseAddress: '@test-case-randers-1-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -843,10 +843,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-randers-2:
     leaseSize: 73
-    complainant: Anne Petersen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '23476711'
-    complainantAddress: '@test-case-randers-2-complainant-address'
+    bringer: Anne Petersen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '23476711'
+    bringerAddress: '@test-case-randers-2-bringer-address'
     leaseAddress: '@test-case-randers-2-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -860,10 +860,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-randers-3:
     leaseSize: 77
-    complainant: Henrik Per Hansen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '87677611'
-    complainantAddress: '@test-case-randers-3-complainant-address'
+    bringer: Henrik Per Hansen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '87677611'
+    bringerAddress: '@test-case-randers-3-bringer-address'
     leaseAddress: '@test-case-randers-3-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -878,10 +878,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-randers-4:
     leaseSize: 61
-    complainant: Henrik Hansen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '87277611'
-    complainantAddress: '@test-case-randers-4-complainant-address'
+    bringer: Henrik Hansen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '87277611'
+    bringerAddress: '@test-case-randers-4-bringer-address'
     leaseAddress: '@test-case-randers-4-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -895,10 +895,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-randers-5:
     leaseSize: 78
-    complainant: Niels Jensen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '61677611'
-    complainantAddress: '@test-case-randers-5-complainant-address'
+    bringer: Niels Jensen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '61677611'
+    bringerAddress: '@test-case-randers-5-bringer-address'
     leaseAddress: '@test-case-randers-5-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -913,10 +913,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-randers-6:
     leaseSize: 87
-    complainant: Niels Skriver
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '71670611'
-    complainantAddress: '@test-case-randers-6-complainant-address'
+    bringer: Niels Skriver
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '71670611'
+    bringerAddress: '@test-case-randers-6-bringer-address'
     leaseAddress: '@test-case-randers-6-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -930,10 +930,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-randers-7:
     leaseSize: 84
-    complainant: Anders Skriver
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '71677611'
-    complainantAddress: '@test-case-randers-7-complainant-address'
+    bringer: Anders Skriver
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '71677611'
+    bringerAddress: '@test-case-randers-7-bringer-address'
     leaseAddress: '@test-case-randers-7-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -947,10 +947,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-randers-8:
     leaseSize: 84
-    complainant: Anders Pedersen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '71674611'
-    complainantAddress: '@test-case-randers-8-complainant-address'
+    bringer: Anders Pedersen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '71674611'
+    bringerAddress: '@test-case-randers-8-bringer-address'
     leaseAddress: '@test-case-randers-8-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -964,10 +964,10 @@ App\Entity\ResidentComplaintBoardCase:
 
   test-case-randers-9:
     leaseSize: 121
-    complainant: Inger Christensen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantPhone: '71677611'
-    complainantAddress: '@test-case-randers-9-complainant-address'
+    bringer: Inger Christensen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerPhone: '71677611'
+    bringerAddress: '@test-case-randers-9-bringer-address'
     leaseAddress: '@test-case-randers-9-lease-address'
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
@@ -983,9 +983,9 @@ App\Entity\FenceReviewCase:
   test-case-fence-aarhus-1:
     accused: Anders And
     accusedIdentification: '@test-case-aarhus-1-identification'
-    complainant: Jens Jensen
-    complainantIdentification: '@test-case-aarhus-1-identification'
-    complainantAddress: '@test-case-aarhus-1-complainant-address'
+    bringer: Jens Jensen
+    bringerIdentification: '@test-case-aarhus-1-identification'
+    bringerAddress: '@test-case-aarhus-1-bringer-address'
     accusedAddress: '@test-case-aarhus-1-lease-address'
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
     finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
@@ -997,6 +997,6 @@ App\Entity\FenceReviewCase:
     shouldBeInspected: true
     conditions: |
         Conditions for this review
-    complainantClaim: |
+    bringerClaim: |
         Claim for this review
-    complainantCadastralNumber: 'Mat 11'
+    bringerCadastralNumber: 'Mat 11'

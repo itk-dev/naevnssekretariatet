@@ -39,26 +39,26 @@ class FenceReviewCaseType extends AbstractType
         $board = $options['board'];
 
         $builder
-            ->add('complainantIdentification', IdentificationType::class, [
+            ->add('bringerIdentification', IdentificationType::class, [
                 'label' => false,
             ])
             ->add('lookupIdentifier', ButtonType::class, [
                 'label' => $this->translator->trans('Find information from identifier', [], 'case'),
                 'attr' => [
                     'class' => 'btn-primary btn identification-lookup',
-                    'data-specifier' => 'complainant',
+                    'data-specifier' => 'bringer',
                 ],
             ])
-            ->add('complainant', TextType::class, [
-                'label' => $this->translator->trans('Complainant', [], 'case'),
+            ->add('bringer', TextType::class, [
+                'label' => $this->translator->trans('Bringer', [], 'case'),
             ])
-            ->add('complainantAddress', AddressLookupType::class, [
-                'label' => $this->translator->trans('Complainant address', [], 'case'),
-                'lookup-placeholder' => $this->translator->trans('Look up complainant address', [], 'case'),
+            ->add('bringerAddress', AddressLookupType::class, [
+                'label' => $this->translator->trans('Bringer address', [], 'case'),
+                'lookup-placeholder' => $this->translator->trans('Look up bringer address', [], 'case'),
                 'lookup-help' => $this->translator->trans('Look up an address to fill out the address fields', [], 'case'),
             ])
-            ->add('complainantCadastralNumber', TextType::class, [
-                'label' => $this->translator->trans('Complainant cadastral number', [], 'case'),
+            ->add('bringerCadastralNumber', TextType::class, [
+                'label' => $this->translator->trans('Bringer cadastral number', [], 'case'),
             ])
             ->add('accusedIdentification', IdentificationType::class, [
                 'label' => false,
@@ -97,7 +97,7 @@ class FenceReviewCaseType extends AbstractType
                     'rows' => 8,
                 ],
             ])
-            ->add('complainantClaim', TextareaType::class, [
+            ->add('bringerClaim', TextareaType::class, [
                 'label' => $this->translator->trans('Claim', [], 'case'),
                 'attr' => [
                     'rows' => 6,

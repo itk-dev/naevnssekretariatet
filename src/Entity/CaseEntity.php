@@ -116,13 +116,13 @@ abstract class CaseEntity
      * @ORM\Column(type="string", length=255)
      * @Groups({"mail_template"})
      */
-    private $complainant;
+    private $bringer;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      * @Groups({"mail_template"})
      */
-    private $complainantAddress;
+    private $bringerAddress;
 
     /**
      * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="caseEntity")
@@ -137,7 +137,7 @@ abstract class CaseEntity
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $sortingComplainant;
+    private $sortingParty;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -177,7 +177,7 @@ abstract class CaseEntity
      * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
      * @Groups({"mail_template"})
      */
-    private $complainantIdentification;
+    private $bringerIdentification;
 
     /**
      * @ORM\OneToMany(targetEntity=Decision::class, mappedBy="caseEntity", orphanRemoval=true)
@@ -197,7 +197,7 @@ abstract class CaseEntity
     public function __construct()
     {
         $this->id = Uuid::v4();
-        $this->complainantAddress = new Address();
+        $this->bringerAddress = new Address();
         $this->casePartyRelation = new ArrayCollection();
         $this->caseDocumentRelation = new ArrayCollection();
         $this->notes = new ArrayCollection();
@@ -206,7 +206,7 @@ abstract class CaseEntity
         $this->finishHearingDeadline = new \DateTime('today');
         $this->finishProcessingDeadline = new \DateTime('today');
         $this->decisions = new ArrayCollection();
-        $this->complainantIdentification = new Identification();
+        $this->bringerIdentification = new Identification();
     }
 
     public function getId(): ?Uuid
@@ -364,26 +364,26 @@ abstract class CaseEntity
         return $this;
     }
 
-    public function getComplainant(): ?string
+    public function getBringer(): ?string
     {
-        return $this->complainant;
+        return $this->bringer;
     }
 
-    public function setComplainant(?string $complainant): self
+    public function setBringer(?string $bringer): self
     {
-        $this->complainant = $complainant;
+        $this->bringer = $bringer;
 
         return $this;
     }
 
-    public function setComplainantAddress(Address $address): void
+    public function setBringerAddress(Address $address): void
     {
-        $this->complainantAddress = $address;
+        $this->bringerAddress = $address;
     }
 
-    public function getComplainantAddress(): Address
+    public function getBringerAddress(): Address
     {
-        return $this->complainantAddress;
+        return $this->bringerAddress;
     }
 
     public function __toString()
@@ -520,14 +520,14 @@ abstract class CaseEntity
         return $this;
     }
 
-    public function getSortingComplainant(): ?string
+    public function getSortingParty(): ?string
     {
-        return $this->sortingComplainant;
+        return $this->sortingParty;
     }
 
-    public function setSortingComplainant(string $sortingComplainant): self
+    public function setSortingParty(string $sortingParty): self
     {
-        $this->sortingComplainant = $sortingComplainant;
+        $this->sortingParty = $sortingParty;
 
         return $this;
     }
@@ -592,14 +592,14 @@ abstract class CaseEntity
         return $this;
     }
 
-    public function getComplainantIdentification(): Identification
+    public function getBringerIdentification(): Identification
     {
-        return $this->complainantIdentification;
+        return $this->bringerIdentification;
     }
 
-    public function setComplainantIdentification(Identification $complainantIdentification): void
+    public function setBringerIdentification(Identification $bringerIdentification): void
     {
-        $this->complainantIdentification = $complainantIdentification;
+        $this->bringerIdentification = $bringerIdentification;
     }
 
     /**
@@ -649,10 +649,10 @@ abstract class CaseEntity
      *
      * Example:
      * [
-     * 'complainantIdentification' => [
+     * 'bringerIdentification' => [
      *      // Depends on values of
-     *      'complainant'
-     *      'complainantAddress'
+     *      'bringer'
+     *      'bringerAddress'
      *      ...
      *  ],
      *  'accusedIdentification' => [

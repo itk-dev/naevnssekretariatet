@@ -21,22 +21,22 @@
         <div class="row mt-3">
             <div class="col">
                 <fieldset>
-                    <legend>{% trans %}Complainant{% endtrans %}</legend>
+                    <legend>{% trans %}Bringer{% endtrans %}</legend>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label>{% trans %}Complainant name{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.complainant }}" readonly>
+                            <label>{% trans %}Bringer name{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.bringer }}" readonly>
                         </div>
                         <div class="form-group col-md-3">
                             <label>{% trans %}Telephone number{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.complainantPhone }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.bringerPhone }}" readonly>
                         </div>
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                            {% include 'case/_identifier.html.twig' with {case: case, id_property: 'complainantIdentification', address_property: 'complainantAddress', name_property: 'complainant'} %}
+                            {% include 'case/_identifier.html.twig' with {case: case, id_property: 'bringerIdentification', address_property: 'bringerAddress', name_property: 'bringer'} %}
                         {% endif %}
                     </div>
 
-                    {% include 'case/_address.html.twig' with {case: case, address_property: 'complainantAddress'} %}
+                    {% include 'case/_address.html.twig' with {case: case, address_property: 'bringerAddress'} %}
 
                 </fieldset>
                 <fieldset>
@@ -198,7 +198,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for party_data in complainants %}
+                            {% for party_data in parties %}
                                 <tr>
                                     <td>{{ party_data.party.name|e }}</td>
                                     <td>{{ party_data.type|e }}</td>

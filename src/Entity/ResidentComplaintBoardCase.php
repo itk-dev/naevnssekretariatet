@@ -22,7 +22,7 @@ class ResidentComplaintBoardCase extends CaseEntity
     /**
      * @ORM\Column(type="integer")
      */
-    private $complainantPhone;
+    private $bringerPhone;
 
     /**
      * @ORM\Column(type="boolean")
@@ -104,14 +104,14 @@ class ResidentComplaintBoardCase extends CaseEntity
         return $this;
     }
 
-    public function getComplainantPhone(): ?int
+    public function getBringerPhone(): ?int
     {
-        return $this->complainantPhone;
+        return $this->bringerPhone;
     }
 
-    public function setComplainantPhone(?int $complainantPhone): self
+    public function setBringerPhone(?int $bringerPhone): self
     {
-        $this->complainantPhone = $complainantPhone;
+        $this->bringerPhone = $bringerPhone;
 
         return $this;
     }
@@ -255,26 +255,26 @@ class ResidentComplaintBoardCase extends CaseEntity
         $this->setSortingAddress($this->getLeaseAddress()->__toString());
     }
 
-    public function getNonRelevantComplainantPropertiesWithRespectToValidation(): array
+    public function getNonRelevantBringerPropertiesWithRespectToValidation(): array
     {
         return [
-            'complainantPhone',
+            'bringerPhone',
         ];
     }
 
     public function getIdentificationInvalidationProperties(): array
     {
         return [
-            'complainantIdentification' => [
-                'complainant',
-                'complainantIdentification.type',
-                'complainantIdentification.identifier',
-                'complainantAddress.street',
-                'complainantAddress.number',
-                'complainantAddress.floor',
-                'complainantAddress.side',
-                'complainantAddress.postalCode',
-                'complainantAddress.city',
+            'bringerIdentification' => [
+                'bringer',
+                'bringerIdentification.type',
+                'bringerIdentification.identifier',
+                'bringerAddress.street',
+                'bringerAddress.number',
+                'bringerAddress.floor',
+                'bringerAddress.side',
+                'bringerAddress.postalCode',
+                'bringerAddress.city',
             ],
         ];
     }

@@ -21,4 +21,4 @@ App\Entity\DigitalPost\Recipient:
         name: 'Mr. Bean'
         identifierType: 'cpr'
         identifier: '0000000000'
-        address: '@test-case-aarhus-1-complainant-address'
+        address: '@test-case-aarhus-1-bringer-address'
