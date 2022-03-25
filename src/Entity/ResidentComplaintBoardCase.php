@@ -81,6 +81,11 @@ class ResidentComplaintBoardCase extends CaseEntity
      */
     private $feePaid;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $leaseRegulatedAt;
+
     public function __construct()
     {
         parent::__construct();
@@ -272,5 +277,17 @@ class ResidentComplaintBoardCase extends CaseEntity
                 'complainantAddress.city',
             ],
         ];
+    }
+
+    public function getLeaseRegulatedAt(): ?\DateTimeInterface
+    {
+        return $this->leaseRegulatedAt;
+    }
+
+    public function setLeaseRegulatedAt(?\DateTimeInterface $leaseRegulatedAt): self
+    {
+        $this->leaseRegulatedAt = $leaseRegulatedAt;
+
+        return $this;
     }
 }

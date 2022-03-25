@@ -1273,6 +1273,14 @@
         <source>Extra complaint category information</source>
         <target>Extra complaint category information</target>
       </trans-unit>
+      <trans-unit id="MEd_B9D" resname="Lease regulated at">
+        <source>Lease regulated at</source>
+        <target>Lease regulated at</target>
+      </trans-unit>
+      <trans-unit id="RD53dKI" resname="Regulated at">
+        <source>Regulated at</source>
+        <target>Regulated at</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

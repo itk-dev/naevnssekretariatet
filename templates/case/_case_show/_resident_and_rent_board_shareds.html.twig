@@ -148,15 +148,19 @@
                 <fieldset>
                     <legend>{% trans %}Rent{% endtrans %}</legend>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label>{% trans %}Agreed rent{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.leaseAgreedRent }}" readonly>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label>{% trans %}Regulated rent{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.leaseRegulatedRent }}" readonly>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
+                            <label>{% trans %}Regulated at{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.leaseRegulatedAt|date_nullable(format_date) }}" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
                             <label>{% trans %}Rent at collection time{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.leaseRentAtCollectionTime }}" readonly>
                         </div>

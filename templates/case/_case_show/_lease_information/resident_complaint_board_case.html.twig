@@ -3,7 +3,7 @@
 <div class="form-row">
     <div class="form-group col-md-3">
         <label for="inputBasicInformation4">{% trans %}Lease started{% endtrans %}</label>
-        <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.leaseStarted|date(format_date) }}" readonly>
+        <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.leaseStarted|date_nullable(format_date) }}" readonly>
     </div>
     <div class="form-group col-md-3">
         <label for="inputBasicInformation3">{% trans %}Has vacated{% endtrans %}</label>
@@ -15,7 +15,6 @@
     </div>
     <div class="form-group col-md-3">
         <label for="inputBasicInformation5">{% trans %}Interior maintenance{% endtrans %}</label>
-        {# TODO: Update city value when such property exists #}
         <input type="text" class="form-control" id="inputBasicInformation5" value="{{ case.leaseInteriorMaintenance }}" readonly>
     </div>
 </div>

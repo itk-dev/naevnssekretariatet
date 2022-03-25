@@ -547,7 +547,7 @@
       </trans-unit>
       <trans-unit id="E0wfEXl" resname="Lease started">
         <source>Lease started</source>
-        <target>Lejemål påbegyndt</target>
+        <target>Lejeforhold påbegyndt</target>
       </trans-unit>
       <trans-unit id="Zixr61X" resname="Lease size">
         <source>Lease size</source>
@@ -1272,6 +1272,14 @@
       <trans-unit id="EE6DD9s" resname="Extra complaint category information">
         <source>Extra complaint category information</source>
         <target state="translated">Ekstra klagetypeinformation</target>
+      </trans-unit>
+      <trans-unit id="MEd_B9D" resname="Lease regulated at">
+        <source>Lease regulated at</source>
+        <target state="translated">Reguleringsdato</target>
+      </trans-unit>
+      <trans-unit id="RD53dKI" resname="Regulated at">
+        <source>Regulated at</source>
+        <target state="translated">Reguleringsdato</target>
       </trans-unit>
     </body>
   </file>
