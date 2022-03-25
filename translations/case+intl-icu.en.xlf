@@ -1281,6 +1281,46 @@
         <source>Regulated at</source>
         <target>Regulated at</target>
       </trans-unit>
+      <trans-unit id="A3PoZaO" resname="Bringer">
+        <source>Bringer</source>
+        <target>Bringer</target>
+      </trans-unit>
+      <trans-unit id="BxXUyin" resname="Bringer address">
+        <source>Bringer address</source>
+        <target>Bringer address</target>
+      </trans-unit>
+      <trans-unit id="uAn2V7I" resname="Look up bringer address">
+        <source>Look up bringer address</source>
+        <target>Look up bringer address</target>
+      </trans-unit>
+      <trans-unit id="hjCP6KW" resname="Bringer cadastral number">
+        <source>Bringer cadastral number</source>
+        <target>Bringer cadastral number</target>
+      </trans-unit>
+      <trans-unit id="YKAydEk" resname="Party has no more to add">
+        <source>Party has no more to add</source>
+        <target>Party has no more to add</target>
+      </trans-unit>
+      <trans-unit id="R5dtr4F" resname="Bringer phone">
+        <source>Bringer phone</source>
+        <target>Bringer phone</target>
+      </trans-unit>
+      <trans-unit id="Jyn13Ug" resname="Parties">
+        <source>Parties</source>
+        <target>Parties</target>
+      </trans-unit>
+      <trans-unit id="sT9BRdo" resname="Bringer name">
+        <source>Bringer name</source>
+        <target>Bringer name</target>
+      </trans-unit>
+      <trans-unit id="VXVbSna" resname="A case must have both a party and a counter part before entering the hearing phase.">
+        <source>A case must have both a party and a counter part before entering the hearing phase.</source>
+        <target>A case must have both a party and a counter part before entering the hearing phase.</target>
+      </trans-unit>
+      <trans-unit id=".Tvom67" resname="Cannot end hearing while party or counterpart still has something to add">
+        <source>Cannot end hearing while party or counterpart still has something to add</source>
+        <target>Cannot end hearing while party or counterpart still has something to add</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
