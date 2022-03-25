@@ -237,7 +237,7 @@ class Agenda implements LoggableEntityInterface
 
     public function __toString()
     {
-        return 'Agenda '.$this->getDate()->format('d/m/y');
+        return $this->date ? 'Agenda '.$this->date->format('d/m/y') : 'Agenda';
     }
 
     public function getLoggableProperties(): array

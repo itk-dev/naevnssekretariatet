@@ -158,7 +158,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label>{% trans %}Regulated at{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.leaseRegulatedAt is empty ? "" : case.leaseRegulatedAt|date(format_date) }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.leaseRegulatedAt ? case.leaseRegulatedAt|date(format_date) }}" readonly>
                         </div>
                         <div class="form-group col-md-3">
                             <label>{% trans %}Rent at collection time{% endtrans %}</label>
