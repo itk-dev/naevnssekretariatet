@@ -2,12 +2,20 @@
 
 namespace App\Twig;
 
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class TwigExtension extends AbstractExtension
 {
+    private Environment $twig;
+
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
+
     public function getFunctions(): array
     {
         return [
@@ -20,7 +28,8 @@ class TwigExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-          new TwigFilter('with_unit', [$this, 'withUnit']),
+            new TwigFilter('with_unit', [$this, 'withUnit']),
+            new TwigFilter('date_nullable', [$this, 'dateNullableFilter']),
         ];
     }
 
@@ -40,5 +49,10 @@ class TwigExtension extends AbstractExtension
     {
         // Separate formatted number and unit with a narrow non-breaking space.
         return $formattedNumber."\u{202F}".$unit;
+    }
+
+    public function dateNullableFilter($timestamp, $format): string
+    {
+        return $timestamp ? twig_date_format_filter($this->twig, $timestamp, $format) : '';
     }
 }
