@@ -219,7 +219,7 @@ class CaseController extends AbstractController
 
         return $this->render('case/show.html.twig', [
             'case' => $case,
-            'complainants' => $parties['complainants'],
+            'parties' => $parties['parties'],
             'counterparties' => $parties['counterparties'],
         ]);
     }

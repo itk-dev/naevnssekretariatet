@@ -60,11 +60,11 @@ window.addEventListener('ajaxload', function () {
 
   $copyAddressButton.on('click', function () {
     const $leaseElements = $("input[id*='leaseAddress']")
-    // We should copy complainant address into lease address
+    // We should copy bringer address into lease address
     for (const item of $leaseElements) {
-      // Find value from complainantAddress
-      const currentComplainantItem = $('#' + item.id.replace('leaseAddress', 'complainantAddress'))
-      item.value = currentComplainantItem.val()
+      // Find value from bringerAddress
+      const currentBringerItem = $('#' + item.id.replace('leaseAddress', 'bringerAddress'))
+      item.value = currentBringerItem.val()
     }
   })
 })

@@ -40,25 +40,25 @@ class RentBoardCaseType extends AbstractType
         $board = $options['board'];
 
         $builder
-            ->add('complainantIdentification', IdentificationType::class, [
+            ->add('bringerIdentification', IdentificationType::class, [
                 'label' => false,
             ])
             ->add('lookupIdentifier', ButtonType::class, [
                 'label' => $this->translator->trans('Find information from identifier', [], 'case'),
                 'attr' => [
                     'class' => 'btn-primary btn identification-lookup',
-                    'data-specifier' => 'complainant',
+                    'data-specifier' => 'bringer',
                 ],
             ])
-            ->add('complainant', TextType::class, [
-                'label' => $this->translator->trans('Complainant', [], 'case'),
+            ->add('bringer', TextType::class, [
+                'label' => $this->translator->trans('Bringer', [], 'case'),
             ])
-            ->add('complainantPhone', IntegerType::class, [
-                'label' => $this->translator->trans('Complainant phone', [], 'case'),
+            ->add('bringerPhone', IntegerType::class, [
+                'label' => $this->translator->trans('Bringer phone', [], 'case'),
             ])
-            ->add('complainantAddress', AddressLookupType::class, [
-                'label' => $this->translator->trans('Complainant address', [], 'case'),
-                'lookup-placeholder' => $this->translator->trans('Look up complainant address', [], 'case'),
+            ->add('bringerAddress', AddressLookupType::class, [
+                'label' => $this->translator->trans('Bringer address', [], 'case'),
+                'lookup-placeholder' => $this->translator->trans('Look up bringer address', [], 'case'),
                 'lookup-help' => $this->translator->trans('Look up an address to fill out the address fields', [], 'case'),
             ])
             ->add('hasVacated', ChoiceType::class, [

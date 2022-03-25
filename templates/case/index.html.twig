@@ -72,8 +72,8 @@
                         {{ knp_pagination_sortable(pagination, 'Address'|trans({}, 'case'), 'c.sortingAddress') }}
                     </th>
                     {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                        <th{% if pagination.isSorted('c.SortingComplainant') %} class="sorted"{% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Complainant'|trans({}, 'case'), 'c.sortingComplainant') }}
+                        <th{% if pagination.isSorted('c.SortingParty') %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Complainant'|trans({}, 'case'), 'c.sortingParty') }}
                         </th>
                         <th{% if pagination.isSorted('c.SortingCounterparty') %} class="sorted"{% endif %}>
                             {{ knp_pagination_sortable(pagination, 'Counterparty'|trans({}, 'case'), 'c.sortingCounterparty') }}
@@ -92,7 +92,7 @@
                         <td>{{ case.createdAt|date(format_date) }}</td>
                         <td>{{ case.sortingAddress|e }}</td>
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                            <td>{{ case.sortingComplainant|e }}</td>
+                            <td>{{ case.sortingParty|e }}</td>
                             <td>{{ case.sortingCounterparty|e }}</td>
                         {% endif %}
                         <td>

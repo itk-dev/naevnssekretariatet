@@ -1281,6 +1281,46 @@
         <source>Regulated at</source>
         <target state="translated">Reguleringsdato</target>
       </trans-unit>
+      <trans-unit id="A3PoZaO" resname="Bringer">
+        <source>Bringer</source>
+        <target state="translated">Indbringer</target>
+      </trans-unit>
+      <trans-unit id="BxXUyin" resname="Bringer address">
+        <source>Bringer address</source>
+        <target state="translated">Adresse</target>
+      </trans-unit>
+      <trans-unit id="uAn2V7I" resname="Look up bringer address">
+        <source>Look up bringer address</source>
+        <target state="translated">Fremsøg adresse</target>
+      </trans-unit>
+      <trans-unit id="hjCP6KW" resname="Bringer cadastral number">
+        <source>Bringer cadastral number</source>
+        <target state="translated">Matr.nr.</target>
+      </trans-unit>
+      <trans-unit id="YKAydEk" resname="Party has no more to add">
+        <source>Party has no more to add</source>
+        <target state="translated">Part har ikke mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="R5dtr4F" resname="Bringer phone">
+        <source>Bringer phone</source>
+        <target state="translated">Telefonnummer</target>
+      </trans-unit>
+      <trans-unit id="Jyn13Ug" resname="Parties">
+        <source>Parties</source>
+        <target state="translated">Parter</target>
+      </trans-unit>
+      <trans-unit id="sT9BRdo" resname="Bringer name">
+        <source>Bringer name</source>
+        <target state="translated">Navn</target>
+      </trans-unit>
+      <trans-unit id="VXVbSna" resname="A case must have both a party and a counter part before entering the hearing phase.">
+        <source>A case must have both a party and a counter part before entering the hearing phase.</source>
+        <target state="translated">En sag skal have både en part og en modpart før den kan gå ind i høringsfasen.</target>
+      </trans-unit>
+      <trans-unit id=".Tvom67" resname="Cannot end hearing while party or counterpart still has something to add">
+        <source>Cannot end hearing while party or counterpart still has something to add</source>
+        <target state="translated">Høring kan ikke afsluttes så længe part eller modpart har mere at tilføje</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -49,7 +49,7 @@ class HearingController extends AbstractController
         // Check whether there is at least one part for each side
         $relevantParties = $partyHelper->getRelevantPartiesByCase($case);
 
-        $hasSufficientParties = count($relevantParties['complainants']) > 0 && count($relevantParties['counterparties']) > 0;
+        $hasSufficientParties = count($relevantParties['parties']) > 0 && count($relevantParties['counterparties']) > 0;
 
         $hearing = $case->getHearing();
 
@@ -62,7 +62,7 @@ class HearingController extends AbstractController
             $this->entityManager->flush();
         }
 
-        $neitherPartyHasAnythingToAdd = true === $hearing->getComplainantHasNoMoreToAdd() && true === $hearing->getCounterpartHasNoMoreToAdd();
+        $neitherPartyHasAnythingToAdd = true === $hearing->getPartyHasNoMoreToAdd() && true === $hearing->getCounterpartHasNoMoreToAdd();
 
         $form = $this->createForm(HearingFinishType::class, $hearing);
         $form->handleRequest($request);

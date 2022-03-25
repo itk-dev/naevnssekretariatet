@@ -305,6 +305,10 @@
         <source>Extra address information</source>
         <target>Extra address information</target>
       </trans-unit>
+      <trans-unit id="5YFhjOr" resname="List of party types (one per line). The first party type can be used for sorting cases.">
+        <source>List of party types (one per line). The first party type can be used for sorting cases.</source>
+        <target>List of party types (one per line). The first party type can be used for sorting cases.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

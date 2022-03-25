@@ -39,7 +39,7 @@ class Hearing implements LoggableEntityInterface
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $complainantHasNoMoreToAdd = false;
+    private $partyHasNoMoreToAdd = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
@@ -124,14 +124,14 @@ class Hearing implements LoggableEntityInterface
         return $this;
     }
 
-    public function getComplainantHasNoMoreToAdd(): bool
+    public function getPartyHasNoMoreToAdd(): bool
     {
-        return $this->complainantHasNoMoreToAdd;
+        return $this->partyHasNoMoreToAdd;
     }
 
-    public function setComplainantHasNoMoreToAdd(bool $complainantHasNoMoreToAdd): self
+    public function setPartyHasNoMoreToAdd(bool $partyHasNoMoreToAdd): self
     {
-        $this->complainantHasNoMoreToAdd = $complainantHasNoMoreToAdd;
+        $this->partyHasNoMoreToAdd = $partyHasNoMoreToAdd;
 
         return $this;
     }
@@ -187,7 +187,7 @@ class Hearing implements LoggableEntityInterface
     public function getLoggableProperties(): array
     {
         return [
-            'complainantHasNoMoreToAdd',
+            'partyHasNoMoreToAdd',
             'counterpartHasNoMoreToAdd',
             'hasNewHearingPost',
             'startedOn',

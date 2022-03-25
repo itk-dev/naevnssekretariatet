@@ -21,12 +21,12 @@ class FenceReviewCase extends CaseEntity
     /**
      * @ORM\Column(type="text")
      */
-    private $complainantClaim;
+    private $bringerClaim;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $complainantCadastralNumber;
+    private $bringerCadastralNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -67,26 +67,26 @@ class FenceReviewCase extends CaseEntity
         return $this;
     }
 
-    public function getComplainantClaim(): ?string
+    public function getBringerClaim(): ?string
     {
-        return $this->complainantClaim;
+        return $this->bringerClaim;
     }
 
-    public function setComplainantClaim(string $complainantClaim): self
+    public function setBringerClaim(string $bringerClaim): self
     {
-        $this->complainantClaim = $complainantClaim;
+        $this->bringerClaim = $bringerClaim;
 
         return $this;
     }
 
-    public function getComplainantCadastralNumber(): ?string
+    public function getBringerCadastralNumber(): ?string
     {
-        return $this->complainantCadastralNumber;
+        return $this->bringerCadastralNumber;
     }
 
-    public function setComplainantCadastralNumber(string $complainantCadastralNumber): self
+    public function setBringerCadastralNumber(string $bringerCadastralNumber): self
     {
-        $this->complainantCadastralNumber = $complainantCadastralNumber;
+        $this->bringerCadastralNumber = $bringerCadastralNumber;
 
         return $this;
     }
@@ -131,7 +131,7 @@ class FenceReviewCase extends CaseEntity
      */
     public function updateSortingAddress()
     {
-        $this->setSortingAddress($this->getComplainantAddress()->__toString());
+        $this->setSortingAddress($this->getBringerAddress()->__toString());
     }
 
     public function getAccusedIdentification(): Identification
@@ -147,16 +147,16 @@ class FenceReviewCase extends CaseEntity
     public function getIdentificationInvalidationProperties(): array
     {
         return [
-            'complainantIdentification' => [
-                'complainant',
-                'complainantIdentification.type',
-                'complainantIdentification.identifier',
-                'complainantAddress.street',
-                'complainantAddress.number',
-                'complainantAddress.floor',
-                'complainantAddress.side',
-                'complainantAddress.postalCode',
-                'complainantAddress.city',
+            'bringerIdentification' => [
+                'bringer',
+                'bringerIdentification.type',
+                'bringerIdentification.identifier',
+                'bringerAddress.street',
+                'bringerAddress.number',
+                'bringerAddress.floor',
+                'bringerAddress.side',
+                'bringerAddress.postalCode',
+                'bringerAddress.city',
             ],
             'accusedIdentification' => [
                 'accused',

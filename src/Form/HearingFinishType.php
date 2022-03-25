@@ -32,8 +32,8 @@ class HearingFinishType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('complainantHasNoMoreToAdd', CheckboxType::class, [
-                'label' => $this->translator->trans('Complainant has no more to add', [], 'case'),
+            ->add('partyHasNoMoreToAdd', CheckboxType::class, [
+                'label' => $this->translator->trans('Party has no more to add', [], 'case'),
                 'required' => false,
             ])
             ->add('counterpartHasNoMoreToAdd', CheckboxType::class, [

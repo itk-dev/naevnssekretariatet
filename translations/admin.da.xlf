@@ -307,7 +307,11 @@
       </trans-unit>
       <trans-unit id=".ZzqKgg" resname="Extra address information">
         <source>Extra address information</source>
-        <target state="translated">__Extra address information</target>
+        <target state="translated">Ekstra adresse information</target>
+      </trans-unit>
+      <trans-unit id="5YFhjOr" resname="List of party types (one per line). The first party type can be used for sorting cases.">
+        <source>List of party types (one per line). The first party type can be used for sorting cases.</source>
+        <target state="translated">Liste af partstyper (en pr. linje). Der vil kunne sorteres på den første type på sagslisten.</target>
       </trans-unit>
     </body>
   </file>

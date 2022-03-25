@@ -75,8 +75,8 @@ class BoardCrudController extends AbstractCrudController
         yield IntegerField::new('hearingResponseDeadline', 'Hearing response deadline (days)');
         yield IntegerField::new('finishHearingDeadlineDefault', 'Finish hearing deadline (days)');
         yield IntegerField::new('finishProcessingDeadlineDefault', 'Finish processing case deadline (days)');
-        yield TextareaField::new('complainantTypes', 'Complainant party types')
-            ->setHelp($this->translator->trans('List of complainant party types (one per line). The first party type can be used for sorting cases.', [], 'admin'))
+        yield TextareaField::new('partyTypes', 'Party types')
+            ->setHelp($this->translator->trans('List of party types (one per line). The first party type can be used for sorting cases.', [], 'admin'))
         ;
         yield TextareaField::new('counterpartyTypes', 'Counter party types')
             ->setHelp($this->translator->trans('List of counterparty types (one per line). The first party type can be used for sorting cases.', [], 'admin'))
