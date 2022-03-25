@@ -8,7 +8,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CVRLookupCommand extends Command
 {
@@ -24,15 +23,13 @@ class CVRLookupCommand extends Command
     {
         $this
             ->setDescription(self::$defaultDescription)
-            ->addArgument('cpr-number', InputArgument::REQUIRED, 'CVR number to look up')
+            ->addArgument('cvr-number', InputArgument::REQUIRED, 'CVR number to look up')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
-
-        $cvr = $input->getArgument('cpr-number');
+        $cvr = $input->getArgument('cvr-number');
 
         try {
             $cvrData = $this->cvrHelper->lookupCvr($cvr);
