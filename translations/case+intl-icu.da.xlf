@@ -241,10 +241,6 @@
         <source>Name</source>
         <target>Navn</target>
       </trans-unit>
-      <trans-unit id="9gcREM5" resname="Journal number">
-        <source>Journal number</source>
-        <target>Journalnr.</target>
-      </trans-unit>
       <trans-unit id="4n3Tx2Z" resname="Status info">
         <source>Status info</source>
         <target state="translated">Statusoplysninger</target>
