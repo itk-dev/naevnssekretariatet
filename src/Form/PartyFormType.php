@@ -63,10 +63,6 @@ class PartyFormType extends AbstractType
             ->add('phoneNumber', IntegerType::class, [
                 'label' => $this->translator->trans('Phone number', [], 'party'),
             ])
-            ->add('journalNumber', TextType::class, [
-                'label' => $this->translator->trans('Journal number', [], 'party'),
-                'required' => false,
-            ])
             ->add('type', ChoiceType::class, [
                 'label' => $this->translator->trans('Type', [], 'party'),
                 'choices' => $this->partyHelper->getAllPartyTypes($case),

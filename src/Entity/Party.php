@@ -34,11 +34,6 @@ class Party implements LoggableEntityInterface
     private $phoneNumber;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $journalNumber;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $isPartOfPartIndex;
@@ -97,18 +92,6 @@ class Party implements LoggableEntityInterface
         return $this;
     }
 
-    public function getJournalNumber(): ?string
-    {
-        return $this->journalNumber;
-    }
-
-    public function setJournalNumber(?string $journalNumber): self
-    {
-        $this->journalNumber = $journalNumber;
-
-        return $this;
-    }
-
     public function getIsPartOfPartIndex(): ?bool
     {
         return $this->isPartOfPartIndex;
@@ -134,7 +117,6 @@ class Party implements LoggableEntityInterface
             'identifier',
             'address',
             'phoneNumber',
-            'journalNumber',
         ];
     }
 

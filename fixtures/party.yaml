@@ -78,7 +78,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-1'
     phoneNumber: '57209633'
-    journalNumber: 8Dw1pRDy
     isPartOfPartIndex: true
 
   party-2:
@@ -87,7 +86,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-2'
     phoneNumber: '75568314'
-    journalNumber: W3gXJ3j0
     isPartOfPartIndex: true
 
   party-3:
@@ -96,7 +94,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-3'
     phoneNumber: '80264719'
-    journalNumber: RD1BO4UU
     isPartOfPartIndex: true
 
   party-4:
@@ -105,7 +102,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-4'
     phoneNumber: '34223320'
-    journalNumber:
     isPartOfPartIndex: true
 
   party-5:
@@ -114,7 +110,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-5'
     phoneNumber: '88466494'
-    journalNumber: cCjsCo8b
     isPartOfPartIndex: true
 
   party-6:
@@ -123,7 +118,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-6'
     phoneNumber: '71952881'
-    journalNumber: PxNzbIaZ
     isPartOfPartIndex: true
 
   party-7:
@@ -132,7 +126,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-7'
     phoneNumber: '38261742'
-    journalNumber:
     isPartOfPartIndex: true
 
   party-8:
@@ -141,7 +134,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-8'
     phoneNumber: '21336274'
-    journalNumber:
     isPartOfPartIndex: true
 
   party-9:
@@ -150,7 +142,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-9'
     phoneNumber: '63374224'
-    journalNumber: r1vvdBlg
     isPartOfPartIndex: true
 
   party-10:
@@ -159,7 +150,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-10'
     phoneNumber: '23616621'
-    journalNumber: 6L9fwLpS
     isPartOfPartIndex: true
 
   party-11:
@@ -168,7 +158,6 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-11'
     phoneNumber: '92209974'
-    journalNumber: uAo8LSBZ
     isPartOfPartIndex: true
 
   party-12:
@@ -177,5 +166,4 @@ App\Entity\Party:
     identifier: '1234567890'
     address: '@test-address-party-12'
     phoneNumber: '23479335'
-    journalNumber: Qjelwawl
     isPartOfPartIndex: true

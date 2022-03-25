@@ -68,7 +68,6 @@ class PartyHelper
         $form->get('identifier')->setData($party->getIdentifier());
         $form->get('address')->setData($party->getAddress());
         $form->get('phoneNumber')->setData($party->getPhoneNumber());
-        $form->get('journalNumber')->setData($party->getJournalNumber());
         $form->get('type')->setData($relation->getType());
 
         return $form;
@@ -81,7 +80,6 @@ class PartyHelper
         $party->setIdentifier($data['identifier']);
         $party->setAddress($data['address']);
         $party->setPhoneNumber($data['phoneNumber']);
-        $party->setJournalNumber($data['journalNumber']);
         $relation->setType($data['type']);
 
         $this->entityManager->flush();
@@ -94,7 +92,6 @@ class PartyHelper
         $party->setIdentifier($data['identifier']);
         $party->setAddress($data['address']);
         $party->setPhoneNumber($data['phoneNumber']);
-        $party->setJournalNumber($data['journalNumber']);
 
         // Do not add to part index from here
         $party->setIsPartOfPartIndex(false);
