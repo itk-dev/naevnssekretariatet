@@ -15,7 +15,11 @@ const $identifications = $("[id*='Identification_type']")
 
 $identifications.each(function () {
   const $pNumberElement = $('#' + this.id.replace('type', 'pNumber'))
-  $pNumberElement.hide()
+
+  if ($(this).val() === 'CPR') {
+    $pNumberElement.hide()
+  }
+
   $(this)
     .off('change')
     .on('change', function () {
