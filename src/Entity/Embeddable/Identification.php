@@ -61,7 +61,7 @@ class Identification implements LoggableEntityInterface
         return $this->pNumber;
     }
 
-    public function setPNumber(string $pNumber): self
+    public function setPNumber(?string $pNumber): self
     {
         $this->pNumber = $pNumber;
 

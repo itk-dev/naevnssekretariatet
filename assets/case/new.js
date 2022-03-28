@@ -68,11 +68,14 @@ window.addEventListener('ajaxload', function () {
     }
   })
 
-  const $identifications = $("[id*='Identification_type']")
+  const $identificationTypes = $("[id*='Identification_type']")
 
-  $identifications.each(function () {
+  $identificationTypes.each(function () {
     const $pNumberElement = $('#' + this.id.replace('type', 'pNumber'))
+    // During creation, we always show CPR first so hide element
     $pNumberElement.hide()
+
+    // Setup listener on change
     $(this)
       .off('change')
       .on('change', function () {
