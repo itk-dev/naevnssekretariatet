@@ -79,11 +79,7 @@ window.addEventListener('ajaxload', function () {
     $(this)
       .off('change')
       .on('change', function () {
-        if ($(this).val() === 'CPR') {
-          $pNumberElement.hide()
-        } else {
-          $pNumberElement.show()
-        }
+        $pNumberElement.toggle($(this).val() === 'CVR')
       })
   })
 })

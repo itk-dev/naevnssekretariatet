@@ -1,4 +1,13 @@
 /* global $ */
+
+// On load trigger change once to preselect municipality
+window.addEventListener('load', function () {
+  const $identificationTypes = $("[id*='Identification_type']")
+  $identificationTypes.each(function () {
+    $(this).trigger('change')
+  })
+})
+
 const $copyAddressButton = $("[id*='copyAddress']")
 
 $copyAddressButton.on('click', function () {
@@ -16,19 +25,10 @@ const $identificationTypes = $("[id*='Identification_type']")
 $identificationTypes.each(function () {
   const $pNumberElement = $('#' + this.id.replace('type', 'pNumber'))
 
-  // Hide pNumberElement if type is CPR
-  if ($(this).val() === 'CPR') {
-    $pNumberElement.hide()
-  }
-
   // Setup listener on change
   $(this)
     .off('change')
     .on('change', function () {
-      if ($(this).val() === 'CPR') {
-        $pNumberElement.hide()
-      } else {
-        $pNumberElement.show()
-      }
+      $pNumberElement.toggle($(this).val() === 'CVR')
     })
 })
