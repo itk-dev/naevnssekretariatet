@@ -67,4 +67,20 @@ window.addEventListener('ajaxload', function () {
       item.value = currentBringerItem.val()
     }
   })
+
+  const $identifications = $("[id*='Identification_type']")
+
+  $identifications.each(function () {
+    const $pNumberElement = $('#' + this.id.replace('type', 'pNumber'))
+    $pNumberElement.hide()
+    $(this)
+      .off('change')
+      .on('change', function () {
+        if ($(this).val() === 'CPR') {
+          $pNumberElement.hide()
+        } else {
+          $pNumberElement.show()
+        }
+      })
+  })
 })

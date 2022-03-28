@@ -36,6 +36,16 @@ class IdentificationType extends AbstractType
             ])
             ->add('identifier', TextType::class, [
                 'label' => $this->translator->trans('Identification', [], 'case'),
+                'attr' => [
+                    'placeholder' => $this->translator->trans('Identifier', [], 'case'),
+                ],
+            ])
+            ->add('pNumber', TextType::class, [
+                'label' => $this->translator->trans('P-number', [], 'case'),
+                'attr' => [
+                    'placeholder' => $this->translator->trans('P-number', [], 'case'),
+                ],
+                'required' => false,
             ])
         ;
     }
