@@ -1,13 +1,4 @@
 /* global $ */
-
-// On load trigger change once to preselect municipality
-window.addEventListener('load', function () {
-  const $identificationTypes = $("[id*='Identification_type']")
-  $identificationTypes.each(function () {
-    $(this).trigger('change')
-  })
-})
-
 const $copyAddressButton = $("[id*='copyAddress']")
 
 $copyAddressButton.on('click', function () {
@@ -31,4 +22,5 @@ $identificationTypes.each(function () {
     .on('change', function () {
       $pNumberElement.toggle($(this).val() === 'CVR')
     })
+    .trigger('change')
 })

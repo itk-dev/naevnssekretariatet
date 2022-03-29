@@ -72,14 +72,12 @@ window.addEventListener('ajaxload', function () {
 
   $identificationTypes.each(function () {
     const $pNumberElement = $('#' + this.id.replace('type', 'pNumber'))
-    // During creation, we always show CPR first so hide element
-    $pNumberElement.hide()
-
     // Setup listener on change
     $(this)
       .off('change')
       .on('change', function () {
         $pNumberElement.toggle($(this).val() === 'CVR')
       })
+      .trigger('change')
   })
 })
