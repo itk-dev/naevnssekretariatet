@@ -27,11 +27,8 @@
             <div class="col-md-6 mb-3">
                 {{ form_row(add_party_form.name) }}
             </div>
-            <div class="col-md-3 mb-3">
-                {{ form_row(add_party_form.identifierType) }}
-            </div>
-            <div class="col-md-3 mb-3">
-                {{ form_row(add_party_form.identifier) }}
+            <div class="col-md-6 mb-3">
+                {{ form_row(add_party_form.identification) }}
             </div>
         </div>
         <div class="form-row">
@@ -57,5 +54,6 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('identification_type_handler') }}
     {{ encore_entry_script_tags('dawa-address-lookup') }}
 {% endblock %}

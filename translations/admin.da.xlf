@@ -309,6 +309,10 @@
         <source>List of party types (one per line). The first party type can be used for sorting cases.</source>
         <target state="translated">Liste af partstyper (en pr. linje). Der vil kunne sorteres på den første type på sagslisten.</target>
       </trans-unit>
+      <trans-unit id="kfYGsy3" resname="Identification">
+        <source>Identification</source>
+        <target state="translated">Identifikation</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
