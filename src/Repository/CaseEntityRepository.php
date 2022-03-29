@@ -51,10 +51,17 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->setParameter('board', $board->getId()->toBinary())
             ->andWhere('c.isReadyForAgenda = :isReadyForAgendaCheck')
             ->setParameter('isReadyForAgendaCheck', true)
-            ->andWhere('c NOT IN (:cases_with_active_agenda)')
-            ->setParameter('cases_with_active_agenda', $binaryIdsOfActiveCases)
-            ->orderBy('c.caseNumber', 'ASC')
         ;
+
+        // If $binaryIdsOfActiveCases array is empty NOT IN does not behave as expected
+        if (count($binaryIdsOfActiveCases) > 0) {
+            $qb
+                ->andWhere('c NOT IN (:cases_with_active_agenda)')
+                ->setParameter('cases_with_active_agenda', $binaryIdsOfActiveCases)
+            ;
+        }
+
+        $qb->orderBy('c.caseNumber', 'ASC');
 
         return $qb->getQuery()->getResult();
     }
