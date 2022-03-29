@@ -53,6 +53,7 @@ class CaseEntityRepository extends ServiceEntityRepository
             ->setParameter('isReadyForAgendaCheck', true)
             ->andWhere('c NOT IN (:cases_with_active_agenda)')
             ->setParameter('cases_with_active_agenda', $binaryIdsOfActiveCases)
+            ->orderBy('c.caseNumber', 'ASC')
         ;
 
         return $qb->getQuery()->getResult();
