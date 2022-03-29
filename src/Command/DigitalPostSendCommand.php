@@ -73,16 +73,14 @@ class DigitalPostSendCommand extends Command
                                 break;
 
                              case IdentificationHelper::IDENTIFIER_TYPE_CVR:
-                                case IdentificationHelper::IDENTIFIER_TYPE_CPR:
-                                    $result = $this->digitalPostHelper->sendDigitalPostCVR(
-                                        $recipient->getIdentifier(),
-                                        $recipient->getName(),
-                                        $recipient->getAddress(),
-                                        $digitalPost->getSubject(),
-                                        $content,
-                                        $attachments
-                                    );
-                                    break;
+                                 $result = $this->digitalPostHelper->sendDigitalPostCVR(
+                                     $recipient->getIdentifier(),
+                                     $recipient->getName(),
+                                     $recipient->getAddress(),
+                                     $digitalPost->getSubject(),
+                                     $content,
+                                     $attachments
+                                 );
                                  break;
 
                             default:
