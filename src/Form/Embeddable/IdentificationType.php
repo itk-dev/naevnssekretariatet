@@ -35,7 +35,7 @@ class IdentificationType extends AbstractType
                 'choices' => IdentifierChoices::IDENTIFIER_TYPE_CHOICES,
             ])
             ->add('identifier', TextType::class, [
-                'label' => $this->translator->trans('Identification', [], 'case'),
+                'label' => $this->translator->trans('Identifier', [], 'case'),
                 'attr' => [
                     'placeholder' => $this->translator->trans('Identifier', [], 'case'),
                 ],

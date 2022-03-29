@@ -31,6 +31,7 @@ Encore
   .addEntry('municipality_select', './assets/municipality/select.js')
   .addEntry('dawa-address-lookup', './assets/dawa-address-lookup.js')
   .addEntry('identification-lookup', './assets/case/identification-lookup.js')
+  .addEntry('identification_type_handler', './assets/identification/type_handler.js')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 //  .enableStimulusBridge('./assets/controllers.json')

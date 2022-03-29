@@ -64,8 +64,7 @@ class PartyHelper
     public function setUpFormData(Party $party, CasePartyRelation $relation, FormInterface $form): FormInterface
     {
         $form->get('name')->setData($party->getName());
-        $form->get('identifierType')->setData($party->getIdentifierType());
-        $form->get('identifier')->setData($party->getIdentifier());
+        $form->get('identification')->setData($party->getIdentification());
         $form->get('address')->setData($party->getAddress());
         $form->get('phoneNumber')->setData($party->getPhoneNumber());
         $form->get('type')->setData($relation->getType());
@@ -76,8 +75,7 @@ class PartyHelper
     public function handleEditParty(Party $party, CasePartyRelation $relation, $data)
     {
         $party->setName($data['name']);
-        $party->setIdentifierType($data['identifierType']);
-        $party->setIdentifier($data['identifier']);
+        $party->setIdentification($data['identification']);
         $party->setAddress($data['address']);
         $party->setPhoneNumber($data['phoneNumber']);
         $relation->setType($data['type']);
@@ -88,8 +86,7 @@ class PartyHelper
     public function handleAddPartyForm(CaseEntity $case, Party $party, $data)
     {
         $party->setName($data['name']);
-        $party->setIdentifierType($data['identifierType']);
-        $party->setIdentifier($data['identifier']);
+        $party->setIdentification($data['identification']);
         $party->setAddress($data['address']);
         $party->setPhoneNumber($data['phoneNumber']);
 

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Embeddable\Address;
+use App\Entity\Embeddable\Identification;
 use App\Logging\LoggableEntityInterface;
 use App\Repository\PartyRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -50,19 +51,16 @@ class Party implements LoggableEntityInterface
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
+     * @Groups({"mail_template"})
      */
-    private $identifierType;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $identifier;
+    private $identification;
 
     public function __construct()
     {
         $this->id = Uuid::v4();
         $this->address = new Address();
+        $this->identification = new Identification();
     }
 
     public function getId(): ?Uuid
@@ -113,8 +111,7 @@ class Party implements LoggableEntityInterface
     {
         return [
             'name',
-            'identifierType',
-            'identifier',
+            'identification',
             'address',
             'phoneNumber',
         ];
@@ -132,27 +129,13 @@ class Party implements LoggableEntityInterface
         return $this;
     }
 
-    public function getIdentifierType(): ?string
+    public function getIdentification(): Identification
     {
-        return $this->identifierType;
+        return $this->identification;
     }
 
-    public function setIdentifierType(string $identifierType): self
+    public function setIdentification(Identification $identification): void
     {
-        $this->identifierType = $identifierType;
-
-        return $this;
-    }
-
-    public function getIdentifier(): ?string
-    {
-        return $this->identifier;
-    }
-
-    public function setIdentifier(string $identifier): self
-    {
-        $this->identifier = $identifier;
-
-        return $this;
+        $this->identification = $identification;
     }
 }

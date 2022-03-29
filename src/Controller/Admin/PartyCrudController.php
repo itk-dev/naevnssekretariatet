@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Party;
 use App\Form\Embeddable\AddressType;
-use App\Service\IdentifierChoices;
+use App\Form\Embeddable\IdentificationType;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
@@ -13,7 +13,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
@@ -50,12 +49,8 @@ class PartyCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Name');
-        yield ChoiceField::new('identifierType', 'Identifier type')
-            ->setChoices(IdentifierChoices::IDENTIFIER_TYPE_CHOICES)
-            ->onlyOnForms()
-        ;
-        yield TextField::new('identifier', 'Identifier')
-            // Hide the CPR/CVR a bit.
+        yield Field::new('identification', 'Identification')
+            ->setFormType(IdentificationType::class)
             ->onlyOnForms()
         ;
         yield Field::new('address', 'Address')

@@ -192,6 +192,7 @@
                                 <th scope="col">{% trans %}Party type{% endtrans %}</th>
                                 <th scope="col">{% trans %}Address{% endtrans %}</th>
                                 <th scope="col">{% trans %}Identifier{% endtrans %}</th>
+                                <th scope="col">{% trans %}P-number{% endtrans %}</th>
                                 <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
                                 <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
                             </tr>
@@ -202,7 +203,8 @@
                                     <td>{{ party_data.party.name|e }}</td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
-                                    <td>{{ party_data.party.identifier|e }}</td>
+                                    <td>{{ party_data.party.identification.identifier|e }}</td>
+                                    <td>{{ party_data.party.identification.pNumber|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
                                     <td class="text-right">
                                         <!-- Edit button -->
@@ -235,6 +237,7 @@
                                 <th scope="col">{% trans %}Party type{% endtrans %}</th>
                                 <th scope="col">{% trans %}Address{% endtrans %}</th>
                                 <th scope="col">{% trans %}Identifier{% endtrans %}</th>
+                                <th scope="col">{% trans %}P-number{% endtrans %}</th>
                                 <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
                                 <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
                             </tr>
@@ -245,7 +248,8 @@
                                     <td>{{ party_data.party.name|e }}</td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
-                                    <td>{{ party_data.party.identifier|e }}</td>
+                                    <td>{{ party_data.party.identification.identifier|e }}</td>
+                                    <td>{{ party_data.party.identification.pNumber|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
                                     <td class="text-right">
                                         <!-- Edit button -->

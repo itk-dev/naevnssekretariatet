@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\CaseEntity;
 use App\Form\Embeddable\AddressLookupType;
-use App\Service\IdentifierChoices;
+use App\Form\Embeddable\IdentificationType;
 use App\Service\PartyHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -48,12 +48,8 @@ class PartyFormType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => $this->translator->trans('Name', [], 'party'),
             ])
-            ->add('identifierType', ChoiceType::class, [
-                'label' => $this->translator->trans('Identifier type', [], 'party'),
-                'choices' => IdentifierChoices::IDENTIFIER_TYPE_CHOICES,
-            ])
-            ->add('identifier', TextType::class, [
-                'label' => $this->translator->trans('Identifier', [], 'party'),
+            ->add('identification', IdentificationType::class, [
+                'label' => false,
             ])
             ->add('address', AddressLookupType::class, [
                 'label' => $this->translator->trans('Address', [], 'case'),

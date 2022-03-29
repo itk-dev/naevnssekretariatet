@@ -71,99 +71,92 @@ App\Entity\Embeddable\Address:
     city: Beder
     postalCode: 8330
 
+App\Entity\Embeddable\Identification:
+  test-party-identification-1:
+    type: CPR
+    identifier: 1234567890
+
 App\Entity\Party:
   party-1:
     name: Anne Nielsen
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-1'
     phoneNumber: '57209633'
     isPartOfPartIndex: true
 
   party-2:
     name: Kirsten Jensen
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-2'
     phoneNumber: '75568314'
     isPartOfPartIndex: true
 
   party-3:
     name: Mette Hansen
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-3'
     phoneNumber: '80264719'
     isPartOfPartIndex: true
 
   party-4:
     name: Hanne Andersen
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-4'
     phoneNumber: '34223320'
     isPartOfPartIndex: true
 
   party-5:
     name: Helle Pedersen
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-5'
     phoneNumber: '88466494'
     isPartOfPartIndex: true
 
   party-6:
     name: Susanne Christensen
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-6'
     phoneNumber: '71952881'
     isPartOfPartIndex: true
 
   party-7:
     name: Peter Sørensen
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-7'
     phoneNumber: '38261742'
     isPartOfPartIndex: true
 
   party-8:
     name: Michael Larsen
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-8'
     phoneNumber: '21336274'
     isPartOfPartIndex: true
 
   party-9:
     name: Jens Rasmussen
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-9'
     phoneNumber: '63374224'
     isPartOfPartIndex: true
 
   party-10:
     name: Lars Jørgensen
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-10'
     phoneNumber: '23616621'
     isPartOfPartIndex: true
 
   party-11:
     name: Thomas Møller
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-11'
     phoneNumber: '92209974'
     isPartOfPartIndex: true
 
   party-12:
     name: Henrik Schmidt
-    identifierType: CPR
-    identifier: '1234567890'
+    identification: '@test-party-identification-1'
     address: '@test-address-party-12'
     phoneNumber: '23479335'
     isPartOfPartIndex: true
