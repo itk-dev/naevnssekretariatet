@@ -2644,12 +2644,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "f3ad7fff6507561d32d71521b902f3361888b722"
+                "reference": "f877fc51e74a68a0a8d8a9f36abbcd1f6370ffdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/f3ad7fff6507561d32d71521b902f3361888b722",
-                "reference": "f3ad7fff6507561d32d71521b902f3361888b722",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/f877fc51e74a68a0a8d8a9f36abbcd1f6370ffdb",
+                "reference": "f877fc51e74a68a0a8d8a9f36abbcd1f6370ffdb",
                 "shasum": ""
             },
             "require": {
@@ -2696,7 +2696,7 @@
                 "issues": "https://github.com/itk-dev/serviceplatformen/issues",
                 "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/digital-post"
             },
-            "time": "2022-02-09T13:52:27+00:00"
+            "time": "2022-03-29T09:59:29+00:00"
         },
         {
             "name": "jms/metadata",
