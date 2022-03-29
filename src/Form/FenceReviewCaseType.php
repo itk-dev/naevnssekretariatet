@@ -80,6 +80,7 @@ class FenceReviewCaseType extends AbstractType
             ])
             ->add('accusedCadastralNumber', TextType::class, [
                 'label' => $this->translator->trans('Accused cadastral number', [], 'case'),
+                'required' => false,
             ])
             ->add('complaintCategory', EntityType::class, [
                 'class' => ComplaintCategory::class,

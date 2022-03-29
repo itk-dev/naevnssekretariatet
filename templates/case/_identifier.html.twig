@@ -2,11 +2,26 @@
 
 {% set id = attribute(case, id_property) %}
 
+{% if id.type == 'CVR' %}
+        <div class="form-group col-md-2">
+            <label>{% trans with {type: id.type} %}Identifier ({type}){% endtrans %}</label>
+            <input type="text" class="form-control" value="{{ id.identifier }}" readonly>
+        </div>
+        <div class="form-group col-md-2">
+            <label>{% trans %}P-number{% endtrans %}</label>
+            <input type="text" class="form-control" value="{{ id.pNumber }}" readonly>
+        </div>
+{% else %}
+    <div class="form-group col-md-2">
+        <label>{% trans with {type: id.type} %}Identifier ({type}){% endtrans %}</label>
+        <input type="text" class="form-control" value="{{ id.identifier }}" readonly>
+    </div>
+    <div class="form-group col-md-2">
+        {# Empty div, as replacement for P-number, to ensure correct placement of validate button #}
+    </div>
+{% endif %}
+
 <div class="form-group col-md-2">
-    <label>{% trans with {type: id.type} %}Identifier ({type}){% endtrans %}</label>
-    <input type="text" class="form-control" value="{{ id.identifier }}" readonly>
-</div>
-<div class="form-group col-md-3">
     <label class="invisible">{% trans %}Validate{% endtrans %}</label>
     {% if id.validatedAt %}
         <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Identification validated at {validation_time}'|trans({'validation_time': id.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans with {type: id.type} %}Identifier ({type}) validated{% endtrans %}</span>

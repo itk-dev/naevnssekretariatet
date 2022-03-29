@@ -10,3 +10,17 @@ $copyAddressButton.on('click', function () {
     item.value = currentBringerItem.val()
   }
 })
+
+const $identificationTypes = $("[id*='Identification_type']")
+
+$identificationTypes.each(function () {
+  const $pNumberElement = $('#' + this.id.replace('type', 'pNumber'))
+
+  // Setup listener on change
+  $(this)
+    .off('change')
+    .on('change', function () {
+      $pNumberElement.toggle($(this).val() === 'CVR')
+    })
+    .trigger('change')
+})

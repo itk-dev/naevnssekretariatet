@@ -21,6 +21,13 @@ class Identification implements LoggableEntityInterface
     private $identifier;
 
     /**
+     * @see https://www.billy.dk/billypedia/p-nummer/
+     *
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $pNumber;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $validatedAt;
@@ -45,6 +52,18 @@ class Identification implements LoggableEntityInterface
     public function setIdentifier(string $identifier): self
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    public function getPNumber(): ?string
+    {
+        return $this->pNumber;
+    }
+
+    public function setPNumber(?string $pNumber): self
+    {
+        $this->pNumber = $pNumber;
 
         return $this;
     }

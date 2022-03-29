@@ -1317,6 +1317,10 @@
         <source>Cannot end hearing while party or counterpart still has something to add</source>
         <target state="translated">Høring kan ikke afsluttes så længe part eller modpart har mere at tilføje</target>
       </trans-unit>
+      <trans-unit id="BbxidD6" resname="P-number">
+        <source>P-number</source>
+        <target state="translated">P-nummer</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
