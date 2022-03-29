@@ -34,21 +34,9 @@ class DigitalPostHelper extends DigitalPost
      *
      * @throws \Exception
      */
-    public function sendDigitalPost(string $cpr, string $name, Address $address, string $title, string $content, array $attachments = []): array
+    public function sendDigitalPostCPR(string $cpr, string $name, Address $address, string $title, string $content, array $attachments = []): array
     {
-        $bilag = null;
-        if (!empty($attachments)) {
-            $bilag = new BilagSamlingType();
-            $counter = 0;
-            foreach ($attachments as $name => $attachment) {
-                $bilag->addToBilag((new BilagType())
-                    ->setBilagNavn($name)
-                    ->setBilagSorteringsIndeksIdentifikator(++$counter)
-                    ->setFilformatNavn('PDF')
-                    ->setVedhaeftningIndholdData($attachment)
-                );
-            }
-        }
+        $bilag = $this->buildBilag($attachments);
 
         $result = $this->setServiceOptions($this->serviceOptions['digital_post_options'])
             ->afsendBrevPerson(
@@ -75,6 +63,62 @@ class DigitalPostHelper extends DigitalPost
         ;
 
         return $result;
+    }
+
+    /**
+     * @param string         $content     PDF content
+     * @param array|string[] $attachments list of PDF content (name => content)
+     *
+     * @throws \Exception
+     */
+    public function sendDigitalPostCVR(string $cvr, string $name, Address $address, string $title, string $content, array $attachments = []): array
+    {
+        $bilag = $this->buildBilag($attachments);
+
+        $result = $this->setServiceOptions($this->serviceOptions['digital_post_options'])
+            ->afsendBrevCVR(
+                KanalvalgType::VALUE_A,
+                PrioritetType::VALUE_D,
+                $cvr,
+                $name,
+                null,
+                $address->getStreet(),
+                $address->getNumber(),
+                $address->getFloor().($address->getSide() ? ' '.$address->getSide() : ''),
+                null,
+                null,
+                $address->getPostalCode(),
+                null,
+                null,
+                null,
+                'PDF',
+                $content,
+                $title,
+                null,
+                $bilag
+            )
+        ;
+
+        return $result;
+    }
+
+    private function buildBilag(array $attachments): ?BilagSamlingType
+    {
+        $bilag = null;
+        if (!empty($attachments)) {
+            $bilag = new BilagSamlingType();
+            $counter = 0;
+            foreach ($attachments as $name => $attachment) {
+                $bilag->addToBilag((new BilagType())
+                    ->setBilagNavn($name)
+                    ->setBilagSorteringsIndeksIdentifikator(++$counter)
+                    ->setFilformatNavn('PDF')
+                    ->setVedhaeftningIndholdData($attachment)
+                );
+            }
+        }
+
+        return $bilag;
     }
 
     public function createDigitalPost(Document $document, string $subject, string $entityType, Uuid $entityId, array $digitalPostAttachments, array $digitalPostRecipients): void

@@ -62,7 +62,7 @@ class DigitalPostSendCommand extends Command
                         try {
                             switch ($recipient->getIdentifierType()) {
                             case IdentificationHelper::IDENTIFIER_TYPE_CPR:
-                                $result = $this->digitalPostHelper->sendDigitalPost(
+                                $result = $this->digitalPostHelper->sendDigitalPostCPR(
                                     $recipient->getIdentifier(),
                                     $recipient->getName(),
                                     $recipient->getAddress(),
@@ -72,9 +72,16 @@ class DigitalPostSendCommand extends Command
                                 );
                                 break;
 
-                            // case IdentificationHelper::IDENTIFIER_TYPE_CVR:
-                            //     // @todo
-                            //     break;
+                             case IdentificationHelper::IDENTIFIER_TYPE_CVR:
+                                 $result = $this->digitalPostHelper->sendDigitalPostCVR(
+                                     $recipient->getIdentifier(),
+                                     $recipient->getName(),
+                                     $recipient->getAddress(),
+                                     $digitalPost->getSubject(),
+                                     $content,
+                                     $attachments
+                                 );
+                                 break;
 
                             default:
                                 $result = [
