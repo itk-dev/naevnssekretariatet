@@ -6,11 +6,11 @@ use App\Entity\Document;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DocumentUploader
@@ -80,7 +80,13 @@ class DocumentUploader
     public function handleDownload(Document $document, bool $forceDownload = true): Response
     {
         $filepath = $this->getFilepath($document->getFilename());
-        $response = new BinaryFileResponse($filepath);
+
+        $response = new StreamedResponse(function () use ($filepath) {
+            $outputStream = fopen('php://output', 'wb');
+            $fileStream = fopen($filepath, 'r');
+            stream_copy_to_stream($fileStream, $outputStream);
+        });
+
         if ($forceDownload) {
             $disposition = HeaderUtils::makeDisposition(
                 HeaderUtils::DISPOSITION_ATTACHMENT,
