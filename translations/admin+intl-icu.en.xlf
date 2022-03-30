@@ -309,6 +309,14 @@
         <source>Identification</source>
         <target>Identification</target>
       </trans-unit>
+      <trans-unit id="QPa6Jpq" resname="Something went wrong when attempting to delete complaint category.">
+        <source>Something went wrong when attempting to delete complaint category.</source>
+        <target>Something went wrong when attempting to delete complaint category.</target>
+      </trans-unit>
+      <trans-unit id="EIVwRSk" resname="Could not delete, as one or more other entities is related to this entity.">
+        <source>Could not delete, as one or more other entities is related to this entity.</source>
+        <target>Could not delete, as one or more other entities is related to this entity.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
