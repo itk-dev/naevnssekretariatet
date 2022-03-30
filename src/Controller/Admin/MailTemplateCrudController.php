@@ -5,13 +5,19 @@ namespace App\Controller\Admin;
 use App\Entity\MailTemplate;
 use App\Service\MailTemplateHelper;
 use Doctrine\ORM\EntityManager;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Option\EA;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\PropertyAccess\PropertyPath;
+use Symfony\Component\Translation\TranslatableMessage;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class MailTemplateCrudController extends AbstractCrudController
@@ -60,5 +66,21 @@ class MailTemplateCrudController extends AbstractCrudController
             ])
            ->onlyOnForms()
         ;
+    }
+
+    public function delete(AdminContext $context)
+    {
+        try {
+            parent::delete($context);
+        } catch (EntityRemoveException $e) {
+            // Display flash message
+            if (str_contains($e->getMessage(), 'ForeignKeyConstraintViolationException')) {
+                $this->addFlash('danger', new TranslatableMessage('Could not delete, as one or more other entities is related to this entity.', [], 'admin'));
+            } else {
+                $this->addFlash('danger', new TranslatableMessage('Something went wrong when attempting to delete complaint category.', [], 'admin'));
+            }
+        }
+
+        return $this->redirect($this->container->get(AdminUrlGenerator::class)->setAction(Action::INDEX)->unset(EA::ENTITY_ID)->generateUrl());
     }
 }

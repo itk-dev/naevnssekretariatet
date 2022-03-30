@@ -313,6 +313,14 @@
         <source>Identification</source>
         <target state="translated">Identifikation</target>
       </trans-unit>
+      <trans-unit id="zSyzpR." resname="Could not delete, as one or more cases has this complaint category.">
+        <source>Could not delete, as one or more cases has this complaint category.</source>
+        <target state="translated">Kunne ikke slette klagetype da en eller flere sager har netop denne klagetype.</target>
+      </trans-unit>
+      <trans-unit id="QPa6Jpq" resname="Something went wrong when attempting to delete complaint category.">
+        <source>Something went wrong when attempting to delete complaint category.</source>
+        <target state="translated">Noget gik galt under sletning af klagetype.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

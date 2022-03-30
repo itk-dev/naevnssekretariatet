@@ -309,6 +309,14 @@
         <source>Identification</source>
         <target>Identification</target>
       </trans-unit>
+      <trans-unit id="zSyzpR." resname="Could not delete, as one or more cases has this complaint category.">
+        <source>Could not delete, as one or more cases has this complaint category.</source>
+        <target>Could not delete, as one or more cases has this complaint category.</target>
+      </trans-unit>
+      <trans-unit id="QPa6Jpq" resname="Something went wrong when attempting to delete complaint category.">
+        <source>Something went wrong when attempting to delete complaint category.</source>
+        <target>Something went wrong when attempting to delete complaint category.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
