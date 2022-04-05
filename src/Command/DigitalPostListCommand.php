@@ -54,7 +54,7 @@ class DigitalPostListCommand extends Command
                 'Recipients',
             ];
             $rows = [];
-            foreach ($digitalPosts as $index => $digitalPost) {
+            foreach ($digitalPosts as $digitalPost) {
                 $rows[] = [
                     $digitalPost->getId(),
                     $digitalPost->getCreatedAt()->format(\DateTimeInterface::ATOM),
