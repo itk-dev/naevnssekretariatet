@@ -49,6 +49,11 @@ class Recipient
         $this->id = Uuid::v4();
     }
 
+    public function __toString(): string
+    {
+        return sprintf('%s (%s: %s)', $this->getName(), $this->getIdentifierType(), $this->getIdentifier());
+    }
+
     public function getId(): ?Uuid
     {
         return $this->id;

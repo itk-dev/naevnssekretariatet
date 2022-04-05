@@ -24,6 +24,11 @@ class DigitalPost
     public const STATUS_SENT = 'sent';
     public const STATUS_ERROR = 'error';
 
+    public const STATUSES = [
+        self::STATUS_SENT,
+        self::STATUS_ERROR,
+    ];
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
