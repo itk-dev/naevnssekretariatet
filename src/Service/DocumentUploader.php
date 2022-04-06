@@ -17,6 +17,7 @@ class DocumentUploader
 {
     /**
      * @var SluggerInterface
+     * @var SluggerInterface
      */
     private $slugger;
     private $baseDocumentDirectory;
@@ -81,6 +82,7 @@ class DocumentUploader
     {
         $filepath = $this->getFilepath($document->getFilename());
 
+        // @see https://symfonycasts.com/screencast/symfony-uploads/file-streaming
         $response = new StreamedResponse(function () use ($filepath) {
             $outputStream = fopen('php://output', 'wb');
             $fileStream = fopen($filepath, 'r');
