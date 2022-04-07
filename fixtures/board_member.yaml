@@ -1,55 +1,82 @@
+App\Entity\Embeddable\Address:
+  board-member-address:
+    street: Nyborgvej
+    number: 54
+    city: Aarhus C
+    postalCode: 8000
+
+App\Entity\Embeddable\Identification:
+  board-member-identification:
+    type: CPR
+    identifier: 0987654321
+
+  tess-holst-identification:
+    type: CPR
+    identifier: 1234567890
+
 App\Entity\BoardMember:
   board-member-1:
     name: William Oscar
     boardRoles: ['@resident-complaint-board-aarhus-role-chairman']
-    cpr: '0000000001'
+    address: '@board-member-address'
+    identification: '@board-member-identification'
 
   board-member-2:
     name: Alfred Oliver
     boardRoles: [ '@resident-complaint-board-aarhus-role-chairman' ]
-    cpr: '0000000002'
+    address: '@board-member-address'
+    identification: '@board-member-identification'
 
   board-member-3:
     name: Carl Lucas
     boardRoles: [ '@resident-complaint-board-aarhus-role-chairman-alternate' ]
-    cpr: '0000000003'
+    address: '@board-member-address'
+    identification: '@board-member-identification'
 
   board-member-4:
     name: Noah Valdemar
     boardRoles: [ '@resident-complaint-board-aarhus-role-chairman-alternate' ]
-    cpr: '0000000004'
+    address: '@board-member-address'
+    identification: '@board-member-identification'
 
   board-member-5:
     name: Malthe Aksel
     boardRoles: [ '@resident-complaint-board-aarhus-role-landlord-representative' ]
-    cpr: '0000000005'
+    address: '@board-member-address'
+    identification: '@board-member-identification'
 
   board-member-6:
     name: Elias Emil
     boardRoles: [ '@resident-complaint-board-aarhus-role-landlord-representative' ]
-    cpr: '0000000006'
+    address: '@board-member-address'
+    identification: '@board-member-identification'
 
   board-member-7:
     name: Arthur August
     boardRoles: [ '@resident-complaint-board-aarhus-role-landlord-representative-alternate' ]
-    cpr: '0000000007'
+    address: '@board-member-address'
+    identification: '@board-member-identification'
 
   board-member-8:
     name: Magnus Victor
     boardRoles: [ '@resident-complaint-board-aarhus-role-landlord-representative-alternate' ]
-    cpr: '0000000008'
+    address: '@board-member-address'
+    identification: '@board-member-identification'
 
   board-member-9:
     name: Viggo Felix
     boardRoles: [ '@resident-complaint-board-aarhus-role-tenant-representative' ]
-    cpr: '0000000009'
+    address: '@board-member-address'
+    identification: '@board-member-identification'
 
   board-member-10:
     name: Anton Alexander
     boardRoles: [ '@resident-complaint-board-aarhus-role-tenant-representative-alternate' ]
-    cpr: '0000000010'
+    address: '@board-member-address'
+    identification: '@board-member-identification'
 
   board-member-tess-holst:
     name: Tess Holst
     boardRoles: [ '@resident-complaint-board-aarhus-role-tenant-representative-alternate' ]
-    cpr: '1111610556'
+    address: '@board-member-address'
+    identification: '@tess-holst-identification'

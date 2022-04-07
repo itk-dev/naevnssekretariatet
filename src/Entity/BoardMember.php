@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\Embeddable\Address;
+use App\Entity\Embeddable\Identification;
 use App\Repository\BoardMemberRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -37,15 +40,23 @@ class BoardMember
     private $agendas;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      */
-    private $cpr;
+    private $address;
+
+    /**
+     * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
+     * @Groups({"mail_template"})
+     */
+    private $identification;
 
     public function __construct()
     {
         $this->id = Uuid::v4();
+        $this->address = new Address();
         $this->boardRoles = new ArrayCollection();
         $this->agendas = new ArrayCollection();
+        $this->identification = new Identification();
     }
 
     public function getId(): ?Uuid
@@ -124,15 +135,23 @@ class BoardMember
         return $this->name;
     }
 
-    public function getCpr(): ?string
+    public function setAddress(Address $address): void
     {
-        return $this->cpr;
+        $this->address = $address;
     }
 
-    public function setCpr(string $cpr): self
+    public function getAddress(): Address
     {
-        $this->cpr = $cpr;
+        return $this->address;
+    }
 
-        return $this;
+    public function getIdentification(): Identification
+    {
+        return $this->identification;
+    }
+
+    public function setIdentification(Identification $identification): void
+    {
+        $this->identification = $identification;
     }
 }

@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\BoardMember;
 use App\Entity\BoardRole;
+use App\Form\Embeddable\AddressType;
+use App\Form\Embeddable\IdentificationType;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -12,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\Translation\TranslatableMessage;
@@ -42,9 +45,12 @@ class BoardMemberCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Name');
-        yield TextField::new('cpr', 'CPR')
-            // Hide the CPR a bit.
+        yield Field::new('identification', 'Identification')
+            ->setFormType(IdentificationType::class)
             ->onlyOnForms()
+        ;
+        yield Field::new('address', 'Address')
+            ->setFormType(AddressType::class)
         ;
         yield AssociationField::new('boardRoles', 'BoardRole')
             ->setFormTypeOptions([
