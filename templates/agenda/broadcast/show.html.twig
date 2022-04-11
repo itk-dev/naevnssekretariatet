@@ -2,15 +2,15 @@
 
 {% trans_default_domain 'digital_post' %}
 
-{% block title %}{% trans %}Digital post{% endtrans %}{% endblock %}
+{% block title %}{% trans %}Agenda broadcast{% endtrans %}{% endblock %}
 
 {% block header %}
     <div class="row">
         <div class="col">
-            <h1>{% trans %}Digital post{% endtrans %}</h1>
+            <h1>{% trans %}Agenda broadcast{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a class="btn btn-secondary" href="{{ path('agenda_broadcast', {id: agenda.id}) }}">{% trans %}Back to agenda broadcasts{% endtrans %}</a>
+            <a class="btn btn-secondary" href="{{ path('agenda_broadcast', {id: agenda.id}) }}">{{ 'Back'|trans({}, 'agenda') }}</a>
         </div>
     </div>
 {% endblock %}

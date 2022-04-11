@@ -61,6 +61,10 @@
         <source>Previous</source>
         <target state="translated">Forrige</target>
       </trans-unit>
+      <trans-unit id="HtGnOKw" resname="Agenda broadcast">
+        <source>Agenda broadcast</source>
+        <target state="translated">Dagsordenspublisering</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
