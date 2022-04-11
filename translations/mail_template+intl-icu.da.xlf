@@ -33,6 +33,10 @@
         <source>Hearing</source>
         <target state="translated">Høring</target>
       </trans-unit>
+      <trans-unit id="HtGnOKw" resname="Agenda broadcast">
+        <source>Agenda broadcast</source>
+        <target state="translated">Dagsorden - publisering</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
