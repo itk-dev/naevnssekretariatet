@@ -26,7 +26,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 /**
  * @Route("/agenda/{id}/broadcast")
  */
-class AgendaNotificationController extends AbstractController
+class AgendaBroadcastController extends AbstractController
 {
     /**
      * @Route("/index", name="agenda_broadcast", methods={"GET"})
@@ -56,10 +56,8 @@ class AgendaNotificationController extends AbstractController
             'mail_template_choices' => $mailTemplates,
         ]);
 
-//        $isFinishedAgenda = $agenda->isFinished();
-
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() /* && $isFinishedAgenda */) {
+        if ($form->isSubmitted() && $form->isValid()) {
             // TODO: Logic for sending broadcast
 
             // Create new file from template
@@ -122,6 +120,8 @@ class AgendaNotificationController extends AbstractController
      */
     public function show(Agenda $agenda, DigitalPost $digitalPost)
     {
+        $this->denyAccessUnlessGranted('edit', $agenda);
+
         return $this->render('agenda/broadcast/show.html.twig', [
             'digital_post' => $digitalPost,
             'agenda' => $agenda,
