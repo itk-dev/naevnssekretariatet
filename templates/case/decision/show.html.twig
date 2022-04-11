@@ -31,7 +31,7 @@
             <dd class="col-sm-9">
                 <ul class="list-unstyled">
                     {% for party in decision.recipients %}
-                        <li>{{ party.name }} ({{ party.identification.Type }}: {{ party.identification.identifier }}); {{ party.address }}</li>
+                        <li>{{ party.name }} ({{ party.identification.type }}: {{ party.identification.identifier }}); {{ party.address }}</li>
                     {% endfor %}
                 </ul>
             </dd>
