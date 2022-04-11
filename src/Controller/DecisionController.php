@@ -112,8 +112,8 @@ class DecisionController extends AbstractController
             foreach ($decision->getRecipients() as $recipient) {
                 $digitalPostRecipients[] = (new DigitalPost\Recipient())
                     ->setName($recipient->getName())
-                    ->setIdentifierType($recipient->getIdentifierType())
-                    ->setIdentifier($recipient->getIdentifier())
+                    ->setIdentifierType($recipient->getIdentification()->getType())
+                    ->setIdentifier($recipient->getIdentification()->getIdentifier())
                     ->setAddress($recipient->getAddress())
                 ;
             }
