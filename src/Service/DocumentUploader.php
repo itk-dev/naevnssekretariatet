@@ -6,6 +6,7 @@ use App\Entity\Document;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\HeaderUtils;
@@ -82,20 +83,22 @@ class DocumentUploader
     {
         $filepath = $this->getFilepath($document->getFilename());
 
-        // @see https://symfonycasts.com/screencast/symfony-uploads/file-streaming
-        $response = new StreamedResponse(function () use ($filepath) {
-            $outputStream = fopen('php://output', 'wb');
-            $fileStream = fopen($filepath, 'r');
-            stream_copy_to_stream($fileStream, $outputStream);
-        });
-
         if ($forceDownload) {
+            // @see https://symfonycasts.com/screencast/symfony-uploads/file-streaming
+            $response = new StreamedResponse(function () use ($filepath) {
+                $outputStream = fopen('php://output', 'wb');
+                $fileStream = fopen($filepath, 'r');
+                stream_copy_to_stream($fileStream, $outputStream);
+            });
+
             $disposition = HeaderUtils::makeDisposition(
                 HeaderUtils::DISPOSITION_ATTACHMENT,
                 $document->getFilename()
             );
 
             $response->headers->set('Content-Disposition', $disposition);
+        } else {
+            $response = new BinaryFileResponse($filepath);
         }
 
         return $response;
