@@ -58,8 +58,6 @@ class AgendaBroadcastController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // TODO: Logic for sending broadcast
-
             // Create new file from template
             $fileName = $mailTemplateHelper->renderMailTemplate($agendaBroadcast->getTemplate(), $agenda);
 
@@ -81,7 +79,7 @@ class AgendaBroadcastController extends AbstractController
 
             $agendaBroadcast->setDocument($document);
 
-            // Create a recipient per boardmember
+            // Create a recipient per board member
             $boardMembers = $agenda->getBoardmembers();
             $digitalPostRecipients = [];
 
@@ -102,7 +100,6 @@ class AgendaBroadcastController extends AbstractController
 
             $digitalPostHelper->createDigitalPost($document, $agendaBroadcast->getTitle(), get_class($agenda), $agenda->getId(), [], $digitalPostRecipients);
 
-            // For now it simply redirect to same route
             return $this->redirectToRoute('agenda_broadcast', [
                 'id' => $agenda->getId(),
             ]);
