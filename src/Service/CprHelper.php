@@ -205,4 +205,12 @@ class CprHelper
 
         return $relevantData;
     }
+
+    /**
+     * Removes potential dashes from CPR.
+     */
+    public function formatIdentifier(string $cpr): string
+    {
+        return str_replace('-', '', $cpr);
+    }
 }
