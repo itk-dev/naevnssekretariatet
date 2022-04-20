@@ -7,6 +7,8 @@ use App\Entity\User;
 use App\Exception\MailTemplateException;
 use App\Repository\MailTemplateMacroRepository;
 use App\Repository\MailTemplateRepository;
+use App\Service\MailTemplate\ComplexMacro;
+use App\Service\MailTemplate\ComplexMacroHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Mapping\MappingException;
 use PhpOffice\PhpWord\Element\AbstractElement;
@@ -35,7 +37,7 @@ class MailTemplateHelper
      */
     private $options;
 
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, private TranslatorInterface $translator, array $mailTemplateHelperOptions)
+    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, private TranslatorInterface $translator, private ComplexMacroHelper $macroHelper, array $mailTemplateHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -67,22 +69,31 @@ class MailTemplateHelper
      */
     public function getPreviewEntity(MailTemplate $mailTemplate)
     {
-        $spec = $this->options['template_types'][$mailTemplate->getType()] ?? null;
-        if (isset($spec['entity_class_names']) && is_array($spec['entity_class_names'])) {
-            foreach ($spec['entity_class_names'] as $className) {
-                try {
-                    $repository = $this->entityManager->getRepository($className);
-                    $entity = $repository->findOneBy([]);
-                    if (null !== $entity) {
-                        return $entity;
-                    }
-                } catch (MappingException $mappingException) {
-                    // Cannot get repository for the class name. Continue to see if another class name succeeds.
+        $classNames = $this->getTemplateEntityClassNames($mailTemplate) ?? [];
+        foreach ($classNames as $className) {
+            try {
+                $repository = $this->entityManager->getRepository($className);
+                $entity = $repository->findOneBy([]);
+                if (null !== $entity) {
+                    return $entity;
                 }
+            } catch (MappingException $mappingException) {
+                // Cannot get repository for the class name. Continue to see if another class name succeeds.
             }
         }
 
         throw new MailTemplateException(sprintf('Cannot get preview entity for mail template %s of type %s', $mailTemplate->getName(), $mailTemplate->getType()));
+    }
+
+    /**
+     * @return string[]|array|null
+     */
+    public function getTemplateEntityClassNames(MailTemplate $mailTemplate): ?array
+    {
+        $spec = $this->options['template_types'][$mailTemplate->getType()] ?? null;
+
+        return isset($spec['entity_class_names']) && is_array($spec['entity_class_names'])
+            ? $spec['entity_class_names'] : null;
     }
 
     public function getTemplateData(MailTemplate $mailTemplate, $entity, bool $expandMacros = true): array
@@ -91,6 +102,11 @@ class MailTemplateHelper
         $templateProcessor = new TemplateProcessor($templateFileName);
 
         $values = $this->getValues($entity, $templateProcessor);
+        $listValues = $this->getComplexMacros($entity);
+        foreach ($listValues as $name => $macro) {
+            $values[$name] = sprintf('(%s)', $macro->getDescription());
+        }
+
         $macroValues = $this->getMacroValues($mailTemplate);
         foreach ($macroValues as $macro => $value) {
             if ($value instanceof TextRun) {
@@ -130,6 +146,12 @@ class MailTemplateHelper
         // https://phpword.readthedocs.io/en/latest/templates-processing.html
         $templateProcessor = new TemplateProcessor($templateFileName);
 
+        if (null !== $entity) {
+            $values = $this->getComplexMacros($entity);
+            foreach ($values as $name => $value) {
+                $templateProcessor->setComplexBlock($name, $value->getElement());
+            }
+        }
         // Handle macros.
         $macroValues = $this->getMacroValues($mailTemplate);
         foreach ($macroValues as $macro => $value) {
@@ -265,6 +287,15 @@ class MailTemplateHelper
         }
 
         return $values;
+    }
+
+    /**
+     * @param object $entity
+     * @return array|ComplexMacro[]
+     */
+    private function getComplexMacros(object $entity): array
+    {
+        return $this->macroHelper->buildMacros($entity);
     }
 
     /**
