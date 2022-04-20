@@ -50,6 +50,7 @@ class DigitalPostListCommand extends Command
             $headers = [
                 'Id',
                 'Created at',
+                'Updated at',
                 'Status',
                 'Recipients',
             ];
@@ -58,6 +59,7 @@ class DigitalPostListCommand extends Command
                 $rows[] = [
                     $digitalPost->getId(),
                     $digitalPost->getCreatedAt()->format(\DateTimeInterface::ATOM),
+                    $digitalPost->getUpdatedAt()->format(\DateTimeInterface::ATOM),
                     $digitalPost->getStatus(),
                     implode(PHP_EOL, $digitalPost->getRecipients()->map(static fn (DigitalPost\Recipient $recipient) => (string) $recipient)->toArray()),
                 ];

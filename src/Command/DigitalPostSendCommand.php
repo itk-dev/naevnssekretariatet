@@ -21,6 +21,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class DigitalPostSendCommand extends Command
 {
+    private int $maxNumberOfRetries = 10;
+
     public function __construct(private DigitalPostHelper $digitalPostHelper, private DigitalPostRepository $digitalPostRepository, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private LoggerInterface $databaseLogger)
     {
         parent::__construct(null);
@@ -112,11 +114,24 @@ class DigitalPostSendCommand extends Command
 
                 $resultValues = array_unique(array_column($results, 'result'));
 
+                $now = new \DateTimeImmutable();
                 // The digital post has been sent to all recipients if all result values are true.
                 $sent = 1 === count($resultValues) && true === $resultValues[0];
                 $digitalPost->setStatus($sent ? DigitalPost::STATUS_SENT : DigitalPost::STATUS_ERROR);
                 if (DigitalPost::STATUS_SENT === $digitalPost->getStatus()) {
-                    $digitalPost->setSentAt(new \DateTimeImmutable());
+                    $digitalPost->setSentAt($now);
+                }
+
+                // Keep track of posts and fail when max number of retries exceeded.
+                $postStatuses = $digitalPost->getData()['post_statuses'] ?? [];
+                $postStatuses[] = [
+                    'created_at' => $now->format($now::ATOM),
+                    'status' => $digitalPost->getStatus(),
+                ];
+                $digitalPost->addData(['post_statuses' => $postStatuses]);
+
+                if (count($postStatuses) >= $this->maxNumberOfRetries) {
+                    $digitalPost->setStatus(DigitalPost::STATUS_FAILED);
                 }
 
                 $this->entityManager->persist($digitalPost);
