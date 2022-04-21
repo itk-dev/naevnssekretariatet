@@ -3,15 +3,16 @@
 namespace App\Service\MailTemplate;
 
 use App\Entity\CaseEntity;
+use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
-use PhpOffice\PhpWord\Element\Row;
 
 class ComplexMacroHelper
 {
     /**
      * @param $entity
+     *
      * @return array|ComplexMacro[]
      */
     public function buildMacros($entity): array
@@ -55,10 +56,12 @@ class ComplexMacroHelper
     }
 
     /**
-     * Add values to a new table row. Each value must be
+     * Add values to a new table row.
+     *
+     * Each value must be
      *
      *   1. a scalar or
-
+     *
      *   2. an array with a `text` key mapping to the cell value (the value must
      *      be a scalar) and, optionally, a `text-style` key with a TextRun
      *      style, e.g.
@@ -78,11 +81,6 @@ class ComplexMacroHelper
      *            'style' => ['alignment' => Jc::END]],
      *          ]
      *        ]
-     *
-     * @param Table $table
-     * @param array $values
-     * @param array $options
-     * @return Row
      */
     private function addTableRow(Table $table, array $values, array $options = []): Row
     {

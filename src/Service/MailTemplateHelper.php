@@ -290,7 +290,6 @@ class MailTemplateHelper
     }
 
     /**
-     * @param object $entity
      * @return array|ComplexMacro[]
      */
     private function getComplexMacros(object $entity): array
