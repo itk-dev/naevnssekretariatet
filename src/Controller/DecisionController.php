@@ -10,6 +10,7 @@ use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
 use App\Entity\User;
 use App\Form\DecisionType;
+use App\Repository\CasePartyRelationRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\DocumentRepository;
 use App\Service\DigitalPostHelper;
@@ -35,15 +36,18 @@ class DecisionController extends AbstractController
     /**
      * @Route("/", name="case_decision", methods={"GET"})
      */
-    public function index(CaseEntity $case, DecisionRepository $decisionRepository): Response
+    public function index(CaseEntity $case, CasePartyRelationRepository $casePartyRelationRepository, DecisionRepository $decisionRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
         $decisions = $decisionRepository->findBy(['caseEntity' => $case->getId()], ['createdAt' => Criteria::DESC]);
 
+        $hasNoActiveParty = count($casePartyRelationRepository->findBy(['case' => $case, 'softDeleted' => false])) < 1;
+
         return $this->render('case/decision/index.html.twig', [
             'case' => $case,
             'decisions' => $decisions,
+            'hasNoActiveParty' => $hasNoActiveParty,
         ]);
     }
 
