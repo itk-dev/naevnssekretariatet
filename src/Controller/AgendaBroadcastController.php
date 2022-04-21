@@ -79,10 +79,10 @@ class AgendaBroadcastController extends AbstractController
                 } catch (CprException $e) {
                     switch (true) {
                         case $e->getPrevious() instanceof NoPnrFoundException:
-                            $this->addFlash('error', $translator->trans('PNR for {boardMember} not found ({cprNumber})', ['boardMember' => $boardMember->getName(), 'cprNumber' => $boardMember->getCpr()], 'digital_post'));
+                            $this->addFlash('danger', $translator->trans('PNR for {boardMember} not found ({cprNumber})', ['boardMember' => $boardMember->getName(), 'cprNumber' => $boardMember->getCpr()], 'digital_post'));
                             break;
                         case $e->getPrevious() instanceof ServiceException:
-                            $this->addFlash('error', $e->getPrevious()->getMessage());
+                            $this->addFlash('danger', $e->getPrevious()->getMessage());
                             break;
                     }
 
