@@ -23,10 +23,12 @@ class DigitalPost
 
     public const STATUS_SENT = 'sent';
     public const STATUS_ERROR = 'error';
+    public const STATUS_FAILED = 'failed';
 
     public const STATUSES = [
         self::STATUS_SENT,
         self::STATUS_ERROR,
+        self::STATUS_FAILED,
     ];
 
     /**
