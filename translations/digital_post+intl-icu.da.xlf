@@ -65,6 +65,10 @@
         <source>Agenda broadcast</source>
         <target state="translated">Dagsordenspublisering</target>
       </trans-unit>
+      <trans-unit id="nlcHDTm" resname="PNR for {boardMember} not found ({cprNumber})">
+        <source>PNR for {boardMember} not found ({cprNumber})</source>
+        <target state="translated">Cpr nummer for {boardMember} kunne ikke findes ({cprNumber})</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

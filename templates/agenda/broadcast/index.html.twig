@@ -5,6 +5,11 @@
 {% block title %}{% trans %}Agenda broadcasts{% endtrans %}{% endblock %}
 
 {% block header %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div class="row">
         <div class="col">
             <h1>{% trans %}Agenda broadcasts{% endtrans %}</h1>

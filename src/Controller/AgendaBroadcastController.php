@@ -7,6 +7,7 @@ use App\Entity\AgendaBroadcast;
 use App\Entity\DigitalPost;
 use App\Entity\Document;
 use App\Entity\User;
+use App\Exception\CprException;
 use App\Exception\DocumentDirectoryException;
 use App\Form\AgendaBroadcastType;
 use App\Repository\DigitalPostRepository;
@@ -16,12 +17,15 @@ use App\Service\DocumentUploader;
 use App\Service\MailTemplateHelper;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
+use ItkDev\Serviceplatformen\Service\Exception\NoPnrFoundException;
+use ItkDev\Serviceplatformen\Service\Exception\ServiceException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/agenda/{id}/broadcast")
@@ -44,7 +48,7 @@ class AgendaBroadcastController extends AbstractController
     /**
      * @Route("/create", name="agenda_broadcast_create", methods={"GET", "POST"})
      */
-    public function broadcastAgenda(Agenda $agenda, CprHelper $cprHelper, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager, MailTemplateHelper $mailTemplateHelper, Request $request): Response
+    public function broadcastAgenda(Agenda $agenda, CprHelper $cprHelper, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager, MailTemplateHelper $mailTemplateHelper, TranslatorInterface $translator, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
 
@@ -58,6 +62,36 @@ class AgendaBroadcastController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Create a recipient per board member
+            $boardMembers = $agenda->getBoardmembers();
+            $digitalPostRecipients = [];
+
+            foreach ($boardMembers as $boardMember) {
+                try {
+                    $boardMemberAddress = $cprHelper->getAddressFromCpr($boardMember->getCpr());
+
+                    $digitalPostRecipients[] = (new DigitalPost\Recipient())
+                        ->setName($boardMember->getName())
+                        ->setIdentifierType('CPR')
+                        ->setIdentifier($boardMember->getCpr())
+                        ->setAddress($boardMemberAddress)
+                    ;
+                } catch (CprException $e) {
+                    switch (true) {
+                        case $e->getPrevious() instanceof NoPnrFoundException:
+                            $this->addFlash('error', $translator->trans('PNR for {boardMember} not found ({cprNumber})', ['boardMember' => $boardMember->getName(), 'cprNumber' => $boardMember->getCpr()], 'digital_post'));
+                            break;
+                        case $e->getPrevious() instanceof ServiceException:
+                            $this->addFlash('error', $e->getPrevious()->getMessage());
+                            break;
+                    }
+
+                    return $this->redirectToRoute('agenda_broadcast', [
+                        'id' => $agenda->getId(),
+                    ]);
+                }
+            }
+
             // Create new file from template
             $fileName = $mailTemplateHelper->renderMailTemplate($agendaBroadcast->getTemplate(), $agenda);
 
@@ -78,21 +112,6 @@ class AgendaBroadcastController extends AbstractController
             $entityManager->persist($document);
 
             $agendaBroadcast->setDocument($document);
-
-            // Create a recipient per board member
-            $boardMembers = $agenda->getBoardmembers();
-            $digitalPostRecipients = [];
-
-            foreach ($boardMembers as $boardMember) {
-                $boardMemberAddress = $cprHelper->getAddressFromCpr($boardMember->getCpr());
-
-                $digitalPostRecipients[] = (new DigitalPost\Recipient())
-                    ->setName($boardMember->getName())
-                    ->setIdentifierType('CPR')
-                    ->setIdentifier($boardMember->getCpr())
-                    ->setAddress($boardMemberAddress)
-                ;
-            }
 
             $agendaBroadcast->setAgenda($agenda);
 
