@@ -77,14 +77,12 @@ class AgendaBroadcastController extends AbstractController
                         ->setAddress($boardMemberAddress)
                     ;
                 } catch (CprException $e) {
-                    switch (true) {
-                        case $e->getPrevious() instanceof NoPnrFoundException:
-                            $this->addFlash('danger', $translator->trans('PNR for {boardMember} not found ({cprNumber})', ['boardMember' => $boardMember->getName(), 'cprNumber' => $boardMember->getCpr()], 'digital_post'));
-                            break;
-                        case $e->getPrevious() instanceof ServiceException:
-                            $this->addFlash('danger', $e->getPrevious()->getMessage());
-                            break;
-                    }
+                    $message = match (true) {
+                        $e->getPrevious() instanceof NoPnrFoundException => $translator->trans('PNR for {boardMember} not found ({cprNumber})', ['boardMember' => $boardMember->getName(), 'cprNumber' => $boardMember->getCpr()], 'digital_post'),
+                        $e->getPrevious() instanceof ServiceException => $e->getPrevious()->getMessage(),
+                        default => $e->getMessage(),
+                    };
+                    $this->addFlash('danger', $message);
 
                     return $this->redirectToRoute('agenda_broadcast', [
                         'id' => $agenda->getId(),
