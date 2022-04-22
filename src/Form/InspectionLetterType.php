@@ -40,7 +40,6 @@ class InspectionLetterType extends AbstractType
         $availableRecipients = $options['available_recipients'];
 
         $availableTemplateChoices = $options['mail_template_choices'];
-
         $templateChoices = [];
 
         foreach ($availableTemplateChoices as $template) {
@@ -56,6 +55,9 @@ class InspectionLetterType extends AbstractType
                 'class' => Party::class,
                 'label' => $this->translator->trans('Recipients', [], 'case'),
                 'choices' => $availableRecipients,
+                'choice_label' => function ($key, $value) {
+                    return $value;
+                },
                 'multiple' => true,
                 'expanded' => true,
                 'constraints' => [
