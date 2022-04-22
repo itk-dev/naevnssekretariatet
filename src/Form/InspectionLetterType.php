@@ -50,7 +50,7 @@ class InspectionLetterType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => $this->translator->trans('Title', [], 'agenda'),
-                'help' => $this->translator->trans('Choose a title for the broadcast', [], 'agenda'),
+                'help' => $this->translator->trans('Choose a title for the inspection letter', [], 'agenda'),
             ])
             ->add('recipients', EntityType::class, [
                 'class' => Party::class,
@@ -59,7 +59,7 @@ class InspectionLetterType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'constraints' => [
-                    new Count(['min' => 1, 'minMessage' => new TranslatableMessage('Your inspection letter must have at least one recipient', [], 'agenda')]),
+                    new Count(['min' => 1, 'minMessage' => new TranslatableMessage('Your inspection letter must have at least one recipient', [], 'validators')]),
                 ],
             ])
             ->add('template', ChoiceType::class, [

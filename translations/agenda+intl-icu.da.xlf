@@ -453,6 +453,50 @@
         <source>Back to agenda</source>
         <target state="translated">Til dagsorden</target>
       </trans-unit>
+      <trans-unit id="MpqO824" resname="Choose a template">
+        <source>Choose a template</source>
+        <target state="translated">Vælg en skabelon</target>
+      </trans-unit>
+      <trans-unit id="GjZq2fp" resname="Mail template">
+        <source>Mail template</source>
+        <target state="translated">Brev skabelon</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target state="translated">Send</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target state="translated">Oprettet</target>
+      </trans-unit>
+      <trans-unit id="N2zgT9." resname="Sent at">
+        <source>Sent at</source>
+        <target state="translated">Sendt</target>
+      </trans-unit>
+      <trans-unit id="1r2MCu7" resname="Document">
+        <source>Document</source>
+        <target state="translated">Dokument</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target state="translated">Vis</target>
+      </trans-unit>
+      <trans-unit id="r7fkVA0" resname="No inspection letters sent">
+        <source>No inspection letters sent</source>
+        <target state="translated">Ingen besigtigelsesbreve sendt</target>
+      </trans-unit>
+      <trans-unit id="dpAPG.0" resname="Back">
+        <source>Back</source>
+        <target state="translated">Tilbage</target>
+      </trans-unit>
+      <trans-unit id="vzRWYyS" resname="Choose a title for the inspection letter">
+        <source>Choose a title for the inspection letter</source>
+        <target state="translated">Vælg en titel for besigtigelsesbrev</target>
+      </trans-unit>
+      <trans-unit id="1FdZ800" resname="Agenda inspection">
+        <source>Agenda inspection</source>
+        <target state="translated">Besigtigelsesbrev</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

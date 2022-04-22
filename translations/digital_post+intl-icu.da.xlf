@@ -61,6 +61,10 @@
         <source>Previous</source>
         <target state="translated">Forrige</target>
       </trans-unit>
+      <trans-unit id="0CeFT6c" resname="Inspection letter">
+        <source>Inspection letter</source>
+        <target state="translated">Besigtigelsesbrev</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

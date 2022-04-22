@@ -453,6 +453,50 @@
         <source>Back to agenda</source>
         <target>Back to agenda</target>
       </trans-unit>
+      <trans-unit id="vzRWYyS" resname="Choose a title for the inspection letter">
+        <source>Choose a title for the inspection letter</source>
+        <target>Choose a title for the inspection letter</target>
+      </trans-unit>
+      <trans-unit id="MpqO824" resname="Choose a template">
+        <source>Choose a template</source>
+        <target>Choose a template</target>
+      </trans-unit>
+      <trans-unit id="GjZq2fp" resname="Mail template">
+        <source>Mail template</source>
+        <target>Mail template</target>
+      </trans-unit>
+      <trans-unit id="1FdZ800" resname="Agenda inspection">
+        <source>Agenda inspection</source>
+        <target>Agenda inspection</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Send</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target>Created at</target>
+      </trans-unit>
+      <trans-unit id="N2zgT9." resname="Sent at">
+        <source>Sent at</source>
+        <target>Sent at</target>
+      </trans-unit>
+      <trans-unit id="1r2MCu7" resname="Document">
+        <source>Document</source>
+        <target>Document</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target>Show</target>
+      </trans-unit>
+      <trans-unit id="r7fkVA0" resname="No inspection letters sent">
+        <source>No inspection letters sent</source>
+        <target>No inspection letters sent</target>
+      </trans-unit>
+      <trans-unit id="dpAPG.0" resname="Back">
+        <source>Back</source>
+        <target>Back</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

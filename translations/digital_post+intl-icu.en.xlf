@@ -61,6 +61,10 @@
         <source>Previous</source>
         <target>Previous</target>
       </trans-unit>
+      <trans-unit id="0CeFT6c" resname="Inspection letter">
+        <source>Inspection letter</source>
+        <target>Inspection letter</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

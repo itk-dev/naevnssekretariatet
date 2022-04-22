@@ -88,7 +88,7 @@ class AgendaInspectionController extends AbstractController
 
             $inspection->setDocument($document);
 
-            // Create a recipient per board member
+            // Create recipients
             $digitalPostRecipients = [];
 
             foreach ($inspection->getRecipients() as $recipient) {
