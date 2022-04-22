@@ -1,0 +1,58 @@
+{% extends 'layout-with-agenda-item-submenu.html.twig' %}
+
+{% trans_default_domain 'agenda' %}
+
+{% block title %}{% trans %}Inspection{% endtrans %}{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar/agenda-case-item-sidebar.html.twig' %}
+{% endblock %}
+
+
+
+{% block header %}
+    <div class="row mt-1 mb-3">
+        <div class="col">
+            <h1>{% trans %}Inspection case{% endtrans %} {{ agenda_item.caseEntity.caseNumber }}</h1>
+            <p class="text-muted"><small>{% trans %}Send message to parties regarding inspection{% endtrans %}</small></p>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-success {% if agenda.isFinished() %} disabled {% endif %}" href="{{ url('agenda_case_item_inspection_letter_create', {id: agenda.id, agenda_item_id: agenda_item.id}) }}" role="button">{% trans %}Create inspection letter{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{% trans %}Created at{% endtrans %}</th>
+                <th>{% trans %}Subject{% endtrans %}</th>
+                <th>{% trans %}Status{% endtrans %}</th>
+                <th>{% trans %}Sent at{% endtrans %}</th>
+                <th>{% trans %}Document{% endtrans %}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for digital_post in digital_posts %}
+                <tr>
+                    <td>{{ digital_post.createdAt ? digital_post.createdAt|date(format_datetime) : '' }}</td>
+                    <td>{{ digital_post.subject }}</td>
+                    <td>{{ digital_post.status ?? '–' }}</td>
+                    <td>{{ digital_post.sentAt ? digital_post.sentAt|date(format_datetime) : '–' }}</td>
+                    <td>{{ digital_post.document.documentName }}</td>
+                    <td>
+                        <a href="{{ path('agenda_case_item_inspection_letter_show', {'id': agenda.id, 'agenda_item_id': agenda_item.id, 'digital_post': digital_post.id}) }}">{% trans %}Show{% endtrans %}</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">{% trans %}No inspection letters sent{% endtrans %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}

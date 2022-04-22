@@ -9,9 +9,11 @@ use App\Exception\DocumentDirectoryException;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CasePresentationType;
 use App\Form\InspectionLetterType;
+use App\Repository\DigitalPostRepository;
 use App\Repository\DocumentRepository;
 use App\Service\AgendaHelper;
 use App\Service\DocumentUploader;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,50 +41,52 @@ class AgendaCaseItemController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @Route("/inspection", name="agenda_case_item_inspection", methods={"GET"})
-     * @Entity("agenda", expr="repository.find(id)")
-     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
-     */
-    public function inspection(Agenda $agenda, AgendaCaseItem $agendaItem): Response
-    {
-        $this->denyAccessUnlessGranted('edit', $agendaItem);
+//    /**
+//     * @Route("/inspection", name="agenda_case_item_inspection", methods={"GET"})
+//     * @Entity("agenda", expr="repository.find(id)")
+//     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+//     */
+//    public function inspection(Agenda $agenda, AgendaCaseItem $agendaItem, DigitalPostRepository $digitalPostRepository): Response
+//    {
+//        $this->denyAccessUnlessGranted('edit', $agendaItem);
+//
+//
+//        return $this->render('agenda_case_item/inspection/index.html.twig', [
+//            'agenda' => $agenda,
+//            'agenda_item' => $agendaItem,
+//            'digital_posts' => $digitalPostRepository->findByEntity($agendaItem, [], ['createdAt' => Criteria::DESC]),
+//        ]);
+//    }
 
-        return $this->render('agenda_case_item/inspection.html.twig', [
-            'agenda' => $agenda,
-            'agenda_item' => $agendaItem,
-        ]);
-    }
-
-    /**
-     * @Route("/inspection-letter", name="agenda_case_item_inspection_letter", methods={"GET", "POST"})
-     * @Entity("agenda", expr="repository.find(id)")
-     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
-     */
-    public function inspectionLetter(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('edit', $agendaItem);
-
-        $form = $this->createForm(InspectionLetterType::class);
-
-        $isFinishedAgenda = $agenda->isFinished();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
-            //TODO: Add logic for sending letter
-
-            return $this->redirectToRoute('agenda_case_item_inspection_letter', [
-                'id' => $agenda->getId(),
-                'agenda_item_id' => $agendaItem->getId(),
-            ]);
-        }
-
-        return $this->render('agenda_case_item/inspection_letter.html.twig', [
-            'inspection_letter_form' => $form->createView(),
-            'agenda' => $agenda,
-            'agenda_item' => $agendaItem,
-        ]);
-    }
+//    /**
+//     * @Route("/inspection-letter", name="agenda_case_item_inspection_letter", methods={"GET", "POST"})
+//     * @Entity("agenda", expr="repository.find(id)")
+//     * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+//     */
+//    public function inspectionLetter(Agenda $agenda, AgendaCaseItem $agendaItem, Request $request): Response
+//    {
+//        $this->denyAccessUnlessGranted('edit', $agendaItem);
+//
+//        $form = $this->createForm(InspectionLetterType::class);
+//
+//        $isFinishedAgenda = $agenda->isFinished();
+//
+//        $form->handleRequest($request);
+//        if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
+//            //TODO: Add logic for sending letter
+//
+//            return $this->redirectToRoute('agenda_case_item_inspection', [
+//                'id' => $agenda->getId(),
+//                'agenda_item_id' => $agendaItem->getId(),
+//            ]);
+//        }
+//
+//        return $this->render('agenda_case_item/inspection_letter.html.twig', [
+//            'inspection_letter_form' => $form->createView(),
+//            'agenda' => $agenda,
+//            'agenda_item' => $agendaItem,
+//        ]);
+//    }
 
     /**
      * @Route("/presentation", name="agenda_case_item_presentation", methods={"GET", "POST"})

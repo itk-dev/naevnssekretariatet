@@ -31,3 +31,10 @@ App\Entity\MailTemplate:
 
       Brug det som start i en høring.
     templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>
+
+  mail-template-agenda-inspection-001:
+    type: agenda_inspection
+    name: Agenda inspection template 001
+    description: |-
+      Bruges til udsendelse af besigtigelsesbrev til parter.
+    templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>
