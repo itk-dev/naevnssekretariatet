@@ -8,7 +8,6 @@ use App\Entity\BoardMember;
 use App\Entity\User;
 use App\Exception\BoardMemberException;
 use App\Form\AgendaAddBoardMemberType;
-use App\Form\AgendaBroadcastType;
 use App\Form\AgendaEditType;
 use App\Form\AgendaFilterType;
 use App\Form\AgendaNewType;
@@ -351,34 +350,6 @@ class AgendaController extends AbstractController
 
         return $this->render('agenda/protocol.html.twig', [
             'protocol_form' => $form->createView(),
-            'agenda' => $agenda,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/broadcast", name="agenda_broadcast", methods={"GET", "POST"})
-     */
-    public function broadcastAgenda(Agenda $agenda, Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('edit', $agenda);
-
-        $agendaOptions = $this->agendaHelper->getFormOptionsForAgenda($agenda);
-
-        $form = $this->createForm(AgendaBroadcastType::class, null, $agendaOptions);
-
-        $isFinishedAgenda = $agenda->isFinished();
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() && $isFinishedAgenda) {
-            // TODO: Logic for sending broadcast
-            // For now it simply redirect to same route
-            return $this->redirectToRoute('agenda_broadcast', [
-                'id' => $agenda->getId(),
-            ]);
-        }
-
-        return $this->render('agenda/broadcast.html.twig', [
-            'broadcast_form' => $form->createView(),
             'agenda' => $agenda,
         ]);
     }

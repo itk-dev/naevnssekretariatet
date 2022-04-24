@@ -2,10 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\AgendaBroadcast;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AgendaBroadcastType extends AbstractType
@@ -20,20 +22,33 @@ class AgendaBroadcastType extends AbstractType
         $this->translator = $translator;
     }
 
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => AgendaBroadcast::class,
+            'mail_template_choices' => null,
+        ]);
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $availableTemplateChoices = $options['mail_template_choices'];
+
+        $templateChoices = [];
+
+        foreach ($availableTemplateChoices as $template) {
+            $templateChoices[$template->getName()] = $template;
+        }
+
         $builder
-            ->add('template', ChoiceType::class, [
-                'label' => $this->translator->trans('Template', [], 'agenda'),
-                'choices' => [
-                    'Agenda broadcast template 1' => 'agenda_broadcast_template_1',
-                    'Agenda broadcast  template 2' => 'agenda_broadcast_template_2',
-                    'Agenda broadcast  template 3' => 'agenda_broadcast_template_3',
-                ],
-                'placeholder' => $this->translator->trans('Select a template', [], 'agenda'),
+            ->add('title', TextType::class, [
+                'label' => $this->translator->trans('Title', [], 'agenda'),
+                'help' => $this->translator->trans('Choose a title for the broadcast', [], 'agenda'),
             ])
-            ->add('contents', TextareaType::class, [
-                'label' => $this->translator->trans('Contents', [], 'agenda'),
+            ->add('template', ChoiceType::class, [
+                'placeholder' => $this->translator->trans('Choose a template', [], 'agenda'),
+                'label' => $this->translator->trans('Mail template', [], 'agenda'),
+                'choices' => $templateChoices,
             ])
         ;
     }

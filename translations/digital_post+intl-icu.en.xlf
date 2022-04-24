@@ -61,6 +61,14 @@
         <source>Previous</source>
         <target>Previous</target>
       </trans-unit>
+      <trans-unit id="HtGnOKw" resname="Agenda broadcast">
+        <source>Agenda broadcast</source>
+        <target>Agenda broadcast</target>
+      </trans-unit>
+      <trans-unit id="nlcHDTm" resname="PNR for {boardMember} not found ({cprNumber})">
+        <source>PNR for {boardMember} not found ({cprNumber})</source>
+        <target>PNR for {boardMember} not found ({cprNumber})</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
