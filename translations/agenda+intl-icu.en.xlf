@@ -457,6 +457,10 @@
         <source>Choose a title for the inspection letter</source>
         <target>Choose a title for the inspection letter</target>
       </trans-unit>
+      <trans-unit id="lSyC1Lx" resname="Choose a title for the broadcast">
+        <source>Choose a title for the broadcast</source>
+        <target>Choose a title for the broadcast</target>
+      </trans-unit>
       <trans-unit id="MpqO824" resname="Choose a template">
         <source>Choose a template</source>
         <target>Choose a template</target>
@@ -472,6 +476,30 @@
       <trans-unit id="9vRoj.I" resname="Send">
         <source>Send</source>
         <target>Send</target>
+      </trans-unit>
+      <trans-unit id="HtGnOKw" resname="Agenda broadcast">
+        <source>Agenda broadcast</source>
+        <target>Agenda broadcast</target>
+      </trans-unit>
+      <trans-unit id="QSX8nui" resname="Send notice to board members informing them that they now have access to the agenda.">
+        <source>Send notice to board members informing them that they now have access to the agenda.</source>
+        <target>Send notice to board members informing them that they now have access to the agenda.</target>
+      </trans-unit>
+      <trans-unit id="F7yReDQ" resname="Broadcast">
+        <source>Broadcast</source>
+        <target>Broadcast</target>
+      </trans-unit>
+      <trans-unit id="M0iL.jV" resname="Agenda broadcasts">
+        <source>Agenda broadcasts</source>
+        <target>Agenda broadcasts</target>
+      </trans-unit>
+      <trans-unit id="B2uLUYi" resname="Cannot broadcast agenda with no assigned board members">
+        <source>Cannot broadcast agenda with no assigned board members</source>
+        <target>Cannot broadcast agenda with no assigned board members</target>
+      </trans-unit>
+      <trans-unit id="MLLgk.9" resname="Cannot broadcast agenda that does not have status ready">
+        <source>Cannot broadcast agenda that does not have status ready</source>
+        <target>Cannot broadcast agenda that does not have status ready</target>
       </trans-unit>
       <trans-unit id="d1tb_WR" resname="Created at">
         <source>Created at</source>
@@ -492,6 +520,10 @@
       <trans-unit id="r7fkVA0" resname="No inspection letters sent">
         <source>No inspection letters sent</source>
         <target>No inspection letters sent</target>
+      </trans-unit>
+      <trans-unit id="yni3tKo" resname="No boardmember notifications">
+        <source>No boardmember notifications</source>
+        <target>No boardmember notifications</target>
       </trans-unit>
       <trans-unit id="dpAPG.0" resname="Back">
         <source>Back</source>

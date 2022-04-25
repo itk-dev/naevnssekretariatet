@@ -19,7 +19,7 @@ class DigitalPostHelper extends DigitalPost
 {
     private array $serviceOptions;
 
-    public function __construct(private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, array $options)
+    public function __construct(private CprHelper $cprHelper, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, array $options)
     {
         parent::__construct();
         $resolver = new OptionsResolver();
@@ -42,7 +42,7 @@ class DigitalPostHelper extends DigitalPost
             ->afsendBrevPerson(
                 KanalvalgType::VALUE_A,
                 PrioritetType::VALUE_D,
-                $cpr,
+                $this->cprHelper->formatIdentifier($cpr),
                 $name,
                 null,
                 $address->getStreet(),

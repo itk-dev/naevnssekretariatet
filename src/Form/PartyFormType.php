@@ -6,6 +6,7 @@ use App\Entity\CaseEntity;
 use App\Form\Embeddable\AddressLookupType;
 use App\Form\Embeddable\IdentificationType;
 use App\Service\PartyHelper;
+use App\Validator\PartyIdentification;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -50,6 +51,9 @@ class PartyFormType extends AbstractType
             ])
             ->add('identification', IdentificationType::class, [
                 'label' => false,
+                'constraints' => [
+                    new PartyIdentification(),
+                ],
             ])
             ->add('address', AddressLookupType::class, [
                 'label' => $this->translator->trans('Address', [], 'case'),

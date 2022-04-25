@@ -37,6 +37,10 @@
         <source>Agenda insection</source>
         <target>Agenda insection</target>
       </trans-unit>
+      <trans-unit id="HtGnOKw" resname="Agenda broadcast">
+        <source>Agenda broadcast</source>
+        <target>Agenda broadcast</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

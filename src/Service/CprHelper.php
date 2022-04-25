@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\CaseEntity;
+use App\Entity\Embeddable\Address;
 use App\Entity\Embeddable\Identification;
 use App\Exception\CprException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -204,5 +205,38 @@ class CprHelper
         $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'];
 
         return $relevantData;
+    }
+
+    public function getAddressFromCpr(string $cpr): Address
+    {
+        $cprObject = $this->lookupCPR($cpr);
+
+        $cprArray = json_decode(json_encode($cprObject), true);
+
+        $street = $cprArray['adresse']['aktuelAdresse']['vejadresseringsnavn'];
+        $number = ltrim($cprArray['adresse']['aktuelAdresse']['husnummer'], '0');
+        $floor = array_key_exists('etage', $cprArray['adresse']['aktuelAdresse']) ? $cprArray['adresse']['aktuelAdresse']['etage'] : null;
+        $side = array_key_exists('sidedoer', $cprArray['adresse']['aktuelAdresse']) ? ltrim($cprArray['adresse']['aktuelAdresse']['sidedoer'], '0') : null;
+        $postalCode = $cprArray['adresse']['aktuelAdresse']['postnummer'];
+        $city = $cprArray['adresse']['aktuelAdresse']['postdistrikt'];
+
+        $address = (new Address())
+            ->setStreet($street)
+            ->setNumber($number)
+            ->setFloor($floor)
+            ->setSide($side)
+            ->setPostalCode($postalCode)
+            ->setCity($city)
+        ;
+
+        return $address;
+    }
+
+    /**
+     * Removes potential dashes from CPR.
+     */
+    public function formatIdentifier(string $cpr): string
+    {
+        return preg_replace('/[^0-9]+/', '', $cpr);
     }
 }

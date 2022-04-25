@@ -38,3 +38,10 @@ App\Entity\MailTemplate:
     description: |-
       Bruges til udsendelse af besigtigelsesbrev til parter.
     templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>
+
+  mail-template-agenda-broadcast-001:
+    type: agenda_broadcast
+    name: Agenda broadcast template 001
+    description: |-
+      Bruges til udsendelse af dagsorden til nævnsmedlemmer.
+    templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>

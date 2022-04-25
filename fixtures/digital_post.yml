@@ -5,6 +5,13 @@ App\Entity\DigitalPost:
         entityId: '@test-case-aarhus-1->id'
         subject: 'Some interesting title'
 
+    digital-post-002:
+        document: '@document-001'
+        entityType: 'App\Entity\ResidentComplaintBoardCase'
+        entityId: '@test-case-aarhus-1->id'
+        subject: 'Another interesting title'
+        status: sent
+
 App\Entity\DigitalPostAttachment:
     digital-post-attachment-001:
         digitalPost: '@digital-post-001'
@@ -18,6 +25,13 @@ App\Entity\DigitalPostAttachment:
 App\Entity\DigitalPost\Recipient:
     recipient-001:
         digitalPost: '@digital-post-001'
+        name: 'Mr. Bean'
+        identifierType: 'CPR'
+        identifier: '0000000000'
+        address: '@test-case-aarhus-1-bringer-address'
+
+    recipient-002:
+        digitalPost: '@digital-post-002'
         name: 'Mr. Bean'
         identifierType: 'CPR'
         identifier: '0000000000'

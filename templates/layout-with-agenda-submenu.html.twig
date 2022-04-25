@@ -14,6 +14,13 @@
                 {% include 'sidebar/agenda-sidebar.html.twig' %}
             {% endblock %}
             <div class="col-md-12 col-lg-9 ml-sm-auto px-md-4">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
                 <header class="pt-3">
                     {% block header %}{% endblock %}
                 </header>

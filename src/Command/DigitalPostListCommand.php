@@ -22,6 +22,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class DigitalPostListCommand extends Command
 {
+    private const STATUS_NULL = 'null';
+
     public function __construct(private DigitalPostHelper $digitalPostHelper, private DigitalPostRepository $digitalPostRepository, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private LoggerInterface $databaseLogger)
     {
         parent::__construct(null);
@@ -29,7 +31,7 @@ class DigitalPostListCommand extends Command
 
     protected function configure()
     {
-        $this->addOption('status', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Show post with this status. Allowed values: '.implode(', ', $this->getValidStatuses()));
+        $this->addOption('status', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Show post with this status. Allowed values: '.implode(', ', $this->getValidStatusNames()));
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -37,7 +39,10 @@ class DigitalPostListCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $statuses = $input->getOption('status') ?: $this->getValidStatuses();
+        // Map null and empty status to real null value.
+        $statuses = array_map(static fn ($status) => in_array($status, [self::STATUS_NULL, ''], true) ? null : $status, $statuses);
         $invalidStatuses = array_diff($statuses, $this->getValidStatuses());
+
         if (!empty($invalidStatuses)) {
             throw new InvalidOptionException(1 === count($invalidStatuses) ? sprintf('Invalid status: %s', reset($invalidStatuses)) : sprintf('Invalid statuses: %s', implode(', ', $invalidStatuses)));
         }
@@ -46,23 +51,14 @@ class DigitalPostListCommand extends Command
 
         $io->info(sprintf('Number of digital posts: %d', count($digitalPosts)));
 
-        if (count($digitalPosts) > 0) {
-            $headers = [
-                'Id',
-                'Created at',
-                'Status',
-                'Recipients',
-            ];
-            $rows = [];
-            foreach ($digitalPosts as $digitalPost) {
-                $rows[] = [
-                    $digitalPost->getId(),
-                    $digitalPost->getCreatedAt()->format(\DateTimeInterface::ATOM),
-                    $digitalPost->getStatus(),
-                    implode(PHP_EOL, $digitalPost->getRecipients()->map(static fn (DigitalPost\Recipient $recipient) => (string) $recipient)->toArray()),
-                ];
-            }
-            $io->horizontalTable($headers, $rows);
+        foreach ($digitalPosts as $digitalPost) {
+            $io->definitionList(
+                ['Id' => $digitalPost->getId()],
+                ['Status' => $digitalPost->getStatus() ?? self::STATUS_NULL],
+                ['Recipients' => implode(PHP_EOL, $digitalPost->getRecipients()->map(static fn (DigitalPost\Recipient $recipient) => (string) $recipient)->toArray())],
+                ['Created at' => $digitalPost->getCreatedAt()->format(\DateTimeInterface::ATOM)],
+                ['Updated at' => $digitalPost->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
+            );
         }
 
         return Command::SUCCESS;
@@ -70,6 +66,11 @@ class DigitalPostListCommand extends Command
 
     private function getValidStatuses(): array
     {
-        return DigitalPost::STATUSES;
+        return array_merge(DigitalPost::STATUSES, [null]);
+    }
+
+    private function getValidStatusNames(): array
+    {
+        return array_map(static fn ($status) => $status ?? self::STATUS_NULL, $this->getValidStatuses());
     }
 }

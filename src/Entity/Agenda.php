@@ -73,11 +73,17 @@ class Agenda implements LoggableEntityInterface
      */
     private $isPublished = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AgendaBroadcast::class, mappedBy="agenda", orphanRemoval=true)
+     */
+    private $agendaBroadcasts;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
         $this->boardmembers = new ArrayCollection();
         $this->agendaItems = new ArrayCollection();
+        $this->agendaBroadcasts = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -258,5 +264,35 @@ class Agenda implements LoggableEntityInterface
     public function isFinished(): bool
     {
         return AgendaStatus::FINISHED === $this->status;
+    }
+
+    /**
+     * @return Collection|AgendaBroadcast[]
+     */
+    public function getAgendaBroadcasts(): Collection
+    {
+        return $this->agendaBroadcasts;
+    }
+
+    public function addAgendaBroadcast(AgendaBroadcast $agendaBroadcast): self
+    {
+        if (!$this->agendaBroadcasts->contains($agendaBroadcast)) {
+            $this->agendaBroadcasts[] = $agendaBroadcast;
+            $agendaBroadcast->setAgenda($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgendaBroadcast(AgendaBroadcast $agendaBroadcast): self
+    {
+        if ($this->agendaBroadcasts->removeElement($agendaBroadcast)) {
+            // set the owning side to null (unless already changed)
+            if ($agendaBroadcast->getAgenda() === $this) {
+                $agendaBroadcast->setAgenda(null);
+            }
+        }
+
+        return $this;
     }
 }
