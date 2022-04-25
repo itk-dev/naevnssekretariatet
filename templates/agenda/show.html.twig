@@ -22,9 +22,6 @@
                         <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete agenda{% endtrans %}">{% trans %}Delete agenda{% endtrans %}</button>
                     </form>
                 {% endif %}
-                {% if agenda.isReady() %}
-                    <a class="btn btn-success {% if agenda.isPublished == true %} disabled {% endif %}" href="{{ url('agenda_publish', {id: agenda.id}) }}" role="button">{% trans %}Publish to boardmembers{% endtrans %}</a>
-                {% endif %}
             </div>
         {% endif %}
     </div>

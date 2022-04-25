@@ -33,6 +33,10 @@
         <source>No decisions</source>
         <target>No decisions</target>
       </trans-unit>
+      <trans-unit id="D0O5han" resname="Cannot create decision since case has no party to send it to">
+        <source>Cannot create decision since case has no party to send it to</source>
+        <target>Cannot create decision since case has no party to send it to</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

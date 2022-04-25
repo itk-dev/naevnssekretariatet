@@ -127,7 +127,7 @@ class SidebarController extends AbstractController
 
         if ($isCaseworker || $isAdministration) {
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Protocol', [], 'sidebar'), ['agenda_protocol'], $agendaId, $activeRoute);
-            $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Broadcast agenda', [], 'sidebar'), ['agenda_broadcast'], $agendaId, $activeRoute);
+            $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Broadcast agenda', [], 'sidebar'), ['agenda_broadcast', 'agenda_broadcast_show', 'agenda_broadcast_create'], $agendaId, $activeRoute);
         }
 
         return $this->render('sidebar/_submenu.html.twig', [

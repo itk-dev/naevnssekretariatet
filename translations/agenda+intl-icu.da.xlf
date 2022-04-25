@@ -453,6 +453,66 @@
         <source>Back to agenda</source>
         <target state="translated">Til dagsorden</target>
       </trans-unit>
+      <trans-unit id="lSyC1Lx" resname="Choose a title for the broadcast">
+        <source>Choose a title for the broadcast</source>
+        <target state="translated">Vælg et navn til publiseringen af dagsordenen</target>
+      </trans-unit>
+      <trans-unit id="MpqO824" resname="Choose a template">
+        <source>Choose a template</source>
+        <target state="translated">Vælg en skabelon</target>
+      </trans-unit>
+      <trans-unit id="GjZq2fp" resname="Mail template">
+        <source>Mail template</source>
+        <target state="translated">Skabelon</target>
+      </trans-unit>
+      <trans-unit id="HtGnOKw" resname="Agenda broadcast">
+        <source>Agenda broadcast</source>
+        <target state="translated">Dagsordenspublisering</target>
+      </trans-unit>
+      <trans-unit id="QSX8nui" resname="Send notice to board members informing them that they now have access to the agenda.">
+        <source>Send notice to board members informing them that they now have access to the agenda.</source>
+        <target state="translated">Send advisering omkring dagsordenen til tilknyttede nævnsmedlemmer.</target>
+      </trans-unit>
+      <trans-unit id="F7yReDQ" resname="Broadcast">
+        <source>Broadcast</source>
+        <target state="translated">Publisering</target>
+      </trans-unit>
+      <trans-unit id="M0iL.jV" resname="Agenda broadcasts">
+        <source>Agenda broadcasts</source>
+        <target state="translated">Dagsordenspubliseringer</target>
+      </trans-unit>
+      <trans-unit id="B2uLUYi" resname="Cannot broadcast agenda with no assigned board members">
+        <source>Cannot broadcast agenda with no assigned board members</source>
+        <target state="translated">Kan ikke publisere dagsorden, som ikke har nogle tilknyttede nævnsmedlemmer</target>
+      </trans-unit>
+      <trans-unit id="MLLgk.9" resname="Cannot broadcast agenda that does not have status ready">
+        <source>Cannot broadcast agenda that does not have status ready</source>
+        <target state="translated">Kan ikke publisere dagsorden, som ikke har status klar.</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target state="translated">Oprettet</target>
+      </trans-unit>
+      <trans-unit id="N2zgT9." resname="Sent at">
+        <source>Sent at</source>
+        <target state="translated">Sendt</target>
+      </trans-unit>
+      <trans-unit id="1r2MCu7" resname="Document">
+        <source>Document</source>
+        <target state="translated">Dokument</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target state="translated">Vis</target>
+      </trans-unit>
+      <trans-unit id="yni3tKo" resname="No boardmember notifications">
+        <source>No boardmember notifications</source>
+        <target state="translated">Ingen publiseringer</target>
+      </trans-unit>
+      <trans-unit id="dpAPG.0" resname="Back">
+        <source>Back</source>
+        <target state="translated">Tilbage</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
