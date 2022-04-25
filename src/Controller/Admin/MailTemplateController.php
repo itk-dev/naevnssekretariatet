@@ -51,7 +51,8 @@ class MailTemplateController extends AbstractController
     public function data(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper, AdminUrlGenerator $adminUrlGenerator): Response
     {
         try {
-            $entity = $mailTemplateHelper->getPreviewEntity($mailTemplate);
+            $entity = $request->get('entity');
+            $entity = $mailTemplateHelper->getPreviewEntity($mailTemplate, $entity['type'] ?? null, $entity['id'] ?? null);
             $data = $mailTemplateHelper->getTemplateData($mailTemplate, $entity);
 
             return new JsonResponse($data);

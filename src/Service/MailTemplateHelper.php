@@ -68,13 +68,19 @@ class MailTemplateHelper
      *
      * @throws \RuntimeException
      */
-    public function getPreviewEntity(MailTemplate $mailTemplate)
+    public function getPreviewEntity(MailTemplate $mailTemplate, string $entityType = null, string $entityId = null)
     {
         $classNames = $this->getTemplateEntityClassNames($mailTemplate) ?? [];
+        if (null !== $entityType) {
+            if (!in_array($entityType, $classNames, true)) {
+                throw new MailTemplateException(sprintf('Invalid entity type %s', $entityType));
+            }
+            $classNames = [$entityType];
+        }
         foreach ($classNames as $className) {
             try {
                 $repository = $this->entityManager->getRepository($className);
-                $entity = $repository->findOneBy([]);
+                $entity = null !== $entityId ? $repository->find($entityId) : $repository->findOneBy([]);
                 if (null !== $entity) {
                     return $entity;
                 }

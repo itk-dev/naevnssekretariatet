@@ -2,6 +2,8 @@
 
 namespace App\Service\MailTemplate;
 
+use App\Entity\Agenda;
+use App\Entity\BoardRole;
 use App\Entity\CaseEntity;
 use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Row;
@@ -26,42 +28,57 @@ class ComplexMacroHelper
         $values = [];
 
         if ($entity instanceof CaseEntity) {
-            $table = new Table([
-                'unit' => TblWidth::TWIP,
-                'borderSize' => 1,
-            ]);
-
-            $this->addTableHeaderRow($table, [
-                'Name',
-                [
-                    'text-style' => ['alignment' => Jc::CENTER],
-                    'text' => 'A',
-                ],
-                ['text' => 'B'],
-                ['text-style' => ['alignment' => Jc::END], 'text' => 'C'],
-            ]);
-
-            $this->addTableRow($table, [
-                'Hmm …',
-                1,
-                2,
-                3,
-            ]);
-
-            $this->addTableRow($table, [
-                'Hmm …',
-                1,
-                ['text-style' => ['alignment' => Jc::END], 'text' => 2],
-                3,
-            ]);
-
-            $values['some_list'] = new ComplexMacro($table, 'List of stuff');
-
             // Note: Setting text on the link will break the link.
             $values['case.link'] = new ComplexMacro(
                 new Link($this->router->generate('case_show', ['id' => $entity->getId()], RouterInterface::ABSOLUTE_URL)),
                 'Url with link to the case'
             );
+        } elseif ($entity instanceof Agenda) {
+            // Note: Setting text on the link will break the link.
+            $values['agenda.link'] = new ComplexMacro(
+                new Link(
+                    $this->router->generate('agenda_show', ['id' => $entity->getId()], RouterInterface::ABSOLUTE_URL)
+                ),
+                'Url with link to the agenda'
+            );
+
+            // Agenda items
+            $table = new Table([
+                'unit' => TblWidth::TWIP,
+                'cellMargin' => 0,
+                'spacing' => 0,
+            ]);
+
+            foreach ($entity->getAgendaItems() as $agendaItem) {
+                $this->addTableRow($table, [
+                    sprintf('%s–%s',
+                        $agendaItem->getStartTime()->format('H:i'),
+                        $agendaItem->getEndTime()->format('H:i')
+                    ),
+                    $agendaItem->getTitle(),
+                    $agendaItem->getMeetingPoint(),
+                ]);
+            }
+
+            $values['agenda.items'] = new ComplexMacro($table, 'Agenda items');
+
+            // Board members
+            $table = new Table([
+                'unit' => TblWidth::TWIP,
+                'cellMargin' => 0,
+                'spacing' => 0,
+            ]);
+
+            foreach ($entity->getBoardmembers() as $boardmember) {
+                $roles = $boardmember->getBoardRoles();
+                $this->addTableRow($table, [
+                    $roles->isEmpty()
+                        ? sprintf('%s', $boardmember->getName())
+                        : sprintf('%s (%s)', $boardmember->getName(), implode(', ', $roles->map(static fn (BoardRole $role) => $role->getTitle())->toArray())),
+                ]);
+            }
+
+            $values['agenda.board_members'] = new ComplexMacro($table, 'Board members');
         }
 
         return $values;
@@ -105,7 +122,7 @@ class ComplexMacroHelper
                     ->addCell($value['cell']['width'] ?? null, $value['cell']['style'] ?? null)
                     ->addTextRun($value['text-style'] ?? [])->addText($value['text']);
             } else {
-                throw new \RuntimeException(sprintf('Cannot handle table cell value %s', json_encode($value)));
+                throw new \RuntimeException(sprintf('Cannot handle table cell value with type %s: %s', gettype($value), json_encode($value)));
             }
         }
 
