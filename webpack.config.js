@@ -32,6 +32,7 @@ Encore
   .addEntry('dawa-address-lookup', './assets/dawa-address-lookup.js')
   .addEntry('identification-lookup', './assets/case/identification-lookup.js')
   .addEntry('identification_type_handler', './assets/identification/type_handler.js')
+  .addEntry('admin_board_member_cpr_lookup', './assets/admin/board_member_cpr_lookup.js')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 //  .enableStimulusBridge('./assets/controllers.json')
