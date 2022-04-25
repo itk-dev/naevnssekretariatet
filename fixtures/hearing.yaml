@@ -9,6 +9,16 @@ App\Entity\CasePartyRelation:
     party: '@party-2'
     type: 'Udlejer'
 
+  relation-3:
+    case: '@test-case-aarhus-9'
+    party: '@party-1'
+    type: 'Lejer'
+
+  relation-4:
+    case: '@test-case-aarhus-9'
+    party: '@party-2'
+    type: 'Udlejer'
+
 #App\Entity\HearingPost:
 #  hearing-post-1:
 #    sender: '@party-1'
