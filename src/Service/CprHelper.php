@@ -211,6 +211,6 @@ class CprHelper
      */
     public function formatIdentifier(string $cpr): string
     {
-        return str_replace('-', '', $cpr);
+        return preg_replace('/[^0-9]+/', '', $cpr);
     }
 }

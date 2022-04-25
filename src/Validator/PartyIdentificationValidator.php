@@ -26,10 +26,9 @@ class PartyIdentificationValidator extends ConstraintValidator
         }
 
         // Ensure identifier looks like a CPR or CVR number
-        if (!preg_match('/^\d{6}\-?\d{4}$|^\d{8}$/', $value->getIdentifier(), $matches)) {
+        if (!preg_match('/^(\d{6}-?\d{4}|\d{8})$/', $value->getIdentifier(), $matches)) {
             $message = $this->translator->trans('The value { value } is not a valid CPR or CVR number.', ['{ value }' => $value->getIdentifier()], 'validator');
             $this->context->buildViolation($message)
-//                ->setParameter('{ value }', $value->getIdentifier())
                 ->addViolation()
             ;
         }

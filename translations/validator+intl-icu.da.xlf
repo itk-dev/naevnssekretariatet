@@ -7,7 +7,7 @@
     <body>
       <trans-unit id="xQHn_hC" resname="The value { value } is not a valid CPR or CVR number.">
         <source>The value { value } is not a valid CPR or CVR number.</source>
-        <target>Værdien { value } er ikke et gyldigt CPR eller CVR nummer.</target>
+        <target>Værdien { value } er ikke et gyldigt CPR- eller CVR-nummer.</target>
       </trans-unit>
     </body>
   </file>
