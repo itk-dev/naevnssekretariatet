@@ -537,6 +537,10 @@
         <source>Please enter a valid week.</source>
         <target>Please enter a valid week.</target>
       </trans-unit>
+      <trans-unit id="mqmNLCS" resname="Your inspection letter must have at least one recipient">
+        <source>Your inspection letter must have at least one recipient</source>
+        <target>Your inspection letter must have at least one recipient</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
