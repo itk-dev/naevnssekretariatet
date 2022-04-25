@@ -217,6 +217,9 @@ class AgendaController extends AbstractController
             return $memberTriple;
         }, $memberTriplesWithBinaryId);
 
+        // Sort according to name
+        usort($memberTriplesWithUuid, static fn ($a, $b) => $a['name'] <=> $b['name']);
+
         $sortedAgendaItems = $agendaItemRepository->findAscendingAgendaItemsByAgenda($agenda);
 
         $agendaOptions = ($agenda->isFinished() || $this->isGranted('ROLE_BOARD_MEMBER')) ? ['disabled' => true] : [];
