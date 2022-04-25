@@ -231,4 +231,12 @@ class CprHelper
 
         return $address;
     }
+
+    /**
+     * Removes potential dashes from CPR.
+     */
+    public function formatIdentifier(string $cpr): string
+    {
+        return preg_replace('/[^0-9]+/', '', $cpr);
+    }
 }

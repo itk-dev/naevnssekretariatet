@@ -6,6 +6,7 @@ use App\Entity\Embeddable\Address;
 use App\Entity\Embeddable\Identification;
 use App\Logging\LoggableEntityInterface;
 use App\Repository\PartyRepository;
+use App\Validator as Tvist1Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
@@ -53,6 +54,7 @@ class Party implements LoggableEntityInterface
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
      * @Groups({"mail_template"})
+     * @Tvist1Assert\PartyIdentification()
      */
     private $identification;
 
