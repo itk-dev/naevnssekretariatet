@@ -51,8 +51,8 @@ class TwigExtension extends AbstractExtension
         return $formattedNumber."\u{202F}".$unit;
     }
 
-    public function dateNullableFilter($timestamp, $format): string
+    public function dateNullableFilter($timestamp, $format, $nullDisplayValue = ''): string
     {
-        return $timestamp ? twig_date_format_filter($this->twig, $timestamp, $format) : '';
+        return $timestamp ? twig_date_format_filter($this->twig, $timestamp, $format) : $nullDisplayValue;
     }
 }
