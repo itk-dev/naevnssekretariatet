@@ -7,7 +7,6 @@ App\Entity\Agenda:
     status: 1
     boardmembers: [ '@board-member-2', '@board-member-5', '@board-member-9']
 
-
   agenda-2:
     board: '@resident-complaint-board-aarhus'
     date: <(new \DateTime('2021-10-11'))>

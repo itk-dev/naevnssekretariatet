@@ -39,11 +39,6 @@ class AgendaCaseItem extends AgendaItem
     private $decisionProposal;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
-
-    /**
      * @ORM\OneToMany(targetEntity=InspectionLetter::class, mappedBy="agendaCaseItem", orphanRemoval=true)
      */
     private $inspectionLetters;
@@ -77,11 +72,6 @@ class AgendaCaseItem extends AgendaItem
         $this->caseEntity = $caseEntity;
 
         return $this;
-    }
-
-    public function getTitle()
-    {
-        return $this->title;
     }
 
     /**
@@ -128,13 +118,6 @@ class AgendaCaseItem extends AgendaItem
     public function setDecisionProposal(?CaseDecisionProposal $decisionProposal): self
     {
         $this->decisionProposal = $decisionProposal;
-
-        return $this;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
 
         return $this;
     }
