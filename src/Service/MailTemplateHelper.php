@@ -12,6 +12,7 @@ use App\Service\MailTemplate\ComplexMacroHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Mapping\MappingException;
 use PhpOffice\PhpWord\Element\AbstractElement;
+use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\Element\TextBreak;
 use PhpOffice\PhpWord\Element\TextRun;
@@ -140,8 +141,17 @@ class MailTemplateHelper
      *
      * @throws MailTemplateException
      */
-    public function renderMailTemplate(MailTemplate $mailTemplate, $entity = null): string
+    public function renderMailTemplate(MailTemplate $mailTemplate, $entity = null, array $options = [
+        'format' => 'pdf',
+    ]): string
     {
+        $resolver = new OptionsResolver();
+        $resolver
+            ->setDefault('format', 'pdf')
+            ->setAllowedValues('format', ['docx', 'pdf'])
+        ;
+        $options = $resolver->resolve($options);
+
         $templateFileName = $this->getTemplateFile($mailTemplate);
         // https://phpword.readthedocs.io/en/latest/templates-processing.html
         $templateProcessor = new TemplateProcessor($templateFileName);
@@ -149,7 +159,13 @@ class MailTemplateHelper
         if (null !== $entity) {
             $values = $this->getComplexMacros($entity);
             foreach ($values as $name => $value) {
-                $templateProcessor->setComplexBlock($name, $value->getElement());
+                $element = $value->getElement();
+
+                if ($this->isBlockElement($element)) {
+                    $templateProcessor->setComplexBlock($name, $element);
+                } else {
+                    $templateProcessor->setComplexValue($name, $element);
+                }
             }
         }
         // Handle macros.
@@ -160,6 +176,10 @@ class MailTemplateHelper
         $values = $this->getValues($entity, $templateProcessor);
         $this->setTemplateValues($values, $templateProcessor);
         $processedFileName = $templateProcessor->save();
+
+        if ('docx' === $options['format']) {
+            return $processedFileName;
+        }
 
         $client = HttpClient::create($this->options['libreoffice_http_client_options']);
         $formFields = [
@@ -192,6 +212,15 @@ class MailTemplateHelper
     public function getTemplates(string $type): array
     {
         return $this->mailTemplateRepository->findBy(['type' => $type]);
+    }
+
+    private static array $blockElementClasses = [
+        Table::class,
+    ];
+
+    private function isBlockElement(AbstractElement $element)
+    {
+        return in_array(get_class($element), self::$blockElementClasses, true);
     }
 
     /**
@@ -285,6 +314,10 @@ class MailTemplateHelper
 
             $values[$macro->getMacro()] = $element;
         }
+
+//        $textRun = new TextRun();
+//        $textRun->addLink('https://google.com', 'google.com');
+//        $values['some_link_macro'] = $textRun;
 
         return $values;
     }

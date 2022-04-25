@@ -3,13 +3,19 @@
 namespace App\Service\MailTemplate;
 
 use App\Entity\CaseEntity;
+use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
+use Symfony\Component\Routing\RouterInterface;
 
 class ComplexMacroHelper
 {
+    public function __construct(private RouterInterface $router)
+    {
+    }
+
     /**
      * @param $entity
      *
@@ -50,6 +56,12 @@ class ComplexMacroHelper
             ]);
 
             $values['some_list'] = new ComplexMacro($table, 'List of stuff');
+
+            // Note: Setting text on the link will break the link.
+            $values['case.link'] = new ComplexMacro(
+                new Link($this->router->generate('case_show', ['id' => $entity->getId()], RouterInterface::ABSOLUTE_URL)),
+                'Url with link to the case'
+            );
         }
 
         return $values;
