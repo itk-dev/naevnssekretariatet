@@ -61,6 +61,10 @@
         <source>Previous</source>
         <target state="translated">Forrige</target>
       </trans-unit>
+      <trans-unit id="0CeFT6c" resname="Inspection letter">
+        <source>Inspection letter</source>
+        <target state="translated">Besigtigelsesbrev</target>
+      </trans-unit>
       <trans-unit id="HtGnOKw" resname="Agenda broadcast">
         <source>Agenda broadcast</source>
         <target state="translated">Dagsordenspublisering</target>

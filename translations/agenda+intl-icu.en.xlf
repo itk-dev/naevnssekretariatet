@@ -453,6 +453,10 @@
         <source>Back to agenda</source>
         <target>Back to agenda</target>
       </trans-unit>
+      <trans-unit id="vzRWYyS" resname="Choose a title for the inspection letter">
+        <source>Choose a title for the inspection letter</source>
+        <target>Choose a title for the inspection letter</target>
+      </trans-unit>
       <trans-unit id="lSyC1Lx" resname="Choose a title for the broadcast">
         <source>Choose a title for the broadcast</source>
         <target>Choose a title for the broadcast</target>
@@ -464,6 +468,14 @@
       <trans-unit id="GjZq2fp" resname="Mail template">
         <source>Mail template</source>
         <target>Mail template</target>
+      </trans-unit>
+      <trans-unit id="1FdZ800" resname="Agenda inspection">
+        <source>Agenda inspection</source>
+        <target>Agenda inspection</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Send</target>
       </trans-unit>
       <trans-unit id="HtGnOKw" resname="Agenda broadcast">
         <source>Agenda broadcast</source>
@@ -504,6 +516,10 @@
       <trans-unit id="DfbxytN" resname="Show">
         <source>Show</source>
         <target>Show</target>
+      </trans-unit>
+      <trans-unit id="r7fkVA0" resname="No inspection letters sent">
+        <source>No inspection letters sent</source>
+        <target>No inspection letters sent</target>
       </trans-unit>
       <trans-unit id="yni3tKo" resname="No boardmember notifications">
         <source>No boardmember notifications</source>

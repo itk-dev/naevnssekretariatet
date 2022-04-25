@@ -2,14 +2,16 @@
 
 namespace App\Form;
 
+use App\Entity\InspectionLetter;
+use App\Entity\Party;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InspectionLetterType extends AbstractType
@@ -24,48 +26,48 @@ class InspectionLetterType extends AbstractType
         $this->translator = $translator;
     }
 
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => InspectionLetter::class,
+            'mail_template_choices' => null,
+            'available_recipients' => null,
+        ]);
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $availableRecipients = $options['available_recipients'];
+
+        $availableTemplateChoices = $options['mail_template_choices'];
+        $templateChoices = [];
+
+        foreach ($availableTemplateChoices as $template) {
+            $templateChoices[$template->getName()] = $template;
+        }
+
         $builder
-            ->add('recipients', null, [
-                'label' => $this->translator->trans('Select recipients', [], 'agenda'),
+            ->add('title', TextType::class, [
+                'label' => $this->translator->trans('Title', [], 'agenda'),
+                'help' => $this->translator->trans('Choose a title for the inspection letter', [], 'agenda'),
             ])
-            ->add('subject', TextType::class, [
-                'label' => $this->translator->trans('Subject', [], 'agenda'),
+            ->add('recipients', EntityType::class, [
+                'class' => Party::class,
+                'label' => $this->translator->trans('Recipients', [], 'case'),
+                'choices' => $availableRecipients,
+                'choice_label' => function ($key, $value) {
+                    return $value;
+                },
+                'multiple' => true,
+                'expanded' => true,
+                'constraints' => [
+                    new Count(['min' => 1, 'minMessage' => new TranslatableMessage('Your inspection letter must have at least one recipient', [], 'validators')]),
+                ],
             ])
             ->add('template', ChoiceType::class, [
-                'label' => $this->translator->trans('Template', [], 'agenda'),
-                'choices' => [
-                    'Inspection letter template 1' => 'inspection_letter_1',
-                    'Inspection letter template 2' => 'inspection_letter_2',
-                    'Inspection letter template 3' => 'inspection_letter_3',
-                ],
-            ])
-            ->add('contents', TextareaType::class, [
-                'label' => $this->translator->trans('Contents', [], 'agenda'),
-            ])
-            ->add('documents', FileType::class, [
-                'label' => $this->translator->trans('Attach document(s)', [], 'agenda'),
-                'mapped' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
-                            'application/msword',
-                            'application/vnd.ms-excel',
-                            'text/plain',
-                            'image/jpeg',
-                            'image/png',
-                            'video/mp4',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid document',
-                    ]),
-                ],
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('Send inspection letter', [], 'agenda'),
+                'placeholder' => $this->translator->trans('Choose a template', [], 'agenda'),
+                'label' => $this->translator->trans('Mail template', [], 'agenda'),
+                'choices' => $templateChoices,
             ])
         ;
     }

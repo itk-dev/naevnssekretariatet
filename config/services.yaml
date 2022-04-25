@@ -73,6 +73,11 @@ services:
                         label: Hearing
                         entity_class_names:
                             - App\Entity\HearingPost
+                    agenda_inspection:
+                      label: Agenda insection
+                      entity_class_names:
+                        - App\Entity\AgendaCaseItem
+                        - App\Entity\InspectionLetter
                     agenda_broadcast:
                         label: Agenda broadcast
                         entity_class_names:

@@ -24,6 +24,9 @@
 
 {% block content %}
     <main role="main" class="col-12">
-        {{ form(inspection_letter_form) }}
+        {{ form_start(inspection_letter_form) }}
+        {{ form_rest(inspection_letter_form) }}
+        <button class="btn btn-success float-right" type="submit" name="submit">{% trans %}Send{% endtrans %}</button>
+        {{ form_end(inspection_letter_form) }}
     </main>
 {% endblock %}
