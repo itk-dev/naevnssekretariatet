@@ -218,11 +218,7 @@ class AgendaController extends AbstractController
         }, $memberTriplesWithBinaryId);
 
         // Sort according to name
-        usort($memberTriplesWithUuid, function ($a, $b) {
-            $sortingValue = 'name';
-
-            return $a[$sortingValue] <=> $b[$sortingValue];
-        });
+        usort($memberTriplesWithUuid, static fn ($a, $b) => $a['name'] <=> $b['name']);
 
         $sortedAgendaItems = $agendaItemRepository->findAscendingAgendaItemsByAgenda($agenda);
 
