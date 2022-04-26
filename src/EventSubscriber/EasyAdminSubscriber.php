@@ -16,7 +16,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Ensures parties created in EasyAdmin section is added to part iindex.
+     * Ensures parties created in EasyAdmin section is added to part index.
      */
     public function setIsPartOfPartIndex(BeforeEntityPersistedEvent $event)
     {
