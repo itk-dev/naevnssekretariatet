@@ -317,6 +317,10 @@
         <source>Could not delete, as one or more other entities is related to this entity.</source>
         <target>Could not delete, as one or more other entities is related to this entity.</target>
       </trans-unit>
+      <trans-unit id="Q2VFI5o" resname="Find information from identifier">
+        <source>Find information from identifier</source>
+        <target>Find information from identifier</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

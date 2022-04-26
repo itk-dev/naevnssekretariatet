@@ -321,6 +321,10 @@
         <source>Could not delete, as one or more other entities is related to this entity.</source>
         <target state="translated">Kunne ikke slette element, da det er relateret til et eller flere andre elementer.</target>
       </trans-unit>
+      <trans-unit id="Q2VFI5o" resname="Find information from identifier">
+        <source>Find information from identifier</source>
+        <target state="translated">Udfyld information via id opslag</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -16,7 +16,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
@@ -49,22 +48,28 @@ class PartyCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Parties')
             ->setSearchFields(['name'])
             ->setDefaultSort(['name' => 'ASC'])
+            // @see https://symfony.com/bundles/EasyAdminBundle/current/design.html#form-field-templates
+            ->setFormThemes([
+                'admin/field/party_identifier_lookup.html.twig',
+                '@EasyAdmin/crud/form_theme.html.twig',
+            ])
         ;
     }
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new('name', 'Name');
         yield Field::new('identification', 'Identification')
             ->setFormType(IdentificationType::class)
             ->onlyOnForms()
+            ->setFormTypeOptions([
+                'block_name' => 'lookup_identifier',
+            ])
+            ->addWebpackEncoreEntries('admin_party_identifier_lookup')
         ;
+        yield TextField::new('name', 'Name');
+        yield TextField::new('phoneNumber', 'Phone number');
         yield Field::new('address', 'Address')
             ->setFormType(AddressType::class)
-        ;
-        yield TextField::new('phoneNumber', 'Phone number');
-        yield BooleanField::new('isPartOfPartIndex', 'Add to part index')
-            ->hideOnIndex()
         ;
     }
 
