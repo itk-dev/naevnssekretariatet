@@ -1,0 +1,8 @@
+{% trans_default_domain 'admin' %}
+
+{% block _Party_lookup_identifier_widget %}
+    {{ block('form_widget') }}
+    <div>
+        <button class="btn btn-primary mt-2 lookup-identifier" type="button">{% trans %}Find information from identifier{% endtrans %}</button>
+    </div>
+{% endblock %}

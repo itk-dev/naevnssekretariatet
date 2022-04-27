@@ -36,16 +36,26 @@ class BoardMemberCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Boardmembers')
             ->setSearchFields(['name'])
             ->setDefaultSort(['name' => 'ASC'])
+            // @see https://symfony.com/bundles/EasyAdminBundle/current/design.html#form-field-templates
+            ->setFormThemes([
+                'admin/field/board_member_cpr_lookup.html.twig',
+                '@EasyAdmin/crud/form_theme.html.twig',
+            ])
         ;
     }
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new('name', 'Name');
         yield TextField::new('cpr', 'CPR')
             // Hide the CPR a bit.
+            ->setFormTypeOptions([
+                'block_name' => 'lookup_identifier',
+            ])
             ->onlyOnForms()
+            ->addWebpackEncoreEntries('admin_board_member_cpr_lookup')
         ;
+
+        yield TextField::new('name', 'Name');
         yield AssociationField::new('boardRoles', 'BoardRole')
             ->setFormTypeOptions([
                 'by_reference' => false,
