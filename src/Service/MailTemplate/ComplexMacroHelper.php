@@ -3,12 +3,11 @@
 namespace App\Service\MailTemplate;
 
 use App\Entity\Agenda;
-use App\Entity\BoardRole;
 use App\Entity\CaseEntity;
+use App\Repository\BoardMemberRepository;
 use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
-use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\Style\Font;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +18,7 @@ class ComplexMacroHelper
 {
     private array $options;
 
-    public function __construct(private RouterInterface $router, private TranslatorInterface $translator, array $options)
+    public function __construct(private RouterInterface $router, private TranslatorInterface $translator, private BoardMemberRepository $memberRepository, array $options)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -97,12 +96,10 @@ class ComplexMacroHelper
             'spacing' => 0,
         ]);
 
-        foreach ($agenda->getBoardmembers() as $boardmember) {
-            $roles = $boardmember->getBoardRoles();
+        $members = $this->memberRepository->getMembersAndRolesByAgenda($agenda);
+        foreach ($members as $member) {
             $this->addTableRow($table, [
-                $roles->isEmpty()
-                    ? sprintf('%s', $boardmember->getName())
-                    : sprintf('%s (%s)', $boardmember->getName(), implode(', ', $roles->map(static fn (BoardRole $role) => $role->getTitle())->toArray())),
+                sprintf('%s (%s)', $member['name'], $member['title']),
             ]);
         }
 
