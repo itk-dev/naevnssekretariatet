@@ -10,12 +10,21 @@ use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
+use PhpOffice\PhpWord\Style\Font;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ComplexMacroHelper
 {
-    public function __construct(private RouterInterface $router)
+    private array $options;
+
+    public function __construct(private RouterInterface $router, private TranslatorInterface $translator, array $options)
     {
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+
+        $this->options = $resolver->resolve($options);
     }
 
     /**
@@ -27,61 +36,88 @@ class ComplexMacroHelper
     {
         $values = [];
 
-        if ($entity instanceof CaseEntity) {
-            // Note: Setting text on the link will break the link.
-            $values['case.link'] = new ComplexMacro(
-                new Link($this->router->generate('case_show', ['id' => $entity->getId()], RouterInterface::ABSOLUTE_URL)),
-                'Url with link to the case'
-            );
-        } elseif ($entity instanceof Agenda) {
-            // Note: Setting text on the link will break the link.
-            $values['agenda.link'] = new ComplexMacro(
-                new Link(
-                    $this->router->generate('agenda_show', ['id' => $entity->getId()], RouterInterface::ABSOLUTE_URL)
-                ),
-                'Url with link to the agenda'
-            );
-
-            // Agenda items
-            $table = new Table([
-                'unit' => TblWidth::TWIP,
-                'cellMargin' => 0,
-                'spacing' => 0,
-            ]);
-
-            foreach ($entity->getAgendaItems() as $agendaItem) {
-                $this->addTableRow($table, [
-                    sprintf('%s–%s',
-                        $agendaItem->getStartTime()->format('H:i'),
-                        $agendaItem->getEndTime()->format('H:i')
-                    ),
-                    $agendaItem->getTitle(),
-                    $agendaItem->getMeetingPoint(),
-                ]);
-            }
-
-            $values['agenda.items'] = new ComplexMacro($table, 'Agenda items');
-
-            // Board members
-            $table = new Table([
-                'unit' => TblWidth::TWIP,
-                'cellMargin' => 0,
-                'spacing' => 0,
-            ]);
-
-            foreach ($entity->getBoardmembers() as $boardmember) {
-                $roles = $boardmember->getBoardRoles();
-                $this->addTableRow($table, [
-                    $roles->isEmpty()
-                        ? sprintf('%s', $boardmember->getName())
-                        : sprintf('%s (%s)', $boardmember->getName(), implode(', ', $roles->map(static fn (BoardRole $role) => $role->getTitle())->toArray())),
-                ]);
-            }
-
-            $values['agenda.board_members'] = new ComplexMacro($table, 'Board members');
-        }
+        $values += match (true) {
+            $entity instanceof CaseEntity => $this->buildCaseMacros($entity),
+            $entity instanceof Agenda => $this->buildAgendaMacros($entity),
+            default => []
+        };
 
         return $values;
+    }
+
+    private function buildCaseMacros(CaseEntity $case): array
+    {
+        // Note: Setting text on the link will break the link.
+        $values['case.link'] = new ComplexMacro(
+            $this->createLink(
+                $this->router->generate('case_show', ['id' => $case->getId()], RouterInterface::ABSOLUTE_URL),
+                $this->translator->trans('Open case in browser', [], 'case')
+            ),
+            'Link to the case'
+        );
+
+        return $values;
+    }
+
+    private function buildAgendaMacros(Agenda $agenda): array
+    {
+        // Note: Setting text on the link will break the link.
+        $values['agenda.link'] = new ComplexMacro(
+            $this->createLink(
+                $this->router->generate('agenda_show', ['id' => $agenda->getId()], RouterInterface::ABSOLUTE_URL),
+                $this->translator->trans('Open agenda in browser', [], 'agenda')
+            ),
+            'Link to the agenda'
+        );
+
+        // Agenda items
+        $table = new Table([
+            'unit' => TblWidth::TWIP,
+            'cellMargin' => 0,
+            'spacing' => 0,
+        ]);
+
+        foreach ($agenda->getAgendaItems() as $agendaItem) {
+            $this->addTableRow($table, [
+                sprintf('%s–%s',
+                    $agendaItem->getStartTime()->format('H:i'),
+                    $agendaItem->getEndTime()->format('H:i')
+                ),
+                $agendaItem->getTitle(),
+                $agendaItem->getMeetingPoint(),
+            ]);
+        }
+
+        $values['agenda.items'] = new ComplexMacro($table, 'Agenda items');
+
+        // Board members
+        $table = new Table([
+            'unit' => TblWidth::TWIP,
+            'cellMargin' => 0,
+            'spacing' => 0,
+        ]);
+
+        foreach ($agenda->getBoardmembers() as $boardmember) {
+            $roles = $boardmember->getBoardRoles();
+            $this->addTableRow($table, [
+                $roles->isEmpty()
+                    ? sprintf('%s', $boardmember->getName())
+                    : sprintf('%s (%s)', $boardmember->getName(), implode(', ', $roles->map(static fn (BoardRole $role) => $role->getTitle())->toArray())),
+            ]);
+        }
+
+        $values['agenda.board_members'] = new ComplexMacro($table, 'Board members');
+
+        return $values;
+    }
+
+    private function createLink(string $url, string $text = null): Link
+    {
+        $linkFontStyle = (new Font())
+            ->setStyleByArray($this->options['formatting']['link']['font_style'])
+        ;
+
+        return new Link($url, $text, $linkFontStyle);
     }
 
     /**
@@ -136,5 +172,19 @@ class ComplexMacroHelper
         ];
 
         return $this->addTableRow($table, $values, $options);
+    }
+
+    private function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'formatting' => [
+                'link' => [
+                    'font_style' => [
+                        // @see https://phpword.readthedocs.io/en/latest/styles.html#font
+                        'styleName' => 'InternetLink',
+                    ],
+                ],
+            ],
+        ]);
     }
 }

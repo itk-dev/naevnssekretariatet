@@ -9,9 +9,11 @@ use App\Repository\MailTemplateMacroRepository;
 use App\Repository\MailTemplateRepository;
 use App\Service\MailTemplate\ComplexMacro;
 use App\Service\MailTemplate\ComplexMacroHelper;
+use App\Service\MailTemplate\LinkedTemplateProcessor;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Mapping\MappingException;
 use PhpOffice\PhpWord\Element\AbstractElement;
+use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\Element\TextBreak;
@@ -160,7 +162,7 @@ class MailTemplateHelper
 
         $templateFileName = $this->getTemplateFile($mailTemplate);
         // https://phpword.readthedocs.io/en/latest/templates-processing.html
-        $templateProcessor = new TemplateProcessor($templateFileName);
+        $templateProcessor = new LinkedTemplateProcessor($templateFileName);
 
         if (null !== $entity) {
             $values = $this->getComplexMacros($entity);
@@ -170,6 +172,9 @@ class MailTemplateHelper
                 if ($this->isBlockElement($element)) {
                     $templateProcessor->setComplexBlock($name, $element);
                 } else {
+                    if ($element instanceof Link) {
+                        $templateProcessor->addLink($element);
+                    }
                     $templateProcessor->setComplexValue($name, $element);
                 }
             }
@@ -320,10 +325,6 @@ class MailTemplateHelper
 
             $values[$macro->getMacro()] = $element;
         }
-
-//        $textRun = new TextRun();
-//        $textRun->addLink('https://google.com', 'google.com');
-//        $values['some_link_macro'] = $textRun;
 
         return $values;
     }
