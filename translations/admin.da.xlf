@@ -323,7 +323,7 @@
       </trans-unit>
       <trans-unit id="Q2VFI5o" resname="Find information from identifier">
         <source>Find information from identifier</source>
-        <target state="translated">Udfyld information via id opslag</target>
+        <target state="translated">Udfyld information via id-opslag</target>
       </trans-unit>
     </body>
   </file>
