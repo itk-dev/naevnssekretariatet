@@ -8,6 +8,7 @@ use App\Form\Embeddable\IdentificationType;
 use App\Service\PartyHelper;
 use App\Validator\PartyIdentification;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,13 +47,19 @@ class PartyFormType extends AbstractType
         $case = $options['case'];
 
         $builder
-            ->add('name', TextType::class, [
-                'label' => $this->translator->trans('Name', [], 'party'),
-            ])
             ->add('identification', IdentificationType::class, [
                 'label' => false,
                 'constraints' => [
                     new PartyIdentification(),
+                ],
+            ])
+            ->add('name', TextType::class, [
+                'label' => $this->translator->trans('Name', [], 'party'),
+            ])
+            ->add('lookupIdentifier', ButtonType::class, [
+                'label' => $this->translator->trans('Find information from identifier', [], 'case'),
+                'attr' => [
+                    'class' => 'btn-primary btn identification-lookup',
                 ],
             ])
             ->add('address', AddressLookupType::class, [

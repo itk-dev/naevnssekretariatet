@@ -34,6 +34,7 @@ Encore
   .addEntry('identification_type_handler', './assets/identification/type_handler.js')
   .addEntry('admin_board_member_cpr_lookup', './assets/admin/board_member_cpr_lookup.js')
   .addEntry('admin_party_identifier_lookup', './assets/admin/party_identifier_lookup.js')
+  .addEntry('party_identification_lookup', './assets/party/identifier-lookup.js')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 //  .enableStimulusBridge('./assets/controllers.json')

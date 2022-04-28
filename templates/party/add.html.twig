@@ -26,14 +26,19 @@
         {{ form_errors(add_party_form) }}
         <div class="form-row">
             <div class="col-md-6 mb-3">
-                {{ form_row(add_party_form.name) }}
-            </div>
-            <div class="col-md-6 mb-3">
                 {{ form_row(add_party_form.identification) }}
             </div>
         </div>
         <div class="form-row">
-            <div class="col-md-12 mb-3">
+            <div class="col-md-6 mb-3">
+                {{ form_row(add_party_form.lookupIdentifier) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                {{ form_row(add_party_form.name) }}
+            </div>
+            <div class="col-md-6 mb-3">
                 {{ form_row(add_party_form.phoneNumber) }}
             </div>
         </div>
@@ -55,6 +60,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('party_identification_lookup') }}
     {{ encore_entry_script_tags('identification_type_handler') }}
     {{ encore_entry_script_tags('dawa-address-lookup') }}
 {% endblock %}
