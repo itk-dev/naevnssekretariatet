@@ -404,6 +404,7 @@ App\Entity\ResidentComplaintBoardCase:
   test-case-aarhus-1:
     leaseSize: 51
     bringer: Jens Jensen
+    bringerIsUnderAddressProtection: true
     bringerIdentification: '@test-case-aarhus-1-identification'
     bringerPhone: '87654321'
     bringerAddress: '@test-case-aarhus-1-bringer-address'

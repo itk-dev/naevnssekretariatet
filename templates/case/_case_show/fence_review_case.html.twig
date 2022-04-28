@@ -24,7 +24,12 @@
                 <div class="col">
                     {# TODO: Form validation: https://getbootstrap.com/docs/4.0/components/forms/#validation #}
                     <fieldset>
-                        <legend>{% trans %}Bringer{% endtrans %}</legend>
+                        <legend>
+                            {% trans %}Bringer{% endtrans %}
+                            {% if case.bringerIsUnderAddressProtection %}
+                                <span class="badge badge-pill badge-danger" title="{% trans %}Bringer is under address protection{% endtrans %}">!</span>
+                            {% endif %}
+                        </legend>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputBasicInformation1">{% trans %}Bringer name{% endtrans %}</label>
@@ -42,7 +47,12 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend>{% trans %}Counterpart{% endtrans %}</legend>
+                        <legend>
+                            {% trans %}Counterpart{% endtrans %}
+                            {% if case.accusedIsUnderAddressProtection %}
+                                <span class="badge badge-pill badge-danger" title="{% trans %}Accused is under address protection{% endtrans %}">!</span>
+                            {% endif %}
+                        </legend>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputBasicInformation3">{% trans %}Counterpart name{% endtrans %}</label>

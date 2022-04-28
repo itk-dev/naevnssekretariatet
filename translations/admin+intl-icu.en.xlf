@@ -321,6 +321,10 @@
         <source>Find information from identifier</source>
         <target>Find information from identifier</target>
       </trans-unit>
+      <trans-unit id="lVUY_Cv" resname="Is under address protection">
+        <source>Is under address protection</source>
+        <target>Is under address protection</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

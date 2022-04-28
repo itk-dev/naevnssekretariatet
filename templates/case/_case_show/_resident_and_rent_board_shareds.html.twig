@@ -21,7 +21,12 @@
         <div class="row mt-3">
             <div class="col">
                 <fieldset>
-                    <legend>{% trans %}Bringer{% endtrans %}</legend>
+                    <legend>
+                        {% trans %}Bringer{% endtrans %}
+                        {% if case.bringerIsUnderAddressProtection %}
+                            <span class="badge badge-pill badge-danger" title="{% trans %}Bringer is under address protection{% endtrans %}">!</span>
+                        {% endif %}
+                    </legend>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label>{% trans %}Bringer name{% endtrans %}</label>

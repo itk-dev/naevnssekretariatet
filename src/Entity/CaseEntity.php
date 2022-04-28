@@ -194,6 +194,11 @@ abstract class CaseEntity
      */
     private $extraComplaintCategoryInformation;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $bringerIsUnderAddressProtection = false;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -673,6 +678,18 @@ abstract class CaseEntity
     public function setExtraComplaintCategoryInformation(?string $extraComplaintCategoryInformation): self
     {
         $this->extraComplaintCategoryInformation = $extraComplaintCategoryInformation;
+
+        return $this;
+    }
+
+    public function getBringerIsUnderAddressProtection(): ?bool
+    {
+        return $this->bringerIsUnderAddressProtection;
+    }
+
+    public function setBringerIsUnderAddressProtection(bool $bringerIsUnderAddressProtection): self
+    {
+        $this->bringerIsUnderAddressProtection = $bringerIsUnderAddressProtection;
 
         return $this;
     }

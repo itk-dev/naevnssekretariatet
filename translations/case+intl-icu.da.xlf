@@ -1329,6 +1329,14 @@
         <source>Party is under address protection</source>
         <target state="translated">Part er under adressebeskyttelse</target>
       </trans-unit>
+      <trans-unit id="VBPnK3i" resname="Bringer is under address protection">
+        <source>Bringer is under address protection</source>
+        <target state="translated">Indbringer er under adressebeskyttelse</target>
+      </trans-unit>
+      <trans-unit id="vllbxN9" resname="Accused is under address protection">
+        <source>Accused is under address protection</source>
+        <target state="translated">Modpart er under adressebeskyttelse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

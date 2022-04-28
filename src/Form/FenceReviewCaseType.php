@@ -11,6 +11,7 @@ use App\Repository\ComplaintCategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -52,6 +53,10 @@ class FenceReviewCaseType extends AbstractType
             ->add('bringer', TextType::class, [
                 'label' => $this->translator->trans('Bringer', [], 'case'),
             ])
+            ->add('bringerIsUnderAddressProtection', CheckboxType::class, [
+                'label' => $this->translator->trans('Is under address protection', [], 'case'),
+                'required' => false,
+            ])
             ->add('bringerAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Bringer address', [], 'case'),
                 'lookup-placeholder' => $this->translator->trans('Look up bringer address', [], 'case'),
@@ -72,6 +77,10 @@ class FenceReviewCaseType extends AbstractType
             ])
             ->add('accused', TextType::class, [
                 'label' => $this->translator->trans('Accused', [], 'case'),
+            ])
+            ->add('accusedIsUnderAddressProtection', CheckboxType::class, [
+                'label' => $this->translator->trans('Is under address protection', [], 'case'),
+                'required' => false,
             ])
             ->add('accusedAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Accused address', [], 'case'),
