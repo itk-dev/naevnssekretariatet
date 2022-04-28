@@ -250,7 +250,12 @@
                         <tbody>
                             {% for party_data in counterparties %}
                                 <tr>
-                                    <td>{{ party_data.party.name|e }}</td>
+                                    <td>
+                                        {{ party_data.party.name|e }}
+                                        {% if party_data.party.isUnderAddressProtection %}
+                                            <span class="badge badge-pill badge-danger" title="{% trans %}Party is under address protection{% endtrans %}">!</span>
+                                        {% endif %}
+                                    </td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
                                     <td>{{ party_data.party.identification.identifier|e }}</td>

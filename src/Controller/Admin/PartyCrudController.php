@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
@@ -68,6 +69,10 @@ class PartyCrudController extends AbstractCrudController
         ;
         yield TextField::new('name', 'Name');
         yield TextField::new('phoneNumber', 'Phone number');
+        yield BooleanField::new('isUnderAddressProtection', 'Is under address protection')
+            ->renderAsSwitch(false)
+            ->hideOnIndex()
+        ;
         yield Field::new('address', 'Address')
             ->setFormType(AddressType::class)
         ;
