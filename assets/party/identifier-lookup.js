@@ -24,9 +24,10 @@ $(function () {
           $('#party_form_address_side').val('')
           $('#party_form_address_postalCode').val('')
           $('#party_form_address_city').val('')
+          $('#party_form_isUnderAddressProtection').prop('checked', false)
 
           // Indicate that identifier was not found
-          $($identificationLookupButton).removeClass().addClass('btn-danger btn mt-2 identification-lookup')
+          $($identificationLookupButton).removeClass().addClass('btn-danger btn identification-lookup')
         } else {
           // Insert values into correct html elements
           $('#party_form_name').val(response.name)
@@ -36,9 +37,10 @@ $(function () {
           $('#party_form_address_side').val(response.side)
           $('#party_form_address_postalCode').val(response.postalCode)
           $('#party_form_address_city').val(response.city)
+          $('#party_form_isUnderAddressProtection').prop('checked', response.isUnderAddressProtection)
 
           // Indicate that identifier was found
-          $($identificationLookupButton).removeClass().addClass('btn-success btn mt-2 identification-lookup')
+          $($identificationLookupButton).removeClass().addClass('btn-success btn identification-lookup')
         }
       },
       error: function () {

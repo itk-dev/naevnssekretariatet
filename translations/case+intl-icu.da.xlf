@@ -1321,6 +1321,14 @@
         <source>P-number</source>
         <target state="translated">P-nummer</target>
       </trans-unit>
+      <trans-unit id="lVUY_Cv" resname="Is under address protection">
+        <source>Is under address protection</source>
+        <target state="translated">Adressebeskyttelse</target>
+      </trans-unit>
+      <trans-unit id="zhnSEJz" resname="Party is under address protection">
+        <source>Party is under address protection</source>
+        <target state="translated">Part er under adressebeskyttelse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
