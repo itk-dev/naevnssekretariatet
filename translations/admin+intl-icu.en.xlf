@@ -321,6 +321,14 @@
         <source>Find information from identifier</source>
         <target>Find information from identifier</target>
       </trans-unit>
+      <trans-unit id="M2328_d" resname="Template document">
+        <source>Template document</source>
+        <target>Template document</target>
+      </trans-unit>
+      <trans-unit id="foxwvv1" resname="Upload a Word document (docx) to use as a template.">
+        <source>Upload a Word document (docx) to use as a template.</source>
+        <target>Upload a Word document (docx) to use as a template.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

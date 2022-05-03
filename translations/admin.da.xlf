@@ -325,6 +325,14 @@
         <source>Find information from identifier</source>
         <target state="translated">Udfyld information via id-opslag</target>
       </trans-unit>
+      <trans-unit id="M2328_d" resname="Template document">
+        <source>Template document</source>
+        <target state="translated">Skabelon</target>
+      </trans-unit>
+      <trans-unit id="foxwvv1" resname="Upload a Word document (docx) to use as a template.">
+        <source>Upload a Word document (docx) to use as a template.</source>
+        <target state="translated">Upload et Word-dokument (docx) der skal bruges som skabelon.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
