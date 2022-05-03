@@ -8,6 +8,7 @@ use App\Service\AgendaStatus;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -23,31 +24,37 @@ class Agenda implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $start;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $end;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=true)
+     * @Groups({"mail_template"})
      */
     private $status = AgendaStatus::OPEN;
 
     /**
      * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="agendas")
+     * @Groups({"mail_template"})
      */
     private $boardmembers;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $remarks;
 
@@ -65,6 +72,7 @@ class Agenda implements LoggableEntityInterface
     /**
      * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="agendas")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"mail_template"})
      */
     private $board;
 

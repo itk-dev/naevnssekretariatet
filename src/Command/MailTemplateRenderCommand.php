@@ -37,6 +37,7 @@ class MailTemplateRenderCommand extends Command
             ->addOption('entity-id', null, InputOption::VALUE_REQUIRED, 'The entity id to use for data')
             ->addOption('output', null, InputOption::VALUE_REQUIRED, 'Write rendered template to file instead of stdout')
             ->addOption('dump-data', null, InputOption::VALUE_NONE, 'Dump template data (JSON) to stdout')
+            ->addOption('format', null, InputOption::VALUE_REQUIRED, 'The output format (docx or pdf)')
         ;
     }
 
@@ -94,7 +95,11 @@ class MailTemplateRenderCommand extends Command
             }
         }
 
-        $filename = $this->templateHelper->renderMailTemplate($mailTemplate, $entity);
+        $options = [];
+        if ($format = $input->getOption('format')) {
+            $options['format'] = $format;
+        }
+        $filename = $this->templateHelper->renderMailTemplate($mailTemplate, $entity, $options);
 
         if (null !== $outputName) {
             $this->filesystem->mkdir(dirname($outputName), 0755);
