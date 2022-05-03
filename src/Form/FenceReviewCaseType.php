@@ -50,12 +50,15 @@ class FenceReviewCaseType extends AbstractType
                     'data-specifier' => 'bringer',
                 ],
             ])
+            ->add('bringerIsUnderAddressProtection', CheckboxType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'style' => 'visibility: hidden',
+                ],
+            ])
             ->add('bringer', TextType::class, [
                 'label' => $this->translator->trans('Bringer', [], 'case'),
-            ])
-            ->add('bringerIsUnderAddressProtection', CheckboxType::class, [
-                'label' => $this->translator->trans('Is under address protection', [], 'case'),
-                'required' => false,
             ])
             ->add('bringerAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Bringer address', [], 'case'),
@@ -75,12 +78,15 @@ class FenceReviewCaseType extends AbstractType
                     'data-specifier' => 'accused',
                 ],
             ])
+            ->add('accusedIsUnderAddressProtection', CheckboxType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'style' => 'visibility: hidden',
+                ],
+            ])
             ->add('accused', TextType::class, [
                 'label' => $this->translator->trans('Accused', [], 'case'),
-            ])
-            ->add('accusedIsUnderAddressProtection', CheckboxType::class, [
-                'label' => $this->translator->trans('Is under address protection', [], 'case'),
-                'required' => false,
             ])
             ->add('accusedAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Accused address', [], 'case'),

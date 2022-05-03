@@ -50,12 +50,15 @@ class ResidentComplaintBoardCaseType extends AbstractType
                     'data-specifier' => 'bringer',
                 ],
             ])
+            ->add('bringerIsUnderAddressProtection', CheckboxType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'style' => 'visibility: hidden',
+                ],
+            ])
             ->add('bringer', TextType::class, [
                 'label' => $this->translator->trans('Bringer', [], 'case'),
-            ])
-            ->add('bringerIsUnderAddressProtection', CheckboxType::class, [
-                'label' => $this->translator->trans('Is under address protection', [], 'case'),
-                'required' => false,
             ])
             ->add('bringerPhone', IntegerType::class, [
                 'label' => $this->translator->trans('Bringer phone', [], 'case'),
