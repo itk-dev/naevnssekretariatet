@@ -95,6 +95,9 @@
                                         <h2 class="m-0 p-0">
                                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
                                                 {{ class(post)|trans({}, 'case') }}
+                                                {% if post.title is defined %}
+                                                    - {{ post.title }}
+                                                {% endif %}
                                                 {% if post.forwardedOn is defined and not post.getForwardedOn %}
                                                     <span class="badge badge-pill badge-warning">N</span>
                                                 {% endif %}
