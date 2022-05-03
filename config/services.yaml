@@ -4,10 +4,14 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    'env(MAIL_TEMPLATE_USER_MANUAL_URL)': ''
+
     locale: '%env(DEFAULT_LOCALE)%'
     site_name: '%env(SITE_NAME)%'
     site_url: '%env(SITE_URL)%'
     document_upload_directory: '%kernel.project_dir%/upload/documents/'
+
+    mail_template_user_manual_url: '%env(MAIL_TEMPLATE_USER_MANUAL_URL)%'
 
 services:
     # default configuration for services in *this* file
