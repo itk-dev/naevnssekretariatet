@@ -1,0 +1,10 @@
+{
+    "devDependencies": {
+        "markdownlint-cli": "^0.26.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "coding-standards-check/markdownlint": "markdownlint '**/*.md' --ignore node_modules --ignore vendor --ignore _misc"
+    }
+}
