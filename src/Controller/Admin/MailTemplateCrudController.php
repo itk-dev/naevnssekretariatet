@@ -54,7 +54,8 @@ class MailTemplateCrudController extends AbstractCrudController
         yield TextField::new('name');
         yield TextareaField::new('description');
         yield Field::new('templateFile')
-            ->setLabel('Template')
+            ->setLabel('Template document')
+            ->setHelp('Upload a Word document (docx) to use as a template.')
             // Require file on new template.
             ->setRequired($isNew)
             ->setFormType(VichFileType::class)
