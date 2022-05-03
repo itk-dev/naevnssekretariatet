@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 #[AsCommand(
@@ -24,7 +25,7 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 class MailTemplateRenderCommand extends Command
 {
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateHelper $templateHelper, private EntityManagerInterface $entityManager, private Filesystem $filesystem)
+    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateHelper $templateHelper, private EntityManagerInterface $entityManager, private Filesystem $filesystem, private ParameterBagInterface $parameters)
     {
         parent::__construct(null);
     }
@@ -38,11 +39,18 @@ class MailTemplateRenderCommand extends Command
             ->addOption('output', null, InputOption::VALUE_REQUIRED, 'Write rendered template to file instead of stdout')
             ->addOption('dump-data', null, InputOption::VALUE_NONE, 'Dump template data (JSON) to stdout')
             ->addOption('format', null, InputOption::VALUE_REQUIRED, 'The output format (docx or pdf)')
+            ->addOption('locale', null, InputOption::VALUE_OPTIONAL, 'Set locale or use the locale parameters', false)
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $locale = $input->getOption('locale');
+        // @see https://stackoverflow.com/a/50518342/2502647
+        if (false !== $locale) {
+            $this->setLocale($locale);
+        }
+
         $io = new SymfonyStyle($input, $output);
         $templateIdentifier = $input->getArgument('template');
         // Find template by name or id.
@@ -110,5 +118,23 @@ class MailTemplateRenderCommand extends Command
         }
 
         return Command::SUCCESS;
+    }
+
+    private function setLocale(string $locale = null)
+    {
+        if (null === $locale) {
+            if ($this->parameters->has('locale')) {
+                $locale = $this->parameters->get('locale');
+            } else {
+                throw new RuntimeException('Parameter locale not set');
+            }
+        }
+        // @see \Symfony\Component\HttpFoundation\Request::setPhpDefaultLocale().
+        try {
+            if (class_exists(\Locale::class, false)) {
+                \Locale::setDefault($locale);
+            }
+        } catch (\Exception $e) {
+        }
     }
 }
