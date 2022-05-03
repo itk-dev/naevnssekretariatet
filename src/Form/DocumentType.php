@@ -83,6 +83,7 @@ class DocumentType extends AbstractType
                                         'image/jpeg',
                                         'image/png',
                                         'video/mp4',
+                                        'application/vnd.ms-outlook',
                                     ],
                                     'mimeTypesMessage' => $this->translator->trans('Please upload a valid document', [],
                                         'documents'),
