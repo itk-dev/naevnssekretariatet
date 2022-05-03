@@ -1321,6 +1321,30 @@
         <source>P-number</source>
         <target>P-number</target>
       </trans-unit>
+      <trans-unit id="ZZ6llCv" resname="Tenant side has no more to add">
+        <source>Tenant side has no more to add</source>
+        <target>Tenant side has no more to add</target>
+      </trans-unit>
+      <trans-unit id="c.QHexo" resname="Landlord side has no more to add">
+        <source>Landlord side has no more to add</source>
+        <target>Landlord side has no more to add</target>
+      </trans-unit>
+      <trans-unit id="TQCjNUJ" resname="Bringer side has no more to add">
+        <source>Bringer side has no more to add</source>
+        <target>Bringer side has no more to add</target>
+      </trans-unit>
+      <trans-unit id="DwGshjo" resname="Neighbour side has no more to add">
+        <source>Neighbour side has no more to add</source>
+        <target>Neighbour side has no more to add</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Send</target>
+      </trans-unit>
+      <trans-unit id="k0Ly6mf" resname="Cannot end hearing while some side still has something to add">
+        <source>Cannot end hearing while some side still has something to add</source>
+        <target>Cannot end hearing while some side still has something to add</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

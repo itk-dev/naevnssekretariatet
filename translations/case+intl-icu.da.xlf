@@ -1313,13 +1313,33 @@
         <source>A case must have both a party and a counter part before entering the hearing phase.</source>
         <target state="translated">En sag skal have både en part og en modpart før den kan gå ind i høringsfasen.</target>
       </trans-unit>
-      <trans-unit id=".Tvom67" resname="Cannot end hearing while party or counterpart still has something to add">
-        <source>Cannot end hearing while party or counterpart still has something to add</source>
-        <target state="translated">Høring kan ikke afsluttes så længe part eller modpart har mere at tilføje</target>
-      </trans-unit>
       <trans-unit id="BbxidD6" resname="P-number">
         <source>P-number</source>
         <target state="translated">P-nummer</target>
+      </trans-unit>
+      <trans-unit id="ZZ6llCv" resname="Tenant side has no more to add">
+        <source>Tenant side has no more to add</source>
+        <target state="translated">Lejersiden har ikke mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="c.QHexo" resname="Landlord side has no more to add">
+        <source>Landlord side has no more to add</source>
+        <target state="translated">Udlejersiden har ikke mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="TQCjNUJ" resname="Bringer side has no more to add">
+        <source>Bringer side has no more to add</source>
+        <target state="translated">Indbringersiden har ikke mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="DwGshjo" resname="Neighbour side has no more to add">
+        <source>Neighbour side has no more to add</source>
+        <target state="translated">Nabosiden har ikke mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target state="translated">Send</target>
+      </trans-unit>
+      <trans-unit id="k0Ly6mf" resname="Cannot end hearing while some side still has something to add">
+        <source>Cannot end hearing while some side still has something to add</source>
+        <target state="translated">Høring kan ikke afsluttes så længe en side har mere at tilføje</target>
       </trans-unit>
     </body>
   </file>
