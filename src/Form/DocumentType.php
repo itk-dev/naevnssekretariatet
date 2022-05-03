@@ -65,7 +65,7 @@ class DocumentType extends AbstractType
             $builder
                 ->add('files', FileType::class, [
                     'label' => $this->translator->trans('Files', [], 'documents'),
-                    'help' => new TranslatableMessage('Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls',
+                    'help' => new TranslatableMessage('Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg',
                         ['{size}' => $this->getMinimumMaximumFileSizeRestriction()], 'documents'),
                     'mapped' => false,
                     'multiple' => true,
@@ -78,11 +78,13 @@ class DocumentType extends AbstractType
                                         'application/pdf',
                                         'application/x-pdf',
                                         'application/msword',
-                                        'application/vnd.ms-excel',
                                         'text/plain',
                                         'image/jpeg',
                                         'image/png',
                                         'video/mp4',
+                                        'application/vnd.ms-outlook',
+                                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                                     ],
                                     'mimeTypesMessage' => $this->translator->trans('Please upload a valid document', [],
                                         'documents'),
