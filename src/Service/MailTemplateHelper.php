@@ -12,6 +12,7 @@ use App\Service\MailTemplate\ComplexMacroHelper;
 use App\Service\MailTemplate\LinkedTemplateProcessor;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Mapping\MappingException;
+use Gedmo\Timestampable\Timestampable;
 use PhpOffice\PhpWord\Element\AbstractElement;
 use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Table;
@@ -278,6 +279,10 @@ class MailTemplateHelper
         // Add some default values.
         $values['now'] = (new \DateTimeImmutable('now'))->format(\DateTimeImmutable::ATOM);
         $values['today'] = (new \DateTimeImmutable('today'))->format(\DateTimeImmutable::ATOM);
+        if ($entity instanceof Timestampable) {
+            $values['createdAt'] = $entity->getCreatedAt()->format(\DateTimeImmutable::ATOM);
+            $values['updatedAt'] = $entity->getUpdatedAt()->format(\DateTimeImmutable::ATOM);
+        }
 
         foreach ($placeHolders as $placeHolder) {
             // Handle placeholders on the form «key»|format(«format»), e.g.
