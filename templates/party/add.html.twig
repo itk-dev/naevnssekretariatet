@@ -34,6 +34,10 @@
                 {{ form_row(add_party_form.lookupIdentifier) }}
             </div>
             <div class="col-md-6 mb-3">
+                <p id="isUnderAddressProtectionParagraph" style="visibility: {{ add_party_form.isUnderAddressProtection.vars.checked ? 'visible' : 'hidden' }}">
+                    <span class="badge badge-pill badge-danger" title="{% trans from 'case' %}Party is under address protection{% endtrans %}">!</span>
+                    {% trans from 'case' %}Party is under address protection{% endtrans %}
+                </p>
                 {{ form_row(add_party_form.isUnderAddressProtection) }}
             </div>
         </div>
@@ -59,7 +63,6 @@
         {{ form_end(add_party_form) }}
     </main>
 {% endblock %}
-
 
 {% block javascripts %}
     {{ parent() }}

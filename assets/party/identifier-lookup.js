@@ -24,6 +24,7 @@ $(function () {
           $('#party_form_address_side').val('')
           $('#party_form_address_postalCode').val('')
           $('#party_form_address_city').val('')
+          $('#isUnderAddressProtectionParagraph').css('visibility', 'hidden')
           $('#party_form_isUnderAddressProtection').prop('checked', false)
 
           // Indicate that identifier was not found
@@ -37,6 +38,7 @@ $(function () {
           $('#party_form_address_side').val(response.side)
           $('#party_form_address_postalCode').val(response.postalCode)
           $('#party_form_address_city').val(response.city)
+          $('#isUnderAddressProtectionParagraph').css('visibility', response.isUnderAddressProtection ? 'visible' : 'hidden')
           $('#party_form_isUnderAddressProtection').prop('checked', response.isUnderAddressProtection)
 
           // Indicate that identifier was found

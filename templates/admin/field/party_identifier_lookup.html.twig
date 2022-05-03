@@ -5,4 +5,8 @@
     <div>
         <button class="btn btn-primary mt-2 lookup-identifier" type="button">{% trans %}Find information from identifier{% endtrans %}</button>
     </div>
+    <p id="isUnderAddressProtectionParagraph" style="visibility: hidden">
+        <span class="badge badge-pill badge-danger" title="{% trans from 'case' %}Party is under address protection{% endtrans %}">!</span>
+        {% trans from 'case' %}Party is under address protection{% endtrans %}
+    </p>
 {% endblock %}

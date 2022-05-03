@@ -70,8 +70,13 @@ class PartyCrudController extends AbstractCrudController
         yield TextField::new('name', 'Name');
         yield TextField::new('phoneNumber', 'Phone number');
         yield BooleanField::new('isUnderAddressProtection', 'Is under address protection')
-            ->renderAsSwitch(false)
             ->hideOnIndex()
+            ->setFormTypeOptions([
+                'label' => false,
+                'attr' => [
+                    'style' => 'visibility: hidden',
+                ],
+            ])
         ;
         yield Field::new('address', 'Address')
             ->setFormType(AddressType::class)

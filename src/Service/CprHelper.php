@@ -205,6 +205,7 @@ class CprHelper
         $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'];
         // If person is NOT under address protection, 'adressebeskyttelse' is simply an empty array
         $relevantData['isUnderAddressProtection'] = !empty($data['persondata']['adressebeskyttelse']);
+//        $relevantData['isUnderAddressProtection'] = true;
 
         return $relevantData;
     }
