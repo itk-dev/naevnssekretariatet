@@ -119,10 +119,11 @@ class MailTemplateHelper
 
         $entities = array_merge(...$entities);
 
-        usort($entities, static fn ($a, $b) => (string)$a <=> (string)$b);
+        usort($entities, static fn ($a, $b) => (string) $a <=> (string) $b);
 
         return $entities;
     }
+
     /**
      * @return string[]|array|null
      */

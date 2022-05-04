@@ -81,7 +81,8 @@ class MailTemplateController extends AbstractController
         return $this->file($file);
     }
 
-    private function getEntity(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper) {
+    private function getEntity(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper)
+    {
         $entity = $request->get('entity');
 
         return $mailTemplateHelper->getPreviewEntity($mailTemplate, $entity['type'] ?? null, $entity['id'] ?? null);
