@@ -6,9 +6,30 @@
     {{ parent() }}
 
     <div class="mail-template--preview">
-        <a class="btn btn-secondary" href="{{ path('admin_mail_template_template_file', {id: entity.primaryKeyValue}) }}">{{ 'Show template file'|trans }}</a>
-        <a class="btn btn-primary" href="{{ path('admin_mail_template_preview', {id: entity.primaryKeyValue}) }}">{{ 'Preview template'|trans }}</a>
-        <a class="btn btn-primary" href="{{ path('admin_mail_template_data', {id: entity.primaryKeyValue}) }}">{{ 'Preview template data'|trans }}</a>
-        <a class="btn btn-primary" href="{{ path('admin_mail_template_preview', {id: entity.primaryKeyValue, with_data: true}) }}">{{ 'Preview template with data'|trans }}</a>
+        <form method="get">
+            <a class="btn btn-secondary" href="{{ path('admin_mail_template_template_file', {id: entity.primaryKeyValue}) }}">{{ 'Show template file'|trans }}</a>
+            <a class="btn btn-primary" href="{{ path('admin_mail_template_preview', {id: entity.primaryKeyValue}) }}">{{ 'Preview template'|trans }}</a>
+
+            {% if preview_entities %}
+                <button class="btn btn-primary" type="submit" formaction="{{ path('admin_mail_template_data', {id: entity.primaryKeyValue}) }}">{{ 'Preview template data'|trans }}</button>
+                <button class="btn btn-primary" type="submit" formaction="{{ path('admin_mail_template_preview', {id: entity.primaryKeyValue}) }}">{{ 'Preview template with data'|trans }}</button>
+
+                <div class="form-group">
+                    <label for="previewEntity">{{ 'Preview entity'|trans }}</label>
+                    <select id="previewEntity" class="form-control" name="entity[id]">
+                        {% for entity in preview_entities %}
+                            <option value="{{ entity.id }}">
+                                {{ entity }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <small id="previewEntityHelp" class="form-text text-muted">{{ 'Pick an entity to use for previewing data and template with data.'|trans }}</small>
+                </div>
+            {% else %}
+                <span class="alert alert-warning">
+                    {{ 'No entities for this template exists'|trans }}
+                </span>
+            {% endif %}
+        </form>
     </div>
 {% endblock %}
