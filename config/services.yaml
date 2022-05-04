@@ -74,7 +74,7 @@ services:
                         entity_class_names:
                             - App\Entity\HearingPost
                     agenda_inspection:
-                      label: Agenda insection
+                      label: Agenda inspection
                       entity_class_names:
                         - App\Entity\AgendaCaseItem
                         - App\Entity\InspectionLetter
