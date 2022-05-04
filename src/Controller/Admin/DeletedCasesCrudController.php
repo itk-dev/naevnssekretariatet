@@ -29,6 +29,9 @@ class DeletedCasesCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
+        // Disable the global case deleted filter
+        $this->entityManager->getFilters()->disable('case_deleted_filter');
+
         return $crud
             ->setPageTitle('index', 'Deleted cases')
             ->setDefaultSort(['caseNumber' => 'ASC'])
@@ -53,9 +56,8 @@ class DeletedCasesCrudController extends AbstractCrudController
      */
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
     {
-        $this->entityManager->getFilters()->disable('case_deleted_filter');
         $response = $this->get(EntityRepository::class)->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
-        $response->where('entity.softDeleted = true');
+        $response->andWhere('entity.softDeleted = true');
 
         return $response;
     }
