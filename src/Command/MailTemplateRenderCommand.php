@@ -6,11 +6,9 @@ use App\Repository\MailTemplateRepository;
 use App\Service\MailTemplateHelper;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\Mapping\MappingException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -39,17 +37,14 @@ class MailTemplateRenderCommand extends Command
             ->addOption('output', null, InputOption::VALUE_REQUIRED, 'Write rendered template to file instead of stdout')
             ->addOption('dump-data', null, InputOption::VALUE_NONE, 'Dump template data (JSON) to stdout')
             ->addOption('format', null, InputOption::VALUE_REQUIRED, 'The output format (docx or pdf)')
-            ->addOption('locale', null, InputOption::VALUE_OPTIONAL, 'Set locale or use the locale parameters', false)
+            ->addOption('locale', null, InputOption::VALUE_REQUIRED, 'The locale to use', $this->getDefaultLocale())
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $locale = $input->getOption('locale');
-        // @see https://stackoverflow.com/a/50518342/2502647
-        if (false !== $locale) {
-            $this->setLocale($locale);
-        }
+        $this->setLocale($locale);
 
         $io = new SymfonyStyle($input, $output);
         $templateIdentifier = $input->getArgument('template');
@@ -64,31 +59,10 @@ class MailTemplateRenderCommand extends Command
         if (null === $mailTemplate) {
             throw new InvalidArgumentException(sprintf('Invalid template identifier: %s', var_export($templateIdentifier, true)));
         }
-        $entity = null;
+
         $entityType = $input->getOption('entity-type');
-        if (null !== $entityType) {
-            $entityId = $input->getOption('entity-id');
-            if (null === $entityId) {
-                throw new RuntimeException('Missing option --entity-id');
-            }
-
-            try {
-                $repo = $this->entityManager->getRepository($entityType);
-                $entity = $repo->findOneBy(['id' => $entityId]);
-            } catch (MappingException $exception) {
-                throw new InvalidArgumentException(sprintf('Invalid entity type: %s', var_export($entityType, true)));
-            } catch (ConversionException $conversionException) {
-                throw new InvalidArgumentException(sprintf('Invalid entity id for %s: %s', var_export($entityType, true), var_export($entityId, true)));
-            }
-
-            if (null === $entity) {
-                throw new InvalidArgumentException(sprintf('Cannot find entity of type %s with id %s', var_export($entityType, true), var_export($entityId, true)));
-            }
-        }
-
-        if (null === $entity) {
-            $entity = $this->templateHelper->getPreviewEntity($mailTemplate);
-        }
+        $entityId = $input->getOption('entity-id');
+        $entity = $this->templateHelper->getPreviewEntity($mailTemplate, $entityType, $entityId);
 
         $dumpData = $input->getOption('dump-data');
         $outputName = $input->getOption('output');
@@ -120,19 +94,17 @@ class MailTemplateRenderCommand extends Command
         return Command::SUCCESS;
     }
 
+    private function getDefaultLocale(): ?string
+    {
+        return $this->parameters->has('locale') ? $this->parameters->get('locale') : null;
+    }
+
     private function setLocale(string $locale = null)
     {
-        if (null === $locale) {
-            if ($this->parameters->has('locale')) {
-                $locale = $this->parameters->get('locale');
-            } else {
-                throw new RuntimeException('Parameter locale not set');
-            }
-        }
         // @see \Symfony\Component\HttpFoundation\Request::setPhpDefaultLocale().
         try {
             if (class_exists(\Locale::class, false)) {
-                \Locale::setDefault($locale);
+                \Locale::setDefault($locale ?? $this->getDefaultLocale());
             }
         } catch (\Exception $e) {
         }
