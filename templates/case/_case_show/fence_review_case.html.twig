@@ -27,7 +27,7 @@
                         <legend>
                             {% trans %}Bringer{% endtrans %}
                             {% if case.bringerIsUnderAddressProtection %}
-                                <span class="badge badge-pill badge-danger" title="{% trans %}Bringer is under address protection{% endtrans %}">!</span>
+                                <p id="bringerIsUnderAddressProtectionCaseShow">!{% trans %}Is under address protection{% endtrans %}!</p>
                             {% endif %}
                         </legend>
                         <div class="form-row">
@@ -50,7 +50,7 @@
                         <legend>
                             {% trans %}Counterpart{% endtrans %}
                             {% if case.accusedIsUnderAddressProtection %}
-                                <span class="badge badge-pill badge-danger" title="{% trans %}Accused is under address protection{% endtrans %}">!</span>
+                                <p id="accusedIsUnderAddressProtectionCaseShow">!{% trans %}Is under address protection{% endtrans %}!</p>
                             {% endif %}
                         </legend>
                         <div class="form-row">
@@ -132,7 +132,7 @@
                                     <td>
                                         {{ party_data.party.name|e }}
                                         {% if party_data.party.isUnderAddressProtection %}
-                                            <span class="badge badge-pill badge-danger" title="{% trans %}Party is under address protection{% endtrans %}">!</span>
+                                            <p id="partyIsUnderAddressProtectionCaseShow">!{% trans %}Is under address protection{% endtrans %}!</p>
                                         {% endif %}
                                     </td>
                                     <td>{{ party_data.type|e }}</td>
@@ -181,7 +181,7 @@
                                     <td>
                                         {{ party_data.party.name|e }}
                                         {% if party_data.party.isUnderAddressProtection %}
-                                            <span class="badge badge-pill badge-danger" title="{% trans %}Party is under address protection{% endtrans %}">!</span>
+                                            <p id="partyIsUnderAddressProtectionCaseShow">!{% trans %}Is under address protection{% endtrans %}!</p>
                                         {% endif %}
                                     </td>
                                     <td>{{ party_data.type|e }}</td>

@@ -27,7 +27,6 @@ window.addEventListener('ajaxload', function () {
             $(htmlIdPrefix + 'Address_side').val('')
             $(htmlIdPrefix + 'Address_postalCode').val('')
             $(htmlIdPrefix + 'Address_city').val('')
-            $('#' + $lookupButton.data('specifier') + 'IsUnderAddressProtection').css('visibility', 'hidden')
             $(htmlIdPrefix + 'IsUnderAddressProtection').prop('checked', false)
 
 
@@ -42,7 +41,6 @@ window.addEventListener('ajaxload', function () {
             $(htmlIdPrefix + 'Address_side').val(response.side)
             $(htmlIdPrefix + 'Address_postalCode').val(response.postalCode)
             $(htmlIdPrefix + 'Address_city').val(response.city)
-            $('#' + $lookupButton.data('specifier') + 'IsUnderAddressProtection').css('visibility', response.isUnderAddressProtection ? 'visible' : 'hidden')
             $(htmlIdPrefix + 'IsUnderAddressProtection').prop('checked', response.isUnderAddressProtection)
 
             // Indicate that identifier was found

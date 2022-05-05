@@ -1,0 +1,43 @@
+// Address protection styling for forms
+
+// Hides checkboxes
+[id$='_bringerIsUnderAddressProtection'],
+[id$='_accusedIsUnderAddressProtection'],
+[id='party_form_isUnderAddressProtection'],
+[id='Party_isUnderAddressProtection'] {
+  display: none;
+}
+
+// Hides (checkbox) labels
+[for$='_bringerIsUnderAddressProtection'],
+[for$='_accusedIsUnderAddressProtection'],
+[for='party_form_isUnderAddressProtection'],
+[for='Party_isUnderAddressProtection'] {
+  display: none;
+}
+
+// Shows labels if checkboxes are checked (i.e. person is under address protection)
+[id$='_bringerIsUnderAddressProtection']:checked + [for$='_bringerIsUnderAddressProtection'],
+[id$='_accusedIsUnderAddressProtection']:checked + [for$='_accusedIsUnderAddressProtection'],
+[id='party_form_isUnderAddressProtection']:checked + [for='party_form_isUnderAddressProtection'],
+[id='Party_isUnderAddressProtection']:checked + [for='Party_isUnderAddressProtection'] {
+  display: initial;
+  font-weight: bold;
+  color: red;
+  // Ensure label cannot be clicked to toggle checkbox
+  pointer-events: none;
+}
+
+
+// Address protection displays on case_show route
+[id='bringerIsUnderAddressProtectionCaseShow'],
+[id='accusedIsUnderAddressProtectionCaseShow'] {
+  font-weight: bold;
+  color: red;
+  font-size: 50%;
+}
+
+[id='partyIsUnderAddressProtectionCaseShow'] {
+  font-weight: bold;
+  color: red;
+}

@@ -51,11 +51,8 @@ class RentBoardCaseType extends AbstractType
                 ],
             ])
             ->add('bringerIsUnderAddressProtection', CheckboxType::class, [
-                'label' => false,
+                'label' => '!'.$this->translator->trans('Is under address protection', [], 'case').'!',
                 'required' => false,
-                'attr' => [
-                    'style' => 'visibility: hidden',
-                ],
             ])
             ->add('bringer', TextType::class, [
                 'label' => $this->translator->trans('Bringer', [], 'case'),

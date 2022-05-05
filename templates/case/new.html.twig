@@ -2,10 +2,6 @@
 
 {% trans_default_domain 'case' %}
 
-{% form_theme form _self %}
-
-{% use 'bootstrap_4_layout.html.twig' with checkbox_widget as base_checkbox_widget %}
-
 {% block title %}{% trans %}Create new Case{% endtrans %}{% endblock %}
 
 {% block header %}
@@ -23,14 +19,6 @@
         <button class="btn btn-success float-right" type="submit" name="submit">{% trans %}Create case{% endtrans %}</button>
         {{ form_end(form) }}
     </main>
-{% endblock %}
-
-{% block checkbox_widget %}
-    {{ block('base_checkbox_widget') }}
-    <p id="{{ form.vars.name }}" style="visibility: hidden">
-        <span class="badge badge-pill badge-danger" title="{% trans from 'case' %}Is under address protection{% endtrans %}">!</span>
-        {% trans from 'case' %}Is under address protection{% endtrans %}
-    </p>
 {% endblock %}
 
 {% block javascripts %}
