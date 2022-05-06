@@ -18,7 +18,7 @@ class RentBoardCase extends CaseEntity
     private $leaseSize;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $bringerPhone;
 
@@ -48,7 +48,7 @@ class RentBoardCase extends CaseEntity
     private $leaseInteriorMaintenance;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $leaseRegulatedRent;
 
@@ -78,7 +78,7 @@ class RentBoardCase extends CaseEntity
     private $feePaid;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $leaseType;
 
@@ -175,12 +175,12 @@ class RentBoardCase extends CaseEntity
         return $this;
     }
 
-    public function getLeaseRegulatedRent(): ?int
+    public function getLeaseRegulatedRent(): ?bool
     {
         return $this->leaseRegulatedRent;
     }
 
-    public function setLeaseRegulatedRent(?int $leaseRegulatedRent): self
+    public function setLeaseRegulatedRent(?bool $leaseRegulatedRent): self
     {
         $this->leaseRegulatedRent = $leaseRegulatedRent;
 
@@ -252,7 +252,7 @@ class RentBoardCase extends CaseEntity
         return $this->leaseType;
     }
 
-    public function setLeaseType(string $leaseType): self
+    public function setLeaseType(?string $leaseType): self
     {
         $this->leaseType = $leaseType;
 

@@ -20,7 +20,7 @@ class ResidentComplaintBoardCase extends CaseEntity
     private $leaseSize;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $bringerPhone;
 
@@ -52,7 +52,7 @@ class ResidentComplaintBoardCase extends CaseEntity
     private $leaseInteriorMaintenance;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $leaseRegulatedRent;
 
@@ -174,12 +174,12 @@ class ResidentComplaintBoardCase extends CaseEntity
         return $this;
     }
 
-    public function getLeaseRegulatedRent(): ?int
+    public function getLeaseRegulatedRent(): ?bool
     {
         return $this->leaseRegulatedRent;
     }
 
-    public function setLeaseRegulatedRent(?int $leaseRegulatedRent): self
+    public function setLeaseRegulatedRent(?bool $leaseRegulatedRent): self
     {
         $this->leaseRegulatedRent = $leaseRegulatedRent;
 

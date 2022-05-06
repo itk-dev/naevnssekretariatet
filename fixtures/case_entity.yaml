@@ -420,6 +420,7 @@ App\Entity\ResidentComplaintBoardCase:
     casePartyRelation: ['@relation-1', '@relation-2']
     sortingParty: Anne Nielsen
     sortingCounterparty: Kirsten Jensen
+    leaseRegulatedRent: 1
 
   test-case-aarhus-2:
     leaseSize: 53

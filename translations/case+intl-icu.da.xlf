@@ -551,7 +551,7 @@
       </trans-unit>
       <trans-unit id="eZjS.J3" resname="Lease agreed rent">
         <source>Lease agreed rent</source>
-        <target>Aftalt husleje</target>
+        <target>Aftalt begyndelsesleje</target>
       </trans-unit>
       <trans-unit id="mbYOen8" resname="Lease interior maintenance">
         <source>Lease interior maintenance</source>
@@ -607,7 +607,7 @@
       </trans-unit>
       <trans-unit id=".oMLsMh" resname="Agreed rent">
         <source>Agreed rent</source>
-        <target>Aftalt leje</target>
+        <target>Aftalt begyndelsesleje</target>
       </trans-unit>
       <trans-unit id="bVY20B1" resname="Regulated rent">
         <source>Regulated rent</source>
@@ -1340,6 +1340,18 @@
       <trans-unit id="k0Ly6mf" resname="Cannot end hearing while some side still has something to add">
         <source>Cannot end hearing while some side still has something to add</source>
         <target state="translated">Høring kan ikke afsluttes så længe en side har mere at tilføje</target>
+      </trans-unit>
+      <trans-unit id="6NdC7ri" resname="Select a lease type">
+        <source>Select a lease type</source>
+        <target state="translated">Vælg en lejemålstype</target>
+      </trans-unit>
+      <trans-unit id="TZ4pZO6" resname="Open case in browser">
+        <source>Open case in browser</source>
+        <target state="translated">Åben sag i browser</target>
+      </trans-unit>
+      <trans-unit id="_xy8OPt" resname="Select an option">
+        <source>Select an option</source>
+        <target state="translated">Vælg en mulighed</target>
       </trans-unit>
     </body>
   </file>
