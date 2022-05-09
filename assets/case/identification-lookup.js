@@ -27,9 +27,15 @@ window.addEventListener('ajaxload', function () {
             $(htmlIdPrefix + 'Address_side').val('')
             $(htmlIdPrefix + 'Address_postalCode').val('')
             $(htmlIdPrefix + 'Address_city').val('')
+            $(htmlIdPrefix + 'IsUnderAddressProtection').prop('checked', false)
 
             // Indicate that identifier was not found
-            $($lookupButton).removeClass().addClass('btn-danger btn')
+            $($lookupButton).removeClass(function () {
+              const regExp = /btn-[^\s]*/
+              const regExpResult = regExp.exec($(this).attr('class'))
+
+              return regExpResult[0]
+            }).addClass('btn-danger btn')
           } else {
             // Insert values into correct html elements
             $(htmlIdPrefix).val(response.name)
@@ -39,9 +45,15 @@ window.addEventListener('ajaxload', function () {
             $(htmlIdPrefix + 'Address_side').val(response.side)
             $(htmlIdPrefix + 'Address_postalCode').val(response.postalCode)
             $(htmlIdPrefix + 'Address_city').val(response.city)
+            $(htmlIdPrefix + 'IsUnderAddressProtection').prop('checked', response.isUnderAddressProtection)
 
             // Indicate that identifier was found
-            $($lookupButton).removeClass().addClass('btn-success btn')
+            $($lookupButton).removeClass(function () {
+              const regExp = /btn-[^\s]*/
+              const regExpResult = regExp.exec($(this).attr('class'))
+
+              return regExpResult[0]
+            }).addClass('btn-success')
           }
         },
         error: function () {

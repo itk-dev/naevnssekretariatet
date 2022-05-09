@@ -203,6 +203,8 @@ class CprHelper
         $relevantData['side'] = array_key_exists('sidedoer', $data['adresse']['aktuelAdresse']) ? ltrim($data['adresse']['aktuelAdresse']['sidedoer'], '0') : '';
         $relevantData['postalCode'] = $data['adresse']['aktuelAdresse']['postnummer'];
         $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'];
+        // If person is NOT under address protection, 'adressebeskyttelse' is simply an empty array
+        $relevantData['isUnderAddressProtection'] = !empty($data['persondata']['adressebeskyttelse']);
 
         return $relevantData;
     }

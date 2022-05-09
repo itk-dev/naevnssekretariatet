@@ -48,6 +48,11 @@ class FenceReviewCase extends CaseEntity
      */
     private $accusedIdentification;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $accusedIsUnderAddressProtection = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -170,5 +175,17 @@ class FenceReviewCase extends CaseEntity
                 'accusedAddress.city',
             ],
         ];
+    }
+
+    public function getAccusedIsUnderAddressProtection(): ?bool
+    {
+        return $this->accusedIsUnderAddressProtection;
+    }
+
+    public function setAccusedIsUnderAddressProtection(bool $accusedIsUnderAddressProtection): self
+    {
+        $this->accusedIsUnderAddressProtection = $accusedIsUnderAddressProtection;
+
+        return $this;
     }
 }

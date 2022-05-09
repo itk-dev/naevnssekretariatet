@@ -9,6 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Option\EA;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
@@ -16,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
@@ -66,6 +68,12 @@ class PartyCrudController extends AbstractCrudController
             ])
             ->addWebpackEncoreEntries('admin_party_identifier_lookup')
         ;
+        yield BooleanField::new('isUnderAddressProtection', 'Is under address protection')
+            ->hideOnIndex()
+            ->setFormTypeOptions([
+                'label' => $this->translator->trans('!Is under address protection!', [], 'case'),
+            ])
+        ;
         yield TextField::new('name', 'Name');
         yield TextField::new('phoneNumber', 'Phone number');
         yield Field::new('address', 'Address')
@@ -98,5 +106,12 @@ class PartyCrudController extends AbstractCrudController
         }
 
         return $this->redirect($this->container->get(AdminUrlGenerator::class)->setAction(Action::INDEX)->unset(EA::ENTITY_ID)->generateUrl());
+    }
+
+    public function configureAssets(Assets $assets): Assets
+    {
+        return parent::configureAssets($assets)
+            ->addWebpackEncoreEntry('address_protection')
+        ;
     }
 }

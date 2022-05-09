@@ -9,6 +9,7 @@ use App\Service\PartyHelper;
 use App\Validator\PartyIdentification;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -61,6 +62,10 @@ class PartyFormType extends AbstractType
                 'attr' => [
                     'class' => 'btn-primary btn identification-lookup',
                 ],
+            ])
+            ->add('isUnderAddressProtection', CheckboxType::class, [
+                'label' => $this->translator->trans('!Is under address protection!', [], 'case'),
+                'required' => false,
             ])
             ->add('address', AddressLookupType::class, [
                 'label' => $this->translator->trans('Address', [], 'case'),

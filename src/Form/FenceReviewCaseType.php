@@ -11,6 +11,7 @@ use App\Repository\ComplaintCategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,6 +50,10 @@ class FenceReviewCaseType extends AbstractType
                     'data-specifier' => 'bringer',
                 ],
             ])
+            ->add('bringerIsUnderAddressProtection', CheckboxType::class, [
+                'label' => $this->translator->trans('!Is under address protection!', [], 'case'),
+                'required' => false,
+            ])
             ->add('bringer', TextType::class, [
                 'label' => $this->translator->trans('Bringer', [], 'case'),
             ])
@@ -69,6 +74,10 @@ class FenceReviewCaseType extends AbstractType
                     'class' => 'btn-primary btn identification-lookup',
                     'data-specifier' => 'accused',
                 ],
+            ])
+            ->add('accusedIsUnderAddressProtection', CheckboxType::class, [
+                'label' => $this->translator->trans('!Is under address protection!', [], 'case'),
+                'required' => false,
             ])
             ->add('accused', TextType::class, [
                 'label' => $this->translator->trans('Accused', [], 'case'),

@@ -24,9 +24,15 @@ $(function () {
           $('#Party_address_side').val('')
           $('#Party_address_postalCode').val('')
           $('#Party_address_city').val('')
+          $('#Party_isUnderAddressProtection').prop('checked', false)
 
           // Indicate that identifier was not found
-          $($identificationLookupButton).removeClass().addClass('btn-danger btn mt-2 lookup-identifier')
+          $($identificationLookupButton).removeClass(function () {
+            const regExp = /btn-[^\s]*/
+            const regExpResult = regExp.exec($(this).attr('class'))
+
+            return regExpResult[0]
+          }).addClass('btn-danger')
         } else {
           // Insert values into correct html elements
           $('#Party_name').val(response.name)
@@ -36,9 +42,15 @@ $(function () {
           $('#Party_address_side').val(response.side)
           $('#Party_address_postalCode').val(response.postalCode)
           $('#Party_address_city').val(response.city)
+          $('#Party_isUnderAddressProtection').prop('checked', response.isUnderAddressProtection)
 
           // Indicate that identifier was found
-          $($identificationLookupButton).removeClass().addClass('btn-success btn mt-2 lookup-identifier')
+          $($identificationLookupButton).removeClass(function () {
+            const regExp = /btn-[^\s]*/
+            const regExpResult = regExp.exec($(this).attr('class'))
+
+            return regExpResult[0]
+          }).addClass('btn-success')
         }
       },
       error: function () {

@@ -24,7 +24,12 @@
                 <div class="col">
                     {# TODO: Form validation: https://getbootstrap.com/docs/4.0/components/forms/#validation #}
                     <fieldset>
-                        <legend>{% trans %}Bringer{% endtrans %}</legend>
+                        <legend>
+                            {% trans %}Bringer{% endtrans %}
+                            {% if case.bringerIsUnderAddressProtection %}
+                                <p id="bringerIsUnderAddressProtectionCaseShow">!{% trans %}Is under address protection{% endtrans %}!</p>
+                            {% endif %}
+                        </legend>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputBasicInformation1">{% trans %}Bringer name{% endtrans %}</label>
@@ -42,7 +47,12 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend>{% trans %}Counterpart{% endtrans %}</legend>
+                        <legend>
+                            {% trans %}Counterpart{% endtrans %}
+                            {% if case.accusedIsUnderAddressProtection %}
+                                <p id="accusedIsUnderAddressProtectionCaseShow">!{% trans %}Is under address protection{% endtrans %}!</p>
+                            {% endif %}
+                        </legend>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputBasicInformation3">{% trans %}Counterpart name{% endtrans %}</label>
@@ -119,7 +129,12 @@
                             <tbody>
                             {% for party_data in parties %}
                                 <tr>
-                                    <td>{{ party_data.party.name|e }}</td>
+                                    <td>
+                                        {{ party_data.party.name|e }}
+                                        {% if party_data.party.isUnderAddressProtection %}
+                                            <p id="partyIsUnderAddressProtectionCaseShow">!{% trans %}Is under address protection{% endtrans %}!</p>
+                                        {% endif %}
+                                    </td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
                                     <td>{{ party_data.party.identification.identifier|e }}</td>
@@ -163,7 +178,12 @@
                             <tbody>
                             {% for party_data in counterparties %}
                                 <tr>
-                                    <td>{{ party_data.party.name|e }}</td>
+                                    <td>
+                                        {{ party_data.party.name|e }}
+                                        {% if party_data.party.isUnderAddressProtection %}
+                                            <p id="partyIsUnderAddressProtectionCaseShow">!{% trans %}Is under address protection{% endtrans %}!</p>
+                                        {% endif %}
+                                    </td>
                                     <td>{{ party_data.type|e }}</td>
                                     <td>{{ party_data.party.address|e }}</td>
                                     <td>{{ party_data.party.identification.identifier|e }}</td>

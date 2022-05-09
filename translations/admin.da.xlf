@@ -325,6 +325,10 @@
         <source>Find information from identifier</source>
         <target state="translated">Udfyld information via id-opslag</target>
       </trans-unit>
+      <trans-unit id="lVUY_Cv" resname="Is under address protection">
+        <source>Is under address protection</source>
+        <target state="translated">Adressebeskyttet</target>
+      </trans-unit>
       <trans-unit id="M2328_d" resname="Template document">
         <source>Template document</source>
         <target state="translated">Skabelon</target>

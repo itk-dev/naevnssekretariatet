@@ -58,6 +58,11 @@ class Party implements LoggableEntityInterface
      */
     private $identification;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $isUnderAddressProtection = false;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -139,5 +144,17 @@ class Party implements LoggableEntityInterface
     public function setIdentification(Identification $identification): void
     {
         $this->identification = $identification;
+    }
+
+    public function getIsUnderAddressProtection(): ?bool
+    {
+        return $this->isUnderAddressProtection;
+    }
+
+    public function setIsUnderAddressProtection(bool $isUnderAddressProtection): self
+    {
+        $this->isUnderAddressProtection = $isUnderAddressProtection;
+
+        return $this;
     }
 }
