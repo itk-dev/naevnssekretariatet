@@ -23,6 +23,7 @@ class CaseStatusForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CaseStatusFormModel::class,
+            'current_status' => null,
             'available_statuses' => [],
         ]);
     }
@@ -32,7 +33,7 @@ class CaseStatusForm extends AbstractType
         $builder->add('status', ChoiceType::class, [
             'choices' => $options['available_statuses'],
             'label' => $this->translator->trans('Change case status', [], 'case'),
-            'placeholder' => $this->translator->trans('Choose new case status', [], 'case'),
+            'placeholder' => $options['current_status'],
         ]);
         $builder->add('submit', SubmitType::class, [
             'label' => $this->translator->trans('Change status', [], 'case'),
