@@ -31,10 +31,10 @@ window.addEventListener('ajaxload', function () {
 
             // Indicate that identifier was not found
             $($lookupButton).removeClass(function () {
-              const $regExp = /btn-[^\s]*/
-              const $regExpResult = $regExp.exec($(this).attr('class'))
+              const regExp = /btn-[^\s]*/
+              const regExpResult = regExp.exec($(this).attr('class'))
 
-              return $regExpResult[0]
+              return regExpResult[0]
             }).addClass('btn-danger btn')
           } else {
             // Insert values into correct html elements
@@ -49,10 +49,10 @@ window.addEventListener('ajaxload', function () {
 
             // Indicate that identifier was found
             $($lookupButton).removeClass(function () {
-              const $regExp = /btn-[^\s]*/
-              const $regExpResult = $regExp.exec($(this).attr('class'))
+              const regExp = /btn-[^\s]*/
+              const regExpResult = regExp.exec($(this).attr('class'))
 
-              return $regExpResult[0]
+              return regExpResult[0]
             }).addClass('btn-success')
           }
         },

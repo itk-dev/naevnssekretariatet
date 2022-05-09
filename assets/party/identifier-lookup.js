@@ -28,10 +28,10 @@ $(function () {
 
           // Indicate that identifier was not found
           $($identificationLookupButton).removeClass(function () {
-            const $regExp = /btn-[^\s]*/
-            const $regExpResult = $regExp.exec($(this).attr('class'))
+            const regExp = /btn-[^\s]*/
+            const regExpResult = regExp.exec($(this).attr('class'))
 
-            return $regExpResult[0]
+            return regExpResult[0]
           }).addClass('btn-danger')
         } else {
           // Insert values into correct html elements
@@ -46,10 +46,10 @@ $(function () {
 
           // Indicate that identifier was found
           $($identificationLookupButton).removeClass(function () {
-            const $regExp = /btn-[^\s]*/
-            const $regExpResult = $regExp.exec($(this).attr('class'))
+            const regExp = /btn-[^\s]*/
+            const regExpResult = regExp.exec($(this).attr('class'))
 
-            return $regExpResult[0]
+            return regExpResult[0]
           }).addClass('btn-success')
         }
       },
