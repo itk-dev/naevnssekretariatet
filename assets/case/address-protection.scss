@@ -1,26 +1,17 @@
 // Address protection styling for forms
 
 // Hides checkboxes
-[id$='_bringerIsUnderAddressProtection'],
-[id$='_accusedIsUnderAddressProtection'],
-[id='party_form_isUnderAddressProtection'],
-[id='Party_isUnderAddressProtection'] {
+[id$='sUnderAddressProtection'] {
   display: none;
 }
 
 // Hides (checkbox) labels
-[for$='_bringerIsUnderAddressProtection'],
-[for$='_accusedIsUnderAddressProtection'],
-[for='party_form_isUnderAddressProtection'],
-[for='Party_isUnderAddressProtection'] {
+[for$='sUnderAddressProtection'] {
   display: none;
 }
 
 // Shows labels if checkboxes are checked (i.e. person is under address protection)
-[id$='_bringerIsUnderAddressProtection']:checked + [for$='_bringerIsUnderAddressProtection'],
-[id$='_accusedIsUnderAddressProtection']:checked + [for$='_accusedIsUnderAddressProtection'],
-[id='party_form_isUnderAddressProtection']:checked + [for='party_form_isUnderAddressProtection'],
-[id='Party_isUnderAddressProtection']:checked + [for='Party_isUnderAddressProtection'] {
+[id$='sUnderAddressProtection']:checked + [for$='sUnderAddressProtection'] {
   display: initial;
   font-weight: bold;
   color: red;
@@ -30,8 +21,7 @@
 
 
 // Address protection displays on case_show route
-[id='bringerIsUnderAddressProtectionCaseShow'],
-[id='accusedIsUnderAddressProtectionCaseShow'] {
+[id='IsUnderAddressProtectionCaseShow'] {
   font-weight: bold;
   color: red;
   font-size: 50%;
