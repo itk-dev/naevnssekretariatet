@@ -21,7 +21,7 @@
 
 
 // Address protection displays on case_show route
-[id='IsUnderAddressProtectionCaseShow'] {
+[id$='IsUnderAddressProtectionCaseShow'] {
   font-weight: bold;
   color: red;
   font-size: 50%;
