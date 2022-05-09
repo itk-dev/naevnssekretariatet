@@ -22,28 +22,22 @@
     <main role="main" class="col-12 mt-3">
         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
             <section>
+
                 <h2>{% trans %}Processinformation{% endtrans %}</h2>
                 <p>{% trans %}In the section Processinformation you can see the current status{% endtrans %}</p>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead class="thead-inverse">
-                        <tr>
-                            <th>{% trans %}Current casestatus{% endtrans %}</th>
-                            <th>{{ case.currentPlace }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{% trans %}Initiative assigne{% endtrans %}</td>
-                            <td>{% trans %}No entry yet{% endtrans %}</td>
-                        </tr>
-                        <tr>
-                            <td>{% trans %}Last parts post{% endtrans %}</td>
-                            <td>{% trans %}No entry yet{% endtrans %}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+
+                <dl class="row">
+                    <dt class="col-sm-3">{% trans %}Current casestatus{% endtrans %}</dt>
+                    <dd class="col-sm-9">{{ case.currentPlace }}</dd>
+
+                    <dt class="col-sm-3">{% trans %}Initiative assigne{% endtrans %}</dt>
+                    {# TODO: Needs implementation #}
+                    <dd class="col-sm-9">{% trans %}No entry yet{% endtrans %}</dd>
+
+                    <dt class="col-sm-3">{% trans %}Last parts post{% endtrans %}</dt>
+                    {# TODO: Needs implementation #}
+                    <dd class="col-sm-9">{% trans %}No entry yet{% endtrans %}</dd>
+                </dl>
             </section>
             <section class="mt-3">
                 <h2>{% trans %}Deadlines{% endtrans %}</h2>

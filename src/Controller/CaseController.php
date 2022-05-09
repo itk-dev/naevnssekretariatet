@@ -270,6 +270,7 @@ class CaseController extends AbstractController
             $caseStatus,
             [
                 'available_statuses' => $workflowService->getPlaceChoicesForCase($case, $workflow),
+                'current_status' => $case->getCurrentPlace(),
             ]
         );
 
