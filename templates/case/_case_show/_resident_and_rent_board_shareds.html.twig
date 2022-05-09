@@ -154,14 +154,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label>{% trans %}Regulated rent{% endtrans %}</label>
-                            <input type="text" class="form-control" value="
-                                {% if case.leaseRegulatedRent is not null %}
-                                    {% if case.leaseRegulatedRent %}
-                                        {% trans %}Yes{% endtrans %}
-                                    {% else %}
-                                        {% trans %}No{% endtrans %}
-                                    {% endif %}
-                                {% endif %}" readonly>
+                            <input type="text" class="form-control" value="{{ case.leaseRegulatedRent is not null ? (case.leaseRegulatedRent ? 'Yes'|trans : 'No'|trans )}}" readonly>
                         </div>
                         <div class="form-group col-md-3">
                             <label>{% trans %}Regulated at{% endtrans %}</label>
