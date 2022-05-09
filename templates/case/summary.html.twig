@@ -44,6 +44,7 @@
         <div class="col-auto">
             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                 <a class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}">{% trans %}Add reminder{% endtrans %}</button>
                 {% if suitable_boards %}
                     <a href="" role="button" class="btn btn-primary" data-toggle="modal" data-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
                     {{ render(controller('App\\Controller\\CaseController:move', {id: case.id})) }}
@@ -56,6 +57,7 @@
                 {% else %}
                     <button disabled class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete case that has been in hearing or on an agenda{% endtrans %}">{% trans %}Delete case{% endtrans %}</button>
                 {% endif %}
+                {{ render(controller('App\\Controller\\CaseReminderController:new', {id: case.id})) }}
             {% endif %}
         </div>
     </div>
