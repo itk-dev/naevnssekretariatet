@@ -27,7 +27,12 @@ $(function () {
           $('#Party_isUnderAddressProtection').prop('checked', false)
 
           // Indicate that identifier was not found
-          $($identificationLookupButton).removeClass().addClass('btn-danger btn mt-2 lookup-identifier')
+          $($identificationLookupButton).removeClass(function () {
+            const $regExp = /btn-[^\s]*/
+            const $regExpResult = $regExp.exec($(this).attr('class'))
+
+            return $regExpResult[0]
+          }).addClass('btn-danger')
         } else {
           // Insert values into correct html elements
           $('#Party_name').val(response.name)
@@ -40,7 +45,12 @@ $(function () {
           $('#Party_isUnderAddressProtection').prop('checked', response.isUnderAddressProtection)
 
           // Indicate that identifier was found
-          $($identificationLookupButton).removeClass().addClass('btn-success btn mt-2 lookup-identifier')
+          $($identificationLookupButton).removeClass(function () {
+            const $regExp = /btn-[^\s]*/
+            const $regExpResult = $regExp.exec($(this).attr('class'))
+
+            return $regExpResult[0]
+          }).addClass('btn-success')
         }
       },
       error: function () {
