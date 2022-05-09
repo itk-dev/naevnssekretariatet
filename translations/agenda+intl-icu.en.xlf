@@ -533,6 +533,14 @@
         <source>Open agenda in browser</source>
         <target>Open agenda in browser</target>
       </trans-unit>
+      <trans-unit id="xDw5e8j" resname="Submit attachments">
+        <source>Submit attachments</source>
+        <target>Submit attachments</target>
+      </trans-unit>
+      <trans-unit id="15d1BVt" resname="Mark all">
+        <source>Mark all</source>
+        <target>Mark all</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

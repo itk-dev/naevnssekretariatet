@@ -533,6 +533,14 @@
         <source>Open agenda in browser</source>
         <target state="translated">Åben dagsorden i browser</target>
       </trans-unit>
+      <trans-unit id="xDw5e8j" resname="Submit attachments">
+        <source>Submit attachments</source>
+        <target state="translated">Vedlæg på dagsorden</target>
+      </trans-unit>
+      <trans-unit id="15d1BVt" resname="Mark all">
+        <source>Mark all</source>
+        <target state="translated">Marker alle</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
