@@ -1337,6 +1337,10 @@
         <source>Accused is under address protection</source>
         <target state="translated">Modpart er under adressebeskyttelse</target>
       </trans-unit>
+      <trans-unit id="wEC.s8." resname="!Is under address protection!">
+        <source>!Is under address protection!</source>
+        <target state="translated">!Adressebeskyttet!</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -64,7 +64,7 @@ class PartyFormType extends AbstractType
                 ],
             ])
             ->add('isUnderAddressProtection', CheckboxType::class, [
-                'label' => '!'.$this->translator->trans('Is under address protection', [], 'case').'!',
+                'label' => $this->translator->trans('!Is under address protection!', [], 'case'),
                 'required' => false,
             ])
             ->add('address', AddressLookupType::class, [

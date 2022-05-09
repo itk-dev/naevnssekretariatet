@@ -71,7 +71,7 @@ class PartyCrudController extends AbstractCrudController
         yield BooleanField::new('isUnderAddressProtection', 'Is under address protection')
             ->hideOnIndex()
             ->setFormTypeOptions([
-                'label' => '!'.$this->translator->trans('Is under address protection', [], 'case').'!',
+                'label' => $this->translator->trans('!Is under address protection!', [], 'case'),
             ])
         ;
         yield TextField::new('name', 'Name');

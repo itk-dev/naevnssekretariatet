@@ -1337,6 +1337,10 @@
         <source>Accused is under address protection</source>
         <target>Accused is under address protection</target>
       </trans-unit>
+      <trans-unit id="wEC.s8." resname="!Is under address protection!">
+        <source>!Is under address protection!</source>
+        <target>!Is under address protection!</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
