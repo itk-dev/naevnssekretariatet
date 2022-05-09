@@ -36,7 +36,7 @@
             {% for document in documents %}
                 <tr>
                     <td>{{ document.documentName|e }}</td>
-                    <td>{{ document.type|e }}</td>
+                    <td>{{ document.type|trans([], 'mail_template') }}</td>
                     <td>{{ document.uploadedBy|e }}</td>
                     <td>{{ document.uploadedAt|date(format_date) }}</td>
                     {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
