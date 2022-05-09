@@ -21,6 +21,11 @@ abstract class AgendaItem
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $startTime;
@@ -49,6 +54,18 @@ abstract class AgendaItem
     public function getId(): ?Uuid
     {
         return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
     }
 
     public function getStartTime(): ?\DateTimeInterface

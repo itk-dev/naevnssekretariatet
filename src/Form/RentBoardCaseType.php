@@ -59,6 +59,7 @@ class RentBoardCaseType extends AbstractType
             ])
             ->add('bringerPhone', IntegerType::class, [
                 'label' => $this->translator->trans('Bringer phone', [], 'case'),
+                'required' => false,
             ])
             ->add('bringerAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Bringer address', [], 'case'),
@@ -89,6 +90,8 @@ class RentBoardCaseType extends AbstractType
                     $this->translator->trans('Small', [], 'case') => $this->translator->trans('Small', [], 'case'),
                 ],
                 'label' => $this->translator->trans('Lease type', [], 'case'),
+                'placeholder' => $this->translator->trans('Select a lease type', [], 'case'),
+                'required' => false,
             ])
             ->add('complaintCategory', EntityType::class, [
                 'class' => ComplaintCategory::class,
@@ -126,8 +129,13 @@ class RentBoardCaseType extends AbstractType
                 'label' => $this->translator->trans('Lease interior maintenance', [], 'case'),
                 'required' => false,
             ])
-            ->add('leaseRegulatedRent', IntegerType::class, [
+            ->add('leaseRegulatedRent', ChoiceType::class, [
                 'label' => $this->translator->trans('Lease regulated rent', [], 'case'),
+                'choices' => [
+                    $this->translator->trans('Yes', [], 'case') => true,
+                    $this->translator->trans('No', [], 'case') => false,
+                ],
+                'placeholder' => $this->translator->trans('Select an option', [], 'case'),
                 'required' => false,
             ])
             ->add('leaseRegulatedAt', DateType::class, [

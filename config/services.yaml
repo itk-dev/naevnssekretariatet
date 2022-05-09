@@ -191,3 +191,12 @@ services:
               azure_key_vault_datafordeler_secret_version: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSION)%'
 
               datafordeler_cvr_lookup_base_url: '%env(DATAFORDELER_CVR_LOOKUP_BASE_URL)%'
+
+    App\Service\MailTemplate\ComplexMacroHelper:
+        arguments:
+            $options:
+              formatting:
+                  link:
+                      font_style:
+                          # @see https://phpword.readthedocs.io/en/latest/styles.html#font
+                          styleName: 'InternetLink'

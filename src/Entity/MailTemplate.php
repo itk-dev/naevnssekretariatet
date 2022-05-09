@@ -49,10 +49,13 @@ class MailTemplate implements LoggableEntityInterface
     /**
      * @Vich\UploadableField(mapping="mail_templates", fileNameProperty="templateFilename")
      *
-     * @todo validate that the file is a Word document
-     * @ Assert\File(mimeTypes = {"application/vnd.openxmlformats-officedocument.wordprocessingml.document"})
-     *
      * @var File
+     *
+     * @Assert\File(
+     *     maxSize = "4M",
+     *     mimeTypes = {"application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+     *     mimeTypesMessage = "Please upload a valid Word document (docx)."
+     * )
      */
     private $templateFile;
 

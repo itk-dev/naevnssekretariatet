@@ -13,11 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class AgendaManuelItem extends AgendaItem
 {
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
@@ -31,18 +26,6 @@ class AgendaManuelItem extends AgendaItem
     {
         parent::__construct();
         $this->documents = new ArrayCollection();
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
     }
 
     public function getDescription(): ?string

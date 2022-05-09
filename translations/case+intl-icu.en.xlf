@@ -1341,6 +1341,42 @@
         <source>!Is under address protection!</source>
         <target>!Is under address protection!</target>
       </trans-unit>
+      <trans-unit id="ZZ6llCv" resname="Tenant side has no more to add">
+        <source>Tenant side has no more to add</source>
+        <target>Tenant side has no more to add</target>
+      </trans-unit>
+      <trans-unit id="c.QHexo" resname="Landlord side has no more to add">
+        <source>Landlord side has no more to add</source>
+        <target>Landlord side has no more to add</target>
+      </trans-unit>
+      <trans-unit id="TQCjNUJ" resname="Bringer side has no more to add">
+        <source>Bringer side has no more to add</source>
+        <target>Bringer side has no more to add</target>
+      </trans-unit>
+      <trans-unit id="DwGshjo" resname="Neighbour side has no more to add">
+        <source>Neighbour side has no more to add</source>
+        <target>Neighbour side has no more to add</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Send</target>
+      </trans-unit>
+      <trans-unit id="k0Ly6mf" resname="Cannot end hearing while some side still has something to add">
+        <source>Cannot end hearing while some side still has something to add</source>
+        <target>Cannot end hearing while some side still has something to add</target>
+      </trans-unit>
+      <trans-unit id="6NdC7ri" resname="Select a lease type">
+        <source>Select a lease type</source>
+        <target>Select a lease type</target>
+      </trans-unit>
+      <trans-unit id="_xy8OPt" resname="Select an option">
+        <source>Select an option</source>
+        <target>Select an option</target>
+      </trans-unit>
+      <trans-unit id="TZ4pZO6" resname="Open case in browser">
+        <source>Open case in browser</source>
+        <target>Open case in browser</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

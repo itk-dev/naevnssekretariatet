@@ -3,7 +3,7 @@ App\Entity\AgendaCaseItem:
     title: Drøftelse af 2021-0001
     startTime: <(new \DateTime('1970-01-01 17:00'))>
     endTime: <(new \DateTime('1970-01-01 18:00'))>
-    meetingPoint: Møde lokale M3.8
+    meetingPoint: Mødelokale M3.8
     inspection: false
     caseEntity: '@test-case-aarhus-1'
     agenda: '@agenda-1'
@@ -12,7 +12,7 @@ App\Entity\AgendaCaseItem:
     title: Drøftelse af 2021-0009
     startTime: <(new \DateTime('1970-01-01 17:00'))>
     endTime: <(new \DateTime('1970-01-01 18:00'))>
-    meetingPoint: Møde lokale M3.8
+    meetingPoint: Mødelokale M3.8
     inspection: true
     caseEntity: '@test-case-aarhus-9'
     agenda: '@agenda-1'
@@ -23,7 +23,7 @@ App\Entity\AgendaManuelItem:
     description: Aftensmad og gennemgang af dagsorden
     startTime: <(new \DateTime('1970-01-01 16:00'))>
     endTime: <(new \DateTime('1970-01-01 16:30'))>
-    meetingPoint: Møde lokale M3.8
+    meetingPoint: Mødelokale M3.8
     agenda: '@agenda-1'
 
   agenda-manuel-item2:
@@ -31,5 +31,5 @@ App\Entity\AgendaManuelItem:
     description: Tak for i dag
     startTime: <(new \DateTime('1970-01-01 19:00'))>
     endTime: <(new \DateTime('1970-01-01 19:30'))>
-    meetingPoint: Møde lokale M3.8
+    meetingPoint: Mødelokale M3.8
     agenda: '@agenda-1'

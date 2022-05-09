@@ -60,7 +60,7 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTranslationDomain('admin')
-            ->setTitle($this->translator->trans('dashboard', [], 'admin'))
+            ->setTitle($this->translator->trans('Dashboard', [], 'admin'))
             ;
     }
 

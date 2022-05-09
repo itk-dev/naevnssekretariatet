@@ -13,9 +13,9 @@
         <source>List of counterparty types (one per line). The first party type can be used for sorting cases.</source>
         <target>List of counterparty types (one per line). The first party type can be used for sorting cases.</target>
       </trans-unit>
-      <trans-unit id="Zs2WiKK" resname="dashboard">
-        <source>dashboard</source>
-        <target>dashboard</target>
+      <trans-unit id="Z7aWRoY" resname="Dashboard">
+        <source>Dashboard</source>
+        <target>Dashboard</target>
       </trans-unit>
       <trans-unit id="xsCUvAB" resname="Empty">
         <source>Empty</source>
@@ -293,9 +293,9 @@
         <source>Deleted cases</source>
         <target>Deleted cases</target>
       </trans-unit>
-      <trans-unit id="HEZy6.j" resname="Remember that a boardmember may only have one role per board. ">
-        <source>Remember that a boardmember may only have one role per board. </source>
-        <target>Remember that a boardmember may only have one role per board. </target>
+      <trans-unit id="8b45cCU" resname="Remember that a boardmember may only have one role per board.">
+        <source>Remember that a boardmember may only have one role per board.</source>
+        <target>Remember that a boardmember may only have one role per board.</target>
       </trans-unit>
       <trans-unit id=".ZzqKgg" resname="Extra address information">
         <source>Extra address information</source>
@@ -324,6 +324,14 @@
       <trans-unit id="lVUY_Cv" resname="Is under address protection">
         <source>Is under address protection</source>
         <target>Is under address protection</target>
+      </trans-unit>
+      <trans-unit id="M2328_d" resname="Template document">
+        <source>Template document</source>
+        <target>Template document</target>
+      </trans-unit>
+      <trans-unit id="foxwvv1" resname="Upload a Word document (docx) to use as a template.">
+        <source>Upload a Word document (docx) to use as a template.</source>
+        <target>Upload a Word document (docx) to use as a template.</target>
       </trans-unit>
     </body>
   </file>

@@ -529,6 +529,10 @@
         <source>Agenda inspection</source>
         <target state="translated">Besigtigelsesbrev</target>
       </trans-unit>
+      <trans-unit id="35AGWK2" resname="Open agenda in browser">
+        <source>Open agenda in browser</source>
+        <target state="translated">Åben dagsorden i browser</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

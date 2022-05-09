@@ -5,8 +5,8 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="Zs2WiKK" resname="dashboard">
-        <source>dashboard</source>
+      <trans-unit id="Z7aWRoY" resname="Dashboard">
+        <source>Dashboard</source>
         <target>Indstillinger</target>
       </trans-unit>
       <trans-unit id="SaPHHYy" resname="Complaint category">
@@ -297,8 +297,8 @@
         <source>Deleted cases</source>
         <target state="translated">Slettede sager</target>
       </trans-unit>
-      <trans-unit id="HEZy6.j" resname="Remember that a boardmember may only have one role per board. ">
-        <source>Remember that a boardmember may only have one role per board. </source>
+      <trans-unit id="8b45cCU" resname="Remember that a boardmember may only have one role per board.">
+        <source>Remember that a boardmember may only have one role per board.</source>
         <target state="translated">Husk, at et nævnsmedlem kun må have en rolle per nævn.</target>
       </trans-unit>
       <trans-unit id=".ZzqKgg" resname="Extra address information">
@@ -328,6 +328,14 @@
       <trans-unit id="lVUY_Cv" resname="Is under address protection">
         <source>Is under address protection</source>
         <target state="translated">Adressebeskyttet</target>
+      </trans-unit>
+      <trans-unit id="M2328_d" resname="Template document">
+        <source>Template document</source>
+        <target state="translated">Skabelon</target>
+      </trans-unit>
+      <trans-unit id="foxwvv1" resname="Upload a Word document (docx) to use as a template.">
+        <source>Upload a Word document (docx) to use as a template.</source>
+        <target state="translated">Upload et Word-dokument (docx) der skal bruges som skabelon.</target>
       </trans-unit>
     </body>
   </file>

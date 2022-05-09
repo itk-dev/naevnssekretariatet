@@ -93,17 +93,9 @@
         <source>Please upload a valid document</source>
         <target>Please upload a valid document</target>
       </trans-unit>
-      <trans-unit id="64TSSiU" resname="Upload one or more files. Max file size: 80mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
-        <source>Upload one or more files. Max file size: 80mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
-        <target>Upload one or more files. Max file size: 80mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
-      </trans-unit>
       <trans-unit id="UHrmcab" resname="Upload document">
         <source>Upload document</source>
         <target>Upload document</target>
-      </trans-unit>
-      <trans-unit id="nyq6vU9" resname="Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
-        <source>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
-        <target>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
       </trans-unit>
       <trans-unit id="Yw8ueOH" resname="Edit document">
         <source>Edit document</source>
@@ -116,6 +108,10 @@
       <trans-unit id="Oi.B2NK" resname="Update document">
         <source>Update document</source>
         <target>Update document</target>
+      </trans-unit>
+      <trans-unit id="TPdJpt_" resname="Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg">
+        <source>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg</source>
+        <target>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg</target>
       </trans-unit>
     </body>
   </file>

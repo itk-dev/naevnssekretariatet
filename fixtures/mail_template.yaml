@@ -44,4 +44,4 @@ App\Entity\MailTemplate:
     name: Agenda broadcast template 001
     description: |-
       Bruges til udsendelse af dagsorden til nævnsmedlemmer.
-    templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>
+    templateFilename: <uploadFile(mail_template/mail_template_agenda.docx, templateFile, App\Entity\MailTemplate)>

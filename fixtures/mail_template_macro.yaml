@@ -47,3 +47,24 @@ App\Entity\MailTemplateMacro:
         Venlig hilsen
         ${assignedTo.name|append(' (sagsbehandler)')}
     templateTypes: []
+
+  dato:
+    name: Dato (dd/mm/yyyy)
+    macro: dato
+    content: |-
+      ${date|format(dd/MM/yyyy)}
+    templateTypes: []
+
+  starttidspunkt:
+    name: Starttidspunkt (tt:mm)
+    macro: starttidspunkt
+    content: |-
+      ${end|format(HH:mm)}
+    templateTypes: []
+
+  sluttidspunkt:
+    name: Sluttidspunkt (tt:mm)
+    macro: sluttidspunkt
+    content: |-
+      ${end|format(HH:mm)}
+    templateTypes: []
