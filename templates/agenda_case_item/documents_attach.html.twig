@@ -53,7 +53,19 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <button type="submit" class="btn btn-primary">{% trans %}Submit{% endtrans %}</button>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">{% trans %}Submit attachments{% endtrans %}</button>
+                </div>
+                <div class="col-auto">
+                    <button type="button" id="markAllDocumentsButton" class="btn btn-info">{% trans %}Mark all{% endtrans %}</button>
+                </div>
+            </div>
         </form>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('agenda_mark_all_documents') }}
 {% endblock %}
