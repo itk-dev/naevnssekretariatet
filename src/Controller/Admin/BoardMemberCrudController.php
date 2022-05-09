@@ -70,7 +70,7 @@ class BoardMemberCrudController extends AbstractCrudController
 
                 return implode(', ', $roles->getValues());
             })
-            ->setHelp($this->translator->trans('Remember that a boardmember may only have one role per board. ', [], 'admin'))
+            ->setHelp($this->translator->trans('Remember that a boardmember may only have one role per board.', [], 'admin'))
         ;
     }
 

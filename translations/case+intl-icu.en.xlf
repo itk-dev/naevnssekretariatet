@@ -1345,6 +1345,18 @@
         <source>Cannot end hearing while some side still has something to add</source>
         <target>Cannot end hearing while some side still has something to add</target>
       </trans-unit>
+      <trans-unit id="6NdC7ri" resname="Select a lease type">
+        <source>Select a lease type</source>
+        <target>Select a lease type</target>
+      </trans-unit>
+      <trans-unit id="_xy8OPt" resname="Select an option">
+        <source>Select an option</source>
+        <target>Select an option</target>
+      </trans-unit>
+      <trans-unit id="TZ4pZO6" resname="Open case in browser">
+        <source>Open case in browser</source>
+        <target>Open case in browser</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
