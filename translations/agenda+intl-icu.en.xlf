@@ -541,6 +541,78 @@
         <source>Mark all</source>
         <target>Mark all</target>
       </trans-unit>
+      <trans-unit id="Px7uORc" resname="Agenda created">
+        <source>Agenda created</source>
+        <target>Agenda created</target>
+      </trans-unit>
+      <trans-unit id="KxNgsaj" resname="Agenda deleted">
+        <source>Agenda deleted</source>
+        <target>Agenda deleted</target>
+      </trans-unit>
+      <trans-unit id="qXoPOMW" resname="Agenda updated">
+        <source>Agenda updated</source>
+        <target>Agenda updated</target>
+      </trans-unit>
+      <trans-unit id="xDjQ2pH" resname="Board members added to agenda">
+        <source>Board members added to agenda</source>
+        <target>Board members added to agenda</target>
+      </trans-unit>
+      <trans-unit id="Zg9G8Cr" resname="Board member %name% removed from agenda">
+        <source>Board member %name% removed from agenda</source>
+        <target>Board member %name% removed from agenda</target>
+      </trans-unit>
+      <trans-unit id="u5__Ke7" resname="Agenda protocol created">
+        <source>Agenda protocol created</source>
+        <target>Agenda protocol created</target>
+      </trans-unit>
+      <trans-unit id="j7IDh4G" resname="Agenda protocol updated">
+        <source>Agenda protocol updated</source>
+        <target>Agenda protocol updated</target>
+      </trans-unit>
+      <trans-unit id="a_4Bg6H" resname="Agenda published">
+        <source>Agenda published</source>
+        <target>Agenda published</target>
+      </trans-unit>
+      <trans-unit id="Qy_9gnt" resname="Documents added to agenda">
+        <source>Documents added to agenda</source>
+        <target>Documents added to agenda</target>
+      </trans-unit>
+      <trans-unit id="EnSgN9B" resname="Document removed from agenda">
+        <source>Document removed from agenda</source>
+        <target>Document removed from agenda</target>
+      </trans-unit>
+      <trans-unit id="VI6hKmv" resname="Agenda manual item created">
+        <source>Agenda manual item created</source>
+        <target>Agenda manual item created</target>
+      </trans-unit>
+      <trans-unit id="IMOBpRa" resname="Agenda case item created">
+        <source>Agenda case item created</source>
+        <target>Agenda case item created</target>
+      </trans-unit>
+      <trans-unit id="M_amekT" resname="Agenda manual item updated">
+        <source>Agenda manual item updated</source>
+        <target>Agenda manual item updated</target>
+      </trans-unit>
+      <trans-unit id="pWfZGby" resname="Agenda case item updated">
+        <source>Agenda case item updated</source>
+        <target>Agenda case item updated</target>
+      </trans-unit>
+      <trans-unit id="lurR8mL" resname="Agenda manual item deleted">
+        <source>Agenda manual item deleted</source>
+        <target>Agenda manual item deleted</target>
+      </trans-unit>
+      <trans-unit id="_3jz0Ks" resname="Agenda case item deleted">
+        <source>Agenda case item deleted</source>
+        <target>Agenda case item deleted</target>
+      </trans-unit>
+      <trans-unit id="kjCB0tj" resname="{count, plural, =1 {One document uploaded} other {# documents uploaded}}">
+        <source>{count, plural, =1 {One document uploaded} other {# documents uploaded}}</source>
+        <target>{count, plural, =1 {One document uploaded} other {# documents uploaded}}</target>
+      </trans-unit>
+      <trans-unit id="i4JV3bx" resname="Document removed">
+        <source>Document removed</source>
+        <target>Document removed</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

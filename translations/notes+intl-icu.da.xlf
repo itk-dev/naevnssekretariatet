@@ -81,6 +81,18 @@
         <source>Create note for case</source>
         <target>Opret note for sag</target>
       </trans-unit>
+      <trans-unit id="1BwSn7j" resname="Note created">
+        <source>Note created</source>
+        <target state="translated">Note oprettet</target>
+      </trans-unit>
+      <trans-unit id="uYz8BkN" resname="Note updated">
+        <source>Note updated</source>
+        <target state="translated">Note opdateret</target>
+      </trans-unit>
+      <trans-unit id="gffRiI1" resname="Note deleted">
+        <source>Note deleted</source>
+        <target state="translated">Note slettet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

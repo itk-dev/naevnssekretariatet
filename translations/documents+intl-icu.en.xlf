@@ -113,6 +113,18 @@
         <source>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg</source>
         <target>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg</target>
       </trans-unit>
+      <trans-unit id="9mq9OuC" resname="{count, plural, =1 {One document created} other {# documents created}}">
+        <source>{count, plural, =1 {One document created} other {# documents created}}</source>
+        <target>{count, plural, =1 {One document created} other {# documents created}}</target>
+      </trans-unit>
+      <trans-unit id="ao95lfv" resname="Document updated">
+        <source>Document updated</source>
+        <target>Document updated</target>
+      </trans-unit>
+      <trans-unit id="93XR1n2" resname="Document deleted">
+        <source>Document deleted</source>
+        <target>Document deleted</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
