@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/agenda/{id}/item")
@@ -61,6 +62,7 @@ class AgendaItemController extends AbstractController
             $agenda->addAgendaItem($agendaItem);
             $this->entityManager->persist($agendaItem);
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Agenda item created', [], 'agenda'));
 
             return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
         }
@@ -95,6 +97,7 @@ class AgendaItemController extends AbstractController
             $this->denyAccessUnlessGranted('edit', $agendaItem);
 
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Agenda item updated', [], 'agenda'));
 
             return $this->redirectToRoute('agenda_item_edit', [
                 'id' => $agenda->getId(),
@@ -123,6 +126,7 @@ class AgendaItemController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$agendaItem->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $this->entityManager->remove($agendaItem);
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Agenda item deleted', [], 'agenda'));
         }
 
         return $this->redirectToRoute('agenda_show', [
