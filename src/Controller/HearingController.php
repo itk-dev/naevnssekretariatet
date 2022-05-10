@@ -69,7 +69,7 @@ class HearingController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
-            $this->addFlash('success', new TranslatableMessage('Hearing post updated', [], 'case'));
+            $this->addFlash('success', new TranslatableMessage('Hearing updated', [], 'case'));
 
             return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
         }

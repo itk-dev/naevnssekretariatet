@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
 use App\Entity\AgendaItem;
+use App\Entity\AgendaManuelItem;
 use App\Form\AgendaItemType;
 use App\Service\AgendaItemHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -62,7 +63,11 @@ class AgendaItemController extends AbstractController
             $agenda->addAgendaItem($agendaItem);
             $this->entityManager->persist($agendaItem);
             $this->entityManager->flush();
-            $this->addFlash('success', new TranslatableMessage('Agenda item created', [], 'agenda'));
+            $message = match (get_class($agendaItem)) {
+                AgendaManuelItem::class => new TranslatableMessage('Agenda manual item created', [], 'agenda'),
+                default => new TranslatableMessage('Agenda case item created', [], 'agenda'),
+            };
+            $this->addFlash('success', $message);
 
             return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
         }
@@ -97,7 +102,11 @@ class AgendaItemController extends AbstractController
             $this->denyAccessUnlessGranted('edit', $agendaItem);
 
             $this->entityManager->flush();
-            $this->addFlash('success', new TranslatableMessage('Agenda item updated', [], 'agenda'));
+            $message = match (get_class($agendaItem)) {
+                AgendaManuelItem::class => new TranslatableMessage('Agenda manual item updated', [], 'agenda'),
+                default => new TranslatableMessage('Agenda case item updated', [], 'agenda'),
+            };
+            $this->addFlash('success', $message);
 
             return $this->redirectToRoute('agenda_item_edit', [
                 'id' => $agenda->getId(),
@@ -126,7 +135,11 @@ class AgendaItemController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$agendaItem->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $this->entityManager->remove($agendaItem);
             $this->entityManager->flush();
-            $this->addFlash('success', new TranslatableMessage('Agenda item deleted', [], 'agenda'));
+            $message = match (get_class($agendaItem)) {
+                AgendaManuelItem::class => new TranslatableMessage('Agenda manual item deleted', [], 'agenda'),
+                default => new TranslatableMessage('Agenda case item deleted', [], 'agenda'),
+            };
+            $this->addFlash('success', $message);
         }
 
         return $this->redirectToRoute('agenda_show', [
