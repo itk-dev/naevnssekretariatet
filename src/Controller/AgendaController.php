@@ -30,16 +30,27 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Uid\UuidV4;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/agenda")
  */
 class AgendaController extends AbstractController
 {
-    public function __construct(private AgendaHelper $agendaHelper, private EntityManagerInterface $entityManager, private TranslatorInterface $translator)
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+    /**
+     * @var AgendaHelper
+     */
+    private $agendaHelper;
+
+    public function __construct(AgendaHelper $agendaHelper, EntityManagerInterface $entityManager)
     {
+        $this->agendaHelper = $agendaHelper;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -161,7 +172,7 @@ class AgendaController extends AbstractController
 
             $this->entityManager->persist($agenda);
             $this->entityManager->flush();
-            $this->addFlash('success', $this->translator->trans('Agenda created', [], 'agenda'));
+            $this->addFlash('success', new TranslatableMessage('Agenda created', [], 'agenda'));
 
             return $this->redirectToRoute('agenda_show', [
                 'agenda' => $agenda,
@@ -185,7 +196,7 @@ class AgendaController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$agenda->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $this->entityManager->remove($agenda);
             $this->entityManager->flush();
-            $this->addFlash('success', $this->translator->trans('Agenda deleted', [], 'agenda'));
+            $this->addFlash('success', new TranslatableMessage('Agenda deleted', [], 'agenda'));
         }
 
         return $this->redirectToRoute('agenda_index');
@@ -243,7 +254,7 @@ class AgendaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             $agenda = $form->getData();
             $this->entityManager->flush();
-            $this->addFlash('success', $this->translator->trans('Agenda updated', [], 'agenda'));
+            $this->addFlash('success', new TranslatableMessage('Agenda updated', [], 'agenda'));
 
             return $this->redirectToRoute('agenda_show', [
                 'id' => $agenda->getId(),
@@ -282,7 +293,7 @@ class AgendaController extends AbstractController
             }
 
             $this->entityManager->flush();
-            $this->addFlash('success', $this->translator->trans('Board members added to agenda', [], 'agenda'));
+            $this->addFlash('success', new TranslatableMessage('Board members added to agenda', [], 'agenda'));
 
             return $this->redirectToRoute('agenda_show', [
                 'agenda' => $agenda,
@@ -309,7 +320,7 @@ class AgendaController extends AbstractController
         if ($this->isCsrfTokenValid('remove'.$boardMember->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $agenda->removeBoardmember($boardMember);
             $this->entityManager->flush();
-            $this->addFlash('success', $this->translator->trans('Board member %name% removed from agenda', ['name' => $boardMember->getName()], 'agenda'));
+            $this->addFlash('success', new TranslatableMessage('Board member %name% removed from agenda', ['name' => $boardMember->getName()], 'agenda'));
         }
 
         return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
@@ -346,8 +357,8 @@ class AgendaController extends AbstractController
             $this->entityManager->persist($agendaProtocol);
             $this->entityManager->flush();
             $this->addFlash('success', $isNewAgendaProtocol
-                ? $this->translator->trans('Agenda protocol created', [], 'agenda')
-                : $this->translator->trans('Agenda protocol updated', [], 'agenda')
+                ? new TranslatableMessage('Agenda protocol created', [], 'agenda')
+                : new TranslatableMessage('Agenda protocol updated', [], 'agenda')
             );
 
             return $this->redirectToRoute('agenda_protocol', [
@@ -370,7 +381,7 @@ class AgendaController extends AbstractController
 
         $agenda->setIsPublished(true);
         $this->entityManager->flush();
-        $this->addFlash('success', $this->translator->trans('Agenda published', [], 'agenda'));
+        $this->addFlash('success', new TranslatableMessage('Agenda published', [], 'agenda'));
 
         return $this->redirectToRoute('agenda_broadcast', [
             'id' => $agenda->getId(),

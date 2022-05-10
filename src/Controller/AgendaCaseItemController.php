@@ -9,6 +9,7 @@ use App\Exception\DocumentDirectoryException;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CasePresentationType;
 use App\Repository\DocumentRepository;
+use App\Service\AgendaHelper;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -16,15 +17,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/agenda/{id}/item/{agenda_item_id}")
  */
 class AgendaCaseItemController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager, private TranslatorInterface $translator)
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+    /**
+     * @var AgendaHelper
+     */
+    private $agendaHelper;
+
+    public function __construct(AgendaHelper $agendaHelper, EntityManagerInterface $entityManager)
     {
+        $this->agendaHelper = $agendaHelper;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -117,7 +129,7 @@ class AgendaCaseItemController extends AbstractController
             }
 
             $this->entityManager->flush();
-            $this->addFlash('success', $this->translator->trans('Documents added to agenda', [], 'agenda'));
+            $this->addFlash('success', new TranslatableMessage('Documents added to agenda', [], 'agenda'));
         }
 
         return $this->redirectToRoute('agenda_case_item_document', [
@@ -140,7 +152,7 @@ class AgendaCaseItemController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $agendaItem->removeDocument($document);
             $this->entityManager->flush();
-            $this->addFlash('success', $this->translator->trans('Document removed from agenda', [], 'agenda'));
+            $this->addFlash('success', new TranslatableMessage('Document removed from agenda', [], 'agenda'));
         }
 
         return $this->redirectToRoute('agenda_case_item_document', [
