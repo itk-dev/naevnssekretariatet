@@ -14,20 +14,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/case/{id}/notes")
  */
 class NoteController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager, private TranslatorInterface $translator)
     {
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -60,6 +55,7 @@ class NoteController extends AbstractController
             $note->setCreatedBy($user);
             $this->entityManager->persist($note);
             $this->entityManager->flush();
+            $this->addFlash('success', $this->translator->trans('Note created', [], 'notes'));
 
             return $this->redirectToRoute('note_index', ['id' => $case->getId()]);
         }
@@ -92,6 +88,7 @@ class NoteController extends AbstractController
             $note->setCreatedBy($user);
             $this->entityManager->persist($note);
             $this->entityManager->flush();
+            $this->addFlash('success', $this->translator->trans('Note created', [], 'notes'));
 
             return $this->redirectToRoute('note_index', ['id' => $case->getId()]);
         }
@@ -117,6 +114,7 @@ class NoteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $note->setCaseEntity($case);
             $this->entityManager->flush();
+            $this->addFlash('success', $this->translator->trans('Note updated', [], 'notes'));
 
             return $this->redirectToRoute('note_index', [
                 'id' => $case->getId(),
@@ -144,6 +142,7 @@ class NoteController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$note->getId(), $request->request->get('_token'))) {
             $this->entityManager->remove($note);
             $this->entityManager->flush();
+            $this->addFlash('success', $this->translator->trans('Note deleted', [], 'notes'));
         }
 
         return $this->redirectToRoute('note_index', ['id' => $case->getId()]);
