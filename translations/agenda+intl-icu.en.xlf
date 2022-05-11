@@ -557,9 +557,9 @@
         <source>Board members added to agenda</source>
         <target>Board members added to agenda</target>
       </trans-unit>
-      <trans-unit id="Zg9G8Cr" resname="Board member %name% removed from agenda">
-        <source>Board member %name% removed from agenda</source>
-        <target>Board member %name% removed from agenda</target>
+      <trans-unit id="rAElSJ1" resname="Board member {name} removed from agenda">
+        <source>Board member {name} removed from agenda</source>
+        <target>Board member {name} removed from agenda</target>
       </trans-unit>
       <trans-unit id="u5__Ke7" resname="Agenda protocol created">
         <source>Agenda protocol created</source>

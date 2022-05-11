@@ -321,6 +321,7 @@ class AgendaController extends AbstractController
             $agenda->removeBoardmember($boardMember);
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Board member %name% removed from agenda', ['name' => $boardMember->getName()], 'agenda'));
+            $this->addFlash('success', new TranslatableMessage('Board member {name} removed from agenda', ['name' => $boardMember->getName()], 'agenda'));
         }
 
         return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
