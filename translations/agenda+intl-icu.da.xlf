@@ -433,10 +433,6 @@
         <source>Upload and remove documents</source>
         <target>Opret og slet dokumenter</target>
       </trans-unit>
-      <trans-unit id="niUK_XT" resname="Download document">
-        <source>Download document</source>
-        <target>Download dokument</target>
-      </trans-unit>
       <trans-unit id="UYfJ2iC" resname="Here you can see the decision proposal">
         <source>Here you can see the decision proposal</source>
         <target state="translated">Her kan du se sagens afgørelsesforslag</target>
@@ -540,6 +536,10 @@
       <trans-unit id="15d1BVt" resname="Mark all">
         <source>Mark all</source>
         <target state="translated">Marker alle</target>
+      </trans-unit>
+      <trans-unit id="tbjLEaA" resname="View document">
+        <source>View document</source>
+        <target state="translated">Vis dokument</target>
       </trans-unit>
     </body>
   </file>

@@ -441,10 +441,6 @@
         <source>Upload and remove documents</source>
         <target>Upload and remove documents</target>
       </trans-unit>
-      <trans-unit id="niUK_XT" resname="Download document">
-        <source>Download document</source>
-        <target>Download document</target>
-      </trans-unit>
       <trans-unit id="DhTdmrK" resname="Show case">
         <source>Show case</source>
         <target>Show case</target>
