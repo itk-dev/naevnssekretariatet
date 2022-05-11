@@ -184,6 +184,7 @@ class HearingController extends AbstractController
             $document = new Document();
             $document->setFilename($updatedFileName);
             $document->setDocumentName($hearingPost->getTitle());
+            $document->setPath($documentUploader->getFilepathFromProjectDirectory($updatedFileName));
             $document->setHearingPost($hearingPost);
             $hearingPost->setDocument($document);
 

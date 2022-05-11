@@ -78,6 +78,7 @@ class DecisionController extends AbstractController
 
             // Set filename, document name, creator and case
             $document->setFilename($newFilename);
+            $document->setPath($documentUploader->getFilepathFromProjectDirectory($newFilename));
 
             /** @var User $uploader */
             $uploader = $this->getUser();

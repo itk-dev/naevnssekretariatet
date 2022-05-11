@@ -75,6 +75,7 @@ class AgendaInspectionController extends AbstractController
 
             // Create document
             $document = new Document();
+            $document->setPath($documentUploader->getFilepathFromProjectDirectory($updatedFileName));
             $document->setFilename($updatedFileName);
             $document->setDocumentName($inspection->getTitle());
 

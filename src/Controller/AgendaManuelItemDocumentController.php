@@ -91,6 +91,7 @@ class AgendaManuelItemDocumentController extends AbstractController
 
                 // Set filename, document name and creator
                 $document->setFilename($newFilename);
+                $document->setPath($this->documentUploader->getFilepathFromProjectDirectory($newFilename));
 
                 /** @var User $uploader */
                 $uploader = $this->getUser();

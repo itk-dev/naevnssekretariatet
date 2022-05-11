@@ -100,6 +100,7 @@ class AgendaBroadcastController extends AbstractController
             $document = new Document();
             $document->setFilename($updatedFileName);
             $document->setDocumentName($agendaBroadcast->getTitle());
+            $document->setPath($documentUploader->getFilepathFromProjectDirectory($updatedFileName));
 
             /** @var User $user */
             $user = $this->getUser();
