@@ -91,7 +91,7 @@ class DocumentController extends AbstractController
 
                 // Set filename, document name, creator and case
                 $document->setFilename($newFilename);
-                $document->setPath($this->documentUploader->getUploadDocumentDirectory().'/'.$newFilename);
+                $document->setPath($this->documentUploader->getFilepathFromProjectDirectory($newFilename));
 
                 /** @var User $uploader */
                 $uploader = $this->getUser();

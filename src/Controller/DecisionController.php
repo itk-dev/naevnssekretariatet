@@ -63,8 +63,6 @@ class DecisionController extends AbstractController
 
         $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
 
-//        $documentUploader->specifyDirectory('/case_documents/');
-
         $decision = new Decision();
 
         $form = $this->createForm(DecisionType::class, $decision, [

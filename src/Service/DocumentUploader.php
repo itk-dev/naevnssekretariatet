@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Entity\Document;
-use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -107,6 +106,11 @@ class DocumentUploader
         return $this->getFullDirectory().'/'.$filename;
     }
 
+    public function getFilepathFromProjectDirectory(string $filename): string
+    {
+        return $this->uploadDocumentDirectory.'/'.$filename;
+    }
+
     /**
      * Move a file into an upload folder.
      *
@@ -137,16 +141,6 @@ class DocumentUploader
         $this->filesystem->rename($filePath, $targetPath, true);
 
         return basename($targetPath);
-    }
-
-    public function getUploadDocumentDirectory(): string
-    {
-        return $this->uploadDocumentDirectory;
-    }
-
-    public function getProjectDirectory(): string
-    {
-        return $this->projectDirectory;
     }
 
     public function getFullDirectory(): string

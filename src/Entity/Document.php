@@ -64,6 +64,10 @@ class Document implements LoggableEntityInterface
     private $hearingPost;
 
     /**
+     * Path to document from project directory.
+     * @Example:
+     *  upload/documents/TVIST1-Documentation.pdf
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $path;
