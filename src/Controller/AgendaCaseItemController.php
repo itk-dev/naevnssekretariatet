@@ -169,7 +169,6 @@ class AgendaCaseItemController extends AbstractController
     {
         $this->denyAccessUnlessGranted('view', $agendaItem);
 
-        $uploader->specifyDirectory('/case_documents/');
         $response = $uploader->handleDownload($document);
 
         return $response;

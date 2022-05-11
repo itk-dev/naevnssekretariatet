@@ -94,7 +94,6 @@ class AgendaBroadcastController extends AbstractController
             $fileName = $mailTemplateHelper->renderMailTemplate($agendaBroadcast->getTemplate(), $agenda);
 
             // Move file
-            $documentUploader->specifyDirectory('/case_documents/');
             $updatedFileName = $documentUploader->uploadFile($fileName);
 
             // Create document
@@ -151,7 +150,6 @@ class AgendaBroadcastController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
 
-        $uploader->specifyDirectory('/case_documents/');
         $response = $uploader->handleDownload($document, false);
 
         return $response;

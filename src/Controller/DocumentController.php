@@ -71,8 +71,6 @@ class DocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        $this->documentUploader->specifyDirectory('/case_documents/');
-
         // Create new document and its form
         $document = new Document();
         $form = $this->createForm(DocumentType::class, $document);
@@ -93,6 +91,7 @@ class DocumentController extends AbstractController
 
                 // Set filename, document name, creator and case
                 $document->setFilename($newFilename);
+                $document->setPath($this->documentUploader->getUploadDocumentDirectory().'/'.$newFilename);
 
                 /** @var User $uploader */
                 $uploader = $this->getUser();
@@ -205,7 +204,6 @@ class DocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        $uploader->specifyDirectory('/case_documents/');
         $response = $uploader->handleDownload($document);
 
         return $response;
@@ -220,7 +218,6 @@ class DocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        $uploader->specifyDirectory('/case_documents/');
         $response = $uploader->handleDownload($document, false);
 
         return $response;

@@ -68,8 +68,6 @@ class AgendaManuelItemDocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $agendaItem);
 
-        $this->documentUploader->specifyDirectory('/agenda_item_documents/');
-
         // Create new document and its form
         $document = new Document();
         $form = $this->createForm(DocumentType::class, $document);
@@ -128,7 +126,6 @@ class AgendaManuelItemDocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('view', $agendaItem);
 
-        $uploader->specifyDirectory('/agenda_item_documents/');
         $response = $uploader->handleDownload($document);
 
         return $response;

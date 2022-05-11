@@ -178,7 +178,6 @@ class HearingController extends AbstractController
             $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
 
             // Move file
-            $documentUploader->specifyDirectory('/case_documents/');
             $updatedFileName = $documentUploader->uploadFile($fileName);
 
             // Create document
@@ -292,7 +291,6 @@ class HearingController extends AbstractController
 
             // For now we just overwrite completely
             $currentDocumentFileName = $hearingPost->getDocument()->getFilename();
-            $documentUploader->specifyDirectory('/case_documents/');
             $documentUploader->replaceFile($fileName, $currentDocumentFileName);
 
             // Update Document

@@ -21,27 +21,20 @@ class DocumentUploader
      * @var SluggerInterface
      */
     private $slugger;
-    private $baseDocumentDirectory;
-    private $documentDirectory = '';
+    private $uploadDocumentDirectory;
 
     /**
      * @var Filesystem
      */
     private $filesystem;
+    private $projectDirectory;
 
-    public function __construct(SluggerInterface $slugger, string $documentDirectory, Filesystem $filesystem)
+    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem)
     {
-        $this->baseDocumentDirectory = rtrim($documentDirectory, '/');
+        $this->projectDirectory = $projectDirectory;
+        $this->uploadDocumentDirectory = $uploadDocumentDirectory;
         $this->filesystem = $filesystem;
         $this->slugger = $slugger;
-    }
-
-    /**
-     * @throws DocumentDirectoryException
-     */
-    public function specifyDirectory(string $directory)
-    {
-        $this->documentDirectory = trim($directory, '/');
     }
 
     /**
@@ -61,7 +54,7 @@ class DocumentUploader
 
         try {
             $file->move(
-                $this->getDirectory(),
+                $this->getFullDirectory(),
                 $newFilename
             );
         } catch (FileException $e) {
@@ -69,11 +62,6 @@ class DocumentUploader
         }
 
         return $newFilename;
-    }
-
-    public function getDirectory(): string
-    {
-        return $this->baseDocumentDirectory.'/'.$this->documentDirectory;
     }
 
     /**
@@ -116,7 +104,7 @@ class DocumentUploader
 
     public function getFilepath(string $filename): string
     {
-        return $this->baseDocumentDirectory.'/'.$this->documentDirectory.'/'.$filename;
+        return $this->getFullDirectory().'/'.$filename;
     }
 
     /**
@@ -132,7 +120,7 @@ class DocumentUploader
         $safeFilename = $this->slugger->slug($filename);
         $newFilename = $safeFilename.'-'.uniqid().'.'.$extension;
 
-        $targetPath = $this->getDirectory().'/'.$newFilename;
+        $targetPath = $this->getFullDirectory().'/'.$newFilename;
         $this->filesystem->rename($filePath, $targetPath);
 
         return basename($targetPath);
@@ -145,9 +133,24 @@ class DocumentUploader
      */
     public function replaceFile(string $filePath, string $filename)
     {
-        $targetPath = $this->getDirectory().'/'.pathinfo($filename, PATHINFO_BASENAME);
+        $targetPath = $this->getFullDirectory().'/'.pathinfo($filename, PATHINFO_BASENAME);
         $this->filesystem->rename($filePath, $targetPath, true);
 
         return basename($targetPath);
+    }
+
+    public function getUploadDocumentDirectory(): string
+    {
+        return $this->uploadDocumentDirectory;
+    }
+
+    public function getProjectDirectory(): string
+    {
+        return $this->projectDirectory;
+    }
+
+    public function getFullDirectory(): string
+    {
+        return $this->projectDirectory.'/'.$this->uploadDocumentDirectory;
     }
 }

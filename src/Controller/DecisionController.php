@@ -63,7 +63,7 @@ class DecisionController extends AbstractController
 
         $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
 
-        $documentUploader->specifyDirectory('/case_documents/');
+//        $documentUploader->specifyDirectory('/case_documents/');
 
         $decision = new Decision();
 

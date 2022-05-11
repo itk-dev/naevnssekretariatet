@@ -71,7 +71,6 @@ class AgendaInspectionController extends AbstractController
             $fileName = $mailTemplateHelper->renderMailTemplate($inspection->getTemplate(), $agendaItem);
 
             // Move file
-            $documentUploader->specifyDirectory('/case_documents/');
             $updatedFileName = $documentUploader->uploadFile($fileName);
 
             // Create document
@@ -143,7 +142,6 @@ class AgendaInspectionController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
 
-        $uploader->specifyDirectory('/case_documents/');
         $response = $uploader->handleDownload($document, false);
 
         return $response;
