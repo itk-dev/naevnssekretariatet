@@ -5,12 +5,12 @@ namespace App\Service;
 use App\Entity\Document;
 use App\Exception\FileMovingException;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Mime\MimeTypeGuesserInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DocumentUploader
@@ -27,13 +27,15 @@ class DocumentUploader
      */
     private $filesystem;
     private $projectDirectory;
+    private MimeTypeGuesserInterface $mimeTypeGuesser;
 
-    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem)
+    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser)
     {
         $this->projectDirectory = $projectDirectory;
         $this->uploadDocumentDirectory = $uploadDocumentDirectory;
         $this->filesystem = $filesystem;
         $this->slugger = $slugger;
+        $this->mimeTypeGuesser = $mimeTypeGuesser;
     }
 
     /**
@@ -64,20 +66,20 @@ class DocumentUploader
     }
 
     /**
-     * Downloads document.
+     * Handles view document.
      */
-    public function handleDownload(Document $document, bool $forceDownload = true): Response
+    public function handleViewDocument(Document $document, bool $forceDownload = false): Response
     {
         $filepath = $this->getFilepath($document->getFilename());
 
-        if ($forceDownload) {
-            // @see https://symfonycasts.com/screencast/symfony-uploads/file-streaming
-            $response = new StreamedResponse(function () use ($filepath) {
-                $outputStream = fopen('php://output', 'wb');
-                $fileStream = fopen($filepath, 'r');
-                stream_copy_to_stream($fileStream, $outputStream);
-            });
+        // @see https://symfonycasts.com/screencast/symfony-uploads/file-streaming
+        $response = new StreamedResponse(function () use ($filepath) {
+            $outputStream = fopen('php://output', 'wb');
+            $fileStream = fopen($filepath, 'r');
+            stream_copy_to_stream($fileStream, $outputStream);
+        });
 
+        if ($forceDownload) {
             $disposition = HeaderUtils::makeDisposition(
                 HeaderUtils::DISPOSITION_ATTACHMENT,
                 $document->getFilename()
@@ -85,7 +87,7 @@ class DocumentUploader
 
             $response->headers->set('Content-Disposition', $disposition);
         } else {
-            $response = new BinaryFileResponse($filepath);
+            $response->headers->set('Content-Type', $this->mimeTypeGuesser->guessMimeType($this->getFilepath($document->getFilename())));
         }
 
         return $response;

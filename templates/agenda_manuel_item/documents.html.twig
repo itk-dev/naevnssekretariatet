@@ -46,8 +46,8 @@
                     <td>{{ document.uploadedBy|e }}</td>
                     <td>{{ document.uploadedAt|date(format_date) }}</td>
                     <td class="text-right">
-                        <!-- Download button -->
-                        <a href="{{ url("agenda_manuel_item_document_download", {id: agenda.id, agenda_item_id: agenda_item.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Download document{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Download document{% endtrans %} </span></a>
+                        <!-- View button -->
+                        <a href="{{ url("agenda_manuel_item_document_view", {id: agenda.id, agenda_item_id: agenda_item.id, document_id: document.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}View document{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}View document{% endtrans %} </span></a>
 
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                             <!-- Delete button -->

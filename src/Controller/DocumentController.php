@@ -194,23 +194,9 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/download/{document_id}", name="document_download", methods={"GET", "POST"})
+     * @Route("/view/{document_id}", name="document_view", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
-     *
-     * @throws DocumentDirectoryException
-     */
-    public function download(CaseEntity $case, Document $document, DocumentUploader $uploader): Response
-    {
-        $this->denyAccessUnlessGranted('edit', $case);
-
-        $response = $uploader->handleDownload($document);
-
-        return $response;
-    }
-
-    /**
-     * @Route("/view/{document}", name="document_view", methods={"GET"})
      *
      * @throws DocumentDirectoryException
      */
@@ -218,7 +204,7 @@ class DocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        $response = $uploader->handleDownload($document, false);
+        $response = $uploader->handleViewDocument($document);
 
         return $response;
     }

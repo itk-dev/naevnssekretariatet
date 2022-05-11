@@ -117,17 +117,17 @@ class AgendaManuelItemDocumentController extends AbstractController
     }
 
     /**
-     * @Route("/download/{document_id}", name="agenda_manuel_item_document_download", methods={"GET", "POST"})
+     * @Route("/view/{document_id}", name="agenda_manuel_item_document_view", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      *
      * @throws DocumentDirectoryException
      */
-    public function download(AgendaManuelItem $agendaItem, Document $document, DocumentUploader $uploader): Response
+    public function view(AgendaManuelItem $agendaItem, Document $document, DocumentUploader $uploader): Response
     {
         $this->denyAccessUnlessGranted('view', $agendaItem);
 
-        $response = $uploader->handleDownload($document);
+        $response = $uploader->handleViewDocument($document);
 
         return $response;
     }

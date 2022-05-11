@@ -143,7 +143,7 @@ class AgendaInspectionController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
 
-        $response = $uploader->handleDownload($document, false);
+        $response = $uploader->handleViewDocument($document);
 
         return $response;
     }
