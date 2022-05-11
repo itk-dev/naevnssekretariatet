@@ -65,7 +65,8 @@ class Document implements LoggableEntityInterface
 
     /**
      * Path to document from project directory.
-     * @Example:
+     *
+     * @example:
      *  upload/documents/TVIST1-Documentation.pdf
      *
      * @ORM\Column(type="string", length=255)
