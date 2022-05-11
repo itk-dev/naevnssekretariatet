@@ -1441,9 +1441,9 @@
         <source>Hearing deadline updated</source>
         <target state="translated">Høringstidsfrist opdateret</target>
       </trans-unit>
-      <trans-unit id="3E7wYyf" resname="Case worker assigned to case">
-        <source>Case worker assigned to case</source>
-        <target state="translated">Sagsbehandler føjet til sag</target>
+      <trans-unit id="NoVZ1FT" resname="Case worker {name} assigned to case {case_number}">
+        <source>Case worker {name} assigned to case {case_number}</source>
+        <target state="translated">Sag {case_number} tildelt sagsbehandler {name}</target>
       </trans-unit>
       <trans-unit id="nZQ8qxy" resname="Case moved">
         <source>Case moved</source>

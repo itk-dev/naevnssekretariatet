@@ -1445,9 +1445,9 @@
         <source>Hearing deadline updated</source>
         <target>Hearing deadline updated</target>
       </trans-unit>
-      <trans-unit id="3E7wYyf" resname="Case worker assigned to case">
-        <source>Case worker assigned to case</source>
-        <target>Case worker assigned to case</target>
+      <trans-unit id="NoVZ1FT" resname="Case worker {name} assigned to case {case_number}">
+        <source>Case worker {name} assigned to case {case_number}</source>
+        <target>Case worker {name} assigned to case {case_number}</target>
       </trans-unit>
       <trans-unit id="nZQ8qxy" resname="Case moved">
         <source>Case moved</source>

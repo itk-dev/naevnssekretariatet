@@ -320,7 +320,6 @@ class AgendaController extends AbstractController
         if ($this->isCsrfTokenValid('remove'.$boardMember->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $agenda->removeBoardmember($boardMember);
             $this->entityManager->flush();
-            $this->addFlash('success', new TranslatableMessage('Board member %name% removed from agenda', ['name' => $boardMember->getName()], 'agenda'));
             $this->addFlash('success', new TranslatableMessage('Board member {name} removed from agenda', ['name' => $boardMember->getName()], 'agenda'));
         }
 
