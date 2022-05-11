@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/case/{id}/documents")
@@ -106,6 +107,7 @@ class DocumentController extends AbstractController
                 $this->entityManager->persist($relation);
             }
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('{count, plural, =1 {One document created} other {# documents created}}', ['count' => count($files)], 'documents'));
 
             return $this->redirectToRoute('document_index', ['id' => $case->getId()]);
         }
@@ -130,6 +132,7 @@ class DocumentController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Document updated', [], 'documents'));
 
             return $this->redirectToRoute('document_index', ['id' => $case->getId()]);
         }
@@ -159,6 +162,7 @@ class DocumentController extends AbstractController
             $relation->setSoftDeletedAt($dateTime);
 
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Document deleted', [], 'documents'));
         }
 
         return $this->redirectToRoute('document_index', ['id' => $case->getId()]);

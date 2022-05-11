@@ -23,6 +23,10 @@
                 {% endblock %}
             {% endblock %}
             <div class="col ml-sm-auto ml-md-5 px-md-4">
+                {% block flash_messages %}
+                    {% include 'common/flash_messages.html.twig' %}
+                {% endblock %}
+
                 <header class="pt-3">
                     {% block header %}{% endblock %}
                 </header>

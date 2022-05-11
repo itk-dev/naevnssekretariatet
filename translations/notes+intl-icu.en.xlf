@@ -81,6 +81,18 @@
         <source>Create note for case</source>
         <target>Create note for case</target>
       </trans-unit>
+      <trans-unit id="1BwSn7j" resname="Note created">
+        <source>Note created</source>
+        <target>Note created</target>
+      </trans-unit>
+      <trans-unit id="uYz8BkN" resname="Note updated">
+        <source>Note updated</source>
+        <target>Note updated</target>
+      </trans-unit>
+      <trans-unit id="gffRiI1" resname="Note deleted">
+        <source>Note deleted</source>
+        <target>Note deleted</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

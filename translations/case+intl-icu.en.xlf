@@ -1377,6 +1377,98 @@
         <source>Open case in browser</source>
         <target>Open case in browser</target>
       </trans-unit>
+      <trans-unit id="RiZ4M6r" resname="Hearing updated">
+        <source>Hearing updated</source>
+        <target>Hearing updated</target>
+      </trans-unit>
+      <trans-unit id="8Kdzedm" resname="Hearing started">
+        <source>Hearing started</source>
+        <target>Hearing started</target>
+      </trans-unit>
+      <trans-unit id="RtZwi_8" resname="Hearing post response created">
+        <source>Hearing post response created</source>
+        <target>Hearing post response created</target>
+      </trans-unit>
+      <trans-unit id="gsLJh.e" resname="Hearing post request created">
+        <source>Hearing post request created</source>
+        <target>Hearing post request created</target>
+      </trans-unit>
+      <trans-unit id="eoStsl7" resname="Hearing post response updated">
+        <source>Hearing post response updated</source>
+        <target>Hearing post response updated</target>
+      </trans-unit>
+      <trans-unit id="KSVxeYT" resname="Hearing post request updated">
+        <source>Hearing post request updated</source>
+        <target>Hearing post request updated</target>
+      </trans-unit>
+      <trans-unit id="VVbga2K" resname="Hearing post approved">
+        <source>Hearing post approved</source>
+        <target>Hearing post approved</target>
+      </trans-unit>
+      <trans-unit id="EnAARB7" resname="Hearing post forwarded">
+        <source>Hearing post forwarded</source>
+        <target>Hearing post forwarded</target>
+      </trans-unit>
+      <trans-unit id="6KOlV2F" resname="Hearing finished">
+        <source>Hearing finished</source>
+        <target>Hearing finished</target>
+      </trans-unit>
+      <trans-unit id="dEdkE5O" resname="Hearing resumed">
+        <source>Hearing resumed</source>
+        <target>Hearing resumed</target>
+      </trans-unit>
+      <trans-unit id="yTngtCU" resname="Case updated">
+        <source>Case updated</source>
+        <target>Case updated</target>
+      </trans-unit>
+      <trans-unit id="1WH.We7" resname="Case status updated">
+        <source>Case status updated</source>
+        <target>Case status updated</target>
+      </trans-unit>
+      <trans-unit id="PH_bPQc" resname="Case agenda status updated">
+        <source>Case agenda status updated</source>
+        <target>Case agenda status updated</target>
+      </trans-unit>
+      <trans-unit id="1XPF6Ba" resname="Case presentation updated">
+        <source>Case presentation updated</source>
+        <target>Case presentation updated</target>
+      </trans-unit>
+      <trans-unit id="KLj0dxk" resname="Case decision proposal updated">
+        <source>Case decision proposal updated</source>
+        <target>Case decision proposal updated</target>
+      </trans-unit>
+      <trans-unit id="oe6AUhh" resname="Process deadline updated">
+        <source>Process deadline updated</source>
+        <target>Process deadline updated</target>
+      </trans-unit>
+      <trans-unit id="ZfnwpWE" resname="Hearing deadline updated">
+        <source>Hearing deadline updated</source>
+        <target>Hearing deadline updated</target>
+      </trans-unit>
+      <trans-unit id="NoVZ1FT" resname="Case worker {name} assigned to case {case_number}">
+        <source>Case worker {name} assigned to case {case_number}</source>
+        <target>Case worker {name} assigned to case {case_number}</target>
+      </trans-unit>
+      <trans-unit id="nZQ8qxy" resname="Case moved">
+        <source>Case moved</source>
+        <target>Case moved</target>
+      </trans-unit>
+      <trans-unit id="w9EXLs0" resname="Case deleted">
+        <source>Case deleted</source>
+        <target>Case deleted</target>
+      </trans-unit>
+      <trans-unit id="CACwjRi" resname="Reminder created">
+        <source>Reminder created</source>
+        <target>Reminder created</target>
+      </trans-unit>
+      <trans-unit id="Hs_ig8B" resname="Reminder completed">
+        <source>Reminder completed</source>
+        <target>Reminder completed</target>
+      </trans-unit>
+      <trans-unit id="hxJPdUw" resname="Reminder updated">
+        <source>Reminder updated</source>
+        <target>Reminder updated</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

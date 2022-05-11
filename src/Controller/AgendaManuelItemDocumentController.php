@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/agenda/{id}/item/{agenda_item_id}/documents")
@@ -103,6 +104,7 @@ class AgendaManuelItemDocumentController extends AbstractController
                 $this->entityManager->persist($document);
             }
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('{count, plural, =1 {One document uploaded} other {# documents uploaded}}', ['count' => count($files)], 'agenda'));
 
             return $this->redirectToRoute('agenda_manuel_item_documents', [
                 'id' => $agenda->getId(),
@@ -149,6 +151,7 @@ class AgendaManuelItemDocumentController extends AbstractController
             $agendaItem->removeDocument($document);
             $this->entityManager->remove($document);
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Document removed', [], 'agenda'));
         }
 
         return $this->redirectToRoute('agenda_manuel_item_documents', [
