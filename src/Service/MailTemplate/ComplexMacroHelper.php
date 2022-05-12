@@ -154,6 +154,8 @@ class ComplexMacroHelper
                 $row
                     ->addCell($value['cell']['width'] ?? null, $value['cell']['style'] ?? null)
                     ->addTextRun($value['text-style'] ?? [])->addText($value['text']);
+            } elseif (null === $value) {
+                $row->addCell()->addText('');
             } else {
                 throw new \RuntimeException(sprintf('Cannot handle table cell value with type %s: %s', gettype($value), json_encode($value)));
             }
