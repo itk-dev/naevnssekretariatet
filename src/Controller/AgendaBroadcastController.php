@@ -6,7 +6,6 @@ use App\Entity\Agenda;
 use App\Entity\AgendaBroadcast;
 use App\Entity\DigitalPost;
 use App\Entity\Document;
-use App\Entity\User;
 use App\Exception\CprException;
 use App\Exception\DocumentDirectoryException;
 use App\Form\AgendaBroadcastType;

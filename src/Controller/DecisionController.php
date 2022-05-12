@@ -7,7 +7,6 @@ use App\Entity\CaseEntity;
 use App\Entity\Decision;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostAttachment;
-use App\Entity\User;
 use App\Form\DecisionType;
 use App\Repository\CasePartyRelationRepository;
 use App\Repository\DecisionRepository;

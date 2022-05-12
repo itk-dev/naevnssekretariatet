@@ -7,7 +7,6 @@ use App\Entity\AgendaCaseItem;
 use App\Entity\DigitalPost;
 use App\Entity\Document;
 use App\Entity\InspectionLetter;
-use App\Entity\User;
 use App\Form\InspectionLetterType;
 use App\Repository\DigitalPostRepository;
 use App\Service\CprHelper;

@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaManuelItem;
 use App\Entity\Document;
-use App\Entity\User;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use App\Form\DocumentType;
