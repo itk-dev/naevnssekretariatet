@@ -79,28 +79,19 @@ class AgendaManuelItemDocumentController extends AbstractController
             // Extract filename and handle it
             // Users will only see document name, not filename
             $documentName = $document->getDocumentName();
+            $documentType = $document->getType();
             /** @var UploadedFile[] $files */
             $files = $form->get('files')->getData();
 
             foreach ($files as $file) {
-                $document = (new Document())
-                    ->setDocumentName($documentName)
-                    ->setOriginalFileName($file->getClientOriginalName())
-                    ->setType($document->getType())
-                ;
-                $newFilename = $this->documentUploader->upload($file);
+                /** @var User $user */
+                $user = $this->getUser();
 
-                // Set filename, document name and creator
-                $document->setFilename($newFilename);
-                $document->setPath($this->documentUploader->getFilepathFromProjectDirectory($newFilename));
+                $newDocument = $this->documentUploader->createDocumentFromFile($file, $user, $documentName, $documentType);
 
-                /** @var User $uploader */
-                $uploader = $this->getUser();
-                $document->setUploadedBy($uploader);
+                $agendaItem->addDocument($newDocument);
 
-                $agendaItem->addDocument($document);
-
-                $this->entityManager->persist($document);
+                $this->entityManager->persist($newDocument);
             }
             $this->entityManager->flush();
 

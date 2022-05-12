@@ -7,7 +7,6 @@ use App\Entity\CaseEntity;
 use App\Entity\Decision;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostAttachment;
-use App\Entity\Document;
 use App\Entity\User;
 use App\Form\DecisionType;
 use App\Repository\CasePartyRelationRepository;
@@ -72,31 +71,22 @@ class DecisionController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $document = new Document();
             $file = $form->get('filename')->getData();
-            $newFilename = $documentUploader->upload($file);
 
-            // Set filename, document name, creator and case
-            $document->setFilename($newFilename);
-            $document->setPath($documentUploader->getFilepathFromProjectDirectory($newFilename));
-            $document->setOriginalFileName($file->getClientOriginalName());
+            /** @var User $user */
+            $user = $this->getUser();
 
-            /** @var User $uploader */
-            $uploader = $this->getUser();
-            $document->setUploadedBy($uploader);
-
-            $document->setDocumentName($decision->getTitle());
-            $document->setType('Decision');
+            $newDocument = $documentUploader->createDocumentFromFile($file, $user, $decision->getTitle(), 'Decision');
 
             $relation = new CaseDocumentRelation();
             $relation->setCase($case);
-            $relation->setDocument($document);
+            $relation->setDocument($newDocument);
 
-            $decision->setDocument($document);
+            $decision->setDocument($newDocument);
             $decision->setCaseEntity($case);
 
             $this->entityManager->persist($decision);
-            $this->entityManager->persist($document);
+            $this->entityManager->persist($newDocument);
             $this->entityManager->persist($relation);
 
             //Create DigitalPost attachments without linking them to a specific DigitalPost
@@ -122,7 +112,7 @@ class DecisionController extends AbstractController
                 ;
             }
 
-            $digitalPostHelper->createDigitalPost($document, $decision->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+            $digitalPostHelper->createDigitalPost($newDocument, $decision->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
 
             $this->entityManager->flush();
 

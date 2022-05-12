@@ -72,20 +72,15 @@ class AgendaInspectionController extends AbstractController
             // Move file
             $updatedFileName = $documentUploader->uploadFile($fileName);
 
-            // Create document
-            $document = new Document();
-            $document->setPath($documentUploader->getFilepathFromProjectDirectory($updatedFileName));
-            $document->setFilename($updatedFileName);
-            $document->setDocumentName($inspection->getTitle());
-
             /** @var User $user */
             $user = $this->getUser();
-            $document->setUploadedBy($user);
-            $document->setType('Agenda inspection');
 
-            $entityManager->persist($document);
+            // Create document
+            $newDocument = $documentUploader->createDocumentFromPath($updatedFileName, $user, $inspection->getTitle(), 'Agenda inspection');
 
-            $inspection->setDocument($document);
+            $entityManager->persist($newDocument);
+
+            $inspection->setDocument($newDocument);
 
             // Create recipients
             $digitalPostRecipients = [];
@@ -103,7 +98,7 @@ class AgendaInspectionController extends AbstractController
 
             $entityManager->persist($inspection);
 
-            $digitalPostHelper->createDigitalPost($document, $inspection->getTitle(), get_class($agendaItem), $agendaItem->getId(), [], $digitalPostRecipients);
+            $digitalPostHelper->createDigitalPost($newDocument, $inspection->getTitle(), get_class($agendaItem), $agendaItem->getId(), [], $digitalPostRecipients);
 
             return $this->redirectToRoute('agenda_case_item_inspection', [
                 'id' => $agenda->getId(),

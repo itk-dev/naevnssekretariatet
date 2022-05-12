@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Document;
+use App\Entity\User;
 use App\Exception\FileMovingException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -36,6 +37,41 @@ class DocumentUploader
         $this->filesystem = $filesystem;
         $this->slugger = $slugger;
         $this->mimeTypeGuesser = $mimeTypeGuesser;
+    }
+
+    /**
+     * Creates and returns new document from filename.
+     */
+    public function createDocumentFromPath(string $fileName, User $user, string $documentName, string $documentType): Document
+    {
+        $document = new Document();
+
+        $document->setFilename($fileName);
+        $document->setDocumentName($documentName);
+        $document->setPath($this->getFilepathFromProjectDirectory($fileName));
+        $document->setUploadedBy($user);
+        $document->setType($documentType);
+
+        return $document;
+    }
+
+    /**
+     * Creates, uploads and returns new document from a file.
+     */
+    public function createDocumentFromFile(UploadedFile $file, User $user, string $documentName, string $documentType): Document
+    {
+        $document = new Document();
+
+        $document->setDocumentName($documentName);
+        $document->setType($documentType);
+        $document->setOriginalFileName($file->getClientOriginalName());
+        $document->setUploadedBy($user);
+
+        $newFileName = $this->upload($file);
+        $document->setFilename($newFileName);
+        $document->setPath($this->getFilepathFromProjectDirectory($newFileName));
+
+        return $document;
     }
 
     /**

@@ -80,29 +80,19 @@ class DocumentController extends AbstractController
             // Extract filename and handle it
             // Users will only see document name, not filename
             $documentName = $document->getDocumentName();
+            $documentType = $document->getType();
             /** @var UploadedFile[] $files */
             $files = $form->get('files')->getData();
             foreach ($files as $file) {
-                $document = (new Document())
-                          ->setDocumentName($documentName)
-                          ->setOriginalFileName($file->getClientOriginalName())
-                          ->setType($document->getType())
-                ;
-                $newFilename = $this->documentUploader->upload($file);
-
-                // Set filename, document name, creator and case
-                $document->setFilename($newFilename);
-                $document->setPath($this->documentUploader->getFilepathFromProjectDirectory($newFilename));
-
-                /** @var User $uploader */
-                $uploader = $this->getUser();
-                $document->setUploadedBy($uploader);
+                /** @var User $user */
+                $user = $this->getUser();
+                $newDocument = $this->documentUploader->createDocumentFromFile($file, $user, $documentName, $documentType);
 
                 $relation = new CaseDocumentRelation();
                 $relation->setCase($case);
-                $relation->setDocument($document);
+                $relation->setDocument($newDocument);
 
-                $this->entityManager->persist($document);
+                $this->entityManager->persist($newDocument);
                 $this->entityManager->persist($relation);
             }
             $this->entityManager->flush();

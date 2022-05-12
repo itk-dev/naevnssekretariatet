@@ -32,6 +32,7 @@
             <thead>
             <tr>
                 <th>{% trans %}Document name{% endtrans %}</th>
+                <th>{% trans from "documents" %}Original file name{% endtrans %}</th>
                 <th>{% trans %}Document type{% endtrans %}</th>
                 <th>{% trans %}Uploaded by{% endtrans %}</th>
                 <th>{% trans %}Upload date{% endtrans %}</th>
@@ -42,6 +43,7 @@
             {% for document in documents %}
                 <tr>
                     <td>{{ document.documentName|e }}</td>
+                    <td>{{ document.originalFileName|e }}</td>
                     <td>{{ document.type|e }}</td>
                     <td>{{ document.uploadedBy|e }}</td>
                     <td>{{ document.uploadedAt|date(format_date) }}</td>

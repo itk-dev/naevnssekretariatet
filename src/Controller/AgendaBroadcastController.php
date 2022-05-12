@@ -95,26 +95,20 @@ class AgendaBroadcastController extends AbstractController
             // Move file
             $updatedFileName = $documentUploader->uploadFile($fileName);
 
-            // Create document
-            $document = new Document();
-            $document->setFilename($updatedFileName);
-            $document->setDocumentName($agendaBroadcast->getTitle());
-            $document->setPath($documentUploader->getFilepathFromProjectDirectory($updatedFileName));
-
             /** @var User $user */
             $user = $this->getUser();
-            $document->setUploadedBy($user);
-            $document->setType('Agenda broadcast');
 
-            $entityManager->persist($document);
+            // Create document
+            $newDocument = $documentUploader->createDocumentFromPath($updatedFileName, $user, $agendaBroadcast->getTitle(), 'Agenda broadcast');
 
-            $agendaBroadcast->setDocument($document);
+            $entityManager->persist($newDocument);
 
+            $agendaBroadcast->setDocument($newDocument);
             $agendaBroadcast->setAgenda($agenda);
 
             $entityManager->persist($agendaBroadcast);
 
-            $digitalPostHelper->createDigitalPost($document, $agendaBroadcast->getTitle(), get_class($agenda), $agenda->getId(), [], $digitalPostRecipients);
+            $digitalPostHelper->createDigitalPost($newDocument, $agendaBroadcast->getTitle(), get_class($agenda), $agenda->getId(), [], $digitalPostRecipients);
 
             return $this->redirectToRoute('agenda_broadcast', [
                 'id' => $agenda->getId(),
