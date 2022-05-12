@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\LogEntryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Uid\Ulid;
 
 /**
  * @ORM\Entity(repositoryClass=LogEntryRepository::class)
@@ -14,7 +14,7 @@ class LogEntry
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\Column(type="ulid", unique=true)
      */
     private $id;
 
@@ -56,10 +56,10 @@ class LogEntry
 
     public function __construct()
     {
-        $this->id = Uuid::v4();
+        $this->id = new Ulid();
     }
 
-    public function getId(): ?Uuid
+    public function getId(): ?Ulid
     {
         return $this->id;
     }
