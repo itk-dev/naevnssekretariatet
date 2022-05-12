@@ -84,7 +84,8 @@ class DocumentController extends AbstractController
             $files = $form->get('files')->getData();
             foreach ($files as $file) {
                 $document = (new Document())
-                          ->setDocumentName(sprintf('%s – %s', $documentName, $file->getClientOriginalName()))
+                          ->setDocumentName($documentName)
+                          ->setOriginalFileName($file->getClientOriginalName())
                           ->setType($document->getType())
                 ;
                 $newFilename = $this->documentUploader->upload($file);

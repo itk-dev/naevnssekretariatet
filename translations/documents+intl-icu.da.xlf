@@ -113,6 +113,10 @@
         <source>View document</source>
         <target state="translated">Vis dokument</target>
       </trans-unit>
+      <trans-unit id="EQtyiO5" resname="Original file name">
+        <source>Original file name</source>
+        <target state="translated">Oprindeligt dokument navn</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

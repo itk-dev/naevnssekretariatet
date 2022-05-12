@@ -84,7 +84,8 @@ class AgendaManuelItemDocumentController extends AbstractController
 
             foreach ($files as $file) {
                 $document = (new Document())
-                    ->setDocumentName(sprintf('%s – %s', $documentName, $file->getClientOriginalName()))
+                    ->setDocumentName($documentName)
+                    ->setOriginalFileName($file->getClientOriginalName())
                     ->setType($document->getType())
                 ;
                 $newFilename = $this->documentUploader->upload($file);

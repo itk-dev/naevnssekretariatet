@@ -109,6 +109,14 @@
         <source>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg</source>
         <target>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg</target>
       </trans-unit>
+      <trans-unit id="EQtyiO5" resname="Original file name">
+        <source>Original file name</source>
+        <target>Original file name</target>
+      </trans-unit>
+      <trans-unit id="tbjLEaA" resname="View document">
+        <source>View document</source>
+        <target>View document</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

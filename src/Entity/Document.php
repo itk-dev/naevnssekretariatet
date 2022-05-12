@@ -73,6 +73,11 @@ class Document implements LoggableEntityInterface
      */
     private $path;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $OriginalFileName;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -230,6 +235,18 @@ class Document implements LoggableEntityInterface
     public function setPath(string $path): self
     {
         $this->path = $path;
+
+        return $this;
+    }
+
+    public function getOriginalFileName(): ?string
+    {
+        return $this->OriginalFileName;
+    }
+
+    public function setOriginalFileName(string $OriginalFileName): self
+    {
+        $this->OriginalFileName = $OriginalFileName;
 
         return $this;
     }

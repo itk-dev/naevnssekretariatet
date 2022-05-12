@@ -537,6 +537,10 @@
         <source>Mark all</source>
         <target>Mark all</target>
       </trans-unit>
+      <trans-unit id="tbjLEaA" resname="View document">
+        <source>View document</source>
+        <target>View document</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

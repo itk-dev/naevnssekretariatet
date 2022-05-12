@@ -106,6 +106,7 @@ class AgendaBroadcastController extends AbstractController
             $user = $this->getUser();
             $document->setUploadedBy($user);
             $document->setType(new TranslatableMessage('Agenda broadcast', [], 'agenda'));
+//            $document->setType('Agenda broadcast');
 
             $entityManager->persist($document);
 
