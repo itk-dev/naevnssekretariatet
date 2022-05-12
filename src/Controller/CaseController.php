@@ -332,7 +332,8 @@ class CaseController extends AbstractController
         $logEntries = $logEntryRepository->findBy([
             'caseID' => $case->getId(),
         ], [
-            'createdAt' => Criteria::DESC,
+            // The id is a ULID (Universally Unique Lexicographically Sortable Identifier) (cf. https://symfony.com/doc/current/components/uid.html#ulids)
+            'id' => Criteria::DESC,
         ]);
 
         return $this->render('case/log.html.twig', [
