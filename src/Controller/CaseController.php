@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
-use App\Entity\Hearing;
 use App\Entity\LogEntry;
 use App\Entity\ResidentComplaintBoardCase;
 use App\Entity\User;
@@ -240,6 +239,7 @@ class CaseController extends AbstractController
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            $this->addFlash('success', new TranslatableMessage('Case updated', [], 'case'));
 
             return $this->redirectToRoute('case_show', [
                 'id' => $case->getId(),
@@ -279,6 +279,7 @@ class CaseController extends AbstractController
             $workflow->apply($case, $caseStatus->getStatus());
             $em->persist($case);
             $em->flush();
+            $this->addFlash('success', new TranslatableMessage('Case status updated', [], 'case'));
 
             return $this->redirectToRoute('case_status', [
                 'id' => $case->getId(),
@@ -291,6 +292,7 @@ class CaseController extends AbstractController
         $caseAgendaStatusForm->handleRequest($request);
         if ($caseAgendaStatusForm->isSubmitted() && $caseAgendaStatusForm->isValid()) {
             $em->flush();
+            $this->addFlash('success', new TranslatableMessage('Case agenda status updated', [], 'case'));
 
             return $this->redirectToRoute('case_status', [
                 'id' => $case->getId(),
@@ -384,6 +386,7 @@ class CaseController extends AbstractController
 
             $em->persist($casePresentation);
             $em->flush();
+            $this->addFlash('success', new TranslatableMessage('Case presentation updated', [], 'case'));
 
             return $this->redirectToRoute('case_presentation', [
                 'id' => $case->getId(),
@@ -418,6 +421,7 @@ class CaseController extends AbstractController
 
             $em->persist($caseDecisionProposal);
             $em->flush();
+            $this->addFlash('success', new TranslatableMessage('Case decision proposal updated', [], 'case'));
 
             return $this->redirectToRoute('case_decision_proposal', [
                 'id' => $case->getId(),
@@ -491,8 +495,7 @@ class CaseController extends AbstractController
             $case->setHasReachedProcessingDeadline(false);
 
             $this->getDoctrine()->getManager()->flush();
-
-            $this->addFlash('success', new TranslatableMessage('Process deadline updated!', [], 'case'));
+            $this->addFlash('success', new TranslatableMessage('Process deadline updated', [], 'case'));
 
             // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
             if ($request->get('ajax')) {
@@ -531,8 +534,7 @@ class CaseController extends AbstractController
             }
 
             $this->getDoctrine()->getManager()->flush();
-
-            $this->addFlash('success', new TranslatableMessage('Hearing deadline updated!', [], 'case'));
+            $this->addFlash('success', new TranslatableMessage('Hearing deadline updated', [], 'case'));
 
             // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
             if ($request->get('ajax')) {
@@ -565,6 +567,10 @@ class CaseController extends AbstractController
 
         if ($assignForm->isSubmitted() && $assignForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', new TranslatableMessage('Case worker {name} assigned to case {case_number}', [
+                'name' => $case->getAssignedTo()->getName(),
+                'case_number' => $case->getCaseNumber(),
+            ], 'case'));
 
             $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_index');
 
@@ -632,6 +638,7 @@ class CaseController extends AbstractController
 
         if ($moveForm->isSubmitted() && $moveForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', new TranslatableMessage('Case moved', [], 'case'));
 
             $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_summary', ['id' => $case->getId()]);
 
@@ -666,6 +673,7 @@ class CaseController extends AbstractController
             $case->setSoftDeletedAt($now);
 
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', new TranslatableMessage('Case deleted', [], 'case'));
 
             $redirectUrl = $this->generateUrl('default', ['id' => $case->getId()]);
 

@@ -22,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/case/{id}/decision")
@@ -115,6 +116,7 @@ class DecisionController extends AbstractController
             $digitalPostHelper->createDigitalPost($newDocument, $decision->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
 
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Decision created', [], 'decision'));
 
             return $this->redirectToRoute('case_decision', ['id' => $case->getId()]);
         }

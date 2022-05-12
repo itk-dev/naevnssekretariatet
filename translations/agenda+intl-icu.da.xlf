@@ -541,6 +541,78 @@
         <source>View document</source>
         <target state="translated">Vis dokument</target>
       </trans-unit>
+      <trans-unit id="Px7uORc" resname="Agenda created">
+        <source>Agenda created</source>
+        <target state="translated">Dagsorden oprettet</target>
+      </trans-unit>
+      <trans-unit id="KxNgsaj" resname="Agenda deleted">
+        <source>Agenda deleted</source>
+        <target state="translated">Dagsorden slettet</target>
+      </trans-unit>
+      <trans-unit id="qXoPOMW" resname="Agenda updated">
+        <source>Agenda updated</source>
+        <target state="translated">Dagsorden opdateret</target>
+      </trans-unit>
+      <trans-unit id="xDjQ2pH" resname="Board members added to agenda">
+        <source>Board members added to agenda</source>
+        <target state="translated">Nævnsmedlemmer føjet til dagsorden</target>
+      </trans-unit>
+      <trans-unit id="rAElSJ1" resname="Board member {name} removed from agenda">
+        <source>Board member {name} removed from agenda</source>
+        <target state="translated">Nævnsmedlem {name} fjernet fra dagsorden</target>
+      </trans-unit>
+      <trans-unit id="u5__Ke7" resname="Agenda protocol created">
+        <source>Agenda protocol created</source>
+        <target state="translated">Dagsordensprotokol oprettet</target>
+      </trans-unit>
+      <trans-unit id="j7IDh4G" resname="Agenda protocol updated">
+        <source>Agenda protocol updated</source>
+        <target state="translated">Dagsordensprotokol opdateret</target>
+      </trans-unit>
+      <trans-unit id="a_4Bg6H" resname="Agenda published">
+        <source>Agenda published</source>
+        <target state="translated">Dagsorden publiseret</target>
+      </trans-unit>
+      <trans-unit id="Qy_9gnt" resname="Documents added to agenda">
+        <source>Documents added to agenda</source>
+        <target state="translated">Dokumenter føjet til dagsorden</target>
+      </trans-unit>
+      <trans-unit id="EnSgN9B" resname="Document removed from agenda">
+        <source>Document removed from agenda</source>
+        <target state="translated">Dokument fjernet fra dagsorden</target>
+      </trans-unit>
+      <trans-unit id="VI6hKmv" resname="Agenda manual item created">
+        <source>Agenda manual item created</source>
+        <target state="translated">Manuelt dagsordenspunkt oprettet</target>
+      </trans-unit>
+      <trans-unit id="IMOBpRa" resname="Agenda case item created">
+        <source>Agenda case item created</source>
+        <target state="translated">Dagsordenspunkt oprettet</target>
+      </trans-unit>
+      <trans-unit id="M_amekT" resname="Agenda manual item updated">
+        <source>Agenda manual item updated</source>
+        <target state="translated">Manuelt dagsordenspunkt opdateret</target>
+      </trans-unit>
+      <trans-unit id="pWfZGby" resname="Agenda case item updated">
+        <source>Agenda case item updated</source>
+        <target state="translated">Dagsordenspunkt opdateret</target>
+      </trans-unit>
+      <trans-unit id="lurR8mL" resname="Agenda manual item deleted">
+        <source>Agenda manual item deleted</source>
+        <target state="translated">Manuelt dagsordenspunkt slettet</target>
+      </trans-unit>
+      <trans-unit id="_3jz0Ks" resname="Agenda case item deleted">
+        <source>Agenda case item deleted</source>
+        <target state="translated">Dagsordenspunkt slettet</target>
+      </trans-unit>
+      <trans-unit id="kjCB0tj" resname="{count, plural, =1 {One document uploaded} other {# documents uploaded}}">
+        <source>{count, plural, =1 {One document uploaded} other {# documents uploaded}}</source>
+        <target state="translated">{count, plural, =1 {Et dokument uploadet} other {# dokumenter uploadet}}</target>
+      </trans-unit>
+      <trans-unit id="i4JV3bx" resname="Document removed">
+        <source>Document removed</source>
+        <target state="translated">Dokument fjernet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

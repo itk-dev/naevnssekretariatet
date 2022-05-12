@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/agenda/{id}/item/{agenda_item_id}")
@@ -128,6 +129,7 @@ class AgendaCaseItemController extends AbstractController
             }
 
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Documents added to agenda', [], 'agenda'));
         }
 
         return $this->redirectToRoute('agenda_case_item_document', [
@@ -150,6 +152,7 @@ class AgendaCaseItemController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
             $agendaItem->removeDocument($document);
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Document removed from agenda', [], 'agenda'));
         }
 
         return $this->redirectToRoute('agenda_case_item_document', [

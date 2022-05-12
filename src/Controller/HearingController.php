@@ -28,6 +28,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -68,6 +69,7 @@ class HearingController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Hearing updated', [], 'case'));
 
             return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
         }
@@ -104,6 +106,7 @@ class HearingController extends AbstractController
         $hearing->setStartedOn($today);
         $this->entityManager->persist($hearing);
         $this->entityManager->flush();
+        $this->addFlash('success', new TranslatableMessage('Hearing started', [], 'case'));
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
@@ -135,6 +138,7 @@ class HearingController extends AbstractController
 
             $this->entityManager->persist($hearingPost);
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Hearing post response created', [], 'case'));
 
             return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId(), 'hearing' => $hearing->getId()]);
         }
@@ -199,6 +203,7 @@ class HearingController extends AbstractController
             $this->entityManager->persist($newDocument);
             $this->entityManager->persist($hearingPost);
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Hearing post request created', [], 'case'));
 
             return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId(), 'hearing' => $hearing->getId()]);
         }
@@ -246,6 +251,7 @@ class HearingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($hearingPost);
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Hearing post response updated', [], 'case'));
 
             return $this->redirectToRoute('case_hearing_post_show', ['case' => $case->getId(), 'hearingPost' => $hearingPost->getId()]);
         }
@@ -298,6 +304,7 @@ class HearingController extends AbstractController
             $hearingPost->getDocument()->setUploadedAt(new DateTime('now'));
 
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Hearing post request updated', [], 'case'));
 
             return $this->redirectToRoute('case_hearing_post_show', ['case' => $case->getId(), 'hearingPost' => $hearingPost->getId()]);
         }
@@ -323,6 +330,7 @@ class HearingController extends AbstractController
         $hearingPost->setApprovedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
         $this->entityManager->flush();
+        $this->addFlash('success', new TranslatableMessage('Hearing post approved', [], 'case'));
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
@@ -365,6 +373,7 @@ class HearingController extends AbstractController
         $hearingPost->setForwardedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
         $this->entityManager->flush();
+        $this->addFlash('success', new TranslatableMessage('Hearing post forwarded', [], 'case'));
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
@@ -380,6 +389,7 @@ class HearingController extends AbstractController
         $today = new DateTime('today');
         $hearing->setFinishedOn($today);
         $this->entityManager->flush();
+        $this->addFlash('success', new TranslatableMessage('Hearing finished', [], 'case'));
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
@@ -394,6 +404,7 @@ class HearingController extends AbstractController
         // TODO: Consider whether more logic is needed upon resuming a hearing
         $hearing->setFinishedOn(null);
         $this->entityManager->flush();
+        $this->addFlash('success', new TranslatableMessage('Hearing resumed', [], 'case'));
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }

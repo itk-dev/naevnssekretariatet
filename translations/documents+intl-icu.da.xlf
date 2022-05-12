@@ -117,6 +117,18 @@
         <source>Original file name</source>
         <target state="translated">Oprindeligt dokument navn</target>
       </trans-unit>
+      <trans-unit id="9mq9OuC" resname="{count, plural, =1 {One document created} other {# documents created}}">
+        <source>{count, plural, =1 {One document created} other {# documents created}}</source>
+        <target state="translated">{count, plural, =1 {Et dokument oprettet} other {# dokumenter oprettet}}</target>
+      </trans-unit>
+      <trans-unit id="ao95lfv" resname="Document updated">
+        <source>Document updated</source>
+        <target state="translated">Dokument opdateret</target>
+      </trans-unit>
+      <trans-unit id="93XR1n2" resname="Document deleted">
+        <source>Document deleted</source>
+        <target state="translated">Dokument slettet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

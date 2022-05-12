@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class CaseReminderController extends AbstractController
 {
@@ -82,6 +83,7 @@ class CaseReminderController extends AbstractController
 
             $this->entityManager->persist($reminder);
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Reminder created', [], 'case'));
 
             $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_index');
 
@@ -105,6 +107,7 @@ class CaseReminderController extends AbstractController
         if ($this->isCsrfTokenValid('complete'.$reminder->getId(), $request->request->get('_token'))) {
             $this->entityManager->remove($reminder);
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Reminder completed', [], 'case'));
         }
 
         return $this->redirectToRoute('reminder_index');
@@ -128,6 +131,7 @@ class CaseReminderController extends AbstractController
             $reminder->setStatus($this->reminderHelper->getStatusByDate($reminder->getDate()));
 
             $this->entityManager->flush();
+            $this->addFlash('success', new TranslatableMessage('Reminder updated', [], 'case'));
 
             return $this->redirectToRoute('reminder_index');
         }

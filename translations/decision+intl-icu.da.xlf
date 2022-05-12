@@ -37,6 +37,10 @@
         <source>Cannot create decision since case has no party to send it to</source>
         <target state="translated">Kan ikke oprette afgørelse da sag ikke har nogle parter</target>
       </trans-unit>
+      <trans-unit id="fX6ypiQ" resname="Decision created">
+        <source>Decision created</source>
+        <target state="translated">Afgørelse oprettet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
