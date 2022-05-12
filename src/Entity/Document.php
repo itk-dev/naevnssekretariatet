@@ -76,7 +76,7 @@ class Document implements LoggableEntityInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $OriginalFileName;
+    private $originalFileName;
 
     public function __construct()
     {
@@ -241,12 +241,12 @@ class Document implements LoggableEntityInterface
 
     public function getOriginalFileName(): ?string
     {
-        return $this->OriginalFileName;
+        return $this->originalFileName;
     }
 
-    public function setOriginalFileName(string $OriginalFileName): self
+    public function setOriginalFileName(string $originalFileName): self
     {
-        $this->OriginalFileName = $OriginalFileName;
+        $this->originalFileName = $originalFileName;
 
         return $this;
     }
