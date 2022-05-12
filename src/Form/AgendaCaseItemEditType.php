@@ -57,6 +57,7 @@ class AgendaCaseItemEditType extends AbstractType
             ])
             ->add('meetingPoint', TextType::class, [
                 'label' => $this->translator->trans('Meeting point', [], 'agenda'),
+                'required' => false,
             ])
             ->add('caseEntity', EntityType::class, [
                 'class' => CaseEntity::class,

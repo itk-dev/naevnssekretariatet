@@ -12,6 +12,9 @@
         <div class="row">
             {% block sidebar %}{% endblock %}
             <div class="col-md-12 col-lg-9 ml-sm-auto px-md-4">
+                {% block flash_messages %}
+                    {% include 'common/flash_messages.html.twig' %}
+                {% endblock %}
                 <header class="pt-3">
                     {% block header %}{% endblock %}
                 </header>
