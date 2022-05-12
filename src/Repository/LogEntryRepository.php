@@ -46,7 +46,7 @@ class LogEntryRepository extends ServiceEntityRepository
                     ->setMaxResults(1)
                     ->getQuery()->getOneOrNullResult();
             default:
-                throw new \InvalidArgumentException(sprintf('Unknown releation: %s', $relation));
+                throw new \InvalidArgumentException(sprintf('Unknown relation: %s', $relation));
         }
     }
 }
