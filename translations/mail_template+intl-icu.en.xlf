@@ -33,13 +33,13 @@
         <source>Hearing</source>
         <target>Hearing</target>
       </trans-unit>
-      <trans-unit id="tVIxi90" resname="Agenda insection">
-        <source>Agenda insection</source>
-        <target>Agenda insection</target>
-      </trans-unit>
       <trans-unit id="HtGnOKw" resname="Agenda broadcast">
         <source>Agenda broadcast</source>
         <target>Agenda broadcast</target>
+      </trans-unit>
+      <trans-unit id="1FdZ800" resname="Agenda inspection">
+        <source>Agenda inspection</source>
+        <target>Agenda inspection</target>
       </trans-unit>
     </body>
   </file>

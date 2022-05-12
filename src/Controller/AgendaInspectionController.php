@@ -22,7 +22,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/agenda/{id}/item/{agenda_item_id}/inspection")
@@ -82,7 +81,7 @@ class AgendaInspectionController extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
             $document->setUploadedBy($user);
-            $document->setType(new TranslatableMessage('Agenda inspection', [], 'agenda'));
+            $document->setType('Agenda inspection');
 
             $entityManager->persist($document);
 

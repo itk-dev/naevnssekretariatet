@@ -24,7 +24,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -105,8 +104,7 @@ class AgendaBroadcastController extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
             $document->setUploadedBy($user);
-            $document->setType(new TranslatableMessage('Agenda broadcast', [], 'agenda'));
-//            $document->setType('Agenda broadcast');
+            $document->setType('Agenda broadcast');
 
             $entityManager->persist($document);
 
