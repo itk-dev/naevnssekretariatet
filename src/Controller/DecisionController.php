@@ -7,8 +7,6 @@ use App\Entity\CaseEntity;
 use App\Entity\Decision;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostAttachment;
-use App\Entity\Document;
-use App\Entity\User;
 use App\Form\DecisionType;
 use App\Repository\CasePartyRelationRepository;
 use App\Repository\DecisionRepository;
@@ -64,8 +62,6 @@ class DecisionController extends AbstractController
 
         $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
 
-        $documentUploader->specifyDirectory('/case_documents/');
-
         $decision = new Decision();
 
         $form = $this->createForm(DecisionType::class, $decision, [
@@ -75,19 +71,9 @@ class DecisionController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $document = new Document();
             $file = $form->get('filename')->getData();
-            $newFilename = $documentUploader->upload($file);
 
-            // Set filename, document name, creator and case
-            $document->setFilename($newFilename);
-
-            /** @var User $uploader */
-            $uploader = $this->getUser();
-            $document->setUploadedBy($uploader);
-
-            $document->setDocumentName($decision->getTitle());
-            $document->setType('Decision');
+            $document = $documentUploader->createDocumentFromUploadedFile($file, $decision->getTitle(), 'Decision');
 
             $relation = new CaseDocumentRelation();
             $relation->setCase($case);

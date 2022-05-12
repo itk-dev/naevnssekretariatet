@@ -123,8 +123,6 @@ class DigitalPostHelper extends DigitalPost
 
     public function createDigitalPost(Document $document, string $subject, string $entityType, Uuid $entityId, array $digitalPostAttachments, array $digitalPostRecipients): void
     {
-        $this->documentUploader->specifyDirectory('/case_documents/');
-
         $digitalPosts = [];
 
         // Setup first DigitalPost

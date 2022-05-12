@@ -7,7 +7,6 @@ use App\Entity\AgendaCaseItem;
 use App\Entity\DigitalPost;
 use App\Entity\Document;
 use App\Entity\InspectionLetter;
-use App\Entity\User;
 use App\Form\InspectionLetterType;
 use App\Repository\DigitalPostRepository;
 use App\Service\CprHelper;
@@ -22,7 +21,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @Route("/agenda/{id}/item/{agenda_item_id}/inspection")
@@ -71,18 +69,10 @@ class AgendaInspectionController extends AbstractController
             $fileName = $mailTemplateHelper->renderMailTemplate($inspection->getTemplate(), $agendaItem);
 
             // Move file
-            $documentUploader->specifyDirectory('/case_documents/');
             $updatedFileName = $documentUploader->uploadFile($fileName);
 
             // Create document
-            $document = new Document();
-            $document->setFilename($updatedFileName);
-            $document->setDocumentName($inspection->getTitle());
-
-            /** @var User $user */
-            $user = $this->getUser();
-            $document->setUploadedBy($user);
-            $document->setType(new TranslatableMessage('Agenda inspection', [], 'agenda'));
+            $document = $documentUploader->createDocumentFromPath($updatedFileName, $inspection->getTitle(), 'Agenda inspection');
 
             $entityManager->persist($document);
 
@@ -143,8 +133,7 @@ class AgendaInspectionController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
 
-        $uploader->specifyDirectory('/case_documents/');
-        $response = $uploader->handleDownload($document, false);
+        $response = $uploader->handleViewDocument($document);
 
         return $response;
     }

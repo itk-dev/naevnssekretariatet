@@ -3,15 +3,16 @@
 namespace App\Service;
 
 use App\Entity\Document;
-use App\Exception\DocumentDirectoryException;
+use App\Entity\User;
 use App\Exception\FileMovingException;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Mime\MimeTypeGuesserInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DocumentUploader
@@ -21,27 +22,57 @@ class DocumentUploader
      * @var SluggerInterface
      */
     private $slugger;
-    private $baseDocumentDirectory;
-    private $documentDirectory = '';
+    private $uploadDocumentDirectory;
 
     /**
      * @var Filesystem
      */
     private $filesystem;
+    private $projectDirectory;
+    private MimeTypeGuesserInterface $mimeTypeGuesser;
+    private Security $security;
 
-    public function __construct(SluggerInterface $slugger, string $documentDirectory, Filesystem $filesystem)
+    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser, Security $security)
     {
-        $this->baseDocumentDirectory = rtrim($documentDirectory, '/');
+        $this->projectDirectory = $projectDirectory;
+        $this->uploadDocumentDirectory = $uploadDocumentDirectory;
         $this->filesystem = $filesystem;
         $this->slugger = $slugger;
+        $this->mimeTypeGuesser = $mimeTypeGuesser;
+        $this->security = $security;
     }
 
     /**
-     * @throws DocumentDirectoryException
+     * Creates and returns new document from filename.
      */
-    public function specifyDirectory(string $directory)
+    public function createDocumentFromPath(string $fileName, string $documentName, string $documentType): Document
     {
-        $this->documentDirectory = trim($directory, '/');
+        $document = new Document();
+
+        $document->setFilename($fileName);
+        $document->setDocumentName($documentName);
+        $document->setPath($this->getFilepathFromProjectDirectory($fileName));
+        /** @var User $user */
+        $user = $this->security->getUser();
+        $document->setUploadedBy($user);
+        $document->setType($documentType);
+
+        return $document;
+    }
+
+    /**
+     * Creates, uploads and returns new document from a file.
+     */
+    public function createDocumentFromUploadedFile(UploadedFile $file, string $documentName, string $documentType): Document
+    {
+        $newFileName = $this->upload($file);
+
+        $document = $this->createDocumentFromPath($newFileName, $documentName, $documentType);
+
+        // Documents that are created via an UploadedFile has an original file name others (template generated) do not
+        $document->setOriginalFileName($file->getClientOriginalName());
+
+        return $document;
     }
 
     /**
@@ -61,7 +92,7 @@ class DocumentUploader
 
         try {
             $file->move(
-                $this->getDirectory(),
+                $this->getFullDirectory(),
                 $newFilename
             );
         } catch (FileException $e) {
@@ -71,26 +102,21 @@ class DocumentUploader
         return $newFilename;
     }
 
-    public function getDirectory(): string
-    {
-        return $this->baseDocumentDirectory.'/'.$this->documentDirectory;
-    }
-
     /**
-     * Downloads document.
+     * Handles view document.
      */
-    public function handleDownload(Document $document, bool $forceDownload = true): Response
+    public function handleViewDocument(Document $document, bool $forceDownload = false): Response
     {
         $filepath = $this->getFilepath($document->getFilename());
 
-        if ($forceDownload) {
-            // @see https://symfonycasts.com/screencast/symfony-uploads/file-streaming
-            $response = new StreamedResponse(function () use ($filepath) {
-                $outputStream = fopen('php://output', 'wb');
-                $fileStream = fopen($filepath, 'r');
-                stream_copy_to_stream($fileStream, $outputStream);
-            });
+        // @see https://symfonycasts.com/screencast/symfony-uploads/file-streaming
+        $response = new StreamedResponse(function () use ($filepath) {
+            $outputStream = fopen('php://output', 'wb');
+            $fileStream = fopen($filepath, 'r');
+            stream_copy_to_stream($fileStream, $outputStream);
+        });
 
+        if ($forceDownload) {
             $disposition = HeaderUtils::makeDisposition(
                 HeaderUtils::DISPOSITION_ATTACHMENT,
                 $document->getFilename()
@@ -98,7 +124,7 @@ class DocumentUploader
 
             $response->headers->set('Content-Disposition', $disposition);
         } else {
-            $response = new BinaryFileResponse($filepath);
+            $response->headers->set('Content-Type', $this->mimeTypeGuesser->guessMimeType($this->getFilepath($document->getFilename())));
         }
 
         return $response;
@@ -116,7 +142,12 @@ class DocumentUploader
 
     public function getFilepath(string $filename): string
     {
-        return $this->baseDocumentDirectory.'/'.$this->documentDirectory.'/'.$filename;
+        return $this->getFullDirectory().'/'.$filename;
+    }
+
+    public function getFilepathFromProjectDirectory(string $filename): string
+    {
+        return $this->uploadDocumentDirectory.'/'.$filename;
     }
 
     /**
@@ -132,7 +163,7 @@ class DocumentUploader
         $safeFilename = $this->slugger->slug($filename);
         $newFilename = $safeFilename.'-'.uniqid().'.'.$extension;
 
-        $targetPath = $this->getDirectory().'/'.$newFilename;
+        $targetPath = $this->getFullDirectory().'/'.$newFilename;
         $this->filesystem->rename($filePath, $targetPath);
 
         return basename($targetPath);
@@ -145,9 +176,14 @@ class DocumentUploader
      */
     public function replaceFile(string $filePath, string $filename)
     {
-        $targetPath = $this->getDirectory().'/'.pathinfo($filename, PATHINFO_BASENAME);
+        $targetPath = $this->getFullDirectory().'/'.pathinfo($filename, PATHINFO_BASENAME);
         $this->filesystem->rename($filePath, $targetPath, true);
 
         return basename($targetPath);
+    }
+
+    public function getFullDirectory(): string
+    {
+        return $this->projectDirectory.'/'.$this->uploadDocumentDirectory;
     }
 }

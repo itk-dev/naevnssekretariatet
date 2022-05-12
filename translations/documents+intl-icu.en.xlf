@@ -77,10 +77,6 @@
         <source>Copy document to another case</source>
         <target>Copy document to another case</target>
       </trans-unit>
-      <trans-unit id="niUK_XT" resname="Download document">
-        <source>Download document</source>
-        <target>Download document</target>
-      </trans-unit>
       <trans-unit id="REE8PZe" resname="Are you sure you want to delete this item?">
         <source>Are you sure you want to delete this item?</source>
         <target>Are you sure you want to delete this item?</target>
@@ -112,6 +108,14 @@
       <trans-unit id="TPdJpt_" resname="Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg">
         <source>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg</source>
         <target>Upload one or more files. Max file size: {size}. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .docx, .xlsx, .msg</target>
+      </trans-unit>
+      <trans-unit id="EQtyiO5" resname="Original file name">
+        <source>Original file name</source>
+        <target>Original file name</target>
+      </trans-unit>
+      <trans-unit id="tbjLEaA" resname="View document">
+        <source>View document</source>
+        <target>View document</target>
       </trans-unit>
       <trans-unit id="9mq9OuC" resname="{count, plural, =1 {One document created} other {# documents created}}">
         <source>{count, plural, =1 {One document created} other {# documents created}}</source>

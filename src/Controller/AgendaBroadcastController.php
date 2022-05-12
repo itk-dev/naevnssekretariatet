@@ -6,7 +6,6 @@ use App\Entity\Agenda;
 use App\Entity\AgendaBroadcast;
 use App\Entity\DigitalPost;
 use App\Entity\Document;
-use App\Entity\User;
 use App\Exception\CprException;
 use App\Exception\DocumentDirectoryException;
 use App\Form\AgendaBroadcastType;
@@ -24,7 +23,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -94,23 +92,14 @@ class AgendaBroadcastController extends AbstractController
             $fileName = $mailTemplateHelper->renderMailTemplate($agendaBroadcast->getTemplate(), $agenda);
 
             // Move file
-            $documentUploader->specifyDirectory('/case_documents/');
             $updatedFileName = $documentUploader->uploadFile($fileName);
 
             // Create document
-            $document = new Document();
-            $document->setFilename($updatedFileName);
-            $document->setDocumentName($agendaBroadcast->getTitle());
-
-            /** @var User $user */
-            $user = $this->getUser();
-            $document->setUploadedBy($user);
-            $document->setType(new TranslatableMessage('Agenda broadcast', [], 'agenda'));
+            $document = $documentUploader->createDocumentFromPath($updatedFileName, $agendaBroadcast->getTitle(), 'Agenda broadcast');
 
             $entityManager->persist($document);
 
             $agendaBroadcast->setDocument($document);
-
             $agendaBroadcast->setAgenda($agenda);
 
             $entityManager->persist($agendaBroadcast);
@@ -151,8 +140,7 @@ class AgendaBroadcastController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
 
-        $uploader->specifyDirectory('/case_documents/');
-        $response = $uploader->handleDownload($document, false);
+        $response = $uploader->handleViewDocument($document);
 
         return $response;
     }

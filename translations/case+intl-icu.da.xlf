@@ -993,10 +993,6 @@
         <source>Functions</source>
         <target state="translated">Funktioner</target>
       </trans-unit>
-      <trans-unit id="niUK_XT" resname="Download document">
-        <source>Download document</source>
-        <target state="translated">Download dokument</target>
-      </trans-unit>
       <trans-unit id="KIDnRq6" resname="Complainant has no more to add">
         <source>Complainant has no more to add</source>
         <target state="translated">Klager har ikke mere at tilføje</target>

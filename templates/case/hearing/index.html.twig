@@ -133,7 +133,7 @@
                                         <div class="col" aria-label="attachments">
                                             <p class="text-muted">
                                                 {% trans %}Document{% endtrans %}:
-                                                <a href="{{ url("document_download", {id: case.id, document_id: post.document.id}) }}">{{ post.document.documentName }}</a>
+                                                <a href="{{ url("document_view", {id: case.id, document_id: post.document.id}) }}">{{ post.document.documentName }}</a>
                                             </p>
                                         </div>
                                         <div class="col-auto" aria-label="attachments">
@@ -141,7 +141,7 @@
                                                 {% if post.attachments|length > 0 %}
                                                     {% trans %}Attachments  {% endtrans %}:
                                                         {% for attachment in post.attachments %}
-                                                            <a href="{{ url("document_download", {id: case.id, document_id: attachment.document.id}) }}">{{ attachment.document.documentName }}</a>
+                                                            <a href="{{ url("document_view", {id: case.id, document_id: attachment.document.id}) }}">{{ attachment.document.documentName }}</a>
                                                             {%- if not loop.last %}
                                                                 ;
                                                             {% endif %}

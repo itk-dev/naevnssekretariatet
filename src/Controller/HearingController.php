@@ -182,20 +182,13 @@ class HearingController extends AbstractController
             $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
 
             // Move file
-            $documentUploader->specifyDirectory('/case_documents/');
             $updatedFileName = $documentUploader->uploadFile($fileName);
 
             // Create document
-            $document = new Document();
-            $document->setFilename($updatedFileName);
-            $document->setDocumentName($hearingPost->getTitle());
+            $document = $documentUploader->createDocumentFromPath($updatedFileName, $hearingPost->getTitle(), 'Hearing', $hearingPost);
+
             $document->setHearingPost($hearingPost);
             $hearingPost->setDocument($document);
-
-            /** @var User $user */
-            $user = $this->getUser();
-            $document->setUploadedBy($user);
-            $document->setType('Hearing');
 
             // Create case document relation
             $relation = new CaseDocumentRelation();
@@ -298,7 +291,6 @@ class HearingController extends AbstractController
 
             // For now we just overwrite completely
             $currentDocumentFileName = $hearingPost->getDocument()->getFilename();
-            $documentUploader->specifyDirectory('/case_documents/');
             $documentUploader->replaceFile($fileName, $currentDocumentFileName);
 
             // Update Document

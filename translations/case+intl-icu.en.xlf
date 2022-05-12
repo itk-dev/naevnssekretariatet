@@ -993,10 +993,6 @@
         <source>Functions</source>
         <target>Functions</target>
       </trans-unit>
-      <trans-unit id="niUK_XT" resname="Download document">
-        <source>Download document</source>
-        <target>Download document</target>
-      </trans-unit>
       <trans-unit id="8qjJAnt" resname="No suitable boards">
         <source>No suitable boards</source>
         <target>No suitable boards</target>

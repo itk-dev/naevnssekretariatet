@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
-use App\Entity\User;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use App\Form\CopyDocumentForm;
@@ -72,8 +71,6 @@ class DocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        $this->documentUploader->specifyDirectory('/case_documents/');
-
         // Create new document and its form
         $document = new Document();
         $form = $this->createForm(DocumentType::class, $document);
@@ -83,27 +80,17 @@ class DocumentController extends AbstractController
             // Extract filename and handle it
             // Users will only see document name, not filename
             $documentName = $document->getDocumentName();
+            $documentType = $document->getType();
             /** @var UploadedFile[] $files */
             $files = $form->get('files')->getData();
             foreach ($files as $file) {
-                $document = (new Document())
-                          ->setDocumentName(sprintf('%s – %s', $documentName, $file->getClientOriginalName()))
-                          ->setType($document->getType())
-                ;
-                $newFilename = $this->documentUploader->upload($file);
-
-                // Set filename, document name, creator and case
-                $document->setFilename($newFilename);
-
-                /** @var User $uploader */
-                $uploader = $this->getUser();
-                $document->setUploadedBy($uploader);
+                $newDocument = $this->documentUploader->createDocumentFromUploadedFile($file, $documentName, $documentType);
 
                 $relation = new CaseDocumentRelation();
                 $relation->setCase($case);
-                $relation->setDocument($document);
+                $relation->setDocument($newDocument);
 
-                $this->entityManager->persist($document);
+                $this->entityManager->persist($newDocument);
                 $this->entityManager->persist($relation);
             }
             $this->entityManager->flush();
@@ -199,24 +186,9 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/download/{document_id}", name="document_download", methods={"GET", "POST"})
+     * @Route("/view/{document_id}", name="document_view", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
-     *
-     * @throws DocumentDirectoryException
-     */
-    public function download(CaseEntity $case, Document $document, DocumentUploader $uploader): Response
-    {
-        $this->denyAccessUnlessGranted('edit', $case);
-
-        $uploader->specifyDirectory('/case_documents/');
-        $response = $uploader->handleDownload($document);
-
-        return $response;
-    }
-
-    /**
-     * @Route("/view/{document}", name="document_view", methods={"GET"})
      *
      * @throws DocumentDirectoryException
      */
@@ -224,8 +196,7 @@ class DocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        $uploader->specifyDirectory('/case_documents/');
-        $response = $uploader->handleDownload($document, false);
+        $response = $uploader->handleViewDocument($document);
 
         return $response;
     }

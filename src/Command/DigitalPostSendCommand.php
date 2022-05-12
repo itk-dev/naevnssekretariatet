@@ -37,7 +37,6 @@ class DigitalPostSendCommand extends Command
 
         $io->info(sprintf('Number of digital posts: %d', count($digitalPosts)));
 
-        $this->documentUploader->specifyDirectory('case_documents');
         foreach ($digitalPosts as $index => $digitalPost) {
             $io->title(sprintf('% 3d/%d %s:%s', $index + 1, count($digitalPosts), get_class($digitalPost), $digitalPost->getId()));
 

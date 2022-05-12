@@ -63,6 +63,21 @@ class Document implements LoggableEntityInterface
      */
     private $hearingPost;
 
+    /**
+     * Path to document from project directory.
+     *
+     * @example:
+     *  upload/documents/TVIST1-Documentation.pdf
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $path;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $originalFileName;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -208,6 +223,30 @@ class Document implements LoggableEntityInterface
     public function setHearingPost(?HearingPost $hearingPost): self
     {
         $this->hearingPost = $hearingPost;
+
+        return $this;
+    }
+
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    public function setPath(string $path): self
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    public function getOriginalFileName(): ?string
+    {
+        return $this->originalFileName;
+    }
+
+    public function setOriginalFileName(string $originalFileName): self
+    {
+        $this->originalFileName = $originalFileName;
 
         return $this;
     }

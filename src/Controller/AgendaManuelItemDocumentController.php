@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Agenda;
 use App\Entity\AgendaManuelItem;
 use App\Entity\Document;
-use App\Entity\User;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use App\Form\DocumentType;
@@ -69,8 +68,6 @@ class AgendaManuelItemDocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $agendaItem);
 
-        $this->documentUploader->specifyDirectory('/agenda_item_documents/');
-
         // Create new document and its form
         $document = new Document();
         $form = $this->createForm(DocumentType::class, $document);
@@ -82,26 +79,16 @@ class AgendaManuelItemDocumentController extends AbstractController
             // Extract filename and handle it
             // Users will only see document name, not filename
             $documentName = $document->getDocumentName();
+            $documentType = $document->getType();
             /** @var UploadedFile[] $files */
             $files = $form->get('files')->getData();
 
             foreach ($files as $file) {
-                $document = (new Document())
-                    ->setDocumentName(sprintf('%s – %s', $documentName, $file->getClientOriginalName()))
-                    ->setType($document->getType())
-                ;
-                $newFilename = $this->documentUploader->upload($file);
+                $newDocument = $this->documentUploader->createDocumentFromUploadedFile($file, $documentName, $documentType);
 
-                // Set filename, document name and creator
-                $document->setFilename($newFilename);
+                $agendaItem->addDocument($newDocument);
 
-                /** @var User $uploader */
-                $uploader = $this->getUser();
-                $document->setUploadedBy($uploader);
-
-                $agendaItem->addDocument($document);
-
-                $this->entityManager->persist($document);
+                $this->entityManager->persist($newDocument);
             }
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('{count, plural, =1 {One document uploaded} other {# documents uploaded}}', ['count' => count($files)], 'agenda'));
@@ -120,18 +107,17 @@ class AgendaManuelItemDocumentController extends AbstractController
     }
 
     /**
-     * @Route("/download/{document_id}", name="agenda_manuel_item_document_download", methods={"GET", "POST"})
+     * @Route("/view/{document_id}", name="agenda_manuel_item_document_view", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      *
      * @throws DocumentDirectoryException
      */
-    public function download(AgendaManuelItem $agendaItem, Document $document, DocumentUploader $uploader): Response
+    public function view(AgendaManuelItem $agendaItem, Document $document, DocumentUploader $uploader): Response
     {
         $this->denyAccessUnlessGranted('view', $agendaItem);
 
-        $uploader->specifyDirectory('/agenda_item_documents/');
-        $response = $uploader->handleDownload($document);
+        $response = $uploader->handleViewDocument($document);
 
         return $response;
     }

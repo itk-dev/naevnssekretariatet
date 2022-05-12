@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% macro show_document_content_button(case, document) %}
-    <a target="document-content" href="{{ path('document_view', {id: case.id, document: document.id}) }}">
+    <a target="document-content" href="{{ path('document_view', {id: case.id, document_id: document.id}) }}">
         {{ document.documentName }}
     </a>
 {% endmacro %}
