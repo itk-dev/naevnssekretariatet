@@ -74,20 +74,17 @@ class DecisionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('filename')->getData();
 
-            /** @var User $user */
-            $user = $this->getUser();
-
-            $newDocument = $documentUploader->createDocumentFromFile($file, $user, $decision->getTitle(), 'Decision');
+            $document = $documentUploader->createDocumentFromUploadedFile($file, $decision->getTitle(), 'Decision');
 
             $relation = new CaseDocumentRelation();
             $relation->setCase($case);
-            $relation->setDocument($newDocument);
+            $relation->setDocument($document);
 
-            $decision->setDocument($newDocument);
+            $decision->setDocument($document);
             $decision->setCaseEntity($case);
 
             $this->entityManager->persist($decision);
-            $this->entityManager->persist($newDocument);
+            $this->entityManager->persist($document);
             $this->entityManager->persist($relation);
 
             //Create DigitalPost attachments without linking them to a specific DigitalPost
@@ -113,7 +110,7 @@ class DecisionController extends AbstractController
                 ;
             }
 
-            $digitalPostHelper->createDigitalPost($newDocument, $decision->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+            $digitalPostHelper->createDigitalPost($document, $decision->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
 
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Decision created', [], 'decision'));

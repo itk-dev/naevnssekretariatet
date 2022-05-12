@@ -184,23 +184,20 @@ class HearingController extends AbstractController
             // Move file
             $updatedFileName = $documentUploader->uploadFile($fileName);
 
-            /** @var User $user */
-            $user = $this->getUser();
-
             // Create document
-            $newDocument = $documentUploader->createDocumentFromPath($updatedFileName, $user, $hearingPost->getTitle(), 'Hearing', $hearingPost);
+            $document = $documentUploader->createDocumentFromPath($updatedFileName, $hearingPost->getTitle(), 'Hearing', $hearingPost);
 
-            $newDocument->setHearingPost($hearingPost);
-            $hearingPost->setDocument($newDocument);
+            $document->setHearingPost($hearingPost);
+            $hearingPost->setDocument($document);
 
             // Create case document relation
             $relation = new CaseDocumentRelation();
             $relation->setCase($case);
-            $relation->setDocument($newDocument);
+            $relation->setDocument($document);
 
             $hearing->setHasNewHearingPost(true);
             $this->entityManager->persist($relation);
-            $this->entityManager->persist($newDocument);
+            $this->entityManager->persist($document);
             $this->entityManager->persist($hearingPost);
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Hearing post request created', [], 'case'));

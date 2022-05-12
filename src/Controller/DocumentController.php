@@ -85,9 +85,7 @@ class DocumentController extends AbstractController
             /** @var UploadedFile[] $files */
             $files = $form->get('files')->getData();
             foreach ($files as $file) {
-                /** @var User $user */
-                $user = $this->getUser();
-                $newDocument = $this->documentUploader->createDocumentFromFile($file, $user, $documentName, $documentType);
+                $newDocument = $this->documentUploader->createDocumentFromUploadedFile($file, $documentName, $documentType);
 
                 $relation = new CaseDocumentRelation();
                 $relation->setCase($case);

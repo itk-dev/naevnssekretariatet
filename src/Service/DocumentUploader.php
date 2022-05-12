@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DocumentUploader
@@ -29,26 +30,30 @@ class DocumentUploader
     private $filesystem;
     private $projectDirectory;
     private MimeTypeGuesserInterface $mimeTypeGuesser;
+    private Security $security;
 
-    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser)
+    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser, Security $security)
     {
         $this->projectDirectory = $projectDirectory;
         $this->uploadDocumentDirectory = $uploadDocumentDirectory;
         $this->filesystem = $filesystem;
         $this->slugger = $slugger;
         $this->mimeTypeGuesser = $mimeTypeGuesser;
+        $this->security = $security;
     }
 
     /**
      * Creates and returns new document from filename.
      */
-    public function createDocumentFromPath(string $fileName, User $user, string $documentName, string $documentType): Document
+    public function createDocumentFromPath(string $fileName, string $documentName, string $documentType): Document
     {
         $document = new Document();
 
         $document->setFilename($fileName);
         $document->setDocumentName($documentName);
         $document->setPath($this->getFilepathFromProjectDirectory($fileName));
+        /** @var User $user */
+        $user = $this->security->getUser();
         $document->setUploadedBy($user);
         $document->setType($documentType);
 
@@ -58,18 +63,14 @@ class DocumentUploader
     /**
      * Creates, uploads and returns new document from a file.
      */
-    public function createDocumentFromFile(UploadedFile $file, User $user, string $documentName, string $documentType): Document
+    public function createDocumentFromUploadedFile(UploadedFile $file, string $documentName, string $documentType): Document
     {
-        $document = new Document();
-
-        $document->setDocumentName($documentName);
-        $document->setType($documentType);
-        $document->setOriginalFileName($file->getClientOriginalName());
-        $document->setUploadedBy($user);
-
         $newFileName = $this->upload($file);
-        $document->setFilename($newFileName);
-        $document->setPath($this->getFilepathFromProjectDirectory($newFileName));
+
+        $document = $this->createDocumentFromPath($newFileName, $documentName, $documentType);
+
+        // Documents that are created via an UploadedFile has an original file name others (template generated) do not
+        $document->setOriginalFileName($file->getClientOriginalName());
 
         return $document;
     }
