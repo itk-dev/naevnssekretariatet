@@ -28,7 +28,7 @@
         {{ form_start(filter_form) }}
             <div class="row no-gutters">
                 <div class="col-auto">
-                    {{ form_widget(filter_form.documentName) }}
+                    {{ form_widget(filter_form.query) }}
                 </div>
                 <div class="col-auto ml-2">
                     {{ form_widget(filter_form.type) }}
@@ -37,12 +37,11 @@
                     <button class="btn btn-primary">{% trans %}Apply filter{% endtrans %}</button>
 
                     {# Get query parameters without filter #}
-                    {% set query_parameters = app.request.query.all| filter((v, k) => k != 'document_filter') %}
+                    {% set query_parameters = app.request.query.all|filter((v, k) => k != 'document_filter') %}
                     {% set reset_filter_path = path(
                         app.request.attributes.get('_route'),
                         app.request.attributes.get('_route_params')|merge(query_parameters)
-                        )
-                    %}
+                        ) %}
                     <a class="btn btn-secondary" href="{{ reset_filter_path }}" role="button">{% trans %}Reset filter{% endtrans %}</a>
                 </div>
             </div>

@@ -115,7 +115,7 @@
       </trans-unit>
       <trans-unit id="EQtyiO5" resname="Original file name">
         <source>Original file name</source>
-        <target state="translated">Oprindeligt dokument navn</target>
+        <target state="translated">Oprindeligt filnavn</target>
       </trans-unit>
       <trans-unit id="9mq9OuC" resname="{count, plural, =1 {One document created} other {# documents created}}">
         <source>{count, plural, =1 {One document created} other {# documents created}}</source>

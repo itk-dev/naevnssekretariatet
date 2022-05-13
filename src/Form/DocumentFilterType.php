@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\CaseEntity;
 use App\Repository\DocumentRepository;
+use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
+use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,11 +47,28 @@ class DocumentFilterType extends AbstractType
                 'choices' => $typeChoices,
                 'placeholder' => $this->translator->trans('Select document type', [], 'document'),
             ])
-            ->add('documentName', Filters\TextFilterType::class, [
+            ->add('query', Filters\TextFilterType::class, [
                 'condition_pattern' => FilterOperands::STRING_CONTAINS,
                 'attr' => [
                     'placeholder' => $this->translator->trans('Search documents', [], 'document'),
                 ],
+                'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
+                    if (empty($values['value'])) {
+                        return null;
+                    }
+
+                    assert($filterQuery instanceof ORMQuery);
+                    $properties = ['documentName', 'originalFileName'];
+                    $expr = $filterQuery->getQueryBuilder()->expr();
+                    $expression = $expr->orX();
+                    foreach ($properties as $property) {
+                        $expression->add(
+                            $filterQuery->getExpressionBuilder()->stringLike('d.'.$property, $values['value'], $values['condition_pattern'] ?? FilterOperands::STRING_CONTAINS)
+                        );
+                    }
+
+                    return $filterQuery->createCondition($expression);
+                },
             ])
         ;
     }
