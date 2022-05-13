@@ -14,7 +14,9 @@ use App\Repository\CaseDocumentRelationRepository;
 use App\Repository\DocumentRepository;
 use App\Service\DocumentCopyHelper;
 use App\Service\DocumentUploader;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,7 +54,7 @@ class DocumentController extends AbstractController
     /**
      * @Route("/", name="document_index", methods={"GET"})
      */
-    public function index(Request $request, CaseEntity $case, DocumentRepository $documentRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater): Response
+    public function index(Request $request, CaseEntity $case, DocumentRepository $documentRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater, PaginatorInterface $paginator): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -68,12 +70,22 @@ class DocumentController extends AbstractController
 
         $filterBuilder = $documentRepository->createAvailableDocumentsForCaseQueryBuilder('d', $case);
         $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
-        $documents = $filterBuilder->getQuery()->execute();
+        $query = $filterBuilder->getQuery();
+
+        $pagination = $paginator->paginate(
+            $query,
+            1,
+            null, // Show all documents.
+            [
+                'defaultSortFieldName' => 'd.uploadedAt',
+                'defaultSortDirection' => Criteria::DESC,
+            ]
+        );
 
         return $this->render('documents/index.html.twig', [
             'filter_form' => $filterForm->createView(),
             'case' => $case,
-            'documents' => $documents,
+            'documents' => $pagination,
         ]);
     }
 
