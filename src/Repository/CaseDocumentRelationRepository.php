@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\CaseDocumentRelation;
-use App\Entity\CaseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,23 +17,5 @@ class CaseDocumentRelationRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CaseDocumentRelation::class);
-    }
-
-    /**
-     * Finds non-deleted documents for provided case.
-     */
-    public function findNonDeletedDocumentsByCase(CaseEntity $caseEntity): array
-    {
-        $relations = $caseEntity->getCaseDocumentRelation();
-
-        $documents = [];
-
-        foreach ($relations as $relation) {
-            if (!$relation->getSoftDeleted()) {
-                array_push($documents, $relation->getDocument());
-            }
-        }
-
-        return $documents;
     }
 }

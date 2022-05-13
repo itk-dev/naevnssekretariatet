@@ -8,11 +8,14 @@ use App\Entity\Document;
 use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use App\Form\CopyDocumentForm;
+use App\Form\DocumentFilterType;
 use App\Form\DocumentType;
 use App\Repository\CaseDocumentRelationRepository;
+use App\Repository\DocumentRepository;
 use App\Service\DocumentCopyHelper;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -49,15 +52,28 @@ class DocumentController extends AbstractController
     /**
      * @Route("/", name="document_index", methods={"GET"})
      */
-    public function index(CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
+    public function index(Request $request, CaseEntity $case, DocumentRepository $documentRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        $nonDeletedDocuments = $relationRepository->findNonDeletedDocumentsByCase($case);
+        $filterOptions = [
+            'case' => $case,
+            'method' => 'get',
+            'action' => $this->generateUrl('document_index', ['id' => $case->getId()]),
+        ];
+        $filterForm = $this->createForm(DocumentFilterType::class, null, $filterOptions);
+        if ($request->query->has($filterForm->getName())) {
+            $filterForm->submit($request->query->get($filterForm->getName()));
+        }
+
+        $filterBuilder = $documentRepository->createAvailableDocumentsForCaseQueryBuilder('d', $case);
+        $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
+        $documents = $filterBuilder->getQuery()->execute();
 
         return $this->render('documents/index.html.twig', [
+            'filter_form' => $filterForm->createView(),
             'case' => $case,
-            'documents' => $nonDeletedDocuments,
+            'documents' => $documents,
         ]);
     }
 

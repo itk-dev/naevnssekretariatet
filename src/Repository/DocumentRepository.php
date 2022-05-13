@@ -6,6 +6,7 @@ use App\Entity\AgendaCaseItem;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
 
@@ -59,18 +60,21 @@ class DocumentRepository extends ServiceEntityRepository
         ;
     }
 
+    public function createAvailableDocumentsForCaseQueryBuilder($alias, CaseEntity $caseEntity): QueryBuilder
+    {
+        $relationAlias = $alias.'_relation';
+
+        return $this->createQueryBuilder($alias)
+            ->join('d.caseDocumentRelations', $relationAlias)
+            ->where($relationAlias.'.softDeleted = false')
+            ->andWhere($relationAlias.'.case = :caseId')
+            ->setParameter('caseId', $caseEntity->getId(), 'uuid')
+            ;
+    }
+
     public function getAvailableDocumentsForCase(CaseEntity $caseEntity)
     {
-        $qb = $this->createQueryBuilder('d');
-
-        $qb
-            ->join('d.caseDocumentRelations', 'r')
-            ->where('r.softDeleted = false')
-            ->andWhere('r.case = :caseId')
-            ->setParameter('caseId', $caseEntity->getId(), 'uuid')
-        ;
-
-        return $qb
+        return $this->createAvailableDocumentsForCaseQueryBuilder('d', $caseEntity)
             ->getQuery()
             ->getResult()
         ;
