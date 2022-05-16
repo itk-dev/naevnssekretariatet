@@ -28,7 +28,7 @@ class CaseDocumentRelation
     private $case;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Document", inversedBy="caseDocumentRelation")
+     * @ORM\ManyToOne(targetEntity="Document", inversedBy="caseDocumentRelations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $document;
