@@ -50,6 +50,7 @@ class AgendaManuelItemType extends AbstractType
             ])
             ->add('meetingPoint', TextType::class, [
                 'label' => $this->translator->trans('Meeting point', [], 'agenda'),
+                'required' => false,
             ])
         ;
     }

@@ -36,7 +36,7 @@ abstract class AgendaItem
     private $endTime;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $meetingPoint;
 
@@ -97,7 +97,7 @@ abstract class AgendaItem
         return $this->meetingPoint;
     }
 
-    public function setMeetingPoint(string $meetingPoint): self
+    public function setMeetingPoint(?string $meetingPoint): self
     {
         $this->meetingPoint = $meetingPoint;
 
