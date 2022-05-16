@@ -45,12 +45,12 @@ class DocumentFilterType extends AbstractType
         $builder
             ->add('type', Filters\ChoiceFilterType::class, [
                 'choices' => $typeChoices,
-                'placeholder' => $this->translator->trans('Select document type', [], 'document'),
+                'placeholder' => $this->translator->trans('Select document type', [], 'documents'),
             ])
             ->add('query', Filters\TextFilterType::class, [
                 'condition_pattern' => FilterOperands::STRING_CONTAINS,
                 'attr' => [
-                    'placeholder' => $this->translator->trans('Search documents', [], 'document'),
+                    'placeholder' => $this->translator->trans('Search documents', [], 'documents'),
                 ],
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                     if (empty($values['value'])) {

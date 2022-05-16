@@ -129,6 +129,22 @@
         <source>Document deleted</source>
         <target state="translated">Dokument slettet</target>
       </trans-unit>
+      <trans-unit id="YnBqNa3" resname="Search documents">
+        <source>Search documents</source>
+        <target state="translated">Søg efter dokumenter</target>
+      </trans-unit>
+      <trans-unit id="118Faxu" resname="Apply filter">
+        <source>Apply filter</source>
+        <target state="translated">Anvend filter</target>
+      </trans-unit>
+      <trans-unit id="iba0ng1" resname="Reset filter">
+        <source>Reset filter</source>
+        <target state="translated">Nulstill filter</target>
+      </trans-unit>
+      <trans-unit id="FYixZgQ" resname="No documents found">
+        <source>No documents found</source>
+        <target state="translated">Ingen dokumenter fundet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
