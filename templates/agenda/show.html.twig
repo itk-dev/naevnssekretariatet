@@ -124,11 +124,16 @@
                                     <div class="col-md-7 text-truncate">
                                         <p class="m-0 mt-2">
                                             {% if agenda_item.caseEntity is defined %}
+                                                {# This means we are dealing with a case item #}
+                                                {# Display case number, inspection badge and as much from title as possible #}
                                                 {{ agenda_item.caseEntity.caseNumber|e }}
                                                 {% if agenda_item.inspection is defined and agenda_item.inspection == true %}
                                                     <span class="badge badge-pill badge-info text-dark">B</span>
                                                 {% endif %}
+                                                {{ agenda_item.title|e }}
                                             {% else %}
+                                                {# This means we are dealing with a manual item #}
+                                                {# Display as much from title as possible #}
                                                 {{ agenda_item.title|e }}
                                             {% endif %}
                                         </p>
