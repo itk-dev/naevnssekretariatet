@@ -145,6 +145,18 @@
         <source>No documents found</source>
         <target>No documents found</target>
       </trans-unit>
+      <trans-unit id="_Bq4NN5" resname="Reason">
+        <source>Reason</source>
+        <target>Reason</target>
+      </trans-unit>
+      <trans-unit id="oGa1Xa5" resname="Please provide a reason for deletion of the document">
+        <source>Please provide a reason for deletion of the document</source>
+        <target>Please provide a reason for deletion of the document</target>
+      </trans-unit>
+      <trans-unit id="_lckPcD" resname="Confirm deletion">
+        <source>Confirm deletion</source>
+        <target>Confirm deletion</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

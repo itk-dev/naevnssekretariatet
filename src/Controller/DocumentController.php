@@ -9,6 +9,7 @@ use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use App\Form\CopyDocumentForm;
 use App\Form\DocumentFilterType;
+use App\Form\DocumentRelationDeleteType;
 use App\Form\DocumentType;
 use App\Repository\CaseDocumentRelationRepository;
 use App\Repository\DocumentRepository;
@@ -158,8 +159,40 @@ class DocumentController extends AbstractController
         ]);
     }
 
+//    /**
+//     * @Route("/{id}", name="agenda_delete", methods={"POST"})
+//     */
+//    public function delete(Agenda $agenda, Request $request): Response
+//    {
+//        $this->denyAccessUnlessGranted('delete', $agenda);
+//
+//        if (!$this->isDeletable($agenda)) {
+//            $message = 'Attempted to delete non-deletable agenda.';
+//            throw new BadRequestException($message);
+//        }
+//
+//        $deleteForm = $this->createForm(AgendaDeleteType::class, $agenda);
+//
+//        $deleteForm->handleRequest($request);
+//
+//        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+//            $this->entityManager->remove($agenda);
+//            $this->entityManager->flush();
+//
+//            $this->addFlash('success', new TranslatableMessage('Agenda deleted', [], 'agenda'));
+//
+//            $redirectUrl = $this->generateUrl('agenda_index');
+//
+//            return $this->redirect($redirectUrl);
+//        }
+//
+//        return $this->render('agenda/_delete.html.twig', [
+//            'delete_form' => $deleteForm->createView(),
+//            'agenda' => $agenda,
+//        ]);
+//    }
     /**
-     * @Route("/{document_id}", name="document_delete", methods={"DELETE"})
+     * @Route("/{document_id}", name="document_delete", methods={"POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
@@ -167,20 +200,31 @@ class DocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        // Check that CSRF token is valid
-        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
-            // Simply just soft delete by setting soft deleted to true
+        $relation = $relationRepository->findOneBy(['case' => $case, 'document' => $document]);
 
-            $relation = $relationRepository->findOneBy(['case' => $case, 'document' => $document]);
+        $deleteForm = $this->createForm(DocumentRelationDeleteType::class, $relation);
+
+        $deleteForm->handleRequest($request);
+
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            // Simply just soft delete by setting soft deleted to true
             $relation->setSoftDeleted(true);
             $dateTime = new \DateTime('NOW');
             $relation->setSoftDeletedAt($dateTime);
 
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Document deleted', [], 'documents'));
+
+            $redirectUrl = $this->generateUrl('document_index', ['id' => $case->getId()]);
+
+            return $this->redirect($redirectUrl);
         }
 
-        return $this->redirectToRoute('document_index', ['id' => $case->getId()]);
+        return $this->render('documents/_delete.html.twig', [
+            'delete_form' => $deleteForm->createView(),
+            'case' => $case,
+            'document' => $document,
+        ]);
     }
 
     /**

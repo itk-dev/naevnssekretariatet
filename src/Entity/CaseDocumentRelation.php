@@ -33,6 +33,11 @@ class CaseDocumentRelation
      */
     private $document;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $removalReason;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -63,6 +68,18 @@ class CaseDocumentRelation
     public function setDocument(Document $document): self
     {
         $this->document = $document;
+
+        return $this;
+    }
+
+    public function getRemovalReason(): ?string
+    {
+        return $this->removalReason;
+    }
+
+    public function setRemovalReason(?string $removalReason): self
+    {
+        $this->removalReason = $removalReason;
 
         return $this;
     }
