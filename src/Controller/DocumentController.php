@@ -160,7 +160,7 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/{document_id}", name="document_delete", methods={"POST"})
+     * @Route("/{document_id}", name="document_delete", methods={"GET", "DELETE"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
@@ -170,7 +170,7 @@ class DocumentController extends AbstractController
 
         $relation = $relationRepository->findOneBy(['case' => $case, 'document' => $document]);
 
-        $deleteForm = $this->createForm(DocumentRelationDeleteType::class, $relation);
+        $deleteForm = $this->createForm(DocumentRelationDeleteType::class, $relation, ['method' => 'DELETE']);
 
         $deleteForm->handleRequest($request);
 
