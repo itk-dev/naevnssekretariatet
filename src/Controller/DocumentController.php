@@ -159,38 +159,6 @@ class DocumentController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @Route("/{id}", name="agenda_delete", methods={"POST"})
-//     */
-//    public function delete(Agenda $agenda, Request $request): Response
-//    {
-//        $this->denyAccessUnlessGranted('delete', $agenda);
-//
-//        if (!$this->isDeletable($agenda)) {
-//            $message = 'Attempted to delete non-deletable agenda.';
-//            throw new BadRequestException($message);
-//        }
-//
-//        $deleteForm = $this->createForm(AgendaDeleteType::class, $agenda);
-//
-//        $deleteForm->handleRequest($request);
-//
-//        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
-//            $this->entityManager->remove($agenda);
-//            $this->entityManager->flush();
-//
-//            $this->addFlash('success', new TranslatableMessage('Agenda deleted', [], 'agenda'));
-//
-//            $redirectUrl = $this->generateUrl('agenda_index');
-//
-//            return $this->redirect($redirectUrl);
-//        }
-//
-//        return $this->render('agenda/_delete.html.twig', [
-//            'delete_form' => $deleteForm->createView(),
-//            'agenda' => $agenda,
-//        ]);
-//    }
     /**
      * @Route("/{document_id}", name="document_delete", methods={"POST"})
      * @Entity("document", expr="repository.find(document_id)")
