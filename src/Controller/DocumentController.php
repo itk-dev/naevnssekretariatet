@@ -9,6 +9,7 @@ use App\Exception\DocumentDirectoryException;
 use App\Exception\FileMovingException;
 use App\Form\CopyDocumentForm;
 use App\Form\DocumentFilterType;
+use App\Form\DocumentRelationDeleteType;
 use App\Form\DocumentType;
 use App\Repository\CaseDocumentRelationRepository;
 use App\Repository\DocumentRepository;
@@ -159,7 +160,7 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/{document_id}", name="document_delete", methods={"DELETE"})
+     * @Route("/{document_id}", name="document_delete", methods={"GET", "DELETE"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
@@ -167,20 +168,31 @@ class DocumentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        // Check that CSRF token is valid
-        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
-            // Simply just soft delete by setting soft deleted to true
+        $relation = $relationRepository->findOneBy(['case' => $case, 'document' => $document]);
 
-            $relation = $relationRepository->findOneBy(['case' => $case, 'document' => $document]);
+        $deleteForm = $this->createForm(DocumentRelationDeleteType::class, $relation, ['method' => 'DELETE']);
+
+        $deleteForm->handleRequest($request);
+
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            // Simply just soft delete by setting soft deleted to true
             $relation->setSoftDeleted(true);
             $dateTime = new \DateTime('NOW');
             $relation->setSoftDeletedAt($dateTime);
 
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Document deleted', [], 'documents'));
+
+            $redirectUrl = $this->generateUrl('document_index', ['id' => $case->getId()]);
+
+            return $this->redirect($redirectUrl);
         }
 
-        return $this->redirectToRoute('document_index', ['id' => $case->getId()]);
+        return $this->render('documents/_delete.html.twig', [
+            'delete_form' => $deleteForm->createView(),
+            'case' => $case,
+            'document' => $document,
+        ]);
     }
 
     /**
