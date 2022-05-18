@@ -12,6 +12,7 @@
 
             {% if preview_entities %}
                 <button class="btn btn-primary" type="submit" formaction="{{ path('admin_mail_template_data', {id: entity.primaryKeyValue}) }}">{{ 'Preview template data'|trans }}</button>
+                <input type="hidden" name="with_data" value="true"/>
                 <button class="btn btn-primary" type="submit" formaction="{{ path('admin_mail_template_preview', {id: entity.primaryKeyValue}) }}">{{ 'Preview template with data'|trans }}</button>
 
                 <div class="form-group">
