@@ -179,8 +179,8 @@ class ComplexMacroHelper
             'formatting' => [
                 'link' => [
                     'font_style' => [
-                        // @see https://phpword.readthedocs.io/en/latest/styles.html#font
-                        'styleName' => 'InternetLink',
+                        'styleName' => 'Hyperlink',
+                        // See https://phpword.readthedocs.io/en/latest/styles.html#font for additional options.
                     ],
                 ],
             ],

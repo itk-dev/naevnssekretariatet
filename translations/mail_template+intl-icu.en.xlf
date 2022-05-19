@@ -41,6 +41,18 @@
         <source>Agenda inspection</source>
         <target>Agenda inspection</target>
       </trans-unit>
+      <trans-unit id="4Hr9cDG" resname="Preview entity">
+        <source>Preview entity</source>
+        <target>Preview entity</target>
+      </trans-unit>
+      <trans-unit id="kKUTJhJ" resname="Pick an entity to use for previewing data and template with data.">
+        <source>Pick an entity to use for previewing data and template with data.</source>
+        <target>Pick an entity to use for previewing data and template with data.</target>
+      </trans-unit>
+      <trans-unit id="G4xAGP0" resname="No entities for this template exists">
+        <source>No entities for this template exists</source>
+        <target>No entities for this template exists</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

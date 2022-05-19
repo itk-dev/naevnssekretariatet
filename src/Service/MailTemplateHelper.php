@@ -96,6 +96,35 @@ class MailTemplateHelper
     }
 
     /**
+     * Get valid entities for previewing a mail template.
+     *
+     * @return array|mixed The entities
+     *
+     * @throws \RuntimeException
+     */
+    public function getPreviewEntities(MailTemplate $mailTemplate)
+    {
+        $classNames = $this->getTemplateEntityClassNames($mailTemplate) ?? [];
+
+        $entities = [];
+        foreach ($classNames as $className) {
+            try {
+                $repository = $this->entityManager->getRepository($className);
+                // Get at most 20 entities.
+                $entities[] = $repository->findBy([], null, 20);
+            } catch (MappingException $mappingException) {
+                // Cannot get repository for the class name. Continue to see if another class name succeeds.
+            }
+        }
+
+        $entities = array_merge(...$entities);
+
+        usort($entities, static fn ($a, $b) => (string) $a <=> (string) $b);
+
+        return $entities;
+    }
+
+    /**
      * @return string[]|array|null
      */
     public function getTemplateEntityClassNames(MailTemplate $mailTemplate): ?array
