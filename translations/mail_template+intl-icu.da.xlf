@@ -43,11 +43,11 @@
       </trans-unit>
       <trans-unit id="4Hr9cDG" resname="Preview entity">
         <source>Preview entity</source>
-        <target state="translated">Forhåndsvisningsobject</target>
+        <target state="translated">Forhåndsvisningsobjekt</target>
       </trans-unit>
       <trans-unit id="kKUTJhJ" resname="Pick an entity to use for previewing data and template with data.">
         <source>Pick an entity to use for previewing data and template with data.</source>
-        <target state="translated">Vælg et objekt der skal bruge til forhåndsvisning af data og skabelon udfyldt med data.</target>
+        <target state="translated">Vælg et objekt der skal bruges til forhåndsvisning af data og skabelon udfyldt med data.</target>
       </trans-unit>
       <trans-unit id="G4xAGP0" resname="No entities for this template exists">
         <source>No entities for this template exists</source>

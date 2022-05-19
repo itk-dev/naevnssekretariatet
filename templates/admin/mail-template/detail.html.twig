@@ -17,9 +17,9 @@
                 <div class="form-group">
                     <label for="previewEntity">{{ 'Preview entity'|trans }}</label>
                     <select id="previewEntity" class="form-control" name="entity[id]">
-                        {% for entity in preview_entities %}
-                            <option value="{{ entity.id }}">
-                                {{ entity }}
+                        {% for preview_entity in preview_entities %}
+                            <option value="{{ preview_entity.id }}">
+                                {{ preview_entity }}
                             </option>
                         {% endfor %}
                     </select>
