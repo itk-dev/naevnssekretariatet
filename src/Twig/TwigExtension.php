@@ -2,6 +2,9 @@
 
 namespace App\Twig;
 
+use App\Entity\CaseEntity;
+use App\Entity\Document;
+use App\Repository\DigitalPostRepository;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -9,11 +12,8 @@ use Twig\TwigFunction;
 
 class TwigExtension extends AbstractExtension
 {
-    private Environment $twig;
-
-    public function __construct(Environment $twig)
+    public function __construct(private Environment $twig, private DigitalPostRepository $digitalPostRepository)
     {
-        $this->twig = $twig;
     }
 
     public function getFunctions(): array
@@ -22,6 +22,7 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('camelCaseToUnderscore', [$this, 'camelCaseToUnderscore']),
             new TwigFunction('class', [$this, 'getClass']),
             new TwigFunction('type', 'gettype'),
+            new TwigFunction('isDocumentDeletable', [$this, 'isDocumentDeletable']),
         ];
     }
 
@@ -54,5 +55,42 @@ class TwigExtension extends AbstractExtension
     public function dateNullableFilter($timestamp, $format, $nullDisplayValue = ''): string
     {
         return $timestamp ? twig_date_format_filter($this->twig, $timestamp, $format) : $nullDisplayValue;
+    }
+
+    /**
+     * Checks whether document on case is deletable.
+     */
+    public function isDocumentDeletable(Document $document, CaseEntity $case): bool
+    {
+        $digitalPosts = $this->digitalPostRepository->findByEntity($case);
+
+        // Check whether document has been sent out via digital post
+        foreach ($digitalPosts as $digitalPost) {
+            if ($document->getId() === $digitalPost->getDocument()->getId()) {
+                return false;
+            }
+
+            $attachments = $digitalPost->getAttachments();
+
+            foreach ($attachments as $attachment) {
+                if ($attachment->getDocument()->getId() === $document->getId()) {
+                    return false;
+                }
+            }
+        }
+
+        // Check whether document is attached to agenda case item
+        $agendaCaseItems = $case->getAgendaCaseItems();
+
+        foreach ($agendaCaseItems as $agendaCaseItem) {
+            $agendaCaseItemDocuments = $agendaCaseItem->getDocuments();
+            foreach ($agendaCaseItemDocuments as $agendaCaseItemDocument) {
+                if ($document->getId() === $agendaCaseItemDocument->getId()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }
