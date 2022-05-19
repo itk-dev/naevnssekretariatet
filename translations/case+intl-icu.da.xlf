@@ -1279,7 +1279,7 @@
       </trans-unit>
       <trans-unit id="BxXUyin" resname="Bringer address">
         <source>Bringer address</source>
-        <target state="translated">Adresse</target>
+        <target state="translated">Indbringers adresse</target>
       </trans-unit>
       <trans-unit id="uAn2V7I" resname="Look up bringer address">
         <source>Look up bringer address</source>
@@ -1295,7 +1295,7 @@
       </trans-unit>
       <trans-unit id="R5dtr4F" resname="Bringer phone">
         <source>Bringer phone</source>
-        <target state="translated">Telefonnummer</target>
+        <target state="translated">Indbringers telefonnummer</target>
       </trans-unit>
       <trans-unit id="Jyn13Ug" resname="Parties">
         <source>Parties</source>
@@ -1303,7 +1303,7 @@
       </trans-unit>
       <trans-unit id="sT9BRdo" resname="Bringer name">
         <source>Bringer name</source>
-        <target state="translated">Navn</target>
+        <target state="translated">Indbringers navn</target>
       </trans-unit>
       <trans-unit id="VXVbSna" resname="A case must have both a party and a counter part before entering the hearing phase.">
         <source>A case must have both a party and a counter part before entering the hearing phase.</source>
@@ -1460,6 +1460,14 @@
       <trans-unit id="hxJPdUw" resname="Reminder updated">
         <source>Reminder updated</source>
         <target state="translated">Påmindelse opdateret</target>
+      </trans-unit>
+      <trans-unit id="ENS2QDD" resname="Accused name">
+        <source>Accused name</source>
+        <target state="translated">Modparts navn</target>
+      </trans-unit>
+      <trans-unit id="36gvIbP" resname="Party">
+        <source>Party</source>
+        <target state="translated">Part</target>
       </trans-unit>
     </body>
   </file>

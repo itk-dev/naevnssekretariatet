@@ -1465,6 +1465,14 @@
         <source>Reminder updated</source>
         <target>Reminder updated</target>
       </trans-unit>
+      <trans-unit id="ENS2QDD" resname="Accused name">
+        <source>Accused name</source>
+        <target>Accused name</target>
+      </trans-unit>
+      <trans-unit id="36gvIbP" resname="Party">
+        <source>Party</source>
+        <target>Party</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
