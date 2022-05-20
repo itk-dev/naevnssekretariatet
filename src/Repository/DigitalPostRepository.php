@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\CaseEntity;
 use App\Entity\DigitalPost;
+use App\Entity\Document;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -25,5 +27,12 @@ class DigitalPostRepository extends ServiceEntityRepository
         $criteria['entityId'] = $entity->getId();
 
         return $this->findBy($criteria, $orderBy, $limit, $offset);
+    }
+
+    public function findByDocumentAndCase(Document $document, CaseEntity $case, array $criteria = [], array $orderBy = null, $limit = null, $offset = null): array
+    {
+        $criteria['document'] = $document;
+
+        return $this->findByEntity($case, $criteria, $orderBy, $limit, $offset);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Twig;
 
+use App\Entity\CaseEntity;
+use App\Entity\Document;
+use App\Service\DocumentDeletableHelper;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -9,11 +12,8 @@ use Twig\TwigFunction;
 
 class TwigExtension extends AbstractExtension
 {
-    private Environment $twig;
-
-    public function __construct(Environment $twig)
+    public function __construct(private Environment $twig, private DocumentDeletableHelper $deletableHelper)
     {
-        $this->twig = $twig;
     }
 
     public function getFunctions(): array
@@ -22,6 +22,7 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('camelCaseToUnderscore', [$this, 'camelCaseToUnderscore']),
             new TwigFunction('class', [$this, 'getClass']),
             new TwigFunction('type', 'gettype'),
+            new TwigFunction('isDocumentDeletable', [$this, 'isDocumentDeletable']),
         ];
     }
 
@@ -54,5 +55,10 @@ class TwigExtension extends AbstractExtension
     public function dateNullableFilter($timestamp, $format, $nullDisplayValue = ''): string
     {
         return $timestamp ? twig_date_format_filter($this->twig, $timestamp, $format) : $nullDisplayValue;
+    }
+
+    public function isDocumentDeletable(Document $document, CaseEntity $case): bool
+    {
+        return $this->deletableHelper->isDocumentDeletable($document, $case);
     }
 }
