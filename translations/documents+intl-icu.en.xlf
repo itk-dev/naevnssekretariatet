@@ -157,6 +157,10 @@
         <source>Confirm deletion</source>
         <target>Confirm deletion</target>
       </trans-unit>
+      <trans-unit id="FzikA4Q" resname="Cannot delete document that has been sent or is attached to an agenda">
+        <source>Cannot delete document that has been sent or is attached to an agenda</source>
+        <target>Cannot delete document that has been sent or is attached to an agenda</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
