@@ -4,7 +4,7 @@ namespace App\Twig;
 
 use App\Entity\CaseEntity;
 use App\Entity\Document;
-use App\Repository\DigitalPostRepository;
+use App\Service\DocumentDeletableHelper;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -12,7 +12,7 @@ use Twig\TwigFunction;
 
 class TwigExtension extends AbstractExtension
 {
-    public function __construct(private Environment $twig, private DigitalPostRepository $digitalPostRepository)
+    public function __construct(private Environment $twig, private DocumentDeletableHelper $deletableHelper)
     {
     }
 
@@ -57,40 +57,8 @@ class TwigExtension extends AbstractExtension
         return $timestamp ? twig_date_format_filter($this->twig, $timestamp, $format) : $nullDisplayValue;
     }
 
-    /**
-     * Checks whether document on case is deletable.
-     */
     public function isDocumentDeletable(Document $document, CaseEntity $case): bool
     {
-        $digitalPosts = $this->digitalPostRepository->findByEntity($case);
-
-        // Check whether document has been sent out via digital post
-        foreach ($digitalPosts as $digitalPost) {
-            if ($document->getId() === $digitalPost->getDocument()->getId()) {
-                return false;
-            }
-
-            $attachments = $digitalPost->getAttachments();
-
-            foreach ($attachments as $attachment) {
-                if ($attachment->getDocument()->getId() === $document->getId()) {
-                    return false;
-                }
-            }
-        }
-
-        // Check whether document is attached to agenda case item
-        $agendaCaseItems = $case->getAgendaCaseItems();
-
-        foreach ($agendaCaseItems as $agendaCaseItem) {
-            $agendaCaseItemDocuments = $agendaCaseItem->getDocuments();
-            foreach ($agendaCaseItemDocuments as $agendaCaseItemDocument) {
-                if ($document->getId() === $agendaCaseItemDocument->getId()) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return $this->deletableHelper->isDocumentDeletable($document, $case);
     }
 }
