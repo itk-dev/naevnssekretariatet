@@ -41,7 +41,7 @@ class ResidentComplaintBoardCaseType extends AbstractType
 
         $builder
             ->add('bringerIdentification', IdentificationType::class, [
-                'label' => false,
+                'label' => $this->translator->trans('Bringer', [], 'case'),
             ])
             ->add('lookupIdentifier', ButtonType::class, [
                 'label' => $this->translator->trans('Find information from identifier', [], 'case'),
@@ -55,7 +55,7 @@ class ResidentComplaintBoardCaseType extends AbstractType
                 'required' => false,
             ])
             ->add('bringer', TextType::class, [
-                'label' => $this->translator->trans('Bringer', [], 'case'),
+                'label' => $this->translator->trans('Bringer name', [], 'case'),
             ])
             ->add('bringerPhone', IntegerType::class, [
                 'label' => $this->translator->trans('Bringer phone', [], 'case'),
