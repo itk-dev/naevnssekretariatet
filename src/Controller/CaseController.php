@@ -168,7 +168,6 @@ class CaseController extends AbstractController
         // Find active municipality with purpose of preselecting it in case creation form
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
 
-        // We pass along a case entity to make sure we can extract municipality and board in CaseEntityType
         $form = $this->createForm(NewCaseMunicipalityAndBoardType::class, null, [
             'active_municipality' => $activeMunicipality,
         ]);
