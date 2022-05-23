@@ -14,7 +14,6 @@ use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CaseDeleteType;
-use App\Form\CaseEntityType;
 use App\Form\CaseFilterType;
 use App\Form\CaseMoveType;
 use App\Form\CasePresentationType;
