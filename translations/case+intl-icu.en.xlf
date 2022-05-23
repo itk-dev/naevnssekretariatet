@@ -1473,6 +1473,10 @@
         <source>Party</source>
         <target>Party</target>
       </trans-unit>
+      <trans-unit id="MfvvFiW" resname="Continue">
+        <source>Continue</source>
+        <target>Continue</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

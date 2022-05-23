@@ -1469,6 +1469,10 @@
         <source>Party</source>
         <target state="translated">Part</target>
       </trans-unit>
+      <trans-unit id="MfvvFiW" resname="Continue">
+        <source>Continue</source>
+        <target state="translated">Fortsæt</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
