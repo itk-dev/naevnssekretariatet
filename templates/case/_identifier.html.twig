@@ -3,29 +3,42 @@
 {% set id = attribute(case, id_property) %}
 
 {% if id.type == 'CVR' %}
-        <div class="form-group col-md-2">
-            <label>{% trans with {type: id.type} %}Identifier ({type}){% endtrans %}</label>
-            <input type="text" class="form-control" value="{{ id.identifier }}" readonly>
-        </div>
-        <div class="form-group col-md-2">
-            <label>{% trans %}P-number{% endtrans %}</label>
-            <input type="text" class="form-control" value="{{ id.pNumber }}" readonly>
-        </div>
-{% else %}
+    {% set validate_identifier_width = 2 %}
     <div class="form-group col-md-2">
         <label>{% trans with {type: id.type} %}Identifier ({type}){% endtrans %}</label>
         <input type="text" class="form-control" value="{{ id.identifier }}" readonly>
     </div>
     <div class="form-group col-md-2">
-        {# Empty div, as replacement for P-number, to ensure correct placement of validate button #}
+        <label>{% trans %}P-number{% endtrans %}</label>
+        <input type="text" class="form-control" value="{{ id.pNumber }}" readonly>
+    </div>
+{% else %}
+    {# To account for no P-number, we allow more space for validate button #}
+    {% set validate_identifier_width = 4 %}
+    <div class="form-group col-md-2">
+        <label>{% trans with {type: id.type} %}Identifier ({type}){% endtrans %}</label>
+        <input type="text" class="form-control" value="{{ id.identifier }}" readonly>
     </div>
 {% endif %}
 
-<div class="form-group col-md-2">
-    <label class="invisible">{% trans %}Validate{% endtrans %}</label>
-    {% if id.validatedAt %}
-        <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Identification validated at {validation_time}'|trans({'validation_time': id.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans with {type: id.type} %}Identifier ({type}) validated{% endtrans %}</span>
-    {% else %}
-        {{ render(controller('App\\Controller\\CaseController:validateIdentifier', {id: case.id, idProperty: id_property, addressProperty: address_property, nameProperty: name_property})) }}
-    {% endif %}
-</div>
+
+
+{% if id.identifier %}
+    <div class="form-group col-md-{{ validate_identifier_width }}">
+        <label class="invisible">{% trans %}Validate{% endtrans %}</label>
+        {% if id.validatedAt %}
+            <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Identification validated at {validation_time}'|trans({'validation_time': id.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans with {type: id.type} %}Identifier ({type}) validated{% endtrans %}</span>
+        {% else %}
+            {{ render(controller('App\\Controller\\CaseController:validateIdentifier', {id: case.id, idProperty: id_property, addressProperty: address_property, nameProperty: name_property})) }}
+        {% endif %}
+    </div>
+{% else %}
+    <div class="form-group col-md-{{ validate_identifier_width }}">
+        <label class="invisible">{% trans %}Validate{% endtrans %}</label>
+        <p>
+            {% trans %}Add an identifier before being able to validate it{% endtrans %}
+        </p>
+    </div>
+{% endif %}
+
+
