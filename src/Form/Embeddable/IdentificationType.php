@@ -24,11 +24,14 @@ class IdentificationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Identification::class,
+            'is_required' => null,
         ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $isRequired = $options['is_required'];
+
         $builder
             ->add('type', ChoiceType::class, [
                 'label' => $this->translator->trans('Identification type', [], 'case'),
@@ -39,6 +42,7 @@ class IdentificationType extends AbstractType
                 'attr' => [
                     'placeholder' => $this->translator->trans('Identifier', [], 'case'),
                 ],
+                'required' => $isRequired,
             ])
             ->add('pNumber', TextType::class, [
                 'label' => $this->translator->trans('P-number', [], 'case'),

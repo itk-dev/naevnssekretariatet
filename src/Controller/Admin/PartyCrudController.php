@@ -65,6 +65,7 @@ class PartyCrudController extends AbstractCrudController
             ->onlyOnForms()
             ->setFormTypeOptions([
                 'block_name' => 'lookup_identifier',
+                'is_required' => true,
             ])
             ->addWebpackEncoreEntries('admin_party_identifier_lookup')
         ;

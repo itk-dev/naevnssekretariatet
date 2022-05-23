@@ -50,6 +50,7 @@ class PartyFormType extends AbstractType
         $builder
             ->add('identification', IdentificationType::class, [
                 'label' => $this->translator->trans('Party', [], 'case'),
+                'is_required' => true,
                 'constraints' => [
                     new PartyIdentification(),
                 ],
