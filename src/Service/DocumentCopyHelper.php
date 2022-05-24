@@ -27,7 +27,7 @@ class DocumentCopyHelper
     {
         // Collect all cases of same type and within same municipality
         $repository = $this->entityManager->getRepository(get_class($case));
-        $potentialCases = $repository->findBy(['municipality' => $case->getMunicipality()]);
+        $potentialCases = $repository->findBy(['municipality' => $case->getMunicipality()], ['caseNumber' => 'ASC']);
 
         $relations = $document->getCaseDocumentRelations();
         $casesThatContainDocument = [];

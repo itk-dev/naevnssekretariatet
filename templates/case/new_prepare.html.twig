@@ -16,14 +16,12 @@
     <main role="main" class="col-12">
         {{ form_start(form) }}
         {{ form_rest(form) }}
-        <button class="btn btn-success float-right mt-2" type="submit" name="submit">{% trans %}Create{% endtrans %}</button>
+        <button class="btn btn-success float-right mt-2" type="submit" name="submit">{% trans %}Continue{% endtrans %}</button>
         {{ form_end(form) }}
     </main>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('case_new') }}
-    {{ encore_entry_script_tags('identification-lookup') }}
-    {{ encore_entry_script_tags('dawa-address-lookup') }}
+    {{ encore_entry_script_tags('case_new_prepare') }}
 {% endblock %}
