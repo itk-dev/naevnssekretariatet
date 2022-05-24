@@ -11,12 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Identification implements LoggableEntityInterface
 {
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=32, nullable=true)
      */
     private $type;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $identifier;
 
@@ -37,7 +37,7 @@ class Identification implements LoggableEntityInterface
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
         $this->type = $type;
 
@@ -49,7 +49,7 @@ class Identification implements LoggableEntityInterface
         return $this->identifier;
     }
 
-    public function setIdentifier(string $identifier): self
+    public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;
 

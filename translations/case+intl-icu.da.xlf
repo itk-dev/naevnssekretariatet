@@ -1469,6 +1469,10 @@
         <source>Party</source>
         <target state="translated">Part</target>
       </trans-unit>
+      <trans-unit id="9JKomjb" resname="Add an identifier before being able to validate it">
+        <source>Add an identifier before being able to validate it</source>
+        <target state="translated">Tilføj et id før du kan validere det</target>
+      </trans-unit>
       <trans-unit id="MfvvFiW" resname="Continue">
         <source>Continue</source>
         <target state="translated">Fortsæt</target>
