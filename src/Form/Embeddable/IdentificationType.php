@@ -26,6 +26,8 @@ class IdentificationType extends AbstractType
             'data_class' => Identification::class,
             'is_required' => null,
         ]);
+
+        $resolver->setAllowedTypes('is_required', 'bool');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
