@@ -50,11 +50,6 @@ class AgendaCaseItem extends AgendaItem
         $this->inspectionLetters = new ArrayCollection();
     }
 
-    public function __toString(): string
-    {
-        return __CLASS__.'#'.$this->getId();
-    }
-
     public function getInspection(): ?bool
     {
         return $this->inspection;

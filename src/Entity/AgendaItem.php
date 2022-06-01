@@ -51,6 +51,11 @@ abstract class AgendaItem
         $this->id = Uuid::v4();
     }
 
+    public function __toString(): string
+    {
+        return $this->title;
+    }
+
     public function getId(): ?Uuid
     {
         return $this->id;
