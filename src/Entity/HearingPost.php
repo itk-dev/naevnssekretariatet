@@ -57,7 +57,9 @@ abstract class HearingPost implements LoggableEntityInterface
 
     public function __toString(): string
     {
-        return self::class.'#'.$this->getId();
+        $case = $this->hearing->getCaseEntity();
+
+        return sprintf('Hearing post (case: %s)', $case->getCaseNumber());
     }
 
     public function getId(): ?Uuid
