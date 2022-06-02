@@ -196,8 +196,10 @@ services:
     App\Service\MailTemplate\ComplexMacroHelper:
         arguments:
             $options:
-              formatting:
-                  link:
-                      font_style:
-                          styleName: 'Hyperlink'
-                          # See https://phpword.readthedocs.io/en/latest/styles.html#font for additional options.
+                formatting:
+                    hyperlink:
+                        style_name: Hyperlink
+                        styles:
+                            # See https://phpword.readthedocs.io/en/latest/styles.html#font for styles options.
+                            color: 0563C1
+                            underline: !php/const \PhpOffice\PhpWord\Style\Font::UNDERLINE_SINGLE

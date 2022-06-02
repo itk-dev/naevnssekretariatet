@@ -19,6 +19,7 @@ use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\Element\TextBreak;
 use PhpOffice\PhpWord\Element\TextRun;
+use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -191,8 +192,23 @@ class MailTemplateHelper
         $options = $resolver->resolve($options);
 
         $templateFileName = $this->getTemplateFile($mailTemplate);
+
+        // Load the template and make sure that the hyperlink style we'll use
+        // for links exist (cf. ComplexMacroHelper::createLink()).
+        [$styleName, $styles] = $this->macroHelper->getHyperlinkStyle();
+        $phpWord = IOFactory::load($templateFileName);
+        $phpWord->addLinkStyle($styleName, $styles);
+        $writer = IOFactory::createWriter($phpWord);
+
+        // Write document to temporary file
+        $templateFileName = $this->filesystem->tempnam('/tmp', 'word');
+        $writer->save($templateFileName);
+
         // https://phpword.readthedocs.io/en/latest/templates-processing.html
         $templateProcessor = new LinkedTemplateProcessor($templateFileName);
+
+        // Clean up.
+        $this->filesystem->remove($templateFileName);
 
         if (null !== $entity) {
             $values = $this->getComplexMacros($entity);
