@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Board;
+use App\Entity\MailTemplate;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -96,7 +97,8 @@ class BoardCrudController extends AbstractCrudController
         yield AssociationField::new('receiptCase', 'Receipt on case')
             ->hideOnIndex()
             ->setFormTypeOptions([
-                'placeholder' => $this->translator->trans('Select receipt template'),
+                'placeholder' => $this->translator->trans('Select receipt template', [], 'admin'),
+                'choice_filter' => static fn (MailTemplate $mailTemplate) => 'board_receipt_case' === $mailTemplate->getType(),
             ])
             ->setRequired(true)
             ->setHelp($this->translator->trans('Select template to use for sending a receipt to the bringer.', [], 'admin'))
@@ -105,7 +107,8 @@ class BoardCrudController extends AbstractCrudController
         yield AssociationField::new('receiptHearingPost', 'Receipt on hearing post')
             ->hideOnIndex()
             ->setFormTypeOptions([
-                'placeholder' => $this->translator->trans('Select receipt template'),
+                'placeholder' => $this->translator->trans('Select receipt template', [], 'admin'),
+                'choice_filter' => static fn (MailTemplate $mailTemplate) => 'board_receipt_hearing_post' === $mailTemplate->getType(),
             ])
             ->setRequired(true)
             ->setHelp($this->translator->trans('Select template to use for sending a receipt to the bringer.', [], 'admin'))

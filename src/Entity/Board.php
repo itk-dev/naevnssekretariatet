@@ -97,12 +97,20 @@ class Board implements LoggableEntityInterface
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
      * @Assert\NotNull()
+     * @Assert\Expression(
+     *     "'board_receipt_case' == value.getType()",
+     *     message="Please select a template with type board_receipt_case"
+     * )
      */
     private $receiptCase;
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
      * @Assert\NotNull()
+     * @Assert\Expression(
+     *     "'board_receipt_hearing_post' == value.getType()",
+     *     message="Please select a template with type board_receipt_hearing_post"
+     * )
      */
     private $receiptHearingPost;
 

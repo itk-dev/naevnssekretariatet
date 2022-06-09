@@ -253,7 +253,7 @@
         <source>Mail template macro</source>
         <target state="translated">Brevskabelonmakro</target>
       </trans-unit>
-      <trans-unit id="kStF.jD" resname="The value to insert to use the macro in a template, i.e. if the name is &lt;code&gt;name_and_address&lt;/code&gt; then &lt;code&gt;${name_and_address}&lt;/code&gt; can be used in the template.">
+      <trans-unit id="kStF.jD" resname="The value to insert to use the macro in a template, i.e. if the name is &lt;code>name_and_address&lt;/code> then &lt;code>${name_and_address}&lt;/code> can be used in the template.">
         <source>The value to insert to use the macro in a template, i.e. if the name is &lt;code&gt;name_and_address&lt;/code&gt; then &lt;code&gt;${name_and_address}&lt;/code&gt; can be used in the template.</source>
         <target><![CDATA[Værdien der skal indsættes i skabelonen, f.eks. hvis makroen er <code>navn</code> så kan <code>${navn}</code> bruges i skabelonen.]]></target>
       </trans-unit>
@@ -336,6 +336,14 @@
       <trans-unit id="foxwvv1" resname="Upload a Word document (docx) to use as a template.">
         <source>Upload a Word document (docx) to use as a template.</source>
         <target state="translated">Upload et Word-dokument (docx) der skal bruges som skabelon.</target>
+      </trans-unit>
+      <trans-unit id="nN_UcHC" resname="Select template to use for sending a receipt to the bringer.">
+        <source>Select template to use for sending a receipt to the bringer.</source>
+        <target state="translated">Vælg skabelon for kvittering til indbringer.</target>
+      </trans-unit>
+      <trans-unit id="XMZPtw0" resname="Select receipt template">
+        <source>Select receipt template</source>
+        <target state="translated">Vælg kvitteringsskabelon</target>
       </trans-unit>
     </body>
   </file>

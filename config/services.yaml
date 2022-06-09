@@ -83,6 +83,16 @@ services:
                         entity_class_names:
                           - App\Entity\Agenda
                           - App\Entity\AgendaBroadcast
+                    board_receipt_case:
+                        label: Board receipt (case)
+                        entity_class_names:
+                            - App\Entity\ResidentComplaintBoardCase
+                            - App\Entity\FenceReviewCase
+                            - App\Entity\RentBoardCase
+                    board_receipt_hearing_post:
+                        label: Board receipt (hearing post)
+                        entity_class_names:
+                            - App\Entity\HearingPost
 
                 upload_destination: '%kernel.project_dir%/upload/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination
