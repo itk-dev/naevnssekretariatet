@@ -422,6 +422,7 @@ App\Entity\ResidentComplaintBoardCase:
     sortingParty: Anne Nielsen
     sortingCounterparty: Kirsten Jensen
     leaseRegulatedRent: 1
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-2:
     leaseSize: 53
@@ -438,6 +439,7 @@ App\Entity\ResidentComplaintBoardCase:
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'
     currentPlace: Oprettet
+    assignedTo: '@user-caseworker'
 
   test-case-aarhus-3:
     leaseSize: 55

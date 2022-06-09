@@ -98,7 +98,7 @@ class BoardCrudController extends AbstractCrudController
             ->hideOnIndex()
             ->setFormTypeOptions([
                 'placeholder' => $this->translator->trans('Select receipt template', [], 'admin'),
-                'choice_filter' => static fn (MailTemplate $mailTemplate) => 'board_receipt_case' === $mailTemplate->getType(),
+                'choice_filter' => static fn (?MailTemplate $mailTemplate) => 'board_receipt_case' === $mailTemplate?->getType(),
             ])
             ->setRequired(true)
             ->setHelp($this->translator->trans('Select template to use for sending a receipt to the bringer.', [], 'admin'))
@@ -108,7 +108,7 @@ class BoardCrudController extends AbstractCrudController
             ->hideOnIndex()
             ->setFormTypeOptions([
                 'placeholder' => $this->translator->trans('Select receipt template', [], 'admin'),
-                'choice_filter' => static fn (MailTemplate $mailTemplate) => 'board_receipt_hearing_post' === $mailTemplate->getType(),
+                'choice_filter' => static fn (?MailTemplate $mailTemplate) => 'board_receipt_hearing_post' === $mailTemplate?->getType(),
             ])
             ->setRequired(true)
             ->setHelp($this->translator->trans('Select template to use for sending a receipt to the bringer.', [], 'admin'))
