@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\DigitalPost;
-use App\Entity\HearingPost;
+use App\Entity\HearingPostResponse;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -43,19 +43,20 @@ class ReceiptHelper implements EventSubscriberInterface
             $documentTitle = $this->translator->trans('Case receipt', [], 'case');
             // The document type is translated in templates/translations/mail_template.html.twig
             $documentType = 'Case created receipt';
-        } elseif ($entity instanceof HearingPost) {
-            $hearingPost = $entity;
+        } elseif ($entity instanceof HearingPostResponse) {
+            $hearingPostResponse = $entity;
+            $sender = $hearingPostResponse->getSender();
             $digitalPostRecipients[] = (new DigitalPost\Recipient())
-                ->setName($hearingPost->getRecipient()->getName())
-                ->setIdentifierType($hearingPost->getRecipient()->getIdentification()->getType())
-                ->setIdentifier($hearingPost->getRecipient()->getIdentification()->getIdentifier())
-                ->setAddress($hearingPost->getRecipient()->getAddress())
+                ->setName($sender->getName())
+                ->setIdentifierType($sender->getIdentification()->getType())
+                ->setIdentifier($sender->getIdentification()->getIdentifier())
+                ->setAddress($sender->getAddress())
             ;
-            $case = $hearingPost->getHearing()?->getCaseEntity();
+            $case = $hearingPostResponse->getHearing()?->getCaseEntity();
             $template = $case?->getBoard()?->getReceiptCase();
-            $documentTitle = $this->translator->trans('Hearing post receipt', [], 'case');
+            $documentTitle = $this->translator->trans('Hearing post response receipt', [], 'case');
             // The document type is translated in templates/translations/mail_template.html.twig
-            $documentType = 'Hearing post created receipt';
+            $documentType = 'Hearing post response created receipt';
         }
 
         if (isset($case, $template)) {

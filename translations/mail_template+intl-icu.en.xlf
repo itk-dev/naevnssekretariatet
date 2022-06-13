@@ -57,9 +57,9 @@
         <source>Case created receipt</source>
         <target>Case created receipt</target>
       </trans-unit>
-      <trans-unit id="wwuZxAT" resname="Hearing post created receipt">
-        <source>Hearing post created receipt</source>
-        <target>Hearing post created receipt</target>
+      <trans-unit id="dEkZEP9" resname="Hearing post response created receipt">
+        <source>Hearing post response created receipt</source>
+        <target>Hearing post response created receipt</target>
       </trans-unit>
     </body>
   </file>

@@ -1479,11 +1479,11 @@
       </trans-unit>
       <trans-unit id="ZTwHwE1" resname="Case receipt">
         <source>Case receipt</source>
-        <target state="translated">Sagskvittering</target>
+        <target state="translated">Kvittering for ny sag</target>
       </trans-unit>
-      <trans-unit id="TWeTZ69" resname="Hearing post receipt">
-        <source>Hearing post receipt</source>
-        <target state="translated">Partshøringsvarskvittering</target>
+      <trans-unit id="VBlJ5OL" resname="Hearing post response receipt">
+        <source>Hearing post response receipt</source>
+        <target state="needs-l10n">Kvittering for nyt høringssvar</target>
       </trans-unit>
     </body>
   </file>

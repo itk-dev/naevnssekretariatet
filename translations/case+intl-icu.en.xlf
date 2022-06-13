@@ -1485,9 +1485,9 @@
         <source>Case receipt</source>
         <target>Case receipt</target>
       </trans-unit>
-      <trans-unit id="TWeTZ69" resname="Hearing post receipt">
-        <source>Hearing post receipt</source>
-        <target>Hearing post receipt</target>
+      <trans-unit id="VBlJ5OL" resname="Hearing post response receipt">
+        <source>Hearing post response receipt</source>
+        <target>Hearing post response receipt</target>
       </trans-unit>
     </body>
   </file>
