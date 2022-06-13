@@ -41,8 +41,8 @@ class ReceiptHelper implements EventSubscriberInterface
             ;
             $template = $case->getBoard()?->getReceiptCase();
             $documentTitle = $this->translator->trans('Case receipt', [], 'case');
-            // @fixme What should this be? Can we get it from somewhere?
-            $documentType = 'Case receipt';
+            // The document type is translated in templates/translations/mail_template.html.twig
+            $documentType = 'Case created receipt';
         } elseif ($entity instanceof HearingPost) {
             $hearingPost = $entity;
             $digitalPostRecipients[] = (new DigitalPost\Recipient())
@@ -54,8 +54,8 @@ class ReceiptHelper implements EventSubscriberInterface
             $case = $hearingPost->getHearing()?->getCaseEntity();
             $template = $case?->getBoard()?->getReceiptCase();
             $documentTitle = $this->translator->trans('Hearing post receipt', [], 'case');
-            // @fixme What should this be? Can we get it from somewhere?
-            $documentType = 'Hearing post receipt';
+            // The document type is translated in templates/translations/mail_template.html.twig
+            $documentType = 'Hearing post created receipt';
         }
 
         if (isset($case, $template)) {
