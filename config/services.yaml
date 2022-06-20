@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    'env(HEARING_POST_FORM_LINK_TEXT)': ''
+
     locale: '%env(DEFAULT_LOCALE)%'
     site_name: '%env(SITE_NAME)%'
     site_url: '%env(SITE_URL)%'
@@ -219,3 +221,5 @@ services:
                             # See https://phpword.readthedocs.io/en/latest/styles.html#font for styles options.
                             color: 0563C1
                             underline: !php/const \PhpOffice\PhpWord\Style\Font::UNDERLINE_SINGLE
+                hearing_post_form_url: '%env(HEARING_POST_FORM_URL)%'
+                hearing_post_form_link_text: '%env(HEARING_POST_FORM_LINK_TEXT)%'
