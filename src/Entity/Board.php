@@ -94,6 +94,26 @@ class Board implements LoggableEntityInterface
      */
     private $complaintCategories;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
+     * @Assert\NotNull()
+     * @Assert\Expression(
+     *     "'board_receipt_case' == value.getType()",
+     *     message="Please select a template with type board_receipt_case"
+     * )
+     */
+    private $receiptCase;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
+     * @Assert\NotNull()
+     * @Assert\Expression(
+     *     "'board_receipt_hearing_post' == value.getType()",
+     *     message="Please select a template with type board_receipt_hearing_post"
+     * )
+     */
+    private $receiptHearingPost;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -344,6 +364,30 @@ class Board implements LoggableEntityInterface
         if ($this->complaintCategories->removeElement($complaintCategory)) {
             $complaintCategory->removeBoard($this);
         }
+
+        return $this;
+    }
+
+    public function getReceiptCase(): ?MailTemplate
+    {
+        return $this->receiptCase;
+    }
+
+    public function setReceiptCase(?MailTemplate $receiptCase): self
+    {
+        $this->receiptCase = $receiptCase;
+
+        return $this;
+    }
+
+    public function getReceiptHearingPost(): ?MailTemplate
+    {
+        return $this->receiptHearingPost;
+    }
+
+    public function setReceiptHearingPost(?MailTemplate $receiptHearingPost): self
+    {
+        $this->receiptHearingPost = $receiptHearingPost;
 
         return $this;
     }

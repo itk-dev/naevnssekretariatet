@@ -259,7 +259,7 @@
       </trans-unit>
       <trans-unit id="3Qx4nzD" resname="The content of the expanded macro.">
         <source>The content of the expanded macro.</source>
-        <target>Indholdet af den udvidede makro</target>
+        <target state="translated">Indholdet af den udvidede makro.</target>
       </trans-unit>
       <trans-unit id=".GZdt2y" resname="Select template types that this macro can be used for. If no template types are selected, the macro can be used in all templates.">
         <source>Select template types that this macro can be used for. If no template types are selected, the macro can be used in all templates.</source>
@@ -336,6 +336,14 @@
       <trans-unit id="foxwvv1" resname="Upload a Word document (docx) to use as a template.">
         <source>Upload a Word document (docx) to use as a template.</source>
         <target state="translated">Upload et Word-dokument (docx) der skal bruges som skabelon.</target>
+      </trans-unit>
+      <trans-unit id="nN_UcHC" resname="Select template to use for sending a receipt to the bringer.">
+        <source>Select template to use for sending a receipt to the bringer.</source>
+        <target state="translated">Vælg skabelon for kvittering til indbringer.</target>
+      </trans-unit>
+      <trans-unit id="XMZPtw0" resname="Select receipt template">
+        <source>Select receipt template</source>
+        <target state="translated">Vælg kvitteringsskabelon</target>
       </trans-unit>
     </body>
   </file>

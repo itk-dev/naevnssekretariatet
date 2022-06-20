@@ -1477,6 +1477,14 @@
         <source>Continue</source>
         <target state="translated">Fortsæt</target>
       </trans-unit>
+      <trans-unit id="ZTwHwE1" resname="Case receipt">
+        <source>Case receipt</source>
+        <target state="translated">Kvittering for ny sag</target>
+      </trans-unit>
+      <trans-unit id="VBlJ5OL" resname="Hearing post response receipt">
+        <source>Hearing post response receipt</source>
+        <target state="needs-l10n">Kvittering for nyt høringssvar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

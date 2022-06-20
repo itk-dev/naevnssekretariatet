@@ -3,18 +3,16 @@
 namespace App\Command;
 
 use _PHPStan_3e014c27f\Symfony\Component\Console\Exception\InvalidOptionException;
+use App\Entity\CaseDocumentRelation;
 use App\Entity\DigitalPost;
 use App\Repository\DigitalPostRepository;
-use App\Service\DigitalPostHelper;
-use App\Service\DocumentUploader;
-use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[AsCommand(
     name: 'tvist1:digital-post:list',
@@ -24,7 +22,7 @@ class DigitalPostListCommand extends Command
 {
     private const STATUS_NULL = 'null';
 
-    public function __construct(private DigitalPostHelper $digitalPostHelper, private DigitalPostRepository $digitalPostRepository, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private LoggerInterface $databaseLogger)
+    public function __construct(private DigitalPostRepository $digitalPostRepository, private UrlGeneratorInterface $urlGenerator)
     {
         parent::__construct(null);
     }
@@ -52,12 +50,19 @@ class DigitalPostListCommand extends Command
         $io->info(sprintf('Number of digital posts: %d', count($digitalPosts)));
 
         foreach ($digitalPosts as $digitalPost) {
+            $urls = array_map(
+                fn (CaseDocumentRelation $relation) => $this->urlGenerator->generate('digital_post_show', ['id' => $relation->getCase()->getId(), 'digitalPost' => $digitalPost->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                $digitalPost->getDocument()->getCaseDocumentRelations()->toArray()
+            );
+
             $io->definitionList(
                 ['Id' => $digitalPost->getId()],
+                ['Subject' => $digitalPost->getSubject()],
                 ['Status' => $digitalPost->getStatus() ?? self::STATUS_NULL],
                 ['Recipients' => implode(PHP_EOL, $digitalPost->getRecipients()->map(static fn (DigitalPost\Recipient $recipient) => (string) $recipient)->toArray())],
                 ['Created at' => $digitalPost->getCreatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Updated at' => $digitalPost->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
+                ['Url' => implode(PHP_EOL, $urls)],
             );
         }
 

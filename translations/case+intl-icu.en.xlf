@@ -1481,6 +1481,14 @@
         <source>Continue</source>
         <target>Continue</target>
       </trans-unit>
+      <trans-unit id="ZTwHwE1" resname="Case receipt">
+        <source>Case receipt</source>
+        <target>Case receipt</target>
+      </trans-unit>
+      <trans-unit id="VBlJ5OL" resname="Hearing post response receipt">
+        <source>Hearing post response receipt</source>
+        <target>Hearing post response receipt</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

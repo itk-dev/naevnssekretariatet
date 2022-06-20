@@ -53,6 +53,14 @@
         <source>No entities for this template exists</source>
         <target state="translated">Ingen objekter for denne skabelon fundet</target>
       </trans-unit>
+      <trans-unit id="rINb4jb" resname="Case created receipt">
+        <source>Case created receipt</source>
+        <target state="translated">Kvittering for ny sag</target>
+      </trans-unit>
+      <trans-unit id="dEkZEP9" resname="Hearing post response created receipt">
+        <source>Hearing post response created receipt</source>
+        <target state="needs-l10n">Kvittering for nyt høringssvar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
