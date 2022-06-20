@@ -59,3 +59,10 @@ App\Entity\MailTemplate:
     description: |-
       Kvittering til indbringer ved nyt høringssvar
     templateFilename: <uploadFile(mail_template/mail_template_board_receipt_hearing_post.docx, templateFile, App\Entity\MailTemplate)>
+
+  mail-template-hearing-post-form-001:
+    type: hearing_post_form
+    name: Hearing post form
+    description: |-
+      Used to tell a citizen where to add a hearing post to a specific case
+    templateFilename: <uploadFile(mail_template/hearing_post_form.docx, templateFile, App\Entity\MailTemplate)>
