@@ -101,12 +101,19 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Part Index', '', Party::class);
         yield MenuItem::linkToCrud('Complaint category', '', ComplaintCategory::class);
         yield MenuItem::linkToCrud('Document types', '', UploadedDocumentType::class);
+
+        $subItems = [
+            MenuItem::linkToCrud('Mail templates', '', MailTemplate::class),
+            MenuItem::linkToCrud('Macros', '', MailTemplateMacro::class),
+        ];
+        if ($url = $this->getParameter('mail_template_user_manual_url')) {
+            $subItems[] = MenuItem::linkToUrl('User manual', '', $url);
+        }
+
         yield MenuItem::subMenu('Mail templates', null)
-            ->setSubItems([
-                MenuItem::linkToCrud('Mail templates', '', MailTemplate::class),
-                MenuItem::linkToCrud('Macros', '', MailTemplateMacro::class),
-            ])
+            ->setSubItems($subItems)
         ;
+
         yield MenuItem::linkToCrud('Deleted cases', '', CaseEntity::class)
             ->setPermission('ROLE_ADMIN')
         ;
