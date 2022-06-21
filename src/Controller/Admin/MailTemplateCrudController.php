@@ -20,11 +20,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\PropertyAccess\PropertyPath;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class MailTemplateCrudController extends AbstractCrudController
 {
-    public function __construct(private MailTemplateHelper $mailTemplateHelper)
+    public function __construct(private MailTemplateHelper $mailTemplateHelper, private TranslatorInterface $translator)
     {
     }
 
@@ -39,6 +40,7 @@ class MailTemplateCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Mail templates')
             ->setEntityLabelInSingular('Mail template')
             ->overrideTemplate('crud/detail', 'admin/mail-template/detail.html.twig')
+            ->setFormThemes(['admin/mail-template/form.html.twig', '@EasyAdmin/crud/form_theme.html.twig'])
             ;
     }
 
@@ -56,7 +58,7 @@ class MailTemplateCrudController extends AbstractCrudController
         yield TextField::new('name');
         yield TextareaField::new('description');
         yield Field::new('templateFile')
-            ->setLabel('Template document')
+            ->setLabel($this->translator->trans('Template document', [], 'mail_template'))
             ->setHelp('Upload a Word document (docx) to use as a template.')
             // Require file on new template.
             ->setRequired($isNew)

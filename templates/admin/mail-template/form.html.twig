@@ -1,0 +1,14 @@
+{% trans_default_domain 'mail_template' %}
+
+{# @see https://symfony.com/bundles/EasyAdminBundle/current/design.html#form-field-templates #}
+{% block _MailTemplate_templateFile_row %}
+    {{ block('vich_file_row') }}
+
+    <div class="col-md-9">
+        <div class="alert alert-warning" role="alert">
+            <strong>{% trans %}Important{% endtrans %}</strong>
+
+            {% trans %}The template document <em>must</em> contain the <a href="https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/">Hyperlink</a> character style to ensure that hyperlinks work as expected after processing a template.{% endtrans %}
+        </div>
+    </div>
+{% endblock %}
