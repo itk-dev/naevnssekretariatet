@@ -5,13 +5,14 @@ namespace App\Service\OS2Forms\CaseSubmissionNormalizers;
 use App\Exception\WebformSubmissionException;
 use App\Repository\BoardRepository;
 use App\Repository\ComplaintCategoryRepository;
+use App\Repository\UserRepository;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
 {
-    public function __construct(private BoardRepository $boardRepository, private DocumentUploader $documentUploader, private ComplaintCategoryRepository $complaintCategoryRepository, private string $selvbetjeningUserApiToken, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient)
+    public function __construct(private BoardRepository $boardRepository, private DocumentUploader $documentUploader, private ComplaintCategoryRepository $complaintCategoryRepository, private string $selvbetjeningUserApiToken, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private UserRepository $userRepository)
     {
     }
 
@@ -169,7 +170,11 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
                     $newFileName = preg_replace('/\./', '-'.uniqid().'.', basename($documentUrl));
                     $filePath = $this->documentUploader->getFullDirectory().'/'.$newFileName;
                     file_put_contents($filePath, $response->getContent());
-                    $document = $this->documentUploader->createDocumentFromPath($newFileName, $documentName, 'OS2Forms');
+                    $user = $this->userRepository->findOneBy(['name' => 'OS2Forms']);
+                    if (!$user) {
+                        throw new WebformSubmissionException('Could not find OS2Forms system user.');
+                    }
+                    $document = $this->documentUploader->createDocumentFromPath($newFileName, $documentName, 'OS2Forms', $user);
                     $documents[] = $document;
 
                     // Persist now, flush when case is created.

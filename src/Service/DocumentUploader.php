@@ -46,17 +46,14 @@ class DocumentUploader
     /**
      * Creates and returns new document from filename.
      */
-    public function createDocumentFromPath(string $fileName, string $documentName, string $documentType): Document
+    public function createDocumentFromPath(string $fileName, string $documentName, string $documentType, User $user = null): Document
     {
         $document = new Document();
 
         $document->setFilename($fileName);
         $document->setDocumentName($documentName);
         $document->setPath($this->getFilepathFromProjectDirectory($fileName));
-        // If security does not have user then it must be from OS2Forms.
-        /** @var User $user */
-        $user = $this->security->getUser() ?? $this->userRepository->findOneBy(['name' => 'OS2Forms']);
-        $document->setUploadedBy($user);
+        $document->setUploadedBy($user ?? $this->security->getUser());
         $document->setType($documentType);
 
         return $document;
