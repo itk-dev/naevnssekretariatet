@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AgendaCaseItem;
 use App\Entity\CaseEntity;
+use App\Entity\Document;
 use App\Service\AgendaStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -48,6 +49,19 @@ class AgendaCaseItemRepository extends ServiceEntityRepository
             ->andWhere('c.id = :case_id')
             ->setParameter('case_id', $case->getId()->toBinary())
             ->orderBy('a.date', 'ASC')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByDocumentAndCase(Document $document, CaseEntity $case)
+    {
+        $qb = $this->createQueryBuilder('aci');
+
+        $qb->where(':document MEMBER OF aci.documents')
+            ->setParameter('document', $document->getId()->toBinary())
+            ->andWhere('aci.caseEntity = :search_case')
+            ->setParameter('search_case', $case->getId()->toBinary())
         ;
 
         return $qb->getQuery()->getResult();

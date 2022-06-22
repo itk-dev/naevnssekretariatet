@@ -8,6 +8,7 @@ use App\Repository\BoardMemberRepository;
 use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
+use PhpOffice\PhpWord\Element\TextRun;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\Style\Font;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -44,6 +45,14 @@ class ComplexMacroHelper
         return $values;
     }
 
+    public function getHyperlinkStyle(): array
+    {
+        return [
+            $this->options['formatting']['hyperlink']['style_name'],
+            $this->options['formatting']['hyperlink']['styles'],
+        ];
+    }
+
     private function buildCaseMacros(CaseEntity $case): array
     {
         // Note: Setting text on the link will break the link.
@@ -53,6 +62,28 @@ class ComplexMacroHelper
                 $this->translator->trans('Open case in browser', [], 'case')
             ),
             'Link to the case'
+        );
+
+        $hearingPostFormUrl = preg_replace_callback(
+            '/%(?P<key>[^%]+)%/',
+            static fn ($matches) => urlencode(match ($matches['key']) {
+                'CASE_ID' => $case->getId(),
+                default => ''
+            }),
+            $this->options['hearing_post_form_url']
+        );
+        $values['hearing_post_form.url'] = new ComplexMacro(
+            (new TextRun())
+                ->addText($hearingPostFormUrl),
+            'Hearing post form url'
+        );
+
+        $values['hearing_post_form.link'] = new ComplexMacro(
+            $this->createLink(
+                $hearingPostFormUrl,
+                $this->options['hearing_post_form_link_text'] ?: $this->translator->trans('Open hearing post form', [], 'case')
+            ),
+            'Hearing post form link'
         );
 
         return $values;
@@ -111,7 +142,7 @@ class ComplexMacroHelper
     private function createLink(string $url, string $text = null): Link
     {
         $linkFontStyle = (new Font())
-            ->setStyleByArray($this->options['formatting']['link']['font_style'])
+            ->setStyleName($this->options['formatting']['hyperlink']['style_name'])
         ;
 
         return new Link($url, $text, $linkFontStyle);
@@ -178,12 +209,18 @@ class ComplexMacroHelper
         $resolver->setDefaults([
             'formatting' => [
                 'link' => [
-                    'font_style' => [
-                        // @see https://phpword.readthedocs.io/en/latest/styles.html#font
-                        'styleName' => 'InternetLink',
+                    'style_name' => 'Hyperlink',
+                    'styles' => [
+                        // See https://phpword.readthedocs.io/en/latest/styles.html#font for styles options.
+                        // @see https://www.colorhexa.com/0563c1
+                        'color' => '0563C1',
+                        'underline' => Font::UNDERLINE_SINGLE,
                     ],
                 ],
             ],
-        ]);
+            'hearing_post_form_link_text' => '',
+        ])
+        ->setRequired('hearing_post_form_url')
+        ;
     }
 }

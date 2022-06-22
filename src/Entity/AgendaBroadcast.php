@@ -42,6 +42,11 @@ class AgendaBroadcast
      */
     private $agenda;
 
+    public function __toString()
+    {
+        return sprintf('%s (%s)', $this->title, $this->id);
+    }
+
     public function __construct()
     {
         $this->id = Uuid::v4();

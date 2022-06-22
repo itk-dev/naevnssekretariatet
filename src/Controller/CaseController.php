@@ -2,18 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Board;
 use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
 use App\Entity\LogEntry;
-use App\Entity\ResidentComplaintBoardCase;
+use App\Entity\Municipality;
 use App\Entity\User;
 use App\Exception\BoardMemberException;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CaseDeleteType;
-use App\Form\CaseEntityType;
 use App\Form\CaseFilterType;
 use App\Form\CaseMoveType;
 use App\Form\CasePresentationType;
@@ -22,6 +22,7 @@ use App\Form\CaseRescheduleFinishProcessDeadlineType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Form\MunicipalitySelectorType;
+use App\Form\NewCaseMunicipalityAndBoardType;
 use App\Repository\AgendaCaseItemRepository;
 use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
@@ -32,6 +33,7 @@ use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
 use App\Service\AddressHelper;
 use App\Service\BBRHelper;
+use App\Service\BoardHelper;
 use App\Service\CaseManager;
 use App\Service\IdentificationHelper;
 use App\Service\LogEntryHelper;
@@ -42,6 +44,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
@@ -153,6 +156,63 @@ class CaseController extends AbstractController
     }
 
     /**
+     * @Route("/new", name="case_new_prepare", methods={"GET", "POST"})
+     */
+    public function newPrepare(MunicipalityHelper $municipalityHelper, Request $request): Response
+    {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
+        // Find active municipality with purpose of preselecting it in case creation form
+        $activeMunicipality = $municipalityHelper->getActiveMunicipality();
+
+        $form = $this->createForm(NewCaseMunicipalityAndBoardType::class, null, [
+            'active_municipality' => $activeMunicipality,
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $municipality = $form->getData()['municipality'];
+            $board = $form->getData()['board'];
+
+            return $this->redirectToRoute('case_new', ['municipality_id' => $municipality->getId(), 'board_id' => $board->getId()]);
+        }
+
+        return $this->render('case/new_prepare.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/new/{municipality_id}/{board_id}", name="case_new", methods={"GET", "POST"})
+     * @Entity("board", expr="repository.find(board_id)")
+     */
+    public function new(Board $board, BoardHelper $boardHelper, Request $request, CaseManager $caseManager): Response
+    {
+        $case = $boardHelper->createNewCase($board);
+
+        $this->denyAccessUnlessGranted('edit', $case);
+
+        // Todo: Handle other case types, possibly via switch on $case->getBoard()->getCaseFormType()
+        $form = $this->createForm('App\\Form\\'.$board->getCaseFormType(), $case, ['board' => $board]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $caseEntity = $caseManager->newCase(
+                $case,
+                $board
+            );
+
+            return $this->redirectToRoute('case_show', ['id' => $caseEntity->getId()]);
+        }
+
+        return $this->render('case/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}/summary", name="case_summary", methods={"GET", "POST"})
      */
     public function summary(BoardRepository $boardRepository, CaseEntity $case, NoteRepository $noteRepository, DigitalPostRepository $digitalPostRepository): Response
@@ -172,38 +232,6 @@ class CaseController extends AbstractController
             'communications' => $communications,
             'suitable_boards' => $suitableBoards,
             'is_deletable' => $this->isDeletable($case),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="case_new", methods={"GET", "POST"})
-     */
-    public function new(Request $request, CaseManager $caseManager, MunicipalityHelper $municipalityHelper): Response
-    {
-        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
-            throw new AccessDeniedException();
-        }
-
-        // Find active municipality with purpose of preselecting it in case creation form
-        $activeMunicipality = $municipalityHelper->getActiveMunicipality();
-
-        // We pass along a case entity to make sure we can extract municipality and board in CaseEntityType
-        $form = $this->createForm(CaseEntityType::class, new ResidentComplaintBoardCase(), [
-            'active_municipality' => $activeMunicipality,
-        ]);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $caseEntity = $caseManager->newCase(
-                $form->get('caseEntity')->getData(),
-                $form->get('board')->getData()
-            );
-
-            return $this->redirectToRoute('case_show', ['id' => $caseEntity->getId()]);
-        }
-
-        return $this->render('case/new.html.twig', [
-            'form' => $form->createView(),
         ]);
     }
 

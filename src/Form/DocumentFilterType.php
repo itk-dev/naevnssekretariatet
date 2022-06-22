@@ -38,7 +38,7 @@ class DocumentFilterType extends AbstractType
 
         $typeChoices = [];
         foreach ($this->documentRepository->getAvailableDocumentsForCase($case) as $document) {
-            $typeChoices[$document->getType()] = $document->getType();
+            $typeChoices[$this->translator->trans($document->getType(), [], 'mail_template')] = $document->getType();
         }
         asort($typeChoices);
 

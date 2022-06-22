@@ -74,7 +74,7 @@ services:
                         entity_class_names:
                             - App\Entity\HearingPost
                     agenda_inspection:
-                      label: Agenda insection
+                      label: Agenda inspection
                       entity_class_names:
                         - App\Entity\AgendaCaseItem
                         - App\Entity\InspectionLetter
@@ -83,6 +83,22 @@ services:
                         entity_class_names:
                           - App\Entity\Agenda
                           - App\Entity\AgendaBroadcast
+                    board_receipt_case:
+                        label: Board receipt (case)
+                        entity_class_names:
+                            - App\Entity\ResidentComplaintBoardCase
+                            - App\Entity\FenceReviewCase
+                            - App\Entity\RentBoardCase
+                    board_receipt_hearing_post:
+                        label: Board receipt (hearing post)
+                        entity_class_names:
+                            - App\Entity\HearingPost
+                    hearing_post_form:
+                        label: Hearing_post_form
+                        entity_class_names:
+                            - App\Entity\ResidentComplaintBoardCase
+                            - App\Entity\FenceReviewCase
+                            - App\Entity\RentBoardCase
 
                 upload_destination: '%kernel.project_dir%/upload/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination
@@ -196,11 +212,15 @@ services:
     App\Service\MailTemplate\ComplexMacroHelper:
         arguments:
             $options:
-              formatting:
-                  link:
-                      font_style:
-                          # @see https://phpword.readthedocs.io/en/latest/styles.html#font
-                          styleName: 'InternetLink'
+                formatting:
+                    hyperlink:
+                        style_name: Hyperlink
+                        styles:
+                            # See https://phpword.readthedocs.io/en/latest/styles.html#font for styles options.
+                            color: 0563C1
+                            underline: !php/const \PhpOffice\PhpWord\Style\Font::UNDERLINE_SINGLE
+                hearing_post_form_url: '%env(HEARING_POST_FORM_URL)%'
+                hearing_post_form_link_text: '%env(HEARING_POST_FORM_LINK_TEXT)%'
 
     App\Controller\ApiController:
         arguments:

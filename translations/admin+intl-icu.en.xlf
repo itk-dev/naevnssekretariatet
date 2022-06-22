@@ -333,6 +333,14 @@
         <source>Upload a Word document (docx) to use as a template.</source>
         <target>Upload a Word document (docx) to use as a template.</target>
       </trans-unit>
+      <trans-unit id="nN_UcHC" resname="Select template to use for sending a receipt to the bringer.">
+        <source>Select template to use for sending a receipt to the bringer.</source>
+        <target>Select template to use for sending a receipt to the bringer.</target>
+      </trans-unit>
+      <trans-unit id="XMZPtw0" resname="Select receipt template">
+        <source>Select receipt template</source>
+        <target>Select receipt template</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

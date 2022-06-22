@@ -26,7 +26,9 @@ class MailTemplateController extends AbstractController
     public function preview(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper, AdminUrlGenerator $adminUrlGenerator): Response
     {
         try {
-            $entity = filter_var($request->get('with_data'), FILTER_VALIDATE_BOOLEAN) ? $mailTemplateHelper->getPreviewEntity($mailTemplate) : null;
+            $entity = filter_var($request->get('with_data'), FILTER_VALIDATE_BOOLEAN)
+                    ? $this->getEntity($request, $mailTemplate, $mailTemplateHelper)
+                    : null;
             $fileName = $mailTemplateHelper->renderMailTemplate($mailTemplate, $entity);
             $mimeType = (new MimeTypes())->guessMimeType($fileName);
         } catch (MailTemplateException $exception) {
@@ -51,8 +53,7 @@ class MailTemplateController extends AbstractController
     public function data(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper, AdminUrlGenerator $adminUrlGenerator): Response
     {
         try {
-            $entity = $request->get('entity');
-            $entity = $mailTemplateHelper->getPreviewEntity($mailTemplate, $entity['type'] ?? null, $entity['id'] ?? null);
+            $entity = $this->getEntity($request, $mailTemplate, $mailTemplateHelper);
             $data = $mailTemplateHelper->getTemplateData($mailTemplate, $entity);
 
             return new JsonResponse($data);
@@ -78,5 +79,12 @@ class MailTemplateController extends AbstractController
         $file = $mailTemplateHelper->getTemplateFile($mailTemplate);
 
         return $this->file($file);
+    }
+
+    private function getEntity(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper)
+    {
+        $entity = $request->get('entity');
+
+        return $mailTemplateHelper->getPreviewEntity($mailTemplate, $entity['type'] ?? null, $entity['id'] ?? null);
     }
 }

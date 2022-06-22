@@ -7,9 +7,11 @@ use App\Service\MailTemplateHelper;
 use Doctrine\ORM\EntityManager;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Option\EA;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
@@ -18,11 +20,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\PropertyAccess\PropertyPath;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class MailTemplateCrudController extends AbstractCrudController
 {
-    public function __construct(private MailTemplateHelper $mailTemplateHelper)
+    public function __construct(private MailTemplateHelper $mailTemplateHelper, private TranslatorInterface $translator)
     {
     }
 
@@ -37,6 +40,7 @@ class MailTemplateCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Mail templates')
             ->setEntityLabelInSingular('Mail template')
             ->overrideTemplate('crud/detail', 'admin/mail-template/detail.html.twig')
+            ->setFormThemes(['admin/mail-template/form.html.twig', '@EasyAdmin/crud/form_theme.html.twig'])
             ;
     }
 
@@ -54,7 +58,7 @@ class MailTemplateCrudController extends AbstractCrudController
         yield TextField::new('name');
         yield TextareaField::new('description');
         yield Field::new('templateFile')
-            ->setLabel('Template document')
+            ->setLabel($this->translator->trans('Template document', [], 'mail_template'))
             ->setHelp('Upload a Word document (docx) to use as a template.')
             // Require file on new template.
             ->setRequired($isNew)
@@ -83,5 +87,19 @@ class MailTemplateCrudController extends AbstractCrudController
         }
 
         return $this->redirect($this->container->get(AdminUrlGenerator::class)->setAction(Action::INDEX)->unset(EA::ENTITY_ID)->generateUrl());
+    }
+
+    public function configureResponseParameters(KeyValueStore $responseParameters): KeyValueStore
+    {
+        if (Crud::PAGE_DETAIL === $responseParameters->get('pageName')) {
+            $entity = $responseParameters->get('entity');
+            assert($entity instanceof EntityDto);
+            $mailTemplate = $entity->getInstance();
+            assert($mailTemplate instanceof MailTemplate);
+            $entities = $this->mailTemplateHelper->getPreviewEntities($mailTemplate);
+            $responseParameters->set('preview_entities', $entities);
+        }
+
+        return $responseParameters;
     }
 }

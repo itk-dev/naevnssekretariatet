@@ -22,7 +22,6 @@ Encore
          */
   .addEntry('app', './assets/app.js')
   .addEntry('case_new', './assets/case/new.js')
-  .addEntry('case_edit', './assets/case/edit.js')
   .addEntry('case_show', './assets/case/show.js')
   .addEntry('hearing_edit_post', './assets/hearing/edit_post.js')
   .addEntry('agenda_item_new', './assets/agenda_item/new.js')
@@ -36,6 +35,7 @@ Encore
   .addEntry('admin_party_identifier_lookup', './assets/admin/party_identifier_lookup.js')
   .addEntry('party_identification_lookup', './assets/party/identifier-lookup.js')
   .addEntry('agenda_mark_all_documents', './assets/agenda/mark_all_documents.js')
+  .addEntry('case_new_prepare', './assets/case/municipality_and_board_selector.js')
 
   .addStyleEntry('address_protection', './assets/case/address-protection.scss')
 

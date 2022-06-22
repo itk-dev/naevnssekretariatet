@@ -41,7 +41,8 @@ class FenceReviewCaseType extends AbstractType
 
         $builder
             ->add('bringerIdentification', IdentificationType::class, [
-                'label' => false,
+                'label' => $this->translator->trans('Bringer', [], 'case'),
+                'is_required' => true,
             ])
             ->add('lookupIdentifier', ButtonType::class, [
                 'label' => $this->translator->trans('Find information from identifier', [], 'case'),
@@ -55,7 +56,7 @@ class FenceReviewCaseType extends AbstractType
                 'required' => false,
             ])
             ->add('bringer', TextType::class, [
-                'label' => $this->translator->trans('Bringer', [], 'case'),
+                'label' => $this->translator->trans('Bringer name', [], 'case'),
             ])
             ->add('bringerAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Bringer address', [], 'case'),
@@ -66,7 +67,8 @@ class FenceReviewCaseType extends AbstractType
                 'label' => $this->translator->trans('Bringer cadastral number', [], 'case'),
             ])
             ->add('accusedIdentification', IdentificationType::class, [
-                'label' => false,
+                'label' => $this->translator->trans('Accused', [], 'case'),
+                'is_required' => false,
             ])
             ->add('lookupAccusedIdentifier', ButtonType::class, [
                 'label' => $this->translator->trans('Find information from identifier', [], 'case'),
@@ -80,7 +82,7 @@ class FenceReviewCaseType extends AbstractType
                 'required' => false,
             ])
             ->add('accused', TextType::class, [
-                'label' => $this->translator->trans('Accused', [], 'case'),
+                'label' => $this->translator->trans('Accused name', [], 'case'),
             ])
             ->add('accusedAddress', AddressLookupType::class, [
                 'label' => $this->translator->trans('Accused address', [], 'case'),

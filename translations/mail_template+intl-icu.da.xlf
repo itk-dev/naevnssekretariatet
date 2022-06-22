@@ -41,6 +41,38 @@
         <source>Agenda inspection</source>
         <target state="translated">Dagsorden - besigtigelsesbrev</target>
       </trans-unit>
+      <trans-unit id="4Hr9cDG" resname="Preview entity">
+        <source>Preview entity</source>
+        <target state="translated">Forhåndsvisningsobjekt</target>
+      </trans-unit>
+      <trans-unit id="kKUTJhJ" resname="Pick an entity to use for previewing data and template with data.">
+        <source>Pick an entity to use for previewing data and template with data.</source>
+        <target state="translated">Vælg et objekt der skal bruges til forhåndsvisning af data og skabelon udfyldt med data.</target>
+      </trans-unit>
+      <trans-unit id="G4xAGP0" resname="No entities for this template exists">
+        <source>No entities for this template exists</source>
+        <target state="translated">Ingen objekter for denne skabelon fundet</target>
+      </trans-unit>
+      <trans-unit id="rINb4jb" resname="Case created receipt">
+        <source>Case created receipt</source>
+        <target state="translated">Kvittering for ny sag</target>
+      </trans-unit>
+      <trans-unit id="dEkZEP9" resname="Hearing post response created receipt">
+        <source>Hearing post response created receipt</source>
+        <target state="translated">Kvittering for nyt høringssvar</target>
+      </trans-unit>
+      <trans-unit id="3cqaV_Z" resname="Important">
+        <source>Important</source>
+        <target state="translated">Vigtigt</target>
+      </trans-unit>
+      <trans-unit id="M2328_d" resname="Template document">
+        <source>Template document</source>
+        <target state="translated">Skabelondokument</target>
+      </trans-unit>
+      <trans-unit id="JlWBxpv" resname="The template document &lt;em&gt;must&lt;/em&gt; contain the &lt;a href=&quot;https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/&quot;&gt;Hyperlink&lt;/a&gt; character style to ensure that hyperlinks work as expected after processing a template.">
+        <source>The template document &lt;em&gt;must&lt;/em&gt; contain the &lt;a href="https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/"&gt;Hyperlink&lt;/a&gt; character style to ensure that hyperlinks work as expected after processing a template.</source>
+        <target><![CDATA[Skabelondokumentet <em>skal</em> indeholde <a href="https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/">Hyperlink</a>-afsnitstypografien for at sikre at hyperlinks virker som forventet når en skabelon udfyldes.]]></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

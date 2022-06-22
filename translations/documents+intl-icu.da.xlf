@@ -157,6 +157,10 @@
         <source>Confirm deletion</source>
         <target state="translated">Bekræft sletning</target>
       </trans-unit>
+      <trans-unit id="FzikA4Q" resname="Cannot delete document that has been sent or is attached to an agenda">
+        <source>Cannot delete document that has been sent or is attached to an agenda</source>
+        <target state="translated">Kan ikke slette dokument der er blevet sendt eller er vedlagt dagsorden</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
