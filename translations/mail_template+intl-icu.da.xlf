@@ -59,7 +59,19 @@
       </trans-unit>
       <trans-unit id="dEkZEP9" resname="Hearing post response created receipt">
         <source>Hearing post response created receipt</source>
-        <target state="needs-l10n">Kvittering for nyt høringssvar</target>
+        <target state="translated">Kvittering for nyt høringssvar</target>
+      </trans-unit>
+      <trans-unit id="3cqaV_Z" resname="Important">
+        <source>Important</source>
+        <target state="translated">Vigtigt</target>
+      </trans-unit>
+      <trans-unit id="M2328_d" resname="Template document">
+        <source>Template document</source>
+        <target state="translated">Skabelondokument</target>
+      </trans-unit>
+      <trans-unit id="JlWBxpv" resname="The template document &lt;em&gt;must&lt;/em&gt; contain the &lt;a href=&quot;https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/&quot;&gt;Hyperlink&lt;/a&gt; character style to ensure that hyperlinks work as expected after processing a template.">
+        <source>The template document &lt;em&gt;must&lt;/em&gt; contain the &lt;a href="https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/"&gt;Hyperlink&lt;/a&gt; character style to ensure that hyperlinks work as expected after processing a template.</source>
+        <target><![CDATA[Skabelondokumentet <em>skal</em> indeholde <a href="https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/">Hyperlink</a>-afsnitstypografien for at sikre at hyperlinks virker som forventet når en skabelon udfyldes.]]></target>
       </trans-unit>
     </body>
   </file>
