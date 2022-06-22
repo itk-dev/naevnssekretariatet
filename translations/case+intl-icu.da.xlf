@@ -1485,6 +1485,10 @@
         <source>Hearing post response receipt</source>
         <target state="needs-l10n">Kvittering for nyt høringssvar</target>
       </trans-unit>
+      <trans-unit id="f0vzKrx" resname="Open hearing post form">
+        <source>Open hearing post form</source>
+        <target state="translated">Åbn høringssvarformular</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

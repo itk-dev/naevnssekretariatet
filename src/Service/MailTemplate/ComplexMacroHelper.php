@@ -8,6 +8,7 @@ use App\Repository\BoardMemberRepository;
 use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
+use PhpOffice\PhpWord\Element\TextRun;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\Style\Font;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -61,6 +62,28 @@ class ComplexMacroHelper
                 $this->translator->trans('Open case in browser', [], 'case')
             ),
             'Link to the case'
+        );
+
+        $hearingPostFormUrl = preg_replace_callback(
+            '/%(?P<key>[^%]+)%/',
+            static fn ($matches) => urlencode(match ($matches['key']) {
+                'CASE_ID' => $case->getId(),
+                default => ''
+            }),
+            $this->options['hearing_post_form_url']
+        );
+        $values['hearing_post_form.url'] = new ComplexMacro(
+            (new TextRun())
+                ->addText($hearingPostFormUrl),
+            'Hearing post form url'
+        );
+
+        $values['hearing_post_form.link'] = new ComplexMacro(
+            $this->createLink(
+                $hearingPostFormUrl,
+                $this->options['hearing_post_form_link_text'] ?: $this->translator->trans('Open hearing post form', [], 'case')
+            ),
+            'Hearing post form link'
         );
 
         return $values;
@@ -195,6 +218,9 @@ class ComplexMacroHelper
                     ],
                 ],
             ],
-        ]);
+            'hearing_post_form_link_text' => '',
+        ])
+        ->setRequired('hearing_post_form_url')
+        ;
     }
 }
