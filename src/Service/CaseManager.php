@@ -3,9 +3,13 @@
 namespace App\Service;
 
 use App\Entity\Board;
+use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\Embeddable\Address;
+use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
+use App\Repository\MunicipalityRepository;
+use App\Service\OS2Forms\CaseSubmissionManager\OS2FormsManager;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
@@ -17,7 +21,7 @@ class CaseManager implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    public function __construct(private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService)
+    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private MunicipalityRepository $municipalityRepository, private OS2FormsManager $OS2FormsManager, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService)
     {
     }
 
@@ -146,5 +150,28 @@ class CaseManager implements LoggerAwareInterface
         $data['city'] = $address->getCity();
 
         return $data;
+    }
+
+    public function handleOS2FormsSubmission(string $webformId, string $sender, array $submissionData)
+    {
+        $manager = $this->OS2FormsManager->getOS2FormsCaseManagerFromWebformId($webformId);
+
+        [$case, $board, $documents] = $manager->createCaseFromSubmissionData($sender, $submissionData);
+
+        assert($case instanceof CaseEntity);
+        assert($board instanceof Board);
+
+        $case = $this->newCase($case, $board);
+
+        foreach ($documents as $document) {
+            $caseDocumentRelation = new CaseDocumentRelation();
+
+            $caseDocumentRelation->setCase($case);
+            $caseDocumentRelation->setDocument($document);
+
+            $this->entityManager->persist($caseDocumentRelation);
+        }
+
+        $this->entityManager->flush();
     }
 }

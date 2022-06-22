@@ -61,6 +61,10 @@ class BoardCrudController extends AbstractCrudController
     {
         yield TextField::new('name', 'Name');
 
+        yield TextField::new('id', 'Id')
+            ->onlyOnDetail()
+        ;
+
         yield AssociationField::new('municipality', 'Municipality')
             ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
                 return $queryBuilder->orderBy('entity.name', 'ASC');

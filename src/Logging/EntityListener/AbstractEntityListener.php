@@ -4,6 +4,7 @@ namespace App\Logging\EntityListener;
 
 use App\Entity\CaseEntity;
 use App\Entity\LogEntry;
+use App\Entity\User;
 use App\Logging\ItkDevGetFunctionNotFoundException;
 use App\Logging\ItkDevLoggingException;
 use App\Logging\LoggableEntityInterface;
@@ -14,11 +15,8 @@ use Symfony\Component\Uid\UuidV4;
 
 abstract class AbstractEntityListener
 {
-    private $security;
-
-    public function __construct(Security $security)
+    public function __construct(private Security $security)
     {
-        $this->security = $security;
     }
 
     abstract public function logActivity(string $action, LifecycleEventArgs $args): void;
@@ -111,11 +109,15 @@ abstract class AbstractEntityListener
         $logEntry->setEntityID($object->getId());
         $logEntry->setAction($action);
 
+        /** @var User $user */
         $user = $this->security->getUser();
         if ($user) {
             $logEntry->setUser($user->getUsername());
         } else {
-            $logEntry->setUser('Fixtures');
+            $userRepository = $em->getRepository(User::class);
+            /** @var User $os2formsUser */
+            $os2formsUser = $userRepository->findOneBy(['name' => 'OS2Forms']);
+            $logEntry->setUser($os2formsUser->getName());
         }
 
         $logEntry->setData($dataArray);

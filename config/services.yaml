@@ -201,3 +201,15 @@ services:
                       font_style:
                           # @see https://phpword.readthedocs.io/en/latest/styles.html#font
                           styleName: 'InternetLink'
+
+    App\Controller\ApiController:
+        arguments:
+            $tvist1ApiToken: '%env(TVIST1_API_TOKEN)%'
+
+    App\MessageHandler\WebformSubmissionMessageHandler:
+        arguments:
+            $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
+
+    App\Service\OS2Forms\CaseSubmissionNormalizers\CaseSubmissionNormalizer:
+        arguments:
+            $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'

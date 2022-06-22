@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Document;
 use App\Entity\User;
 use App\Exception\FileMovingException;
+use App\Repository\UserRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -32,7 +33,7 @@ class DocumentUploader
     private MimeTypeGuesserInterface $mimeTypeGuesser;
     private Security $security;
 
-    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser, Security $security)
+    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser, Security $security, private UserRepository $userRepository)
     {
         $this->projectDirectory = $projectDirectory;
         $this->uploadDocumentDirectory = $uploadDocumentDirectory;
@@ -52,8 +53,9 @@ class DocumentUploader
         $document->setFilename($fileName);
         $document->setDocumentName($documentName);
         $document->setPath($this->getFilepathFromProjectDirectory($fileName));
+        // If security does not have user then it must be from OS2Forms.
         /** @var User $user */
-        $user = $this->security->getUser();
+        $user = $this->security->getUser() ?? $this->userRepository->findOneBy(['name' => 'OS2Forms']);
         $document->setUploadedBy($user);
         $document->setType($documentType);
 

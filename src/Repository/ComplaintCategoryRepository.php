@@ -29,4 +29,15 @@ class ComplaintCategoryRepository extends ServiceEntityRepository
             ->getQuery()->getResult()
         ;
     }
+
+    public function findOneByNameAndBoard(string $name, Board $board): ComplaintCategory|null
+    {
+        return $this->createQueryBuilder('cc')
+            ->where(':board MEMBER OF cc.boards')
+            ->setParameter(':board', $board->getId()->toBinary())
+            ->andWhere('cc.name = :complaintName')
+            ->setParameter('complaintName', $name)
+            ->getQuery()->getOneOrNullResult()
+        ;
+    }
 }
