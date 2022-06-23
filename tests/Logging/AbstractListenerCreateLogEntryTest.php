@@ -221,7 +221,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
         $mockUser
             ->expects($this->once())
-            ->method('getUsername')
+            ->method('getName')
             ->willReturn($this->mockUsername)
         ;
 
