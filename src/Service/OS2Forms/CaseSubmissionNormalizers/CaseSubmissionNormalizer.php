@@ -154,7 +154,7 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
                     // Example basename: before.png
                     // Example resulting newFileName: before-62b1aa95ef3cb.png
                     $documentName = preg_replace('/\..*/', '', basename($documentUrl));
-                    $newFileName = preg_replace('/\./', '-'.uniqid().'.', basename($documentUrl));
+                    $newFileName = $this->documentUploader->generateNewUniqueFileName($documentName);
                     $filePath = $this->documentUploader->getFullDirectory().'/'.$newFileName;
                     file_put_contents($filePath, $response->getContent());
                     $document = $this->documentUploader->createDocumentFromPath($newFileName, $documentName, 'OS2Forms');

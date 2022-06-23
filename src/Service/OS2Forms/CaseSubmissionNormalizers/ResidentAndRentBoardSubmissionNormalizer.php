@@ -58,7 +58,6 @@ class ResidentAndRentBoardSubmissionNormalizer implements SubmissionNormalizerIn
 
         // Other lease properties
         // hasVacated
-
         $normalizedArray['lease_has_vacated'] = empty($submissionData['lejemaal_fraflyttet'])
             // else section (: match ...) must be placed on same line due to PHP CS Fixer single_line_throw rule.
             ? throw new WebformSubmissionException('Submission data does not contain a lease has vacated property.') : match ($submissionData['lejemaal_fraflyttet']) {
@@ -95,7 +94,7 @@ class ResidentAndRentBoardSubmissionNormalizer implements SubmissionNormalizerIn
         // leaseRegulatedRent
         $normalizedArray['lease_regulated_rent'] = empty($submissionData['lejemaal_lejen_reguleret'])
             // else section (: match ...) must be placed on same line due to PHP CS Fixer single_line_throw rule.
-            ? throw new WebformSubmissionException('Submission data does not contain a lease has vacated property.') : match ($submissionData['lejemaal_lejen_reguleret']) {
+            ? null : match ($submissionData['lejemaal_lejen_reguleret']) {
                 'Ja' => true,
                 'Nej' => false,
                 default => throw new WebformSubmissionException('The lease regulated value %s is not valid.', $submissionData['lejemaal_lejen_reguleret']),

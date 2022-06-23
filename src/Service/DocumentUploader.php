@@ -78,15 +78,12 @@ class DocumentUploader
      *
      * @throws FileMovingException
      */
-    public function upload(UploadedFile $file): string
+    private function upload(UploadedFile $file): string
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
-        // AsciiSlugger handles spaces, special chars and danish specific letters
-        $safeFilename = $this->slugger->slug($originalFilename);
-
         // Make a safe and unique filename
-        $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+        $newFilename = $this->generateNewUniqueFileName($originalFilename).'.'.$file->guessExtension();
 
         try {
             $file->move(
@@ -158,8 +155,7 @@ class DocumentUploader
         $filename = pathinfo($filePath, PATHINFO_FILENAME);
         $extension = pathinfo($filePath, PATHINFO_EXTENSION);
 
-        $safeFilename = $this->slugger->slug($filename);
-        $newFilename = $safeFilename.'-'.uniqid().'.'.$extension;
+        $newFilename = $this->generateNewUniqueFileName($filename).'.'.$extension;
 
         $targetPath = $this->getFullDirectory().'/'.$newFilename;
         $this->filesystem->rename($filePath, $targetPath);
@@ -183,5 +179,16 @@ class DocumentUploader
     public function getFullDirectory(): string
     {
         return $this->projectDirectory.'/'.$this->uploadDocumentDirectory;
+    }
+
+    /**
+     * Generates a safe and unique file name.
+     */
+    public function generateNewUniqueFileName(string $fileName): string
+    {
+        // AsciiSlugger handles spaces, special chars and danish specific letters
+        $safeFileName = $this->slugger->slug($fileName);
+
+        return $safeFileName.'-'.uniqid();
     }
 }
