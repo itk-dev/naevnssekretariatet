@@ -224,7 +224,8 @@ services:
 
     App\Controller\ApiController:
         arguments:
-            $tvist1ApiToken: '%env(TVIST1_API_TOKEN)%'
+            $options:
+                tvist1_api_token: '%env(TVIST1_API_TOKEN)%'
 
     App\MessageHandler\WebformSubmissionMessageHandler:
         arguments:

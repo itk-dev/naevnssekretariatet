@@ -162,14 +162,15 @@ class CaseManager implements LoggerAwareInterface
         assert($board instanceof Board);
 
         $case = $this->newCase($case, $board);
+        if (is_array($documents)) {
+            foreach ($documents as $document) {
+                $caseDocumentRelation = new CaseDocumentRelation();
 
-        foreach ($documents as $document) {
-            $caseDocumentRelation = new CaseDocumentRelation();
+                $caseDocumentRelation->setCase($case);
+                $caseDocumentRelation->setDocument($document);
 
-            $caseDocumentRelation->setCase($case);
-            $caseDocumentRelation->setDocument($document);
-
-            $this->entityManager->persist($caseDocumentRelation);
+                $this->entityManager->persist($caseDocumentRelation);
+            }
         }
 
         $this->entityManager->flush();

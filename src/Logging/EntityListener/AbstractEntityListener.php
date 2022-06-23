@@ -111,13 +111,10 @@ abstract class AbstractEntityListener
 
         /** @var User $user */
         $user = $this->security->getUser();
-        if ($user) {
-            $logEntry->setUser($user->getUsername());
+        if (null === $user) {
+            $logEntry->setUser('Fixtures');
         } else {
-            $userRepository = $em->getRepository(User::class);
-            /** @var User $os2formsUser */
-            $os2formsUser = $userRepository->findOneBy(['name' => 'OS2Forms']);
-            $logEntry->setUser($os2formsUser->getName());
+            $logEntry->setUser($user->getName());
         }
 
         $logEntry->setData($dataArray);

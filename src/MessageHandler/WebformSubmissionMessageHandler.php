@@ -2,20 +2,40 @@
 
 namespace App\MessageHandler;
 
+use App\Exception\WebformSubmissionException;
 use App\Message\NewWebformSubmissionMessage;
+use App\Repository\UserRepository;
 use App\Service\CaseManager;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class WebformSubmissionMessageHandler implements MessageHandlerInterface
 {
-    public function __construct(private CaseManager $caseManager, private HttpClientInterface $client, private $selvbetjeningUserApiToken)
+    public function __construct(private CaseManager $caseManager, private HttpClientInterface $client, private $selvbetjeningUserApiToken, private TokenStorageInterface $tokenStorage, private AuthenticationManagerInterface $authenticationManager, private UserRepository $userRepository, private Security $security)
     {
     }
 
     public function __invoke(NewWebformSubmissionMessage $message)
     {
-        $dataArray = $message->getWebformSubmission();
+        // Authenticate as the OS2Forms user.
+        $user = $this->userRepository->findOneBy(['name' => 'OS2Forms']);
+        if (null === $user) {
+            throw new WebformSubmissionException('Could not find OS2Forms system user.');
+        }
+
+        $token = new UsernamePasswordToken($user, 'main', $user->getRoles());
+        $authenticatedToken = $this->authenticationManager->authenticate($token);
+        $this->tokenStorage->setToken($authenticatedToken);
+
+        if ($user !== $this->security->getUser()) {
+            throw new WebformSubmissionException('Could not authenticate as the OS2Forms user.');
+        }
+
+        $data = $message->getWebformSubmission();
 
         // Example data.
         // {
@@ -33,12 +53,12 @@ class WebformSubmissionMessageHandler implements MessageHandlerInterface
         //  }
         //}
 
-        if (isset($dataArray['links']['get_submission_url']) && is_string($dataArray['links']['get_submission_url'])
-            && isset($dataArray['data']['webform']['id']) && is_string($dataArray['data']['webform']['id'])
+        if (isset($data['links']['get_submission_url']) && is_string($data['links']['get_submission_url'])
+            && isset($data['data']['webform']['id']) && is_string($data['data']['webform']['id'])
         ) {
-            $getSubmissionUrl = $dataArray['links']['get_submission_url'];
-            $sender = $dataArray['links']['sender'];
-            $webformId = $dataArray['data']['webform']['id'];
+            $getSubmissionUrl = $data['links']['get_submission_url'];
+            $sender = $data['links']['sender'];
+            $webformId = $data['data']['webform']['id'];
 
             $response = $this->client->request(
                 'GET',

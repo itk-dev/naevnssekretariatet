@@ -42,20 +42,16 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
         }
 
         // Bringer (name)
-        if (isset($submissionData['indbringer_navn']) && !empty($submissionData['indbringer_navn'])) {
-            $normalizedArray['bringer'] = $submissionData['indbringer_navn'];
-        } else {
-            $message = sprintf('Submission data does not contain a bringer name.');
-            throw new WebformSubmissionException($message);
-        }
+        $normalizedArray['bringer'] = isset($submissionData['indbringer_navn']) && !empty($submissionData['indbringer_navn'])
+            ? $submissionData['indbringer_navn']
+            : throw new WebformSubmissionException('Submission data does not contain a bringer name.')
+        ;
 
         // Bringer ID type
-        if (isset($submissionData['indbringer_id_type']) && !empty($submissionData['indbringer_id_type'])) {
-            $normalizedArray['bringer_id_type'] = $submissionData['indbringer_id_type'];
-        } else {
-            $message = sprintf('Submission data does not contain a bringer ID type.');
-            throw new WebformSubmissionException($message);
-        }
+        $normalizedArray['bringer_id_type'] = isset($submissionData['indbringer_id_type']) && !empty($submissionData['indbringer_id_type'])
+            ? $submissionData['indbringer_id_type']
+            : throw new WebformSubmissionException('Submission data does not contain a bringer ID type.')
+        ;
 
         // Bringer ID identifier
         $containsCPRIdentifier = isset($submissionData['indbringer_id_cpr_nummer']) && !empty($submissionData['indbringer_id_cpr_nummer']);
@@ -76,52 +72,42 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
         }
 
         // Bringer address
-        if (isset($submissionData['indbringer_adresse_vej']) && !empty($submissionData['indbringer_adresse_vej'])) {
-            $normalizedArray['bringer_address_street'] = $submissionData['indbringer_adresse_vej'];
-        } else {
-            $message = sprintf('Submission data does not contain a bringer address street.');
-            throw new WebformSubmissionException($message);
-        }
+        $normalizedArray['bringer_address_street'] = isset($submissionData['indbringer_adresse_vej']) && !empty($submissionData['indbringer_adresse_vej'])
+            ? $submissionData['indbringer_adresse_vej']
+            : throw new WebformSubmissionException('Submission data does not contain a bringer address street.')
+        ;
 
-        if (isset($submissionData['indbringer_adresse_nummer']) && !empty($submissionData['indbringer_adresse_nummer'])) {
-            $normalizedArray['bringer_address_number'] = $submissionData['indbringer_adresse_nummer'];
-        } else {
-            $message = sprintf('Submission data does not contain a bringer address number.');
-            throw new WebformSubmissionException($message);
-        }
+        $normalizedArray['bringer_address_number'] = isset($submissionData['indbringer_adresse_nummer']) && !empty($submissionData['indbringer_adresse_nummer'])
+            ? $submissionData['indbringer_adresse_nummer']
+            : throw new WebformSubmissionException('Submission data does not contain a bringer address number.')
+        ;
 
-        if (isset($submissionData['indbringer_adresse_etage']) && !empty($submissionData['indbringer_adresse_etage'])) {
-            $normalizedArray['bringer_address_floor'] = $submissionData['indbringer_adresse_etage'];
-        } else {
-            $normalizedArray['bringer_address_floor'] = null;
-        }
+        $normalizedArray['bringer_address_floor'] = isset($submissionData['indbringer_adresse_etage']) && !empty($submissionData['indbringer_adresse_etage'])
+            ? $submissionData['indbringer_adresse_etage']
+            : null
+        ;
 
-        if (isset($submissionData['indbringer_adresse_side']) && !empty($submissionData['indbringer_adresse_side'])) {
-            $normalizedArray['bringer_address_side'] = $submissionData['indbringer_adresse_side'];
-        } else {
-            $normalizedArray['bringer_address_side'] = null;
-        }
+        $normalizedArray['bringer_address_side'] = isset($submissionData['indbringer_adresse_side']) && !empty($submissionData['indbringer_adresse_side'])
+            ? $submissionData['indbringer_adresse_side']
+            : null
+        ;
 
-        if (isset($submissionData['indbringer_adresse_postnummer']) && !empty($submissionData['indbringer_adresse_postnummer'])) {
-            $normalizedArray['bringer_address_postal_code'] = (int) $submissionData['indbringer_adresse_postnummer'];
-        } else {
-            $message = sprintf('Submission data does not contain a bringer address postal code.');
-            throw new WebformSubmissionException($message);
-        }
+        $normalizedArray['bringer_address_postal_code'] = isset($submissionData['indbringer_adresse_postnummer']) && !empty($submissionData['indbringer_adresse_postnummer'])
+            ? (int) $submissionData['indbringer_adresse_postnummer']
+            : throw new WebformSubmissionException('Submission data does not contain a bringer address postal code.')
+        ;
 
-        if (isset($submissionData['indbringer_adresse_by']) && !empty($submissionData['indbringer_adresse_by'])) {
-            $normalizedArray['bringer_address_city'] = $submissionData['indbringer_adresse_by'];
-        } else {
-            $message = sprintf('Submission data does not contain a bringer address city.');
-            throw new WebformSubmissionException($message);
-        }
+        $normalizedArray['bringer_address_city'] = isset($submissionData['indbringer_adresse_by']) && !empty($submissionData['indbringer_adresse_by'])
+            ? (int) $submissionData['indbringer_adresse_by']
+            : throw new WebformSubmissionException('Submission data does not contain a bringer address city.')
+        ;
 
-        if (isset($submissionData['indbringer_adresse_ekstra_adresse_information']) && !empty($submissionData['indbringer_adresse_ekstra_adresse_information'])) {
-            $normalizedArray['bringer_address_extra_information'] = $submissionData['indbringer_adresse_ekstra_adresse_information'];
-        } else {
-            $normalizedArray['bringer_address_extra_information'] = null;
-        }
+        $normalizedArray['bringer_address_extra_information'] = isset($submissionData['indbringer_adresse_ekstra_adresse_information']) && !empty($submissionData['indbringer_adresse_ekstra_adresse_information'])
+            ? $submissionData['indbringer_adresse_ekstra_adresse_information']
+            : null
+        ;
 
+        // Complaint category
         if (isset($submissionData['klagetype']) && !empty($submissionData['klagetype'])) {
             $complaintCategory = $this->complaintCategoryRepository->findOneByNameAndBoard($submissionData['klagetype'], $board);
 
@@ -136,6 +122,7 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
             throw new WebformSubmissionException($message);
         }
 
+        // Documents
         if (isset($submissionData['dokumenter']) && !empty($submissionData['dokumenter'])) {
             $documents = [];
             foreach ($submissionData['dokumenter'] as $documentId) {
@@ -170,11 +157,7 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
                     $newFileName = preg_replace('/\./', '-'.uniqid().'.', basename($documentUrl));
                     $filePath = $this->documentUploader->getFullDirectory().'/'.$newFileName;
                     file_put_contents($filePath, $response->getContent());
-                    $user = $this->userRepository->findOneBy(['name' => 'OS2Forms']);
-                    if (!$user) {
-                        throw new WebformSubmissionException('Could not find OS2Forms system user.');
-                    }
-                    $document = $this->documentUploader->createDocumentFromPath($newFileName, $documentName, 'OS2Forms', $user);
+                    $document = $this->documentUploader->createDocumentFromPath($newFileName, $documentName, 'OS2Forms');
                     $documents[] = $document;
 
                     // Persist now, flush when case is created.

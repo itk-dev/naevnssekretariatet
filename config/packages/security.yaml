@@ -36,7 +36,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/api/new/case, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/os2forms/submission, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/complaint-categories, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/openidconnect/login(/.+)?$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

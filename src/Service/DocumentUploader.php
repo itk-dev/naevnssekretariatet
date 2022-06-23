@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Document;
 use App\Entity\User;
 use App\Exception\FileMovingException;
-use App\Repository\UserRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -33,7 +32,7 @@ class DocumentUploader
     private MimeTypeGuesserInterface $mimeTypeGuesser;
     private Security $security;
 
-    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser, Security $security, private UserRepository $userRepository)
+    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser, Security $security)
     {
         $this->projectDirectory = $projectDirectory;
         $this->uploadDocumentDirectory = $uploadDocumentDirectory;

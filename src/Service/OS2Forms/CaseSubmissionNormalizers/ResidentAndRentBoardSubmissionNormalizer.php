@@ -14,145 +14,117 @@ class ResidentAndRentBoardSubmissionNormalizer implements SubmissionNormalizerIn
         $normalizedArray = [];
 
         // Bringer phone
-        if (isset($submissionData['indbringer_telefonnummer']) && !empty($submissionData['indbringer_telefonnummer'])) {
-            $normalizedArray['bringer_phone'] = (int) $submissionData['indbringer_telefonnummer'];
-        } else {
-            $normalizedArray['bringer_phone'] = null;
-        }
+        $normalizedArray['bringer_phone'] = isset($submissionData['indbringer_telefonnummer']) && !empty($submissionData['indbringer_telefonnummer'])
+            ? (int) $submissionData['indbringer_telefonnummer']
+            : null
+        ;
 
         // Lease address
 
-        if (isset($submissionData['lejemaals_adresse_vej']) && !empty($submissionData['lejemaals_adresse_vej'])) {
-            $normalizedArray['lease_address_street'] = $submissionData['lejemaals_adresse_vej'];
-        } else {
-            $message = sprintf('Submission data does not contain a lease address street.');
-            throw new WebformSubmissionException($message);
-        }
+        $normalizedArray['lease_address_street'] = isset($submissionData['lejemaals_adresse_vej']) && !empty($submissionData['lejemaals_adresse_vej'])
+            ? $submissionData['lejemaals_adresse_vej']
+            : throw new WebformSubmissionException('Submission data does not contain a lease address street.')
+        ;
 
-        if (isset($submissionData['lejemaals_adresse_nummer']) && !empty($submissionData['lejemaals_adresse_nummer'])) {
-            $normalizedArray['lease_address_number'] = $submissionData['lejemaals_adresse_nummer'];
-        } else {
-            $message = sprintf('Submission data does not contain a lease address number.');
-            throw new WebformSubmissionException($message);
-        }
+        $normalizedArray['lease_address_number'] = isset($submissionData['lejemaals_adresse_nummer']) && !empty($submissionData['lejemaals_adresse_nummer'])
+            ? $submissionData['lejemaals_adresse_nummer']
+            : throw new WebformSubmissionException('Submission data does not contain a lease address number.')
+        ;
 
-        if (isset($submissionData['lejemaals_adresse_etage']) && !empty($submissionData['lejemaals_adresse_etage'])) {
-            $normalizedArray['lease_address_floor'] = $submissionData['lejemaals_adresse_etage'];
-        } else {
-            $normalizedArray['lease_address_floor'] = null;
-        }
+        $normalizedArray['lease_address_floor'] = isset($submissionData['lejemaals_adresse_etage']) && !empty($submissionData['lejemaals_adresse_etage'])
+            ? $submissionData['lejemaals_adresse_etage']
+            : null
+        ;
 
-        if (isset($submissionData['lejemaals_adresse_side']) && !empty($submissionData['lejemaals_adresse_side'])) {
-            $normalizedArray['lease_address_side'] = $submissionData['lejemaals_adresse_side'];
-        } else {
-            $normalizedArray['lease_address_side'] = null;
-        }
+        $normalizedArray['lease_address_side'] = isset($submissionData['lejemaals_adresse_side']) && !empty($submissionData['lejemaals_adresse_side'])
+            ? $submissionData['lejemaals_adresse_side']
+            : null
+        ;
 
-        if (isset($submissionData['lejemaals_adresse_postnummer']) && !empty($submissionData['lejemaals_adresse_postnummer'])) {
-            $normalizedArray['lease_address_postal_code'] = (int) $submissionData['lejemaals_adresse_postnummer'];
-        } else {
-            $message = sprintf('Submission data does not contain a lease address postal code.');
-            throw new WebformSubmissionException($message);
-        }
+        $normalizedArray['lease_address_postal_code'] = isset($submissionData['lejemaals_adresse_postnummer']) && !empty($submissionData['lejemaals_adresse_postnummer'])
+            ? $submissionData['lejemaals_adresse_postnummer']
+            : throw new WebformSubmissionException('Submission data does not contain a lease address postal code.')
+        ;
 
-        if (isset($submissionData['lejemaals_adresse_by']) && !empty($submissionData['lejemaals_adresse_by'])) {
-            $normalizedArray['lease_address_city'] = $submissionData['lejemaals_adresse_by'];
-        } else {
-            $message = sprintf('Submission data does not contain a lease address city.');
-            throw new WebformSubmissionException($message);
-        }
+        $normalizedArray['lease_address_city'] = isset($submissionData['lejemaals_adresse_by']) && !empty($submissionData['lejemaals_adresse_by'])
+            ? $submissionData['lejemaals_adresse_by']
+            : throw new WebformSubmissionException('Submission data does not contain a lease address city.')
+        ;
 
-        if (isset($submissionData['lejemaals_adresse_ekstra_adresse_information']) && !empty($submissionData['lejemaals_adresse_ekstra_adresse_information'])) {
-            $normalizedArray['lease_address_extra_information'] = $submissionData['lejemaals_adresse_ekstra_adresse_information'];
-        } else {
-            $normalizedArray['lease_address_extra_information'] = null;
-        }
+        $normalizedArray['lease_address_extra_information'] = isset($submissionData['lejemaals_adresse_ekstra_adresse_information']) && !empty($submissionData['lejemaals_adresse_ekstra_adresse_information'])
+            ? $submissionData['lejemaals_adresse_ekstra_adresse_information']
+            : null
+        ;
 
         // Other lease properties
         // hasVacated
-        if (isset($submissionData['lejemaal_fraflyttet']) && !empty($submissionData['lejemaal_fraflyttet'])) {
-            if ('Ja' === $submissionData['lejemaal_fraflyttet']) {
-                $normalizedArray['lease_has_vacated'] = true;
-            } elseif ('Nej' === $submissionData['lejemaal_fraflyttet']) {
-                $normalizedArray['lease_has_vacated'] = false;
-            } else {
-                $message = sprintf('The lease has vacated %s is not valid.', $submissionData['lejemaal_fraflyttet']);
-                throw new WebformSubmissionException($message);
+
+        $normalizedArray['lease_has_vacated'] = empty($submissionData['lejemaal_fraflyttet'])
+            // else section (: match ...) must be placed on same line due to PHP CS Fixer single_line_throw rule.
+            ? throw new WebformSubmissionException('Submission data does not contain a lease has vacated property.') : match ($submissionData['lejemaal_fraflyttet']) {
+                'Ja' => true,
+                'Nej' => false,
+                default => throw new WebformSubmissionException('The lease has vacated value %s is not valid.', $submissionData['lejemaal_fraflyttet']),
             }
-        } else {
-            $message = sprintf('Submission data does not contain a lease has vacated property.');
-            throw new WebformSubmissionException($message);
-        }
+        ;
 
         // leaseStarted
-        if (isset($submissionData['lejemaal_lejeforhold_paabegyndt']) && !empty($submissionData['lejemaal_lejeforhold_paabegyndt'])) {
-            $normalizedArray['lease_started'] = new \DateTime($submissionData['lejemaal_lejeforhold_paabegyndt']);
-        } else {
-            $normalizedArray['lease_started'] = null;
-        }
+        $normalizedArray['lease_started'] = isset($submissionData['lejemaal_lejeforhold_paabegyndt']) && !empty($submissionData['lejemaal_lejeforhold_paabegyndt'])
+            ? new \DateTime($submissionData['lejemaal_lejeforhold_paabegyndt'])
+            : null
+        ;
 
         // leaseSize
-        if (isset($submissionData['lejemaal_areal']) && !empty($submissionData['lejemaal_areal'])) {
-            $normalizedArray['lease_size'] = (int) $submissionData['lejemaal_areal'];
-        } else {
-            $normalizedArray['lease_size'] = null;
-        }
+        $normalizedArray['lease_size'] = isset($submissionData['lejemaal_areal']) && !empty($submissionData['lejemaal_areal'])
+            ? (int) $submissionData['lejemaal_areal']
+            : null
+        ;
 
         // leaseAgreedRent
-        if (isset($submissionData['lejemaal_aftalt_husleje']) && !empty($submissionData['lejemaal_aftalt_husleje'])) {
-            $normalizedArray['lease_agreed_rent'] = (int) $submissionData['lejemaal_aftalt_husleje'];
-        } else {
-            $normalizedArray['lease_agreed_rent'] = null;
-        }
+        $normalizedArray['lease_agreed_rent'] = isset($submissionData['lejemaal_aftalt_husleje']) && !empty($submissionData['lejemaal_aftalt_husleje'])
+            ? (int) $submissionData['lejemaal_aftalt_husleje']
+            : null
+        ;
 
         // leaseInteriorMaintenance
-        if (isset($submissionData['lejemaal_indvendig_vedligeholdelse']) && !empty($submissionData['lejemaal_indvendig_vedligeholdelse'])) {
-            $normalizedArray['lease_interior_maintenance'] = $submissionData['lejemaal_indvendig_vedligeholdelse'];
-        } else {
-            $normalizedArray['lease_interior_maintenance'] = null;
-        }
+        $normalizedArray['lease_interior_maintenance'] = isset($submissionData['lejemaal_indvendig_vedligeholdelse']) && !empty($submissionData['lejemaal_indvendig_vedligeholdelse'])
+            ? $submissionData['lejemaal_indvendig_vedligeholdelse']
+            : null
+        ;
 
         // leaseRegulatedRent
-        if (isset($submissionData['lejemaal_lejen_reguleret']) && !empty($submissionData['lejemaal_lejen_reguleret'])) {
-            if ('Ja' === $submissionData['lejemaal_lejen_reguleret']) {
-                $normalizedArray['lease_regulated_rent'] = true;
-            } elseif ('Nej' === $submissionData['lejemaal_lejen_reguleret']) {
-                $normalizedArray['lease_regulated_rent'] = false;
-            } else {
-                $message = sprintf('The lease has vacated %s is not valid.', $submissionData['lejemaal_lejen_reguleret']);
-                throw new WebformSubmissionException($message);
+        $normalizedArray['lease_regulated_rent'] = empty($submissionData['lejemaal_lejen_reguleret'])
+            // else section (: match ...) must be placed on same line due to PHP CS Fixer single_line_throw rule.
+            ? throw new WebformSubmissionException('Submission data does not contain a lease has vacated property.') : match ($submissionData['lejemaal_lejen_reguleret']) {
+                'Ja' => true,
+                'Nej' => false,
+                default => throw new WebformSubmissionException('The lease regulated value %s is not valid.', $submissionData['lejemaal_lejen_reguleret']),
             }
-        } else {
-            $normalizedArray['lease_regulated_rent'] = null;
-        }
+        ;
 
         // leaseRegulatedAt
-        if (isset($submissionData['lejemaal_reguleringsdato']) && !empty($submissionData['lejemaal_reguleringsdato'])) {
-            $normalizedArray['lease_regulated_at'] = new \DateTime($submissionData['lejemaal_reguleringsdato']);
-        } else {
-            $normalizedArray['lease_regulated_at'] = null;
-        }
+        $normalizedArray['lease_regulated_at'] = isset($submissionData['lejemaal_reguleringsdato']) && !empty($submissionData['lejemaal_reguleringsdato'])
+            ? new \DateTime($submissionData['lejemaal_reguleringsdato'])
+            : null
+        ;
 
         // leaseRentAtCollectionTime
-        if (isset($submissionData['lejemaal_husleje_paa_indbringelsestidspunkt']) && !empty($submissionData['lejemaal_husleje_paa_indbringelsestidspunkt'])) {
-            $normalizedArray['lease_rent_at_collection_time'] = (int) $submissionData['lejemaal_husleje_paa_indbringelsestidspunkt'];
-        } else {
-            $normalizedArray['lease_rent_at_collection_time'] = null;
-        }
+        $normalizedArray['lease_rent_at_collection_time'] = isset($submissionData['lejemaal_husleje_paa_indbringelsestidspunkt']) && !empty($submissionData['lejemaal_husleje_paa_indbringelsestidspunkt'])
+            ? (int) $submissionData['lejemaal_husleje_paa_indbringelsestidspunkt']
+            : null
+        ;
 
         // leaseSecurityDeposit
-        if (isset($submissionData['lejemaal_depositum']) && !empty($submissionData['lejemaal_depositum'])) {
-            $normalizedArray['lease_security_deposit'] = (int) $submissionData['lejemaal_depositum'];
-        } else {
-            $normalizedArray['lease_security_deposit'] = null;
-        }
+        $normalizedArray['lease_security_deposit'] = isset($submissionData['lejemaal_depositum']) && !empty($submissionData['lejemaal_depositum'])
+            ? (int) $submissionData['lejemaal_depositum']
+            : null
+        ;
 
         // leasePrepaidRent
-        if (isset($submissionData['lejemaal_forudbetalt_leje']) && !empty($submissionData['lejemaal_forudbetalt_leje'])) {
-            $normalizedArray['lease_prepaid_rent'] = (int) $submissionData['lejemaal_forudbetalt_leje'];
-        } else {
-            $normalizedArray['lease_prepaid_rent'] = null;
-        }
+        $normalizedArray['lease_prepaid_rent'] = isset($submissionData['lejemaal_forudbetalt_leje']) && !empty($submissionData['lejemaal_forudbetalt_leje'])
+            ? (int) $submissionData['lejemaal_forudbetalt_leje']
+            : null
+        ;
 
         return $normalizedArray;
     }

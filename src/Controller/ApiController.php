@@ -10,38 +10,34 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
 {
-    public function __construct(private MessageBusInterface $bus, private $tvist1ApiToken, private BoardRepository $boardRepository)
+    private array $serviceOptions;
+
+    public function __construct(private MessageBusInterface $bus, private BoardRepository $boardRepository, array $options)
     {
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+
+        $this->serviceOptions = $resolver->resolve($options);
     }
 
     /**
-     * @Route("/api/new/case", name="api_add_to_queue", methods={"POST"})
+     * @Route("/api/os2forms/submission", name="api_add_submission_to_queue", methods={"POST"})
      *
      * @throws ApiException
      */
-    public function addNewCaseToQueue(Request $request): Response
+    public function addSubmissionToQueue(Request $request): Response
     {
         try {
-            // Ensure token is correct
-            // @see https://github.com/itk-dev/os2forms_selvbetjening/tree/develop/web/modules/custom/os2forms_api_request_handler#request-body
-            $apiToken = $request->headers->get('authorization');
+            $this->authenticate($request);
 
-            // Replace only first occurrence, in the very unlikely scenario that the token actually contains 'Token '.
-            $apiToken = preg_replace('/Token /', '', $apiToken, 1);
+            $data = json_decode($request->getContent(), true);
 
-            if ($this->tvist1ApiToken !== $apiToken) {
-                $message = sprintf('API token %s is invalid.', $apiToken);
-
-                throw new \InvalidArgumentException($message, 401);
-            }
-
-            $dataArray = json_decode($request->getContent(), true);
-
-            $this->bus->dispatch(new NewWebformSubmissionMessage($dataArray));
+            $this->bus->dispatch(new NewWebformSubmissionMessage($data));
 
             return new Response('OK');
         } catch (\Exception $e) {
@@ -55,16 +51,7 @@ class ApiController extends AbstractController
     public function getComplaintCategoriesForSelect(string $board_id, Request $request): Response
     {
         try {
-            // Ensure token is correct
-            $apiToken = $request->headers->get('authorization');
-
-            // Replace only first occurrence, in the very unlikely scenario that the token actually contains 'Token '.
-            $apiToken = preg_replace('/Token /', '', $apiToken, 1);
-
-            if ($this->tvist1ApiToken !== $apiToken) {
-                $message = sprintf('API token %s is invalid.', $apiToken);
-                throw new \InvalidArgumentException($message, 401);
-            }
+            $this->authenticate($request);
 
             // Find board
             $board = $this->boardRepository->findOneBy(['id' => $board_id]);
@@ -87,5 +74,27 @@ class ApiController extends AbstractController
         } catch (\Exception $e) {
             throw new ApiException($e->getMessage(), $e->getCode());
         }
+    }
+
+    private function authenticate(Request $request)
+    {
+        // Ensure token is correct
+        // @see https://github.com/itk-dev/os2forms_selvbetjening/tree/develop/web/modules/custom/os2forms_api_request_handler#request-body
+        $apiToken = $request->headers->get('authorization');
+
+        $apiToken = preg_replace('/^Token /', '', $apiToken);
+
+        if ($this->serviceOptions['tvist1_api_token'] !== $apiToken) {
+            $message = sprintf('API token %s is invalid.', $apiToken);
+
+            throw new \InvalidArgumentException($message, 401);
+        }
+    }
+
+    private function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setRequired('tvist1_api_token')
+        ;
     }
 }

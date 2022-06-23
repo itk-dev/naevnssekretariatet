@@ -23,7 +23,12 @@ final class Version20220621125027 extends AbstractMigration
         // Generate Uuid for OS2Forms user
         $id = Uuid::v4()->toBinary();
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('INSERT INTO user (id, email, roles, name) VALUES (:id, "OS2Forms@example.com", \'["ROLE_ADMIN"]\', "OS2Forms")', ['id' => $id]);
+        $this->addSql('INSERT INTO user (id, email, roles, name) VALUES (:id, :email, :roles, :name)', [
+            'id' => Uuid::v4()->toBinary(),
+            'email' => 'OS2Forms@example.com',
+            'roles' => json_encode(['ROLE_ADMIN']),
+            'name' => 'OS2Forms',
+        ]);
     }
 
     public function down(Schema $schema): void
