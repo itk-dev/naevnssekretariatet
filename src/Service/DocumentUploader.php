@@ -109,7 +109,7 @@ class DocumentUploader
         return $response;
     }
 
-    public function getFilepath(string $filename): string
+    private function getFilepath(string $filename): string
     {
         return $this->getFullDirectory().'/'.$filename;
     }
@@ -128,5 +128,10 @@ class DocumentUploader
         } else {
             $this->filesystem->copy($filePath, $targetPath);
         }
+    }
+
+    public function getDocumentFileSize(string $fileName): bool|int
+    {
+        return filesize($this->getFilepath($fileName));
     }
 }
