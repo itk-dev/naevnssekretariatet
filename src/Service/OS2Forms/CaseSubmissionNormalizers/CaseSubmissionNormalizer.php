@@ -153,11 +153,20 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
                     // Create new document
                     // Example basename: before.png
                     // Example resulting newFileName: before-62b1aa95ef3cb.png
-                    $documentName = preg_replace('/\..*/', '', basename($documentUrl));
-                    $newFileName = $this->documentUploader->generateNewUniqueFileName($documentName);
-                    $filePath = $this->documentUploader->getFullDirectory().'/'.$newFileName;
-                    file_put_contents($filePath, $response->getContent());
-                    $document = $this->documentUploader->createDocumentFromPath($newFileName, $documentName, 'OS2Forms');
+
+                    // Get original file base name and extension
+                    preg_match('/(?<originalFileBaseName>.*)\.(?<extension>.*)$/', basename($documentUrl), $matches);
+
+                    $newFileBaseName = $this->documentUploader->generateNewUniqueFileName($matches['originalFileBaseName']);
+                    $newFileName = $newFileBaseName.'.'.$matches['extension'];
+                    $newFilePath = $this->documentUploader->getFullDirectory().'/'.$newFileName;
+
+                    // Place contents from HTTP call
+                    file_put_contents($newFilePath, $response->getContent());
+
+                    // Create document
+                    $document = $this->documentUploader->createDocumentFromPath($newFileName, $matches['originalFileBaseName'], 'OS2Forms');
+
                     $documents[] = $document;
 
                     // Persist now, flush when case is created.
