@@ -160,22 +160,13 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
                         $options
                     );
 
-                    // Create new document
-                    // Example basename: before.png
-                    // Example resulting newFileName: before-62b1aa95ef3cb.png
-
-                    // Get original file base name and extension
-                    preg_match('/(?<originalFileBaseName>.*)\.(?<extension>.*)$/', basename($documentUrl), $matches);
-
-                    $newFileBaseName = $this->documentUploader->generateNewUniqueFileName($matches['originalFileBaseName']);
-                    $newFileName = $newFileBaseName.'.'.$matches['extension'];
-                    $newFilePath = $this->documentUploader->getFullDirectory().'/'.$newFileName;
+                    $newFilePath = sys_get_temp_dir().'/'.basename($documentUrl);
 
                     // Place contents from HTTP call
                     file_put_contents($newFilePath, $response->getContent());
 
                     // Create document
-                    $document = $this->documentUploader->createDocumentFromPath($newFileName, $matches['originalFileBaseName'], 'OS2Forms');
+                    $document = $this->documentUploader->createDocumentFromPath($newFilePath, basename($documentUrl), 'OS2Forms');
 
                     $documents[] = $document;
 

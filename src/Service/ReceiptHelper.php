@@ -61,9 +61,8 @@ class ReceiptHelper implements EventSubscriberInterface
 
         if (isset($case, $template)) {
             $fileName = $this->mailTemplateHelper->renderMailTemplate($template, $entity);
-            $updatedFileName = $this->documentUploader->uploadFile($fileName);
             $user = $case->getAssignedTo();
-            $document = $this->documentUploader->createDocumentFromPath($updatedFileName, $documentTitle, $documentType, $user);
+            $document = $this->documentUploader->createDocumentFromPath($fileName, $documentTitle, $documentType, $user);
 
             // Create case document relation
             $relation = (new CaseDocumentRelation())

@@ -91,11 +91,8 @@ class AgendaBroadcastController extends AbstractController
             // Create new file from template
             $fileName = $mailTemplateHelper->renderMailTemplate($agendaBroadcast->getTemplate(), $agenda);
 
-            // Move file
-            $updatedFileName = $documentUploader->uploadFile($fileName);
-
             // Create document
-            $document = $documentUploader->createDocumentFromPath($updatedFileName, $agendaBroadcast->getTitle(), 'Agenda broadcast');
+            $document = $documentUploader->createDocumentFromPath($fileName, $agendaBroadcast->getTitle(), 'Agenda broadcast');
 
             $entityManager->persist($document);
 

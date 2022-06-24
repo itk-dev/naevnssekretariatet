@@ -68,11 +68,8 @@ class AgendaInspectionController extends AbstractController
             // Create new file from template
             $fileName = $mailTemplateHelper->renderMailTemplate($inspection->getTemplate(), $agendaItem);
 
-            // Move file
-            $updatedFileName = $documentUploader->uploadFile($fileName);
-
             // Create document
-            $document = $documentUploader->createDocumentFromPath($updatedFileName, $inspection->getTitle(), 'Agenda inspection');
+            $document = $documentUploader->createDocumentFromPath($fileName, $inspection->getTitle(), 'Agenda inspection');
 
             $entityManager->persist($document);
 

@@ -64,19 +64,14 @@ class Document implements LoggableEntityInterface
     private $hearingPost;
 
     /**
-     * Path to document from project directory.
-     *
-     * @example:
-     *  upload/documents/TVIST1-Documentation.pdf
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $path;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $originalFileName;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $isCreatedManually = false;
 
     public function __construct()
     {
@@ -227,18 +222,6 @@ class Document implements LoggableEntityInterface
         return $this;
     }
 
-    public function getPath(): ?string
-    {
-        return $this->path;
-    }
-
-    public function setPath(string $path): self
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
     public function getOriginalFileName(): ?string
     {
         return $this->originalFileName;
@@ -247,6 +230,18 @@ class Document implements LoggableEntityInterface
     public function setOriginalFileName(string $originalFileName): self
     {
         $this->originalFileName = $originalFileName;
+
+        return $this;
+    }
+
+    public function getIsCreatedManually(): ?bool
+    {
+        return $this->isCreatedManually;
+    }
+
+    public function setIsCreatedManually(bool $isCreatedManually): self
+    {
+        $this->isCreatedManually = $isCreatedManually;
 
         return $this;
     }
