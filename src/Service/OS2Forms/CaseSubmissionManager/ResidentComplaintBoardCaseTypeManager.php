@@ -94,8 +94,11 @@ class ResidentComplaintBoardCaseTypeManager implements CaseSubmissionManagerInte
             ->setPrepaidRent($normalizedData['lease_prepaid_rent'])
         ;
 
-        // Complaint category and documents
-        $case->setComplaintCategory($normalizedData['complaint_category']);
+        // Complaint category
+        $case
+            ->setComplaintCategory($normalizedData['complaint_category'])
+            ->setExtraComplaintCategoryInformation($normalizedData['complaint_category_extra_information'])
+        ;
 
         return $case;
     }

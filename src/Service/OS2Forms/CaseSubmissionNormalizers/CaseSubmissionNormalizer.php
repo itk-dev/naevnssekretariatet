@@ -42,16 +42,18 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
         }
 
         // Bringer (name)
-        $normalizedArray['bringer'] = isset($submissionData['indbringer_navn']) && !empty($submissionData['indbringer_navn'])
-            ? $submissionData['indbringer_navn']
-            : throw new WebformSubmissionException('Submission data does not contain a bringer name.')
-        ;
+        if (isset($submissionData['indbringer_navn']) && !empty($submissionData['indbringer_navn'])) {
+            $normalizedArray['bringer'] = $submissionData['indbringer_navn'];
+        } else {
+            throw new WebformSubmissionException('Submission data does not contain a bringer name.');
+        }
 
         // Bringer ID type
-        $normalizedArray['bringer_id_type'] = isset($submissionData['indbringer_id_type']) && !empty($submissionData['indbringer_id_type'])
-            ? $submissionData['indbringer_id_type']
-            : throw new WebformSubmissionException('Submission data does not contain a bringer ID type.')
-        ;
+        if (isset($submissionData['indbringer_id_type']) && !empty($submissionData['indbringer_id_type'])) {
+            $normalizedArray['bringer_id_type'] = $submissionData['indbringer_id_type'];
+        } else {
+            throw new WebformSubmissionException('Submission data does not contain a bringer ID type.');
+        }
 
         // Bringer ID identifier
         $containsCPRIdentifier = isset($submissionData['indbringer_id_cpr_nummer']) && !empty($submissionData['indbringer_id_cpr_nummer']);
@@ -77,10 +79,11 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
             : throw new WebformSubmissionException('Submission data does not contain a bringer address street.')
         ;
 
-        $normalizedArray['bringer_address_number'] = isset($submissionData['indbringer_adresse_nummer']) && !empty($submissionData['indbringer_adresse_nummer'])
-            ? $submissionData['indbringer_adresse_nummer']
-            : throw new WebformSubmissionException('Submission data does not contain a bringer address number.')
-        ;
+        if (isset($submissionData['indbringer_adresse_nummer']) && !empty($submissionData['indbringer_adresse_nummer'])) {
+            $normalizedArray['bringer_address_number'] = $submissionData['indbringer_adresse_nummer'];
+        } else {
+            throw new WebformSubmissionException('Submission data does not contain a bringer address number.');
+        }
 
         $normalizedArray['bringer_address_floor'] = isset($submissionData['indbringer_adresse_etage']) && !empty($submissionData['indbringer_adresse_etage'])
             ? $submissionData['indbringer_adresse_etage']
@@ -92,15 +95,17 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
             : null
         ;
 
-        $normalizedArray['bringer_address_postal_code'] = isset($submissionData['indbringer_adresse_postnummer']) && !empty($submissionData['indbringer_adresse_postnummer'])
-            ? (int) $submissionData['indbringer_adresse_postnummer']
-            : throw new WebformSubmissionException('Submission data does not contain a bringer address postal code.')
-        ;
+        if (isset($submissionData['indbringer_adresse_postnummer']) && !empty($submissionData['indbringer_adresse_postnummer'])) {
+            $normalizedArray['bringer_address_postal_code'] = (int) $submissionData['indbringer_adresse_postnummer'];
+        } else {
+            throw new WebformSubmissionException('Submission data does not contain a bringer address postal code.');
+        }
 
-        $normalizedArray['bringer_address_city'] = isset($submissionData['indbringer_adresse_by']) && !empty($submissionData['indbringer_adresse_by'])
-            ? (int) $submissionData['indbringer_adresse_by']
-            : throw new WebformSubmissionException('Submission data does not contain a bringer address city.')
-        ;
+        if (isset($submissionData['indbringer_adresse_by']) && !empty($submissionData['indbringer_adresse_by'])) {
+            $normalizedArray['bringer_address_city'] = (int) $submissionData['indbringer_adresse_by'];
+        } else {
+            throw new WebformSubmissionException('Submission data does not contain a bringer address city.');
+        }
 
         $normalizedArray['bringer_address_extra_information'] = isset($submissionData['indbringer_adresse_ekstra_adresse_information']) && !empty($submissionData['indbringer_adresse_ekstra_adresse_information'])
             ? $submissionData['indbringer_adresse_ekstra_adresse_information']
@@ -121,6 +126,11 @@ class CaseSubmissionNormalizer implements SubmissionNormalizerInterface
             $message = sprintf('Submission data does not contain a complaint category.');
             throw new WebformSubmissionException($message);
         }
+
+        $normalizedArray['complaint_category_extra_information'] = isset($submissionData['ekstra_klagetype_information']) && !empty($submissionData['ekstra_klagetype_information'])
+            ? $submissionData['ekstra_klagetype_information']
+            : null
+        ;
 
         // Documents
         if (isset($submissionData['dokumenter']) && !empty($submissionData['dokumenter'])) {

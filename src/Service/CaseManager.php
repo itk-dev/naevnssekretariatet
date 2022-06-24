@@ -166,8 +166,10 @@ class CaseManager implements LoggerAwareInterface
             foreach ($documents as $document) {
                 $caseDocumentRelation = new CaseDocumentRelation();
 
-                $caseDocumentRelation->setCase($case);
-                $caseDocumentRelation->setDocument($document);
+                $caseDocumentRelation
+                    ->setCase($case)
+                    ->setDocument($document)
+                ;
 
                 $this->entityManager->persist($caseDocumentRelation);
             }
