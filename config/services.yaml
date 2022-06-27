@@ -234,3 +234,7 @@ services:
     App\Service\OS2Forms\CaseSubmissionNormalizers\CaseSubmissionNormalizer:
         arguments:
             $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
+
+    App\Service\OS2Forms\CaseSubmissionNormalizers\ResidentAndRentBoardSubmissionNormalizer:
+        arguments:
+            $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
