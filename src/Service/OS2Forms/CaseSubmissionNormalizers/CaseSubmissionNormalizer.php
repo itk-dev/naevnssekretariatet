@@ -3,8 +3,9 @@
 namespace App\Service\OS2Forms\CaseSubmissionNormalizers;
 
 use App\Entity\Board;
-use App\Repository\BoardRepository;
-use App\Repository\ComplaintCategoryRepository;
+use App\Entity\ComplaintCategory;
+use App\Exception\WebformSubmissionException;
+use Doctrine\ORM\EntityManagerInterface;
 
 class CaseSubmissionNormalizer extends AbstractNormalizer implements SubmissionNormalizerInterface
 {
@@ -25,8 +26,13 @@ class CaseSubmissionNormalizer extends AbstractNormalizer implements SubmissionN
                 'os2FormsKey' => 'naevn',
                 'required' => true,
                 'type' => 'entity',
-                'get_entity_callback' => function (BoardRepository $boardRepository, string $id) {
-                    return $boardRepository->findOneBy(['id' => $id]);
+                'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {
+                    $board = $entityManager->getRepository(Board::class)->findOneBy(['id' => $submissionData[$spec['os2FormsKey']] ?? null]);
+                    if (null === $board) {
+                        throw new WebformSubmissionException('blabla');
+                    }
+
+                    return $board;
                 },
                 'error_message' => 'Submission data does not contain a board.',
             ],
@@ -47,13 +53,13 @@ class CaseSubmissionNormalizer extends AbstractNormalizer implements SubmissionN
                 'error_message' => 'Submission data does not contain a bringer ID type.',
             ],
             'bringer_id_identifier' => [
-                'os2FormsKey' => function (array $data) {
-                    if (isset($data['indbringer_id_cpr_nummer']) && !empty($data['indbringer_id_cpr_nummer'])) {
-                        return 'indbringer_id_cpr_nummer';
+                'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {
+                    if (isset($submissionData['indbringer_id_cpr_nummer']) && !empty($submissionData['indbringer_id_cpr_nummer'])) {
+                        return $submissionData['indbringer_id_cpr_nummer'];
                     }
 
-                    if (isset($data['indbringer_id_cvr_nummer']) && !empty($data['indbringer_id_cvr_nummer'])) {
-                        return 'indbringer_id_cvr_nummer';
+                    if (isset($submissionData['indbringer_id_cvr_nummer']) && !empty($submissionData['indbringer_id_cvr_nummer'])) {
+                        return $submissionData['indbringer_id_cvr_nummer'];
                     }
 
                     return null;
@@ -106,8 +112,19 @@ class CaseSubmissionNormalizer extends AbstractNormalizer implements SubmissionN
                 'os2FormsKey' => 'klagetype',
                 'required' => true,
                 'type' => 'entity',
-                'get_entity_callback' => function (ComplaintCategoryRepository $repository, string $name, Board $board) {
-                    return $repository->findOneByNameAndBoard($name, $board);
+                'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {
+                    $board = $entityManager->getRepository(Board::class)->findOneBy(['id' => $submissionData['naevn'] ?? null]);
+                    if (null === $board) {
+                        throw new WebformSubmissionException('blabla '.$submissionData['naevn']);
+                    }
+
+                    $complaintCategory = $entityManager->getRepository(ComplaintCategory::class)->findOneByNameAndBoard($submissionData[$spec['os2FormsKey']] ?? null, $board);
+
+                    if (null === $complaintCategory) {
+                        throw new WebformSubmissionException('blabla');
+                    }
+
+                    return $complaintCategory;
                 },
                 'error_message' => 'Submission data does not contain a complaint category.',
             ],

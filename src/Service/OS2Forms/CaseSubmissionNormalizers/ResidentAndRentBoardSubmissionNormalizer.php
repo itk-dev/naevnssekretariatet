@@ -60,12 +60,12 @@ class ResidentAndRentBoardSubmissionNormalizer extends AbstractNormalizer implem
             'lease_has_vacated' => [
                 'os2FormsKey' => 'lejemaal_fraflyttet',
                 'required' => true,
-                'type' => 'bool',
+                'type' => 'boolean',
                 'error_message' => 'Submission data does not contain a lease has vacated property.',
             ],
             'lease_started' => [
                 'os2FormsKey' => 'lejemaal_lejeforhold_paabegyndt',
-                'type' => 'DateTime',
+                'type' => 'datetime',
             ],
             'lease_size' => [
                 'os2FormsKey' => 'lejemaal_areal',
@@ -81,11 +81,11 @@ class ResidentAndRentBoardSubmissionNormalizer extends AbstractNormalizer implem
             ],
             'lease_regulated_rent' => [
                 'os2FormsKey' => 'lejemaal_lejen_reguleret',
-                'type' => 'bool',
+                'type' => 'boolean',
             ],
             'lease_regulated_at' => [
                 'os2FormsKey' => 'lejemaal_reguleringsdato',
-                'type' => 'DateTime',
+                'type' => 'datetime',
             ],
             'lease_rent_at_collection_time' => [
                 'os2FormsKey' => 'lejemaal_husleje_paa_indbringelsestidspunkt',

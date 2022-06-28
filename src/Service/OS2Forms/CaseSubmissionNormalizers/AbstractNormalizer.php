@@ -3,15 +3,13 @@
 namespace App\Service\OS2Forms\CaseSubmissionNormalizers;
 
 use App\Exception\WebformSubmissionException;
-use App\Repository\BoardRepository;
-use App\Repository\ComplaintCategoryRepository;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 abstract class AbstractNormalizer
 {
-    public function __construct(private BoardRepository $boardRepository, private DocumentUploader $documentUploader, private ComplaintCategoryRepository $complaintCategoryRepository, private string $selvbetjeningUserApiToken, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient)
+    public function __construct(private DocumentUploader $documentUploader, private string $selvbetjeningUserApiToken, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient)
     {
     }
 
@@ -20,8 +18,8 @@ abstract class AbstractNormalizer
         $normalizedArray = [];
 
         foreach ($config as $property => $spec) {
-            $value = is_callable($spec['os2FormsKey'])
-                ? $submissionData[$spec['os2FormsKey']($submissionData)]
+            $value = isset($spec['value_callback'])
+                ? $spec['value_callback']($property, $spec, $submissionData, $normalizedArray, $this->entityManager)
                 : $submissionData[$spec['os2FormsKey']] ?? null
             ;
 
@@ -30,39 +28,16 @@ abstract class AbstractNormalizer
 
                 if (in_array($type, ['string', 'int'])) {
                     settype($value, $type);
-                } elseif ('bool' === $type) {
+                } elseif ('boolean' === $type) {
                     $value = match ($value) {
-                        'Ja' => true,
-                        'Nej' => false,
-                        default => throw new WebformSubmissionException(sprintf('The property value %s cannot be transformed into bool. Permitted values are Ja/Nej.', $value))
+                        'Ja', 1 => true,
+                        'Nej', 0 => false,
+                        default => throw new WebformSubmissionException(sprintf('The property value %s cannot be transformed into bool.', $value))
                     };
-                } elseif ('DateTime' === $type) {
-                    $value = new \DateTime($value);
-                } elseif ('entity' === $type) {
-                    // Handle entity type. Expects 'get_entity_callback' option.
-
-                    if (!is_callable($spec['get_entity_callback'])) {
-                        throw new WebformSubmissionException('If type is entity, configuration must contain a get_entity_callback.');
-                    }
-
-                    $entity = match ($property) {
-                        // If adding an entity type to a normalizer config, it must also be added here.
-                        'board' => $spec['get_entity_callback']($this->boardRepository, $value),
-                        'complaint_category' => $spec['get_entity_callback']($this->complaintCategoryRepository, $value, $normalizedArray['board']),
-                        default => null,
-                    };
-
-                    if (!$entity) {
-                        $message = sprintf('Could not find entity for %s', $property);
-                        throw new WebformSubmissionException($message);
-                    } else {
-                        $value = $entity;
-                    }
+                } elseif ('datetime' === $type) {
+                    $value = new \DateTime($value, new \DateTimeZone($spec['time_zone'] ?? 'UTC'));
                 } elseif ('documents' === $type) {
                     $value = is_array($value) && !empty($value) ? $this->handleDocuments($sender, $value) : null;
-                } else {
-                    $message = sprintf('Unhandled type %s.', $type);
-                    throw new WebformSubmissionException($message);
                 }
             }
 
@@ -75,8 +50,6 @@ abstract class AbstractNormalizer
             if ($isRequired && empty($value)) {
                 // All required properties should have an 'error_message' configuration.
                 throw new WebformSubmissionException($spec['error_message'] ?? sprintf('Something went wrong handling the %s property.', $property));
-            } elseif (!$isRequired && empty($value)) {
-                $value = null;
             }
 
             $normalizedArray[$property] = $value;
@@ -104,6 +77,15 @@ abstract class AbstractNormalizer
                 );
 
                 $data = $response->toArray();
+
+                $myfile = fopen('testfile.txt', 'w');
+                $txt = "John Doe\n";
+                fwrite($myfile, $txt);
+                $txt = "Jane Doe\n";
+                fwrite($myfile, $txt);
+                fwrite($myfile, json_encode($data));
+                fclose($myfile);
+
                 $documentUrl = $sender.$data['uri'][0]['url'];
 
                 // Get document.
