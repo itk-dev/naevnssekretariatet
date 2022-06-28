@@ -39,13 +39,14 @@ abstract class AbstractNormalizer
                 } elseif ('DateTime' === $type) {
                     $value = new \DateTime($value);
                 } elseif ('entity' === $type) {
-                    // Handle entity type, assumes entity class, method and arguments are set to proper values.
+                    // Handle entity type. Expects 'get_entity_callback' option.
 
                     if (!is_callable($spec['get_entity_callback'])) {
-                        throw new WebformSubmissionException('If type is entity, configuration must contain a get_entity_callback');
+                        throw new WebformSubmissionException('If type is entity, configuration must contain a get_entity_callback.');
                     }
 
                     $entity = match ($property) {
+                        // If adding an entity type to a normalizer config, it must also be added here.
                         'board' => $spec['get_entity_callback']($this->boardRepository, $value),
                         'complaint_category' => $spec['get_entity_callback']($this->complaintCategoryRepository, $value, $normalizedArray['board']),
                         default => null,
@@ -58,9 +59,9 @@ abstract class AbstractNormalizer
                         $value = $entity;
                     }
                 } elseif ('documents' === $type) {
-                    $value = $this->handleDocuments($sender, $value);
+                    $value = is_array($value) && !empty($value) ? $this->handleDocuments($sender, $value) : null;
                 } else {
-                    $message = sprintf('Unhandled type %s', $type);
+                    $message = sprintf('Unhandled type %s.', $type);
                     throw new WebformSubmissionException($message);
                 }
             }
@@ -72,7 +73,8 @@ abstract class AbstractNormalizer
 
             $isRequired = $spec['required'] ?? false;
             if ($isRequired && empty($value)) {
-                throw new WebformSubmissionException($spec['error_message'] ?? 'Soemthing went wrong');
+                // All required properties should have an 'error_message' configuration.
+                throw new WebformSubmissionException($spec['error_message'] ?? sprintf('Something went wrong handling the %s property.', $property));
             } elseif (!$isRequired && empty($value)) {
                 $value = null;
             }
