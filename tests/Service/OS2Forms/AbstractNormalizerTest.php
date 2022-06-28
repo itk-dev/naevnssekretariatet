@@ -22,8 +22,6 @@ class AbstractNormalizerTest extends TestCase
     {
         parent::setUp();
 
-        // private string $selvbetjeningUserApiToken, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient)
-
         $this->mockDocumentUploader = $this->createMock(DocumentUploader::class);
         $this->mockSelvbetjeningUserApiToken = 'some_os2forms_api_token';
         $this->mockEntityManager = $this->createMock(EntityManagerInterface::class);

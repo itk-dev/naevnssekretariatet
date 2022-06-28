@@ -78,14 +78,6 @@ abstract class AbstractNormalizer
 
                 $data = $response->toArray();
 
-                $myfile = fopen('testfile.txt', 'w');
-                $txt = "John Doe\n";
-                fwrite($myfile, $txt);
-                $txt = "Jane Doe\n";
-                fwrite($myfile, $txt);
-                fwrite($myfile, json_encode($data));
-                fclose($myfile);
-
                 $documentUrl = $sender.$data['uri'][0]['url'];
 
                 // Get document.
