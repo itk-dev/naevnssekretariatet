@@ -29,7 +29,7 @@ class AbstractNormalizerTest extends TestCase
 
         $this->normalizer = $this->getMockBuilder(AbstractNormalizer::class)
             ->setConstructorArgs([$this->mockDocumentUploader, $this->mockSelvbetjeningUserApiToken, $this->mockEntityManager, $this->mockHttpClientInterface])
-            ->onlyMethods([])
+            ->onlyMethods(['getConfig'])
             ->getMock()
         ;
     }
@@ -43,7 +43,7 @@ class AbstractNormalizerTest extends TestCase
 
         $config = [
             $tvist1StringProperty => [
-                'os2FormsKey' => $os2FormsKey,
+                'os2forms_key' => $os2FormsKey,
                 'type' => 'string',
             ],
         ];
@@ -70,7 +70,7 @@ class AbstractNormalizerTest extends TestCase
 
         $config = [
             $tvist1IntProperty => [
-                'os2FormsKey' => $os2FormsKey,
+                'os2forms_key' => $os2FormsKey,
                 'type' => 'int',
             ],
         ];
@@ -98,7 +98,7 @@ class AbstractNormalizerTest extends TestCase
 
         $config = [
             $mockProperty => [
-                'os2FormsKey' => $os2FormsKey,
+                'os2forms_key' => $os2FormsKey,
                 'type' => 'string',
                 'required' => true,
                 'error_message' => $mockErrorMessage,
@@ -130,7 +130,7 @@ class AbstractNormalizerTest extends TestCase
 
         $config = [
             $mockProperty => [
-                'os2FormsKey' => $os2FormsKey,
+                'os2forms_key' => $os2FormsKey,
                 'type' => 'string',
                 'required' => true,
                 'error_message' => $mockErrorMessage,
@@ -181,7 +181,7 @@ class AbstractNormalizerTest extends TestCase
 
         $config = [
             $mockProperty => [
-                'os2FormsKey' => $os2FormsKey,
+                'os2forms_key' => $os2FormsKey,
                 'type' => 'boolean',
             ],
         ];
@@ -211,7 +211,7 @@ class AbstractNormalizerTest extends TestCase
 
         $config = [
             $mockProperty => [
-                'os2FormsKey' => $os2FormsKey,
+                'os2forms_key' => $os2FormsKey,
                 'type' => 'boolean',
             ],
         ];
@@ -232,7 +232,7 @@ class AbstractNormalizerTest extends TestCase
 
         $config = [
             $mockProperty => [
-                'os2FormsKey' => $os2FormsKey,
+                'os2forms_key' => $os2FormsKey,
                 'type' => 'datetime',
             ],
         ];
@@ -259,7 +259,7 @@ class AbstractNormalizerTest extends TestCase
 
         $config = [
             $mockProperty => [
-                'os2FormsKey' => $os2FormsKey,
+                'os2forms_key' => $os2FormsKey,
                 'type' => 'string',
                 'allowed_values' => [
                     $mockValue,
@@ -298,7 +298,7 @@ class AbstractNormalizerTest extends TestCase
 
         $config = [
             $mockProperty => [
-                'os2FormsKey' => $os2FormsKey,
+                'os2forms_key' => $os2FormsKey,
                 'type' => 'string',
                 'allowed_values' => $mockAllowedValues,
             ],
