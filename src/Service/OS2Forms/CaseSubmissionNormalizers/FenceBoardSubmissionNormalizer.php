@@ -2,21 +2,15 @@
 
 namespace App\Service\OS2Forms\CaseSubmissionNormalizers;
 
-class FenceBoardSubmissionNormalizer implements SubmissionNormalizerInterface
+class FenceBoardSubmissionNormalizer extends AbstractNormalizer
 {
-    /**
-     * Normalizes the properties specific for FenceBoardCase.
-     */
-    public function normalizeSubmissionData(string $sender, array $submissionData): array
+    protected function getConfig(): array
     {
-        $normalizedArray = [];
-
         // @Todo
         // Indbringer matr.nr.
         // Modpart, modpart id, modpart adresse, modpart matr.nr.
         // Forhold ønsket bedømt
         // Ønskede resultat
-
-        return $normalizedArray;
+        return [];
     }
 }

@@ -7,12 +7,25 @@ use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-abstract class AbstractNormalizer
+abstract class AbstractNormalizer implements SubmissionNormalizerInterface
 {
     public function __construct(private DocumentUploader $documentUploader, private string $selvbetjeningUserApiToken, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient)
     {
     }
 
+    /**
+     * Normalizes the submission data according to extending classes config.
+     */
+    public function normalizeSubmissionData(string $sender, array $submissionData): array
+    {
+        $config = $this->getConfig();
+
+        return $this->handleConfig($sender, $config, $submissionData);
+    }
+
+    /**
+     * Handles submission data according to extending classes config.
+     */
     public function handleConfig(string $sender, array $config, array $submissionData): array
     {
         $normalizedArray = [];
@@ -20,7 +33,7 @@ abstract class AbstractNormalizer
         foreach ($config as $property => $spec) {
             $value = isset($spec['value_callback'])
                 ? $spec['value_callback']($property, $spec, $submissionData, $normalizedArray, $this->entityManager)
-                : $submissionData[$spec['os2FormsKey']] ?? null
+                : $submissionData[$spec['os2forms_key']] ?? null
             ;
 
             if (isset($spec['type'])) {
@@ -106,4 +119,9 @@ abstract class AbstractNormalizer
 
         return $documents;
     }
+
+    /**
+     * Gets configuration for extending class.
+     */
+    abstract protected function getConfig(): array;
 }

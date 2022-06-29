@@ -2,17 +2,11 @@
 
 namespace App\Service\OS2Forms\CaseSubmissionNormalizers;
 
-class RentBoardSubmissionNormalizer implements SubmissionNormalizerInterface
+class RentBoardSubmissionNormalizer extends AbstractNormalizer
 {
-    /**
-     * Normalizes the properties specific to RentBoardCase.
-     */
-    public function normalizeSubmissionData(string $sender, array $submissionData): array
+    protected function getConfig(): array
     {
-        $normalizedArray = [];
-
         // @Todo: Lejemålstype
-
-        return $normalizedArray;
+        return [];
     }
 }

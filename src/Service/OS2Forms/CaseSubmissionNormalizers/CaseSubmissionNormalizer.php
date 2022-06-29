@@ -7,27 +7,17 @@ use App\Entity\ComplaintCategory;
 use App\Exception\WebformSubmissionException;
 use Doctrine\ORM\EntityManagerInterface;
 
-class CaseSubmissionNormalizer extends AbstractNormalizer implements SubmissionNormalizerInterface
+class CaseSubmissionNormalizer extends AbstractNormalizer
 {
-    /**
-     * Normalizes the properties shared by all case types.
-     */
-    public function normalizeSubmissionData(string $sender, array $submissionData): array
-    {
-        $config = $this->getConfig();
-
-        return $this->handleConfig($sender, $config, $submissionData);
-    }
-
     protected function getConfig(): array
     {
         return [
             'board' => [
-                'os2FormsKey' => 'naevn',
+                'os2forms_key' => 'naevn',
                 'required' => true,
                 'type' => 'entity',
                 'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {
-                    $board = $entityManager->getRepository(Board::class)->findOneBy(['id' => $submissionData[$spec['os2FormsKey']] ?? null]);
+                    $board = $entityManager->getRepository(Board::class)->findOneBy(['id' => $submissionData[$spec['os2forms_key']] ?? null]);
                     if (null === $board) {
                         throw new WebformSubmissionException('blabla');
                     }
@@ -37,13 +27,13 @@ class CaseSubmissionNormalizer extends AbstractNormalizer implements SubmissionN
                 'error_message' => 'Submission data does not contain a board.',
             ],
             'bringer' => [
-                'os2FormsKey' => 'indbringer_navn',
+                'os2forms_key' => 'indbringer_navn',
                 'required' => true,
                 'type' => 'string',
                 'error_message' => 'Submission data does not contain a bringer name.',
             ],
             'bringer_id_type' => [
-                'os2FormsKey' => 'indbringer_id_type',
+                'os2forms_key' => 'indbringer_id_type',
                 'required' => true,
                 'type' => 'string',
                 'allowed_values' => [
@@ -69,47 +59,47 @@ class CaseSubmissionNormalizer extends AbstractNormalizer implements SubmissionN
                 'error_message' => 'Submission data must contain an id identifier',
             ],
             'bringer_id_p_number' => [
-                'os2FormsKey' => 'indbringer_id_p_nummer',
+                'os2forms_key' => 'indbringer_id_p_nummer',
                 'type' => 'string',
             ],
             'bringer_address_street' => [
-                'os2FormsKey' => 'indbringer_adresse_vej',
+                'os2forms_key' => 'indbringer_adresse_vej',
                 'required' => true,
                 'type' => 'string',
                 'error_message' => 'Submission data does not contain a bringer address street.',
             ],
             'bringer_address_number' => [
-                'os2FormsKey' => 'indbringer_adresse_nummer',
+                'os2forms_key' => 'indbringer_adresse_nummer',
                 'required' => true,
                 'type' => 'string',
                 'error_message' => 'Submission data does not contain a bringer address number.',
             ],
             'bringer_address_floor' => [
-                'os2FormsKey' => 'indbringer_adresse_etage',
+                'os2forms_key' => 'indbringer_adresse_etage',
                 'type' => 'string',
             ],
             'bringer_address_side' => [
-                'os2FormsKey' => 'indbringer_adresse_side',
+                'os2forms_key' => 'indbringer_adresse_side',
                 'type' => 'string',
             ],
             'bringer_address_postal_code' => [
-                'os2FormsKey' => 'indbringer_adresse_postnummer',
+                'os2forms_key' => 'indbringer_adresse_postnummer',
                 'required' => true,
                 'type' => 'int',
                 'error_message' => 'Submission data does not contain a bringer address postal code.',
             ],
             'bringer_address_city' => [
-                'os2FormsKey' => 'indbringer_adresse_by',
+                'os2forms_key' => 'indbringer_adresse_by',
                 'required' => true,
                 'type' => 'string',
                 'error_message' => 'Submission data does not contain a bringer address city.',
             ],
             'bringer_address_extra_information' => [
-                'os2FormsKey' => 'indbringer_adresse_ekstra_adresse_information',
+                'os2forms_key' => 'indbringer_adresse_ekstra_adresse_information',
                 'type' => 'string',
             ],
             'complaint_category' => [
-                'os2FormsKey' => 'klagetype',
+                'os2forms_key' => 'klagetype',
                 'required' => true,
                 'type' => 'entity',
                 'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {
@@ -118,7 +108,7 @@ class CaseSubmissionNormalizer extends AbstractNormalizer implements SubmissionN
                         throw new WebformSubmissionException('blabla '.$submissionData['naevn']);
                     }
 
-                    $complaintCategory = $entityManager->getRepository(ComplaintCategory::class)->findOneByNameAndBoard($submissionData[$spec['os2FormsKey']] ?? null, $board);
+                    $complaintCategory = $entityManager->getRepository(ComplaintCategory::class)->findOneByNameAndBoard($submissionData[$spec['os2forms_key']] ?? null, $board);
 
                     if (null === $complaintCategory) {
                         throw new WebformSubmissionException('blabla');
@@ -129,11 +119,11 @@ class CaseSubmissionNormalizer extends AbstractNormalizer implements SubmissionN
                 'error_message' => 'Submission data does not contain a complaint category.',
             ],
             'complaint_category_extra_information' => [
-                'os2FormsKey' => 'ekstra_klagetype_information',
+                'os2forms_key' => 'ekstra_klagetype_information',
                 'type' => 'string',
             ],
             'documents' => [
-                'os2FormsKey' => 'dokumenter',
+                'os2forms_key' => 'dokumenter',
                 'type' => 'documents',
             ],
         ];

@@ -140,7 +140,7 @@ class DigitalPostHelper extends DigitalPost
         }
 
         $digitalPost->setDocument($document);
-        $documentSize = $this->documentUploader->getDocumentFileSize($document->getFilename());
+        $documentSize = $this->documentUploader->getDocumentFileSize($document);
         $digitalPost->setTotalFileSize($documentSize);
         $digitalPost->setEntityType($entityType);
         $digitalPost->setEntityId($entityId);
@@ -152,7 +152,7 @@ class DigitalPostHelper extends DigitalPost
         if (count($digitalPostAttachments) > 0) {
             foreach ($digitalPostAttachments as $attachment) {
                 assert($attachment instanceof DigitalPostAttachment);
-                $attachmentSize = $this->documentUploader->getDocumentFileSize($attachment->getDocument()->getFilename());
+                $attachmentSize = $this->documentUploader->getDocumentFileSize($attachment->getDocument());
 
                 // Check if adding attachment would violate restrictions
                 if ($digitalPost->getTotalFileSize() + $attachmentSize >= $sizeLimit || $digitalPost->getAttachments()->count() >= $attachmentLimit) {

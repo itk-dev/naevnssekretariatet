@@ -130,8 +130,8 @@ class DocumentUploader
         }
     }
 
-    public function getDocumentFileSize(string $fileName): bool|int
+    public function getDocumentFileSize(Document $document): bool|int
     {
-        return filesize($this->getFilepath($fileName));
+        return filesize($this->getFilepath($document->getFilename()));
     }
 }

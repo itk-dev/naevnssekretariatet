@@ -234,7 +234,7 @@ class Document implements LoggableEntityInterface
         return $this;
     }
 
-    public function getIsCreatedManually(): ?bool
+    public function isCreatedManually(): ?bool
     {
         return $this->isCreatedManually;
     }
