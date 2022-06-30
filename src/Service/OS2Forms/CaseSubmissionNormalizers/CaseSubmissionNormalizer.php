@@ -17,9 +17,10 @@ class CaseSubmissionNormalizer extends AbstractNormalizer
                 'required' => true,
                 'type' => 'entity',
                 'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {
-                    $board = $entityManager->getRepository(Board::class)->findOneBy(['id' => $submissionData[$spec['os2forms_key']] ?? null]);
+                    $boardId = $submissionData['os2forms_key'] ?? null;
+                    $board = $entityManager->getRepository(Board::class)->findOneBy(['id' => $boardId]);
                     if (null === $board) {
-                        throw new WebformSubmissionException('blabla');
+                        throw new WebformSubmissionException(sprintf('Cannot get board %s', $boardId));
                     }
 
                     return $board;
@@ -103,15 +104,17 @@ class CaseSubmissionNormalizer extends AbstractNormalizer
                 'required' => true,
                 'type' => 'entity',
                 'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {
-                    $board = $entityManager->getRepository(Board::class)->findOneBy(['id' => $submissionData['naevn'] ?? null]);
+                    $boardId = $submissionData['naevn'] ?? null;
+                    $board = $entityManager->getRepository(Board::class)->findOneBy(['id' => $boardId]);
                     if (null === $board) {
-                        throw new WebformSubmissionException('blabla '.$submissionData['naevn']);
+                        throw new WebformSubmissionException(sprintf('Cannot get board %s', $boardId));
                     }
 
-                    $complaintCategory = $entityManager->getRepository(ComplaintCategory::class)->findOneByNameAndBoard($submissionData[$spec['os2forms_key']] ?? null, $board);
+                    $complaintCategoryName = $submissionData[$spec['os2forms_key']] ?? null;
+                    $complaintCategory = $entityManager->getRepository(ComplaintCategory::class)->findOneByNameAndBoard($complaintCategoryName, $board);
 
                     if (null === $complaintCategory) {
-                        throw new WebformSubmissionException('blabla');
+                        throw new WebformSubmissionException(sprintf('Cannot get complaint category %s for board %s', $complaintCategoryName, $board->getName()));
                     }
 
                     return $complaintCategory;
