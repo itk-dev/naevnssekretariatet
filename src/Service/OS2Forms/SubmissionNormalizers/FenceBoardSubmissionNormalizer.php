@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\OS2Forms\CaseSubmissionNormalizers;
+namespace App\Service\OS2Forms\SubmissionNormalizers;
 
-class FenceBoardSubmissionNormalizer extends AbstractNormalizer
+class FenceBoardSubmissionNormalizer extends AbstractCaseSubmissionNormalizer
 {
     protected function getConfig(): array
     {

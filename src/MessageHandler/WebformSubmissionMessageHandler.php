@@ -5,7 +5,7 @@ namespace App\MessageHandler;
 use App\Exception\WebformSubmissionException;
 use App\Message\NewWebformSubmissionMessage;
 use App\Repository\UserRepository;
-use App\Service\CaseManager;
+use App\Service\OS2Forms\SubmissionManager\OS2FormsManager;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class WebformSubmissionMessageHandler implements MessageHandlerInterface
 {
-    public function __construct(private CaseManager $caseManager, private HttpClientInterface $client, private $selvbetjeningUserApiToken, private TokenStorageInterface $tokenStorage, private AuthenticationManagerInterface $authenticationManager, private UserRepository $userRepository, private Security $security)
+    public function __construct(private OS2FormsManager $formsManager, private HttpClientInterface $client, private $selvbetjeningUserApiToken, private TokenStorageInterface $tokenStorage, private AuthenticationManagerInterface $authenticationManager, private UserRepository $userRepository, private Security $security)
     {
     }
 
@@ -74,7 +74,7 @@ class WebformSubmissionMessageHandler implements MessageHandlerInterface
 
             $submissionData = $content['data'];
 
-            $this->caseManager->handleOS2FormsSubmission($webformId, $sender, $submissionData);
+            $this->formsManager->handleOS2FormsSubmission($webformId, $sender, $submissionData);
         } else {
             $message = sprintf('Webform submission data must contain both a submission url and a webform id.');
             throw new \InvalidArgumentException($message, 400);

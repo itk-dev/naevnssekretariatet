@@ -191,6 +191,31 @@ AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSION='xyz'
 DATAFORDELER_CVR_LOOKUP_BASE_URL='https://xyz.com'
 ```
 
+## OS2Forms
+
+We use OS2Forms (selvbetjening) for allowing citizen creating cases and hearing responses.
+
+### Sending the submission to TVIST1
+
+To send a submission from a OS2Forms webform to TVIST1 the webform should
+contain an API request handler.
+This should be configured with an API url and an authorization header.
+
+| Configuration            | Value                                                     |
+|--------------------------|-----------------------------------------------------------|
+| API url                  | `https://tvist1.aarhuskommune.dk/api/os2forms/submission` |
+| API authorization header | `xyz`                                                     |
+
+
+The API authorization header should be set in
+`.env.local` as `TVIST1_API_TOKEN`.
+
+### Handling the submission in TVIST1
+
+To handle submissions in TVIST1, the respective webform ids must be added
+to the `handleOS2FormsSubmission` method in the `OS2FormsManager` class.
+Here they should be forwarded to be processed.
+
 ## Cron job
 
 In TVIST1 there are several necessary commands used for updating statuses,

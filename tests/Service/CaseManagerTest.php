@@ -7,7 +7,6 @@ use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\MunicipalityRepository;
 use App\Service\CaseManager;
-use App\Service\OS2Forms\CaseSubmissionManager\OS2FormsManager;
 use App\Service\WorkflowService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +23,6 @@ class CaseManagerTest extends TestCase
     private $mockEntityManager;
     private $lockFactory;
     private $mockMunicipalityRepository;
-    private $os2FormsManager;
     private $propertyAccessor;
 
     protected function setUp(): void
@@ -37,7 +35,6 @@ class CaseManagerTest extends TestCase
         $this->mockEntityManager = $this->createMock(EntityManagerInterface::class);
         $this->lockFactory = $this->createMock(LockFactory::class);
         $this->mockMunicipalityRepository = $this->createMock(MunicipalityRepository::class);
-        $this->os2FormsManager = $this->createMock(OS2FormsManager::class);
         $this->propertyAccessor = $this->createMock(PropertyAccessorInterface::class);
 
         $this->caseManager = new CaseManager(
@@ -46,7 +43,6 @@ class CaseManagerTest extends TestCase
             $this->mockEntityManager,
             $this->lockFactory,
             $this->mockMunicipalityRepository,
-            $this->os2FormsManager,
             $this->propertyAccessor,
             $this->mockWorkflowService
         );

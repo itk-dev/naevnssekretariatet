@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Service\OS2Forms\CaseSubmissionNormalizers;
+namespace App\Service\OS2Forms\SubmissionNormalizers;
 
 use App\Exception\WebformSubmissionException;
 use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-abstract class AbstractNormalizer implements SubmissionNormalizerInterface
+abstract class AbstractCaseSubmissionNormalizer implements SubmissionNormalizerInterface
 {
     public function __construct(private DocumentUploader $documentUploader, private string $selvbetjeningUserApiToken, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient)
     {
@@ -45,7 +45,9 @@ abstract class AbstractNormalizer implements SubmissionNormalizerInterface
                     $value = match ($value) {
                         'Ja', 1 => true,
                         'Nej', 0 => false,
-                        default => throw new WebformSubmissionException(sprintf('The property value %s cannot be transformed into bool.', $value))
+                        // If a boolean property is not answered it will be submitted as an empty string (since we use choice elements)
+                        '' => null,
+                        default => throw new WebformSubmissionException(sprintf('The property value %s cannot be transformed into bool. %s', $value, $property))
                     };
                 } elseif ('datetime' === $type) {
                     $value = new \DateTime($value, new \DateTimeZone($spec['time_zone'] ?? 'UTC'));

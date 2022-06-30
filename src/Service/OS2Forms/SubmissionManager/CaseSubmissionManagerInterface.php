@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\OS2Forms\CaseSubmissionManager;
+namespace App\Service\OS2Forms\SubmissionManager;
 
 use App\Entity\CaseEntity;
 

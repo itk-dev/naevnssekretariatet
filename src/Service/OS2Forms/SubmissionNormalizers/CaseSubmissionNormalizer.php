@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Service\OS2Forms\CaseSubmissionNormalizers;
+namespace App\Service\OS2Forms\SubmissionNormalizers;
 
 use App\Entity\Board;
 use App\Entity\ComplaintCategory;
 use App\Exception\WebformSubmissionException;
 use Doctrine\ORM\EntityManagerInterface;
 
-class CaseSubmissionNormalizer extends AbstractNormalizer
+class CaseSubmissionNormalizer extends AbstractCaseSubmissionNormalizer
 {
     protected function getConfig(): array
     {
@@ -17,7 +17,7 @@ class CaseSubmissionNormalizer extends AbstractNormalizer
                 'required' => true,
                 'type' => 'entity',
                 'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {
-                    $boardId = $submissionData['os2forms_key'] ?? null;
+                    $boardId = $submissionData[$spec['os2forms_key']] ?? null;
                     $board = $entityManager->getRepository(Board::class)->findOneBy(['id' => $boardId]);
                     if (null === $board) {
                         throw new WebformSubmissionException(sprintf('Cannot get board %s', $boardId));

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service\OS2Forms\CaseSubmissionManager;
+namespace App\Service\OS2Forms\SubmissionManager;
 
 use App\Entity\ResidentComplaintBoardCase;
-use App\Service\OS2Forms\CaseSubmissionNormalizers\CaseSubmissionNormalizer;
-use App\Service\OS2Forms\CaseSubmissionNormalizers\ResidentAndRentBoardSubmissionNormalizer;
-use App\Service\OS2Forms\CaseSubmissionNormalizers\SubmissionNormalizerInterface;
+use App\Service\OS2Forms\SubmissionNormalizers\CaseSubmissionNormalizer;
+use App\Service\OS2Forms\SubmissionNormalizers\ResidentAndRentBoardSubmissionNormalizer;
+use App\Service\OS2Forms\SubmissionNormalizers\SubmissionNormalizerInterface;
 
 class ResidentComplaintBoardCaseTypeManager implements CaseSubmissionManagerInterface
 {

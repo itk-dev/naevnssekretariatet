@@ -9,7 +9,7 @@ use App\Entity\Embeddable\Address;
 use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\MunicipalityRepository;
-use App\Service\OS2Forms\CaseSubmissionManager\OS2FormsManager;
+use App\Service\OS2Forms\SubmissionManager\CaseSubmissionManagerInterface;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
@@ -21,7 +21,7 @@ class CaseManager implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private MunicipalityRepository $municipalityRepository, private OS2FormsManager $OS2FormsManager, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService)
+    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private MunicipalityRepository $municipalityRepository, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService)
     {
     }
 
@@ -152,10 +152,8 @@ class CaseManager implements LoggerAwareInterface
         return $data;
     }
 
-    public function handleOS2FormsSubmission(string $webformId, string $sender, array $submissionData)
+    public function handleOS2FormsCaseSubmission(string $sender, array $submissionData, CaseSubmissionManagerInterface $manager)
     {
-        $manager = $this->OS2FormsManager->getOS2FormsCaseManagerFromWebformId($webformId);
-
         [$case, $board, $documents] = $manager->createCaseFromSubmissionData($sender, $submissionData);
 
         assert($case instanceof CaseEntity);
