@@ -206,7 +206,6 @@ This should be configured with an API url and an authorization header.
 | API url                  | `https://[site]/api/os2forms/submission` |
 | API authorization header | `xyz`                                    |
 
-
 The API authorization header should be set in
 `.env.local` as `TVIST1_API_TOKEN`.
 
