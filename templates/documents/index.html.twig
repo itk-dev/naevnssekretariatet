@@ -66,7 +66,11 @@
                     {% for document in documents %}
                         <tr>
                             <td>{{ document.documentName|e }}</td>
-                            <td>{{ document.originalFileName|e }}</td>
+                            <td>
+                                {% if document.isCreatedManually %}
+                                    {{ document.originalFileName|e }}
+                                {% endif %}
+                            </td>
                             <td>{{ document.type|trans([], 'mail_template') }}</td>
                             <td>{{ document.uploadedBy|e }}</td>
                             <td>{{ document.uploadedAt|date(format_date) }}</td>

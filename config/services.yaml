@@ -221,3 +221,20 @@ services:
                             underline: !php/const \PhpOffice\PhpWord\Style\Font::UNDERLINE_SINGLE
                 hearing_post_form_url: '%env(HEARING_POST_FORM_URL)%'
                 hearing_post_form_link_text: '%env(HEARING_POST_FORM_LINK_TEXT)%'
+
+    App\Controller\ApiController:
+        arguments:
+            $options:
+                tvist1_api_token: '%env(TVIST1_API_TOKEN)%'
+
+    App\MessageHandler\WebformSubmissionMessageHandler:
+        arguments:
+            $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
+
+    App\Service\OS2Forms\SubmissionNormalizers\CaseSubmissionNormalizer:
+        arguments:
+            $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
+
+    App\Service\OS2Forms\SubmissionNormalizers\ResidentAndRentBoardSubmissionNormalizer:
+        arguments:
+            $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'

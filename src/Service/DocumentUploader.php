@@ -4,24 +4,16 @@ namespace App\Service;
 
 use App\Entity\Document;
 use App\Entity\User;
-use App\Exception\FileMovingException;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DocumentUploader
 {
-    /**
-     * @var SluggerInterface
-     * @var SluggerInterface
-     */
-    private $slugger;
     private $uploadDocumentDirectory;
 
     /**
@@ -32,12 +24,11 @@ class DocumentUploader
     private MimeTypeGuesserInterface $mimeTypeGuesser;
     private Security $security;
 
-    public function __construct(SluggerInterface $slugger, string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser, Security $security)
+    public function __construct(string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser, Security $security)
     {
         $this->projectDirectory = $projectDirectory;
         $this->uploadDocumentDirectory = $uploadDocumentDirectory;
         $this->filesystem = $filesystem;
-        $this->slugger = $slugger;
         $this->mimeTypeGuesser = $mimeTypeGuesser;
         $this->security = $security;
     }
@@ -45,15 +36,31 @@ class DocumentUploader
     /**
      * Creates and returns new document from filename.
      */
-    public function createDocumentFromPath(string $fileName, string $documentName, string $documentType, User $user = null): Document
+    public function createDocumentFromPath(string $filePath, string $documentName, string $documentType, User $user = null, bool $move = false): Document
     {
         $document = new Document();
 
-        $document->setFilename($fileName);
-        $document->setDocumentName($documentName);
-        $document->setPath($this->getFilepathFromProjectDirectory($fileName));
-        $document->setUploadedBy($user ?? $this->security->getUser());
-        $document->setType($documentType);
+        $fileName = basename($filePath);
+
+        $document
+            ->setOriginalFileName($fileName)
+            ->setDocumentName($documentName)
+            ->setUploadedBy($user ?? $this->security->getUser())
+            ->setType($documentType)
+        ;
+
+        // Copy file to desired folder
+        $uniqueFileName = preg_replace('/\.(?<extension>[^.]+)$/', '-'.uniqid().'.$1', $fileName);
+
+        $targetPath = $this->getFullDirectory().'/'.$uniqueFileName;
+
+        if ($move) {
+            $this->filesystem->rename($filePath, $targetPath, true);
+        } else {
+            $this->filesystem->copy($filePath, $targetPath);
+        }
+
+        $document->setFilename($uniqueFileName);
 
         return $document;
     }
@@ -63,41 +70,15 @@ class DocumentUploader
      */
     public function createDocumentFromUploadedFile(UploadedFile $file, string $documentName, string $documentType): Document
     {
-        $newFileName = $this->upload($file);
+        $tempDir = sys_get_temp_dir();
+        $file = $file->move($tempDir, $file->getClientOriginalName());
 
-        $document = $this->createDocumentFromPath($newFileName, $documentName, $documentType);
+        $document = $this->createDocumentFromPath($file->getRealPath(), $documentName, $documentType);
 
-        // Documents that are created via an UploadedFile has an original file name others (template generated) do not
-        $document->setOriginalFileName($file->getClientOriginalName());
+        // Explicitly indicate that this is created manually, i.e. display original file name on document index page.
+        $document->setIsCreatedManually(true);
 
         return $document;
-    }
-
-    /**
-     * Uploads document.
-     *
-     * @throws FileMovingException
-     */
-    public function upload(UploadedFile $file): string
-    {
-        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-
-        // AsciiSlugger handles spaces, special chars and danish specific letters
-        $safeFilename = $this->slugger->slug($originalFilename);
-
-        // Make a safe and unique filename
-        $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
-
-        try {
-            $file->move(
-                $this->getFullDirectory(),
-                $newFilename
-            );
-        } catch (FileException $e) {
-            throw new FileMovingException($e->getMessage());
-        }
-
-        return $newFilename;
     }
 
     /**
@@ -128,60 +109,29 @@ class DocumentUploader
         return $response;
     }
 
-    /**
-     * Get document file content.
-     */
-    public function getFileContent(Document $document): string
-    {
-        $filepath = $this->getFilepath($document->getFilename());
-
-        return file_get_contents($filepath);
-    }
-
-    public function getFilepath(string $filename): string
+    private function getFilepath(string $filename): string
     {
         return $this->getFullDirectory().'/'.$filename;
     }
 
-    public function getFilepathFromProjectDirectory(string $filename): string
-    {
-        return $this->uploadDocumentDirectory.'/'.$filename;
-    }
-
-    /**
-     * Move a file into an upload folder.
-     *
-     * @return string the filename of the uploaded path
-     */
-    public function uploadFile(string $filePath)
-    {
-        $filename = pathinfo($filePath, PATHINFO_FILENAME);
-        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
-
-        $safeFilename = $this->slugger->slug($filename);
-        $newFilename = $safeFilename.'-'.uniqid().'.'.$extension;
-
-        $targetPath = $this->getFullDirectory().'/'.$newFilename;
-        $this->filesystem->rename($filePath, $targetPath);
-
-        return basename($targetPath);
-    }
-
-    /**
-     * Moves file to new place and overwrites if file already exists.
-     *
-     * @return string the filename of the uploaded path
-     */
-    public function replaceFile(string $filePath, string $filename)
-    {
-        $targetPath = $this->getFullDirectory().'/'.pathinfo($filename, PATHINFO_BASENAME);
-        $this->filesystem->rename($filePath, $targetPath, true);
-
-        return basename($targetPath);
-    }
-
-    public function getFullDirectory(): string
+    private function getFullDirectory(): string
     {
         return $this->projectDirectory.'/'.$this->uploadDocumentDirectory;
+    }
+
+    public function replaceFileContent(Document $document, string $filePath, bool $move = false)
+    {
+        $targetPath = $this->getFullDirectory().'/'.$document->getFilename();
+
+        if ($move) {
+            $this->filesystem->rename($filePath, $targetPath, true);
+        } else {
+            $this->filesystem->copy($filePath, $targetPath);
+        }
+    }
+
+    public function getDocumentFileSize(Document $document): bool|int
+    {
+        return filesize($this->getFilepath($document->getFilename()));
     }
 }
