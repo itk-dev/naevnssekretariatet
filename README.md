@@ -201,10 +201,10 @@ To send a submission from a OS2Forms webform to TVIST1 the webform should
 contain an API request handler.
 This should be configured with an API url and an authorization header.
 
-| Configuration            | Value                                                     |
-|--------------------------|-----------------------------------------------------------|
-| API url                  | `https://tvist1.aarhuskommune.dk/api/os2forms/submission` |
-| API authorization header | `xyz`                                                     |
+| Configuration            | Value                                    |
+|--------------------------|------------------------------------------|
+| API url                  | `https://[site]/api/os2forms/submission` |
+| API authorization header | `xyz`                                    |
 
 
 The API authorization header should be set in
