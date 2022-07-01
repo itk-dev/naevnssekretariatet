@@ -315,7 +315,7 @@ class MailTemplateHelper
         }
 
         foreach ($placeHolders as $placeHolder) {
-            // Handle placeholders on the form «key»|format(«format»), e.g.
+            // Handle placeholders on the form «key»|«filter»(«argument»), e.g.
             //   case.inspection_date:dd/mm/yyyy
             if (preg_match('/^(?P<key>.+)\|(?P<filter>[a-z]+)\((?P<argument>.+)\)$/', $placeHolder, $matches)) {
                 [, $key, $filter, $argument] = $matches;
