@@ -5,7 +5,6 @@ App\Entity\Document:
     # @see \DataFixtures\Faker\Provider\FileUploadProvider
     filename: <copyFile(document/test1.pdf, upload/documents)>
     uploadedBy: '@user-caseworker'
-    path: 'upload/documents/test1.pdf'
 
   attachment-001:
     type: '@document-type-4'
@@ -13,7 +12,6 @@ App\Entity\Document:
     # @see \DataFixtures\Faker\Provider\FileUploadProvider
     filename: <copyFile(document/attachment1.pdf, upload/documents)>
     uploadedBy: '@user-caseworker'
-    path: 'upload/documents/attachment1.pdf'
 
   attachment-002:
     type: '@document-type-4'
@@ -21,7 +19,6 @@ App\Entity\Document:
     # @see \DataFixtures\Faker\Provider\FileUploadProvider
     filename: <copyFile(document/attachment2.pdf, upload/documents)>
     uploadedBy: '@user-caseworker'
-    path: 'upload/documents/attachment2.pdf'
 
 # Relate documents to cases.
 App\Entity\CaseDocumentRelation:
