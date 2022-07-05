@@ -14,9 +14,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -70,6 +72,14 @@ class BoardCrudController extends AbstractCrudController
             ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
                 return $queryBuilder->orderBy('entity.name', 'ASC');
             })
+        ;
+
+        yield EmailField::new('email', 'Email')
+            ->hideOnIndex()
+        ;
+
+        yield UrlField::new('url', 'Url')
+            ->hideOnIndex()
         ;
 
         yield ChoiceField::new('caseFormType', 'Case Form Type')

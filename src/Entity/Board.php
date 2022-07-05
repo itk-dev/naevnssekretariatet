@@ -114,6 +114,20 @@ class Board implements LoggableEntityInterface
      */
     private $receiptHearingPost;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
+     * @Groups({"mail_template"})
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Url()
+     * @Groups({"mail_template"})
+     */
+    private $url;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -388,6 +402,30 @@ class Board implements LoggableEntityInterface
     public function setReceiptHearingPost(?MailTemplate $receiptHearingPost): self
     {
         $this->receiptHearingPost = $receiptHearingPost;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }
