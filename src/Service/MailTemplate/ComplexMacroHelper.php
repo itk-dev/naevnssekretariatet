@@ -3,6 +3,7 @@
 namespace App\Service\MailTemplate;
 
 use App\Entity\Agenda;
+use App\Entity\Board;
 use App\Entity\CaseEntity;
 use App\Repository\BoardMemberRepository;
 use PhpOffice\PhpWord\Element\Link;
@@ -139,7 +140,7 @@ class ComplexMacroHelper
         return $values;
     }
 
-    private function createLink(string $url, string $text = null): Link
+    public function createLink(string $url, string $text = null): Link
     {
         $linkFontStyle = (new Font())
             ->setStyleName($this->options['formatting']['hyperlink']['style_name'])

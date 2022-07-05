@@ -55,6 +55,7 @@ class MailTemplateController extends AbstractController
         try {
             $entity = $this->getEntity($request, $mailTemplate, $mailTemplateHelper);
             $data = $mailTemplateHelper->getTemplateData($mailTemplate, $entity);
+            ksort($data);
 
             return new JsonResponse($data);
         } catch (MailTemplateException $exception) {

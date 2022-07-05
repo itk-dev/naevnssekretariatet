@@ -141,7 +141,7 @@ class MailTemplateHelper
         $templateProcessor = new TemplateProcessor($templateFileName);
 
         $values = $this->getValues($entity, $templateProcessor);
-        $listValues = $this->getComplexMacros($entity);
+        $listValues = $this->getComplexMacros($entity, $values);
         foreach ($listValues as $name => $macro) {
             $values[$name] = sprintf('(%s)', $macro->getDescription());
         }
@@ -195,15 +195,17 @@ class MailTemplateHelper
         // https://phpword.readthedocs.io/en/latest/templates-processing.html
         $templateProcessor = new LinkedTemplateProcessor($templateFileName);
 
+        $values = $this->getValues($entity, $templateProcessor);
         if (null !== $entity) {
-            $values = $this->getComplexMacros($entity);
-            foreach ($values as $name => $value) {
+            $macroValues = $this->getComplexMacros($entity, $values);
+            foreach ($macroValues as $name => $value) {
                 $element = $value->getElement();
 
                 if ($this->isBlockElement($element)) {
                     $templateProcessor->setComplexBlock($name, $element);
                 } else {
                     if ($element instanceof Link) {
+                        fwrite(STDERR, json_encode(['name' => $name, get_class($element)], JSON_PRETTY_PRINT).PHP_EOL);
                         $templateProcessor->addLink($element);
                     }
                     $templateProcessor->setComplexValue($name, $element);
@@ -215,7 +217,6 @@ class MailTemplateHelper
         foreach ($macroValues as $macro => $value) {
             $this->setTemplateValue($macro, $value, $templateProcessor);
         }
-        $values = $this->getValues($entity, $templateProcessor);
         $this->setTemplateValues($values, $templateProcessor);
         $processedFileName = $templateProcessor->save();
 
@@ -367,9 +368,27 @@ class MailTemplateHelper
     /**
      * @return array|ComplexMacro[]
      */
-    private function getComplexMacros(object $entity): array
+    private function getComplexMacros(object $entity, array $values): array
     {
-        return $this->macroHelper->buildMacros($entity);
+        $macros = [];
+
+        $linkKeys = ['board.email', 'board.url'];
+        foreach ($linkKeys as $key) {
+            $url = $values[$key] ?? null;
+            if (null !== $url) {
+                $text = $url;
+                if (filter_var($url, FILTER_VALIDATE_EMAIL)) {
+                    $url = 'mailto:'.$url;
+                }
+
+                $macros[$key.'.link'] = new ComplexMacro(
+                    $this->macroHelper->createLink($url, $text),
+                    $text
+                );
+            }
+        }
+
+        return $macros + $this->macroHelper->buildMacros($entity);
     }
 
     /**
