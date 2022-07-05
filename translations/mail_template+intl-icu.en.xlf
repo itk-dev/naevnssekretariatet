@@ -73,6 +73,14 @@
         <source>The template document &lt;em&gt;must&lt;/em&gt; contain the &lt;a href="https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/"&gt;Hyperlink&lt;/a&gt; character style to ensure that hyperlinks work as expected after processing a template.</source>
         <target><![CDATA[The template document <em>must</em> contain the <a href="https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/">Hyperlink</a> character style to ensure that hyperlinks work as expected after processing a template.]]></target>
       </trans-unit>
+      <trans-unit id="2NosSd8" resname="Note">
+        <source>Note</source>
+        <target>Note</target>
+      </trans-unit>
+      <trans-unit id="YZISGIM" resname="Hyperlinks do not work in document headers and footers.">
+        <source>Hyperlinks do not work in document headers and footers.</source>
+        <target>Hyperlinks do not work in document headers and footers.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
