@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Embeddable\Address;
 use App\Repository\RentBoardCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RentBoardCaseRepository::class)
@@ -14,11 +15,13 @@ class RentBoardCase extends CaseEntity
 {
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $leaseSize;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $bringerPhone;
 
@@ -29,16 +32,19 @@ class RentBoardCase extends CaseEntity
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
+     * @Groups({"mail_template"})
      */
     private $leaseAddress;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $leaseStarted;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $leaseAgreedRent;
 

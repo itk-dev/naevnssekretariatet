@@ -21,6 +21,7 @@ class ResidentComplaintBoardCase extends CaseEntity
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $bringerPhone;
 
