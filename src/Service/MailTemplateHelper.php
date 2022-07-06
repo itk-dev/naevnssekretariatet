@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Entity\HearingPostRequest;
+use App\Entity\InspectionLetter;
 use App\Entity\MailTemplate;
 use App\Entity\User;
 use App\Exception\MailTemplateException;
@@ -293,6 +295,21 @@ class MailTemplateHelper
         } else {
             // Convert entity to array.
             $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
+
+            // Make hearing and case data easily available.
+            $case = null;
+            if ($entity instanceof HearingPostRequest) {
+                $hearing = $entity->getHearing();
+                $case = $hearing->getCaseEntity();
+                $data += json_decode($this->serializer->serialize($hearing, 'json', ['groups' => ['mail_template']]), true);
+            } elseif ($entity instanceof InspectionLetter) {
+                $case = $entity->getAgendaCaseItem()?->getCaseEntity();
+            }
+
+            if (null !== $case) {
+                $data += json_decode($this->serializer->serialize($case, 'json', ['groups' => ['mail_template']]), true);
+            }
+
             $values += $this->flatten($data);
         }
 
