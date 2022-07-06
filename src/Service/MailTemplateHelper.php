@@ -2,6 +2,9 @@
 
 namespace App\Service;
 
+use App\Entity\AgendaBroadcast;
+use App\Entity\HearingPostRequest;
+use App\Entity\InspectionLetter;
 use App\Entity\MailTemplate;
 use App\Entity\User;
 use App\Exception\MailTemplateException;
@@ -75,9 +78,7 @@ class MailTemplateHelper
     {
         $classNames = $this->getTemplateEntityClassNames($mailTemplate) ?? [];
         if (null !== $entityType) {
-            if (!in_array($entityType, $classNames, true)) {
-                throw new MailTemplateException(sprintf('Invalid entity type %s', $entityType));
-            }
+            $this->validateEntityType($mailTemplate, $entityType);
             $classNames = [$entityType];
         }
         foreach ($classNames as $className) {
@@ -197,6 +198,7 @@ class MailTemplateHelper
 
         $values = $this->getValues($entity, $templateProcessor);
         if (null !== $entity) {
+            $this->validateEntityType($mailTemplate, $entity);
             $macroValues = $this->getComplexMacros($entity, $values);
             foreach ($macroValues as $name => $value) {
                 $element = $value->getElement();
@@ -293,6 +295,23 @@ class MailTemplateHelper
         } else {
             // Convert entity to array.
             $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
+
+            // Make hearing and case data and other date easily available.
+            $case = null;
+            if ($entity instanceof HearingPostRequest) {
+                $hearing = $entity->getHearing();
+                $case = $hearing->getCaseEntity();
+                $data += json_decode($this->serializer->serialize($hearing, 'json', ['groups' => ['mail_template']]), true);
+            } elseif ($entity instanceof InspectionLetter) {
+                $case = $entity->getAgendaCaseItem()?->getCaseEntity();
+            } elseif ($entity instanceof AgendaBroadcast) {
+                $data += json_decode($this->serializer->serialize($entity->getAgenda(), 'json', ['groups' => ['mail_template']]), true);
+            }
+
+            if (null !== $case) {
+                $data += json_decode($this->serializer->serialize($case, 'json', ['groups' => ['mail_template']]), true);
+            }
+
             $values += $this->flatten($data);
         }
 
@@ -463,5 +482,25 @@ class MailTemplateHelper
          * Argument 1 of array_combine expects array<array-key, array-key>, non-empty-list<null|string> provided (see https://psalm.dev/004)
          */
         return array_combine($header, $row);
+    }
+
+    /**
+     * Validate that a mail template can handle an entity or entity type.
+     *
+     * @return void
+     *
+     * @throws MailTemplateException
+     */
+    private function validateEntityType(MailTemplate $mailTemplate, string|object $entity)
+    {
+        $entityType = is_string($entity) ? $entity : get_class($entity);
+        $classNames = $this->getTemplateEntityClassNames($mailTemplate) ?? [];
+        foreach ($classNames as $className) {
+            if (is_a($entityType, $className, true)) {
+                return;
+            }
+        }
+
+        throw new MailTemplateException(sprintf('Invalid entity type %s; only instances of %s allowed', $entityType, implode(', ', $classNames)));
     }
 }
