@@ -179,7 +179,7 @@ class HearingController extends AbstractController
             $hearingPost->setHearing($hearing);
 
             // Create new file from template
-            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
+            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $hearingPost);
 
             // Create document
             $document = $documentUploader->createDocumentFromPath($fileName, $hearingPost->getTitle(), 'Hearing');
@@ -284,7 +284,7 @@ class HearingController extends AbstractController
             // It is not sufficient to recreate document only if mail template is switched
 
             // Create new file
-            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
+            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $hearingPost);
 
             // For now we just overwrite completely
             $currentDocumentFileName = $hearingPost->getDocument()->getFilename();

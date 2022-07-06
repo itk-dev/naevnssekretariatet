@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\AgendaBroadcast;
 use App\Entity\HearingPostRequest;
 use App\Entity\InspectionLetter;
 use App\Entity\MailTemplate;
@@ -296,7 +297,7 @@ class MailTemplateHelper
             // Convert entity to array.
             $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
 
-            // Make hearing and case data easily available.
+            // Make hearing and case data and other date easily available.
             $case = null;
             if ($entity instanceof HearingPostRequest) {
                 $hearing = $entity->getHearing();
@@ -304,6 +305,8 @@ class MailTemplateHelper
                 $data += json_decode($this->serializer->serialize($hearing, 'json', ['groups' => ['mail_template']]), true);
             } elseif ($entity instanceof InspectionLetter) {
                 $case = $entity->getAgendaCaseItem()?->getCaseEntity();
+            } elseif ($entity instanceof AgendaBroadcast) {
+                $data += json_decode($this->serializer->serialize($entity->getAgenda(), 'json', ['groups' => ['mail_template']]), true);
             }
 
             if (null !== $case) {
