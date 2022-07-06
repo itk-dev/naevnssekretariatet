@@ -44,6 +44,8 @@ class MailTemplateHelper
      */
     private $options;
 
+    private string $placeholderPattern = '/\$\{(?P<key>[^}]+)\}/';
+
     public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, private TranslatorInterface $translator, private ComplexMacroHelper $macroHelper, array $mailTemplateHelperOptions)
     {
         $resolver = new OptionsResolver();
@@ -141,7 +143,7 @@ class MailTemplateHelper
         $templateFileName = $this->getTemplateFile($mailTemplate);
         $templateProcessor = new TemplateProcessor($templateFileName);
 
-        $values = $this->getValues($entity, $templateProcessor);
+        $values = $this->getValues($entity, $templateProcessor, $mailTemplate);
         $listValues = $this->getComplexMacros($entity, $values);
         foreach ($listValues as $name => $macro) {
             $values[$name] = sprintf('(%s)', $macro->getDescription());
@@ -162,7 +164,7 @@ class MailTemplateHelper
             }
             if ($expandMacros) {
                 $value = preg_replace_callback(
-                    '/\$\{(?P<key>[^}]+)\}/',
+                    $this->placeholderPattern,
                     static function (array $matches) use ($values) {
                         return $values[$matches['key']] ?? $matches[0];
                     },
@@ -196,7 +198,7 @@ class MailTemplateHelper
         // https://phpword.readthedocs.io/en/latest/templates-processing.html
         $templateProcessor = new LinkedTemplateProcessor($templateFileName);
 
-        $values = $this->getValues($entity, $templateProcessor);
+        $values = $this->getValues($entity, $templateProcessor, $mailTemplate);
         if (null !== $entity) {
             $this->validateEntityType($mailTemplate, $entity);
             $macroValues = $this->getComplexMacros($entity, $values);
@@ -274,9 +276,21 @@ class MailTemplateHelper
      *
      * @return array|false|mixed|string[]
      */
-    private function getValues(?object $entity, TemplateProcessor $templateProcessor)
+    private function getValues(?object $entity, TemplateProcessor $templateProcessor, MailTemplate $mailTemplate)
     {
-        $placeHolders = $templateProcessor->getVariables();
+        $placeHolders = [$templateProcessor->getVariables()];
+
+        // Add placeholders used in macros.
+        $templateType = $mailTemplate->getType();
+        $macros = $this->mailTemplateMacroRepository->findByTemplateType($templateType);
+        foreach ($macros as $macro) {
+            if (preg_match_all($this->placeholderPattern, $macro->getContent(), $matches)) {
+                $placeHolders[] = $matches['key'];
+            }
+        }
+
+        // Flatten and make unique.
+        $placeHolders = array_unique(array_merge(...$placeHolders));
 
         $values = [];
 
@@ -340,11 +354,12 @@ class MailTemplateHelper
                 [, $key, $filter, $argument] = $matches;
                 if (isset($values[$key])) {
                     $argument = trim($argument, '\'"');
+                    $value = $values[$key];
                     $values[$placeHolder] = match ($filter) {
-                        'append' => $values[$key].$argument,
-                        'prepend' => $argument.$values[$key],
-                        'format' => $this->formatValue($values[$key], $argument),
-                        default => $values[$key],
+                        'append' => empty($value) ? '' : $value.$argument,
+                        'prepend' => empty($value) ? '' : $argument.$value,
+                        'format' => $this->formatValue($value, $argument),
+                        default => $value,
                     };
                 }
             }
@@ -374,7 +389,7 @@ class MailTemplateHelper
                     $element->addText($line);
                 }
             } else {
-                $element = $macro->getContent();
+                $element = $lines[0];
             }
 
             $values[$macro->getMacro()] = $element;
