@@ -207,7 +207,6 @@ class MailTemplateHelper
                     $templateProcessor->setComplexBlock($name, $element);
                 } else {
                     if ($element instanceof Link) {
-                        fwrite(STDERR, json_encode(['name' => $name, get_class($element)], JSON_PRETTY_PRINT).PHP_EOL);
                         $templateProcessor->addLink($element);
                     }
                     $templateProcessor->setComplexValue($name, $element);
