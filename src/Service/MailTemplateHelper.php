@@ -2,6 +2,9 @@
 
 namespace App\Service;
 
+use App\Entity\AgendaBroadcast;
+use App\Entity\HearingPostRequest;
+use App\Entity\InspectionLetter;
 use App\Entity\MailTemplate;
 use App\Entity\User;
 use App\Exception\MailTemplateException;
@@ -41,6 +44,8 @@ class MailTemplateHelper
      */
     private $options;
 
+    private string $placeholderPattern = '/\$\{(?P<key>[^}]+)\}/';
+
     public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, private TranslatorInterface $translator, private ComplexMacroHelper $macroHelper, array $mailTemplateHelperOptions)
     {
         $resolver = new OptionsResolver();
@@ -75,9 +80,7 @@ class MailTemplateHelper
     {
         $classNames = $this->getTemplateEntityClassNames($mailTemplate) ?? [];
         if (null !== $entityType) {
-            if (!in_array($entityType, $classNames, true)) {
-                throw new MailTemplateException(sprintf('Invalid entity type %s', $entityType));
-            }
+            $this->validateEntityType($mailTemplate, $entityType);
             $classNames = [$entityType];
         }
         foreach ($classNames as $className) {
@@ -140,8 +143,8 @@ class MailTemplateHelper
         $templateFileName = $this->getTemplateFile($mailTemplate);
         $templateProcessor = new TemplateProcessor($templateFileName);
 
-        $values = $this->getValues($entity, $templateProcessor);
-        $listValues = $this->getComplexMacros($entity);
+        $values = $this->getValues($entity, $templateProcessor, $mailTemplate);
+        $listValues = $this->getComplexMacros($entity, $values);
         foreach ($listValues as $name => $macro) {
             $values[$name] = sprintf('(%s)', $macro->getDescription());
         }
@@ -161,7 +164,7 @@ class MailTemplateHelper
             }
             if ($expandMacros) {
                 $value = preg_replace_callback(
-                    '/\$\{(?P<key>[^}]+)\}/',
+                    $this->placeholderPattern,
                     static function (array $matches) use ($values) {
                         return $values[$matches['key']] ?? $matches[0];
                     },
@@ -195,9 +198,11 @@ class MailTemplateHelper
         // https://phpword.readthedocs.io/en/latest/templates-processing.html
         $templateProcessor = new LinkedTemplateProcessor($templateFileName);
 
+        $values = $this->getValues($entity, $templateProcessor, $mailTemplate);
         if (null !== $entity) {
-            $values = $this->getComplexMacros($entity);
-            foreach ($values as $name => $value) {
+            $this->validateEntityType($mailTemplate, $entity);
+            $macroValues = $this->getComplexMacros($entity, $values);
+            foreach ($macroValues as $name => $value) {
                 $element = $value->getElement();
 
                 if ($this->isBlockElement($element)) {
@@ -215,7 +220,6 @@ class MailTemplateHelper
         foreach ($macroValues as $macro => $value) {
             $this->setTemplateValue($macro, $value, $templateProcessor);
         }
-        $values = $this->getValues($entity, $templateProcessor);
         $this->setTemplateValues($values, $templateProcessor);
         $processedFileName = $templateProcessor->save();
 
@@ -272,9 +276,21 @@ class MailTemplateHelper
      *
      * @return array|false|mixed|string[]
      */
-    private function getValues(?object $entity, TemplateProcessor $templateProcessor)
+    private function getValues(?object $entity, TemplateProcessor $templateProcessor, MailTemplate $mailTemplate)
     {
-        $placeHolders = $templateProcessor->getVariables();
+        $placeHolders = [$templateProcessor->getVariables()];
+
+        // Add placeholders used in macros.
+        $templateType = $mailTemplate->getType();
+        $macros = $this->mailTemplateMacroRepository->findByTemplateType($templateType);
+        foreach ($macros as $macro) {
+            if (preg_match_all($this->placeholderPattern, $macro->getContent(), $matches)) {
+                $placeHolders[] = $matches['key'];
+            }
+        }
+
+        // Flatten and make unique.
+        $placeHolders = array_unique(array_merge(...$placeHolders));
 
         $values = [];
 
@@ -293,6 +309,23 @@ class MailTemplateHelper
             // Convert entity to array.
 
             $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
+
+            // Make hearing and case data and other date easily available.
+            $case = null;
+            if ($entity instanceof HearingPostRequest) {
+                $hearing = $entity->getHearing();
+                $case = $hearing->getCaseEntity();
+                $data += json_decode($this->serializer->serialize($hearing, 'json', ['groups' => ['mail_template']]), true);
+            } elseif ($entity instanceof InspectionLetter) {
+                $case = $entity->getAgendaCaseItem()?->getCaseEntity();
+            } elseif ($entity instanceof AgendaBroadcast) {
+                $data += json_decode($this->serializer->serialize($entity->getAgenda(), 'json', ['groups' => ['mail_template']]), true);
+            }
+
+            if (null !== $case) {
+                $data += json_decode($this->serializer->serialize($case, 'json', ['groups' => ['mail_template']]), true);
+            }
+
             $values += $this->flatten($data);
         }
 
@@ -316,17 +349,18 @@ class MailTemplateHelper
         }
 
         foreach ($placeHolders as $placeHolder) {
-            // Handle placeholders on the form «key»|format(«format»), e.g.
+            // Handle placeholders on the form «key»|«filter»(«argument»), e.g.
             //   case.inspection_date:dd/mm/yyyy
             if (preg_match('/^(?P<key>.+)\|(?P<filter>[a-z]+)\((?P<argument>.+)\)$/', $placeHolder, $matches)) {
                 [, $key, $filter, $argument] = $matches;
                 if (isset($values[$key])) {
                     $argument = trim($argument, '\'"');
+                    $value = $values[$key];
                     $values[$placeHolder] = match ($filter) {
-                        'append' => $values[$key].$argument,
-                        'prepend' => $argument.$values[$key],
-                        'format' => $this->formatValue($values[$key], $argument),
-                        default => $values[$key],
+                        'append' => empty($value) ? '' : $value.$argument,
+                        'prepend' => empty($value) ? '' : $argument.$value,
+                        'format' => $this->formatValue($value, $argument),
+                        default => $value,
                     };
                 }
             }
@@ -356,7 +390,7 @@ class MailTemplateHelper
                     $element->addText($line);
                 }
             } else {
-                $element = $macro->getContent();
+                $element = $lines[0];
             }
 
             $values[$macro->getMacro()] = $element;
@@ -368,9 +402,27 @@ class MailTemplateHelper
     /**
      * @return array|ComplexMacro[]
      */
-    private function getComplexMacros(object $entity): array
+    private function getComplexMacros(object $entity, array $values): array
     {
-        return $this->macroHelper->buildMacros($entity);
+        $macros = [];
+
+        $linkKeys = ['board.email', 'board.url'];
+        foreach ($linkKeys as $key) {
+            $url = $values[$key] ?? null;
+            if (null !== $url) {
+                $text = $url;
+                if (filter_var($url, FILTER_VALIDATE_EMAIL)) {
+                    $url = 'mailto:'.$url;
+                }
+
+                $macros[$key.'.link'] = new ComplexMacro(
+                    $this->macroHelper->createLink($url, $text),
+                    $text
+                );
+            }
+        }
+
+        return $macros + $this->macroHelper->buildMacros($entity);
     }
 
     /**
@@ -464,5 +516,25 @@ class MailTemplateHelper
         }
 
         return $trimmedMergeFields;
+    }
+
+    /**
+     * Validate that a mail template can handle an entity or entity type.
+     *
+     * @return void
+     *
+     * @throws MailTemplateException
+     */
+    private function validateEntityType(MailTemplate $mailTemplate, string|object $entity)
+    {
+        $entityType = is_string($entity) ? $entity : get_class($entity);
+        $classNames = $this->getTemplateEntityClassNames($mailTemplate) ?? [];
+        foreach ($classNames as $className) {
+            if (is_a($entityType, $className, true)) {
+                return;
+            }
+        }
+
+        throw new MailTemplateException(sprintf('Invalid entity type %s; only instances of %s allowed', $entityType, implode(', ', $classNames)));
     }
 }

@@ -527,7 +527,7 @@
       </trans-unit>
       <trans-unit id="35AGWK2" resname="Open agenda in browser">
         <source>Open agenda in browser</source>
-        <target state="translated">Åben dagsorden i browser</target>
+        <target state="translated">Åbn dagsorden i browser</target>
       </trans-unit>
       <trans-unit id="xDw5e8j" resname="Submit attachments">
         <source>Submit attachments</source>
