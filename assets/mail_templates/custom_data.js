@@ -16,7 +16,6 @@ window.addEventListener('ajaxload', function () {
 
       ids.forEach(id => {
         const $element = $('[id$=' + id + ']')
-        console.log(id)
         data[$element.attr('name')] = $element.val()
       })
       // Submit data via AJAX to the form's action path.
