@@ -176,10 +176,20 @@ class HearingController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Handle potential merge fields
+            $customData = [];
+
+            foreach ($form->get('customData') as $customField) {
+                $name = $customField->getName();
+                $customData[$name] = $customField->getData();
+            }
+
+            $hearingPost->setCustomData($customData);
+
             $hearingPost->setHearing($hearing);
 
             // Create new file from template
-            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
+            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $hearingPost);
 
             // Create document
             $document = $documentUploader->createDocumentFromPath($fileName, $hearingPost->getTitle(), 'Hearing');
@@ -283,8 +293,18 @@ class HearingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // It is not sufficient to recreate document only if mail template is switched
 
+            // Handle potential merge fields
+            $customData = [];
+
+            foreach ($form->get('customData') as $customField) {
+                $name = $customField->getName();
+                $customData[$name] = $customField->getData();
+            }
+
+            $hearingPost->setCustomData($customData);
+
             // Create new file
-            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $case);
+            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $hearingPost);
 
             // For now we just overwrite completely
             $currentDocumentFileName = $hearingPost->getDocument()->getFilename();

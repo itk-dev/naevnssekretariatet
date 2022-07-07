@@ -341,6 +341,14 @@
         <source>Select receipt template</source>
         <target>Select receipt template</target>
       </trans-unit>
+      <trans-unit id="MtlQbTd" resname="List of custom fields(one per line). Should not contain any spaces.">
+        <source>List of custom fields(one per line). Should not contain any spaces.</source>
+        <target>List of custom fields(one per line). Should not contain any spaces.</target>
+      </trans-unit>
+      <trans-unit id="VWbbSfr" resname="Custom fields">
+        <source>Custom fields</source>
+        <target>Custom fields</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

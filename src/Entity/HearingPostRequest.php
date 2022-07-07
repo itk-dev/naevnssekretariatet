@@ -35,6 +35,12 @@ class HearingPostRequest extends HearingPost
      */
     private $title;
 
+    /**
+     * @ORM\Column(type="json")
+     * @Groups({"mail_template"})
+     */
+    private $customData = [];
+
     public function getRecipient(): ?Party
     {
         return $this->recipient;
@@ -93,5 +99,17 @@ class HearingPostRequest extends HearingPost
             'document',
             'attachments',
         ];
+    }
+
+    public function getCustomData(): ?array
+    {
+        return $this->customData;
+    }
+
+    public function setCustomData(?array $customData): self
+    {
+        $this->customData = $customData;
+
+        return $this;
     }
 }

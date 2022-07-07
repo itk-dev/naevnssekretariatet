@@ -36,6 +36,7 @@ Encore
   .addEntry('party_identification_lookup', './assets/party/identifier-lookup.js')
   .addEntry('agenda_mark_all_documents', './assets/agenda/mark_all_documents.js')
   .addEntry('case_new_prepare', './assets/case/municipality_and_board_selector.js')
+  .addEntry('mail_templates_custom_data', './assets/mail_templates/custom_data.js')
 
   .addStyleEntry('address_protection', './assets/case/address-protection.scss')
 

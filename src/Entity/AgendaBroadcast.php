@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AgendaBroadcastRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -41,6 +42,12 @@ class AgendaBroadcast
      * @ORM\JoinColumn(nullable=false)
      */
     private $agenda;
+
+    /**
+     * @ORM\Column(type="json")
+     * @Groups({"mail_template"})
+     */
+    private $customData = [];
 
     public function __toString()
     {
@@ -101,6 +108,18 @@ class AgendaBroadcast
     public function setAgenda(?Agenda $agenda): self
     {
         $this->agenda = $agenda;
+
+        return $this;
+    }
+
+    public function getCustomData(): ?array
+    {
+        return $this->customData;
+    }
+
+    public function setCustomData(?array $customData): self
+    {
+        $this->customData = $customData;
 
         return $this;
     }

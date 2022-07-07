@@ -30,7 +30,6 @@
 {% block content %}
     <main role="main" class="col-12 mt-3">
         <dl>
-
             {% if hearingPost.recipient is defined %}
                 <dt>
                     {% trans %}Recipient{% endtrans %}
@@ -56,6 +55,16 @@
                 <dd>
                     {{ hearingPost.template.name }}
                 </dd>
+            {% endif %}
+            {% if hearingPost.customData is defined %}
+                {% for key, value in hearingPost.customData %}
+                    <dt>
+                        {{ key }}
+                    </dt>
+                    <dd>
+                        {{ value }}
+                    </dd>
+                {% endfor %}
             {% endif %}
             <dt>
                 {% trans %}Document{% endtrans %}

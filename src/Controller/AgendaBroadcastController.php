@@ -60,6 +60,16 @@ class AgendaBroadcastController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Handle potential merge fields
+            $customData = [];
+
+            foreach ($form->get('customData') as $customField) {
+                $name = $customField->getName();
+                $customData[$name] = $customField->getData();
+            }
+
+            $agendaBroadcast->setCustomData($customData);
+
             // Create a recipient per board member
             $boardMembers = $agenda->getBoardmembers();
             $digitalPostRecipients = [];
@@ -89,7 +99,7 @@ class AgendaBroadcastController extends AbstractController
             }
 
             // Create new file from template
-            $fileName = $mailTemplateHelper->renderMailTemplate($agendaBroadcast->getTemplate(), $agenda);
+            $fileName = $mailTemplateHelper->renderMailTemplate($agendaBroadcast->getTemplate(), $agendaBroadcast);
 
             // Create document
             $document = $documentUploader->createDocumentFromPath($fileName, $agendaBroadcast->getTitle(), 'Agenda broadcast');

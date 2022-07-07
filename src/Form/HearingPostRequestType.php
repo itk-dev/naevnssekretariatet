@@ -3,24 +3,23 @@
 namespace App\Form;
 
 use App\Entity\HearingPostRequest;
+use App\Entity\MailTemplate;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HearingPostRequestType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -49,11 +48,41 @@ class HearingPostRequestType extends AbstractType
                 'label' => $this->translator->trans('Title', [], 'case'),
                 'help' => $this->translator->trans('Choose a title for the hearing post', [], 'case'),
             ])
-            ->add('template', ChoiceType::class, [
+            ->add('template', EntityType::class, [
+                'class' => MailTemplate::class,
                 'placeholder' => $this->translator->trans('Choose a template', [], 'case'),
                 'label' => $this->translator->trans('Mail template', [], 'case'),
                 'choices' => $templateChoices,
             ])
+        ;
+
+        $formModifier = function (FormInterface $form, MailTemplate $mailTemplate = null) use ($builder) {
+            $form->add('customData', MailTemplateCustomDataType::class, [
+                'label' => false,
+                'template' => $mailTemplate,
+                'data' => $builder->getData()->getCustomData(),
+            ]);
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                $data = $event->getData();
+
+                $formModifier($event->getForm(), $data->getTemplate());
+            }
+        );
+
+        $builder->get('template')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                $template = $event->getForm()->getData();
+
+                $formModifier($event->getForm()->getParent(), $template);
+            }
+        );
+
+        $builder
             ->add('recipient', ChoiceType::class, [
                 'placeholder' => $this->translator->trans('Choose a recipient', [], 'case'),
                 'label' => $this->translator->trans('Recipient', [], 'case'),

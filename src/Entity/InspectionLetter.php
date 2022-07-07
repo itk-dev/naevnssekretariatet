@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -48,6 +49,17 @@ class InspectionLetter
      * @ORM\ManyToMany(targetEntity=Party::class)
      */
     private $recipients;
+
+    /**
+     * @ORM\Column(type="json")
+     * @Groups({"mail_template"})
+     */
+    private $customData = [];
+
+    public function __toString()
+    {
+        return sprintf('%s (%s)', $this->title, $this->id);
+    }
 
     public function __construct()
     {
@@ -128,6 +140,18 @@ class InspectionLetter
     public function removeRecipient(Party $recipient): self
     {
         $this->recipients->removeElement($recipient);
+
+        return $this;
+    }
+
+    public function getCustomData(): ?array
+    {
+        return $this->customData;
+    }
+
+    public function setCustomData(?array $customData): self
+    {
+        $this->customData = $customData;
 
         return $this;
     }

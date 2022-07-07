@@ -291,6 +291,7 @@ class MailTemplateHelper
             );
         } else {
             // Convert entity to array.
+
             $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
             $values += $this->flatten($data);
         }
@@ -444,5 +445,24 @@ class MailTemplateHelper
          * Argument 1 of array_combine expects array<array-key, array-key>, non-empty-list<null|string> provided (see https://psalm.dev/004)
          */
         return array_combine($header, $row);
+    }
+
+    public function computeMergeFields(MailTemplate $template)
+    {
+        if (empty($template->getCustomFields())) {
+            return [];
+        }
+
+        $rawMergeFields = explode(
+            PHP_EOL,
+            $template->getCustomFields()
+        );
+
+        $trimmedMergeFields = [];
+        foreach ($rawMergeFields as $rawMergeField) {
+            $trimmedMergeFields[] = trim($rawMergeField);
+        }
+
+        return $trimmedMergeFields;
     }
 }
