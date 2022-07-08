@@ -57,10 +57,10 @@
                 </dd>
             {% endif %}
             {% if hearingPost.customData is defined %}
-                {% set customFields = getCustomFields(hearingPost.template) %}
+                {% set custom_fields = getCustomFields(hearingPost.template) %}
                 {% for key, value in hearingPost.customData %}
                     <dt>
-                        {{ customFields[key]|default(key) }}
+                        {{ custom_fields[key]|default(key) }}
                     </dt>
                     <dd>
                         {{ value }}
