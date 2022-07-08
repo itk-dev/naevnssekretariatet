@@ -58,6 +58,7 @@ abstract class CaseEntity implements Timestampable
     /**
      * @ORM\ManyToOne(targetEntity=ComplaintCategory::class, inversedBy="caseEntities")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"mail_template"})
      */
     private $complaintCategory;
 
@@ -192,6 +193,7 @@ abstract class CaseEntity implements Timestampable
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"mail_template"})
      */
     private $extraComplaintCategoryInformation;
 
