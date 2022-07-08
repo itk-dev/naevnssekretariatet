@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\HearingPostRequestRepository;
+use App\Traits\CustomDataTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -11,6 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class HearingPostRequest extends HearingPost
 {
+    use CustomDataTrait;
+
     /**
      * @ORM\ManyToOne(targetEntity=Party::class)
      * @ORM\JoinColumn(nullable=false)

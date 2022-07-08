@@ -65,8 +65,17 @@ class AgendaInspectionController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $customData = [];
+
+            foreach ($form->get('customData') as $customField) {
+                $name = $customField->getName();
+                $customData[$name] = $customField->getData();
+            }
+
+            $inspection->setCustomData($customData);
+
             // Create new file from template
-            $fileName = $mailTemplateHelper->renderMailTemplate($inspection->getTemplate(), $agendaItem);
+            $fileName = $mailTemplateHelper->renderMailTemplate($inspection->getTemplate(), $inspection);
 
             // Create document
             $document = $documentUploader->createDocumentFromPath($fileName, $inspection->getTitle(), 'Agenda inspection');

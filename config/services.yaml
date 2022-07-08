@@ -76,12 +76,10 @@ services:
                     agenda_inspection:
                       label: Agenda inspection
                       entity_class_names:
-                        - App\Entity\AgendaCaseItem
                         - App\Entity\InspectionLetter
                     agenda_broadcast:
                         label: Agenda broadcast
                         entity_class_names:
-                          - App\Entity\Agenda
                           - App\Entity\AgendaBroadcast
                     board_receipt_case:
                         label: Board receipt (case)

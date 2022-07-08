@@ -32,6 +32,16 @@ App\Entity\MailTemplate:
       Brug det som start i en høring.
     templateFilename: <uploadFile(mail_template/mail_template_001.docx, templateFile, App\Entity\MailTemplate)>
 
+  mail-template-hearing-002:
+    type: hearing
+    name: Hearing template 002 (free text test)
+    description: |-
+      Brug det som skabelon for videresendelse af høringssvar.
+    templateFilename: <uploadFile(mail_template/mail_template_002.docx, templateFile, App\Entity\MailTemplate)>
+    customFields: |-
+      some_merge_field1
+      some_merge_field2
+
   mail-template-agenda-inspection-001:
     type: agenda_inspection
     name: Agenda inspection template 001

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\InspectionLetterRepository;
+use App\Traits\CustomDataTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,6 +15,7 @@ use Symfony\Component\Uid\Uuid;
  */
 class InspectionLetter
 {
+    use CustomDataTrait;
     use TimestampableEntity;
 
     /**
@@ -48,6 +50,11 @@ class InspectionLetter
      * @ORM\ManyToMany(targetEntity=Party::class)
      */
     private $recipients;
+
+    public function __toString()
+    {
+        return sprintf('%s (%s)', $this->title, $this->id);
+    }
 
     public function __construct()
     {

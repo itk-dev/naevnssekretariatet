@@ -4,7 +4,9 @@ namespace App\Twig;
 
 use App\Entity\CaseEntity;
 use App\Entity\Document;
+use App\Entity\MailTemplate;
 use App\Service\DocumentDeletableHelper;
+use App\Service\MailTemplateHelper;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -12,7 +14,7 @@ use Twig\TwigFunction;
 
 class TwigExtension extends AbstractExtension
 {
-    public function __construct(private Environment $twig, private DocumentDeletableHelper $deletableHelper)
+    public function __construct(private Environment $twig, private DocumentDeletableHelper $deletableHelper, private MailTemplateHelper $mailTemplateHelper)
     {
     }
 
@@ -23,6 +25,7 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('class', [$this, 'getClass']),
             new TwigFunction('type', 'gettype'),
             new TwigFunction('isDocumentDeletable', [$this, 'isDocumentDeletable']),
+            new TwigFunction('getCustomFields', [$this, 'getCustomFields']),
         ];
     }
 
@@ -60,5 +63,10 @@ class TwigExtension extends AbstractExtension
     public function isDocumentDeletable(Document $document, CaseEntity $case): bool
     {
         return $this->deletableHelper->isDocumentDeletable($document, $case);
+    }
+
+    public function getCustomFields(MailTemplate $mailTemplate): array
+    {
+        return $this->mailTemplateHelper->getCustomFields($mailTemplate);
     }
 }

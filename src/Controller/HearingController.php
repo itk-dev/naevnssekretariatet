@@ -176,6 +176,15 @@ class HearingController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $customData = [];
+
+            foreach ($form->get('customData') as $customField) {
+                $name = $customField->getName();
+                $customData[$name] = $customField->getData();
+            }
+
+            $hearingPost->setCustomData($customData);
+
             $hearingPost->setHearing($hearing);
 
             // Create new file from template
@@ -282,6 +291,14 @@ class HearingController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // It is not sufficient to recreate document only if mail template is switched
+            $customData = [];
+
+            foreach ($form->get('customData') as $customField) {
+                $name = $customField->getName();
+                $customData[$name] = $customField->getData();
+            }
+
+            $hearingPost->setCustomData($customData);
 
             // Create new file
             $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $hearingPost);

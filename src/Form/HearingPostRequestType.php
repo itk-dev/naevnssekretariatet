@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\HearingPostRequest;
+use App\Traits\TemplateFormTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -13,14 +14,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HearingPostRequestType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
+    use TemplateFormTrait;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -38,22 +35,16 @@ class HearingPostRequestType extends AbstractType
         $caseParties = $options['case_parties'];
         $availableTemplateChoices = $options['mail_template_choices'];
 
-        $templateChoices = [];
-
-        foreach ($availableTemplateChoices as $template) {
-            $templateChoices[$template->getName()] = $template;
-        }
-
         $builder
             ->add('title', TextType::class, [
                 'label' => $this->translator->trans('Title', [], 'case'),
                 'help' => $this->translator->trans('Choose a title for the hearing post', [], 'case'),
             ])
-            ->add('template', ChoiceType::class, [
-                'placeholder' => $this->translator->trans('Choose a template', [], 'case'),
-                'label' => $this->translator->trans('Mail template', [], 'case'),
-                'choices' => $templateChoices,
-            ])
+        ;
+
+        $this->addTemplate($builder, $availableTemplateChoices);
+
+        $builder
             ->add('recipient', ChoiceType::class, [
                 'placeholder' => $this->translator->trans('Choose a recipient', [], 'case'),
                 'label' => $this->translator->trans('Recipient', [], 'case'),

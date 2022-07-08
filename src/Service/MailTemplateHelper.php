@@ -307,6 +307,7 @@ class MailTemplateHelper
             );
         } else {
             // Convert entity to array.
+
             $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
 
             // Make hearing and case data and other date easily available.
@@ -498,6 +499,27 @@ class MailTemplateHelper
         return array_combine($header, $row);
     }
 
+    public function getCustomFields(MailTemplate $template)
+    {
+        if (empty($template->getCustomFields())) {
+            return [];
+        }
+
+        $rawCustomFields = explode(
+            PHP_EOL,
+            $template->getCustomFields()
+        );
+
+        $trimmedCustomFields = [];
+        foreach ($rawCustomFields as $rawCustomField) {
+            if (preg_match('/(?P<name>[^|]*)\|(?P<label>[^|]*)/', $rawCustomField, $matches)) {
+                $trimmedCustomFields[$matches['name']] = $matches['label'];
+            }
+        }
+
+        return $trimmedCustomFields;
+    }
+
     /**
      * Validate that a mail template can handle an entity or entity type.
      *
@@ -515,6 +537,6 @@ class MailTemplateHelper
             }
         }
 
-        throw new MailTemplateException(sprintf('Invalid entity type %s; only instances of %s allowed', $entityType, implode(', ', $classNames)));
+        throw new MailTemplateException(sprintf('Invalid entity type %s for template %s; only instances of %s allowed', $entityType, $mailTemplate->getName(), implode(', ', $classNames)));
     }
 }

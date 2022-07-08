@@ -60,6 +60,15 @@ class AgendaBroadcastController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $customData = [];
+
+            foreach ($form->get('customData') as $customField) {
+                $name = $customField->getName();
+                $customData[$name] = $customField->getData();
+            }
+
+            $agendaBroadcast->setCustomData($customData);
+
             // Create a recipient per board member
             $boardMembers = $agenda->getBoardmembers();
             $digitalPostRecipients = [];

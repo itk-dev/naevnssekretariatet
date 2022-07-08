@@ -56,6 +56,14 @@ class MailTemplateCrudController extends AbstractCrudController
             ->setChoices($this->mailTemplateHelper->getMailTemplateTypeChoices())
         ;
         yield TextField::new('name');
+        yield TextareaField::new('customFields', 'Custom fields')
+            ->setHelp($this->translator->trans('List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.',
+                [], 'admin'))
+            // Avoid showing 'Null' or 'Tom' if customFields is not set.
+            ->formatValue(function ($value) {
+                return $value ?? ' ';
+            })
+        ;
         yield TextareaField::new('description');
         yield Field::new('templateFile')
             ->setLabel($this->translator->trans('Template document', [], 'mail_template'))

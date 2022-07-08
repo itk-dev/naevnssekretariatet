@@ -64,6 +64,11 @@ class MailTemplate implements LoggableEntityInterface
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $customFields;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -153,5 +158,17 @@ class MailTemplate implements LoggableEntityInterface
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getCustomFields(): ?string
+    {
+        return $this->customFields;
+    }
+
+    public function setCustomFields(?string $customFields): self
+    {
+        $this->customFields = $customFields;
+
+        return $this;
     }
 }

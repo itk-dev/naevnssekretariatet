@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AgendaBroadcastRepository;
+use App\Traits\CustomDataTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
@@ -12,6 +13,7 @@ use Symfony\Component\Uid\Uuid;
  */
 class AgendaBroadcast
 {
+    use CustomDataTrait;
     use TimestampableEntity;
 
     /**
