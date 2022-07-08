@@ -7,6 +7,7 @@ use App\Repository\ComplaintCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -23,11 +24,13 @@ class ComplaintCategory implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"mail_template"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $fee;
 
