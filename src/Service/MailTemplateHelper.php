@@ -505,19 +505,19 @@ class MailTemplateHelper
             return [];
         }
 
-        $rawMergeFields = explode(
+        $rawCustomFields = explode(
             PHP_EOL,
             $template->getCustomFields()
         );
 
-        $trimmedMergeFields = [];
-        foreach ($rawMergeFields as $rawMergeField) {
-            preg_match('/(?P<name>[^|]*)\|(?P<label>[^|]*)/', $rawMergeField, $matches);
-
-            $trimmedMergeFields[$matches['name']] = $matches['label'];
+        $trimmedCustomFields = [];
+        foreach ($rawCustomFields as $rawCustomField) {
+            if (preg_match('/(?P<name>[^|]*)\|(?P<label>[^|]*)/', $rawCustomField, $matches)) {
+                $trimmedCustomFields[$matches['name']] = $matches['label'];
+            }
         }
 
-        return $trimmedMergeFields;
+        return $trimmedCustomFields;
     }
 
     /**
