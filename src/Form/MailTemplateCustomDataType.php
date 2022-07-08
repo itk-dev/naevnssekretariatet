@@ -26,13 +26,13 @@ class MailTemplateCustomDataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if (null !== $options['template']) {
-            $customFields = $this->mailTemplateHelper->getCustomFieldNames($options['template']);
+            $customFields = $this->mailTemplateHelper->getCustomFields($options['template']);
 
-            foreach ($customFields as $customField) {
-                $builder->add($customField, TextType::class, [
-                    'label' => $customField,
+            foreach ($customFields as $key => $label) {
+                $builder->add($key, TextType::class, [
+                    'label' => $label,
                     'mapped' => false,
-                    'data' => isset($options['data'][$customField]) && !empty($options['data'][$customField]) ? $options['data'][$customField] : '',
+                    'data' => isset($options['data'][$key]) && !empty($options['data'][$key]) ? $options['data'][$key] : '',
                     'required' => false,
                 ]);
             }

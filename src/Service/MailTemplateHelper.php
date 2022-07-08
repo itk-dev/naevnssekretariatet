@@ -499,16 +499,25 @@ class MailTemplateHelper
         return array_combine($header, $row);
     }
 
-    public function getCustomFieldNames(MailTemplate $template)
+    public function getCustomFields(MailTemplate $template)
     {
-        return array_filter(
-            array_map('trim',
-                explode(
+        if (empty($template->getCustomFields())) {
+            return [];
+        }
+
+        $rawMergeFields = explode(
             PHP_EOL,
-                    $template->getCustomFields()
-                )
-            )
+            $template->getCustomFields()
         );
+
+        $trimmedMergeFields = [];
+        foreach ($rawMergeFields as $rawMergeField) {
+            preg_match('/(?P<name>[^|]*)\|(?P<label>[^|]*)/', $rawMergeField, $matches);
+
+            $trimmedMergeFields[$matches['name']] = $matches['label'];
+        }
+
+        return $trimmedMergeFields;
     }
 
     /**
@@ -528,6 +537,6 @@ class MailTemplateHelper
             }
         }
 
-        throw new MailTemplateException(sprintf('Invalid entity type %s; only instances of %s allowed', $entityType, implode(', ', $classNames)));
+        throw new MailTemplateException(sprintf('Invalid entity type %s for template %s; only instances of %s allowed', $entityType, $mailTemplate->getName(), implode(', ', $classNames)));
     }
 }

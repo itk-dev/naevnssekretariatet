@@ -53,7 +53,7 @@ class ReceiptHelper implements EventSubscriberInterface
                 ->setAddress($sender->getAddress())
             ;
             $case = $hearingPostResponse->getHearing()?->getCaseEntity();
-            $template = $case?->getBoard()?->getReceiptCase();
+            $template = $case?->getBoard()?->getReceiptHearingPost();
             $documentTitle = $this->translator->trans('Hearing post response receipt', [], 'case');
             // The document type is translated in templates/translations/mail_template.html.twig
             $documentType = 'Hearing post response created receipt';
