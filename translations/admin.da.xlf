@@ -353,6 +353,10 @@
         <source>List of custom fields (one per line). Should not contain any spaces.</source>
         <target state="translated">Liste af brugerdefinerede flettefelter (en pr. linje). Må ikke indeholde mellemrum.</target>
       </trans-unit>
+      <trans-unit id="ni8VgZH" resname="List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.">
+        <source>List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.</source>
+        <target state="translated">Liste af brugerdefinerede flettefelter (en pr. linje). Format «navn»|«label». Eksempel: fulde_navn|Fulde navn.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

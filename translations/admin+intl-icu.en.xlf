@@ -345,9 +345,9 @@
         <source>Custom fields</source>
         <target>Custom fields</target>
       </trans-unit>
-      <trans-unit id="k9uhES_" resname="List of custom fields (one per line). Should not contain any spaces.">
-        <source>List of custom fields (one per line). Should not contain any spaces.</source>
-        <target>List of custom fields (one per line). Should not contain any spaces.</target>
+      <trans-unit id="ni8VgZH" resname="List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.">
+        <source>List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.</source>
+        <target>List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.</target>
       </trans-unit>
     </body>
   </file>
