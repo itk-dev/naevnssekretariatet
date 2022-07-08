@@ -176,7 +176,6 @@ class HearingController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Handle potential merge fields
             $customData = [];
 
             foreach ($form->get('customData') as $customField) {
@@ -292,8 +291,6 @@ class HearingController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // It is not sufficient to recreate document only if mail template is switched
-
-            // Handle potential merge fields
             $customData = [];
 
             foreach ($form->get('customData') as $customField) {

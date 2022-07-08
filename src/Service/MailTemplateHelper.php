@@ -499,23 +499,16 @@ class MailTemplateHelper
         return array_combine($header, $row);
     }
 
-    public function computeMergeFields(MailTemplate $template)
+    public function getCustomFieldNames(MailTemplate $template)
     {
-        if (empty($template->getCustomFields())) {
-            return [];
-        }
-
-        $rawMergeFields = explode(
+        return array_filter(
+            array_map('trim',
+                explode(
             PHP_EOL,
-            $template->getCustomFields()
+                    $template->getCustomFields()
+                )
+            )
         );
-
-        $trimmedMergeFields = [];
-        foreach ($rawMergeFields as $rawMergeField) {
-            $trimmedMergeFields[] = trim($rawMergeField);
-        }
-
-        return $trimmedMergeFields;
     }
 
     /**

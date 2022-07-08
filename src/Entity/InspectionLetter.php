@@ -3,11 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\InspectionLetterRepository;
+use App\Traits\CustomDataTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -15,6 +15,7 @@ use Symfony\Component\Uid\Uuid;
  */
 class InspectionLetter
 {
+    use CustomDataTrait;
     use TimestampableEntity;
 
     /**
@@ -49,12 +50,6 @@ class InspectionLetter
      * @ORM\ManyToMany(targetEntity=Party::class)
      */
     private $recipients;
-
-    /**
-     * @ORM\Column(type="json")
-     * @Groups({"mail_template"})
-     */
-    private $customData = [];
 
     public function __toString()
     {
@@ -140,18 +135,6 @@ class InspectionLetter
     public function removeRecipient(Party $recipient): self
     {
         $this->recipients->removeElement($recipient);
-
-        return $this;
-    }
-
-    public function getCustomData(): ?array
-    {
-        return $this->customData;
-    }
-
-    public function setCustomData(?array $customData): self
-    {
-        $this->customData = $customData;
 
         return $this;
     }

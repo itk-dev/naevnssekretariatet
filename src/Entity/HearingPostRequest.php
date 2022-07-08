@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\HearingPostRequestRepository;
+use App\Traits\CustomDataTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -11,6 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class HearingPostRequest extends HearingPost
 {
+    use CustomDataTrait;
+
     /**
      * @ORM\ManyToOne(targetEntity=Party::class)
      * @ORM\JoinColumn(nullable=false)
@@ -34,12 +37,6 @@ class HearingPostRequest extends HearingPost
      * @Groups({"mail_template"})
      */
     private $title;
-
-    /**
-     * @ORM\Column(type="json")
-     * @Groups({"mail_template"})
-     */
-    private $customData = [];
 
     public function getRecipient(): ?Party
     {
@@ -99,17 +96,5 @@ class HearingPostRequest extends HearingPost
             'document',
             'attachments',
         ];
-    }
-
-    public function getCustomData(): ?array
-    {
-        return $this->customData;
-    }
-
-    public function setCustomData(?array $customData): self
-    {
-        $this->customData = $customData;
-
-        return $this;
     }
 }
