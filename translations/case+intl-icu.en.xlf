@@ -1493,6 +1493,22 @@
         <source>Open hearing post form</source>
         <target>Open hearing post form</target>
       </trans-unit>
+      <trans-unit id="Hdsadcx" resname="Received at">
+        <source>Received at</source>
+        <target>Received at</target>
+      </trans-unit>
+      <trans-unit id="b1O3IMX" resname="Validated at">
+        <source>Validated at</source>
+        <target>Validated at</target>
+      </trans-unit>
+      <trans-unit id="dFjGWGl" resname="Date received">
+        <source>Date received</source>
+        <target>Date received</target>
+      </trans-unit>
+      <trans-unit id="x7zbYbj" resname="Date validated">
+        <source>Date validated</source>
+        <target>Date validated</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

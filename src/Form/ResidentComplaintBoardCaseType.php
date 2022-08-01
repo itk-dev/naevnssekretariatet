@@ -40,6 +40,17 @@ class ResidentComplaintBoardCaseType extends AbstractType
         $board = $options['board'];
 
         $builder
+            ->add('receivedAt', DateType::class, [
+                'widget' => 'single_text',
+                'input_format' => 'dd-MM-yyyy',
+                'label' => $this->translator->trans('Received at', [], 'case'),
+            ])
+            ->add('validatedAt', DateType::class, [
+                'widget' => 'single_text',
+                'input_format' => 'dd-MM-yyyy',
+                'label' => $this->translator->trans('Validated at', [], 'case'),
+                'required' => false,
+            ])
             ->add('bringerIdentification', IdentificationType::class, [
                 'label' => $this->translator->trans('Bringer', [], 'case'),
                 'is_required' => true,

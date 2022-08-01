@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,6 +41,17 @@ class FenceReviewCaseType extends AbstractType
         $board = $options['board'];
 
         $builder
+            ->add('receivedAt', DateType::class, [
+                'widget' => 'single_text',
+                'input_format' => 'dd-MM-yyyy',
+                'label' => $this->translator->trans('Received at', [], 'case'),
+            ])
+            ->add('validatedAt', DateType::class, [
+                'widget' => 'single_text',
+                'input_format' => 'dd-MM-yyyy',
+                'label' => $this->translator->trans('Validated at', [], 'case'),
+                'required' => false,
+            ])
             ->add('bringerIdentification', IdentificationType::class, [
                 'label' => $this->translator->trans('Bringer', [], 'case'),
                 'is_required' => true,
