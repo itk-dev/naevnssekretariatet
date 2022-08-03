@@ -252,7 +252,38 @@ class AgendaController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
+            /** @var Agenda $agenda */
             $agenda = $form->getData();
+
+            // Ensure required properties are set if changing to status Ready (Klar).
+            if (AgendaStatus::READY === $agenda->getStatus()) {
+                $startingFlashes = sizeof($request->getSession()->getFlashBag()->keys());
+
+                if (empty($agenda->getDate())) {
+                    $this->addFlash('warning', new TranslatableMessage('Cannot mark agenda without a date as ready', [], 'agenda'));
+                }
+
+                if (empty($agenda->getStart())) {
+                    $this->addFlash('warning', new TranslatableMessage('Cannot mark agenda without a start time as ready', [], 'agenda'));
+                }
+
+                if (empty($agenda->getEnd())) {
+                    $this->addFlash('warning', new TranslatableMessage('Cannot mark agenda without a end time as ready', [], 'agenda'));
+                }
+
+                if (empty($agenda->getAgendaMeetingPoint())) {
+                    $this->addFlash('warning', new TranslatableMessage('Cannot mark agenda without a meeting point as ready', [], 'agenda'));
+                }
+
+                // Check if any flashes has been added
+                $endingFlashes = sizeof($request->getSession()->getFlashBag()->keys());
+                if ($endingFlashes > $startingFlashes) {
+                    return $this->redirectToRoute('agenda_show', [
+                        'id' => $agenda->getId(),
+                        'agenda' => $agenda,
+                    ]);
+                }
+            }
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Agenda updated', [], 'agenda'));
 

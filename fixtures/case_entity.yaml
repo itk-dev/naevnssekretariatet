@@ -423,6 +423,7 @@ App\Entity\ResidentComplaintBoardCase:
     sortingCounterparty: Kirsten Jensen
     leaseRegulatedRent: 1
     assignedTo: '@user-caseworker'
+    isReadyForAgenda: 1
 
   test-case-aarhus-2:
     leaseSize: 53
