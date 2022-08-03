@@ -134,4 +134,11 @@ class DocumentUploader
     {
         return filesize($this->getFilepath($document->getFilename()));
     }
+
+    public function getFileContent(Document $document)
+    {
+        $filepath = $this->getFilepath($document->getFilename());
+
+        return file_get_contents($filepath);
+    }
 }
