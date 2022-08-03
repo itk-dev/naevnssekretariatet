@@ -596,10 +596,17 @@ class CaseController extends AbstractController
 
         if ($assignForm->isSubmitted() && $assignForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', new TranslatableMessage('Case worker {name} assigned to case {case_number}', [
-                'name' => $case->getAssignedTo()->getName(),
-                'case_number' => $case->getCaseNumber(),
-            ], 'case'));
+
+            if ($case->getAssignedTo()) {
+                $this->addFlash('success', new TranslatableMessage('Case worker {name} assigned to case {case_number}', [
+                    'name' => $case->getAssignedTo()->getName(),
+                    'case_number' => $case->getCaseNumber(),
+                ], 'case'));
+            } else {
+                $this->addFlash('success', new TranslatableMessage('Removed assigned case worker from case {case_number}', [
+                    'case_number' => $case->getCaseNumber(),
+                ], 'case'));
+            }
 
             $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_index');
 

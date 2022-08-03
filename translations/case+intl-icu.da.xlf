@@ -1483,11 +1483,15 @@
       </trans-unit>
       <trans-unit id="VBlJ5OL" resname="Hearing post response receipt">
         <source>Hearing post response receipt</source>
-        <target state="needs-l10n">Kvittering for nyt høringssvar</target>
+        <target state="translated">Kvittering for nyt høringssvar</target>
       </trans-unit>
       <trans-unit id="f0vzKrx" resname="Open hearing post form">
         <source>Open hearing post form</source>
         <target state="translated">Åbn høringssvarformular</target>
+      </trans-unit>
+      <trans-unit id="SGDQSbJ" resname="Removed assigned case worker from case {case_number}">
+        <source>Removed assigned case worker from case {case_number}</source>
+        <target state="translated">Fjernede den tildelte sagsbehandler fra sag {case_number}</target>
       </trans-unit>
     </body>
   </file>

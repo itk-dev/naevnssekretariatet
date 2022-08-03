@@ -1493,6 +1493,10 @@
         <source>Open hearing post form</source>
         <target>Open hearing post form</target>
       </trans-unit>
+      <trans-unit id="SGDQSbJ" resname="Removed assigned case worker from case {case_number}">
+        <source>Removed assigned case worker from case {case_number}</source>
+        <target>Removed assigned case worker from case {case_number}</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
