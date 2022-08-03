@@ -1004,3 +1004,4 @@ App\Entity\FenceReviewCase:
     bringerClaim: |
         Claim for this review
     bringerCadastralNumber: 'Mat 11'
+    assignedTo: '@user-caseworker'
