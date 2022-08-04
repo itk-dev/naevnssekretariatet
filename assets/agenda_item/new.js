@@ -18,13 +18,17 @@ $type.on('change', function () {
       if ($type.val() === 'App\\Entity\\AgendaCaseItem') {
         const $agendaCaseItem = $('#agenda_item_agendaItem_caseEntity')
         $agendaCaseItem.on('change', function () {
-          const $caseDescription = $agendaCaseItem.find(':selected').text()
           const $meetingPoint = $("input[id='agenda_item_agendaItem_meetingPoint']")
-          if ($caseDescription.includes('Besigtigelse')) {
-            $meetingPoint.val($caseDescription.substring($caseDescription.lastIndexOf('-') + 2))
-          } else {
-            $meetingPoint.val('')
-          }
+          $.ajax({
+            url: '/case/get/inspection-address',
+            type: 'POST',
+            data: {
+              identifier: $agendaCaseItem.val()
+            },
+            success: function (response) {
+              $meetingPoint.val(response.address)
+            }
+          })
         })
       }
     }
