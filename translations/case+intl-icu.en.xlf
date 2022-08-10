@@ -1493,9 +1493,13 @@
         <source>Open hearing post form</source>
         <target>Open hearing post form</target>
       </trans-unit>
-      <trans-unit id="SGDQSbJ" resname="Removed assigned case worker from case {case_number}">
-        <source>Removed assigned case worker from case {case_number}</source>
-        <target>Removed assigned case worker from case {case_number}</target>
+      <trans-unit id="H9bMfm2" resname="Removed assigned case worker {name} from case {case_number}">
+        <source>Removed assigned case worker {name} from case {case_number}</source>
+        <target>Removed assigned case worker {name} from case {case_number}</target>
+      </trans-unit>
+      <trans-unit id="4Ea4Y4c" resname="Reassigned case {case_number} from {old_case_worker_name} to {new_case_worker_name}">
+        <source>Reassigned case {case_number} from {old_case_worker_name} to {new_case_worker_name}</source>
+        <target>Reassigned case {case_number} from {old_case_worker_name} to {new_case_worker_name}</target>
       </trans-unit>
     </body>
   </file>
