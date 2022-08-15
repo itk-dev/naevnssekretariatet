@@ -252,7 +252,41 @@ class AgendaController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
+            /** @var Agenda $agenda */
             $agenda = $form->getData();
+
+            // Ensure required properties are set if changing to status Ready (Klar).
+            if (AgendaStatus::READY === $agenda->getStatus()) {
+                $messages = [];
+
+                if (empty($agenda->getDate())) {
+                    $messages[] = new TranslatableMessage('Cannot mark agenda without a date as ready', [], 'agenda');
+                }
+
+                if (empty($agenda->getStart())) {
+                    $messages[] = new TranslatableMessage('Cannot mark agenda without a start time as ready', [], 'agenda');
+                }
+
+                if (empty($agenda->getEnd())) {
+                    $messages[] = new TranslatableMessage('Cannot mark agenda without a end time as ready', [], 'agenda');
+                }
+
+                if (empty($agenda->getAgendaMeetingPoint())) {
+                    $messages[] = new TranslatableMessage('Cannot mark agenda without a meeting point as ready', [], 'agenda');
+                }
+
+                // Check if any messages has been added
+                if ($messages) {
+                    foreach ($messages as $message) {
+                        $this->addFlash('warning', $message);
+                    }
+
+                    return $this->redirectToRoute('agenda_show', [
+                        'id' => $agenda->getId(),
+                        'agenda' => $agenda,
+                    ]);
+                }
+            }
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Agenda updated', [], 'agenda'));
 

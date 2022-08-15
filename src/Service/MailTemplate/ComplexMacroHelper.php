@@ -3,6 +3,7 @@
 namespace App\Service\MailTemplate;
 
 use App\Entity\Agenda;
+use App\Entity\AgendaBroadcast;
 use App\Entity\Board;
 use App\Entity\CaseEntity;
 use App\Repository\BoardMemberRepository;
@@ -40,6 +41,7 @@ class ComplexMacroHelper
         $values += match (true) {
             $entity instanceof CaseEntity => $this->buildCaseMacros($entity),
             $entity instanceof Agenda => $this->buildAgendaMacros($entity),
+            $entity instanceof AgendaBroadcast => $this->buildAgendaMacros($entity->getAgenda()),
             default => []
         };
 

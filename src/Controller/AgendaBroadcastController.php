@@ -97,6 +97,9 @@ class AgendaBroadcastController extends AbstractController
                 }
             }
 
+            // Agenda needs to be set before rendering mail template.
+            $agendaBroadcast->setAgenda($agenda);
+
             // Create new file from template
             $fileName = $mailTemplateHelper->renderMailTemplate($agendaBroadcast->getTemplate(), $agendaBroadcast);
 
@@ -106,7 +109,6 @@ class AgendaBroadcastController extends AbstractController
             $entityManager->persist($document);
 
             $agendaBroadcast->setDocument($document);
-            $agendaBroadcast->setAgenda($agenda);
 
             $entityManager->persist($agendaBroadcast);
 

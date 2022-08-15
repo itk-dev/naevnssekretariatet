@@ -423,6 +423,7 @@ App\Entity\ResidentComplaintBoardCase:
     sortingCounterparty: Kirsten Jensen
     leaseRegulatedRent: 1
     assignedTo: '@user-caseworker'
+    isReadyForAgenda: 1
     receivedAt: <(new \DateTime('2022-05-20'))>
     validatedAt: <(new \DateTime('2022-05-22'))>
 

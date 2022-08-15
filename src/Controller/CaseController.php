@@ -799,4 +799,20 @@ class CaseController extends AbstractController
 
         return $identificationHelper->fetchIdentifierData($identifier, $type);
     }
+
+    /**
+     * @Route("/get/inspection-address", name="case_get_inspection_address", methods={"GET", "POST"})
+     */
+    public function getInspectionAddress(CaseEntityRepository $repository, AddressHelper $addressHelper, Request $request): Response
+    {
+        $identifier = $request->request->get('identifier');
+
+        $case = $repository->findOneBy(['id' => $identifier]);
+
+        if (!$case || !$case->getShouldBeInspected()) {
+            return new JsonResponse(['address' => '']);
+        }
+
+        return new JsonResponse(['address' => $addressHelper->getInspectionAddress($case)->__toString()]);
+    }
 }
