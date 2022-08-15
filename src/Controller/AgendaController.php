@@ -257,27 +257,30 @@ class AgendaController extends AbstractController
 
             // Ensure required properties are set if changing to status Ready (Klar).
             if (AgendaStatus::READY === $agenda->getStatus()) {
-                $startingFlashes = sizeof($request->getSession()->getFlashBag()->keys());
+                $messages = [];
 
                 if (empty($agenda->getDate())) {
-                    $this->addFlash('warning', new TranslatableMessage('Cannot mark agenda without a date as ready', [], 'agenda'));
+                    $messages[] = new TranslatableMessage('Cannot mark agenda without a date as ready', [], 'agenda');
                 }
 
                 if (empty($agenda->getStart())) {
-                    $this->addFlash('warning', new TranslatableMessage('Cannot mark agenda without a start time as ready', [], 'agenda'));
+                    $messages[] = new TranslatableMessage('Cannot mark agenda without a start time as ready', [], 'agenda');
                 }
 
                 if (empty($agenda->getEnd())) {
-                    $this->addFlash('warning', new TranslatableMessage('Cannot mark agenda without a end time as ready', [], 'agenda'));
+                    $messages[] = new TranslatableMessage('Cannot mark agenda without a end time as ready', [], 'agenda');
                 }
 
                 if (empty($agenda->getAgendaMeetingPoint())) {
-                    $this->addFlash('warning', new TranslatableMessage('Cannot mark agenda without a meeting point as ready', [], 'agenda'));
+                    $messages[] = new TranslatableMessage('Cannot mark agenda without a meeting point as ready', [], 'agenda');
                 }
 
-                // Check if any flashes has been added
-                $endingFlashes = sizeof($request->getSession()->getFlashBag()->keys());
-                if ($endingFlashes > $startingFlashes) {
+                // Check if any messages has been added
+                if ($messages) {
+                    foreach ($messages as $message) {
+                        $this->addFlash('warning', $message);
+                    }
+
                     return $this->redirectToRoute('agenda_show', [
                         'id' => $agenda->getId(),
                         'agenda' => $agenda,

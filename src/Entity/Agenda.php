@@ -87,7 +87,7 @@ class Agenda implements LoggableEntityInterface
     private $agendaBroadcasts;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      * @Groups({"mail_template"})
      */
     private $agendaMeetingPoint;
