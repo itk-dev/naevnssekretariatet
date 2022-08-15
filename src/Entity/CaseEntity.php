@@ -202,6 +202,18 @@ abstract class CaseEntity implements Timestampable
      */
     private $bringerIsUnderAddressProtection = false;
 
+    /**
+     * @ORM\Column(type="datetime")
+     * @Groups({"mail_template"})
+     */
+    private $receivedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"mail_template"})
+     */
+    private $validatedAt;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -693,6 +705,30 @@ abstract class CaseEntity implements Timestampable
     public function setBringerIsUnderAddressProtection(bool $bringerIsUnderAddressProtection): self
     {
         $this->bringerIsUnderAddressProtection = $bringerIsUnderAddressProtection;
+
+        return $this;
+    }
+
+    public function getReceivedAt(): \DateTimeInterface
+    {
+        return $this->receivedAt;
+    }
+
+    public function setReceivedAt(\DateTimeInterface $receivedAt): self
+    {
+        $this->receivedAt = $receivedAt;
+
+        return $this;
+    }
+
+    public function getValidatedAt(): ?\DateTimeInterface
+    {
+        return $this->validatedAt;
+    }
+
+    public function setValidatedAt(?\DateTimeInterface $validatedAt): self
+    {
+        $this->validatedAt = $validatedAt;
 
         return $this;
     }

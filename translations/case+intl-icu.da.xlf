@@ -1489,6 +1489,22 @@
         <source>Open hearing post form</source>
         <target state="translated">Åbn høringssvarformular</target>
       </trans-unit>
+      <trans-unit id="Hdsadcx" resname="Received at">
+        <source>Received at</source>
+        <target state="translated">Indbringelsesdato</target>
+      </trans-unit>
+      <trans-unit id="b1O3IMX" resname="Validated at">
+        <source>Validated at</source>
+        <target state="translated">Valideringsdato</target>
+      </trans-unit>
+      <trans-unit id="dFjGWGl" resname="Date received">
+        <source>Date received</source>
+        <target state="translated">Indbringelsesdato</target>
+      </trans-unit>
+      <trans-unit id="x7zbYbj" resname="Date validated">
+        <source>Date validated</source>
+        <target state="translated">Valideringsdato</target>
+      </trans-unit>
       <trans-unit id="H9bMfm2" resname="Removed assigned case worker {name} from case {case_number}">
         <source>Removed assigned case worker {name} from case {case_number}</source>
         <target state="translated">Fjernede sagsbehandler {name} fra sag {case_number}</target>

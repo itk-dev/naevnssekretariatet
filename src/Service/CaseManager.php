@@ -173,6 +173,9 @@ class CaseManager implements LoggerAwareInterface
             }
         }
 
+        // Cases created via OS2Forms get a default received at (today).
+        $case->setReceivedAt(new DateTime('today'));
+
         $this->entityManager->flush();
     }
 }
