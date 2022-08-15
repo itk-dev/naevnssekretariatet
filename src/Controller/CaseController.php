@@ -588,6 +588,8 @@ class CaseController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
+        $currentCaseWorker = $case->getAssignedTo();
+
         $availableCaseworkers = $userRepository->findByRole('ROLE_CASEWORKER', ['name' => 'ASC']);
 
         $assignForm = $this->createForm(CaseAssignCaseworkerType::class, $case, ['available_caseworkers' => $availableCaseworkers]);
@@ -596,10 +598,28 @@ class CaseController extends AbstractController
 
         if ($assignForm->isSubmitted() && $assignForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', new TranslatableMessage('Case worker {name} assigned to case {case_number}', [
-                'name' => $case->getAssignedTo()->getName(),
-                'case_number' => $case->getCaseNumber(),
-            ], 'case'));
+
+            // Add flash based on which action is happening
+            if ($case->getAssignedTo() && $currentCaseWorker instanceof User) {
+                // Case is reassigned
+                $this->addFlash('success', new TranslatableMessage('Reassigned case {case_number} from {old_case_worker_name} to {new_case_worker_name}', [
+                    'old_case_worker_name' => $currentCaseWorker->getName(),
+                    'new_case_worker_name' => $case->getAssignedTo()->getName(),
+                    'case_number' => $case->getCaseNumber(),
+                ], 'case'));
+            } elseif ($case->getAssignedTo() && is_null($currentCaseWorker)) {
+                // Case is assigned
+                $this->addFlash('success', new TranslatableMessage('Case worker {name} assigned to case {case_number}', [
+                    'name' => $case->getAssignedTo()->getName(),
+                    'case_number' => $case->getCaseNumber(),
+                ], 'case'));
+            } else {
+                // Assignee is removed from case
+                $this->addFlash('success', new TranslatableMessage('Removed assigned case worker {name} from case {case_number}', [
+                    'name' => $currentCaseWorker->getName(),
+                    'case_number' => $case->getCaseNumber(),
+                ], 'case'));
+            }
 
             $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_index');
 

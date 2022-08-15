@@ -1072,3 +1072,4 @@ App\Entity\FenceReviewCase:
     bringerCadastralNumber: 'Mat 11'
     receivedAt: <(new \DateTime('2022-05-20'))>
     validatedAt: <(new \DateTime('2022-05-22'))>
+    assignedTo: '@user-caseworker'
