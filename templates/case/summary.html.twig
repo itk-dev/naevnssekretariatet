@@ -2,9 +2,9 @@
 
 {% trans_default_domain 'case' %}
 
-{% set createdate = case.receivedAt|date(format_date) %}
-{% set validatedate = case.validatedAt|date_nullable(format_date) %}
-{% set updatedate = case.updatedAt|date(format_date) %}
+{% set received_date = case.receivedAt|date(format_date) %}
+{% set validate_date = case.validatedAt|date_nullable(format_date) %}
+{% set update_date = case.updatedAt|date(format_date) %}
 {% set assigned_caseworker = case.assignedTo.name ?? 'Unassigned'|trans({}, 'case') %}
 
 {% set caseinfo = [
@@ -14,15 +14,15 @@
     },
     {
         "label": "Date received",
-        "value": createdate
+        "value": received_date
     },
     {
         "label": "Date validated",
-        "value": validatedate
+        "value": validate_date
     },
     {
         "label": "Last changed",
-        "value": updatedate
+        "value": update_date
     },
     {
         "label": "Assigned to",
