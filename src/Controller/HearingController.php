@@ -139,7 +139,9 @@ class HearingController extends AbstractController
             // Create new file from template
             $fileName = $mailTemplateHelper->renderMailTemplate($case->getBoard()->getHearingPostResponseTemplate(), $hearingPost);
 
-            $documentName = new TranslatableMessage('Hearing post response', [], 'case');
+            $today = new \DateTime('today');
+
+            $documentName = $this->translator->trans('Hearing post response by {sender} on {date}', ['sender' => $hearingPost->getSender()->getName(), 'date' => $today->format('d/m/Y')], 'case');
             // Create document
             $document = $documentUploader->createDocumentFromPath($fileName, $documentName, 'Hearing');
 
@@ -284,7 +286,8 @@ class HearingController extends AbstractController
             // Update Document
             /** @var User $user */
             $user = $this->getUser();
-            $documentName = new TranslatableMessage('Hearing post response', [], 'case');
+            $today = new \DateTime('today');
+            $documentName = $this->translator->trans('Hearing post response by {sender} on {date}', ['sender' => $hearingPost->getSender()->getName(), 'date' => $today->format('d/m/Y')], 'case');
             $hearingPost->getDocument()->setDocumentName($documentName);
             $hearingPost->getDocument()->setUploadedBy($user);
             $hearingPost->getDocument()->setUploadedAt(new DateTime('now'));
@@ -306,7 +309,7 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/request/edit", name="case_hearing_post_request_edit")
      */
-    public function hearingPostRequestEdit(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
+    public function hearingPostRequestEdit(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, HearingPostRequest $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 

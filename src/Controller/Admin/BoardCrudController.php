@@ -135,7 +135,7 @@ class BoardCrudController extends AbstractCrudController
                 'choice_filter' => static fn (?MailTemplate $mailTemplate) => 'hearing_post_response_template' === $mailTemplate?->getType(),
             ])
             ->setRequired(true)
-            ->setHelp($this->translator->trans('Select template for hearing post response', [], 'admin'))
+            ->setHelp($this->translator->trans('Select a template for hearing post response', [], 'admin'))
         ;
     }
 

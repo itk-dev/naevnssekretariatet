@@ -357,6 +357,14 @@
         <source>List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.</source>
         <target state="translated">Liste af brugerdefinerede flettefelter (en pr. linje). Format «navn»|«label». Eksempel: fulde_navn|Fulde navn.</target>
       </trans-unit>
+      <trans-unit id="CrVu0l7" resname="Select a template for hearing post response">
+        <source>Select a template for hearing post response</source>
+        <target state="translated">Vælg en skabelon til oprettelse af partshøringssvar</target>
+      </trans-unit>
+      <trans-unit id="5IJuiio" resname="Hearing post response template">
+        <source>Hearing post response template</source>
+        <target state="translated">Partshøringssvar skabelon</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

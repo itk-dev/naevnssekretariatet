@@ -349,6 +349,14 @@
         <source>List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.</source>
         <target>List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.</target>
       </trans-unit>
+      <trans-unit id="CrVu0l7" resname="Select a template for hearing post response">
+        <source>Select a template for hearing post response</source>
+        <target>Select a template for hearing post response</target>
+      </trans-unit>
+      <trans-unit id="5IJuiio" resname="Hearing post response template">
+        <source>Hearing post response template</source>
+        <target>Hearing post response template</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

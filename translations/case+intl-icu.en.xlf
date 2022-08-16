@@ -1493,6 +1493,18 @@
         <source>Open hearing post form</source>
         <target>Open hearing post form</target>
       </trans-unit>
+      <trans-unit id="xYniSaw" resname="Hearing post response by {sender} on {date}">
+        <source>Hearing post response by {sender} on {date}</source>
+        <target>Hearing post response by {sender} on {date}</target>
+      </trans-unit>
+      <trans-unit id="kGE4O44" resname="Response">
+        <source>Response</source>
+        <target>Response</target>
+      </trans-unit>
+      <trans-unit id="YWYJT1R" resname="Hearing post response">
+        <source>Hearing post response</source>
+        <target>Hearing post response</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

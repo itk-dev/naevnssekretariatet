@@ -66,10 +66,11 @@ class HearingResponseManager
 
         $fileName = $this->mailTemplateHelper->renderMailTemplate($exampleTemplate, $hearingResponse);
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'OS2Forms']);
-        $documentTitle = $this->translator->trans('Hearing post response', [], 'hearing');
+        $today = new \DateTime('today');
+        $documentName = $this->translator->trans('Hearing post response by {sender} on {date}', ['sender' => $party->getName(), 'date' => $today->format('d/m/Y')], 'case');
         // The document type is translated in templates/translations/mail_template.html.twig
         $documentType = 'Hearing post response';
-        $document = $this->documentUploader->createDocumentFromPath($fileName, $documentTitle, $documentType, $user);
+        $document = $this->documentUploader->createDocumentFromPath($fileName, $documentName, $documentType, $user);
 
         $this->entityManager->persist($document);
 

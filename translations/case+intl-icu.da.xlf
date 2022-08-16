@@ -1483,11 +1483,23 @@
       </trans-unit>
       <trans-unit id="VBlJ5OL" resname="Hearing post response receipt">
         <source>Hearing post response receipt</source>
-        <target state="needs-l10n">Kvittering for nyt høringssvar</target>
+        <target state="translated">Kvittering for nyt høringssvar</target>
       </trans-unit>
       <trans-unit id="f0vzKrx" resname="Open hearing post form">
         <source>Open hearing post form</source>
         <target state="translated">Åbn høringssvarformular</target>
+      </trans-unit>
+      <trans-unit id="YWYJT1R" resname="Hearing post response">
+        <source>Hearing post response</source>
+        <target state="translated">Partshøringssvar</target>
+      </trans-unit>
+      <trans-unit id="kGE4O44" resname="Response">
+        <source>Response</source>
+        <target state="translated">Svar</target>
+      </trans-unit>
+      <trans-unit id="xYniSaw" resname="Hearing post response by {sender} on {date}">
+        <source>Hearing post response by {sender} on {date}</source>
+        <target state="translated">Partshøringssvar af {sender} den {date}</target>
       </trans-unit>
     </body>
   </file>
