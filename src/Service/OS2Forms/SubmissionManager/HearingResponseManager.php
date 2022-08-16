@@ -62,9 +62,9 @@ class HearingResponseManager
         $hearingResponse->setSender($party);
 
         // Handle document
-        $exampleTemplate = $case->getBoard()->getReceiptHearingPost();
+        $template = $case->getBoard()->getHearingPostResponseTemplate();
 
-        $fileName = $this->mailTemplateHelper->renderMailTemplate($exampleTemplate, $hearingResponse);
+        $fileName = $this->mailTemplateHelper->renderMailTemplate($template, $hearingResponse);
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'OS2Forms']);
         $today = new \DateTime('today');
         $documentName = $this->translator->trans('Hearing post response by {sender} on {date}', ['sender' => $party->getName(), 'date' => $today->format('d/m/Y')], 'case');

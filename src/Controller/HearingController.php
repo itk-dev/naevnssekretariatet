@@ -140,10 +140,10 @@ class HearingController extends AbstractController
             $fileName = $mailTemplateHelper->renderMailTemplate($case->getBoard()->getHearingPostResponseTemplate(), $hearingPost);
 
             $today = new \DateTime('today');
-
             $documentName = $this->translator->trans('Hearing post response by {sender} on {date}', ['sender' => $hearingPost->getSender()->getName(), 'date' => $today->format('d/m/Y')], 'case');
+            $documentType = 'Hearing post response';
             // Create document
-            $document = $documentUploader->createDocumentFromPath($fileName, $documentName, 'Hearing');
+            $document = $documentUploader->createDocumentFromPath($fileName, $documentName, $documentType);
 
             $hearingPost->setDocument($document);
 
