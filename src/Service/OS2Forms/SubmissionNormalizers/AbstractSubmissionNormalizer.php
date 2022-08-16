@@ -7,7 +7,7 @@ use App\Service\DocumentUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-abstract class AbstractCaseSubmissionNormalizer implements SubmissionNormalizerInterface
+abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInterface
 {
     public function __construct(private DocumentUploader $documentUploader, private string $selvbetjeningUserApiToken, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient)
     {

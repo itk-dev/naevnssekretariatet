@@ -2,7 +2,7 @@
 
 namespace App\Service\OS2Forms\SubmissionNormalizers;
 
-class FenceBoardSubmissionNormalizer extends AbstractCaseSubmissionNormalizer
+class FenceBoardSubmissionNormalizer extends AbstractSubmissionNormalizer
 {
     protected function getConfig(): array
     {

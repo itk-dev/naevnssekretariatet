@@ -4,7 +4,7 @@ namespace App\Tests\Service\OS2Forms;
 
 use App\Exception\WebformSubmissionException;
 use App\Service\DocumentUploader;
-use App\Service\OS2Forms\SubmissionNormalizers\AbstractCaseSubmissionNormalizer;
+use App\Service\OS2Forms\SubmissionNormalizers\AbstractSubmissionNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
 use function PHPUnit\Framework\assertEquals;
 use PHPUnit\Framework\TestCase;
@@ -27,7 +27,7 @@ class AbstractNormalizerTest extends TestCase
         $this->mockEntityManager = $this->createMock(EntityManagerInterface::class);
         $this->mockHttpClientInterface = $this->createMock(HttpClientInterface::class);
 
-        $this->normalizer = $this->getMockBuilder(AbstractCaseSubmissionNormalizer::class)
+        $this->normalizer = $this->getMockBuilder(AbstractSubmissionNormalizer::class)
             ->setConstructorArgs([$this->mockDocumentUploader, $this->mockSelvbetjeningUserApiToken, $this->mockEntityManager, $this->mockHttpClientInterface])
             ->onlyMethods(['getConfig'])
             ->getMock()

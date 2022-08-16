@@ -94,9 +94,11 @@ services:
                     hearing_post_form:
                         label: Hearing_post_form
                         entity_class_names:
-                            - App\Entity\ResidentComplaintBoardCase
-                            - App\Entity\FenceReviewCase
-                            - App\Entity\RentBoardCase
+                            - App\Entity\HearingPost
+                    hearing_post_response_template:
+                        label: Hearing post response template
+                        entity_class_names:
+                            - App\Entity\HearingPostResponse
 
                 upload_destination: '%kernel.project_dir%/upload/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination
@@ -234,5 +236,9 @@ services:
             $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
 
     App\Service\OS2Forms\SubmissionNormalizers\ResidentAndRentBoardSubmissionNormalizer:
+        arguments:
+            $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
+
+    App\Service\OS2Forms\SubmissionNormalizers\HearingResponseSubmissionNormalizer:
         arguments:
             $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'

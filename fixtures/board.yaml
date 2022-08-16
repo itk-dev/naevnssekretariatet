@@ -23,6 +23,7 @@ App\Entity\Board:
       Udlejer administrator
     receiptCase: '@mail-template-board-receipt-case-001'
     receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
+    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
 
   resident-complaint-board-randers:
     name: Beboerklagenævnet
@@ -46,6 +47,7 @@ App\Entity\Board:
     counterpartyTypes: |-
       Udlejer
       Udlejer administrator
+    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
 
   rent-board-aarhus:
     name: Huslejenævnet
@@ -69,6 +71,7 @@ App\Entity\Board:
     counterpartyTypes: |-
       Udlejer
       Udlejer administrator
+    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
 
   rent-board-randers:
     name: Huslejenævnet
@@ -92,6 +95,7 @@ App\Entity\Board:
     counterpartyTypes: |-
       Udlejer
       Udlejer administrator
+    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
 
   fence-board-aarhus:
     name: Hegnsnævnet
@@ -115,6 +119,7 @@ App\Entity\Board:
     counterpartyTypes: |-
       Nabo
       Nabo repræsentant
+    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
 
   fence-board-randers:
     name: Hegnsnævnet
@@ -138,3 +143,4 @@ App\Entity\Board:
     counterpartyTypes: |-
       Nabo
       Nabo repræsentant
+    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'

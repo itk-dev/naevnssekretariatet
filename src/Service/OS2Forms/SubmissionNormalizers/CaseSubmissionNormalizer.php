@@ -7,7 +7,7 @@ use App\Entity\ComplaintCategory;
 use App\Exception\WebformSubmissionException;
 use Doctrine\ORM\EntityManagerInterface;
 
-class CaseSubmissionNormalizer extends AbstractCaseSubmissionNormalizer
+class CaseSubmissionNormalizer extends AbstractSubmissionNormalizer
 {
     protected function getConfig(): array
     {

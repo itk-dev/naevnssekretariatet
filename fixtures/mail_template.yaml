@@ -39,8 +39,8 @@ App\Entity\MailTemplate:
       Brug det som skabelon for videresendelse af høringssvar.
     templateFilename: <uploadFile(mail_template/mail_template_002.docx, templateFile, App\Entity\MailTemplate)>
     customFields: |-
-      some_merge_field1
-      some_merge_field2
+      some_merge_field1|Some merge field1
+      some_merge_field2|Some merge field2
 
   mail-template-agenda-inspection-001:
     type: agenda_inspection
@@ -71,8 +71,15 @@ App\Entity\MailTemplate:
     templateFilename: <uploadFile(mail_template/mail_template_board_receipt_hearing_post.docx, templateFile, App\Entity\MailTemplate)>
 
   mail-template-hearing-post-form-001:
-    type: hearing_post_form
+    type: hearing
     name: Hearing post form
     description: |-
       Used to tell a citizen where to add a hearing post to a specific case
     templateFilename: <uploadFile(mail_template/hearing_post_form.docx, templateFile, App\Entity\MailTemplate)>
+
+  mail-template-hearing-post-response-001:
+    type: hearing_post_response_template
+    name: Hearing post response (hearing post)
+    description: |-
+      Bruges til oprettelse af partshøringssvar
+    templateFilename: <uploadFile(mail_template/mail_template_hearing_post_response.docx, templateFile, App\Entity\MailTemplate)>

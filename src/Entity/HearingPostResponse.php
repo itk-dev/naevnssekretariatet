@@ -23,6 +23,12 @@ class HearingPostResponse extends HearingPost
      */
     private $approvedOn;
 
+    /**
+     * @ORM\Column(type="text", nullable=false)
+     * @Groups({"mail_template"})
+     */
+    private $response;
+
     public function getSender(): ?Party
     {
         return $this->sender;
@@ -55,5 +61,17 @@ class HearingPostResponse extends HearingPost
             'document',
             'attachments',
         ];
+    }
+
+    public function getResponse(): ?string
+    {
+        return $this->response;
+    }
+
+    public function setResponse(?string $response): self
+    {
+        $this->response = $response;
+
+        return $this;
     }
 }
