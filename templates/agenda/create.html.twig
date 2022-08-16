@@ -36,6 +36,10 @@
                 {{ form_widget(agenda_create_form.end, {'attr': {'type': 'text', 'class': 'form-control'}}) }}
             </div>
         </div>
+        <div class="mb-3">
+            <label >{% trans %}Meeting point{% endtrans %}</label>
+            {{ form_widget(agenda_create_form.agendaMeetingPoint, {'attr': {'type': 'text', 'class': 'form-control'}}) }}
+        </div>
         <button class="btn btn-success float-right">{{ button_label|default('Create Agenda'|trans([], 'agenda', 'da')) }}</button>
         {{ form_end(agenda_create_form) }}
     </main>

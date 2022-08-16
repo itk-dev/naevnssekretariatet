@@ -3,6 +3,7 @@
 namespace App\Service\MailTemplate;
 
 use App\Entity\Agenda;
+use App\Entity\AgendaBroadcast;
 use App\Entity\Board;
 use App\Entity\CaseEntity;
 use App\Entity\HearingPost;
@@ -42,6 +43,7 @@ class ComplexMacroHelper
             $entity instanceof CaseEntity => $this->buildCaseMacros($entity),
             $entity instanceof Agenda => $this->buildAgendaMacros($entity),
             $entity instanceof HearingPost => $this->buildCaseMacros($entity->getHearing()->getCaseEntity()),
+            $entity instanceof AgendaBroadcast => $this->buildAgendaMacros($entity->getAgenda()),
             default => []
         };
 

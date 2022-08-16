@@ -86,6 +86,12 @@ class Agenda implements LoggableEntityInterface
      */
     private $agendaBroadcasts;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"mail_template"})
+     */
+    private $agendaMeetingPoint;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -300,6 +306,18 @@ class Agenda implements LoggableEntityInterface
                 $agendaBroadcast->setAgenda(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAgendaMeetingPoint(): ?string
+    {
+        return $this->agendaMeetingPoint;
+    }
+
+    public function setAgendaMeetingPoint(?string $agendaMeetingPoint): self
+    {
+        $this->agendaMeetingPoint = $agendaMeetingPoint;
 
         return $this;
     }

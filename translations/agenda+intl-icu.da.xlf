@@ -613,6 +613,22 @@
         <source>Document removed</source>
         <target state="translated">Dokument fjernet</target>
       </trans-unit>
+      <trans-unit id="myGFK6x" resname="Cannot mark agenda without a date as ready">
+        <source>Cannot mark agenda without a date as ready</source>
+        <target state="translated">Kan ikke markere dagsorden uden dato som klar</target>
+      </trans-unit>
+      <trans-unit id="ksMjwfz" resname="Cannot mark agenda without a start time as ready">
+        <source>Cannot mark agenda without a start time as ready</source>
+        <target state="translated">Kan ikke markere dagsorden uden starttidspunkt som klar</target>
+      </trans-unit>
+      <trans-unit id="klYk2Y7" resname="Cannot mark agenda without a end time as ready">
+        <source>Cannot mark agenda without a end time as ready</source>
+        <target state="translated">Kan ikke markere dagsorden uden sluttidspunkt som klar</target>
+      </trans-unit>
+      <trans-unit id="PVATjhg" resname="Cannot mark agenda without a meeting point as ready">
+        <source>Cannot mark agenda without a meeting point as ready</source>
+        <target state="translated">Kan ikke markere dagsorden uden mødested som klar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

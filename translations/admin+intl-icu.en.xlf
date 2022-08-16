@@ -357,6 +357,14 @@
         <source>Hearing post response template</source>
         <target>Hearing post response template</target>
       </trans-unit>
+      <trans-unit id="q2LDKij" resname="Receipt on case">
+        <source>Receipt on case</source>
+        <target>Receipt on case</target>
+      </trans-unit>
+      <trans-unit id="V4Dn31Z" resname="Receipt on hearing post">
+        <source>Receipt on hearing post</source>
+        <target>Receipt on hearing post</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

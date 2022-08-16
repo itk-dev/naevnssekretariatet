@@ -48,6 +48,8 @@ App\Entity\Board:
       Udlejer
       Udlejer administrator
     hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+    receiptCase: '@mail-template-board-receipt-case-001'
+    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
 
   rent-board-aarhus:
     name: Huslejenævnet
@@ -72,6 +74,8 @@ App\Entity\Board:
       Udlejer
       Udlejer administrator
     hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+    receiptCase: '@mail-template-board-receipt-case-001'
+    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
 
   rent-board-randers:
     name: Huslejenævnet
@@ -96,6 +100,8 @@ App\Entity\Board:
       Udlejer
       Udlejer administrator
     hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+    receiptCase: '@mail-template-board-receipt-case-001'
+    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
 
   fence-board-aarhus:
     name: Hegnsnævnet
@@ -120,6 +126,8 @@ App\Entity\Board:
       Nabo
       Nabo repræsentant
     hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+    receiptCase: '@mail-template-board-receipt-case-001'
+    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
 
   fence-board-randers:
     name: Hegnsnævnet
@@ -144,3 +152,5 @@ App\Entity\Board:
       Nabo
       Nabo repræsentant
     hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+    receiptCase: '@mail-template-board-receipt-case-001'
+    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'

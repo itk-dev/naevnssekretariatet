@@ -365,6 +365,14 @@
         <source>Hearing post response template</source>
         <target state="translated">Partshøringssvar skabelon</target>
       </trans-unit>
+      <trans-unit id="q2LDKij" resname="Receipt on case">
+        <source>Receipt on case</source>
+        <target state="translated">Kvittering på sag</target>
+      </trans-unit>
+      <trans-unit id="V4Dn31Z" resname="Receipt on hearing post">
+        <source>Receipt on hearing post</source>
+        <target state="translated">Kvittering på høringssvar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
