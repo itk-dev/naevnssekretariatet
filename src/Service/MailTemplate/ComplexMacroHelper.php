@@ -43,7 +43,7 @@ class ComplexMacroHelper
             $entity instanceof CaseEntity => $this->buildCaseMacros($entity),
             $entity instanceof Agenda => $this->buildAgendaMacros($entity),
             $entity instanceof HearingPost => $this->buildHearingPostMacros($entity),
-            $entity instanceof AgendaBroadcast => $this->buildAgendaBroadCastMacros($entity),
+            $entity instanceof AgendaBroadcast => $this->buildAgendaBroadcastMacros($entity),
             default => []
         };
 
@@ -234,7 +234,7 @@ class ComplexMacroHelper
         return $this->buildCaseMacros($hearingPost->getHearing()->getCaseEntity());
     }
 
-    private function buildAgendaBroadCastMacros(AgendaBroadcast $agendaBroadcast): array
+    private function buildAgendaBroadcastMacros(AgendaBroadcast $agendaBroadcast): array
     {
         return $this->buildAgendaMacros($agendaBroadcast->getAgenda());
     }
