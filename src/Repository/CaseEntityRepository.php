@@ -144,8 +144,18 @@ class CaseEntityRepository extends ServiceEntityRepository
 
     public function findCountOfCasesWithNewHearingPostBy(array $criteria, bool $getActive = true): int
     {
-        // TODO: Update beneath when hearing stuff has been implemented
-        return -1;
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->select('count(c.id)')
+            ->join('c.hearing', 'h')
+            ->where('h.hasNewHearingPost = 1')
+        ;
+
+        $this->applyCriteriaToQueryBuilder($qb, $criteria);
+
+        $qb->andWhere($this->getExprWithBoardFinishStatuses($qb, $getActive));
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
     public function createQueryBuilderForBoardMember(BoardMember $boardMember): QueryBuilder

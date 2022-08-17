@@ -225,7 +225,7 @@ class HearingController extends AbstractController
             $relation->setCase($case);
             $relation->setDocument($document);
 
-            $hearing->setHasNewHearingPost(true);
+            $hearing->setHasNewHearingPost(false);
             $this->entityManager->persist($relation);
             $this->entityManager->persist($document);
             $this->entityManager->persist($hearingPost);

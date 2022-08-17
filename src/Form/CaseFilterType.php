@@ -179,7 +179,7 @@ class CaseFilterType extends AbstractType
                 ->add('specialStateFilter', Filters\ChoiceFilterType::class, [
                     'choices' => [
                         $this->translator->trans('In hearing', [], 'case') => CaseSpecialFilterStatuses::IN_HEARING,
-//                        $this->translator->trans('New hearing post', [], 'case') => CaseSpecialFilterStatuses::NEW_HEARING_POST,
+                        $this->translator->trans('New hearing post', [], 'case') => CaseSpecialFilterStatuses::NEW_HEARING_POST,
                         $this->translator->trans('On agenda', [], 'case') => CaseSpecialFilterStatuses::ON_AGENDA,
                     ],
                     'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
@@ -198,9 +198,12 @@ class CaseFilterType extends AbstractType
                                     ->andWhere('h.finishedOn IS NULL')
                                 ;
                                 break;
-//                            case CaseSpecialFilterStatuses::NEW_HEARING_POST:
-                                // TODO: When hearing implemented: modify query builder correctly with cases containing new hearing post
-//                                break;
+                            case CaseSpecialFilterStatuses::NEW_HEARING_POST:
+                                $qb = $filterQuery->getQueryBuilder();
+                                $qb->join('c.hearing', 'h')
+                                    ->where('h.hasNewHearingPost = 1')
+                                ;
+                                break;
                             case CaseSpecialFilterStatuses::ON_AGENDA:
                                 $qb = $filterQuery->getQueryBuilder();
                                 $qb->leftJoin('c.agendaCaseItems', 'aci')
