@@ -7,7 +7,7 @@ use App\Entity\ComplaintCategory;
 use App\Exception\WebformSubmissionException;
 use Doctrine\ORM\EntityManagerInterface;
 
-class CaseSubmissionNormalizer extends AbstractCaseSubmissionNormalizer
+class CaseSubmissionNormalizer extends AbstractSubmissionNormalizer
 {
     protected function getConfig(): array
     {
@@ -28,20 +28,36 @@ class CaseSubmissionNormalizer extends AbstractCaseSubmissionNormalizer
                 'error_message' => 'Submission data does not contain a board.',
             ],
             'bringer' => [
-                'os2forms_key' => 'indbringer_navn',
+                'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {
+                    if (isset($submissionData['indbringer_navn_cpr']) && !empty($submissionData['indbringer_navn_cpr'])) {
+                        return $submissionData['indbringer_navn_cpr'];
+                    }
+
+                    if (isset($submissionData['indbringer_navn_cvr']) && !empty($submissionData['indbringer_navn_cvr'])) {
+                        return $submissionData['indbringer_navn_cvr'];
+                    }
+
+                    return null;
+                },
                 'required' => true,
                 'type' => 'string',
                 'error_message' => 'Submission data does not contain a bringer name.',
             ],
             'bringer_id_type' => [
-                'os2forms_key' => 'indbringer_id_type',
+                'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {
+                    if (isset($submissionData['indbringer_id_cpr_nummer']) && !empty($submissionData['indbringer_id_cpr_nummer'])) {
+                        return 'CPR';
+                    }
+
+                    if (isset($submissionData['indbringer_id_cvr_nummer']) && !empty($submissionData['indbringer_id_cvr_nummer'])) {
+                        return 'CVR';
+                    }
+
+                    return null;
+                },
                 'required' => true,
                 'type' => 'string',
-                'allowed_values' => [
-                    'CPR',
-                    'CVR',
-                ],
-                'error_message' => 'Submission data does not contain a bringer ID type.',
+                'error_message' => 'Submission data must contain an id identifier to be used for detecting id type',
             ],
             'bringer_id_identifier' => [
                 'value_callback' => function (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) {

@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\Entity\AgendaBroadcast;
-use App\Entity\HearingPostRequest;
+use App\Entity\HearingPost;
 use App\Entity\InspectionLetter;
 use App\Entity\MailTemplate;
 use App\Entity\User;
@@ -144,6 +144,7 @@ class MailTemplateHelper
         $templateProcessor = new TemplateProcessor($templateFileName);
 
         $values = $this->getValues($entity, $templateProcessor, $mailTemplate);
+
         $listValues = $this->getComplexMacros($entity, $values);
         foreach ($listValues as $name => $macro) {
             $values[$name] = sprintf('(%s)', $macro->getDescription());
@@ -199,6 +200,7 @@ class MailTemplateHelper
         $templateProcessor = new LinkedTemplateProcessor($templateFileName);
 
         $values = $this->getValues($entity, $templateProcessor, $mailTemplate);
+
         if (null !== $entity) {
             $this->validateEntityType($mailTemplate, $entity);
             $macroValues = $this->getComplexMacros($entity, $values);
@@ -312,7 +314,7 @@ class MailTemplateHelper
 
             // Make hearing and case data and other date easily available.
             $case = null;
-            if ($entity instanceof HearingPostRequest) {
+            if ($entity instanceof HearingPost) {
                 $hearing = $entity->getHearing();
                 $case = $hearing->getCaseEntity();
                 $data += json_decode($this->serializer->serialize($hearing, 'json', ['groups' => ['mail_template']]), true);
@@ -446,6 +448,22 @@ class MailTemplateHelper
 
     private function setTemplateValue(string $search, $replace, TemplateProcessor $templateProcessor)
     {
+        // Catch new lines in strings
+        if (is_string($replace)) {
+            $lines = explode(PHP_EOL, trim($replace));
+            if (count($lines) > 1) {
+                $replace = new TextRun();
+                foreach ($lines as $index => $line) {
+                    if ($index > 0) {
+                        $replace->addTextBreak();
+                    }
+                    $replace->addText($line);
+                }
+            } else {
+                $replace = $lines[0];
+            }
+        }
+
         if ($replace instanceof AbstractElement) {
             // TemplateProcessor::setComplexValue() only replaces one (the
             // first) occurrence.

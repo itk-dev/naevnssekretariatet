@@ -6,6 +6,7 @@ use App\Entity\HearingPostResponse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -48,11 +49,9 @@ class HearingPostResponseType extends AbstractType
                 'label' => $this->translator->trans('Sender', [], 'case'),
                 'choices' => $caseParties,
             ])
-            ->add('document', ChoiceType::class, [
-                'placeholder' => $this->translator->trans('Choose a document', [], 'case'),
-                'label' => $this->translator->trans('Document', [], 'case'),
-                'required' => true,
-                'choices' => $documentChoices,
+            ->add('response', TextareaType::class, [
+                'label' => $this->translator->trans('Response', [], 'case'),
+                'attr' => ['rows' => 8],
             ])
             ->add('attachments', CollectionType::class, [
                 'label' => $this->translator->trans('Attach case documents', [], 'case'),

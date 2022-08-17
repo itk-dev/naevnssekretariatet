@@ -127,6 +127,16 @@ class BoardCrudController extends AbstractCrudController
             ->setRequired(true)
             ->setHelp($this->translator->trans('Select template to use for sending a receipt to the bringer.', [], 'admin'))
         ;
+
+        yield AssociationField::new('hearingPostResponseTemplate', 'Hearing post response template')
+            ->hideOnIndex()
+            ->setFormTypeOptions([
+                'placeholder' => $this->translator->trans('Select a template for hearing post response', [], 'admin'),
+                'choice_filter' => static fn (?MailTemplate $mailTemplate) => 'hearing_post_response_template' === $mailTemplate?->getType(),
+            ])
+            ->setRequired(true)
+            ->setHelp($this->translator->trans('Select a template for hearing post response', [], 'admin'))
+        ;
     }
 
     public function delete(AdminContext $context)

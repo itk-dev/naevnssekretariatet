@@ -1489,6 +1489,18 @@
         <source>Open hearing post form</source>
         <target state="translated">Åbn høringssvarformular</target>
       </trans-unit>
+      <trans-unit id="YWYJT1R" resname="Hearing post response">
+        <source>Hearing post response</source>
+        <target state="translated">Partshøringssvar</target>
+      </trans-unit>
+      <trans-unit id="kGE4O44" resname="Response">
+        <source>Response</source>
+        <target state="translated">Svar</target>
+      </trans-unit>
+      <trans-unit id="xYniSaw" resname="Hearing post response by {sender} on {date}">
+        <source>Hearing post response by {sender} on {date}</source>
+        <target state="translated">Partshøringssvar af {sender} den {date}</target>
+      </trans-unit>
       <trans-unit id="Hdsadcx" resname="Received at">
         <source>Received at</source>
         <target state="translated">Indbringelsesdato</target>

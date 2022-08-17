@@ -81,6 +81,10 @@
         <source>Hyperlinks do not work in document headers and footers.</source>
         <target state="translated">Hyperlinks virker ikke i dokumenthoveder og -fødder.</target>
       </trans-unit>
+      <trans-unit id="YWYJT1R" resname="Hearing post response">
+        <source>Hearing post response</source>
+        <target state="translated">Partshøringssvar</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

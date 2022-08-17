@@ -2,7 +2,7 @@
 
 namespace App\Service\OS2Forms\SubmissionNormalizers;
 
-class ResidentAndRentBoardSubmissionNormalizer extends AbstractCaseSubmissionNormalizer
+class ResidentAndRentBoardSubmissionNormalizer extends AbstractSubmissionNormalizer
 {
     protected function getConfig(): array
     {

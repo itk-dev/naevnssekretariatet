@@ -3,10 +3,11 @@
 namespace App\Service\OS2Forms\SubmissionManager;
 
 use App\Service\CaseManager;
+use App\Service\HearingHelper;
 
 class OS2FormsManager
 {
-    public function __construct(private CaseManager $caseManager, private ResidentComplaintBoardCaseTypeManager $residentComplaintBoardCaseTypeManager)
+    public function __construct(private CaseManager $caseManager, private HearingHelper $hearingHelper, private ResidentComplaintBoardCaseTypeManager $residentComplaintBoardCaseTypeManager, private HearingResponseManager $hearingResponseManager)
     {
     }
 
@@ -18,6 +19,7 @@ class OS2FormsManager
         // TODO: Needs updating when form ids are finalized and hearing response forms are added.
         match ($webformId) {
             'tvist1_opret_sag_test' => $this->caseManager->handleOS2FormsCaseSubmission($sender, $submissionData, $this->residentComplaintBoardCaseTypeManager),
+            'tvist1_hoeringssvar_test' => $this->hearingHelper->handleOS2FormsHearingSubmission($sender, $submissionData, $this->hearingResponseManager),
         };
     }
 }

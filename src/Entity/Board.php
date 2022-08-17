@@ -128,6 +128,16 @@ class Board implements LoggableEntityInterface
      */
     private $url;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
+     * @Assert\NotNull()
+     * @Assert\Expression(
+     *     "'hearing_post_response_template' == value.getType()",
+     *     message="Please select a template with type hearing_post_response_template"
+     * )
+     */
+    private $hearingPostResponseTemplate;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -426,6 +436,18 @@ class Board implements LoggableEntityInterface
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getHearingPostResponseTemplate(): ?MailTemplate
+    {
+        return $this->hearingPostResponseTemplate;
+    }
+
+    public function setHearingPostResponseTemplate(?MailTemplate $hearingPostResponseTemplate): self
+    {
+        $this->hearingPostResponseTemplate = $hearingPostResponseTemplate;
 
         return $this;
     }

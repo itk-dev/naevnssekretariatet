@@ -114,7 +114,7 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearing}/response/create", name="case_hearing_post_response_create")
      */
-    public function hearingPostResponseCreate(CaseEntity $case, DocumentRepository $documentRepository, Hearing $hearing, PartyHelper $partyHelper, Request $request): Response
+    public function hearingPostResponseCreate(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, Hearing $hearing, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -134,6 +134,30 @@ class HearingController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $hearingPost->setHearing($hearing);
+
+            // Create new file from template
+            $fileName = $mailTemplateHelper->renderMailTemplate($case->getBoard()->getHearingPostResponseTemplate(), $hearingPost);
+
+            $today = new \DateTime('today');
+            $documentName = $this->translator->trans('Hearing post response by {sender} on {date}', ['sender' => $hearingPost->getSender()->getName(), 'date' => $today->format('d/m/Y')], 'case');
+            $documentType = 'Hearing post response';
+            // Create document
+            $document = $documentUploader->createDocumentFromPath($fileName, $documentName, $documentType);
+
+            $hearingPost->setDocument($document);
+
+            // Create case document relation
+            $relation = new CaseDocumentRelation();
+            $relation->setCase($case);
+            $relation->setDocument($document);
+
+            $hearing->setHasNewHearingPost(true);
+            $this->entityManager->persist($relation);
+            $this->entityManager->persist($document);
+            $this->entityManager->persist($hearingPost);
+            $this->entityManager->flush();
+
             $hearingPost->setHearing($hearing);
 
             $this->entityManager->persist($hearingPost);
@@ -234,7 +258,7 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/response/edit", name="case_hearing_post_response_edit")
      */
-    public function hearingPostResponseEdit(CaseEntity $case, DocumentRepository $documentRepository, HearingPost $hearingPost, PartyHelper $partyHelper, Request $request): Response
+    public function hearingPostResponseEdit(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -252,6 +276,22 @@ class HearingController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Create new file
+            $fileName = $mailTemplateHelper->renderMailTemplate($case->getBoard()->getHearingPostResponseTemplate(), $hearingPost);
+
+            // For now we just overwrite completely
+            $currentDocumentFileName = $hearingPost->getDocument()->getFilename();
+            $documentUploader->replaceFileContent($hearingPost->getDocument(), $fileName);
+
+            // Update Document
+            /** @var User $user */
+            $user = $this->getUser();
+            $today = new \DateTime('today');
+            $documentName = $this->translator->trans('Hearing post response by {sender} on {date}', ['sender' => $hearingPost->getSender()->getName(), 'date' => $today->format('d/m/Y')], 'case');
+            $hearingPost->getDocument()->setDocumentName($documentName);
+            $hearingPost->getDocument()->setUploadedBy($user);
+            $hearingPost->getDocument()->setUploadedAt(new DateTime('now'));
+
             $this->entityManager->persist($hearingPost);
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Hearing post response updated', [], 'case'));
@@ -269,7 +309,7 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/request/edit", name="case_hearing_post_request_edit")
      */
-    public function hearingPostRequestEdit(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
+    public function hearingPostRequestEdit(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, HearingPostRequest $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
