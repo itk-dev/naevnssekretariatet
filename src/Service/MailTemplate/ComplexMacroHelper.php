@@ -42,8 +42,8 @@ class ComplexMacroHelper
         $values += match (true) {
             $entity instanceof CaseEntity => $this->buildCaseMacros($entity),
             $entity instanceof Agenda => $this->buildAgendaMacros($entity),
-            $entity instanceof HearingPost => $this->buildCaseMacros($entity->getHearing()->getCaseEntity()),
-            $entity instanceof AgendaBroadcast => $this->buildAgendaMacros($entity->getAgenda()),
+            $entity instanceof HearingPost => $this->buildHearingPostMacros($entity),
+            $entity instanceof AgendaBroadcast => $this->buildAgendaBroadCastMacros($entity),
             default => []
         };
 
@@ -227,5 +227,15 @@ class ComplexMacroHelper
         ])
         ->setRequired('hearing_post_form_url')
         ;
+    }
+
+    private function buildHearingPostMacros(HearingPost $hearingPost): array
+    {
+        return $this->buildCaseMacros($hearingPost->getHearing()->getCaseEntity());
+    }
+
+    private function buildAgendaBroadCastMacros(AgendaBroadcast $agendaBroadcast): array
+    {
+        return $this->buildAgendaMacros($agendaBroadcast->getAgenda());
     }
 }
