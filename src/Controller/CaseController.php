@@ -879,7 +879,7 @@ class CaseController extends AbstractController
 
         $case = $repository->findOneBy(['id' => $identifier]);
 
-        if (!$case || !$case->shouldBeInspected()) {
+        if (!$case || !$case->getShouldBeInspected()) {
             return new JsonResponse(['address' => '']);
         }
 

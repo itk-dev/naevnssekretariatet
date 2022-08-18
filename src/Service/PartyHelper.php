@@ -67,7 +67,7 @@ class PartyHelper
         $form->get('identification')->setData($party->getIdentification());
         $form->get('address')->setData($party->getAddress());
         $form->get('phoneNumber')->setData($party->getPhoneNumber());
-        $form->get('isUnderAddressProtection')->setData($party->isUnderAddressProtection());
+        $form->get('isUnderAddressProtection')->setData($party->getIsUnderAddressProtection());
         $form->get('type')->setData($relation->getType());
 
         return $form;

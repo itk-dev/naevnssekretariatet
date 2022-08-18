@@ -243,7 +243,7 @@ class Agenda implements LoggableEntityInterface
         return $this;
     }
 
-    public function isPublished(): ?bool
+    public function getIsPublished(): ?bool
     {
         return $this->isPublished;
     }

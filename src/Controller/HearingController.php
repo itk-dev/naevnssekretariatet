@@ -63,7 +63,7 @@ class HearingController extends AbstractController
             $this->entityManager->flush();
         }
 
-        $neitherPartyHasAnythingToAdd = true === $hearing->partyHasNoMoreToAdd() && true === $hearing->counterpartHasNoMoreToAdd();
+        $neitherPartyHasAnythingToAdd = true === $hearing->getPartyHasNoMoreToAdd() && true === $hearing->getCounterpartHasNoMoreToAdd();
 
         $form = $this->createForm(HearingFinishType::class, $hearing, ['case' => $case]);
         $form->handleRequest($request);

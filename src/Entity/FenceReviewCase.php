@@ -177,7 +177,7 @@ class FenceReviewCase extends CaseEntity
         ];
     }
 
-    public function accusedIsUnderAddressProtection(): ?bool
+    public function getAccusedIsUnderAddressProtection(): ?bool
     {
         return $this->accusedIsUnderAddressProtection;
     }

@@ -97,7 +97,7 @@ class Party implements LoggableEntityInterface
         return $this;
     }
 
-    public function isPartOfPartIndex(): ?bool
+    public function getIsPartOfPartIndex(): ?bool
     {
         return $this->isPartOfPartIndex;
     }
@@ -146,7 +146,7 @@ class Party implements LoggableEntityInterface
         $this->identification = $identification;
     }
 
-    public function isUnderAddressProtection(): ?bool
+    public function getIsUnderAddressProtection(): ?bool
     {
         return $this->isUnderAddressProtection;
     }
