@@ -419,8 +419,6 @@ class HearingController extends AbstractController
         $hearingResponseModifier = sprintf('+%s days', $case->getBoard()->getHearingResponseDeadline());
         $case->setHearingResponseDeadline($today->modify($hearingResponseModifier));
 
-        $this->entityManager->persist($case);
-
         $hearingPost->setForwardedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
         $this->entityManager->flush();

@@ -154,7 +154,7 @@ class CaseFilterType extends AbstractType
 
                         // Add one or two expressions based on filter choice aka. $values['value']
                         // Filters that require one expression are hearing, hearing response and process deadline exceeded
-                        // All exceeded, none exceeded and some (one or more) exceeded require two expressions, one for hearing- and one for process deadline exceeded
+                        // All exceeded, none exceeded and some (one or more) exceeded require three expressions, one for hearing, one for hearing response and one for process deadline exceeded
 
                         // Iterate over three statuses that will define the expressions needed
                         foreach ([CaseDeadlineStatuses::HEARING_RESPONSE_DEADLINE_EXCEEDED, CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED, CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED] as $iteratorStatus) {
@@ -166,7 +166,6 @@ class CaseFilterType extends AbstractType
                                     CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED => 'c.hasReachedHearingDeadline',
                                     CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED => 'c.hasReachedProcessingDeadline',
                                 };
-//                                $field = CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED === $iteratorStatus ? 'c.hasReachedHearingDeadline' : 'c.hasReachedProcessingDeadline';
                                 $paramName = sprintf('p_%s', str_replace('.', '_', $field));
                                 $expression = $filterQuery->getExpr()->eq($field, ':'.$paramName);
                                 $resultExpression->add($expression);
