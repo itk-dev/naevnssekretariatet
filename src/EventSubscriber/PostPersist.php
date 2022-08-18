@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Service;
+namespace App\EventSubscriber;
 
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\DigitalPost;
 use App\Entity\HearingPostResponse;
+use App\Service\DigitalPostHelper;
+use App\Service\DocumentUploader;
+use App\Service\MailTemplateHelper;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ReceiptHelper implements EventSubscriberInterface
+class PostPersist implements EventSubscriberInterface
 {
     public function __construct(private MailTemplateHelper $mailTemplateHelper, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private DigitalPostHelper $digitalPostHelper, private TranslatorInterface $translator)
     {
@@ -57,6 +60,11 @@ class ReceiptHelper implements EventSubscriberInterface
             $documentTitle = $this->translator->trans('Hearing post response receipt', [], 'case');
             // The document type is translated in templates/translations/mail_template.html.twig
             $documentType = 'Hearing post response created receipt';
+
+            // Use this listener to modify hearing response properties on case,
+            // as it already detects creation of hearing post responses via OS2Forms and TVIST1.
+            $case->setHearingResponseDeadline(null);
+            $case->setHasReachedHearingResponseDeadline(false);
         }
 
         if (isset($case, $template)) {
@@ -73,7 +81,7 @@ class ReceiptHelper implements EventSubscriberInterface
             $this->entityManager->persist($relation);
             $this->entityManager->persist($document);
 
-            $this->digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($entity), $entity->getId(), [], $digitalPostRecipients);
+            $this->digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($case), $case->getId(), [], $digitalPostRecipients);
         }
     }
 }

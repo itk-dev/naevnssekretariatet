@@ -6,6 +6,7 @@ use App\Entity\Board;
 use App\Entity\CaseDecisionProposal;
 use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
+use App\Entity\HearingPostRequest;
 use App\Entity\LogEntry;
 use App\Entity\Municipality;
 use App\Entity\User;
@@ -19,6 +20,7 @@ use App\Form\CaseMoveType;
 use App\Form\CasePresentationType;
 use App\Form\CaseRescheduleFinishHearingDeadlineType;
 use App\Form\CaseRescheduleFinishProcessDeadlineType;
+use App\Form\CaseRescheduleHearingResponseDeadlineType;
 use App\Form\CaseStatusForm;
 use App\Form\Model\CaseStatusFormModel;
 use App\Form\MunicipalitySelectorType;
@@ -27,6 +29,8 @@ use App\Repository\AgendaCaseItemRepository;
 use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\DigitalPostRepository;
+use App\Repository\HearingPostRepository;
+use App\Repository\HearingPostResponseRepository;
 use App\Repository\LogEntryRepository;
 use App\Repository\MunicipalityRepository;
 use App\Repository\NoteRepository;
@@ -284,7 +288,7 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/status", name="case_status", methods={"GET", "POST"})
      */
-    public function status(CaseEntity $case, AgendaCaseItemRepository $agendaCaseItemRepository, WorkflowService $workflowService, Request $request): Response
+    public function status(CaseEntity $case, AgendaCaseItemRepository $agendaCaseItemRepository, CaseManager $caseManager, HearingPostRepository $hearingPostRepository, HearingPostResponseRepository $hearingPostResponseRepository, TranslatorInterface $translator, WorkflowService $workflowService, Request $request): Response
     {
         $this->denyAccessUnlessGranted('view', $case);
 
@@ -328,6 +332,37 @@ class CaseController extends AbstractController
             ]);
         }
 
+        // Figure out who has the initiative on case (caseworker or part) and get link to the latest hearing response (høringssvar)
+        $initiativeHaver = null;
+        $linkToLatestHearingResponse = null;
+
+        $hearing = $case->getHearing();
+        if ($hearing) {
+            $hearingPosts = $hearingPostRepository->findBy(['hearing' => $hearing], ['createdAt' => 'DESC']);
+
+            if ($hearingPosts) {
+                $mostRecentPost = reset($hearingPosts);
+
+                if ($mostRecentPost instanceof HearingPostRequest && $mostRecentPost->getForwardedOn() && !$hearing->getFinishedOn()) {
+                    $initiativeHaver = new TranslatableMessage('{name}, party', ['name' => $mostRecentPost->getRecipient()->getName()], 'case');
+                }
+            }
+
+            $hearingPostResponses = $hearingPostResponseRepository->findBy(['hearing' => $hearing], ['createdAt' => 'DESC']);
+            if ($hearingPostResponses) {
+                $mostRecentPostResponse = reset($hearingPostResponses);
+
+                $linkToLatestHearingResponse = [
+                    'url' => $this->generateUrl('case_hearing_post_show', ['case' => $case->getId()->__toString(), 'hearingPost' => $mostRecentPostResponse->getId()->__toString()]),
+                    'label' => $mostRecentPostResponse->getDocument()->getDocumentName(),
+                ];
+            }
+        }
+
+        if (!$initiativeHaver) {
+            $initiativeHaver = new TranslatableMessage('{name}, caseworker', ['name' => $case->getAssignedTo()->getName()], 'case');
+        }
+
         $activeAgendaCaseItems = $agendaCaseItemRepository->findActiveAgendaCaseItemIdsByCase($case);
         $finishedAgendaCaseItems = $agendaCaseItemRepository->findFinishedAgendaCaseItemIdsByCase($case);
 
@@ -337,6 +372,8 @@ class CaseController extends AbstractController
             'case_agenda_status_form' => $caseAgendaStatusForm->createView(),
             'active_agendas' => $activeAgendaCaseItems,
             'finished_agendas' => $finishedAgendaCaseItems,
+            'initiative_haver' => $initiativeHaver,
+            'link_to_latest_hearing_response' => $linkToLatestHearingResponse,
         ]);
     }
 
@@ -507,6 +544,39 @@ class CaseController extends AbstractController
         $redirectUrl = $request->query->get('referer') ?? $this->generateUrl('case_show', ['id' => $case->getId()]);
 
         return $this->redirect($redirectUrl);
+    }
+
+    /**
+     * @Route("/{id}/reschedule-hearing-response-deadline", name="case_reschedule_hearing_response_deadline", methods={"GET","POST"})
+     */
+    public function rescheduleHearingResponseDeadline(CaseEntity $case, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $case);
+
+        $rescheduleForm = $this->createForm(CaseRescheduleHearingResponseDeadlineType::class, $case);
+
+        $rescheduleForm->handleRequest($request);
+
+        if ($rescheduleForm->isSubmitted() && $rescheduleForm->isValid()) {
+            $case->setHasReachedProcessingDeadline(false);
+
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', new TranslatableMessage('Hearing response deadline updated', [], 'case'));
+
+            // Rendering a Twig template will consume the flash message, so for ajax requests we just send a JSON response.
+            if ($request->get('ajax')) {
+                return new JsonResponse(true);
+            }
+
+            $redirectUrl = $request->headers->get('referer') ?? $this->generateUrl('case_status', ['id' => $case->getId()]);
+
+            return $this->redirect($redirectUrl);
+        }
+
+        return $this->render('case/_reschedule_hearing_response_deadline.html.twig', [
+            'reschedule_form' => $rescheduleForm->createView(),
+            'case' => $case,
+        ]);
     }
 
     /**

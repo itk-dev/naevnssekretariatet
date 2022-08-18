@@ -105,6 +105,15 @@ class CaseManager implements LoggerAwareInterface
             assert($case instanceof CaseEntity);
             $hearingDeadline = $case->getFinishHearingDeadline();
             $processingDeadline = $case->getFinishProcessingDeadline();
+            $hearingResponseDeadline = $case->getHearingResponseDeadline();
+
+            if ($hearingResponseDeadline && $hearingResponseDeadline < $today) {
+                $this->logger->info('Changing case '.$case->getCaseNumber().' with hearing response deadline: '.$hearingResponseDeadline->format('d/m/Y'));
+
+                if (!$isDryRun) {
+                    $case->setHasReachedHearingResponseDeadline(true);
+                }
+            }
 
             if ($hearingDeadline < $today) {
                 $this->logger->info('Changing case '.$case->getCaseNumber().' with hearing deadline: '.$hearingDeadline->format('d/m/Y'));

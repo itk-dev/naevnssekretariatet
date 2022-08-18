@@ -133,10 +133,11 @@ class CaseFilterType extends AbstractType
             $builder
                 ->add('deadlines', Filters\ChoiceFilterType::class, [
                     'choices' => [
+                        $this->translator->trans('Exceeded hearing response deadline', [], 'case') => CaseDeadlineStatuses::HEARING_RESPONSE_DEADLINE_EXCEEDED,
                         $this->translator->trans('Exceeded hearing deadline', [], 'case') => CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED,
                         $this->translator->trans('Exceeded processing deadline', [], 'case') => CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED,
                         $this->translator->trans('Some deadline exceeded', [], 'case') => CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED,
-                        $this->translator->trans('Both deadlines exceeded', [], 'case') => CaseDeadlineStatuses::BOTH_DEADLINES_EXCEEDED,
+                        $this->translator->trans('All deadlines exceeded', [], 'case') => CaseDeadlineStatuses::ALL_DEADLINES_EXCEEDED,
                         $this->translator->trans('No exceeded deadlines', [], 'case') => CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED,
                     ],
                     'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
@@ -152,15 +153,20 @@ class CaseFilterType extends AbstractType
                         $parameters = [];
 
                         // Add one or two expressions based on filter choice aka. $values['value']
-                        // Filters that require one expression are hearing- and process deadline exceeded
-                        // Both exceeded, none exceeded and some (one or more) exceeded require two expressions, one for hearing- and one for process deadline exceeded
+                        // Filters that require one expression are hearing, hearing response and process deadline exceeded
+                        // All exceeded, none exceeded and some (one or more) exceeded require two expressions, one for hearing- and one for process deadline exceeded
 
-                        // Iterate over two statuses that will define the expressions needed
-                        foreach ([CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED, CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED] as $iteratorStatus) {
+                        // Iterate over three statuses that will define the expressions needed
+                        foreach ([CaseDeadlineStatuses::HEARING_RESPONSE_DEADLINE_EXCEEDED, CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED, CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED] as $iteratorStatus) {
                             // Check if filter choice is status iterator or one of the filtering choices that need both expressions
-                            if (in_array($filterChoice, [$iteratorStatus, CaseDeadlineStatuses::BOTH_DEADLINES_EXCEEDED, CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED, CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED])) {
+                            if (in_array($filterChoice, [$iteratorStatus, CaseDeadlineStatuses::ALL_DEADLINES_EXCEEDED, CaseDeadlineStatuses::NO_DEADLINES_EXCEEDED, CaseDeadlineStatuses::SOME_DEADLINE_EXCEEDED])) {
                                 // Construct expression depending on status iterator
-                                $field = CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED === $iteratorStatus ? 'c.hasReachedHearingDeadline' : 'c.hasReachedProcessingDeadline';
+                                $field = match ($iteratorStatus) {
+                                    CaseDeadlineStatuses::HEARING_RESPONSE_DEADLINE_EXCEEDED => 'c.hasReachedHearingResponseDeadline',
+                                    CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED => 'c.hasReachedHearingDeadline',
+                                    CaseDeadlineStatuses::PROCESS_DEADLINE_EXCEEDED => 'c.hasReachedProcessingDeadline',
+                                };
+//                                $field = CaseDeadlineStatuses::HEARING_DEADLINE_EXCEEDED === $iteratorStatus ? 'c.hasReachedHearingDeadline' : 'c.hasReachedProcessingDeadline';
                                 $paramName = sprintf('p_%s', str_replace('.', '_', $field));
                                 $expression = $filterQuery->getExpr()->eq($field, ':'.$paramName);
                                 $resultExpression->add($expression);

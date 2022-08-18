@@ -114,7 +114,7 @@ class CaseEntityRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('c');
 
         $qb->select('count(c.id)')
-            ->where('c.hasReachedHearingDeadline = :isExceeded OR c.hasReachedProcessingDeadline = :isExceeded')
+            ->where('c.hasReachedHearingDeadline = :isExceeded OR c.hasReachedProcessingDeadline = :isExceeded OR c.hasReachedHearingResponseDeadline = :isExceeded')
             ->setParameter('isExceeded', true)
         ;
 

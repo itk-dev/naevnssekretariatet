@@ -1379,7 +1379,7 @@
       </trans-unit>
       <trans-unit id="RtZwi_8" resname="Hearing post response created">
         <source>Hearing post response created</source>
-        <target state="translated">Høringssvar opdateret</target>
+        <target state="translated">Høringssvar oprettet</target>
       </trans-unit>
       <trans-unit id="gsLJh.e" resname="Hearing post request created">
         <source>Hearing post request created</source>
@@ -1524,6 +1524,42 @@
       <trans-unit id="4Ea4Y4c" resname="Reassigned case {case_number} from {old_case_worker_name} to {new_case_worker_name}">
         <source>Reassigned case {case_number} from {old_case_worker_name} to {new_case_worker_name}</source>
         <target state="translated">Ændrede tildelte sagsbehandler fra {old_case_worker_name} til {new_case_worker_name} for sag {case_number}</target>
+      </trans-unit>
+      <trans-unit id="q0yMtWL" resname="{name}, party">
+        <source>{name}, party</source>
+        <target state="translated">{name}, part</target>
+      </trans-unit>
+      <trans-unit id="SNT7mf9" resname="{name}, caseworker">
+        <source>{name}, caseworker</source>
+        <target state="translated">{name}, sagsbehandler</target>
+      </trans-unit>
+      <trans-unit id="WegFsyA" resname="Last hearing response">
+        <source>Last hearing response</source>
+        <target state="translated">Sidste partshøringssvar</target>
+      </trans-unit>
+      <trans-unit id="Khd9Dhr" resname="Party response deadline">
+        <source>Party response deadline</source>
+        <target state="translated">Frist for partshøringssvar</target>
+      </trans-unit>
+      <trans-unit id="9yfvPpM" resname="Exceeded hearing response deadline">
+        <source>Exceeded hearing response deadline</source>
+        <target state="translated">Overskrevet høringssvarstidsfrist</target>
+      </trans-unit>
+      <trans-unit id="U8SNgSo" resname="All deadlines exceeded">
+        <source>All deadlines exceeded</source>
+        <target state="translated">Alle tidsfrister overskredet</target>
+      </trans-unit>
+      <trans-unit id="VNEQE9f" resname="Hearing response deadline updated">
+        <source>Hearing response deadline updated</source>
+        <target state="translated">Høringssvarstidsfrist opdateret</target>
+      </trans-unit>
+      <trans-unit id="TPT_UfI" resname="Reschedule hearing response deadline">
+        <source>Reschedule hearing response deadline</source>
+        <target state="translated">Ændr frist for partshøringssvar</target>
+      </trans-unit>
+      <trans-unit id="Q1uSepE" resname="Not awaiting any hearing response">
+        <source>Not awaiting any hearing response</source>
+        <target state="translated">Afventer ikke noget partshøringssvar</target>
       </trans-unit>
     </body>
   </file>

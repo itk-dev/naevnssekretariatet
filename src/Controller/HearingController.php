@@ -146,20 +146,17 @@ class HearingController extends AbstractController
             $document = $documentUploader->createDocumentFromPath($fileName, $documentName, $documentType);
 
             $hearingPost->setDocument($document);
+            $hearingPost->setHearing($hearing);
+
+            $hearing->setHasNewHearingPost(true);
 
             // Create case document relation
             $relation = new CaseDocumentRelation();
             $relation->setCase($case);
             $relation->setDocument($document);
 
-            $hearing->setHasNewHearingPost(true);
             $this->entityManager->persist($relation);
             $this->entityManager->persist($document);
-            $this->entityManager->persist($hearingPost);
-            $this->entityManager->flush();
-
-            $hearingPost->setHearing($hearing);
-
             $this->entityManager->persist($hearingPost);
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Hearing post response created', [], 'case'));
@@ -279,8 +276,7 @@ class HearingController extends AbstractController
             // Create new file
             $fileName = $mailTemplateHelper->renderMailTemplate($case->getBoard()->getHearingPostResponseTemplate(), $hearingPost);
 
-            // For now we just overwrite completely
-            $currentDocumentFileName = $hearingPost->getDocument()->getFilename();
+            // For now, we just overwrite completely
             $documentUploader->replaceFileContent($hearingPost->getDocument(), $fileName);
 
             // Update Document
@@ -292,7 +288,6 @@ class HearingController extends AbstractController
             $hearingPost->getDocument()->setUploadedBy($user);
             $hearingPost->getDocument()->setUploadedAt(new DateTime('now'));
 
-            $this->entityManager->persist($hearingPost);
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Hearing post response updated', [], 'case'));
 
@@ -343,8 +338,7 @@ class HearingController extends AbstractController
             // Create new file
             $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $hearingPost);
 
-            // For now we just overwrite completely
-            $currentDocumentFileName = $hearingPost->getDocument()->getFilename();
+            // For now, we just overwrite completely
             $documentUploader->replaceFileContent($hearingPost->getDocument(), $fileName);
 
             // Update Document
@@ -421,6 +415,12 @@ class HearingController extends AbstractController
         $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
 
         $today = new DateTime('today');
+
+        $hearingResponseModifier = sprintf('+%s days', $case->getBoard()->getHearingResponseDeadline());
+        $case->setHearingResponseDeadline($today->modify($hearingResponseModifier));
+
+        $this->entityManager->persist($case);
+
         $hearingPost->setForwardedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
         $this->entityManager->flush();
