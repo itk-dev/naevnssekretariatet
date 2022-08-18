@@ -39,7 +39,7 @@ class AgendaCaseItemNewType extends AbstractType
                 'choices' => $this->boardHelper->getCasesReadyForAgendaByBoardAndSuitableBoards($board),
                 'choice_label' => function (CaseEntity $caseEntity) {
                     $caseNumber = $caseEntity->getCaseNumber();
-                    $isInspection = $caseEntity->getShouldBeInspected();
+                    $isInspection = $caseEntity->shouldBeInspected();
                     $complaint = $caseEntity->getComplaintCategory()->getName();
                     $address = $caseEntity->getSortingAddress();
 

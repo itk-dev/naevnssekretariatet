@@ -50,7 +50,7 @@ class AgendaCaseItem extends AgendaItem
         $this->inspectionLetters = new ArrayCollection();
     }
 
-    public function getInspection(): ?bool
+    public function inspection(): ?bool
     {
         return $this->inspection;
     }

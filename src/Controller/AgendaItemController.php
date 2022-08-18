@@ -56,7 +56,7 @@ class AgendaItemController extends AbstractController
 
             if (AgendaCaseItem::class === get_class($agendaItem)) {
                 $agendaItem->setInspection(
-                    $agendaItem->getCaseEntity()->getShouldBeInspected()
+                    $agendaItem->getCaseEntity()->shouldBeInspected()
                 );
             }
 

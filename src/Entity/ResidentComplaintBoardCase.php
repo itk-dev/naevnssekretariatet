@@ -117,7 +117,7 @@ class ResidentComplaintBoardCase extends CaseEntity
         return $this;
     }
 
-    public function getHasVacated(): ?bool
+    public function hasVacated(): ?bool
     {
         return $this->hasVacated;
     }
@@ -175,7 +175,7 @@ class ResidentComplaintBoardCase extends CaseEntity
         return $this;
     }
 
-    public function getLeaseRegulatedRent(): ?bool
+    public function leaseRegulatedRent(): ?bool
     {
         return $this->leaseRegulatedRent;
     }
@@ -235,7 +235,7 @@ class ResidentComplaintBoardCase extends CaseEntity
         return $this;
     }
 
-    public function getFeePaid(): ?bool
+    public function feePaid(): ?bool
     {
         return $this->feePaid;
     }

@@ -124,7 +124,7 @@ class Hearing implements LoggableEntityInterface
         return $this;
     }
 
-    public function getPartyHasNoMoreToAdd(): bool
+    public function partyHasNoMoreToAdd(): bool
     {
         return $this->partyHasNoMoreToAdd;
     }
@@ -136,7 +136,7 @@ class Hearing implements LoggableEntityInterface
         return $this;
     }
 
-    public function getCounterpartHasNoMoreToAdd(): bool
+    public function counterpartHasNoMoreToAdd(): bool
     {
         return $this->counterpartHasNoMoreToAdd;
     }
@@ -148,7 +148,7 @@ class Hearing implements LoggableEntityInterface
         return $this;
     }
 
-    public function getHasNewHearingPost(): ?bool
+    public function hasNewHearingPost(): ?bool
     {
         return $this->hasNewHearingPost;
     }

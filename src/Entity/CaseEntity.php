@@ -479,7 +479,7 @@ abstract class CaseEntity implements Timestampable
         return $this;
     }
 
-    public function getIsReadyForAgenda(): ?bool
+    public function isReadyForAgenda(): ?bool
     {
         return $this->isReadyForAgenda;
     }
@@ -491,7 +491,7 @@ abstract class CaseEntity implements Timestampable
         return $this;
     }
 
-    public function getShouldBeInspected(): ?bool
+    public function shouldBeInspected(): ?bool
     {
         return $this->shouldBeInspected;
     }
@@ -587,7 +587,7 @@ abstract class CaseEntity implements Timestampable
         return $this;
     }
 
-    public function getHasReachedHearingDeadline(): ?bool
+    public function hasReachedHearingDeadline(): ?bool
     {
         return $this->hasReachedHearingDeadline;
     }
@@ -599,7 +599,7 @@ abstract class CaseEntity implements Timestampable
         return $this;
     }
 
-    public function getHasReachedProcessingDeadline(): ?bool
+    public function hasReachedProcessingDeadline(): ?bool
     {
         return $this->hasReachedProcessingDeadline;
     }
@@ -708,7 +708,7 @@ abstract class CaseEntity implements Timestampable
         return $this;
     }
 
-    public function getBringerIsUnderAddressProtection(): ?bool
+    public function bringerIsUnderAddressProtection(): ?bool
     {
         return $this->bringerIsUnderAddressProtection;
     }
@@ -756,7 +756,7 @@ abstract class CaseEntity implements Timestampable
         return $this;
     }
 
-    public function getHasReachedHearingResponseDeadline(): ?bool
+    public function hasReachedHearingResponseDeadline(): ?bool
     {
         return $this->hasReachedHearingResponseDeadline;
     }
