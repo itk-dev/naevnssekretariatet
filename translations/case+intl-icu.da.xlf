@@ -1561,6 +1561,10 @@
         <source>Not awaiting any hearing response</source>
         <target state="translated">Afventer ikke noget partshøringssvar</target>
       </trans-unit>
+      <trans-unit id="r2qOyFW" resname="Case is unassigned">
+        <source>Case is unassigned</source>
+        <target state="translated">Sagen er ikke tildelt nogen sagsbehandler</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

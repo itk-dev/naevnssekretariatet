@@ -360,7 +360,11 @@ class CaseController extends AbstractController
         }
 
         if (!$initiativeHaver) {
-            $initiativeHaver = new TranslatableMessage('{name}, caseworker', ['name' => $case->getAssignedTo()->getName()], 'case');
+            if ($case->getAssignedTo()) {
+                $initiativeHaver = new TranslatableMessage('{name}, caseworker', ['name' => $case->getAssignedTo()->getName()], 'case');
+            } else {
+                $initiativeHaver = new TranslatableMessage('Case is unassigned', [], 'case');
+            }
         }
 
         $activeAgendaCaseItems = $agendaCaseItemRepository->findActiveAgendaCaseItemIdsByCase($case);
