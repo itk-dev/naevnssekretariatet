@@ -1565,6 +1565,10 @@
         <source>Not awaiting any hearing response</source>
         <target>Not awaiting any hearing response</target>
       </trans-unit>
+      <trans-unit id="r2qOyFW" resname="Case is unassigned">
+        <source>Case is unassigned</source>
+        <target>Case is unassigned</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
