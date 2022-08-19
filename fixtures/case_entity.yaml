@@ -426,6 +426,7 @@ App\Entity\ResidentComplaintBoardCase:
     isReadyForAgenda: 1
     receivedAt: <(new \DateTime('2022-05-20'))>
     validatedAt: <(new \DateTime('2022-05-22'))>
+    dateForActiveAgenda: <(new \DateTime('2021-10-11'))>
 
   test-case-aarhus-2:
     leaseSize: 53
@@ -581,6 +582,7 @@ App\Entity\ResidentComplaintBoardCase:
     assignedTo: '@user-caseworker'
     receivedAt: <(new \DateTime('2022-05-20'))>
     validatedAt: <(new \DateTime('2022-05-22'))>
+    dateForActiveAgenda: <(new \DateTime('2021-10-11'))>
 
   test-case-aarhus-10:
     leaseSize: 101

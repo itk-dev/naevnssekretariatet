@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agenda;
+use App\Entity\AgendaCaseItem;
 use App\Entity\AgendaProtocol;
 use App\Entity\BoardMember;
 use App\Entity\User;
@@ -245,6 +246,7 @@ class AgendaController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $agenda);
 
         $agendaOptions = $agenda->isFinished() ? ['disabled' => true] : [];
+        $previousDate = $agenda->getDate();
 
         $form = $this->createForm(AgendaEditType::class, $agenda, $agendaOptions);
 
@@ -254,6 +256,25 @@ class AgendaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             /** @var Agenda $agenda */
             $agenda = $form->getData();
+
+            // If date has been changed, do changes to relevant cases
+            $newDate = $agenda->getDate();
+            if ($newDate !== $previousDate) {
+                foreach ($agenda->getAgendaItems() as $agendaItem) {
+                    if ($agendaItem instanceof AgendaCaseItem) {
+                        $agendaItem->getCaseEntity()->setDateForActiveAgenda($newDate);
+                    }
+                }
+            }
+
+            // If status is changed to Finished (afsluttet), do changes to relevant cases
+            if (AgendaStatus::FINISHED === $agenda->getStatus()) {
+                foreach ($agenda->getAgendaItems() as $agendaItem) {
+                    if ($agendaItem instanceof AgendaCaseItem) {
+                        $agendaItem->getCaseEntity()->setDateForActiveAgenda(null);
+                    }
+                }
+            }
 
             // Ensure required properties are set if changing to status Ready (Klar).
             if (AgendaStatus::READY === $agenda->getStatus()) {

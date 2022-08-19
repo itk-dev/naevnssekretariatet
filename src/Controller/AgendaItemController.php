@@ -55,6 +55,8 @@ class AgendaItemController extends AbstractController
             $agendaItem = $form->get('agendaItem')->getData();
 
             if (AgendaCaseItem::class === get_class($agendaItem)) {
+                $agendaItem->getCaseEntity()->setDateForActiveAgenda($agenda->getDate());
+
                 $agendaItem->setInspection(
                     $agendaItem->getCaseEntity()->getShouldBeInspected()
                 );
@@ -133,6 +135,9 @@ class AgendaItemController extends AbstractController
 
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$agendaItem->getId(), $request->request->get('_token')) && !$agenda->isFinished()) {
+            if ($agendaItem instanceof AgendaCaseItem) {
+                $agendaItem->getCaseEntity()->setDateForActiveAgenda(null);
+            }
             $this->entityManager->remove($agendaItem);
             $this->entityManager->flush();
             $message = match (get_class($agendaItem)) {

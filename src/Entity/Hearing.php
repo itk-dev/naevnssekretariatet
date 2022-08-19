@@ -53,6 +53,7 @@ class Hearing implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $startedOn;
 
