@@ -229,7 +229,7 @@ abstract class CaseEntity implements Timestampable
      * @ORM\Column(type="date", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $activeAgendaDate;
+    private $dateForActiveAgenda;
 
     public function __construct()
     {
@@ -774,14 +774,14 @@ abstract class CaseEntity implements Timestampable
         return $this;
     }
 
-    public function getActiveAgendaDate(): ?\DateTimeInterface
+    public function getDateForActiveAgenda(): ?\DateTimeInterface
     {
-        return $this->activeAgendaDate;
+        return $this->dateForActiveAgenda;
     }
 
-    public function setActiveAgendaDate(?\DateTimeInterface $activeAgendaDate): self
+    public function setDateForActiveAgenda(?\DateTimeInterface $dateForActiveAgenda): self
     {
-        $this->activeAgendaDate = $activeAgendaDate;
+        $this->dateForActiveAgenda = $dateForActiveAgenda;
 
         return $this;
     }

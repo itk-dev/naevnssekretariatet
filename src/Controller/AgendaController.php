@@ -262,7 +262,7 @@ class AgendaController extends AbstractController
             if ($newDate !== $previousDate) {
                 foreach ($agenda->getAgendaItems() as $agendaItem) {
                     if ($agendaItem instanceof AgendaCaseItem) {
-                        $agendaItem->getCaseEntity()->setActiveAgendaDate($newDate);
+                        $agendaItem->getCaseEntity()->setDateForActiveAgenda($newDate);
                     }
                 }
             }
@@ -271,7 +271,7 @@ class AgendaController extends AbstractController
             if (AgendaStatus::FINISHED === $agenda->getStatus()) {
                 foreach ($agenda->getAgendaItems() as $agendaItem) {
                     if ($agendaItem instanceof AgendaCaseItem) {
-                        $agendaItem->getCaseEntity()->setActiveAgendaDate(null);
+                        $agendaItem->getCaseEntity()->setDateForActiveAgenda(null);
                     }
                 }
             }
