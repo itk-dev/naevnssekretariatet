@@ -225,6 +225,12 @@ abstract class CaseEntity implements Timestampable
      */
     private $hasReachedHearingResponseDeadline = false;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     * @Groups({"mail_template"})
+     */
+    private $activeAgendaDate;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -764,6 +770,18 @@ abstract class CaseEntity implements Timestampable
     public function setHasReachedHearingResponseDeadline(bool $hasReachedHearingResponseDeadline): self
     {
         $this->hasReachedHearingResponseDeadline = $hasReachedHearingResponseDeadline;
+
+        return $this;
+    }
+
+    public function getActiveAgendaDate(): ?\DateTimeInterface
+    {
+        return $this->activeAgendaDate;
+    }
+
+    public function setActiveAgendaDate(?\DateTimeInterface $activeAgendaDate): self
+    {
+        $this->activeAgendaDate = $activeAgendaDate;
 
         return $this;
     }
