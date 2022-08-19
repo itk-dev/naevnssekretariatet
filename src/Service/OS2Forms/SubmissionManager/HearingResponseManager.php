@@ -5,9 +5,11 @@ namespace App\Service\OS2Forms\SubmissionManager;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\HearingPostAttachment;
+use App\Entity\HearingPostRequest;
 use App\Entity\HearingPostResponse;
 use App\Entity\User;
 use App\Exception\WebformSubmissionException;
+use App\Repository\HearingPostRepository;
 use App\Repository\PartyRepository;
 use App\Service\DocumentUploader;
 use App\Service\MailTemplateHelper;
@@ -18,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HearingResponseManager
 {
-    public function __construct(private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private HearingResponseSubmissionNormalizer $normalizer, private MailTemplateHelper $mailTemplateHelper, private PartyRepository $partyRepository, private TranslatorInterface $translator)
+    public function __construct(private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private HearingPostRepository $hearingPostRepository, private HearingResponseSubmissionNormalizer $normalizer, private MailTemplateHelper $mailTemplateHelper, private PartyRepository $partyRepository, private TranslatorInterface $translator)
     {
     }
 
@@ -46,11 +48,32 @@ class HearingResponseManager
         $case = $normalizedData['case'];
         assert($case instanceof CaseEntity);
 
-        $party = $this->partyRepository->findPartyByCaseIdAndIdentification($case->getId(), $normalizedData['identifier']);
+        $sender = $this->partyRepository->findPartyByCaseIdAndIdentification($case->getId(), $normalizedData['identifier']);
 
-        if (null === $party) {
+        if (null === $sender) {
             $message = sprintf('Could not find party with name %s, identifier %s on case %s', $normalizedData['name'], $normalizedData['identifier'], $case->getCaseNumber());
             throw new WebformSubmissionException($message);
+        }
+
+        // Ensure that sender is allowed to create hearing response at the moment.
+        $hearingPost = $this->hearingPostRepository->findBy(['hearing' => $case->getHearing()], ['createdAt' => 'DESC']);
+        if ($hearingPost) {
+            $mostRecentPost = reset($hearingPost);
+
+            if (!$mostRecentPost instanceof HearingPostRequest) {
+                $message = 'Last hearing response is not a HearingPostRequest.';
+                throw new WebformSubmissionException($message);
+            }
+
+            if (!$mostRecentPost->getForwardedOn()) {
+                $message = 'Last hearing request has not been forwarded.';
+                throw new WebformSubmissionException($message);
+            }
+
+            if ($mostRecentPost->getRecipient() !== $sender) {
+                $message = sprintf('Hearing response sender (%s) is not recipient (%s) of latest hearing post request.', $sender->getName(), $mostRecentPost->getRecipient()->getName());
+                throw new WebformSubmissionException($message);
+            }
         }
 
         // Create hearing response and set properties
@@ -59,7 +82,7 @@ class HearingResponseManager
         $hearingResponse->setResponse($normalizedData['response']);
 
         $hearingResponse->setHearing($case->getHearing());
-        $hearingResponse->setSender($party);
+        $hearingResponse->setSender($sender);
 
         // Handle document
         $template = $case->getBoard()->getHearingPostResponseTemplate();
@@ -67,7 +90,7 @@ class HearingResponseManager
         $fileName = $this->mailTemplateHelper->renderMailTemplate($template, $hearingResponse);
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'OS2Forms']);
         $today = new \DateTime('today');
-        $documentName = $this->translator->trans('Hearing post response by {sender} on {date}', ['sender' => $party->getName(), 'date' => $today->format('d/m/Y')], 'case');
+        $documentName = $this->translator->trans('Hearing post response by {sender} on {date}', ['sender' => $sender->getName(), 'date' => $today->format('d/m/Y')], 'case');
         // The document type is translated in templates/translations/mail_template.html.twig
         $documentType = 'Hearing post response';
         $document = $this->documentUploader->createDocumentFromPath($fileName, $documentName, $documentType, $user);

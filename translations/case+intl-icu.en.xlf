@@ -1529,6 +1529,42 @@
         <source>Reassigned case {case_number} from {old_case_worker_name} to {new_case_worker_name}</source>
         <target>Reassigned case {case_number} from {old_case_worker_name} to {new_case_worker_name}</target>
       </trans-unit>
+      <trans-unit id="q0yMtWL" resname="{name}, party">
+        <source>{name}, party</source>
+        <target>{name}, party</target>
+      </trans-unit>
+      <trans-unit id="SNT7mf9" resname="{name}, caseworker">
+        <source>{name}, caseworker</source>
+        <target>{name}, caseworker</target>
+      </trans-unit>
+      <trans-unit id="WegFsyA" resname="Last hearing response">
+        <source>Last hearing response</source>
+        <target>Last hearing response</target>
+      </trans-unit>
+      <trans-unit id="Khd9Dhr" resname="Party response deadline">
+        <source>Party response deadline</source>
+        <target>Party response deadline</target>
+      </trans-unit>
+      <trans-unit id="9yfvPpM" resname="Exceeded hearing response deadline">
+        <source>Exceeded hearing response deadline</source>
+        <target>Exceeded hearing response deadline</target>
+      </trans-unit>
+      <trans-unit id="U8SNgSo" resname="All deadlines exceeded">
+        <source>All deadlines exceeded</source>
+        <target>All deadlines exceeded</target>
+      </trans-unit>
+      <trans-unit id="VNEQE9f" resname="Hearing response deadline updated">
+        <source>Hearing response deadline updated</source>
+        <target>Hearing response deadline updated</target>
+      </trans-unit>
+      <trans-unit id="TPT_UfI" resname="Reschedule hearing response deadline">
+        <source>Reschedule hearing response deadline</source>
+        <target>Reschedule hearing response deadline</target>
+      </trans-unit>
+      <trans-unit id="Q1uSepE" resname="Not awaiting any hearing response">
+        <source>Not awaiting any hearing response</source>
+        <target>Not awaiting any hearing response</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

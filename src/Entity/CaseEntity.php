@@ -214,6 +214,17 @@ abstract class CaseEntity implements Timestampable
      */
     private $validatedAt;
 
+    /**
+     * @Assert\GreaterThanOrEqual("today", groups={"hearing_response_deadline"})
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $hearingResponseDeadline;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $hasReachedHearingResponseDeadline = false;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -729,6 +740,30 @@ abstract class CaseEntity implements Timestampable
     public function setValidatedAt(?\DateTimeInterface $validatedAt): self
     {
         $this->validatedAt = $validatedAt;
+
+        return $this;
+    }
+
+    public function getHearingResponseDeadline(): ?\DateTimeInterface
+    {
+        return $this->hearingResponseDeadline;
+    }
+
+    public function setHearingResponseDeadline(?\DateTimeInterface $hearingResponseDeadline): self
+    {
+        $this->hearingResponseDeadline = $hearingResponseDeadline;
+
+        return $this;
+    }
+
+    public function getHasReachedHearingResponseDeadline(): ?bool
+    {
+        return $this->hasReachedHearingResponseDeadline;
+    }
+
+    public function setHasReachedHearingResponseDeadline(bool $hasReachedHearingResponseDeadline): self
+    {
+        $this->hasReachedHearingResponseDeadline = $hasReachedHearingResponseDeadline;
 
         return $this;
     }

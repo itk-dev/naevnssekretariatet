@@ -31,12 +31,16 @@
                     <dd class="col-sm-9">{{ case.currentPlace }}</dd>
 
                     <dt class="col-sm-3">{% trans %}Initiative assigne{% endtrans %}</dt>
-                    {# TODO: Needs implementation #}
-                    <dd class="col-sm-9">{% trans %}No entry yet{% endtrans %}</dd>
+                    <dd class="col-sm-9">{{ initiative_haver|trans }}</dd>
 
-                    <dt class="col-sm-3">{% trans %}Last parts post{% endtrans %}</dt>
-                    {# TODO: Needs implementation #}
-                    <dd class="col-sm-9">{% trans %}No entry yet{% endtrans %}</dd>
+                    <dt class="col-sm-3">{% trans %}Last hearing response{% endtrans %}</dt>
+                    <dd class="col-sm-9">
+                        {% if link_to_latest_hearing_response is not null %}
+                            <a href="{{ link_to_latest_hearing_response.url }}">{{ link_to_latest_hearing_response.label }}</a>
+                        {% else %}
+                            {% trans %}No entry yet{% endtrans %}
+                        {% endif %}
+                    </dd>
                 </dl>
             </section>
             <section class="mt-3">
@@ -52,11 +56,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {# TODO: Awaiting more implementation of hearing #}
-{#                        <tr>#}
-{#                            <td>Parthøringstidsfrist</td>#}
-{#                            <td>01.07.2020, 14 dage tilbage. <a class="btn btn-primary float-right" href="#reschedule-deadline" role="button" data-toggle="modal" data-target="#rescheduleDeadline"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a></td>#}
-{#                        </tr>#}
+                        <tr>
+                            <td>{% trans %}Party response deadline{% endtrans %}</td>
+                            {% if case.hearingResponseDeadline %}
+                                {% set hearing_response_deadline_difference = today.diff(case.hearingResponseDeadline) %}
+                                <td>
+                                    {{ case.hearingResponseDeadline|date(format_date) }}, {{ hearing_response_deadline_difference.days|e }} {{ hearing_response_deadline_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
+                                    <a class="btn btn-primary float-right" href="" role="button" data-toggle="modal" data-target="#reschedule_hearing_response_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                                </td>
+                            {% else %}
+                                <td>
+                                    {% trans %}Not awaiting any hearing response{% endtrans %}
+                                </td>
+                            {% endif %}
+                        </tr>
                         <tr>
                             <td>{% trans %}Finish hearing deadline{% endtrans %}</td>
                             {% set finished_hearing_difference = today.diff(case.finishHearingDeadline) %}
@@ -78,7 +91,9 @@
                 </div>
 
                 {# Render modals #}
+
                 {# This MUST be rendered outside the table element to not break the HTML structure #}
+                {{ render(controller('App\\Controller\\CaseController:rescheduleHearingResponseDeadline', {id: case.id})) }}
                 {{ render(controller('App\\Controller\\CaseController:rescheduleFinishProcessDeadline', {id: case.id})) }}
                 {{ render(controller('App\\Controller\\CaseController:rescheduleFinishHearingDeadline', {id: case.id})) }}
             </section>
