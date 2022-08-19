@@ -15,7 +15,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PostPersist implements EventSubscriberInterface
+class EntityPostPersistSubscriber implements EventSubscriberInterface
 {
     public function __construct(private MailTemplateHelper $mailTemplateHelper, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private DigitalPostHelper $digitalPostHelper, private TranslatorInterface $translator)
     {
