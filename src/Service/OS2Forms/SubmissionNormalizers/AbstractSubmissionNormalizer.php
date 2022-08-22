@@ -104,13 +104,15 @@ abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInter
 
                 $newFilePath = sys_get_temp_dir().'/'.basename($documentUrl);
 
-                // Place contents from HTTP call
-                file_put_contents($newFilePath, $response->getContent());
+                try {
+                    // Place contents from HTTP call
+                    file_put_contents($newFilePath, $response->getContent());
 
-                // Create document
-                $document = $this->documentUploader->createDocumentFromPath($newFilePath, basename($documentUrl), 'OS2Forms');
-
-                unlink($newFilePath);
+                    // Create document
+                    $document = $this->documentUploader->createDocumentFromPath($newFilePath, basename($documentUrl), 'OS2Forms');
+                } finally {
+                    unlink($newFilePath);
+                }
 
                 $documents[] = $document;
 

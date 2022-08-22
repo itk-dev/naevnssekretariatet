@@ -70,17 +70,22 @@ class DocumentUploader
      */
     public function createDocumentFromUploadedFile(UploadedFile $file, string $documentName, string $documentType): Document
     {
-        $tempDir = sys_get_temp_dir();
-        $file = $file->move($tempDir, $file->getClientOriginalName());
+        try {
+            $tempDir = sys_get_temp_dir();
+            $file = $file->move($tempDir, $file->getClientOriginalName());
 
-        $tempPath = $file->getRealPath();
+            $tempPath = $file->getRealPath();
 
-        $document = $this->createDocumentFromPath($file->getRealPath(), $documentName, $documentType);
+            $document = $this->createDocumentFromPath($file->getRealPath(), $documentName, $documentType);
 
-        // Explicitly indicate that this is created manually, i.e. display original file name on document index page.
-        $document->setIsCreatedManually(true);
-
-        unlink($tempPath);
+            // Explicitly indicate that this is created manually, i.e. display original file name on document index page.
+            $document->setIsCreatedManually(true);
+        } finally {
+            $myfile = fopen('testfile.txt', 'w');
+            fwrite($myfile, $tempPath);
+            fclose($myfile);
+            unlink($tempPath);
+        }
 
         return $document;
     }
