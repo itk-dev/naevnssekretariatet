@@ -110,6 +110,8 @@ abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInter
                 // Create document
                 $document = $this->documentUploader->createDocumentFromPath($newFilePath, basename($documentUrl), 'OS2Forms');
 
+                unlink($newFilePath);
+
                 $documents[] = $document;
 
                 // Persist now, flush when case is created.

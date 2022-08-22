@@ -73,10 +73,14 @@ class DocumentUploader
         $tempDir = sys_get_temp_dir();
         $file = $file->move($tempDir, $file->getClientOriginalName());
 
+        $tempPath = $file->getRealPath();
+
         $document = $this->createDocumentFromPath($file->getRealPath(), $documentName, $documentType);
 
         // Explicitly indicate that this is created manually, i.e. display original file name on document index page.
         $document->setIsCreatedManually(true);
+
+        unlink($tempPath);
 
         return $document;
     }
