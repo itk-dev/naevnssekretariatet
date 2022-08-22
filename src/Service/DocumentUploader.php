@@ -81,9 +81,6 @@ class DocumentUploader
             // Explicitly indicate that this is created manually, i.e. display original file name on document index page.
             $document->setIsCreatedManually(true);
         } finally {
-            $myfile = fopen('testfile.txt', 'w');
-            fwrite($myfile, $tempPath);
-            fclose($myfile);
             unlink($tempPath);
         }
 
