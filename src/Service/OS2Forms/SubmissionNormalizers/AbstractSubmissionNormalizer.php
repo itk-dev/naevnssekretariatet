@@ -36,23 +36,31 @@ abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInter
                 : $submissionData[$spec['os2forms_key']] ?? null
             ;
 
-            if (isset($spec['type'])) {
+            if (isset($spec['type']) && null !== $value) {
                 $type = $spec['type'];
 
-                if (in_array($type, ['string', 'int'])) {
-                    settype($value, $type);
-                } elseif ('boolean' === $type) {
-                    $value = match ($value) {
-                        'Ja', 1 => true,
-                        'Nej', 0 => false,
-                        // If a boolean property is not answered it will be submitted as an empty string (since we use choice elements)
-                        '' => null,
-                        default => throw new WebformSubmissionException(sprintf('The property value %s cannot be transformed into bool. %s', $value, $property))
-                    };
-                } elseif ('datetime' === $type) {
-                    $value = new \DateTime($value, new \DateTimeZone($spec['time_zone'] ?? 'UTC'));
-                } elseif ('documents' === $type) {
-                    $value = is_array($value) && !empty($value) ? $this->handleDocuments($sender, $value) : null;
+                // If an element is left empty in a submission it is submitted as an empty string.
+                if ('' === $value) {
+                    $value = null;
+                }
+
+                // If value is null just continue
+                if (null !== $value) {
+                    if (in_array($type, ['string', 'int'])) {
+                        settype($value, $type);
+                    } elseif ('boolean' === $type) {
+                        $value = match ($value) {
+                            'Ja', 1 => true,
+                            'Nej', 0 => false,
+                            // If a boolean property is not answered it will be submitted as an empty string (since we use choice elements)
+                            '' => null,
+                            default => throw new WebformSubmissionException(sprintf('The property value %s cannot be transformed into bool. %s', $value, $property))
+                        };
+                    } elseif ('datetime' === $type) {
+                        $value = new \DateTime($value, new \DateTimeZone($spec['time_zone'] ?? 'UTC'));
+                    } elseif ('documents' === $type) {
+                        $value = is_array($value) && !empty($value) ? $this->handleDocuments($sender, $value) : null;
+                    }
                 }
             }
 
@@ -62,7 +70,7 @@ abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInter
             }
 
             $isRequired = $spec['required'] ?? false;
-            if ($isRequired && empty($value)) {
+            if ($isRequired && null === $value) {
                 // All required properties should have an 'error_message' configuration.
                 throw new WebformSubmissionException($spec['error_message'] ?? sprintf('Something went wrong handling the %s property.', $property));
             }

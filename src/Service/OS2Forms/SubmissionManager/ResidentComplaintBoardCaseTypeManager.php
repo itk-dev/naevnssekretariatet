@@ -3,13 +3,15 @@
 namespace App\Service\OS2Forms\SubmissionManager;
 
 use App\Entity\ResidentComplaintBoardCase;
+use App\Exception\WebformSubmissionException;
+use App\Repository\UserRepository;
 use App\Service\OS2Forms\SubmissionNormalizers\CaseSubmissionNormalizer;
 use App\Service\OS2Forms\SubmissionNormalizers\ResidentAndRentBoardSubmissionNormalizer;
 use App\Service\OS2Forms\SubmissionNormalizers\SubmissionNormalizerInterface;
 
 class ResidentComplaintBoardCaseTypeManager implements CaseSubmissionManagerInterface
 {
-    public function __construct(private CaseSubmissionNormalizer $caseSubmissionNormalizer, private ResidentAndRentBoardSubmissionNormalizer $residentAndRentBoardSubmissionNormalizer)
+    public function __construct(private CaseSubmissionNormalizer $caseSubmissionNormalizer, private ResidentAndRentBoardSubmissionNormalizer $residentAndRentBoardSubmissionNormalizer, private UserRepository $userRepository)
     {
     }
 
@@ -99,6 +101,17 @@ class ResidentComplaintBoardCaseTypeManager implements CaseSubmissionManagerInte
             ->setComplaintCategory($normalizedData['complaint_category'])
             ->setExtraComplaintCategoryInformation($normalizedData['complaint_category_extra_information'])
         ;
+
+        // ReceivedAt
+        $case->setReceivedAt(new \DateTime('today'));
+
+        // Set created by to OS2Forms
+        $user = $this->userRepository->findOneBy(['name' => 'OS2Forms']);
+        if (null === $user) {
+            throw new WebformSubmissionException('Could not find OS2Forms system user.');
+        }
+
+        $case->setCreatedBy($user);
 
         return $case;
     }

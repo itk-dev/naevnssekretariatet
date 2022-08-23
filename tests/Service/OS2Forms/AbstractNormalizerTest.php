@@ -199,6 +199,34 @@ class AbstractNormalizerTest extends TestCase
         assertEquals($expected, $result);
     }
 
+    public function testSimpleRequiredBooleanConfiguration()
+    {
+        $mockSender = 'some_mock_sender';
+        $mockProperty = 'some_property';
+        $os2FormsKey = 'some_key';
+        $mockValue = 'Nej';
+
+        $config = [
+            $mockProperty => [
+                'os2forms_key' => $os2FormsKey,
+                'required' => true,
+                'type' => 'boolean',
+            ],
+        ];
+
+        $submissionData = [
+            $os2FormsKey => $mockValue,
+        ];
+
+        $result = $this->normalizer->handleConfig($mockSender, $config, $submissionData);
+
+        $expected = [
+            $mockProperty => false,
+        ];
+
+        assertEquals($expected, $result);
+    }
+
     public function testFaultyBooleanConfiguration()
     {
         $mockSender = 'some_mock_sender';
@@ -245,6 +273,33 @@ class AbstractNormalizerTest extends TestCase
 
         $expected = [
             $mockProperty => new \DateTime($mockValue),
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testEmptySubmissionDateTimeConfiguration()
+    {
+        $mockSender = 'some_mock_sender';
+        $mockProperty = 'some_property';
+        $os2FormsKey = 'some_key';
+        $mockValue = '';
+
+        $config = [
+            $mockProperty => [
+                'os2forms_key' => $os2FormsKey,
+                'type' => 'datetime',
+            ],
+        ];
+
+        $submissionData = [
+            $os2FormsKey => $mockValue,
+        ];
+
+        $result = $this->normalizer->handleConfig($mockSender, $config, $submissionData);
+
+        $expected = [
+            $mockProperty => null,
         ];
 
         $this->assertEquals($expected, $result);
