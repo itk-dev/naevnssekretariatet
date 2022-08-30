@@ -267,6 +267,57 @@ Updates case deadline statuses at at 02:00.
 
 Sends unsent digital post every 5 minutes.
 
+## Release process
+
+The release process is very similar for staging and production,
+with only slight deviation.
+
+**Notice**, to help the release process,
+a deploy script has been placed in the `scripts` folder
+on both the staging and production server.
+The script takes one argument, namely a branch name or git tag,
+and ensure that all the necessary commands below are executed.
+
+### Release commands
+
+Make sure you are in the correct directory (`.../htdocs`)
+then checkout branch or release tag:
+
+```shell
+git fetch
+git checkout --force {some_branch_or_tag}
+git reset origin/{some_branch_or_tag} --hard
+git pull
+```
+
+And continue the process with the following commands.
+
+```shell
+# Create, recreate, build and/or start containers
+docker-compose --env-file .env.docker.local --file docker-compose.server.yml up --detach --build --remove-orphans
+# Restart container to reload configuration (cf. https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/#controlling-nginx)
+docker-compose --env-file .env.docker.local --file docker-compose.server.yml restart nginx
+# @see https://stackoverflow.com/questions/36107400/composer-update-memory-limit
+docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --env COMPOSER_MEMORY_LIMIT=-1 --user deploy phpfpm composer install
+
+# Build assets
+docker run -v ${PWD}:/app node:16 yarn --cwd=/app install
+docker run -v ${PWD}:/app node:16 yarn --cwd=/app build
+
+docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console cache:clear
+docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console assets:install public
+docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console doctrine:migrations:migrate --no-interaction
+
+###> PRODUCTION ONLY ###
+docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm composer dump-env prod
+###< PRODUCTION ONLY ###
+
+###> STAGING ONLY ###
+# Staging using fixtures, which means data is 'reset' upon release.
+docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console hautelook:fixtures:load --purge-with-truncate --no-interaction
+###< STAGING ONLY ###
+```
+
 ## Running the tests
 
 See the [TESTING.md](docs/TESTING.md) documentation for more information.
