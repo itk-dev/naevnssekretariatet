@@ -83,16 +83,15 @@ abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInter
 
     private function handleDocuments(string $key, array $submissionData): array
     {
-        // Example submission data
-
         $options = [
             'headers' => [
                 'api-key: '.$this->selvbetjeningUserApiToken,
             ],
         ];
 
+        $documents = [];
+
         foreach ($submissionData[$key] as $documentId) {
-            $documents = [];
             try {
                 // @see https://github.com/itk-dev/os2forms_selvbetjening/tree/develop/web/modules/custom/os2forms_rest_api#example-file-modifications
                 $documentUrl = $submissionData['linked'][$key][$documentId]['url'];
