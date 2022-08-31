@@ -59,7 +59,7 @@ abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInter
                     } elseif ('datetime' === $type) {
                         $value = new \DateTime($value, new \DateTimeZone($spec['time_zone'] ?? 'UTC'));
                     } elseif ('documents' === $type) {
-                        $value = is_array($value) && !empty($value) ? $this->handleDocuments($sender, $value) : null;
+                        $value = is_array($value) && !empty($value) ? $this->handleDocuments($spec['os2forms_key'], $submissionData) : null;
                     }
                 }
             }
@@ -81,27 +81,21 @@ abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInter
         return $normalizedArray;
     }
 
-    private function handleDocuments(string $sender, array $documentIds): array
+    private function handleDocuments(string $key, array $submissionData): array
     {
-        $documents = [];
-        foreach ($documentIds as $documentId) {
+        // Example submission data
+
+        $options = [
+            'headers' => [
+                'api-key: '.$this->selvbetjeningUserApiToken,
+            ],
+        ];
+
+        foreach ($submissionData[$key] as $documentId) {
+            $documents = [];
             try {
-                $options = [
-                    'headers' => [
-                        'api-key: '.$this->selvbetjeningUserApiToken,
-                    ],
-                ];
-
-                // Get document information.
-                $response = $this->httpClient->request(
-                    'GET',
-                    $sender.'/entity/file/'.$documentId,
-                    $options
-                );
-
-                $data = $response->toArray();
-
-                $documentUrl = $sender.$data['uri'][0]['url'];
+                // @see https://github.com/itk-dev/os2forms_selvbetjening/tree/develop/web/modules/custom/os2forms_rest_api#example-file-modifications
+                $documentUrl = $submissionData['linked'][$key][$documentId]['url'];
 
                 // Get document.
                 $response = $this->httpClient->request(
