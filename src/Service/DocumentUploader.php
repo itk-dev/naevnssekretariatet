@@ -81,7 +81,9 @@ class DocumentUploader
             // Explicitly indicate that this is created manually, i.e. display original file name on document index page.
             $document->setIsCreatedManually(true);
         } finally {
-            unlink($tempPath);
+            if (file_exists($tempPath)) {
+                unlink($tempPath);
+            }
         }
 
         return $document;
