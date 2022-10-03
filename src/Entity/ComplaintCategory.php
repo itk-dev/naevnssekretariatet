@@ -44,6 +44,12 @@ class ComplaintCategory implements LoggableEntityInterface
      */
     private $boards;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"mail_template"})
+     */
+    private $kleNumber;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -142,6 +148,18 @@ class ComplaintCategory implements LoggableEntityInterface
     public function removeBoard(Board $board): self
     {
         $this->boards->removeElement($board);
+
+        return $this;
+    }
+
+    public function getKleNumber(): ?string
+    {
+        return $this->kleNumber;
+    }
+
+    public function setKleNumber(?string $kleNumber): self
+    {
+        $this->kleNumber = $kleNumber;
 
         return $this;
     }

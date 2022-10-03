@@ -365,6 +365,10 @@
         <source>Receipt on hearing post</source>
         <target>Receipt on hearing post</target>
       </trans-unit>
+      <trans-unit id="zaJda3c" resname="KLE number">
+        <source>KLE number</source>
+        <target>KLE number</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

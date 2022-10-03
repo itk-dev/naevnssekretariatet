@@ -40,6 +40,12 @@ class ComplaintCategoryCrudController extends AbstractCrudController
         yield NumberField::new('fee', 'Fee')
             ->setRequired(true)
         ;
+        yield TextField::new('kle_number', 'KLE number')
+            // Avoid showing 'Null' or 'Tom' if kle_number is not set.
+            ->formatValue(function ($value) {
+                return $value ?? ' ';
+            })
+        ;
         yield AssociationField::new('boards', 'Boards')
             ->setRequired(true)
             ->formatValue(function ($value, ComplaintCategory $category) {
