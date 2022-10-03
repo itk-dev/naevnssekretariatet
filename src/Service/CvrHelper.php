@@ -126,7 +126,7 @@ class CvrHelper
         $cvrData = $this->lookupCvr($id->getIdentifier());
         $cvrDataArray = json_decode(json_encode($cvrData), true);
 
-        $cvrIdentificationRelevantData = $this->collectRelevantData($cvrDataArray);
+        $cvrIdentificationRelevantData = $this->collectRelevantData($cvrDataArray, false);
 
         if ($caseIdentificationRelevantData != $cvrIdentificationRelevantData) {
             throw new CvrException($this->translator->trans('Case data not match CVR data', [], 'case'));
@@ -138,7 +138,7 @@ class CvrHelper
         return true;
     }
 
-    public function collectRelevantData(array $data): array
+    public function collectRelevantData(array $data, bool $includeAddressProtection = true): array
     {
         $relevantData = [];
 
@@ -149,7 +149,11 @@ class CvrHelper
         $relevantData['side'] = $data['beliggenhedsadresse']['CVRAdresse_doerbetegnelse'] ?? '';
         $relevantData['postalCode'] = $data['beliggenhedsadresse']['CVRAdresse_postnummer'] ?? '';
         $relevantData['city'] = $data['beliggenhedsadresse']['CVRAdresse_postdistrikt'] ?? '';
-        $relevantData['isUnderAddressProtection'] = false;
+
+        if ($includeAddressProtection) {
+            // Business' (Virksomheder) cannot be under address protection.
+            $relevantData['isUnderAddressProtection'] = false;
+        }
 
         return $relevantData;
     }
