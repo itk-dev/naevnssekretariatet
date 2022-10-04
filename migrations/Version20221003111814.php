@@ -20,12 +20,12 @@ final class Version20221003111814 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE complaint_category ADD kle_number VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE complaint_category ADD kle VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE complaint_category DROP kle_number, CHANGE name name VARCHAR(255) NOT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE complaint_category DROP kle, CHANGE name name VARCHAR(255) NOT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }

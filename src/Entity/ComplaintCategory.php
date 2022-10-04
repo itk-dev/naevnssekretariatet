@@ -48,7 +48,7 @@ class ComplaintCategory implements LoggableEntityInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"mail_template"})
      */
-    private $kleNumber;
+    private $kle;
 
     public function __construct()
     {
@@ -152,14 +152,14 @@ class ComplaintCategory implements LoggableEntityInterface
         return $this;
     }
 
-    public function getKleNumber(): ?string
+    public function getKle(): ?string
     {
-        return $this->kleNumber;
+        return $this->kle;
     }
 
-    public function setKleNumber(?string $kleNumber): self
+    public function setKle(?string $kle): self
     {
-        $this->kleNumber = $kleNumber;
+        $this->kle = $kle;
 
         return $this;
     }

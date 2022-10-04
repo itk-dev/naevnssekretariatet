@@ -1569,9 +1569,9 @@
         <source>Case is unassigned</source>
         <target>Case is unassigned</target>
       </trans-unit>
-      <trans-unit id="zaJda3c" resname="KLE number">
-        <source>KLE number</source>
-        <target>KLE number</target>
+      <trans-unit id="avp1KUq" resname="KLE">
+        <source>KLE</source>
+        <target>KLE</target>
       </trans-unit>
     </body>
   </file>

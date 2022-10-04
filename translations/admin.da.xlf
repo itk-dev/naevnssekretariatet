@@ -373,9 +373,9 @@
         <source>Receipt on hearing post</source>
         <target state="translated">Kvittering på høringssvar</target>
       </trans-unit>
-      <trans-unit id="zaJda3c" resname="KLE number">
-        <source>KLE number</source>
-        <target state="translated">KLE</target>
+      <trans-unit id="avp1KUq" resname="KLE">
+        <source>KLE</source>
+        <target>__KLE</target>
       </trans-unit>
     </body>
   </file>
