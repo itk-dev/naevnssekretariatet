@@ -375,7 +375,7 @@
       </trans-unit>
       <trans-unit id="avp1KUq" resname="KLE">
         <source>KLE</source>
-        <target>__KLE</target>
+        <target state="translated">KLE</target>
       </trans-unit>
     </body>
   </file>
