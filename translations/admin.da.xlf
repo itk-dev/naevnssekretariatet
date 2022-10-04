@@ -373,6 +373,10 @@
         <source>Receipt on hearing post</source>
         <target state="translated">Kvittering på høringssvar</target>
       </trans-unit>
+      <trans-unit id="avp1KUq" resname="KLE">
+        <source>KLE</source>
+        <target state="translated">KLE</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

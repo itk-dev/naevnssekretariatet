@@ -1565,6 +1565,10 @@
         <source>Case is unassigned</source>
         <target state="translated">Sagen er ikke tildelt nogen sagsbehandler</target>
       </trans-unit>
+      <trans-unit id="avp1KUq" resname="KLE">
+        <source>KLE</source>
+        <target state="translated">KLE</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
