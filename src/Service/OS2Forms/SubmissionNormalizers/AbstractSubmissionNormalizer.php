@@ -112,9 +112,7 @@ abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInter
                     // Create document
                     $document = $this->documentUploader->createDocumentFromPath($newFilePath, basename($documentUrl), 'OS2Forms');
                 } finally {
-                    if (file_exists($newFilePath)) {
-                        unlink($newFilePath);
-                    }
+                    unlink($newFilePath);
                 }
 
                 $documents[] = $document;
