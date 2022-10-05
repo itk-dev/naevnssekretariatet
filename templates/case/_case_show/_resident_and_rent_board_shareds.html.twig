@@ -37,7 +37,7 @@
                             <input type="text" class="form-control" value="{{ case.bringerPhone }}" readonly>
                         </div>
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                            {% include 'case/_identifier.html.twig' with {case: case, id_property: 'bringerIdentification', address_property: 'bringerAddress', name_property: 'bringer'} %}
+                            {% include 'case/_identifier.html.twig' with {case: case, id_property: 'bringerIdentification', address_property: 'bringerAddress', address_protection_property: 'bringerIsUnderAddressProtection', name_property: 'bringer'} %}
                         {% endif %}
                     </div>
 

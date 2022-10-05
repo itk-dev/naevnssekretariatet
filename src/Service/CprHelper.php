@@ -169,9 +169,9 @@ class CprHelper
      *
      * @throws CprException
      */
-    public function validateCpr(CaseEntity $case, string $idProperty, string $addressProperty, string $nameProperty): bool
+    public function validateCpr(CaseEntity $case, string $idProperty, string $addressProperty, string $addressProtectionProperty, string $nameProperty): bool
     {
-        $caseIdentificationRelevantData = $this->caseManager->getCaseIdentificationValues($case, $addressProperty, $nameProperty);
+        $caseIdentificationRelevantData = $this->caseManager->getCaseIdentificationValues($case, $addressProperty, $nameProperty, $addressProtectionProperty);
 
         // Get CPR data
         /** @var Identification $id */
@@ -180,7 +180,7 @@ class CprHelper
         $cprData = $this->lookupCPR($id->getIdentifier());
         $cprDataArray = json_decode(json_encode($cprData), true);
 
-        $cprIdentificationRelevantData = $this->collectRelevantData($cprDataArray, false);
+        $cprIdentificationRelevantData = $this->collectRelevantData($cprDataArray);
 
         if ($caseIdentificationRelevantData != $cprIdentificationRelevantData) {
             throw new CprException($this->translator->trans('Case data not match CPR data', [], 'case'));
@@ -192,7 +192,7 @@ class CprHelper
         return true;
     }
 
-    public function collectRelevantData(array $data, bool $includeAddressProtection = true): array
+    public function collectRelevantData(array $data): array
     {
         $relevantData = [];
 
@@ -204,10 +204,8 @@ class CprHelper
         $relevantData['postalCode'] = $data['adresse']['aktuelAdresse']['postnummer'];
         $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'];
 
-        if ($includeAddressProtection) {
-            // If person is NOT under address protection, 'adressebeskyttelse' is simply an empty array
-            $relevantData['isUnderAddressProtection'] = !empty($data['persondata']['adressebeskyttelse']);
-        }
+        // If person is NOT under address protection, 'adressebeskyttelse' is simply an empty array
+        $relevantData['isUnderAddressProtection'] = !empty($data['persondata']['adressebeskyttelse']);
 
         return $relevantData;
     }

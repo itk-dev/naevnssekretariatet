@@ -821,9 +821,9 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/validate-identifier/{idProperty}/{addressProperty}/{nameProperty}", name="case_validate_identifier", methods={"GET", "POST"})
+     * @Route("/{id}/validate-identifier/{idProperty}/{addressProperty}/{addressProtectionProperty}/{nameProperty}", name="case_validate_identifier", methods={"GET", "POST"})
      */
-    public function validateIdentifier(Request $request, CaseEntity $case, IdentificationHelper $identificationHelper, string $idProperty, string $addressProperty, string $nameProperty, TranslatorInterface $translator, PropertyAccessorInterface $propertyAccessor): Response
+    public function validateIdentifier(Request $request, CaseEntity $case, IdentificationHelper $identificationHelper, string $idProperty, string $addressProperty, string $addressProtectionProperty, string $nameProperty, TranslatorInterface $translator, PropertyAccessorInterface $propertyAccessor): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -832,7 +832,7 @@ class CaseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $identificationHelper->validateIdentification($case, $idProperty, $addressProperty, $nameProperty);
+                $identificationHelper->validateIdentification($case, $idProperty, $addressProperty, $addressProtectionProperty, $nameProperty);
 
                 $this->addFlash('success', new TranslatableMessage('Identification validated', [], 'case'));
 
@@ -859,6 +859,7 @@ class CaseController extends AbstractController
             'case' => $case,
             'id_property' => $idProperty,
             'address_property' => $addressProperty,
+            'address_protection_property' => $addressProtectionProperty,
             'name_property' => $nameProperty,
         ]);
     }

@@ -25,13 +25,13 @@ class IdentificationHelper implements EventSubscriberInterface
      * @throws CprException
      * @throws CvrException
      */
-    public function validateIdentification(CaseEntity $case, string $idProperty, string $addressProperty, string $nameProperty)
+    public function validateIdentification(CaseEntity $case, string $idProperty, string $addressProperty, string $addressProtectionProperty, string $nameProperty)
     {
         /** @var Identification $identification */
         $identification = $this->propertyAccessor->getValue($case, $idProperty);
 
         if (self::IDENTIFIER_TYPE_CPR === $identification->getType()) {
-            $this->cprHelper->validateCpr($case, $idProperty, $addressProperty, $nameProperty);
+            $this->cprHelper->validateCpr($case, $idProperty, $addressProperty, $addressProtectionProperty, $nameProperty);
         } else {
             $this->cvrHelper->validateCvr($case, $idProperty, $addressProperty, $nameProperty);
         }

@@ -143,10 +143,11 @@ class CaseManager implements LoggerAwareInterface
         }
     }
 
-    public function getCaseIdentificationValues(CaseEntity $case, string $addressProperty, string $nameProperty): array
+    public function getCaseIdentificationValues(CaseEntity $case, string $addressProperty, string $nameProperty, string $addressProtectionProperty = null): array
     {
         /** @var Address $address */
         $address = $this->propertyAccessor->getValue($case, $addressProperty);
+        $isUnderAddressProtection = $this->propertyAccessor->getValue($case, $addressProtectionProperty);
         $name = $this->propertyAccessor->getValue($case, $nameProperty);
 
         $data = [];
@@ -157,6 +158,10 @@ class CaseManager implements LoggerAwareInterface
         $data['side'] = $address->getSide() ?? '';
         $data['postalCode'] = $address->getPostalCode();
         $data['city'] = $address->getCity();
+
+        if ($addressProtectionProperty) {
+            $data['isUnderAddressProtection'] = $isUnderAddressProtection;
+        }
 
         return $data;
     }
