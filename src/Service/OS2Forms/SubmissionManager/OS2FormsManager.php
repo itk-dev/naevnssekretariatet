@@ -16,12 +16,12 @@ class OS2FormsManager
      */
     public function handleOS2FormsSubmission(string $webformId, string $sender, array $submissionData)
     {
-        // TODO: Needs updating when form ids are finalized and hearing response forms are added.
+        // Beware that these needs updating if OS2Forms machine names are changed.
         match ($webformId) {
             'tvist1_beboerklagenaevnet_ny_sag' => $this->caseManager->handleOS2FormsCaseSubmission($sender, $submissionData, $this->residentComplaintBoardCaseTypeManager),
             'tvist1_huslejenaevnet_ny_sag' => $this->caseManager->handleOS2FormsCaseSubmission($sender, $submissionData, $this->rentComplaintBoardCaseTypeManager),
             'tvist1_hegnssynet_ny_sag' => $this->caseManager->handleOS2FormsCaseSubmission($sender, $submissionData, $this->fenceComplaintBoardCaseTypeManager),
-            'tvist1_hoeringssvar_test' => $this->hearingHelper->handleOS2FormsHearingSubmission($sender, $submissionData, $this->hearingResponseManager),
+            'tvist1_partshoeringssvar' => $this->hearingHelper->handleOS2FormsHearingSubmission($sender, $submissionData, $this->hearingResponseManager),
         };
     }
 }
