@@ -149,7 +149,6 @@ class CvrHelper
         $relevantData['side'] = $data['beliggenhedsadresse']['CVRAdresse_doerbetegnelse'] ?? '';
         $relevantData['postalCode'] = $data['beliggenhedsadresse']['CVRAdresse_postnummer'] ?? '';
         $relevantData['city'] = $data['beliggenhedsadresse']['CVRAdresse_postdistrikt'] ?? '';
-        $relevantData['isUnderAddressProtection'] = false;
 
         return $relevantData;
     }

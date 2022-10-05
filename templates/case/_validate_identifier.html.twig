@@ -1,6 +1,6 @@
 {% trans_default_domain 'case' %}
 
-{{ form_start(form, {'action': path('case_validate_identifier', {id: case.id, idProperty: id_property, addressProperty: address_property, nameProperty: name_property}), 'attr': {'data-use-ajax': true}}) }}
+{{ form_start(form, {'action': path('case_validate_identifier', {id: case.id, idProperty: id_property, addressProperty: address_property, addressProtectionProperty: address_protection_property, nameProperty: name_property}), 'attr': {'data-use-ajax': true}}) }}
     {% set identifier_type = attribute(case, id_property).type %}
     {# twigcs use-var identifier_type #}
     <div class="form-header">

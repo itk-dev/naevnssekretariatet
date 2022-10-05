@@ -42,7 +42,12 @@ $(function () {
           $('#party_form_address_side').val(response.side)
           $('#party_form_address_postalCode').val(response.postalCode)
           $('#party_form_address_city').val(response.city)
-          $('#party_form_isUnderAddressProtection').prop('checked', response.isUnderAddressProtection)
+
+          if (typeof response.isUnderAddressProtection === 'boolean') {
+            $('#party_form_isUnderAddressProtection').prop('checked', response.isUnderAddressProtection)
+          } else {
+            $('#party_form_isUnderAddressProtection').prop('checked', false)
+          }
 
           // Indicate that identifier was found
           $($identificationLookupButton).removeClass(function () {
