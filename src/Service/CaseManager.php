@@ -147,7 +147,6 @@ class CaseManager implements LoggerAwareInterface
     {
         /** @var Address $address */
         $address = $this->propertyAccessor->getValue($case, $addressProperty);
-        $isUnderAddressProtection = $this->propertyAccessor->getValue($case, $addressProtectionProperty);
         $name = $this->propertyAccessor->getValue($case, $nameProperty);
 
         $data = [];
@@ -160,7 +159,7 @@ class CaseManager implements LoggerAwareInterface
         $data['city'] = $address->getCity();
 
         if ($addressProtectionProperty) {
-            $data['isUnderAddressProtection'] = $isUnderAddressProtection;
+            $data['isUnderAddressProtection'] = $this->propertyAccessor->getValue($case, $addressProtectionProperty);
         }
 
         return $data;
