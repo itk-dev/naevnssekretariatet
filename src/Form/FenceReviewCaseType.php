@@ -54,7 +54,7 @@ class FenceReviewCaseType extends AbstractType
             ])
             ->add('bringerIdentification', IdentificationType::class, [
                 'label' => $this->translator->trans('Bringer', [], 'case'),
-                'is_required' => true,
+                'is_required' => false,
             ])
             ->add('lookupIdentifier', ButtonType::class, [
                 'label' => $this->translator->trans('Find information from identifier', [], 'case'),
