@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Released]
 
 ### Added
+
 - This CHANGELOG file to hopefully serve as an evolving example of a
   standardized open source project CHANGELOG.
 - Standard Symfony 5.2 project
@@ -81,9 +82,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Updated `${agenda.items}` template macro.
 
 ### Fixed
+
 - [NSEK-104](https://jira.itkdev.dk/browse/NSEK-104):
   Added missing database variables to .env file.
 - [TVIST1-254](https://jira.itkdev.dk/browse/TVIST1-254):
-  Removed trailing slash in redirect URL
+  Removed trailing slash in redirect URL.
+- [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
+  Resolved issue regarding time formats.
 
 ## [Unreleased]
