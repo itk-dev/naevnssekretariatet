@@ -20,6 +20,13 @@ App\Entity\Document:
     filename: <copyFile(document/attachment2.pdf, upload/documents)>
     uploadedBy: '@user-caseworker'
 
+  document-002:
+      type: '@document-type-4'
+      documentName: The first agenda broadcast
+      # @see \DataFixtures\Faker\Provider\FileUploadProvider
+      filename: <copyFile(document/test1.pdf, upload/documents)>
+      uploadedBy: '@user-caseworker'
+
 # Relate documents to cases.
 App\Entity\CaseDocumentRelation:
     case-document-relation-001:
