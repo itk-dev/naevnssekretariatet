@@ -12,6 +12,12 @@ App\Entity\DigitalPost:
         subject: 'Another interesting title'
         status: sent
 
+    digital-post-003:
+        document: '@document-002'
+        entityType: 'App\Entity\Agenda'
+        entityId: '@agenda-1->id'
+        subject: 'Agenda Broadcast'
+
 App\Entity\DigitalPostAttachment:
     digital-post-attachment-001:
         digitalPost: '@digital-post-001'
