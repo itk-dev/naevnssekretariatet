@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Released]
 ### Added
 - This CHANGELOG file to hopefully serve as an evolving example of a
   standardized open source project CHANGELOG.
@@ -47,6 +47,7 @@ MunicipalityListener, BoardListener and their tests.
 - [TVIST1-238](https://jira.itkdev.dk/browse/TVIST1-238): Added RentBoardCase and FenceReviewCase.
 - [TVIST1-410](https://jira.itkdev.dk/browse/TVIST1-410): Added address embeddable.
 - [TVIST1-297](https://jira.itkdev.dk/browse/TVIST1-297): Added templates, routes and controller for Agenda module.
+- [TVIST1-638](https://jira.itkdev.dk/browse/TVIST1-638): Added KLE to complaint category
 
 ### Changed
 - [NSEK-138](https://jira.itkdev.dk/browse/NSEK-138): Updating Cypress to 6.5.0 so the same version is used project wide.
@@ -55,3 +56,5 @@ MunicipalityListener, BoardListener and their tests.
 ### Fixed
 - [NSEK-104](https://jira.itkdev.dk/browse/NSEK-104): Added missing database variables to .env file.
 - [TVIST1-254](https://jira.itkdev.dk/browse/TVIST1-254): Removed trailing slash in redirect URL
+
+## [Unreleased]
