@@ -113,7 +113,7 @@ class FenceReviewCase extends CaseEntity
         return $this->accusedCadastralNumber;
     }
 
-    public function setAccusedCadastralNumber(string $accusedCadastralNumber): self
+    public function setAccusedCadastralNumber(?string $accusedCadastralNumber): self
     {
         $this->accusedCadastralNumber = $accusedCadastralNumber;
 

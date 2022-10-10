@@ -239,6 +239,14 @@ services:
         arguments:
             $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
 
+    App\Service\OS2Forms\SubmissionNormalizers\RentBoardSubmissionNormalizer:
+        arguments:
+            $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
+
+    App\Service\OS2Forms\SubmissionNormalizers\FenceBoardSubmissionNormalizer:
+        arguments:
+            $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
+
     App\Service\OS2Forms\SubmissionNormalizers\HearingResponseSubmissionNormalizer:
         arguments:
             $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
