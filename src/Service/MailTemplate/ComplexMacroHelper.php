@@ -12,6 +12,7 @@ use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Element\TextRun;
+use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\Style\Font;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -107,20 +108,44 @@ class ComplexMacroHelper
 
         // Agenda items
         $table = new Table([
-            'unit' => TblWidth::TWIP,
+            // @see https://github.com/PHPOffice/PHPWord/blob/develop/src/PhpWord/SimpleType/TblWidth.php#L36
+            //Width in Fiftieths of a Percent
+            'unit' => TblWidth::PERCENT,
             'cellMargin' => 0,
             'spacing' => 0,
+            'width' => 100 * 50,
         ]);
 
+        $count = 1;
         foreach ($agenda->getAgendaItems() as $agendaItem) {
-            $this->addTableRow($table, [
-                sprintf('%s–%s',
-                    $agendaItem->getStartTime()->format('H:i'),
-                    $agendaItem->getEndTime()->format('H:i')
-                ),
+            $text =
+                sprintf('%s–%s &lt; %s',
+                $agendaItem->getStartTime()->format('H:i'),
+                $agendaItem->getEndTime()->format('H:i'),
                 $agendaItem->getTitle(),
-                $agendaItem->getMeetingPoint(),
+            )
+            ;
+
+            if ($agendaItem->getMeetingPoint()) {
+                $text .= sprintf(', %s', $agendaItem->getMeetingPoint());
+            }
+
+            $this->addTableRow($table, [
+                [
+                    'text' => $count.'.',
+                    'cell' => [
+                        'width' => 5 * 50,
+                    ],
+                ],
+                [
+                    'text' => $text,
+                    'cell' => [
+                        'width' => 95 * 50,
+                    ],
+                ],
             ]);
+
+            ++$count;
         }
 
         $values['agenda.items'] = new ComplexMacro($table, 'Agenda items');
