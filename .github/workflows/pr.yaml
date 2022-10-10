@@ -240,7 +240,7 @@ jobs:
           node-version: '12'
       - run: yarn install
       - name: markdownlint
-        run: yarn markdownlint README.md CHANGELOG.md docs
+        run: yarn markdownlint --ignore LICENSE.md *.md docs/
 
   translations:
     runs-on: ubuntu-20.04
