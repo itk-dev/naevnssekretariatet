@@ -12,6 +12,7 @@ use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Element\TextRun;
+use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\Style\Font;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -117,20 +118,21 @@ class ComplexMacroHelper
 
         $count = 1;
         foreach ($agenda->getAgendaItems() as $agendaItem) {
-            $text = $agendaItem->getMeetingPoint() ? sprintf('%s–%s > %s, %s',
+            $text =
+                sprintf('%s–%s &lt; %s',
                 $agendaItem->getStartTime()->format('H:i'),
                 $agendaItem->getEndTime()->format('H:i'),
                 $agendaItem->getTitle(),
-                $agendaItem->getMeetingPoint(),
-            ) : sprintf('%s–%s > %s',
-                $agendaItem->getStartTime()->format('H:i'),
-                $agendaItem->getEndTime()->format('H:i'),
-                $agendaItem->getTitle(),
-            );
+            )
+            ;
+
+            if ($agendaItem->getMeetingPoint()) {
+                $text .= sprintf(', %s', $agendaItem->getMeetingPoint());
+            }
 
             $this->addTableRow($table, [
                 [
-                    'text' => (string) $count,
+                    'text' => $count.'.',
                     'cell' => [
                         'width' => 5 * 50,
                     ],
