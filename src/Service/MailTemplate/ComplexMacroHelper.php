@@ -107,20 +107,43 @@ class ComplexMacroHelper
 
         // Agenda items
         $table = new Table([
-            'unit' => TblWidth::TWIP,
+            // @see https://github.com/PHPOffice/PHPWord/blob/develop/src/PhpWord/SimpleType/TblWidth.php#L36
+            //Width in Fiftieths of a Percent
+            'unit' => TblWidth::PERCENT,
             'cellMargin' => 0,
             'spacing' => 0,
+            'width' => 100 * 50,
         ]);
 
+        $count = 1;
         foreach ($agenda->getAgendaItems() as $agendaItem) {
-            $this->addTableRow($table, [
-                sprintf('%s–%s',
-                    $agendaItem->getStartTime()->format('H:i'),
-                    $agendaItem->getEndTime()->format('H:i')
-                ),
+            $text = $agendaItem->getMeetingPoint() ? sprintf('%s–%s > %s, %s',
+                $agendaItem->getStartTime()->format('H:i'),
+                $agendaItem->getEndTime()->format('H:i'),
                 $agendaItem->getTitle(),
                 $agendaItem->getMeetingPoint(),
+            ) : sprintf('%s–%s > %s',
+                $agendaItem->getStartTime()->format('H:i'),
+                $agendaItem->getEndTime()->format('H:i'),
+                $agendaItem->getTitle(),
+            );
+
+            $this->addTableRow($table, [
+                [
+                    'text' => (string) $count,
+                    'cell' => [
+                        'width' => 5 * 50,
+                    ],
+                ],
+                [
+                    'text' => $text,
+                    'cell' => [
+                        'width' => 95 * 50,
+                    ],
+                ],
             ]);
+
+            ++$count;
         }
 
         $values['agenda.items'] = new ComplexMacro($table, 'Agenda items');
