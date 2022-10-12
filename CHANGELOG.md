@@ -72,6 +72,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Added templates, routes and controller for Agenda module.
 - [TVIST1-638](https://jira.itkdev.dk/browse/TVIST1-638):
   Added KLE to complaint category.
+- [TVIST1-672](https://jira.itkdev.dk/browse/TVIST1-672):
+  Added `tvist1:board:list` command for listing useful
+    information about all boards available.
 
 ### Changed
 
