@@ -59,6 +59,7 @@ class Address implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"mail_template"})
      */
     private $extraInformation;
 
