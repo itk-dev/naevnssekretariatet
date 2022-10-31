@@ -102,12 +102,14 @@ class DocumentUploader
             stream_copy_to_stream($fileStream, $outputStream);
         });
 
+        // We use document name as filename.
         $filename = $document->getDocumentName();
 
         $slugger = new AsciiSlugger();
         $fallbackFilename = $slugger->slug($document->getDocumentName())->__toString();
 
         $ext = pathinfo($document->getFilename(), PATHINFO_EXTENSION);
+
         $filename .= '.'.$ext;
         $fallbackFilename .= '.'.$ext;
 
