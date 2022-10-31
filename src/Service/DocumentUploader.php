@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class DocumentUploader
 {
@@ -101,16 +102,25 @@ class DocumentUploader
             stream_copy_to_stream($fileStream, $outputStream);
         });
 
-        if ($forceDownload) {
-            $disposition = HeaderUtils::makeDisposition(
-                HeaderUtils::DISPOSITION_ATTACHMENT,
-                $document->getFilename()
-            );
+        // We use document name as filename.
+        $filename = $document->getDocumentName();
 
-            $response->headers->set('Content-Disposition', $disposition);
-        } else {
-            $response->headers->set('Content-Type', $this->mimeTypeGuesser->guessMimeType($this->getFilepath($document->getFilename())));
-        }
+        $slugger = new AsciiSlugger();
+        $fallbackFilename = $slugger->slug($document->getDocumentName())->__toString();
+
+        $ext = pathinfo($document->getFilename(), PATHINFO_EXTENSION);
+
+        $filename .= '.'.$ext;
+        $fallbackFilename .= '.'.$ext;
+
+        $disposition = HeaderUtils::makeDisposition(
+            $forceDownload ? HeaderUtils::DISPOSITION_ATTACHMENT : HeaderUtils::DISPOSITION_INLINE,
+            $filename,
+            $fallbackFilename
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+        $response->headers->set('Content-Type', $this->mimeTypeGuesser->guessMimeType($this->getFilepath($document->getFilename())));
 
         return $response;
     }
