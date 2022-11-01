@@ -35,11 +35,6 @@ class ComplaintCategory implements LoggableEntityInterface
     private $fee;
 
     /**
-     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="complaintCategory")
-     */
-    private $caseEntities;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Board::class, inversedBy="complaintCategories")
      */
     private $boards;
@@ -50,11 +45,16 @@ class ComplaintCategory implements LoggableEntityInterface
      */
     private $kle;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CaseEntity::class, mappedBy="complaintCategories")
+     */
+    private $caseEntities;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
-        $this->caseEntities = new ArrayCollection();
         $this->boards = new ArrayCollection();
+        $this->caseEntities = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -86,36 +86,6 @@ class ComplaintCategory implements LoggableEntityInterface
         return $this;
     }
 
-    /**
-     * @return Collection|CaseEntity[]
-     */
-    public function getCaseEntities(): Collection
-    {
-        return $this->caseEntities;
-    }
-
-    public function addCaseEntity(CaseEntity $caseEntity): self
-    {
-        if (!$this->caseEntities->contains($caseEntity)) {
-            $this->caseEntities[] = $caseEntity;
-            $caseEntity->setComplaintCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCaseEntity(CaseEntity $caseEntity): self
-    {
-        if ($this->caseEntities->removeElement($caseEntity)) {
-            // set the owning side to null (unless already changed)
-            if ($caseEntity->getComplaintCategory() === $this) {
-                $caseEntity->setComplaintCategory(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function __toString()
     {
         return $this->name;
@@ -125,6 +95,8 @@ class ComplaintCategory implements LoggableEntityInterface
     {
         return [
             'name',
+            'fee',
+            'kle',
         ];
     }
 
@@ -160,6 +132,33 @@ class ComplaintCategory implements LoggableEntityInterface
     public function setKle(?string $kle): self
     {
         $this->kle = $kle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaseEntity[]
+     */
+    public function getCaseEntities(): Collection
+    {
+        return $this->caseEntities;
+    }
+
+    public function addCaseEntity(CaseEntity $caseEntity): self
+    {
+        if (!$this->caseEntities->contains($caseEntity)) {
+            $this->caseEntities[] = $caseEntity;
+            $caseEntity->addComplaintCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaseEntity(CaseEntity $caseEntity): self
+    {
+        if ($this->caseEntities->removeElement($caseEntity)) {
+            $caseEntity->removeComplaintCategory($this);
+        }
 
         return $this;
     }

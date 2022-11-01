@@ -56,13 +56,6 @@ abstract class CaseEntity implements Timestampable
     private $caseNumber;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ComplaintCategory::class, inversedBy="caseEntities")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"mail_template"})
-     */
-    private $complaintCategory;
-
-    /**
      * @ORM\OneToMany(targetEntity="CaseDocumentRelation", mappedBy="case")
      */
     private $caseDocumentRelation;
@@ -231,6 +224,11 @@ abstract class CaseEntity implements Timestampable
      */
     private $dateForActiveAgenda;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ComplaintCategory::class, inversedBy="caseEntities")
+     */
+    private $complaintCategories;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -244,6 +242,7 @@ abstract class CaseEntity implements Timestampable
         $this->finishProcessingDeadline = new \DateTime('today');
         $this->decisions = new ArrayCollection();
         $this->bringerIdentification = new Identification();
+        $this->complaintCategories = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -283,18 +282,6 @@ abstract class CaseEntity implements Timestampable
     public function setCaseNumber(string $caseNumber): self
     {
         $this->caseNumber = $caseNumber;
-
-        return $this;
-    }
-
-    public function getComplaintCategory(): ?ComplaintCategory
-    {
-        return $this->complaintCategory;
-    }
-
-    public function setComplaintCategory(?ComplaintCategory $complaintCategory): self
-    {
-        $this->complaintCategory = $complaintCategory;
 
         return $this;
     }
@@ -782,6 +769,30 @@ abstract class CaseEntity implements Timestampable
     public function setDateForActiveAgenda(?\DateTimeInterface $dateForActiveAgenda): self
     {
         $this->dateForActiveAgenda = $dateForActiveAgenda;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ComplaintCategory[]
+     */
+    public function getComplaintCategories(): Collection
+    {
+        return $this->complaintCategories;
+    }
+
+    public function addComplaintCategory(ComplaintCategory $complaintCategory): self
+    {
+        if (!$this->complaintCategories->contains($complaintCategory)) {
+            $this->complaintCategories[] = $complaintCategory;
+        }
+
+        return $this;
+    }
+
+    public function removeComplaintCategory(ComplaintCategory $complaintCategory): self
+    {
+        $this->complaintCategories->removeElement($complaintCategory);
 
         return $this;
     }
