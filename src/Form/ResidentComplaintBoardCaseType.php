@@ -96,11 +96,12 @@ class ResidentComplaintBoardCaseType extends AbstractType
                 'lookup-placeholder' => $this->translator->trans('Look up lease address', [], 'case'),
                 'lookup-help' => $this->translator->trans('Look up an address to fill out the address fields', [], 'case'),
             ])
-            ->add('complaintCategory', EntityType::class, [
+            ->add('complaintCategories', EntityType::class, [
+                'multiple' => true,
+                'expanded' => true,
                 'class' => ComplaintCategory::class,
                 'choices' => $this->categoryRepository->findComplaintCategoriesByBoard($board),
-                'label' => $this->translator->trans('Complaint category', [], 'case'),
-                'placeholder' => $this->translator->trans('Select a complaint category', [], 'case'),
+                'label' => $this->translator->trans('Complaint categories', [], 'case'),
             ])
             ->add('extraComplaintCategoryInformation', TextType::class, [
                 'label' => $this->translator->trans('Extra complaint category information', [], 'case'),

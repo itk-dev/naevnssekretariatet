@@ -40,13 +40,21 @@ class AgendaCaseItemNewType extends AbstractType
                 'choice_label' => function (CaseEntity $caseEntity) {
                     $caseNumber = $caseEntity->getCaseNumber();
                     $isInspection = $caseEntity->getShouldBeInspected();
-                    $complaint = $caseEntity->getComplaintCategory()->getName();
+
+                    $complaints = '';
+                    foreach ($caseEntity->getComplaintCategories() as $complaintCategory) {
+                        if (empty($complaints)) {
+                            $complaints .= $complaintCategory->getName();
+                        } else {
+                            $complaints .= ', '.$complaintCategory->getName();
+                        }
+                    }
                     $address = $caseEntity->getSortingAddress();
 
                     if ($isInspection) {
-                        $label = $caseNumber.' - '.$this->translator->trans('Inspection', [], 'agenda').' - '.$complaint.' - '.$address;
+                        $label = $caseNumber.' - '.$this->translator->trans('Inspection', [], 'agenda').' - '.$complaints.' - '.$address;
                     } else {
-                        $label = $caseNumber.' - '.$complaint.' - '.$address;
+                        $label = $caseNumber.' - '.$complaints.' - '.$address;
                     }
 
                     return $label;

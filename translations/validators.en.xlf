@@ -545,6 +545,10 @@
         <source>Please upload a valid Word document (docx).</source>
         <target>Please upload a valid Word document (docx).</target>
       </trans-unit>
+      <trans-unit id="w.JTtbD" resname="You have to select at least 1 item">
+        <source>You have to select at least 1 item</source>
+        <target>You have to select at least 1 item</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -46,23 +46,25 @@
                 </fieldset>
                 <fieldset>
                     <legend>{% trans %}Case specifics{% endtrans %}</legend>
+                    {% for complaint_category in case.complaintCategories %}
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-6">
                             <label>{% trans %}Complaint category{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.complaintCategory.name }}" readonly>
+                            <input type="text" class="form-control" value="{{ complaint_category.name }}" readonly>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-3">
                             <label>{% trans %}KLE{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.complaintCategory.kle }}" readonly>
+                            <input type="text" class="form-control" value="{{ complaint_category.kle }}" readonly>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-3">
                             <label>{% trans %}Complaint fee in DKK{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.complaintCategory.fee }}" readonly>
+                            <input type="text" class="form-control" value="{{ complaint_category.fee }}" readonly>
                         </div>
-                        <div class="form-group col-md-5">
-                            <label>{% trans %}Extra complaint category information{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.extraComplaintCategoryInformation }}" readonly>
-                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="form-row">
+                        <label>{% trans %}Extra complaint category information{% endtrans %}</label>
+                        <input type="text" class="form-control" value="{{ case.extraComplaintCategoryInformation }}" readonly>
                     </div>
                 </fieldset>
             </div>

@@ -545,6 +545,10 @@
         <source>Please upload a valid Word document (docx).</source>
         <target state="translated">Upload venligst et gyldigt Word-dokument (docx).</target>
       </trans-unit>
+      <trans-unit id="w.JTtbD" resname="You have to select at least 1 item">
+        <source>You have to select at least 1 item</source>
+        <target state="translated">Du skal vælge mindst en klagetype</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

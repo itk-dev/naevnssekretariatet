@@ -45,10 +45,6 @@ class SearchController extends AbstractController
             $qb = $caseRepository->updateQueryBuilderForBoardMember($boardMember, $qb);
         }
 
-        // Add sortable fields.
-        $qb->leftJoin('c.complaintCategory', 'complaintCategory');
-        $qb->addSelect('partial complaintCategory.{id,name}');
-
         $pagination = $paginator->paginate(
             $qb->getQuery(), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/

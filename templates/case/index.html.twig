@@ -58,9 +58,7 @@
                     <th{% if pagination.isSorted('c.CaseNumber') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Casenumber'|trans({}, 'case'), 'c.caseNumber') }}
                     </th>
-                    <th{% if pagination.isSorted('c.ComplaintCategory') %} class="sorted"{% endif %}>
-                        {{ knp_pagination_sortable(pagination, 'Complaint category'|trans({}, 'case'), 'complaintCategory.name') }}
-                    </th>
+                    <th class="col-4">{% trans %}Complaint categories{% endtrans %}</th>
                     <th{% if pagination.isSorted('c.currentPlace') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Status'|trans({}, 'case'), 'c.currentPlace') }}
                     </th>
@@ -79,14 +77,22 @@
                             {{ knp_pagination_sortable(pagination, 'Counterparty'|trans({}, 'case'), 'c.sortingCounterparty') }}
                         </th>
                     {% endif %}
-                    <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
+                    <th>{% trans %}Function{% endtrans %}</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for case in pagination %}
                     <tr>
                         <td><a href="{{ url('case_summary', {id: case.id}) }}" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ case.casenumber|e }}">{{ case.casenumber|e }}</a></td>
-                        <td>{{ case.complaintCategory.name|e }}</td>
+                        {% set complaint_catories = "" %}
+                        {% for complaint_category in case.complaintCategories|sort((a, b) => a.name <=> b.name) %}
+                            {% if complaint_catories is empty %}
+                                {% set complaint_catories = complaint_category.name %}
+                            {% else %}
+                                {% set complaint_catories = complaint_catories ~ ", " ~ complaint_category.name %}
+                            {% endif %}
+                        {% endfor %}
+                        <td>{{ complaint_catories }}</td>
                         <td>{{ case.currentPlace|e }}</td>
                         {# Todo: Replace with correct deadline when it is decided which one is the correct one #}
                         <td>{{ case.createdAt|date(format_date) }}</td>

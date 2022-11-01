@@ -105,11 +105,12 @@ class RentBoardCaseType extends AbstractType
                 'placeholder' => $this->translator->trans('Select a lease type', [], 'case'),
                 'required' => false,
             ])
-            ->add('complaintCategory', EntityType::class, [
+            ->add('complaintCategories', EntityType::class, [
+                'multiple' => true,
+                'expanded' => true,
                 'class' => ComplaintCategory::class,
                 'choices' => $this->categoryRepository->findComplaintCategoriesByBoard($board),
-                'label' => $this->translator->trans('Complaint category', [], 'case'),
-                'placeholder' => $this->translator->trans('Select a complaint category', [], 'case'),
+                'label' => $this->translator->trans('Complaint categories', [], 'case'),
             ])
             ->add('extraComplaintCategoryInformation', TextType::class, [
                 'label' => $this->translator->trans('Extra complaint category information', [], 'case'),

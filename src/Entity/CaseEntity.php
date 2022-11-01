@@ -226,6 +226,10 @@ abstract class CaseEntity implements Timestampable
 
     /**
      * @ORM\ManyToMany(targetEntity=ComplaintCategory::class, inversedBy="caseEntities")
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "You have to select at least 1 item"
+     * )
      */
     private $complaintCategories;
 
