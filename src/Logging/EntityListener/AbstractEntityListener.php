@@ -51,11 +51,10 @@ abstract class AbstractEntityListener
             /** @var $collectionUpdate PersistentCollection */
             $removals = $collectionUpdate->getDeleteDiff();
 
-            $complaintCategoryRemovals = array_map(static function (ComplaintCategory $complaintCategory) {
-                return $complaintCategory->getName();
-            }, array_filter($removals, static function ($removal) {
-                return $removal instanceof ComplaintCategory;
-            }));
+            $complaintCategoryRemovals = array_map(
+                static fn (ComplaintCategory $complaintCategory) => $complaintCategory->getName(),
+                array_filter($removals, static fn ($removal) => $removal instanceof ComplaintCategory)
+            );
 
             if ($complaintCategoryRemovals) {
                 $dataArray['Complaint category removals'] = $complaintCategoryRemovals;
@@ -63,11 +62,10 @@ abstract class AbstractEntityListener
 
             $inserts = $collectionUpdate->getInsertDiff();
 
-            $complaintCategoryInserts = array_map(static function (ComplaintCategory $complaintCategory) {
-                return $complaintCategory->getName();
-            }, array_filter($inserts, static function ($insert) {
-                return $insert instanceof ComplaintCategory;
-            }));
+            $complaintCategoryInserts = array_map(
+                static fn (ComplaintCategory $complaintCategory) => $complaintCategory->getName(),
+                array_filter($inserts, static fn ($insert) => $insert instanceof ComplaintCategory)
+            );
 
             if ($complaintCategoryInserts) {
                 $dataArray['Complaint category inserts'] = $complaintCategoryInserts;

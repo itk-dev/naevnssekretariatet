@@ -42,9 +42,10 @@ class AgendaCaseItemNewType extends AbstractType
                     $caseNumber = $caseEntity->getCaseNumber();
                     $isInspection = $caseEntity->getShouldBeInspected();
 
-                    $complaints = implode(', ', array_map(static function (ComplaintCategory $complaintCategory) {
-                        return $complaintCategory->getName();
-                    }, $caseEntity->getComplaintCategories()->toArray()));
+                    $complaints = implode(', ', array_map(
+                        static fn (ComplaintCategory $complaintCategory) => $complaintCategory->getName(),
+                        $caseEntity->getComplaintCategories()->toArray()
+                    ));
 
                     $address = $caseEntity->getSortingAddress();
 
