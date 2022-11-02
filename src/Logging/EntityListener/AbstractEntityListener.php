@@ -3,6 +3,7 @@
 namespace App\Logging\EntityListener;
 
 use App\Entity\CaseEntity;
+use App\Entity\ComplaintCategory;
 use App\Entity\LogEntry;
 use App\Entity\User;
 use App\Logging\ItkDevGetFunctionNotFoundException;
@@ -43,6 +44,40 @@ abstract class AbstractEntityListener
 
         // Array with change data
         $dataArray = [];
+
+        // Check for collection updates, specifically complaint categories,
+        // and compute array containing just the names of the removed/inserted complaint categories.
+        foreach ($em->getUnitOfWork()->getScheduledCollectionUpdates() as $collectionUpdate) {
+            /** @var $collectionUpdate PersistentCollection */
+            $removals = $collectionUpdate->getDeleteDiff();
+            $removalsArray = [];
+            $count = 1;
+            foreach ($removals as $removal) {
+                if ($removal instanceof ComplaintCategory) {
+                    $removalsArray[$count] = $removal->getName();
+                    ++$count;
+                }
+            }
+
+            if ($removalsArray) {
+                $dataArray['Complaint category removals'] = $removalsArray;
+            }
+
+            $inserts = $collectionUpdate->getInsertDiff();
+
+            $insertsArray = [];
+            $count = 1;
+            foreach ($inserts as $insert) {
+                if ($insert instanceof ComplaintCategory) {
+                    $insertsArray[$count] = $insert->getName();
+                    ++$count;
+                }
+            }
+
+            if ($insertsArray) {
+                $dataArray['Complaint category inserts'] = $insertsArray;
+            }
+        }
 
         foreach ($changeArray as $key => $value) {
             $changedValue = null;
