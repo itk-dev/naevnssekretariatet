@@ -29,7 +29,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryOnStringChange()
     {
-        $this->setUpNumberOfUowCalls(1);
+        $this->setUpNumberOfUowCalls(2);
         $this->setUpExpects();
 
         $changeArray = [
@@ -57,7 +57,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryOnIntegerChange()
     {
-        $this->setUpNumberOfUowCalls(1);
+        $this->setUpNumberOfUowCalls(2);
         $this->setUpExpects();
 
         $changeArray = [
@@ -85,7 +85,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryOnCreatedAtChange()
     {
-        $this->setUpNumberOfUowCalls(1);
+        $this->setUpNumberOfUowCalls(2);
         $this->setUpExpects();
 
         $caseDateTime = new \DateTime();
@@ -115,16 +115,10 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryRemoveActionOnScalarTypes()
     {
-        $this->setUpNumberOfUowCalls(2);
+        $this->setUpNumberOfUowCalls(3);
         $this->setUpExpects();
 
         $changeArray = [];
-
-        $this->mockEntityManager
-            ->expects($this->exactly(2))
-            ->method('getUnitOfWork')
-            ->willReturn($this->mockUnitOfWork)
-        ;
 
         $this->mockUnitOfWork
             ->expects($this->once())
@@ -160,7 +154,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryValueChangedToNull()
     {
-        $this->setUpNumberOfUowCalls(1);
+        $this->setUpNumberOfUowCalls(2);
         $this->setUpExpects();
 
         $changeArray = [
@@ -188,7 +182,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
 
     public function testCreateLogEntryException()
     {
-        $this->setUpNumberOfUowCalls(1);
+        $this->setUpNumberOfUowCalls(2);
         $this->expectException(ItkDevLoggingException::class);
 
         $changeArray = [
@@ -266,6 +260,13 @@ class AbstractListenerCreateLogEntryTest extends TestCase
         ;
 
         $this->mockUnitOfWork = $this->createMock(UnitOfWork::class);
+
+        // Handles collection updates
+        $this->mockUnitOfWork
+            ->expects($this->once())
+            ->method('getScheduledCollectionUpdates')
+            ->willReturn([])
+        ;
 
         $this->mockEntityManager
             ->expects($this->exactly($numberOfUnitOfWorkCalls))
