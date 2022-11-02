@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\AgendaCaseItem;
 use App\Entity\Board;
 use App\Entity\CaseEntity;
+use App\Entity\ComplaintCategory;
 use App\Service\BoardHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -41,14 +42,10 @@ class AgendaCaseItemNewType extends AbstractType
                     $caseNumber = $caseEntity->getCaseNumber();
                     $isInspection = $caseEntity->getShouldBeInspected();
 
-                    $complaints = '';
-                    foreach ($caseEntity->getComplaintCategories() as $complaintCategory) {
-                        if (empty($complaints)) {
-                            $complaints .= $complaintCategory->getName();
-                        } else {
-                            $complaints .= ', '.$complaintCategory->getName();
-                        }
-                    }
+                    $complaints = implode(', ', array_map(static function (ComplaintCategory $complaintCategory) {
+                        return $complaintCategory->getName();
+                    }, $caseEntity->getComplaintCategories()->toArray()));
+
                     $address = $caseEntity->getSortingAddress();
 
                     if ($isInspection) {

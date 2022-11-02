@@ -412,7 +412,7 @@ App\Entity\ResidentComplaintBoardCase:
     hasVacated: false
     finishHearingDeadline: <(new \DateTime('2022-05-20'))>
     finishProcessingDeadline: <(new \DateTime('2022-07-11'))>
-    complaintCategories: ['@security-deposit-complaint-aarhus']
+    complaintCategories: ['@security-deposit-complaint-aarhus', '@maintenance-complaint-aarhus']
     caseNumber: 21-000001
     board: '@resident-complaint-board-aarhus'
     municipality: '@municipality-aarhus'

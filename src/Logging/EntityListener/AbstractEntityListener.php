@@ -50,32 +50,27 @@ abstract class AbstractEntityListener
         foreach ($em->getUnitOfWork()->getScheduledCollectionUpdates() as $collectionUpdate) {
             /** @var $collectionUpdate PersistentCollection */
             $removals = $collectionUpdate->getDeleteDiff();
-            $removalsArray = [];
-            $count = 1;
-            foreach ($removals as $removal) {
-                if ($removal instanceof ComplaintCategory) {
-                    $removalsArray[$count] = $removal->getName();
-                    ++$count;
-                }
-            }
 
-            if ($removalsArray) {
-                $dataArray['Complaint category removals'] = $removalsArray;
+            $complaintCategoryRemovals = array_map(static function (ComplaintCategory $complaintCategory) {
+                return $complaintCategory->getName();
+            }, array_filter($removals, static function ($removal) {
+                return $removal instanceof ComplaintCategory;
+            }));
+
+            if ($complaintCategoryRemovals) {
+                $dataArray['Complaint category removals'] = $complaintCategoryRemovals;
             }
 
             $inserts = $collectionUpdate->getInsertDiff();
 
-            $insertsArray = [];
-            $count = 1;
-            foreach ($inserts as $insert) {
-                if ($insert instanceof ComplaintCategory) {
-                    $insertsArray[$count] = $insert->getName();
-                    ++$count;
-                }
-            }
+            $complaintCategoryInserts = array_map(static function (ComplaintCategory $complaintCategory) {
+                return $complaintCategory->getName();
+            }, array_filter($inserts, static function ($insert) {
+                return $insert instanceof ComplaintCategory;
+            }));
 
-            if ($insertsArray) {
-                $dataArray['Complaint category inserts'] = $insertsArray;
+            if ($complaintCategoryInserts) {
+                $dataArray['Complaint category inserts'] = $complaintCategoryInserts;
             }
         }
 

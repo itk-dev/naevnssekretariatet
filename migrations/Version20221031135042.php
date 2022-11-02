@@ -37,9 +37,13 @@ final class Version20221031135042 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE case_entity_complaint_category');
         $this->addSql('ALTER TABLE case_entity ADD complaint_category_id BINARY(16) NOT NULL COMMENT \'(DC2Type:uuid)\'');
+
+        // Migrate just one of the complaint categories.
+        $this->addSql('UPDATE case_entity SET complaint_category_id = (SELECT complaint_category_id FROM case_entity_complaint_category WHERE case_entity_id = case_entity.id limit 1)');
+
         $this->addSql('ALTER TABLE case_entity ADD CONSTRAINT FK_A7C603C1D0DA653B FOREIGN KEY (complaint_category_id) REFERENCES complaint_category (id)');
         $this->addSql('CREATE INDEX IDX_A7C603C1D0DA653B ON case_entity (complaint_category_id)');
+        $this->addSql('DROP TABLE case_entity_complaint_category');
     }
 }

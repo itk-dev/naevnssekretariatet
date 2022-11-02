@@ -103,7 +103,7 @@ class ComplexMacroHelper
 
         $text->setText($value);
 
-        $values['complaintCategories.name'] = new ComplexMacro(
+        $values['complaintCategories.names'] = new ComplexMacro(
             $text,
             'Comma separated complaint category names'
         );
