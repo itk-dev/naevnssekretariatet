@@ -6,11 +6,13 @@ use App\Entity\Agenda;
 use App\Entity\AgendaBroadcast;
 use App\Entity\Board;
 use App\Entity\CaseEntity;
+use App\Entity\ComplaintCategory;
 use App\Entity\HearingPost;
 use App\Repository\BoardMemberRepository;
 use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
+use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\Element\TextRun;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
@@ -90,6 +92,20 @@ class ComplexMacroHelper
                 $this->options['hearing_post_form_link_text'] ?: $this->translator->trans('Open hearing post form', [], 'case')
             ),
             'Hearing post form link'
+        );
+
+        // Complaint categories comma separated names
+        $text = new Text();
+
+        $value = implode(', ', array_map(static function (ComplaintCategory $complaintCategory) {
+            return $complaintCategory->getName();
+        }, $case->getComplaintCategories()->toArray()));
+
+        $text->setText($value);
+
+        $values['complaintCategories.names'] = new ComplexMacro(
+            $text,
+            'Comma separated complaint category names'
         );
 
         return $values;

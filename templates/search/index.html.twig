@@ -23,9 +23,7 @@
                     <th{% if pagination.isSorted('c.CaseNumber') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Casenumber'|trans({}, 'case'), 'c.caseNumber') }}
                     </th>
-                    <th{% if pagination.isSorted('c.ComplaintCategory') %} class="sorted"{% endif %}>
-                        {{ knp_pagination_sortable(pagination, 'Complaint category'|trans({}, 'case'), 'complaintCategory.name') }}
-                    </th>
+                    <th class="col-4">{{ 'Complaint categories'|trans({}, 'case') }}</th>
                     <th{% if pagination.isSorted('c.currentPlace') %} class="sorted"{% endif %}>
                         {{ knp_pagination_sortable(pagination, 'Status'|trans({}, 'case'), 'c.currentPlace') }}
                     </th>
@@ -40,14 +38,22 @@
                             {{ knp_pagination_sortable(pagination, 'Counterparty'|trans({}, 'case'), 'c.sortingCounterparty') }}
                         </th>
                     {% endif %}
-                    <th scope="col" data-orderable="false">{{ 'Function'|trans({}, 'case') }}</th>
+                    <th>{{ 'Function'|trans({}, 'case') }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for case in pagination %}
                     <tr>
                         <td><a href="{{ url('case_summary', {id: case.id}) }}" data-toggle="tooltip" data-placement="auto" title="{{ 'Show case'|trans({}, 'case') }} {{ case.casenumber|e }}">{{ case.casenumber|e }}</a></td>
-                        <td>{{ case.complaintCategory.name|e }}</td>
+                        {% set complaint_catories = "" %}
+                        {% for complaint_category in case.complaintCategories|sort((a, b) => a.name <=> b.name) %}
+                            {% if complaint_catories is empty %}
+                                {% set complaint_catories = complaint_category.name %}
+                            {% else %}
+                                {% set complaint_catories = complaint_catories ~ ", " ~ complaint_category.name %}
+                            {% endif %}
+                        {% endfor %}
+                        <td>{{ complaint_catories }}</td>
                         <td>{{ case.currentPlace|e }}</td>
                         <td>{{ case.sortingAddress|e }}</td>
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}

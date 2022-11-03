@@ -1569,6 +1569,10 @@
         <source>KLE</source>
         <target state="translated">KLE</target>
       </trans-unit>
+      <trans-unit id="3na35C4" resname="Complaint categories">
+        <source>Complaint categories</source>
+        <target state="translated">Klagetyper</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

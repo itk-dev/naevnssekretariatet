@@ -81,6 +81,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Switched to `itk-dev/openid-connect-bundle` for AD and CLI login.
 - [TVIST1-670](https://jira.itkdev.dk/browse/TVIST1-670):
   Updated `${agenda.items}` template macro.
+- [TVIST1-643](https://jira.itkdev.dk/browse/TVIST1-643):
+  Allowed multiple complaint categories on cases.
 
 ### Fixed
 

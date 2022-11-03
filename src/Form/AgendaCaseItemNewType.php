@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\AgendaCaseItem;
 use App\Entity\Board;
 use App\Entity\CaseEntity;
+use App\Entity\ComplaintCategory;
 use App\Service\BoardHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -40,13 +41,18 @@ class AgendaCaseItemNewType extends AbstractType
                 'choice_label' => function (CaseEntity $caseEntity) {
                     $caseNumber = $caseEntity->getCaseNumber();
                     $isInspection = $caseEntity->getShouldBeInspected();
-                    $complaint = $caseEntity->getComplaintCategory()->getName();
+
+                    $complaints = implode(', ', array_map(
+                        static fn (ComplaintCategory $complaintCategory) => $complaintCategory->getName(),
+                        $caseEntity->getComplaintCategories()->toArray()
+                    ));
+
                     $address = $caseEntity->getSortingAddress();
 
                     if ($isInspection) {
-                        $label = $caseNumber.' - '.$this->translator->trans('Inspection', [], 'agenda').' - '.$complaint.' - '.$address;
+                        $label = $caseNumber.' - '.$this->translator->trans('Inspection', [], 'agenda').' - '.$complaints.' - '.$address;
                     } else {
-                        $label = $caseNumber.' - '.$complaint.' - '.$address;
+                        $label = $caseNumber.' - '.$complaints.' - '.$address;
                     }
 
                     return $label;
