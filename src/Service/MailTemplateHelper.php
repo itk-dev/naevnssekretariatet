@@ -451,6 +451,8 @@ class MailTemplateHelper
         // Catch new lines in strings
         if (is_string($replace)) {
             $lines = explode(PHP_EOL, trim($replace));
+            // Encode special chars
+            $lines = array_map('htmlspecialchars', $lines);
             if (count($lines) > 1) {
                 $replace = new TextRun();
                 foreach ($lines as $index => $line) {
