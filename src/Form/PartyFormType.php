@@ -39,6 +39,7 @@ class PartyFormType extends AbstractType
     {
         $resolver->setDefaults([
             'case' => null,
+            'type' => null,
         ]);
     }
 
@@ -79,6 +80,7 @@ class PartyFormType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'label' => $this->translator->trans('Type', [], 'party'),
                 'choices' => $this->partyHelper->getAllPartyTypes($case),
+                'data' => $options['type'],
             ])
         ;
     }

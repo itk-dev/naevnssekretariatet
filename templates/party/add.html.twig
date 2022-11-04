@@ -12,7 +12,7 @@
             <h1>{% trans %}Add party to case{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a class="btn btn-primary" href="{{ url('party_add_from_index', {id: case.id}) }}" role="button">{% trans %}Add from index{% endtrans %}</a>
+            <a class="btn btn-primary" href="{{ url('party_add_from_index', {id: case.id, type: pre_select_value}) }}" role="button">{% trans %}Add from index{% endtrans %}</a>
             <a class="btn btn-secondary" href="{{ url('case_show', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
 
         </div>

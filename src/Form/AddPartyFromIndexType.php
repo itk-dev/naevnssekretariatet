@@ -26,6 +26,7 @@ class AddPartyFromIndexType extends AbstractType
     {
         $resolver->setDefaults([
             'case' => null,
+            'type' => null,
         ]);
 
         $resolver->setRequired('party_choices');
@@ -35,6 +36,7 @@ class AddPartyFromIndexType extends AbstractType
     {
         $case = $options['case'];
         $choices = $options['party_choices'];
+        $type = $options['type'];
 
         $builder
             ->add('partyToAdd', EntityType::class, [
@@ -44,6 +46,7 @@ class AddPartyFromIndexType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => $this->partyHelper->getAllPartyTypes($case),
+                'data' => $type,
             ])
         ;
     }

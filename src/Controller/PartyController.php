@@ -33,14 +33,24 @@ class PartyController extends AbstractController
     /**
      * @Route("/add", name="party_add")
      */
-    public function addParty(CaseEntity $case, Request $request): Response
+    public function addParty(CaseEntity $case, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
         $party = new Party();
 
+        $preSelectType = $request->get('type');
+
+        // We use the assumptions that first mentioned party on list of parties is the 'main' party type e.g. lejer/udlejer.
+        $preSelectValue =
+            'counterparty' === $preSelectType
+                ? $partyHelper->getCounterpartyTypesByCase($case)[array_key_first($partyHelper->getCounterpartyTypesByCase($case))]
+                : null
+        ;
+
         $form = $this->createForm(PartyFormType::class, null, [
             'case' => $case,
+            'type' => $preSelectValue,
         ]);
 
         $form->handleRequest($request);
@@ -57,17 +67,20 @@ class PartyController extends AbstractController
         return $this->render('party/add.html.twig', [
             'case' => $case,
             'add_party_form' => $form->createView(),
+            'pre_select_value' => $preSelectValue,
         ]);
     }
 
     /**
      * @Route("/add_party_from_index", name="party_add_from_index")
      */
-    public function addPartyFromIndex(CaseEntity $case, Request $request): Response
+    public function addPartyFromIndex(CaseEntity $case, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
         $party = null;
+
+        $preSelectValue = $request->get('type');
 
         // Make sure we only get the option of adding parties that are not already added
         $partyChoices = $this->partyHelper->findPartyIndexChoices($case);
@@ -75,6 +88,7 @@ class PartyController extends AbstractController
         $form = $this->createForm(AddPartyFromIndexType::class, $party, [
             'party_choices' => $partyChoices,
             'case' => $case,
+            'type' => $preSelectValue,
         ]);
 
         $form->handleRequest($request);
