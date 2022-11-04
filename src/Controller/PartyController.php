@@ -45,7 +45,7 @@ class PartyController extends AbstractController
         // We use the assumption that first mentioned party on list of parties is the 'main' party type e.g. lejer/udlejer.
         $preSelectValue =
             'counterparty' === $preSelectType
-                ? reset($counterPartyTypes)
+                ? reset($counterPartyTypes) ?: null
                 : null
         ;
 
