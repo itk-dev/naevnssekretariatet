@@ -102,21 +102,22 @@ class DocumentUploader
             stream_copy_to_stream($fileStream, $outputStream);
         });
 
-        // We use document name as filename.
-        $filename = $document->getDocumentName();
-
-        $slugger = new AsciiSlugger();
-        $fallbackFilename = $slugger->slug($document->getDocumentName())->__toString();
-
+        // We use document name as filename - it may not contain / or \, so we replace those.
+        $documentName = $document->getDocumentName();
         $ext = pathinfo($document->getFilename(), PATHINFO_EXTENSION);
 
-        $filename .= '.'.$ext;
-        $fallbackFilename .= '.'.$ext;
+        $documentName = str_replace(['/', '\\'], '-', $documentName);
+
+        $slugger = new AsciiSlugger();
+        $fallbackDocumentName = $slugger->slug($documentName)->__toString();
+
+        $documentName .= '.'.$ext;
+        $fallbackDocumentName .= '.'.$ext;
 
         $disposition = HeaderUtils::makeDisposition(
             $forceDownload ? HeaderUtils::DISPOSITION_ATTACHMENT : HeaderUtils::DISPOSITION_INLINE,
-            $filename,
-            $fallbackFilename
+            $documentName,
+            $fallbackDocumentName
         );
 
         $response->headers->set('Content-Disposition', $disposition);
