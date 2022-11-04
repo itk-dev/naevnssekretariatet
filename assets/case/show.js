@@ -31,8 +31,8 @@ $(() => {
   $('#create_party_button_id').on('click', function () {
     const fragment = window.location.hash
     const value = $.inArray(fragment, ['#landlord', '#neighbour']) !== -1 ? 'data-href-counterparty' : 'data-href-default'
-    const $cratePartyButton = $('#create_party_button_id')
+    const $createPartyButton = $('#create_party_button_id')
 
-    $cratePartyButton.attr('href', $cratePartyButton.attr(value))
+    $createPartyButton.attr('href', $createPartyButton.attr(value))
   })
 })

@@ -42,7 +42,7 @@ class PartyController extends AbstractController
         $preSelectType = $request->get('type');
 
         $counterPartyTypes = $partyHelper->getCounterpartyTypesByCase($case);
-        // We use the assumptions that first mentioned party on list of parties is the 'main' party type e.g. lejer/udlejer.
+        // We use the assumption that first mentioned party on list of parties is the 'main' party type e.g. lejer/udlejer.
         $preSelectValue =
             'counterparty' === $preSelectType
                 ? reset($counterPartyTypes)
