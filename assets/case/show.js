@@ -30,11 +30,9 @@ $(() => {
 
   $('#create_party_button_id').on('click', function () {
     const fragment = window.location.hash
+    const value = $.inArray(fragment, ['#landlord', '#neighbour']) !== -1 ? 'data-href-counterparty' : 'data-href-default'
+    const $cratePartyButton = $('#create_party_button_id')
 
-    if ($.inArray(fragment, ['#landlord', '#neighbour']) !== -1) {
-      $('#create_party_button_id').attr('href', $('#create_party_button_id').attr('data-href-counterparty'))
-    } else {
-      $('#create_party_button_id').attr('href', $('#create_party_button_id').attr('data-href-default'))
-    }
+    $cratePartyButton.attr('href', $cratePartyButton.attr(value))
   })
 })
