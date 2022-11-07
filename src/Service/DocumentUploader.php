@@ -103,22 +103,22 @@ class DocumentUploader
         });
 
         // We use document name as filename - it may not contain / or \, so we replace those.
-        $documentName = $document->getDocumentName();
+        $filename = $document->getDocumentName();
 
-        $documentName = str_replace(['/', '\\', '%'], '-', $documentName);
+        $filename = str_replace(['/', '\\', '%'], '-', $filename);
 
         $slugger = new AsciiSlugger();
-        $fallbackDocumentName = $slugger->slug($documentName)->__toString();
+        $fallbackFilename = $slugger->slug($filename)->__toString();
 
         $ext = pathinfo($document->getFilename(), PATHINFO_EXTENSION);
 
-        $documentName .= '.'.$ext;
-        $fallbackDocumentName .= '.'.$ext;
+        $filename .= '.'.$ext;
+        $fallbackFilename .= '.'.$ext;
 
         $disposition = HeaderUtils::makeDisposition(
             $forceDownload ? HeaderUtils::DISPOSITION_ATTACHMENT : HeaderUtils::DISPOSITION_INLINE,
-            $documentName,
-            $fallbackDocumentName
+            $filename,
+            $fallbackFilename
         );
 
         $response->headers->set('Content-Disposition', $disposition);
