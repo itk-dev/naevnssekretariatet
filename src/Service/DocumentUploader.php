@@ -102,11 +102,13 @@ class DocumentUploader
             stream_copy_to_stream($fileStream, $outputStream);
         });
 
-        // We use document name as filename.
+        // We use document name as filename - it may not contain / or \, so we replace those.
         $filename = $document->getDocumentName();
 
+        $filename = str_replace(['/', '\\', '%'], '-', $filename);
+
         $slugger = new AsciiSlugger();
-        $fallbackFilename = $slugger->slug($document->getDocumentName())->__toString();
+        $fallbackFilename = $slugger->slug($filename)->__toString();
 
         $ext = pathinfo($document->getFilename(), PATHINFO_EXTENSION);
 
