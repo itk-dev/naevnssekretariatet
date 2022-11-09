@@ -1,8 +1,0 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
-
-# OpenID Connect redirect URI route (cf. packages/itkdev_openid_connect.yaml)
-authenticate-board-member:
-  # @todo Update the path when we get a proper OIDC setup.
-  path: /os2forms_nemlogin_openid_connect/authenticate
