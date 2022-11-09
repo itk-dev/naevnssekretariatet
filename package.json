@@ -26,7 +26,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "check-coding-standards/stylelint": "stylelint --config=.stylelintrc.json 'assets/**/*.scss'"
+        "check-coding-standards/markdownlint": "markdownlint --ignore LICENSE.md '*.md' docs/",
+        "check-coding-standards/stylelint": "stylelint --config=.stylelintrc.json 'assets/**/*.scss'",
+        "check-coding-standards": "yarn check-coding-standards/markdownlint && yarn check-coding-standards/stylelint"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.3",
