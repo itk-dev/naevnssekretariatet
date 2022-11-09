@@ -1,5 +1,0 @@
-security:
-  firewalls:
-    main:
-      custom_authenticators:
-          - App\Security\MasqueradeAuthenticator

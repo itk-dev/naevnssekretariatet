@@ -1,1 +1,0 @@
-<a class="btn btn-sm btn-{% if active_reminders == 0 %}primary{% else %}warning{% endif %} d-block mb-2 mb-lg-0" href="{{ url("reminder_index") }}">{{ 'active_reminders_plural'|trans({'count': active_reminders}, 'reminder', 'da') }}</a>

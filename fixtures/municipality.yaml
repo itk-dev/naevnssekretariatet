@@ -1,6 +1,0 @@
-App\Entity\Municipality:
-  municipality-aarhus:
-    name: Aarhus
-
-  municipality-randers:
-    name: Randers

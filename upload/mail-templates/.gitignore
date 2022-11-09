@@ -1,3 +1,0 @@
-# Ignore everything but the .gitignore file to make sure that the folder exists
-*
-!.gitignore
