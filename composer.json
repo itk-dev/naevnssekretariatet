@@ -1,0 +1,183 @@
+{
+    "name": "itk-dev/naevnssekretariatet",
+    "description": "Application for managing multiple boards in multiple municipalities",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Jeppe Kuhlmann Andersen",
+            "email": "jekua@aarhus.dk"
+        },
+        {
+            "name": "Jesper Petersen",
+            "email": "pejes@aarhus.dk"
+        },
+        {
+            "name": "Lars Steen Risom",
+            "email": "lats@aarhus.dk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.1",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-soap": "*",
+        "composer/package-versions-deprecated": "^1.11",
+        "doctrine/annotations": "^1.0",
+        "doctrine/doctrine-bundle": "^2.2",
+        "doctrine/doctrine-migrations-bundle": "^3.0",
+        "doctrine/orm": "^2.8",
+        "easycorp/easyadmin-bundle": "^3.2",
+        "friendsofsymfony/ckeditor-bundle": "^2.3",
+        "friendsoftwig/twigcs": "^5.0",
+        "gedmo/doctrine-extensions": "^3.0",
+        "itk-dev/azure-key-vault-php": "^1.0",
+        "itk-dev/datafordeler-php-client": "dev-develop",
+        "itk-dev/openid-connect-bundle": "dev-develop",
+        "itk-dev/serviceplatformen": "dev-feature/digital-post",
+        "knplabs/knp-paginator-bundle": "^5.6",
+        "league/oauth2-client": "^2.6",
+        "lexik/form-filter-bundle": "^7.0",
+        "phpdocumentor/reflection-docblock": "^5.2",
+        "phpoffice/phpword": "^0.18.2",
+        "sensio/framework-extra-bundle": "^5.1",
+        "stof/doctrine-extensions-bundle": "^1.7",
+        "symfony/asset": "5.4.*",
+        "symfony/console": "5.4.*",
+        "symfony/doctrine-messenger": "5.4.*",
+        "symfony/dotenv": "5.4.*",
+        "symfony/expression-language": "5.4.*",
+        "symfony/flex": "^1.17",
+        "symfony/form": "5.4.*",
+        "symfony/framework-bundle": "5.4.*",
+        "symfony/http-client": "5.4.*",
+        "symfony/intl": "5.4.*",
+        "symfony/lock": "5.4.*",
+        "symfony/mailer": "5.4.*",
+        "symfony/messenger": "5.4.*",
+        "symfony/mime": "5.4.*",
+        "symfony/monolog-bundle": "^3.7",
+        "symfony/notifier": "5.4.*",
+        "symfony/options-resolver": "5.4.*",
+        "symfony/process": "5.4.*",
+        "symfony/property-access": "5.4.*",
+        "symfony/property-info": "5.4.*",
+        "symfony/proxy-manager-bridge": "5.4.*",
+        "symfony/security-bundle": "5.4.*",
+        "symfony/serializer": "5.4.*",
+        "symfony/string": "5.4.*",
+        "symfony/translation": "5.4.*",
+        "symfony/twig-bundle": "5.4.*",
+        "symfony/uid": "5.4.*",
+        "symfony/validator": "5.4.*",
+        "symfony/web-link": "5.4.*",
+        "symfony/webpack-encore-bundle": "^1.13",
+        "symfony/workflow": "5.4.*",
+        "symfony/yaml": "5.4.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0",
+        "vich/uploader-bundle": "^1.19"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.1",
+        "hautelook/alice-bundle": "^2.8",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/phpstan": "^1.3",
+        "symfony/browser-kit": "5.4.*",
+        "symfony/css-selector": "5.4.*",
+        "symfony/debug-bundle": "5.4.*",
+        "symfony/maker-bundle": "^1.36",
+        "symfony/phpunit-bridge": "5.4.*",
+        "symfony/stopwatch": "5.4.*",
+        "symfony/var-dumper": "5.4.*",
+        "symfony/web-profiler-bundle": "5.4.*",
+        "vimeo/psalm": "^4.17"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "ckeditor:install": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "check-coding-standards/php-cs-fixer": [
+            "php-cs-fixer --config=.php-cs-fixer.dist.php fix --dry-run"
+        ],
+        "check-coding-standards/twigcs": [
+            "twigcs templates"
+        ],
+        "check-coding-standards": [
+            "@check-coding-standards/php-cs-fixer",
+            "@check-coding-standards/twigcs"
+        ],
+        "apply-coding-standards/php-cs-fixer": [
+            "php-cs-fixer --config=.php-cs-fixer.dist.php fix"
+        ],
+        "apply-coding-standards": [
+            "@apply-coding-standards/php-cs-fixer"
+        ],
+        "code-analysis/phpstan": [
+            "phpstan analyse src tests"
+        ],
+        "code-analysis/psalm": [
+            "psalm src tests"
+        ],
+        "code-analysis": [
+            "@code-analysis/phpstan",
+            "@code-analysis/psalm"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "5.4.*"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/theofidry/AliceBundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/itk-dev/datafordeler-php-client"
+        }
+    ]
+}

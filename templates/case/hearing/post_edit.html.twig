@@ -1,0 +1,33 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Hearing post edit{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Hearing post edit{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('case_hearing_post_show', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Back{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        {% include 'case/hearing/_form.html.twig' with {button_label: 'Confirm changes'|trans} %}
+    </main>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('hearing_edit_post') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('hearing_edit_post') }}
+    {{ encore_entry_script_tags('mail_templates_custom_data') }}
+{% endblock %}

@@ -1,0 +1,31 @@
+App\Entity\CasePartyRelation:
+  relation-1:
+    case: '@test-case-aarhus-1'
+    party: '@party-1'
+    type: 'Lejer'
+
+  relation-2:
+    case: '@test-case-aarhus-1'
+    party: '@party-2'
+    type: 'Udlejer'
+
+  relation-3:
+    case: '@test-case-aarhus-9'
+    party: '@party-1'
+    type: 'Lejer'
+
+  relation-4:
+    case: '@test-case-aarhus-9'
+    party: '@party-2'
+    type: 'Udlejer'
+
+#App\Entity\HearingPost:
+#  hearing-post-1:
+#    sender: '@party-1'
+#    recipient: '@party-2'
+#    content: 'Test test test'
+
+App\Entity\Hearing:
+  hearing-1:
+    caseEntity: '@test-case-aarhus-1'
+#    hearingPosts: ['@hearing-post-1']

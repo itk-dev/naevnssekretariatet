@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="Q9J9PC." resname="Show template file">
+        <source>Show template file</source>
+        <target state="translated">Vis skabelonfil</target>
+      </trans-unit>
+      <trans-unit id="oX_9Ovd" resname="Preview template">
+        <source>Preview template</source>
+        <target state="translated">Vis skabelon</target>
+      </trans-unit>
+      <trans-unit id="R0xEnk7" resname="Preview template data">
+        <source>Preview template data</source>
+        <target state="translated">Vis skabelondata</target>
+      </trans-unit>
+      <trans-unit id="6QdVLZQ" resname="Preview template with data">
+        <source>Preview template with data</source>
+        <target state="translated">Vis skabelon udfyldt med data</target>
+      </trans-unit>
+      <trans-unit id="bk_hPaS" resname="Inspection">
+        <source>Inspection</source>
+        <target state="translated">Besigtigelse</target>
+      </trans-unit>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target state="translated">Afgørelse</target>
+      </trans-unit>
+      <trans-unit id="A8h1npn" resname="Hearing">
+        <source>Hearing</source>
+        <target state="translated">Høring</target>
+      </trans-unit>
+      <trans-unit id="HtGnOKw" resname="Agenda broadcast">
+        <source>Agenda broadcast</source>
+        <target state="translated">Dagsorden - publisering</target>
+      </trans-unit>
+      <trans-unit id="1FdZ800" resname="Agenda inspection">
+        <source>Agenda inspection</source>
+        <target state="translated">Dagsorden - besigtigelsesbrev</target>
+      </trans-unit>
+      <trans-unit id="4Hr9cDG" resname="Preview entity">
+        <source>Preview entity</source>
+        <target state="translated">Forhåndsvisningsobjekt</target>
+      </trans-unit>
+      <trans-unit id="kKUTJhJ" resname="Pick an entity to use for previewing data and template with data.">
+        <source>Pick an entity to use for previewing data and template with data.</source>
+        <target state="translated">Vælg et objekt der skal bruges til forhåndsvisning af data og skabelon udfyldt med data.</target>
+      </trans-unit>
+      <trans-unit id="G4xAGP0" resname="No entities for this template exists">
+        <source>No entities for this template exists</source>
+        <target state="translated">Ingen objekter for denne skabelon fundet</target>
+      </trans-unit>
+      <trans-unit id="rINb4jb" resname="Case created receipt">
+        <source>Case created receipt</source>
+        <target state="translated">Kvittering for ny sag</target>
+      </trans-unit>
+      <trans-unit id="dEkZEP9" resname="Hearing post response created receipt">
+        <source>Hearing post response created receipt</source>
+        <target state="translated">Kvittering for nyt høringssvar</target>
+      </trans-unit>
+      <trans-unit id="3cqaV_Z" resname="Important">
+        <source>Important</source>
+        <target state="translated">Vigtigt</target>
+      </trans-unit>
+      <trans-unit id="M2328_d" resname="Template document">
+        <source>Template document</source>
+        <target state="translated">Skabelondokument</target>
+      </trans-unit>
+      <trans-unit id="JlWBxpv" resname="The template document &lt;em&gt;must&lt;/em&gt; contain the &lt;a href=&quot;https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/&quot;&gt;Hyperlink&lt;/a&gt; character style to ensure that hyperlinks work as expected after processing a template.">
+        <source>The template document &lt;em&gt;must&lt;/em&gt; contain the &lt;a href="https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/"&gt;Hyperlink&lt;/a&gt; character style to ensure that hyperlinks work as expected after processing a template.</source>
+        <target><![CDATA[Skabelondokumentet <em>skal</em> indeholde <a href="https://office-watch.com/2021/hyperlinks-and-link-styles-explained-in-word/">Hyperlink</a>-afsnitstypografien for at sikre at hyperlinks virker som forventet når en skabelon udfyldes.]]></target>
+      </trans-unit>
+      <trans-unit id="2NosSd8" resname="Note">
+        <source>Note</source>
+        <target state="translated">Bemærk</target>
+      </trans-unit>
+      <trans-unit id="YZISGIM" resname="Hyperlinks do not work in document headers and footers.">
+        <source>Hyperlinks do not work in document headers and footers.</source>
+        <target state="translated">Hyperlinks virker ikke i dokumenthoveder og -fødder.</target>
+      </trans-unit>
+      <trans-unit id="YWYJT1R" resname="Hearing post response">
+        <source>Hearing post response</source>
+        <target state="translated">Partshøringssvar</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target state="translated">Afgørelse</target>
+      </trans-unit>
+      <trans-unit id="NxmQBC4" resname="Create decision">
+        <source>Create decision</source>
+        <target state="translated">Opret afgørelse</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target state="translated">Oprettet</target>
+      </trans-unit>
+      <trans-unit id="1r2MCu7" resname="Document">
+        <source>Document</source>
+        <target state="translated">Dokument</target>
+      </trans-unit>
+      <trans-unit id="zO.LKLJ" resname="Number of attachments">
+        <source>Number of attachments</source>
+        <target state="translated">Antal bilag</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target state="translated">Vis</target>
+      </trans-unit>
+      <trans-unit id="wz6dXMN" resname="No decisions">
+        <source>No decisions</source>
+        <target state="translated">Ingen afgørelser</target>
+      </trans-unit>
+      <trans-unit id="D0O5han" resname="Cannot create decision since case has no party to send it to">
+        <source>Cannot create decision since case has no party to send it to</source>
+        <target state="translated">Kan ikke oprette afgørelse da sag ikke har nogle parter</target>
+      </trans-unit>
+      <trans-unit id="fX6ypiQ" resname="Decision created">
+        <source>Decision created</source>
+        <target state="translated">Afgørelse oprettet</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

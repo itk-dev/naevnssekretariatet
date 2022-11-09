@@ -1,0 +1,75 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'log' %}
+
+{% block title %}{% trans %}Log{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Log{% endtrans %}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        <div class="table-responsive-sm">
+            <table id="caseLogtable" class="table table-striped table-hover table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">{% trans %}Created at{% endtrans %}</th>
+                    <th scope="col">{% trans %}Username{% endtrans %}</th>
+                    <th scope="col">{% trans %}Action{% endtrans %}</th>
+                    <th scope="col">{#% trans %}Data{% endtrans %#}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for log_entry in log_entries %}
+                    <tr>
+                        <td>{{ log_entry.createdAt|date(format_datetime, 'Europe/Copenhagen') }}</td>
+                        <td>{{ log_entry.user }}</td>
+                        <td>{{ log_entry.action|trans }}</td>
+                        <td>
+                            <a href="{{ path('case_log_entry_show', {case: case.id, logEntry: log_entry.id}) }}">{% trans %}Show{% endtrans %}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer class="col-12 mt-3">
+        <div class="row">
+        </div>
+    </footer>
+{% endblock %}
+
+{% block _translation %}
+    {#
+        Help the translation extractor.
+
+        Find all used messages with
+
+        ```sh
+        grep -hr -- '->logActivity(' src | sed "s/.*'\([^']*\)'.*/\1/" | sort -u
+        ```
+    #}
+    {{ 'Board updated'|trans }}
+    {{ 'Case created'|trans }}
+    {{ 'Case presentation updated'|trans }}
+    {{ 'Case removed'|trans }}
+    {{ 'Case updated'|trans }}
+    {{ 'Complaint category updated'|trans }}
+    {{ 'Document added'|trans }}
+    {{ 'Document updated'|trans }}
+    {{ 'Municipality updated'|trans }}
+    {{ 'Party relation added'|trans }}
+    {{ 'Party relation updated'|trans }}
+    {{ 'Party updated'|trans }}
+    {{ 'Hearing post created'|trans }}
+    {{ 'Hearing post updated'|trans }}
+    {{ 'Hearing created'|trans }}
+    {{ 'Hearing updated'|trans }}
+
+{% endblock %}

@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target>Template</target>
+      </trans-unit>
+      <trans-unit id="0RVtB8p" resname="Select a template">
+        <source>Select a template</source>
+        <target>Select a template</target>
+      </trans-unit>
+      <trans-unit id="Q3rqYqW" resname="Contents">
+        <source>Contents</source>
+        <target>Contents</target>
+      </trans-unit>
+      <trans-unit id="WXAMe6v" resname="Broadcast agenda">
+        <source>Broadcast agenda</source>
+        <target>Broadcast agenda</target>
+      </trans-unit>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="ur6d2oU" resname="Start time">
+        <source>Start time</source>
+        <target>Start time</target>
+      </trans-unit>
+      <trans-unit id="LkYAal7" resname="End time">
+        <source>End time</source>
+        <target>End time</target>
+      </trans-unit>
+      <trans-unit id="8IGDBZ." resname="Meeting point">
+        <source>Meeting point</source>
+        <target>Meeting point</target>
+      </trans-unit>
+      <trans-unit id="FfhuJO0" resname="Case">
+        <source>Case</source>
+        <target>Case</target>
+      </trans-unit>
+      <trans-unit id="bk_hPaS" resname="Inspection">
+        <source>Inspection</source>
+        <target>Inspection</target>
+      </trans-unit>
+      <trans-unit id="IDse2Dv" resname="Choose a case">
+        <source>Choose a case</source>
+        <target>Choose a case</target>
+      </trans-unit>
+      <trans-unit id="7Qd.PYE" resname="Open">
+        <source>Open</source>
+        <target>Open</target>
+      </trans-unit>
+      <trans-unit id="AI2sttH" resname="Full">
+        <source>Full</source>
+        <target>Full</target>
+      </trans-unit>
+      <trans-unit id="X6eqxTd" resname="Ready">
+        <source>Ready</source>
+        <target>Ready</target>
+      </trans-unit>
+      <trans-unit id="eAT3p5q" resname="Finished">
+        <source>Finished</source>
+        <target>Finished</target>
+      </trans-unit>
+      <trans-unit id="e8e6PXM" resname="All boards">
+        <source>All boards</source>
+        <target>All boards</target>
+      </trans-unit>
+      <trans-unit id="VxoboO2" resname="Not-closed">
+        <source>Not-closed</source>
+        <target>Not-closed</target>
+      </trans-unit>
+      <trans-unit id="juVzI6b" resname="All statuses">
+        <source>All statuses</source>
+        <target>All statuses</target>
+      </trans-unit>
+      <trans-unit id="76dPuI." resname="Case item">
+        <source>Case item</source>
+        <target>Case item</target>
+      </trans-unit>
+      <trans-unit id="kJQeeS6" resname="Manuel item">
+        <source>Manuel item</source>
+        <target>Manuel item</target>
+      </trans-unit>
+      <trans-unit id="N3ftXJv" resname="Choose an agenda item type">
+        <source>Choose an agenda item type</source>
+        <target>Choose an agenda item type</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="0oMbcMS" resname="Agenda protocol">
+        <source>Agenda protocol</source>
+        <target>Agenda protocol</target>
+      </trans-unit>
+      <trans-unit id="pQ4GNsi" resname="Update protocol">
+        <source>Update protocol</source>
+        <target>Update protocol</target>
+      </trans-unit>
+      <trans-unit id="hAA_WCr" resname="Decision proposal">
+        <source>Decision proposal</source>
+        <target>Decision proposal</target>
+      </trans-unit>
+      <trans-unit id="XV7hV3U" resname="Presentation">
+        <source>Presentation</source>
+        <target>Presentation</target>
+      </trans-unit>
+      <trans-unit id="1xOGbPf" resname="Select recipients">
+        <source>Select recipients</source>
+        <target>Select recipients</target>
+      </trans-unit>
+      <trans-unit id="aJcSg4Q" resname="Subject">
+        <source>Subject</source>
+        <target>Subject</target>
+      </trans-unit>
+      <trans-unit id="IZ8kQJx" resname="Attach document(s)">
+        <source>Attach document(s)</source>
+        <target>Attach document(s)</target>
+      </trans-unit>
+      <trans-unit id="oTm2FLZ" resname="Send inspection letter">
+        <source>Send inspection letter</source>
+        <target>Send inspection letter</target>
+      </trans-unit>
+      <trans-unit id="jh2Un_v" resname="Show for">
+        <source>Show for</source>
+        <target>Show for</target>
+      </trans-unit>
+      <trans-unit id="ibK3J7n" resname="Add Board Member">
+        <source>Add Board Member</source>
+        <target>Add Board Member</target>
+      </trans-unit>
+      <trans-unit id="aT1zKYZ" resname="Add board members">
+        <source>Add board members</source>
+        <target>Add board members</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="gQdrNoD" resname="Board members">
+        <source>Board members</source>
+        <target>Board members</target>
+      </trans-unit>
+      <trans-unit id="0bvdoe6" resname="Send notice to board members informing them that they now has access to the agenda.">
+        <source>Send notice to board members informing them that they now has access to the agenda.</source>
+        <target>Send notice to board members informing them that they now has access to the agenda.</target>
+      </trans-unit>
+      <trans-unit id="7UP_NFQ" resname="Agenda must have status: ready, before being able to send notice to board members.">
+        <source>Agenda must have status: ready, before being able to send notice to board members.</source>
+        <target>Agenda must have status: ready, before being able to send notice to board members.</target>
+      </trans-unit>
+      <trans-unit id=".jGkAV9" resname="Create agenda">
+        <source>Create agenda</source>
+        <target>Create agenda</target>
+      </trans-unit>
+      <trans-unit id="SBbL.XS" resname="Board">
+        <source>Board</source>
+        <target>Board</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="JSimpPh" resname="Create Agenda">
+        <source>Create Agenda</source>
+        <target>Create Agenda</target>
+      </trans-unit>
+      <trans-unit id="eJdVxL_" resname="Agendas">
+        <source>Agendas</source>
+        <target>Agendas</target>
+      </trans-unit>
+      <trans-unit id="2u52BrM" resname="Reset">
+        <source>Reset</source>
+        <target>Reset</target>
+      </trans-unit>
+      <trans-unit id="IYGXaTQ" resname="From">
+        <source>From</source>
+        <target>From</target>
+      </trans-unit>
+      <trans-unit id="9LBu9tP" resname="To">
+        <source>To</source>
+        <target>To</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="yANxAwL" resname="Function">
+        <source>Function</source>
+        <target>Function</target>
+      </trans-unit>
+      <trans-unit id="ImnkQgY" resname="List functions">
+        <source>List functions</source>
+        <target>List functions</target>
+      </trans-unit>
+      <trans-unit id="87gIr9x" resname="Show agenda">
+        <source>Show agenda</source>
+        <target>Show agenda</target>
+      </trans-unit>
+      <trans-unit id=".PmDXnU" resname="Cannot delete finished agenda">
+        <source>Cannot delete finished agenda</source>
+        <target>Cannot delete finished agenda</target>
+      </trans-unit>
+      <trans-unit id="btyCbcw" resname="Cannot delete agenda containing agenda items">
+        <source>Cannot delete agenda containing agenda items</source>
+        <target>Cannot delete agenda containing agenda items</target>
+      </trans-unit>
+      <trans-unit id="iCPdjqj" resname="Are you sure you want to delete this agenda?">
+        <source>Are you sure you want to delete this agenda?</source>
+        <target>Are you sure you want to delete this agenda?</target>
+      </trans-unit>
+      <trans-unit id="6sGDqLd" resname="Delete agenda">
+        <source>Delete agenda</source>
+        <target>Delete agenda</target>
+      </trans-unit>
+      <trans-unit id="zwiDND9" resname="Protocol">
+        <source>Protocol</source>
+        <target>Protocol</target>
+      </trans-unit>
+      <trans-unit id="vBvpeM8" resname="Create or update protocol">
+        <source>Create or update protocol</source>
+        <target>Create or update protocol</target>
+      </trans-unit>
+      <trans-unit id="D99IX1v" resname="Agenda">
+        <source>Agenda</source>
+        <target>Agenda</target>
+      </trans-unit>
+      <trans-unit id="p8Pk0Cg" resname="Publish to boardmembers">
+        <source>Publish to boardmembers</source>
+        <target>Publish to boardmembers</target>
+      </trans-unit>
+      <trans-unit id="tQJcc1A" resname="Remarks">
+        <source>Remarks</source>
+        <target>Remarks</target>
+      </trans-unit>
+      <trans-unit id="3Qrnpcv" resname="Save changes">
+        <source>Save changes</source>
+        <target>Save changes</target>
+      </trans-unit>
+      <trans-unit id="Jjiov6p" resname="Agenda items">
+        <source>Agenda items</source>
+        <target>Agenda items</target>
+      </trans-unit>
+      <trans-unit id="XykeDOE" resname="Add agenda item">
+        <source>Add agenda item</source>
+        <target>Add agenda item</target>
+      </trans-unit>
+      <trans-unit id="msCt1HX" resname="hour">
+        <source>hour</source>
+        <target>hour</target>
+      </trans-unit>
+      <trans-unit id="QEMUsfS" resname="hours">
+        <source>hours</source>
+        <target>hours</target>
+      </trans-unit>
+      <trans-unit id="kOY9hfo" resname="minutes">
+        <source>minutes</source>
+        <target>minutes</target>
+      </trans-unit>
+      <trans-unit id="QJJPB.A" resname="Show agenda item">
+        <source>Show agenda item</source>
+        <target>Show agenda item</target>
+      </trans-unit>
+      <trans-unit id="qSBJaOC" resname="Are you sure you want to delete this agenda item?">
+        <source>Are you sure you want to delete this agenda item?</source>
+        <target>Are you sure you want to delete this agenda item?</target>
+      </trans-unit>
+      <trans-unit id="UrT2D2X" resname="Delete agenda item">
+        <source>Delete agenda item</source>
+        <target>Delete agenda item</target>
+      </trans-unit>
+      <trans-unit id="2xwNT7m" resname="Add board member">
+        <source>Add board member</source>
+        <target>Add board member</target>
+      </trans-unit>
+      <trans-unit id="rbBwCvg" resname="Are you sure you want to remove this board member?">
+        <source>Are you sure you want to remove this board member?</source>
+        <target>Are you sure you want to remove this board member?</target>
+      </trans-unit>
+      <trans-unit id="rcJDFlz" resname="Remove board member">
+        <source>Remove board member</source>
+        <target>Remove board member</target>
+      </trans-unit>
+      <trans-unit id="QuUbfCR" resname="Case decision proposal">
+        <source>Case decision proposal</source>
+        <target>Case decision proposal</target>
+      </trans-unit>
+      <trans-unit id="UYfJ2iC" resname="Here you can see the decision proposal">
+        <source>Here you can see the decision proposal</source>
+        <target>Here you can see the decision proposal</target>
+      </trans-unit>
+      <trans-unit id="quiZwMg" resname="Attached documents">
+        <source>Attached documents</source>
+        <target>Attached documents</target>
+      </trans-unit>
+      <trans-unit id="QWB8PiK" resname="Documents that are already attached to agenda item">
+        <source>Documents that are already attached to agenda item</source>
+        <target>Documents that are already attached to agenda item</target>
+      </trans-unit>
+      <trans-unit id="1BCknPB" resname="Attach documents">
+        <source>Attach documents</source>
+        <target>Attach documents</target>
+      </trans-unit>
+      <trans-unit id="OAs1gv3" resname="Document name">
+        <source>Document name</source>
+        <target>Document name</target>
+      </trans-unit>
+      <trans-unit id="W4H3DVm" resname="Document type">
+        <source>Document type</source>
+        <target>Document type</target>
+      </trans-unit>
+      <trans-unit id="Hl9Om1x" resname="Uploaded by">
+        <source>Uploaded by</source>
+        <target>Uploaded by</target>
+      </trans-unit>
+      <trans-unit id="rArhFm_" resname="Upload date">
+        <source>Upload date</source>
+        <target>Upload date</target>
+      </trans-unit>
+      <trans-unit id="delC5bN" resname="Functions">
+        <source>Functions</source>
+        <target>Functions</target>
+      </trans-unit>
+      <trans-unit id="REE8PZe" resname="Are you sure you want to delete this item?">
+        <source>Are you sure you want to delete this item?</source>
+        <target>Are you sure you want to delete this item?</target>
+      </trans-unit>
+      <trans-unit id="BPbQmqh" resname="Delete document">
+        <source>Delete document</source>
+        <target>Delete document</target>
+      </trans-unit>
+      <trans-unit id="Ly_F.v2" resname="Attach documents to agenda item">
+        <source>Attach documents to agenda item</source>
+        <target>Attach documents to agenda item</target>
+      </trans-unit>
+      <trans-unit id="1Aat4pW" resname="Attach">
+        <source>Attach</source>
+        <target>Attach</target>
+      </trans-unit>
+      <trans-unit id="FV_BbAQ" resname="Submit">
+        <source>Submit</source>
+        <target>Submit</target>
+      </trans-unit>
+      <trans-unit id="0dUuar9" resname="Agenda item">
+        <source>Agenda item</source>
+        <target>Agenda item</target>
+      </trans-unit>
+      <trans-unit id="0Tfukb2" resname="Edit agenda item">
+        <source>Edit agenda item</source>
+        <target>Edit agenda item</target>
+      </trans-unit>
+      <trans-unit id="m3ypDwa" resname="Inspection case">
+        <source>Inspection case</source>
+        <target>Inspection case</target>
+      </trans-unit>
+      <trans-unit id="AZ84Cld" resname="Send message to parties regarding inspection">
+        <source>Send message to parties regarding inspection</source>
+        <target>Send message to parties regarding inspection</target>
+      </trans-unit>
+      <trans-unit id="OI8Dt5w" resname="Create inspection letter">
+        <source>Create inspection letter</source>
+        <target>Create inspection letter</target>
+      </trans-unit>
+      <trans-unit id="OAd9aCc" resname="Landlord">
+        <source>Landlord</source>
+        <target>Landlord</target>
+      </trans-unit>
+      <trans-unit id="Aksk8Gv" resname="Letter sent">
+        <source>Letter sent</source>
+        <target>Letter sent</target>
+      </trans-unit>
+      <trans-unit id="HoVoqCw" resname="Recipients">
+        <source>Recipients</source>
+        <target>Recipients</target>
+      </trans-unit>
+      <trans-unit id="L3W2Ssk" resname="Choices">
+        <source>Choices</source>
+        <target>Choices</target>
+      </trans-unit>
+      <trans-unit id="ak5D7v9" resname="Show letter">
+        <source>Show letter</source>
+        <target>Show letter</target>
+      </trans-unit>
+      <trans-unit id="4jlp0oT" resname="Tenant">
+        <source>Tenant</source>
+        <target>Tenant</target>
+      </trans-unit>
+      <trans-unit id="0CeFT6c" resname="Inspection letter">
+        <source>Inspection letter</source>
+        <target>Inspection letter</target>
+      </trans-unit>
+      <trans-unit id="QISCbyx" resname="Case presentation">
+        <source>Case presentation</source>
+        <target>Case presentation</target>
+      </trans-unit>
+      <trans-unit id="UBddzDx" resname="Here you can see the case presentation">
+        <source>Here you can see the case presentation</source>
+        <target>Here you can see the case presentation</target>
+      </trans-unit>
+      <trans-unit id="El6ck4x" resname="Create agenda item">
+        <source>Create agenda item</source>
+        <target>Create agenda item</target>
+      </trans-unit>
+      <trans-unit id="tOkp2Lz" resname="Documents">
+        <source>Documents</source>
+        <target>Documents</target>
+      </trans-unit>
+      <trans-unit id="UHrmcab" resname="Upload document">
+        <source>Upload document</source>
+        <target>Upload document</target>
+      </trans-unit>
+      <trans-unit id="sZy9p79" resname="Upload documents">
+        <source>Upload documents</source>
+        <target>Upload documents</target>
+      </trans-unit>
+      <trans-unit id="eA.VRbI" resname="Provide a recognizable name for the document">
+        <source>Provide a recognizable name for the document</source>
+        <target>Provide a recognizable name for the document</target>
+      </trans-unit>
+      <trans-unit id="wgscFcd" resname="Select a document type">
+        <source>Select a document type</source>
+        <target>Select a document type</target>
+      </trans-unit>
+      <trans-unit id="KmdBDvj" resname="Provide a document type">
+        <source>Provide a document type</source>
+        <target>Provide a document type</target>
+      </trans-unit>
+      <trans-unit id="apXUKzK" resname="Chose a file">
+        <source>Chose a file</source>
+        <target>Chose a file</target>
+      </trans-unit>
+      <trans-unit id="p9p3rZy" resname="Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
+        <source>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
+        <target>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
+      </trans-unit>
+      <trans-unit id="LqCaMFb" resname="Upload and remove documents">
+        <source>Upload and remove documents</source>
+        <target>Upload and remove documents</target>
+      </trans-unit>
+      <trans-unit id="DhTdmrK" resname="Show case">
+        <source>Show case</source>
+        <target>Show case</target>
+      </trans-unit>
+      <trans-unit id="8VCI9Yd" resname="Back to agenda">
+        <source>Back to agenda</source>
+        <target>Back to agenda</target>
+      </trans-unit>
+      <trans-unit id="vzRWYyS" resname="Choose a title for the inspection letter">
+        <source>Choose a title for the inspection letter</source>
+        <target>Choose a title for the inspection letter</target>
+      </trans-unit>
+      <trans-unit id="lSyC1Lx" resname="Choose a title for the broadcast">
+        <source>Choose a title for the broadcast</source>
+        <target>Choose a title for the broadcast</target>
+      </trans-unit>
+      <trans-unit id="MpqO824" resname="Choose a template">
+        <source>Choose a template</source>
+        <target>Choose a template</target>
+      </trans-unit>
+      <trans-unit id="GjZq2fp" resname="Mail template">
+        <source>Mail template</source>
+        <target>Mail template</target>
+      </trans-unit>
+      <trans-unit id="1FdZ800" resname="Agenda inspection">
+        <source>Agenda inspection</source>
+        <target>Agenda inspection</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Send</target>
+      </trans-unit>
+      <trans-unit id="HtGnOKw" resname="Agenda broadcast">
+        <source>Agenda broadcast</source>
+        <target>Agenda broadcast</target>
+      </trans-unit>
+      <trans-unit id="QSX8nui" resname="Send notice to board members informing them that they now have access to the agenda.">
+        <source>Send notice to board members informing them that they now have access to the agenda.</source>
+        <target>Send notice to board members informing them that they now have access to the agenda.</target>
+      </trans-unit>
+      <trans-unit id="F7yReDQ" resname="Broadcast">
+        <source>Broadcast</source>
+        <target>Broadcast</target>
+      </trans-unit>
+      <trans-unit id="M0iL.jV" resname="Agenda broadcasts">
+        <source>Agenda broadcasts</source>
+        <target>Agenda broadcasts</target>
+      </trans-unit>
+      <trans-unit id="B2uLUYi" resname="Cannot broadcast agenda with no assigned board members">
+        <source>Cannot broadcast agenda with no assigned board members</source>
+        <target>Cannot broadcast agenda with no assigned board members</target>
+      </trans-unit>
+      <trans-unit id="MLLgk.9" resname="Cannot broadcast agenda that does not have status ready">
+        <source>Cannot broadcast agenda that does not have status ready</source>
+        <target>Cannot broadcast agenda that does not have status ready</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target>Created at</target>
+      </trans-unit>
+      <trans-unit id="N2zgT9." resname="Sent at">
+        <source>Sent at</source>
+        <target>Sent at</target>
+      </trans-unit>
+      <trans-unit id="1r2MCu7" resname="Document">
+        <source>Document</source>
+        <target>Document</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target>Show</target>
+      </trans-unit>
+      <trans-unit id="r7fkVA0" resname="No inspection letters sent">
+        <source>No inspection letters sent</source>
+        <target>No inspection letters sent</target>
+      </trans-unit>
+      <trans-unit id="yni3tKo" resname="No boardmember notifications">
+        <source>No boardmember notifications</source>
+        <target>No boardmember notifications</target>
+      </trans-unit>
+      <trans-unit id="dpAPG.0" resname="Back">
+        <source>Back</source>
+        <target>Back</target>
+      </trans-unit>
+      <trans-unit id="35AGWK2" resname="Open agenda in browser">
+        <source>Open agenda in browser</source>
+        <target>Open agenda in browser</target>
+      </trans-unit>
+      <trans-unit id="xDw5e8j" resname="Submit attachments">
+        <source>Submit attachments</source>
+        <target>Submit attachments</target>
+      </trans-unit>
+      <trans-unit id="15d1BVt" resname="Mark all">
+        <source>Mark all</source>
+        <target>Mark all</target>
+      </trans-unit>
+      <trans-unit id="tbjLEaA" resname="View document">
+        <source>View document</source>
+        <target>View document</target>
+      </trans-unit>
+      <trans-unit id="Px7uORc" resname="Agenda created">
+        <source>Agenda created</source>
+        <target>Agenda created</target>
+      </trans-unit>
+      <trans-unit id="KxNgsaj" resname="Agenda deleted">
+        <source>Agenda deleted</source>
+        <target>Agenda deleted</target>
+      </trans-unit>
+      <trans-unit id="qXoPOMW" resname="Agenda updated">
+        <source>Agenda updated</source>
+        <target>Agenda updated</target>
+      </trans-unit>
+      <trans-unit id="xDjQ2pH" resname="Board members added to agenda">
+        <source>Board members added to agenda</source>
+        <target>Board members added to agenda</target>
+      </trans-unit>
+      <trans-unit id="rAElSJ1" resname="Board member {name} removed from agenda">
+        <source>Board member {name} removed from agenda</source>
+        <target>Board member {name} removed from agenda</target>
+      </trans-unit>
+      <trans-unit id="u5__Ke7" resname="Agenda protocol created">
+        <source>Agenda protocol created</source>
+        <target>Agenda protocol created</target>
+      </trans-unit>
+      <trans-unit id="j7IDh4G" resname="Agenda protocol updated">
+        <source>Agenda protocol updated</source>
+        <target>Agenda protocol updated</target>
+      </trans-unit>
+      <trans-unit id="a_4Bg6H" resname="Agenda published">
+        <source>Agenda published</source>
+        <target>Agenda published</target>
+      </trans-unit>
+      <trans-unit id="Qy_9gnt" resname="Documents added to agenda">
+        <source>Documents added to agenda</source>
+        <target>Documents added to agenda</target>
+      </trans-unit>
+      <trans-unit id="EnSgN9B" resname="Document removed from agenda">
+        <source>Document removed from agenda</source>
+        <target>Document removed from agenda</target>
+      </trans-unit>
+      <trans-unit id="VI6hKmv" resname="Agenda manual item created">
+        <source>Agenda manual item created</source>
+        <target>Agenda manual item created</target>
+      </trans-unit>
+      <trans-unit id="IMOBpRa" resname="Agenda case item created">
+        <source>Agenda case item created</source>
+        <target>Agenda case item created</target>
+      </trans-unit>
+      <trans-unit id="M_amekT" resname="Agenda manual item updated">
+        <source>Agenda manual item updated</source>
+        <target>Agenda manual item updated</target>
+      </trans-unit>
+      <trans-unit id="pWfZGby" resname="Agenda case item updated">
+        <source>Agenda case item updated</source>
+        <target>Agenda case item updated</target>
+      </trans-unit>
+      <trans-unit id="lurR8mL" resname="Agenda manual item deleted">
+        <source>Agenda manual item deleted</source>
+        <target>Agenda manual item deleted</target>
+      </trans-unit>
+      <trans-unit id="_3jz0Ks" resname="Agenda case item deleted">
+        <source>Agenda case item deleted</source>
+        <target>Agenda case item deleted</target>
+      </trans-unit>
+      <trans-unit id="kjCB0tj" resname="{count, plural, =1 {One document uploaded} other {# documents uploaded}}">
+        <source>{count, plural, =1 {One document uploaded} other {# documents uploaded}}</source>
+        <target>{count, plural, =1 {One document uploaded} other {# documents uploaded}}</target>
+      </trans-unit>
+      <trans-unit id="i4JV3bx" resname="Document removed">
+        <source>Document removed</source>
+        <target>Document removed</target>
+      </trans-unit>
+      <trans-unit id="myGFK6x" resname="Cannot mark agenda without a date as ready">
+        <source>Cannot mark agenda without a date as ready</source>
+        <target>Cannot mark agenda without a date as ready</target>
+      </trans-unit>
+      <trans-unit id="ksMjwfz" resname="Cannot mark agenda without a start time as ready">
+        <source>Cannot mark agenda without a start time as ready</source>
+        <target>Cannot mark agenda without a start time as ready</target>
+      </trans-unit>
+      <trans-unit id="klYk2Y7" resname="Cannot mark agenda without a end time as ready">
+        <source>Cannot mark agenda without a end time as ready</source>
+        <target>Cannot mark agenda without a end time as ready</target>
+      </trans-unit>
+      <trans-unit id="PVATjhg" resname="Cannot mark agenda without a meeting point as ready">
+        <source>Cannot mark agenda without a meeting point as ready</source>
+        <target>Cannot mark agenda without a meeting point as ready</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

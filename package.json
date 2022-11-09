@@ -1,0 +1,35 @@
+{
+    "devDependencies": {
+        "@symfony/webpack-encore": "^1.0.0",
+        "bootstrap": "^4.6.0",
+        "bootstrap-history-tabs": "https://github.com/jeffdavidgreen/bootstrap-html5-history-tabs",
+        "bs-custom-file-input": "^1.3.4",
+        "core-js": "^3.0.0",
+        "cypress": "^6.5.0",
+        "dawa-autocomplete2": "^1.0.2",
+        "file-loader": "^6.0.0",
+        "jquery": "^3.5.1",
+        "markdownlint-cli": "^0.26.0",
+        "popper.js": "^1.16.1",
+        "regenerator-runtime": "^0.13.2",
+        "sass": "^1.32.7",
+        "sass-loader": "^10.0.0",
+        "standard": "^16.0.3",
+        "stylelint": "^13.10.0",
+        "stylelint-config-sass-guidelines": "^8.0.0",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress",
+        "check-coding-standards/stylelint": "stylelint --config=.stylelintrc.json 'assets/**/*.scss'"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.3",
+        "yarn": "^1.22.10"
+    }
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="Z7aWRoY" resname="Dashboard">
+        <source>Dashboard</source>
+        <target>Dashboard</target>
+      </trans-unit>
+      <trans-unit id="8IXuhlc" resname="Go to dashboard">
+        <source>Go to dashboard</source>
+        <target>Go to dashboard</target>
+      </trans-unit>
+      <trans-unit id="bl1nlIU" resname="Case list">
+        <source>Case list</source>
+        <target>Case list</target>
+      </trans-unit>
+      <trans-unit id="qmTFevH" resname="Go to list of cases">
+        <source>Go to list of cases</source>
+        <target>Go to list of cases</target>
+      </trans-unit>
+      <trans-unit id="JS.Rdbh" resname="Agenda list">
+        <source>Agenda list</source>
+        <target>Agenda list</target>
+      </trans-unit>
+      <trans-unit id="g0MTLJA" resname="Go to list of agendas">
+        <source>Go to list of agendas</source>
+        <target>Go to list of agendas</target>
+      </trans-unit>
+      <trans-unit id="dKiDoDe" resname="Settings">
+        <source>Settings</source>
+        <target>Settings</target>
+      </trans-unit>
+      <trans-unit id="BLpLZWy" resname="Go to settings">
+        <source>Go to settings</source>
+        <target>Go to settings</target>
+      </trans-unit>
+      <trans-unit id="jnapSsg" resname="Summary">
+        <source>Summary</source>
+        <target>Summary</target>
+      </trans-unit>
+      <trans-unit id="0JSzNNg" resname="Basic Information">
+        <source>Basic Information</source>
+        <target>Basic Information</target>
+      </trans-unit>
+      <trans-unit id="qiq3kKb" resname="Status Info">
+        <source>Status Info</source>
+        <target>Status Info</target>
+      </trans-unit>
+      <trans-unit id="A8h1npn" resname="Hearing">
+        <source>Hearing</source>
+        <target>Hearing</target>
+      </trans-unit>
+      <trans-unit id="OYGiucH" resname="Communication">
+        <source>Communication</source>
+        <target>Communication</target>
+      </trans-unit>
+      <trans-unit id="tOkp2Lz" resname="Documents">
+        <source>Documents</source>
+        <target>Documents</target>
+      </trans-unit>
+      <trans-unit id="inUlsUk" resname="Notes">
+        <source>Notes</source>
+        <target>Notes</target>
+      </trans-unit>
+      <trans-unit id="IeSesrK" resname="Log">
+        <source>Log</source>
+        <target>Log</target>
+      </trans-unit>
+      <trans-unit id="D99IX1v" resname="Agenda">
+        <source>Agenda</source>
+        <target>Agenda</target>
+      </trans-unit>
+      <trans-unit id="zwiDND9" resname="Protocol">
+        <source>Protocol</source>
+        <target>Protocol</target>
+      </trans-unit>
+      <trans-unit id="WXAMe6v" resname="Broadcast agenda">
+        <source>Broadcast agenda</source>
+        <target>Broadcast agenda</target>
+      </trans-unit>
+      <trans-unit id="0dUuar9" resname="Agenda item">
+        <source>Agenda item</source>
+        <target>Agenda item</target>
+      </trans-unit>
+      <trans-unit id="bk_hPaS" resname="Inspection">
+        <source>Inspection</source>
+        <target>Inspection</target>
+      </trans-unit>
+      <trans-unit id="8VCI9Yd" resname="Back to agenda">
+        <source>Back to agenda</source>
+        <target>Back to agenda</target>
+      </trans-unit>
+      <trans-unit id="FfhuJO0" resname="Case">
+        <source>Case</source>
+        <target>Case</target>
+      </trans-unit>
+      <trans-unit id="ZArkuvl" resname="Decision">
+        <source>Decision</source>
+        <target>Decision</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

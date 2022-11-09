@@ -1,0 +1,178 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Hearing{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Hearing{% endtrans %}</h1>
+        </div>
+        {% if hearing.getStartedOn %}
+            <div class="col-auto">
+                {% if hearing.getFinishedOn %}
+                    {% if hasSufficientParties %}
+                        <a class="btn btn-primary" href="{{ path('case_hearing_resume', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Resume hearing{% endtrans %}</a>
+                    {% else %}
+                        <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must have both a party and a counter part before entering the hearing phase.{% endtrans %}">{% trans %}Resume hearing{% endtrans %}</button>
+                    {% endif %}
+                {% else %}
+                    {% if requiresProcessing %}
+                        <button class="btn btn-success" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create request{% endtrans %}</button>
+                        <button class="btn btn-success" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create response{% endtrans %}</button>
+                    {% else %}
+                        <a class="btn btn-success" href="{{ path('case_hearing_post_request_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create request{% endtrans %}</a>
+                        <a class="btn btn-success" href="{{ path('case_hearing_post_response_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create response{% endtrans %}</a>
+                    {% endif %}
+                    {% if not neitherPartyHasAnythingToAdd %}
+                        <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while some side still has something to add{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
+                    {% elseif requiresProcessing %}
+                        <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while a response or answer needs processing{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
+                    {% else %}
+                        <a class="btn btn-danger" href="{{ path('case_hearing_finish', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}End Hearing{% endtrans %}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="col-auto">
+                {% if hasSufficientParties %}
+                    <a class="btn btn-primary" href="{{ path('case_hearing_start', {id: case.id}) }}" role="button">{% trans %}Start hearing{% endtrans %}</a>
+                {% else %}
+                    <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must have both a party and a counter part before entering the hearing phase.{% endtrans %}">{% trans %}Start hearing{% endtrans %}</button>
+                {% endif %}
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <main role="main" class="col-12 mt-3">
+        {% if hearing.getStartedOn %}
+            <p>{% trans %}Here you can process hearing posts sent by parties.{% endtrans %}</p>
+
+            {% if not hearing.getFinishedOn %}
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                {{ form_widget(form.partyHasNoMoreToAdd) }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                {{ form_widget(form.counterpartHasNoMoreToAdd) }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary float-right">{{ button_label|default('Update'|trans([], 'case', 'da')) }}</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            {% endif %}
+
+            <div class="accordion mt-3" id="accordionAllHearingPosts">
+                {% if not posts|length > 0 %}
+                    {# Hearing started but no posts yet #}
+                    <p>{% trans %}No hearing posts have been received yet.{% endtrans %}</p>
+                {% else %}
+                    {# Hearing started and there are posts #}
+                    {% set incrementer = 0 %}
+                    {% for post in posts %}
+                        {% set incrementer = incrementer + 1 %}
+                        <div class="card">
+                            {% set header = 'heading' ~ incrementer %}
+                            {% set collapse = 'collapse' ~ incrementer %}
+                            <div class="card-header" id="{{ header|e }}">
+                                <div class="row">
+                                    <div class="col">
+                                        <h2 class="m-0 p-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
+                                                {{ class(post)|trans({}, 'case') }}
+                                                {% if post.title is defined %}
+                                                    - {{ post.title }}
+                                                {% endif %}
+                                                {% if post.forwardedOn is defined and not post.getForwardedOn %}
+                                                    <span class="badge badge-pill badge-warning">N</span>
+                                                {% endif %}
+                                                {% if post.approvedOn is defined and not post.getApprovedOn %}
+                                                    <span class="badge badge-pill badge-warning">N</span>
+                                                {% endif %}
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    {% if post.recipient is defined %}
+                                        <div class="col-auto ml-auto">
+                                            <p class="pt-2"><span class="text-muted">{% trans %}Recipient{% endtrans %}:</span> {{ post.recipient|e }}</p>
+                                        </div>
+                                    {% endif %}
+                                    {% if post.sender is defined %}
+                                        <div class="col-auto ml-auto">
+                                            <p class="pt-2"><span class="text-muted">{% trans %}Sender{% endtrans %}:</span> {{ post.sender|e }}</p>
+                                        </div>
+                                    {% endif %}
+                                    <div class="col-auto">
+                                        <p class="pt-2">{{ post.createdAt|date(format_datetime) }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if incrementer == 1 %}
+                                {% set collapse_variable = 'show' %}
+                            {% else %}
+                                {% set collapse_variable = 'collapse' %}
+                            {% endif %}
+                            <div id="{{ collapse|e }}" class="{{ collapse_variable }}" aria-labelledby="{{ header|e }}" data-parent="#accordionAllHearingPosts">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col" aria-label="attachments">
+                                            <p class="text-muted">
+                                                {% trans %}Document{% endtrans %}:
+                                                <a href="{{ url("document_view", {id: case.id, document_id: post.document.id}) }}">{{ post.document.documentName }}</a>
+                                            </p>
+                                        </div>
+                                        <div class="col-auto" aria-label="attachments">
+                                            <p class="text-muted">
+                                                {% if post.attachments|length > 0 %}
+                                                    {% trans %}Attachments  {% endtrans %}:
+                                                        {% for attachment in post.attachments %}
+                                                            <a href="{{ url("document_view", {id: case.id, document_id: attachment.document.id}) }}">{{ attachment.document.documentName }}</a>
+                                                            {%- if not loop.last %}
+                                                                ;
+                                                            {% endif %}
+                                                    {%- endfor %}
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a class="btn btn-primary" href="{{ path('case_hearing_post_show', {case: case.id, hearingPost: post.id}) }}" role="button">{% trans %}Show{% endtrans %}</a>
+                                            {% if post.forwardedOn is defined and not post.getForwardedOn %}
+                                                <form action="{{ path('case_hearing_post_forward', {case: case.id, hearingPost: post.id}) }}" method="post" style="display: inline-block">
+                                                    <button class="btn btn-warning">{% trans %}Send{% endtrans %}</button>
+                                                </form>
+                                            {% endif %}
+                                            {% if post.approvedOn is defined and not post.getApprovedOn %}
+                                                <form action="{{ path('case_hearing_post_approve', {case: case.id, hearingPost: post.id}) }}" method="post" style="display: inline-block">
+                                                    <button class="btn btn-warning">{% trans %}Approve{% endtrans %}</button>
+                                                </form>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% else %}
+            <p>{% trans %}Hearing has not yet been started.{% endtrans %}</p>
+        {% endif %}
+    </main>
+{% endblock %}

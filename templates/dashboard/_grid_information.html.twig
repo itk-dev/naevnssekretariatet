@@ -1,0 +1,31 @@
+{% trans_default_domain 'dashboard' %}
+
+{% set button_styles = ['primary', 'secondary', 'info', 'dark'] %}
+
+{% for column in grid_information %}
+    <div class="col-md-6 col-lg-3 mb-5 mb-md-2 grid-information">
+        <a href="{{ column.url }}">
+            <h3 class="grid-header">
+                <div class="label">
+                    <i class="fas fa-list mr-2"></i>
+                    {{ column.label }}
+                </div>
+                <div class="count">
+                    <span class="badge badge-dark ml-2">{{ column.count }}</span>
+                </div>
+            </h3>
+        </a>
+
+        {% for row in column.rows %}
+            {% set button_style = button_styles[loop.index0 % button_styles|length] %}
+            <a class="btn btn-{{ button_style }} btn-lg btn-block" href="{{ row.url }}">
+                <div class="grid-row">
+                    <div class="label">{{ row.label }}</div>
+                    <div class="count">
+                        <span class="badge badge-light ml-2">{{ row.count }}</span>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endfor %}
