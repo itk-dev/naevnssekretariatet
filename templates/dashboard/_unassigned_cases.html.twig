@@ -1,0 +1,23 @@
+{% trans_default_domain 'case' %}
+
+<ul class="list-group mb-5">
+    {% for case in unassigned_cases %}
+        <li class="list-group-item list-group-item-action flex-column align-items-start list-group-item-success">
+            <div class="row">
+                <div class="col">
+                    <a href="{{ url('case_summary', {id: case.id}) }}" class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ case.caseNumber|e }}: {{ case.board.name|e }}</h5>
+                        <span>{{ case.currentPlace|e }}</span>
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a href="" role="button" class="btn btn-success" data-toggle="modal" data-target="#assign_case{{ case.id }}" data-placement="auto" title="{% trans %}Assign caseworker{% endtrans %}"><i class="fas fa-user-plus"></i><span class="sr-only">{% trans %}Assign caseworker{% endtrans %}</span></a>
+                    <a href="" role="button" class="btn btn-warning" data-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}"><i class="fas fa-clock"></i><span class="sr-only">{% trans %}Add reminder{% endtrans %}</span></a>
+                    <a href="{{ url('case_summary', {id: case.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show case{% endtrans %}</span></a>
+                </div>
+            </div>
+        </li>
+        {{ render(controller('App\\Controller\\CaseReminderController:new', {id: case.id})) }}
+        {{ render(controller('App\\Controller\\CaseController:assignCaseworker', {id: case.id})) }}
+    {% endfor %}
+</ul>

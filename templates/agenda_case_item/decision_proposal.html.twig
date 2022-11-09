@@ -1,0 +1,25 @@
+{% extends 'layout-with-agenda-item-submenu.html.twig' %}
+
+{% trans_default_domain 'agenda' %}
+
+{% block title %}{% trans %}Case decision proposal{% endtrans %}{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar/agenda-case-item-sidebar.html.twig' %}
+{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Case decision proposal{% endtrans %}</h1>
+            <p class="text-muted"><small>{% trans %}Here you can see the decision proposal{% endtrans %}</small></p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <main role="main" class="col-12 mt-3">
+        {{ form(decision_proposal_form) }}
+    </main>
+{% endblock %}

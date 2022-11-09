@@ -1,0 +1,44 @@
+App\Entity\DigitalPost:
+    digital-post-001:
+        document: '@document-001'
+        entityType: 'App\Entity\ResidentComplaintBoardCase'
+        entityId: '@test-case-aarhus-1->id'
+        subject: 'Some interesting title'
+
+    digital-post-002:
+        document: '@document-001'
+        entityType: 'App\Entity\ResidentComplaintBoardCase'
+        entityId: '@test-case-aarhus-1->id'
+        subject: 'Another interesting title'
+        status: sent
+
+    digital-post-003:
+        document: '@document-002'
+        entityType: 'App\Entity\Agenda'
+        entityId: '@agenda-1->id'
+        subject: 'Agenda Broadcast'
+
+App\Entity\DigitalPostAttachment:
+    digital-post-attachment-001:
+        digitalPost: '@digital-post-001'
+        document: '@attachment-001'
+        position: 0
+    digital-post-attachment-002:
+        digitalPost: '@digital-post-001'
+        document: '@attachment-002'
+        position: 1
+
+App\Entity\DigitalPost\Recipient:
+    recipient-001:
+        digitalPost: '@digital-post-001'
+        name: 'Mr. Bean'
+        identifierType: 'CPR'
+        identifier: '0000000000'
+        address: '@test-case-aarhus-1-bringer-address'
+
+    recipient-002:
+        digitalPost: '@digital-post-002'
+        name: 'Mr. Bean'
+        identifierType: 'CPR'
+        identifier: '0000000000'
+        address: '@test-case-aarhus-1-bringer-address'

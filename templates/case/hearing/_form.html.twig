@@ -1,0 +1,35 @@
+{% trans_default_domain 'case' %}
+
+{{ form_start(form) }}
+    {% for name, child in form|filter((_, name) => name != 'attachments') %}
+        {{ form_row(child) }}
+    {% endfor %}
+
+    <div class="attachments">
+        {{ form_label(form.attachments) }}
+        {# store the prototype on the data-prototype attribute #}
+        <ul id="attachment-fields-list"
+            data-prototype="{{ form_widget(form.attachments.vars.prototype)|e }}"
+            data-widget-tags="{{ '<li></li>'|e }}"
+            data-widget-counter="{{ form.attachments|length }}">
+            {% for attachment_field in form.attachments %}
+                <li>
+                    {{ form_errors(attachment_field) }}
+                    {{ form_widget(attachment_field) }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <button type="button"
+            class="btn btn-secondary add-another-collection-widget"
+            data-list-selector="#attachment-fields-list">{% trans %}Add another attachment{% endtrans %}</button>
+
+        {# Something weird is going one when we have no attachments #}
+        {% if 0 == form.attachments|length %}
+            {% set ignore = form_row(form.attachments) %}
+            {# twigcs use-var ignore #}
+        {% endif %}
+    </div>
+
+    <button class="btn btn-primary float-right">{{ button_label|default('Save hearing post'|trans) }}</button>
+{{ form_end(form) }}

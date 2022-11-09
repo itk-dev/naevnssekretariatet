@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% block navbar %}
+        {% include 'navbar/navbar.html.twig' %}
+    {% endblock %}
+    <div class="container-fluid">
+        <div class="row">
+            {% block sidebar %}
+                {% include 'sidebar/agenda-sidebar.html.twig' %}
+            {% endblock %}
+            <div class="col-md-12 col-lg-9 ml-sm-auto px-md-4">
+                {% include 'common/flash_messages.html.twig' %}
+                <header class="pt-3">
+                    {% block header %}{% endblock %}
+                </header>
+                <div class="row pb-2 mb-3">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

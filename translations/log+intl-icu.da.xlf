@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="IeSesrK" resname="Log">
+        <source>Log</source>
+        <target state="translated">Journal</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target state="translated">Oprettet</target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target state="translated">Brugernavn</target>
+      </trans-unit>
+      <trans-unit id="ZM.xMZ0" resname="Action">
+        <source>Action</source>
+        <target state="translated">Handling</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target state="translated">Vis</target>
+      </trans-unit>
+      <trans-unit id="feEaTn8" resname="Board updated">
+        <source>Board updated</source>
+        <target state="translated">Nævn opdateret</target>
+      </trans-unit>
+      <trans-unit id="oDg.PGf" resname="Case created">
+        <source>Case created</source>
+        <target state="translated">Sag oprettet</target>
+      </trans-unit>
+      <trans-unit id="1XPF6Ba" resname="Case presentation updated">
+        <source>Case presentation updated</source>
+        <target state="translated">Sagsfremstilling opdateret</target>
+      </trans-unit>
+      <trans-unit id="0C2Idub" resname="Case removed">
+        <source>Case removed</source>
+        <target state="translated">Sag fjernet</target>
+      </trans-unit>
+      <trans-unit id="yTngtCU" resname="Case updated">
+        <source>Case updated</source>
+        <target state="translated">Sag opdateret</target>
+      </trans-unit>
+      <trans-unit id="5aF370R" resname="Complaint category updated">
+        <source>Complaint category updated</source>
+        <target state="translated">Klagetype opdateret</target>
+      </trans-unit>
+      <trans-unit id="50z2zTS" resname="Document added">
+        <source>Document added</source>
+        <target state="translated">Dokument tilføjet</target>
+      </trans-unit>
+      <trans-unit id="ao95lfv" resname="Document updated">
+        <source>Document updated</source>
+        <target state="translated">Dokument opdateret</target>
+      </trans-unit>
+      <trans-unit id="ZXiiLNt" resname="Municipality updated">
+        <source>Municipality updated</source>
+        <target state="translated">Kommune opdateret</target>
+      </trans-unit>
+      <trans-unit id="CitIJB6" resname="Party relation added">
+        <source>Party relation added</source>
+        <target state="translated">Partsrelation tilføjet</target>
+      </trans-unit>
+      <trans-unit id="tyveVm3" resname="Party relation updated">
+        <source>Party relation updated</source>
+        <target state="translated">Partsrelation opdateret</target>
+      </trans-unit>
+      <trans-unit id="k1aYdSQ" resname="Party updated">
+        <source>Party updated</source>
+        <target state="translated">Part opdateret</target>
+      </trans-unit>
+      <trans-unit id="TkRFSzN" resname="Log entry">
+        <source>Log entry</source>
+        <target state="translated">Journalindgang</target>
+      </trans-unit>
+      <trans-unit id="4qToq05" resname="Previous log entry">
+        <source>Previous log entry</source>
+        <target state="translated">Forrige journalindgang</target>
+      </trans-unit>
+      <trans-unit id="3h7nipJ" resname="Next log entry">
+        <source>Next log entry</source>
+        <target state="translated">Næste journalindgang</target>
+      </trans-unit>
+      <trans-unit id="zsOpuJs" resname="Data">
+        <source>Data</source>
+        <target state="translated">Data</target>
+      </trans-unit>
+      <trans-unit id="8Hz9eQU" resname="Back to log">
+        <source>Back to log</source>
+        <target state="translated">Tilbage til journal</target>
+      </trans-unit>
+      <trans-unit id="GnTPdoq" resname="Hearing post created">
+        <source>Hearing post created</source>
+        <target state="translated">Høringssvar oprettet</target>
+      </trans-unit>
+      <trans-unit id="Y1_yClD" resname="Hearing post updated">
+        <source>Hearing post updated</source>
+        <target state="translated">Høringssvar opdateret</target>
+      </trans-unit>
+      <trans-unit id="dvHE_Op" resname="Hearing created">
+        <source>Hearing created</source>
+        <target state="translated">Høring oprettet</target>
+      </trans-unit>
+      <trans-unit id="RiZ4M6r" resname="Hearing updated">
+        <source>Hearing updated</source>
+        <target state="translated">Høring opdateret</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

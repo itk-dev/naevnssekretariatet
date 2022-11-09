@@ -1,0 +1,106 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{% trans %}Hearing post{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Hearing post{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            {% if hearingPost.forwardedOn is defined and not hearingPost.getForwardedOn %}
+                <a class="btn btn-primary" href="{{ path('case_hearing_post_request_edit', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Edit{% endtrans %}</a>
+            {% endif %}
+            {% if hearingPost.approvedOn is defined and not hearingPost.approvedOn %}
+                <a class="btn btn-primary" href="{{ path('case_hearing_post_response_edit', {case: case.id, hearingPost: hearingPost.id}) }}">{% trans %}Edit{% endtrans %}</a>
+            {% endif %}
+            <a class="btn btn-secondary" href="{{ path('case_hearing_index', {id: case.id}) }}">{% trans %}Back{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% macro show_document_content_button(case, document) %}
+    <a target="document-content" href="{{ path('document_view', {id: case.id, document_id: document.id}) }}">
+        {{ document.documentName }}
+    </a>
+{% endmacro %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        <dl>
+            {% if hearingPost.recipient is defined %}
+                <dt>
+                    {% trans %}Recipient{% endtrans %}
+                </dt>
+
+                <dd>
+                    {{ hearingPost.recipient }}
+                </dd>
+            {% endif %}
+            {% if hearingPost.sender is defined %}
+                <dt>
+                    {% trans %}Sender{% endtrans %}
+                </dt>
+
+                <dd>
+                    {{ hearingPost.sender }}
+                </dd>
+            {% endif %}
+            {% if hearingPost.template is defined %}
+                <dt>
+                    {% trans %}Template{% endtrans %}
+                </dt>
+                <dd>
+                    {{ hearingPost.template.name }}
+                </dd>
+            {% endif %}
+            {% if hearingPost.customData is defined %}
+                {% set custom_fields = getCustomFields(hearingPost.template) %}
+                {% for key, value in hearingPost.customData %}
+                    <dt>
+                        {{ custom_fields[key]|default(key) }}
+                    </dt>
+                    <dd>
+                        {{ value }}
+                    </dd>
+                {% endfor %}
+            {% endif %}
+            <dt>
+                {% trans %}Document{% endtrans %}
+            </dt>
+            <dd>
+                {{ _self.show_document_content_button(case, hearingPost.document) }}
+            </dd>
+            {% if hearingPost.attachments %}
+                <dt>
+                    {% trans %}Attachments{% endtrans %}
+                </dt>
+                <dd>
+                    <ol class="list-unstyled">
+                        {% for attachment in hearingPost.attachments %}
+                            <li>
+                                {{ _self.show_document_content_button(case, attachment.document) }}
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </dd>
+            {% endif %}
+        </dl>
+        <iframe name="document-content" style="border: none; width: 100%;" src="about:blank"></iframe>
+    </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Compute height if iframe element to make it take up (most of) the remaining space on the page.
+        window.addEventListener('load', function () {
+            const iframe = document.querySelector('[name="document-content"]');
+            const rect = iframe.getBoundingClientRect()
+            iframe.style.height = (window.innerHeight-rect.top-40)+'px'
+        })
+    </script>
+{% endblock %}

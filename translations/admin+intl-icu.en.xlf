@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="6bzwwVZ" resname="List of complainant party types (one per line). The first party type can be used for sorting cases.">
+        <source>List of complainant party types (one per line). The first party type can be used for sorting cases.</source>
+        <target>List of complainant party types (one per line). The first party type can be used for sorting cases.</target>
+      </trans-unit>
+      <trans-unit id="XVtm1Zq" resname="List of counterparty types (one per line). The first party type can be used for sorting cases.">
+        <source>List of counterparty types (one per line). The first party type can be used for sorting cases.</source>
+        <target>List of counterparty types (one per line). The first party type can be used for sorting cases.</target>
+      </trans-unit>
+      <trans-unit id="Z7aWRoY" resname="Dashboard">
+        <source>Dashboard</source>
+        <target>Dashboard</target>
+      </trans-unit>
+      <trans-unit id="xsCUvAB" resname="Empty">
+        <source>Empty</source>
+        <target>Empty</target>
+      </trans-unit>
+      <trans-unit id="SaPHHYy" resname="Complaint category">
+        <source>Complaint category</source>
+        <target>Complaint category</target>
+      </trans-unit>
+      <trans-unit id="3na35C4" resname="Complaint categories">
+        <source>Complaint categories</source>
+        <target>Complaint categories</target>
+      </trans-unit>
+      <trans-unit id="5vSuyiT" resname="Municipality">
+        <source>Municipality</source>
+        <target>Municipality</target>
+      </trans-unit>
+      <trans-unit id="2N3hntQ" resname="Municipalities">
+        <source>Municipalities</source>
+        <target>Municipalities</target>
+      </trans-unit>
+      <trans-unit id="SBbL.XS" resname="Board">
+        <source>Board</source>
+        <target>Board</target>
+      </trans-unit>
+      <trans-unit id="T8053ZJ" resname="Boards">
+        <source>Boards</source>
+        <target>Boards</target>
+      </trans-unit>
+      <trans-unit id="HcleG6J" resname="Boardmember">
+        <source>Boardmember</source>
+        <target>Boardmember</target>
+      </trans-unit>
+      <trans-unit id="SZa3Qhf" resname="Boardmembers">
+        <source>Boardmembers</source>
+        <target>Boardmembers</target>
+      </trans-unit>
+      <trans-unit id="jKrNr1p" resname="Part Index">
+        <source>Part Index</source>
+        <target>Part Index</target>
+      </trans-unit>
+      <trans-unit id="36gvIbP" resname="Party">
+        <source>Party</source>
+        <target>Party</target>
+      </trans-unit>
+      <trans-unit id="Jyn13Ug" resname="Parties">
+        <source>Parties</source>
+        <target>Parties</target>
+      </trans-unit>
+      <trans-unit id="gY7QyHV" resname="User Settings">
+        <source>User Settings</source>
+        <target>User Settings</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target>User</target>
+      </trans-unit>
+      <trans-unit id="XWyh8qz" resname="Subboard">
+        <source>Subboard</source>
+        <target>Subboard</target>
+      </trans-unit>
+      <trans-unit id="qDuX.Ui" resname="Subboards">
+        <source>Subboards</source>
+        <target>Subboards</target>
+      </trans-unit>
+      <trans-unit id="3iE04Og" resname="Back to the website">
+        <source>Back to the website</source>
+        <target>Back to the website</target>
+      </trans-unit>
+      <trans-unit id="BqtkKHS" resname="Board role">
+        <source>Board role</source>
+        <target>Board role</target>
+      </trans-unit>
+      <trans-unit id="yn5gqY6" resname="Board roles">
+        <source>Board roles</source>
+        <target>Board roles</target>
+      </trans-unit>
+      <trans-unit id="W4H3DVm" resname="Document type">
+        <source>Document type</source>
+        <target>Document type</target>
+      </trans-unit>
+      <trans-unit id="n8ctBXR" resname="Document types">
+        <source>Document types</source>
+        <target>Document types</target>
+      </trans-unit>
+      <trans-unit id="0SSiJv_" resname="Add complaint category">
+        <source>Add complaint category</source>
+        <target>Add complaint category</target>
+      </trans-unit>
+      <trans-unit id="hOPtAc4" resname="Add municipality">
+        <source>Add municipality</source>
+        <target>Add municipality</target>
+      </trans-unit>
+      <trans-unit id="vyuuS30" resname="Add board">
+        <source>Add board</source>
+        <target>Add board</target>
+      </trans-unit>
+      <trans-unit id="Zbq_T4C" resname="Add boardmember">
+        <source>Add boardmember</source>
+        <target>Add boardmember</target>
+      </trans-unit>
+      <trans-unit id="v7KnF3u" resname="Add party">
+        <source>Add party</source>
+        <target>Add party</target>
+      </trans-unit>
+      <trans-unit id="HkPKUG." resname="Add Subboard">
+        <source>Add Subboard</source>
+        <target>Add Subboard</target>
+      </trans-unit>
+      <trans-unit id="N7U6QPI" resname="Edit user information">
+        <source>Edit user information</source>
+        <target>Edit user information</target>
+      </trans-unit>
+      <trans-unit id="I9P6k6w" resname="Add board role">
+        <source>Add board role</source>
+        <target>Add board role</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="_ELD4YW" resname="Fee">
+        <source>Fee</source>
+        <target>Fee</target>
+      </trans-unit>
+      <trans-unit id="6jRHZCk" resname="AZ-ident">
+        <source>AZ-ident</source>
+        <target>AZ-ident</target>
+      </trans-unit>
+      <trans-unit id="cC75Ie0" resname="First name">
+        <source>First name</source>
+        <target>First name</target>
+      </trans-unit>
+      <trans-unit id="e0iIBJR" resname="Last name">
+        <source>Last name</source>
+        <target>Last name</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Address</target>
+      </trans-unit>
+      <trans-unit id="MG8bsgZ" resname="Phone number">
+        <source>Phone number</source>
+        <target>Phone number</target>
+      </trans-unit>
+      <trans-unit id="itYV46W" resname="Name and address protected">
+        <source>Name and address protected</source>
+        <target>Name and address protected</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="EyxyB5F" resname="Favorite municipality">
+        <source>Favorite municipality</source>
+        <target>Favorite municipality</target>
+      </trans-unit>
+      <trans-unit id="tcO5B6P" resname="Statuses">
+        <source>Statuses</source>
+        <target>Statuses</target>
+      </trans-unit>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="0AItL4V" resname="Add to part index">
+        <source>Add to part index</source>
+        <target>Add to part index</target>
+      </trans-unit>
+      <trans-unit id="RoBaH.A" resname="Finish hearing deadline (days)">
+        <source>Finish hearing deadline (days)</source>
+        <target>Finish hearing deadline (days)</target>
+      </trans-unit>
+      <trans-unit id="4ot9em3" resname="Finish processing case deadline (days)">
+        <source>Finish processing case deadline (days)</source>
+        <target>Finish processing case deadline (days)</target>
+      </trans-unit>
+      <trans-unit id="7lWBnRv" resname="Case Form Type">
+        <source>Case Form Type</source>
+        <target>Case Form Type</target>
+      </trans-unit>
+      <trans-unit id="4G27vkv" resname="Complainant party types">
+        <source>Complainant party types</source>
+        <target>Complainant party types</target>
+      </trans-unit>
+      <trans-unit id="x.7GeB3" resname="Counter party types">
+        <source>Counter party types</source>
+        <target>Counter party types</target>
+      </trans-unit>
+      <trans-unit id="suC1YnM" resname="BoardRole">
+        <source>BoardRole</source>
+        <target>BoardRole</target>
+      </trans-unit>
+      <trans-unit id="xfGmwdX" resname="List of case statuses (one per line). Board members will be able to see cases with the last status.">
+        <source>List of case statuses (one per line). Board members will be able to see cases with the last status.</source>
+        <target>List of case statuses (one per line). Board members will be able to see cases with the last status.</target>
+      </trans-unit>
+      <trans-unit id="yknv5ud" resname="List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).">
+        <source>List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).</source>
+        <target>List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).</target>
+      </trans-unit>
+      <trans-unit id="MUvx5II" resname="Initials">
+        <source>Initials</source>
+        <target>Initials</target>
+      </trans-unit>
+      <trans-unit id="IeSesrK" resname="Log">
+        <source>Log</source>
+        <target>Log</target>
+      </trans-unit>
+      <trans-unit id="_ZRJeYh" resname="Mail templates">
+        <source>Mail templates</source>
+        <target>Mail templates</target>
+      </trans-unit>
+      <trans-unit id="hm3NmOy" resname="Macros">
+        <source>Macros</source>
+        <target>Macros</target>
+      </trans-unit>
+      <trans-unit id="Rul40MG" resname="Shortcuts">
+        <source>Shortcuts</source>
+        <target>Shortcuts</target>
+      </trans-unit>
+      <trans-unit id="GjZq2fp" resname="Mail template">
+        <source>Mail template</source>
+        <target>Mail template</target>
+      </trans-unit>
+      <trans-unit id="F8b4Mcy" resname="Mail template macros">
+        <source>Mail template macros</source>
+        <target>Mail template macros</target>
+      </trans-unit>
+      <trans-unit id="Uou4pI1" resname="Mail template macro">
+        <source>Mail template macro</source>
+        <target>Mail template macro</target>
+      </trans-unit>
+      <trans-unit id="kStF.jD" resname="The value to insert to use the macro in a template, i.e. if the name is &lt;code&gt;name_and_address&lt;/code&gt; then &lt;code&gt;${name_and_address}&lt;/code&gt; can be used in the template.">
+        <source>The value to insert to use the macro in a template, i.e. if the name is &lt;code&gt;name_and_address&lt;/code&gt; then &lt;code&gt;${name_and_address}&lt;/code&gt; can be used in the template.</source>
+        <target><![CDATA[The value to insert to use the macro in a template, i.e. if the name is <code>name_and_address</code> then <code>${name_and_address}</code> can be used in the template.]]></target>
+      </trans-unit>
+      <trans-unit id="3Qx4nzD" resname="The content of the expanded macro.">
+        <source>The content of the expanded macro.</source>
+        <target>The content of the expanded macro.</target>
+      </trans-unit>
+      <trans-unit id=".GZdt2y" resname="Select template types that this macro can be used for. If no template types are selected, the macro can be used in all templates.">
+        <source>Select template types that this macro can be used for. If no template types are selected, the macro can be used in all templates.</source>
+        <target>Select template types that this macro can be used for. If no template types are selected, the macro can be used in all templates.</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target>Template</target>
+      </trans-unit>
+      <trans-unit id="wyWbfaC" resname="Template Types">
+        <source>Template Types</source>
+        <target>Template Types</target>
+      </trans-unit>
+      <trans-unit id="R70pB1_" resname="Content">
+        <source>Content</source>
+        <target>Content</target>
+      </trans-unit>
+      <trans-unit id="zfFuwRW" resname="Macro">
+        <source>Macro</source>
+        <target>Macro</target>
+      </trans-unit>
+      <trans-unit id="PGNBskn" resname="Case number">
+        <source>Case number</source>
+        <target>Case number</target>
+      </trans-unit>
+      <trans-unit id="3ev2XTv" resname="Removal reason">
+        <source>Removal reason</source>
+        <target>Removal reason</target>
+      </trans-unit>
+      <trans-unit id="5qxAFk0" resname="Deleted cases">
+        <source>Deleted cases</source>
+        <target>Deleted cases</target>
+      </trans-unit>
+      <trans-unit id="8b45cCU" resname="Remember that a boardmember may only have one role per board.">
+        <source>Remember that a boardmember may only have one role per board.</source>
+        <target>Remember that a boardmember may only have one role per board.</target>
+      </trans-unit>
+      <trans-unit id=".ZzqKgg" resname="Extra address information">
+        <source>Extra address information</source>
+        <target>Extra address information</target>
+      </trans-unit>
+      <trans-unit id="5YFhjOr" resname="List of party types (one per line). The first party type can be used for sorting cases.">
+        <source>List of party types (one per line). The first party type can be used for sorting cases.</source>
+        <target>List of party types (one per line). The first party type can be used for sorting cases.</target>
+      </trans-unit>
+      <trans-unit id="kfYGsy3" resname="Identification">
+        <source>Identification</source>
+        <target>Identification</target>
+      </trans-unit>
+      <trans-unit id="QPa6Jpq" resname="Something went wrong when attempting to delete complaint category.">
+        <source>Something went wrong when attempting to delete complaint category.</source>
+        <target>Something went wrong when attempting to delete complaint category.</target>
+      </trans-unit>
+      <trans-unit id="EIVwRSk" resname="Could not delete, as one or more other entities is related to this entity.">
+        <source>Could not delete, as one or more other entities is related to this entity.</source>
+        <target>Could not delete, as one or more other entities is related to this entity.</target>
+      </trans-unit>
+      <trans-unit id="Q2VFI5o" resname="Find information from identifier">
+        <source>Find information from identifier</source>
+        <target>Find information from identifier</target>
+      </trans-unit>
+      <trans-unit id="lVUY_Cv" resname="Is under address protection">
+        <source>Is under address protection</source>
+        <target>Is under address protection</target>
+      </trans-unit>
+      <trans-unit id="M2328_d" resname="Template document">
+        <source>Template document</source>
+        <target>Template document</target>
+      </trans-unit>
+      <trans-unit id="foxwvv1" resname="Upload a Word document (docx) to use as a template.">
+        <source>Upload a Word document (docx) to use as a template.</source>
+        <target>Upload a Word document (docx) to use as a template.</target>
+      </trans-unit>
+      <trans-unit id="nN_UcHC" resname="Select template to use for sending a receipt to the bringer.">
+        <source>Select template to use for sending a receipt to the bringer.</source>
+        <target>Select template to use for sending a receipt to the bringer.</target>
+      </trans-unit>
+      <trans-unit id="XMZPtw0" resname="Select receipt template">
+        <source>Select receipt template</source>
+        <target>Select receipt template</target>
+      </trans-unit>
+      <trans-unit id="VWbbSfr" resname="Custom fields">
+        <source>Custom fields</source>
+        <target>Custom fields</target>
+      </trans-unit>
+      <trans-unit id="ni8VgZH" resname="List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.">
+        <source>List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.</source>
+        <target>List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.</target>
+      </trans-unit>
+      <trans-unit id="CrVu0l7" resname="Select a template for hearing post response">
+        <source>Select a template for hearing post response</source>
+        <target>Select a template for hearing post response</target>
+      </trans-unit>
+      <trans-unit id="5IJuiio" resname="Hearing post response template">
+        <source>Hearing post response template</source>
+        <target>Hearing post response template</target>
+      </trans-unit>
+      <trans-unit id="q2LDKij" resname="Receipt on case">
+        <source>Receipt on case</source>
+        <target>Receipt on case</target>
+      </trans-unit>
+      <trans-unit id="V4Dn31Z" resname="Receipt on hearing post">
+        <source>Receipt on hearing post</source>
+        <target>Receipt on hearing post</target>
+      </trans-unit>
+      <trans-unit id="avp1KUq" resname="KLE">
+        <source>KLE</source>
+        <target>KLE</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
