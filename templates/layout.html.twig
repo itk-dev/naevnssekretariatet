@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% block navbar %}
+        {% include 'navbar/navbar.html.twig' %}
+    {% endblock %}
+    <div class="container-fluid">
+        <div class="row">
+            {% block sidebar %}
+                {% block sidebarMenu %}
+                    <nav id="sidebarMenu" role="navigation" class="col-auto d-md-block bg-dark sidebar collapse">
+                        <div class="bg-dark">
+                            <ul class="nav flex-column">
+                                {{ render(controller(
+                                    'App\\Controller\\SidebarController::renderMenu', {activeRoute: app.request.get('_route')}
+                                )) }}
+                            </ul>
+                        </div>
+                    </nav>
+                {% endblock %}
+            {% endblock %}
+            <div class="col ml-sm-auto ml-md-5 px-md-4">
+                {% block flash_messages %}
+                    {% include 'common/flash_messages.html.twig' %}
+                {% endblock %}
+
+                <header class="pt-3">
+                    {% block header %}{% endblock %}
+                </header>
+                <div class="row pb-2 mb-3">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

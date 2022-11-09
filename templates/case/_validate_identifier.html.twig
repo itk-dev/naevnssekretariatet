@@ -1,0 +1,16 @@
+{% trans_default_domain 'case' %}
+
+{{ form_start(form, {'action': path('case_validate_identifier', {id: case.id, idProperty: id_property, addressProperty: address_property, addressProtectionProperty: address_protection_property, nameProperty: name_property}), 'attr': {'data-use-ajax': true}}) }}
+    {% set identifier_type = attribute(case, id_property).type %}
+    {# twigcs use-var identifier_type #}
+    <div class="form-header">
+        <button class="btn btn-block btn-secondary" type="submit">{% trans with {type: identifier_type} %}Validate identifier ({type}){% endtrans %}</button>
+    </div>
+    <div class="form-body">
+        {{ form_widget(form) }}
+        {% if not form.vars.errors|length %}
+            <p class="text-muted">{% trans with {type: identifier_type} %}Validate the legitimacy of the identifier by pressing the Validate identifier ({type}) button{% endtrans %}</p>
+        {% endif %}
+        <div class="form-error"></div>
+    </div>
+{{ form_end(form) }}

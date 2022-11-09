@@ -1,0 +1,17 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        site_name: '%site_name%'
+        format_date: 'd/m/Y'
+        format_time: 'H:i'
+        format_datetime: 'd/m/Y H:i'
+        format_weekday: 'l'
+    form_themes: ['bootstrap_4_layout.html.twig', 'form/theme.html.twig']
+
+    date:
+      format: 'd/m/Y H:i'
+      # All times EXCEPT LOG ENTRIES are kept as separate DateTime properties,
+      # meaning when a user sets a startTime to 17:00 we can save it exactly like that in the database,
+      # i.e. saving all times separate from dates means we can ignore timezones.
+      # Log entry exceptions are in templates/case/log.html.twig and templates/case/log_entry_show.html.twig.
+      # timezone: Europe/Copenhagen

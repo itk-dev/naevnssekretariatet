@@ -1,0 +1,12 @@
+{% block _translation %}
+
+    {% trans_default_domain 'party' %}
+    {# Help the translation extractor #}
+
+    {{ 'Tenant'|trans }}
+    {{ 'Tenant (representative)'|trans }}
+    {{ 'Landlord'|trans }}
+    {{ 'Landlord (administrator)'|trans }}
+
+{% endblock %}
+

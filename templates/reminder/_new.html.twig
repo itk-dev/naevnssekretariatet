@@ -1,0 +1,23 @@
+{% trans_default_domain 'reminder' %}
+
+<div class="modal fade" id="reminder_new{{ case.id }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rescheduleDeadlineModalLabel">{% trans %}Create reminder{% endtrans %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'Close'|trans([], 'messages') }}">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(reminder_form, {'action': path('reminder_new', {'id': case.id})}) }}
+                {{ form_widget(reminder_form) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans from 'messages' %}Close{% endtrans %}</button>
+                <button type="submit" class="btn btn-primary">{% trans %}Create reminder{% endtrans %}</button>
+                {{ form_end(reminder_form) }}
+            </div>
+        </div>
+    </div>
+</div>

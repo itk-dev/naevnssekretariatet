@@ -1,0 +1,7 @@
+{# TODO: Dropdown with shortcuts from Settings/External-shortcuts #}
+<a class="btn btn-sm btn-dark d-block dropdown-toggle mb-2 mb-lg-0 border" href="#" id="external-shortcuts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Shortcuts'|trans({}, 'navbar') }}</a>
+<div class="dropdown-menu" aria-labelledby="external-shortcuts">
+    {% for shortcut in shortcuts %}
+        <a class="dropdown-item" href="{{ shortcut.url }}" target="_blank">{{ shortcut.identifier }}</a>
+    {% endfor %}
+</div>

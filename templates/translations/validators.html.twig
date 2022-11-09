@@ -1,0 +1,9 @@
+{% block _translation %}
+
+    {% trans_default_domain 'validators' %}
+    {# Help the translation extractor #}
+
+    {{ 'Please upload a valid Word document (docx).'|trans }}
+    {{ 'You have to select at least 1 item'|trans }}
+
+{% endblock %}

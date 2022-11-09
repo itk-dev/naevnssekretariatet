@@ -1,0 +1,7 @@
+{% trans_default_domain 'common' %}
+
+<div class="btn-group" role="group" aria-label="{% trans %}List functions{% endtrans %}">
+    {% for item in btn_group %}
+        <a href="#" role="button" class="btn btn-{{ item.style|e }}" data-toggle="tooltip" data-placement="auto" title="{{ item.tooltip|trans([], 'common', 'da') }}"><i class="fas fa-{{ item.icon|e }}"></i><span class="sr-only">{{ item.name|trans([], 'common', 'da') }}</span></a>
+    {% endfor %}
+</div>

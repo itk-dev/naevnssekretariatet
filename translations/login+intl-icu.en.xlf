@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="zBHUFdk" resname="Access denied">
+        <source>Access denied</source>
+        <target>Access denied</target>
+      </trans-unit>
+      <trans-unit id="l0utA0_" resname="Remember my choice">
+        <source>Remember my choice</source>
+        <target>Remember my choice</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="1IbyQx6" resname="open_id_connect.login_provider.admin">
+        <source>open_id_connect.login_provider.admin</source>
+        <target>open_id_connect.login_provider.admin</target>
+      </trans-unit>
+      <trans-unit id="Vjg6OYg" resname="open_id_connect.login_provider.board-member">
+        <source>open_id_connect.login_provider.board-member</source>
+        <target>open_id_connect.login_provider.board-member</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
