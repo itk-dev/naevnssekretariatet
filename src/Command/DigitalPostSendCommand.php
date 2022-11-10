@@ -11,7 +11,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -28,16 +30,50 @@ class DigitalPostSendCommand extends Command
         parent::__construct(null);
     }
 
+    protected function configure()
+    {
+        $this
+            ->addOption('force-send', null, InputOption::VALUE_NONE, 'Force sending a digital post even if failed or already sent')
+            ->addOption('digital-post-id', null, InputOption::VALUE_REQUIRED, 'Id of digital post to send')
+            ->addOption('recipient-identifier', null, InputOption::VALUE_REQUIRED, 'Overwrite recipient identifier (CPR or CVR)')
+        ;
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
         $statuses = [null, DigitalPost::STATUS_ERROR];
-        $digitalPosts = $this->digitalPostRepository->findBy(['status' => $statuses]);
+
+        $id = $input->getOption('digital-post-id');
+        $forceSend = false;
+        $overwriteRecipientIdentifier = null;
+        if (null !== $id) {
+            $digitalPost = $this->digitalPostRepository->find($id);
+            if (null === $digitalPost) {
+                throw new RuntimeException(sprintf('Invalid digital post id %s. Use tvist1:digital-post:list to show all digital posts.', $id));
+            }
+            $digitalPosts = [$digitalPost];
+            $forceSend = $input->getOption('force-send');
+        } else {
+            $digitalPosts = $this->digitalPostRepository->findBy(['status' => $statuses]);
+        }
+
+        if ($forceSend) {
+            $overwriteRecipientIdentifier = $input->getOption('recipient-identifier');
+            if (null === $overwriteRecipientIdentifier) {
+                throw new RuntimeException(sprintf('Options recipient-identifier must be specified when using force-send'));
+            }
+        }
 
         $io->info(sprintf('Number of digital posts: %d', count($digitalPosts)));
 
         foreach ($digitalPosts as $index => $digitalPost) {
+            if (!$forceSend && !in_array($digitalPost->getStatus(), $statuses)) {
+                $io->error(sprintf('Digital post %s has invalid status %s (expected one of %s)', $digitalPost->getId(), json_encode($digitalPost->getStatus()), implode(', ', array_map('json_encode', $statuses))));
+                continue;
+            }
+
             $io->title(sprintf('% 3d/%d %s:%s', $index + 1, count($digitalPosts), get_class($digitalPost), $digitalPost->getId()));
 
             try {
@@ -50,13 +86,15 @@ class DigitalPostSendCommand extends Command
                 $previousResults = $digitalPost->getData()['results'] ?? [];
                 $results = [];
                 foreach ($digitalPost->getRecipients() as $recipient) {
+                    $recipientIdentifier = $overwriteRecipientIdentifier ?? $recipient->getIdentifier();
+
                     $recipientKey = $recipient->getId()->toRfc4122();
-                    $io->info(sprintf('%s (%s: %s)', $recipient->getName(), $recipient->getIdentifierType(), $recipient->getIdentifier()));
+                    $io->info(sprintf('%s (%s: %s)', $recipient->getName(), $recipient->getIdentifierType(), $recipientIdentifier));
 
                     $previousResult = $previousResults[$recipientKey] ?? [];
 
                     $result = null;
-                    if (true === ($previousResult['result'] ?? null)) {
+                    if (!$forceSend && true === ($previousResult['result'] ?? null)) {
                         $io->info(sprintf('Already sent to %s', $recipient->getName()));
                         $result = $previousResult;
                     } else {
@@ -64,7 +102,7 @@ class DigitalPostSendCommand extends Command
                             switch ($recipient->getIdentifierType()) {
                             case IdentificationHelper::IDENTIFIER_TYPE_CPR:
                                 $result = $this->digitalPostHelper->sendDigitalPostCPR(
-                                    $recipient->getIdentifier(),
+                                    $recipientIdentifier,
                                     $recipient->getName(),
                                     $recipient->getAddress(),
                                     $digitalPost->getSubject(),
@@ -75,7 +113,7 @@ class DigitalPostSendCommand extends Command
 
                              case IdentificationHelper::IDENTIFIER_TYPE_CVR:
                                  $result = $this->digitalPostHelper->sendDigitalPostCVR(
-                                     $recipient->getIdentifier(),
+                                     $recipientIdentifier,
                                      $recipient->getName(),
                                      $recipient->getAddress(),
                                      $digitalPost->getSubject(),
