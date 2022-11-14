@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [SUPP0RT-751](https://jira.itkdev.dk/browse/SUPP0RT-751) Fixed issue with
+  missing country code in digital post
+
 ## [1.0.1] 2022-11-09
 
 ### Changed
