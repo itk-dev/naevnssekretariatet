@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.0.2] 2022-11-14
+
 - [SUPP0RT-751](https://jira.itkdev.dk/browse/SUPP0RT-751) Fixed issue with
   missing country code in digital post
 
@@ -115,6 +117,7 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.1...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.2...HEAD
+[1.0.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/itk-dev/naevnssekretariatet/releases/tag/1.0.0
