@@ -1573,6 +1573,10 @@
         <source>Complaint categories</source>
         <target state="translated">Klagetyper</target>
       </trans-unit>
+      <trans-unit id=".Z3i94q" resname="A case must contain a party before entering the hearing phase.">
+        <source>A case must contain a party before entering the hearing phase.</source>
+        <target state="translated">En sag skal have en klager før den kan gå ind i høringsfasen.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
