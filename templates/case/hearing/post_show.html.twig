@@ -60,7 +60,7 @@
                 {% set custom_fields = getCustomFields(hearingPost.template) %}
                 {% for key, value in hearingPost.customData %}
                     <dt>
-                        {{ custom_fields[key]|default(key) }}
+                        {{ custom_fields[key]['label']|default(key) }}
                     </dt>
                     <dd>
                         {{ value }}

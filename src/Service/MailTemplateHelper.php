@@ -532,8 +532,11 @@ class MailTemplateHelper
 
         $trimmedCustomFields = [];
         foreach ($rawCustomFields as $rawCustomField) {
-            if (preg_match('/(?P<name>[^|]*)\|(?P<label>[^|]*)/', $rawCustomField, $matches)) {
-                $trimmedCustomFields[$matches['name']] = $matches['label'];
+            if (preg_match('/(?P<name>[^|]*)\|(?P<label>[^|]*)\|?(?P<type>.*)/', trim($rawCustomField), $matches)) {
+                $trimmedCustomFields[$matches['name']] = [
+                    'label' => $matches['label'],
+                    'type' => 'textArea' === $matches['type'] ? 'textArea' : 'text',
+                ];
             }
         }
 

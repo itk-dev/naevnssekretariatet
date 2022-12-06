@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Service\MailTemplateHelper;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,13 +29,23 @@ class MailTemplateCustomDataType extends AbstractType
         if (null !== $options['template']) {
             $customFields = $this->mailTemplateHelper->getCustomFields($options['template']);
 
-            foreach ($customFields as $key => $label) {
-                $builder->add($key, TextType::class, [
-                    'label' => $label,
-                    'mapped' => false,
-                    'data' => isset($options['data'][$key]) && !empty($options['data'][$key]) ? $options['data'][$key] : '',
-                    'required' => false,
-                ]);
+            foreach ($customFields as $key => $value) {
+                if ('textArea' === $value['type']) {
+                    $builder->add($key, TextareaType::class, [
+                        'label' => $value['label'],
+                        'mapped' => false,
+                        'data' => isset($options['data'][$key]) && !empty($options['data'][$key]) ? $options['data'][$key] : '',
+                        'required' => false,
+                        'attr' => ['rows' => 5],
+                    ]);
+                } elseif ('text' === $value['type']) {
+                    $builder->add($key, TextType::class, [
+                        'label' => $value['label'],
+                        'mapped' => false,
+                        'data' => isset($options['data'][$key]) && !empty($options['data'][$key]) ? $options['data'][$key] : '',
+                        'required' => false,
+                    ]);
+                }
             }
         }
     }
