@@ -1573,6 +1573,14 @@
         <source>Complaint categories</source>
         <target state="translated">Klagetyper</target>
       </trans-unit>
+      <trans-unit id="ZRXdL6y" resname="Send receipt">
+        <source>Send receipt</source>
+        <target state="translated">Send kvittering</target>
+      </trans-unit>
+      <trans-unit id="2tWpaSM" resname="Receipt">
+        <source>Receipt</source>
+        <target state="translated">Kvittering</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
