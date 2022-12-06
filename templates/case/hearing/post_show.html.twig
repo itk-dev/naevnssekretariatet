@@ -73,6 +73,16 @@
             <dd>
                 {{ _self.show_document_content_button(case, hearingPost.document) }}
             </dd>
+            <dt>
+                {% trans %}Receipt{% endtrans %}
+            </dt>
+            <dd>
+                {% if hearingPost.sendReceipt %}
+                    {% trans %}Yes{% endtrans %}
+                {% else %}
+                    {% trans %}No{% endtrans %}
+                {% endif %}
+            </dd>
             {% if hearingPost.attachments %}
                 <dt>
                     {% trans %}Attachments{% endtrans %}

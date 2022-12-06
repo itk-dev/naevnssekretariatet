@@ -10,6 +10,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [TVIST1-706](https://jira.itkdev.dk/browse/TVIST1-706):
+  Added checkbox giving the option to not send receipt upon
+  creating hearing post response
+
 ## [1.0.2] 2022-11-14
 
 - [SUPP0RT-751](https://jira.itkdev.dk/browse/SUPP0RT-751) Fixed issue with
