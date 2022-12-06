@@ -1577,6 +1577,14 @@
         <source>Complaint categories</source>
         <target>Complaint categories</target>
       </trans-unit>
+      <trans-unit id="ZRXdL6y" resname="Send receipt">
+        <source>Send receipt</source>
+        <target>Send receipt</target>
+      </trans-unit>
+      <trans-unit id="2tWpaSM" resname="Receipt">
+        <source>Receipt</source>
+        <target>Receipt</target>
+      </trans-unit>
       <trans-unit id=".Z3i94q" resname="A case must contain a party before entering the hearing phase.">
         <source>A case must contain a party before entering the hearing phase.</source>
         <target>A case must contain a party before entering the hearing phase.</target>

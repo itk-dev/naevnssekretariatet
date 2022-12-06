@@ -12,6 +12,9 @@ about writing changes to this log.
 
 - [TVIST1-712](https://jira.itkdev.dk/browse/TVIST1-712):
   Allowed hearing to start without a counterparty.
+- [TVIST1-706](https://jira.itkdev.dk/browse/TVIST1-706):
+  Added checkbox giving the option to not send receipt upon
+  creating hearing post response
 
 ## [1.0.2] 2022-11-14
 

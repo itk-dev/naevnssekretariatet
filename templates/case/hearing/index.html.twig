@@ -137,6 +137,16 @@
                                                 {% trans %}Document{% endtrans %}:
                                                 <a href="{{ url("document_view", {id: case.id, document_id: post.document.id}) }}">{{ post.document.documentName }}</a>
                                             </p>
+                                            {% if post.sendReceipt is defined %}
+                                                <p class="text-muted">
+                                                    {% trans %}Receipt{% endtrans %}:
+                                                    {% if post.sendReceipt %}
+                                                        {% trans %}Yes{% endtrans %}
+                                                    {% else %}
+                                                        {% trans %}No{% endtrans %}
+                                                    {% endif %}
+                                                </p>
+                                            {% endif %}
                                         </div>
                                         <div class="col-auto" aria-label="attachments">
                                             <p class="text-muted">

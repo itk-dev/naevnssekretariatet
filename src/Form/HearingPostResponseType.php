@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\HearingPostResponse;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -52,6 +53,10 @@ class HearingPostResponseType extends AbstractType
             ->add('response', TextareaType::class, [
                 'label' => $this->translator->trans('Response', [], 'case'),
                 'attr' => ['rows' => 8],
+            ])
+            ->add('sendReceipt', CheckboxType::class, [
+                'label' => $this->translator->trans('Send receipt', [], 'case'),
+                'required' => false,
             ])
             ->add('attachments', CollectionType::class, [
                 'label' => $this->translator->trans('Attach case documents', [], 'case'),
