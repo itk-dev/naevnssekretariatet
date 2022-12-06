@@ -27,7 +27,6 @@ window.addEventListener('ajaxload', function () {
           $("[id$='customData']").replaceWith(
             $(html).find("[id$='customData']")
           )
-          console.log(data)
         }
       })
     })
