@@ -15,6 +15,9 @@ about writing changes to this log.
 - [TVIST1-706](https://jira.itkdev.dk/browse/TVIST1-706):
   Added checkbox giving the option to not send receipt upon
   creating hearing post response
+- [TVIST1-673](https://jira.itkdev.dk/browse/TVIST1-673):
+  Allowed configuration of mail template custom fields to
+  either text or textArea.
 
 ## [1.0.2] 2022-11-14
 
