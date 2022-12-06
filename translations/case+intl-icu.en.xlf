@@ -1577,6 +1577,10 @@
         <source>Complaint categories</source>
         <target>Complaint categories</target>
       </trans-unit>
+      <trans-unit id=".Z3i94q" resname="A case must contain a party before entering the hearing phase.">
+        <source>A case must contain a party before entering the hearing phase.</source>
+        <target>A case must contain a party before entering the hearing phase.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
