@@ -17,7 +17,7 @@ about writing changes to this log.
   creating hearing post response
 - [TVIST1-673](https://jira.itkdev.dk/browse/TVIST1-673):
   Allowed configuration of mail template custom fields to
-  either text or textArea.
+  either text or textarea.
 
 ## [1.0.2] 2022-11-14
 

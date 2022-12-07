@@ -381,6 +381,10 @@
         <source>List of custom fields (one per line). Format «name»|«label»|«type». Here «type» can be text or textArea. If «type» is omitted or does not match either of the allowed types the input field will be of type text. Example: full_name|Full name|textArea.</source>
         <target state="translated">Liste af brugerdefinerede flettefelter (en pr. linje). Format «navn»|«label»|«type». Her kan «type» være enten text eller textArea. Hvis «type» er udeladt eller ikke matcher en af de tilladte typer vil inputfeltet være af typen text. Eksempel: fulde_navn|Fulde navn|textArea.</target>
       </trans-unit>
+      <trans-unit id="6njiE3P" resname="List of custom fields (one per line). Format «name»|«label»|«type». Here «type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text. Example: full_name|Full name|textarea.">
+        <source>List of custom fields (one per line). Format «name»|«label»|«type». Here «type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text. Example: full_name|Full name|textarea.</source>
+        <target state="translated">Liste af brugerdefinerede flettefelter (en pr. linje). Format «navn»|«label»|«type». Her kan «type» være enten text eller textarea. Hvis «type» er udeladt eller ikke matcher en af de tilladte typer vil inputfeltet være af typen text. Eksempel: fulde_navn|Fulde navn|textarea.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -8,6 +8,7 @@ use App\Entity\InspectionLetter;
 use App\Entity\MailTemplate;
 use App\Entity\User;
 use App\Exception\MailTemplateException;
+use App\Form\MailTemplateCustomDataType;
 use App\Repository\MailTemplateMacroRepository;
 use App\Repository\MailTemplateRepository;
 use App\Service\MailTemplate\ComplexMacro;
@@ -535,7 +536,7 @@ class MailTemplateHelper
             if (preg_match('/(?P<name>[^|]*)\|(?P<label>[^|]*)\|?(?P<type>.*)/', trim($rawCustomField), $matches)) {
                 $trimmedCustomFields[$matches['name']] = [
                     'label' => $matches['label'],
-                    'type' => 'textArea' === $matches['type'] ? 'textArea' : 'text',
+                    'type' => MailTemplateCustomDataType::TYPE_TEXTAREA === $matches['type'] ? MailTemplateCustomDataType::TYPE_TEXTAREA : MailTemplateCustomDataType::TYPE_TEXT,
                 ];
             }
         }

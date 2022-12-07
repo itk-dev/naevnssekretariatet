@@ -57,7 +57,7 @@ class MailTemplateCrudController extends AbstractCrudController
         ;
         yield TextField::new('name');
         yield TextareaField::new('customFields', 'Custom fields')
-            ->setHelp($this->translator->trans('List of custom fields (one per line). Format «name»|«label»|«type». Here «type» can be text or textArea. If «type» is omitted or does not match either of the allowed types the input field will be of type text. Example: full_name|Full name|textArea.',
+            ->setHelp($this->translator->trans('List of custom fields (one per line). Format «name»|«label»|«type». Here «type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text. Example: full_name|Full name|textarea.',
                 [], 'admin'))
             // Avoid showing 'Null' or 'Tom' if customFields is not set.
             ->formatValue(function ($value) {
