@@ -23,6 +23,11 @@
             <div class="row mt-3">
                 <div class="col">
                     {# TODO: Form validation: https://getbootstrap.com/docs/4.0/components/forms/#validation #}
+                    {% if case.onBehalfOf %}
+                        <fieldset>
+                            {% trans %}On behalf of{% endtrans %}: {{ case.onBehalfOf }}
+                        </fieldset>
+                    {% endif %}
                     <fieldset>
                         <legend>
                             {% trans %}Bringer{% endtrans %}

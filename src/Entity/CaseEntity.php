@@ -233,6 +233,11 @@ abstract class CaseEntity implements Timestampable
      */
     private $complaintCategories;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $onBehalfOf;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -797,6 +802,18 @@ abstract class CaseEntity implements Timestampable
     public function removeComplaintCategory(ComplaintCategory $complaintCategory): self
     {
         $this->complaintCategories->removeElement($complaintCategory);
+
+        return $this;
+    }
+
+    public function getOnBehalfOf(): ?string
+    {
+        return $this->onBehalfOf;
+    }
+
+    public function setOnBehalfOf(?string $onBehalfOf): self
+    {
+        $this->onBehalfOf = $onBehalfOf;
 
         return $this;
     }

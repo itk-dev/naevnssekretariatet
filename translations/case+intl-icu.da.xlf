@@ -1585,6 +1585,10 @@
         <source>A case must contain a party before entering the hearing phase.</source>
         <target state="translated">En sag skal have en klager før den kan gå ind i høringsfasen.</target>
       </trans-unit>
+      <trans-unit id="zcz3NLT" resname="On behalf of">
+        <source>On behalf of</source>
+        <target state="translated">Indbragt på vegne af</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
