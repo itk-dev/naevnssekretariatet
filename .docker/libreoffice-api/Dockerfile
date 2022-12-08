@@ -7,10 +7,13 @@ FROM linuxserver/libreoffice:7.2.2
 # https://github.com/sfoxdev/docker-unoconv-alpine/blob/master/Dockerfile
 ENV UNO_URL https://raw.githubusercontent.com/dagwieers/unoconv/master/unoconv
 
-RUN apk add --update --no-cache npm \
+# Install Unoconv and Microsoft fonts (e.g. Arial)
+RUN apk add --update --no-cache npm msttcorefonts-installer fontconfig \
     && wget $UNO_URL -O /usr/local/bin/unoconv \
     && chmod +x /usr/local/bin/unoconv \
-    && ln -s /usr/bin/python3 /usr/bin/python
+    && ln -s /usr/bin/python3 /usr/bin/python \
+    && update-ms-fonts \
+    && fc-cache -f
 
 # Unoconv is deprecated (cf.
 # https://github.com/unoconv/unoconv#unoconv-is-deprecated), but works great. In
