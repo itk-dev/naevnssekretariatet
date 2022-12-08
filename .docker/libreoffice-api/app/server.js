@@ -26,7 +26,19 @@ app.get('/', (req, res) => {
 
 // Handle a single file field, 'data'.
 app.post('/convert-to/pdf', upload.single('data'), (req, res, next) => {
-  unoconv.convert(req.file.path, { debug })
+  // @see https://github.com/damian66/node-unoconv#-options
+  unoconv.convert(req.file.path, {
+    debug,
+    // https://manpages.ubuntu.com/manpages/trusty/man1/doc2odt.1.html#options
+    export: {
+      // https://manpages.ubuntu.com/manpages/trusty/man1/doc2odt.1.html#pdf%20export%20filter%20options
+      UseTaggedPDF: true
+    },
+    printer: {
+      PaperFormat: 'A4',
+      PaperOrientation: 'portrait'
+    }
+  })
     .then((buffer) => {
       res.send(buffer)
     }).catch((err) => {
