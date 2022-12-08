@@ -33,6 +33,10 @@ app.post('/convert-to/pdf', upload.single('data'), (req, res, next) => {
     export: {
       // https://manpages.ubuntu.com/manpages/trusty/man1/doc2odt.1.html#pdf%20export%20filter%20options
       UseTaggedPDF: true
+    },
+    printer: {
+      PaperFormat: 'A4',
+      PaperOrientation: 'portrait'
     }
   })
     .then((buffer) => {
