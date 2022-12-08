@@ -20,6 +20,8 @@ about writing changes to this log.
   either text or textarea.
 - [TVIST1-713](https://jira.itkdev.dk/browse/TVIST1-713):
   Prepares for case created on behalf of information to come via OS2Forms.
+- [TVIST1-723](https://jira.itkdev.dk/browse/TVIST1-723):
+  Updated PDF generation to make it more accessible.
 
 ## [1.0.2] 2022-11-14
 
