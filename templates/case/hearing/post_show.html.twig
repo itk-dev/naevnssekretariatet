@@ -60,7 +60,7 @@
                 {% set custom_fields = getCustomFields(hearingPost.template) %}
                 {% for key, value in hearingPost.customData %}
                     <dt>
-                        {{ custom_fields[key]|default(key) }}
+                        {{ custom_fields[key]['label']|default(key) }}
                     </dt>
                     <dd>
                         {{ value }}
@@ -73,6 +73,18 @@
             <dd>
                 {{ _self.show_document_content_button(case, hearingPost.document) }}
             </dd>
+            {% if hearingPost.sendReceipt is defined %}
+                <dt>
+                    {% trans %}Receipt{% endtrans %}
+                </dt>
+                <dd>
+                    {% if hearingPost.sendReceipt %}
+                        {% trans %}Yes{% endtrans %}
+                    {% else %}
+                        {% trans %}No{% endtrans %}
+                    {% endif %}
+                </dd>
+            {% endif %}
             {% if hearingPost.attachments %}
                 <dt>
                     {% trans %}Attachments{% endtrans %}

@@ -34,7 +34,8 @@ class EntityPostPersistSubscriber implements EventSubscriberInterface
 
         $case = null;
         $template = null;
-        if ($entity instanceof CaseEntity) {
+        // @todo: Reintroduce this at a later stage.
+        if ($entity instanceof CaseEntity && false) {
             $case = $entity;
             $digitalPostRecipients[] = (new DigitalPost\Recipient())
                 ->setName($case->getBringer())
@@ -46,7 +47,7 @@ class EntityPostPersistSubscriber implements EventSubscriberInterface
             $documentTitle = $this->translator->trans('Case receipt', [], 'case');
             // The document type is translated in templates/translations/mail_template.html.twig
             $documentType = 'Case created receipt';
-        } elseif ($entity instanceof HearingPostResponse) {
+        } elseif ($entity instanceof HearingPostResponse && $entity->getSendReceipt()) {
             $hearingPostResponse = $entity;
             $sender = $hearingPostResponse->getSender();
             $digitalPostRecipients[] = (new DigitalPost\Recipient())

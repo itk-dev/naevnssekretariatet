@@ -10,9 +10,26 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.0.3] 2022-12-19
+
+- [TVIST1-712](https://jira.itkdev.dk/browse/TVIST1-712):
+  Allowed hearing to start without a counterparty.
+- [TVIST1-706](https://jira.itkdev.dk/browse/TVIST1-706):
+  Added checkbox giving the option to not send receipt upon
+  creating hearing post response
+- [TVIST1-673](https://jira.itkdev.dk/browse/TVIST1-673):
+  Allowed configuration of mail template custom fields to
+  either text or textarea.
+- [TVIST1-713](https://jira.itkdev.dk/browse/TVIST1-713):
+  Prepares for case created on behalf of information to come via OS2Forms.
+- [TVIST1-723](https://jira.itkdev.dk/browse/TVIST1-723):
+  Updated PDF generation to make it more accessible.
+- [TVIST1-721](https://jira.itkdev.dk/browse/TVIST1-721):
+  Stopped sending receipts upon case creation.
+
 ## [1.0.2] 2022-11-14
 
-- [SUPP0RT-751](https://jira.itkdev.dk/browse/SUPP0RT-751) Fixed issue with
+- [SUPP0RT-751](https://jira.itkdev.dk/browse/SUPP0RT-751): Fixed issue with
   missing country code in digital post
 
 ## [1.0.1] 2022-11-09
@@ -117,7 +134,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.2...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.3...HEAD
+[1.0.3]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/itk-dev/naevnssekretariatet/releases/tag/1.0.0
