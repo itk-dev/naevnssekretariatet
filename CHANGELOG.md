@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.0.3] 2022-12-19
+
 - [TVIST1-712](https://jira.itkdev.dk/browse/TVIST1-712):
   Allowed hearing to start without a counterparty.
 - [TVIST1-706](https://jira.itkdev.dk/browse/TVIST1-706):
@@ -132,7 +134,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.2...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.3...HEAD
+[1.0.3]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/itk-dev/naevnssekretariatet/releases/tag/1.0.0
