@@ -34,7 +34,8 @@ class EntityPostPersistSubscriber implements EventSubscriberInterface
 
         $case = null;
         $template = null;
-        if ($entity instanceof CaseEntity) {
+        // @todo: Reintroduce this at a later stage.
+        if ($entity instanceof CaseEntity && false) {
             $case = $entity;
             $digitalPostRecipients[] = (new DigitalPost\Recipient())
                 ->setName($case->getBringer())

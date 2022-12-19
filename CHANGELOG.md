@@ -22,6 +22,8 @@ about writing changes to this log.
   Prepares for case created on behalf of information to come via OS2Forms.
 - [TVIST1-723](https://jira.itkdev.dk/browse/TVIST1-723):
   Updated PDF generation to make it more accessible.
+- [TVIST1-721](https://jira.itkdev.dk/browse/TVIST1-721):
+  Stopped sending receipts upon case creation.
 
 ## [1.0.2] 2022-11-14
 
