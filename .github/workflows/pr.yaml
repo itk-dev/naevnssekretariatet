@@ -61,7 +61,7 @@ jobs:
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Unit tests
-        run: phpdbg -qrr ./bin/phpunit --coverage-clover=coverage/unit.xml
+        run: ./bin/phpunit --coverage-clover=coverage/unit.xml
 
   # end-to-end-tests:
   #   runs-on: ubuntu-20.04
