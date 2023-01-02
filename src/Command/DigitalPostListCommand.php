@@ -5,6 +5,8 @@ namespace App\Command;
 use _PHPStan_3e014c27f\Symfony\Component\Console\Exception\InvalidOptionException;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\DigitalPost;
+use App\Entity\DigitalPostAttachment;
+use App\Entity\Document;
 use App\Repository\DigitalPostRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -13,6 +15,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Yaml\Yaml;
 
 #[AsCommand(
     name: 'tvist1:digital-post:list',
@@ -64,6 +67,28 @@ class DigitalPostListCommand extends Command
                 ['Updated at' => $digitalPost->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Url' => implode(PHP_EOL, $urls)],
             );
+
+            if ($output->isDebug()) {
+                $documentToArray = static fn (Document $document) => [
+                    'filename' => $document->getFilename(),
+                    'uploaded_at' => $document->getUploadedAt(),
+                ];
+                $io->section('Debug');
+
+                // Document and attachments.
+                $document = $digitalPost->getDocument();
+                $attachments = $digitalPost->getAttachments();
+                $io->writeln(Yaml::dump(array_filter([
+                    'document' => $documentToArray($document),
+                    'attachments' => array_map(static fn (DigitalPostAttachment $attachment) => [
+                        'document' => $documentToArray($attachment->getDocument()),
+                    ], $attachments->toArray()),
+                ]), PHP_INT_MAX));
+
+                $io->writeln(Yaml::dump(array_filter([
+                    'data' => $digitalPost->getData(),
+                ]), PHP_INT_MAX));
+            }
         }
 
         return Command::SUCCESS;
