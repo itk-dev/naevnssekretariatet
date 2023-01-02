@@ -1589,6 +1589,10 @@
         <source>On behalf of</source>
         <target state="translated">Indbragt på vegne af</target>
       </trans-unit>
+      <trans-unit id="apcnVVR" resname="A case must contain at least one party or counterparty before entering the hearing phase.">
+        <source>A case must contain at least one party or counterparty before entering the hearing phase.</source>
+        <target state="translated">En sag skal have mindst en part eller modpart før den kan gå ind i høringsfasen.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

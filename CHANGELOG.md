@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [TVIST1-729](https://jira.itkdev.dk/browse/TVIST1-729):
+  Allow hearing to start with any one part.
+
 ## [1.0.3] 2022-12-19
 
 - [TVIST1-712](https://jira.itkdev.dk/browse/TVIST1-712):

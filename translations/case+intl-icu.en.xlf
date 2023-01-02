@@ -1593,6 +1593,10 @@
         <source>On behalf of</source>
         <target>On behalf of</target>
       </trans-unit>
+      <trans-unit id="apcnVVR" resname="A case must contain at least one party or counterparty before entering the hearing phase.">
+        <source>A case must contain at least one party or counterparty before entering the hearing phase.</source>
+        <target>A case must contain at least one party or counterparty before entering the hearing phase.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
