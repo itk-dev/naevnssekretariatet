@@ -47,23 +47,8 @@ class EntityPostPersistSubscriber implements EventSubscriberInterface
             $documentTitle = $this->translator->trans('Case receipt', [], 'case');
             // The document type is translated in templates/translations/mail_template.html.twig
             $documentType = 'Case created receipt';
-        } elseif ($entity instanceof HearingPostResponse && $entity->getSendReceipt()) {
-            $hearingPostResponse = $entity;
-            $sender = $hearingPostResponse->getSender();
-            $digitalPostRecipients[] = (new DigitalPost\Recipient())
-                ->setName($sender->getName())
-                ->setIdentifierType($sender->getIdentification()->getType())
-                ->setIdentifier($sender->getIdentification()->getIdentifier())
-                ->setAddress($sender->getAddress())
-            ;
-            $case = $hearingPostResponse->getHearing()?->getCaseEntity();
-            $template = $case?->getBoard()?->getReceiptHearingPost();
-            $documentTitle = $this->translator->trans('Hearing post response receipt', [], 'case');
-            // The document type is translated in templates/translations/mail_template.html.twig
-            $documentType = 'Hearing post response created receipt';
-
-            // Use this listener to modify hearing response properties on case,
-            // as it already detects creation of hearing post responses via OS2Forms and TVIST1.
+        } elseif ($entity instanceof HearingPostResponse) {
+            $case = $entity->getHearing()->getCaseEntity();
             $case->setHearingResponseDeadline(null);
             $case->setHasReachedHearingResponseDeadline(false);
         }

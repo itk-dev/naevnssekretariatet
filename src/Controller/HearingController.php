@@ -16,6 +16,7 @@ use App\Exception\HearingException;
 use App\Form\HearingFinishType;
 use App\Form\HearingPostRequestType;
 use App\Form\HearingPostResponseType;
+use App\Repository\CaseDocumentRelationRepository;
 use App\Repository\DocumentRepository;
 use App\Repository\HearingPostRepository;
 use App\Service\DigitalPostHelper;
@@ -369,13 +370,45 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/approve", name="case_hearing_post_approve", methods={"POST"})
      */
-    public function hearingPostApprove(CaseEntity $case, HearingPostResponse $hearingPost): Response
+    public function hearingPostApprove(CaseEntity $case, HearingPostResponse $hearingPost, MailTemplateHelper $mailTemplateHelper, DocumentUploader $documentUploader, DigitalPostHelper $digitalPostHelper): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
         if ($hearingPost->getHearing()->getFinishedOn()) {
             throw new HearingException();
         }
+
+        // Send receipt
+        if ($hearingPost->getSendReceipt()) {
+            $sender = $hearingPost->getSender();
+            $digitalPostRecipients[] = (new DigitalPost\Recipient())
+                ->setName($sender->getName())
+                ->setIdentifierType($sender->getIdentification()->getType())
+                ->setIdentifier($sender->getIdentification()->getIdentifier())
+                ->setAddress($sender->getAddress())
+            ;
+            $case = $hearingPost->getHearing()?->getCaseEntity();
+            $template = $case?->getBoard()?->getReceiptHearingPost();
+            $documentTitle = $this->translator->trans('Hearing post response receipt', [], 'case');
+            // The document type is translated in templates/translations/mail_template.html.twig
+            $documentType = 'Hearing post response created receipt';
+
+            $fileName = $mailTemplateHelper->renderMailTemplate($template, $hearingPost);
+            $user = $case->getAssignedTo();
+            $document = $documentUploader->createDocumentFromPath($fileName, $documentTitle, $documentType, $user);
+
+            // Create case document relation
+            $relation = (new CaseDocumentRelation())
+                ->setCase($case)
+                ->setDocument($document)
+            ;
+
+            $this->entityManager->persist($relation);
+            $this->entityManager->persist($document);
+
+            $digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($case), $case->getId(), [], $digitalPostRecipients);
+        }
+
         $today = new DateTime('today');
         $hearingPost->setApprovedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
@@ -459,6 +492,50 @@ class HearingController extends AbstractController
         $hearing->setFinishedOn(null);
         $this->entityManager->flush();
         $this->addFlash('success', new TranslatableMessage('Hearing resumed', [], 'case'));
+
+        return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
+    }
+
+    /**
+     * @Route("/{case}/hearing/{hearingPost}/delete", name="case_hearing_post_delete")
+     */
+    public function hearingPostDelete(CaseEntity $case, HearingPost $hearingPost, DocumentUploader $documentUploader, CaseDocumentRelationRepository $relationRepository, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $case);
+
+        // Check that CSRF token is valid
+        if ($this->isCsrfTokenValid('delete'.$hearingPost->getId(), $request->request->get('_token'))) {
+            // Remove relation between case and document
+            $document = $hearingPost->getDocument();
+            $relation = $relationRepository->findOneBy(['case' => $case, 'document' => $document]);
+
+            if (null !== $relation) {
+                $this->entityManager->remove($relation);
+                $this->entityManager->flush();
+            }
+
+            // Remove file
+            $documentUploader->deleteDocumentFile($document);
+
+            // Set foreign keys between hearing post and document to null
+            $hearingPost->getDocument()->setHearingPost(null);
+            $hearingPost->setDocument(null);
+            $this->entityManager->flush();
+
+            // Remove new hearing post alert
+            $hearingPost->getHearing()->setHasNewHearingPost(false);
+
+            // Remove hearing post and document
+            $this->entityManager->remove($hearingPost);
+            $this->entityManager->remove($document);
+            $this->entityManager->flush();
+
+            if ($hearingPost instanceof HearingPostResponse) {
+                $this->addFlash('success', new TranslatableMessage('Hearing post response deleted', [], 'case'));
+            } elseif ($hearingPost instanceof HearingPostRequest) {
+                $this->addFlash('success', new TranslatableMessage('Hearing post request deleted', [], 'case'));
+            }
+        }
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
