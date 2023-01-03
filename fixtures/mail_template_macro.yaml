@@ -2,18 +2,22 @@ App\Entity\MailTemplateMacro:
   mail-template-macro-001:
     name: Bringer name and address
     macro: bringer_name_and_address
+    # Use `prepend` to add a comma and a space before floor and side.
+    # Note that there is no space before (and between) the floor and side placeholders.
     content: |-
         ${bringer}
-        ${bringerAddress.street} ${bringerAddress.number}
+        ${bringerAddress.street} ${bringerAddress.number}${bringerAddress.floor|prepend(", ")}${bringerAddress.side|prepend(", ")}
         ${bringerAddress.postalCode} ${bringerAddress.city}
     templateTypes: []
 
   mail-template-macro-002:
     name: Bringer name and address (inspection letter)
     macro: bringer_name_and_address
+    # Use `prepend` to add a comma and a space before floor and side.
+    # Note that there is no space before (and between) the floor and side placeholders.
     content: |-
         ${bringer}
-        ${bringerAddress.street} ${bringerAddress.number}
+        ${bringerAddress.street} ${bringerAddress.number}${bringerAddress.floor|prepend(", ")}${bringerAddress.side|prepend(", ")}
         ${bringerAddress.postalCode} ${bringerAddress.city}
     templateTypes:
         - inspection_letter

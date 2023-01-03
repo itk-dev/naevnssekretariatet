@@ -32,6 +32,7 @@ class HearingFinishType extends AbstractType
             'data_class' => Hearing::class,
             'case' => null,
             'hasCounterparty' => null,
+            'hasParty' => null,
         ]);
     }
 
@@ -54,10 +55,12 @@ class HearingFinishType extends AbstractType
                 throw new CaseClassException($message);
         }
 
-        $builder->add('partyHasNoMoreToAdd', CheckboxType::class, [
-            'label' => $partyLabel,
-            'required' => false,
-        ]);
+        if ($options['hasParty']) {
+            $builder->add('partyHasNoMoreToAdd', CheckboxType::class, [
+                'label' => $partyLabel,
+                'required' => false,
+            ]);
+        }
 
         if ($options['hasCounterparty']) {
             $builder->add('counterpartHasNoMoreToAdd', CheckboxType::class, [

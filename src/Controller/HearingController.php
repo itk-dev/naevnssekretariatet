@@ -51,9 +51,10 @@ class HearingController extends AbstractController
         // Check whether there is at least one part for each side
         $relevantParties = $partyHelper->getRelevantPartiesByCase($case);
 
-        // Cases are NOT required to, but may very well have a counterparty.
-        $hasSufficientParties = count($relevantParties['parties']) > 0;
+        // Cases may enter the hearing phase with any one part.
+        $hasSufficientParties = count($relevantParties['parties']) + count($relevantParties['counterparties']) > 0;
         $hasCounterparty = count($relevantParties['counterparties']) > 0;
+        $hasParty = count($relevantParties['parties']) > 0;
 
         $hearing = $case->getHearing();
 
@@ -66,11 +67,10 @@ class HearingController extends AbstractController
             $this->entityManager->flush();
         }
 
-        $partyHasSomethingToAdd = $hasCounterparty
-            ? true === $hearing->getPartyHasNoMoreToAdd() && true === $hearing->getCounterpartHasNoMoreToAdd()
-            : true === $hearing->getPartyHasNoMoreToAdd();
+        $partyHasSomethingToAdd = ($hasCounterparty && !$hearing->getCounterpartHasNoMoreToAdd())
+            || ($hasParty && !$hearing->getPartyHasNoMoreToAdd());
 
-        $form = $this->createForm(HearingFinishType::class, $hearing, ['case' => $case, 'hasCounterparty' => $hasCounterparty]);
+        $form = $this->createForm(HearingFinishType::class, $hearing, ['case' => $case, 'hasParty' => $hasParty, 'hasCounterparty' => $hasCounterparty]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
@@ -91,6 +91,7 @@ class HearingController extends AbstractController
             'hearing' => $hearing,
             'posts' => $hearingPosts,
             'hasCounterparty' => $hasCounterparty,
+            'hasParty' => $hasParty,
             'partyHasSomethingToAdd' => $partyHasSomethingToAdd,
             'hasSufficientParties' => $hasSufficientParties,
             'requiresProcessing' => $requiresProcessing,
