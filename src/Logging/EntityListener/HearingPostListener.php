@@ -36,14 +36,11 @@ class HearingPostListener extends AbstractEntityListener
 
     private function getHearingPostType(HearingPost $hearingPost)
     {
-        if ($hearingPost instanceof HearingPostRequest) {
-            return 'Hearing post request';
-        } elseif ($hearingPost instanceof HearingPostResponse) {
-            return 'Hearing post response';
-        }
-
-        $message = sprintf('Unhandled hearing post type %s found.', get_class($hearingPost));
-        throw new ItkDevLoggingException($message);
+        return match (true) {
+            $hearingPost instanceof HearingPostRequest => 'Hearing post request',
+            $hearingPost instanceof HearingPostResponse => 'Hearing post response',
+            default => throw new ItkDevLoggingException(sprintf('Unhandled hearing post type %s found.', get_class($hearingPost)))
+        };
     }
 
     public function logActivity(string $action, LifecycleEventArgs $args): void

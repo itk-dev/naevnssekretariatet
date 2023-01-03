@@ -169,7 +169,7 @@
                                                 <form action="{{ path('case_hearing_post_forward', {case: case.id, hearingPost: post.id}) }}" method="post" style="display: inline-block">
                                                     <button class="btn btn-warning">{% trans %}Send{% endtrans %}</button>
                                                 </form>
-                                                <form class="btn" style="margin:0; padding:0; display:inline;" method="post" action="{{ path('case_hearing_post_delete', {case: case.id, hearingPost: post.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                <form class="btn inline-delete-form" method="post" action="{{ path('case_hearing_post_delete', {case: case.id, hearingPost: post.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
                                                     <button class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
@@ -179,7 +179,7 @@
                                                 <form action="{{ path('case_hearing_post_approve', {case: case.id, hearingPost: post.id}) }}" method="post" style="display: inline-block">
                                                     <button class="btn btn-warning">{% trans %}Approve{% endtrans %}</button>
                                                 </form>
-                                                <form class="btn" style="margin:0; padding:0; display:inline;" method="post" action="{{ path('case_hearing_post_delete', {case: case.id, hearingPost: post.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                <form class="btn inline-delete-form" method="post" action="{{ path('case_hearing_post_delete', {case: case.id, hearingPost: post.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
                                                     <button class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>

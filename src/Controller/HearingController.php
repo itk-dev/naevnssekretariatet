@@ -389,6 +389,16 @@ class HearingController extends AbstractController
             ;
             $case = $hearingPost->getHearing()?->getCaseEntity();
             $template = $case?->getBoard()?->getReceiptHearingPost();
+
+            if (null === $case) {
+                $message = sprintf('Coild not get case.');
+                throw new HearingException($message);
+            }
+            if (null === $template) {
+                $message = sprintf('Could not get hearing post receipt template.');
+                throw new HearingException($message);
+            }
+
             $documentTitle = $this->translator->trans('Hearing post response receipt', [], 'case');
             // The document type is translated in templates/translations/mail_template.html.twig
             $documentType = 'Hearing post response created receipt';
@@ -517,8 +527,8 @@ class HearingController extends AbstractController
             // Remove file
             $documentUploader->deleteDocumentFile($document);
 
-            // Set foreign keys between hearing post and document to null
-            $hearingPost->getDocument()->setHearingPost(null);
+            // Remove references between post and document
+            $document->setHearingPost(null);
             $hearingPost->setDocument(null);
             $this->entityManager->flush();
 
@@ -530,11 +540,12 @@ class HearingController extends AbstractController
             $this->entityManager->remove($document);
             $this->entityManager->flush();
 
-            if ($hearingPost instanceof HearingPostResponse) {
-                $this->addFlash('success', new TranslatableMessage('Hearing post response deleted', [], 'case'));
-            } elseif ($hearingPost instanceof HearingPostRequest) {
-                $this->addFlash('success', new TranslatableMessage('Hearing post request deleted', [], 'case'));
-            }
+            $message = match (get_class($hearingPost)) {
+                HearingPostResponse::class => new TranslatableMessage('Hearing post response deleted', [], 'case'),
+                default => new TranslatableMessage('Hearing post request deleted', [], 'case'),
+            };
+
+            $this->addFlash('success', $message);
         }
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
