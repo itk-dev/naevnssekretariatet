@@ -17,6 +17,11 @@ class CaseDocumentRelationListener extends AbstractEntityListener
         $this->logActivity('Document updated', $args);
     }
 
+    public function preRemove(CaseDocumentRelation $relation, LifecycleEventArgs $args)
+    {
+        $this->logActivity('Document deleted', $args);
+    }
+
     public function logActivity(string $action, LifecycleEventArgs $args): void
     {
         $em = $args->getEntityManager();

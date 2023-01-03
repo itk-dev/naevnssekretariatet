@@ -1593,6 +1593,18 @@
         <source>On behalf of</source>
         <target>On behalf of</target>
       </trans-unit>
+      <trans-unit id="5TETRsw" resname="Hearing post response deleted">
+        <source>Hearing post response deleted</source>
+        <target>Hearing post response deleted</target>
+      </trans-unit>
+      <trans-unit id=".VzLCIg" resname="Hearing post request deleted">
+        <source>Hearing post request deleted</source>
+        <target>Hearing post request deleted</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Delete</target>
+      </trans-unit>
       <trans-unit id="apcnVVR" resname="A case must contain at least one party or counterparty before entering the hearing phase.">
         <source>A case must contain at least one party or counterparty before entering the hearing phase.</source>
         <target>A case must contain at least one party or counterparty before entering the hearing phase.</target>

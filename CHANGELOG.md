@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [TVIST1-725](https://jira.itkdev.dk/browse/TVIST1-725):
+  - Allow deletion of created hearing post requests and responses
+  - Send hearing post response receipt upon approval rather than creation.
 - [TVIST1-729](https://jira.itkdev.dk/browse/TVIST1-729):
   Allowed hearing to start with just a party or counterparty.
 

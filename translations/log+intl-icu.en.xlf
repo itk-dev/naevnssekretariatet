@@ -109,6 +109,34 @@
         <source>Hearing updated</source>
         <target>Hearing updated</target>
       </trans-unit>
+      <trans-unit id="93XR1n2" resname="Document deleted">
+        <source>Document deleted</source>
+        <target>Document deleted</target>
+      </trans-unit>
+      <trans-unit id="gsLJh.e" resname="Hearing post request created">
+        <source>Hearing post request created</source>
+        <target>Hearing post request created</target>
+      </trans-unit>
+      <trans-unit id="KSVxeYT" resname="Hearing post request updated">
+        <source>Hearing post request updated</source>
+        <target>Hearing post request updated</target>
+      </trans-unit>
+      <trans-unit id=".VzLCIg" resname="Hearing post request deleted">
+        <source>Hearing post request deleted</source>
+        <target>Hearing post request deleted</target>
+      </trans-unit>
+      <trans-unit id="RtZwi_8" resname="Hearing post response created">
+        <source>Hearing post response created</source>
+        <target>Hearing post response created</target>
+      </trans-unit>
+      <trans-unit id="eoStsl7" resname="Hearing post response updated">
+        <source>Hearing post response updated</source>
+        <target>Hearing post response updated</target>
+      </trans-unit>
+      <trans-unit id="5TETRsw" resname="Hearing post response deleted">
+        <source>Hearing post response deleted</source>
+        <target>Hearing post response deleted</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
