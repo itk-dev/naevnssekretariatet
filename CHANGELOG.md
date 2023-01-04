@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.0.4] 2023-01-04
+
 - [TVIST1-725](https://jira.itkdev.dk/browse/TVIST1-725):
   - Allow deletion of created hearing post requests and responses
   - Send hearing post response receipt upon approval rather than creation.
@@ -140,7 +142,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.3...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.4...HEAD
+[1.0.4]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.0...1.0.1
