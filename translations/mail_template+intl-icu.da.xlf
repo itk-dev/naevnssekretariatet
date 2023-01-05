@@ -85,6 +85,14 @@
         <source>Hearing post response</source>
         <target state="translated">Partshøringssvar</target>
       </trans-unit>
+      <trans-unit id="vbhlBfg" resname="Archived">
+        <source>Archived</source>
+        <target state="translated">Arkiveret</target>
+      </trans-unit>
+      <trans-unit id="2xdjHCw" resname="Templates that are archived will not appear when choosing mail template.">
+        <source>Templates that are archived will not appear when choosing mail template.</source>
+        <target state="translated">Skabeloner der er arkiveret vil ikke fremgå når der vælges skabelon.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

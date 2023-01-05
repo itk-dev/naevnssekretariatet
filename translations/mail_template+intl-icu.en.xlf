@@ -85,6 +85,14 @@
         <source>Hearing post response</source>
         <target>Hearing post response</target>
       </trans-unit>
+      <trans-unit id="vbhlBfg" resname="Archived">
+        <source>Archived</source>
+        <target>Archived</target>
+      </trans-unit>
+      <trans-unit id="2xdjHCw" resname="Templates that are archived will not appear when choosing mail template.">
+        <source>Templates that are archived will not appear when choosing mail template.</source>
+        <target>Templates that are archived will not appear when choosing mail template.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

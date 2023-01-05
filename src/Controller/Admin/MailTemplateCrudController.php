@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Exception\EntityRemoveException;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -78,6 +79,11 @@ class MailTemplateCrudController extends AbstractCrudController
                 'download_label' => new PropertyPath('templateFilename'),
             ])
            ->onlyOnForms()
+        ;
+        yield BooleanField::new('isArchived')
+            ->renderAsSwitch(false)
+            ->setLabel($this->translator->trans('Archived', [], 'mail_template'))
+            ->setHelp($this->translator->trans('Templates that are archived will not appear when choosing mail template.', [], 'mail_template'))
         ;
     }
 
