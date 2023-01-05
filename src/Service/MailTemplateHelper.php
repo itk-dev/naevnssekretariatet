@@ -260,7 +260,7 @@ class MailTemplateHelper
 
     public function getTemplates(string $type): array
     {
-        return $this->mailTemplateRepository->findBy(['type' => $type, 'isArchived' => 0], ['name' => 'ASC']);
+        return $this->mailTemplateRepository->findBy(['type' => $type, 'isArchived' => false], ['name' => 'ASC']);
     }
 
     private static array $blockElementClasses = [
