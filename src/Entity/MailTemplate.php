@@ -69,6 +69,11 @@ class MailTemplate implements LoggableEntityInterface
      */
     private $customFields;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $isArchived = false;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -168,6 +173,18 @@ class MailTemplate implements LoggableEntityInterface
     public function setCustomFields(?string $customFields): self
     {
         $this->customFields = $customFields;
+
+        return $this;
+    }
+
+    public function getIsArchived(): bool
+    {
+        return $this->isArchived;
+    }
+
+    public function setIsArchived(bool $isArchived): self
+    {
+        $this->isArchived = $isArchived;
 
         return $this;
     }

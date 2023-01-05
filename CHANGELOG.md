@@ -10,6 +10,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [TVIST1-735](https://jira.itkdev.dk/browse/TVIST1-735):
+  - Sorted mail template choices alphabetically by name.
+  - Added archiving logic to mail templates.
+
 ## [1.0.4] 2023-01-04
 
 - [TVIST1-725](https://jira.itkdev.dk/browse/TVIST1-725):
