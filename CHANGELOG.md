@@ -10,6 +10,20 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.0.5] 2023-01-06
+
+- [TVIST1-735](https://jira.itkdev.dk/browse/TVIST1-735):
+  - Sorted mail template choices alphabetically by name.
+  - Added archiving logic to mail templates.
+
+## [1.0.4] 2023-01-04
+
+- [TVIST1-725](https://jira.itkdev.dk/browse/TVIST1-725):
+  - Allow deletion of created hearing post requests and responses
+  - Send hearing post response receipt upon approval rather than creation.
+- [TVIST1-729](https://jira.itkdev.dk/browse/TVIST1-729):
+  Allowed hearing to start with just a party or counterparty.
+
 ## [1.0.3] 2022-12-19
 
 - [TVIST1-712](https://jira.itkdev.dk/browse/TVIST1-712):
@@ -134,7 +148,9 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.3...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.5...HEAD
+[1.0.5]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.4...1.0.5
+[1.0.4]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.0...1.0.1

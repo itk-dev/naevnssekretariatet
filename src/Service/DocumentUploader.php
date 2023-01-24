@@ -159,4 +159,15 @@ class DocumentUploader
 
         return file_get_contents($filepath);
     }
+
+    /**
+     * Deletes document file.
+     */
+    public function deleteDocumentFile(Document $document)
+    {
+        $filepath = $this->getFilepath($document->getFilename());
+        if (file_exists($filepath)) {
+            unlink($filepath);
+        }
+    }
 }

@@ -109,6 +109,34 @@
         <source>Hearing updated</source>
         <target state="translated">Høring opdateret</target>
       </trans-unit>
+      <trans-unit id="93XR1n2" resname="Document deleted">
+        <source>Document deleted</source>
+        <target state="translated">Dokument slettet</target>
+      </trans-unit>
+      <trans-unit id="gsLJh.e" resname="Hearing post request created">
+        <source>Hearing post request created</source>
+        <target state="translated">Høringsbrev oprettet</target>
+      </trans-unit>
+      <trans-unit id="KSVxeYT" resname="Hearing post request updated">
+        <source>Hearing post request updated</source>
+        <target state="translated">Høringsbrev opdateret</target>
+      </trans-unit>
+      <trans-unit id=".VzLCIg" resname="Hearing post request deleted">
+        <source>Hearing post request deleted</source>
+        <target state="translated">Høringsbrev slettet</target>
+      </trans-unit>
+      <trans-unit id="RtZwi_8" resname="Hearing post response created">
+        <source>Hearing post response created</source>
+        <target state="translated">Høringssvar oprettet</target>
+      </trans-unit>
+      <trans-unit id="eoStsl7" resname="Hearing post response updated">
+        <source>Hearing post response updated</source>
+        <target state="translated">Høringssvar opdateret</target>
+      </trans-unit>
+      <trans-unit id="5TETRsw" resname="Hearing post response deleted">
+        <source>Hearing post response deleted</source>
+        <target state="translated">Høringssvar slettet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

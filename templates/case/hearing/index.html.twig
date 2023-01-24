@@ -15,7 +15,7 @@
                     {% if hasSufficientParties %}
                         <a class="btn btn-primary" href="{{ path('case_hearing_resume', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Resume hearing{% endtrans %}</a>
                     {% else %}
-                        <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must contain a party before entering the hearing phase.{% endtrans %}">{% trans %}Resume hearing{% endtrans %}</button>
+                        <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must contain at least one party or counterparty before entering the hearing phase.{% endtrans %}">{% trans %}Resume hearing{% endtrans %}</button>
                     {% endif %}
                 {% else %}
                     {% if requiresProcessing %}
@@ -25,7 +25,7 @@
                         <a class="btn btn-success" href="{{ path('case_hearing_post_request_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create request{% endtrans %}</a>
                         <a class="btn btn-success" href="{{ path('case_hearing_post_response_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create response{% endtrans %}</a>
                     {% endif %}
-                    {% if not partyHasSomethingToAdd %}
+                    {% if partyHasSomethingToAdd %}
                         <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while some side still has something to add{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
                     {% elseif requiresProcessing %}
                         <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while a response or answer needs processing{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
@@ -39,7 +39,7 @@
                 {% if hasSufficientParties %}
                     <a class="btn btn-primary" href="{{ path('case_hearing_start', {id: case.id}) }}" role="button">{% trans %}Start hearing{% endtrans %}</a>
                 {% else %}
-                    <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must have both a party and a counter part before entering the hearing phase.{% endtrans %}">{% trans %}Start hearing{% endtrans %}</button>
+                    <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must contain at least one party or counterparty before entering the hearing phase.{% endtrans %}">{% trans %}Start hearing{% endtrans %}</button>
                 {% endif %}
             </div>
         {% endif %}
@@ -56,13 +56,15 @@
             {% if not hearing.getFinishedOn %}
                 {{ form_start(form) }}
                 <div class="row">
-                    <div class="col">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                {{ form_widget(form.partyHasNoMoreToAdd) }}
-                            </label>
+                    {% if hasParty %}
+                        <div class="col">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    {{ form_widget(form.partyHasNoMoreToAdd) }}
+                                </label>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                     {% if hasCounterparty %}
                         <div class="col">
                             <div class="form-check">
@@ -169,10 +171,20 @@
                                                 <form action="{{ path('case_hearing_post_forward', {case: case.id, hearingPost: post.id}) }}" method="post" style="display: inline-block">
                                                     <button class="btn btn-warning">{% trans %}Send{% endtrans %}</button>
                                                 </form>
+                                                <form class="inline-delete-form" method="post" action="{{ path('case_hearing_post_delete', {case: case.id, hearingPost: post.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                                                    <button class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
+                                                </form>
                                             {% endif %}
                                             {% if post.approvedOn is defined and not post.getApprovedOn %}
                                                 <form action="{{ path('case_hearing_post_approve', {case: case.id, hearingPost: post.id}) }}" method="post" style="display: inline-block">
                                                     <button class="btn btn-warning">{% trans %}Approve{% endtrans %}</button>
+                                                </form>
+                                                <form class="inline-delete-form" method="post" action="{{ path('case_hearing_post_delete', {case: case.id, hearingPost: post.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                                                    <button class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
                                                 </form>
                                             {% endif %}
                                         </div>
