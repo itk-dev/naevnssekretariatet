@@ -123,7 +123,6 @@ class DigitalPostHelper extends DigitalPost
 
     public function createDigitalPost(Document $document, string $subject, string $entityType, Uuid $entityId, array $digitalPostAttachments, array $digitalPostRecipients): void
     {
-        return;
         $digitalPosts = [];
 
         // Setup first DigitalPost
@@ -193,6 +192,13 @@ class DigitalPostHelper extends DigitalPost
                 $newSubject = sprintf('%s (%d/%d)', $digitalPost->getSubject(), $index + 1, $numberOfDigitalPosts);
                 $digitalPost->setSubject($newSubject);
             }
+
+            // Mark the digital post as already sent to make sure that it will not be sent for real.
+            $digitalPost
+                ->setStatus(DigitalPostBase::STATUS_SENT)
+                ->setSentAt(new \DateTimeImmutable('2001-01-01'))
+                ->setSubject(sprintf('[TEST: NOT SENT] %s', $digitalPost->getSubject()))
+            ;
 
             $this->entityManager->persist($digitalPost);
         }
