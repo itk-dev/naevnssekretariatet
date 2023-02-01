@@ -59,11 +59,6 @@ class Document implements LoggableEntityInterface
     private $agendaCaseItems;
 
     /**
-     * @ORM\ManyToOne(targetEntity=HearingPost::class, inversedBy="document")
-     */
-    private $hearingPost;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $originalFileName;
@@ -208,18 +203,6 @@ class Document implements LoggableEntityInterface
     public function __toString()
     {
         return $this->documentName;
-    }
-
-    public function getHearingPost(): ?HearingPost
-    {
-        return $this->hearingPost;
-    }
-
-    public function setHearingPost(?HearingPost $hearingPost): self
-    {
-        $this->hearingPost = $hearingPost;
-
-        return $this;
     }
 
     public function getOriginalFileName(): ?string
