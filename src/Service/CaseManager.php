@@ -5,7 +5,11 @@ namespace App\Service;
 use App\Entity\Board;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
+use App\Entity\CasePartyRelation;
+use App\Entity\DigitalPost;
 use App\Entity\Embeddable\Address;
+use App\Entity\HearingPostRequest;
+use App\Entity\HearingPostResponse;
 use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\MunicipalityRepository;
@@ -21,7 +25,7 @@ class CaseManager implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private MunicipalityRepository $municipalityRepository, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService)
+    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private MunicipalityRepository $municipalityRepository, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService, private DocumentUploader $documentUploader)
     {
     }
 
@@ -189,6 +193,72 @@ class CaseManager implements LoggerAwareInterface
         // Cases created via OS2Forms get a default received at (today).
         $case->setReceivedAt(new DateTime('today'));
 
+        $this->entityManager->flush();
+    }
+
+    public function deleteCase(CaseEntity $case)
+    {
+        foreach ($case->getCasePartyRelation() as $relation) {
+            // Check if the party is only related to this case and remove it if so.
+            $party = $relation->getParty();
+            $partyRelations = $this->entityManager
+                ->getRepository(CasePartyRelation::class)
+                ->findBy(['party' => $party])
+            ;
+            if (1 === count($partyRelations)) {
+                $this->entityManager->remove($party);
+            }
+
+            $this->entityManager->remove($relation);
+        }
+
+        foreach ($case->getHearing()->getHearingPosts() as $hearingPost) {
+            foreach ($hearingPost->getAttachments() as $attachment) {
+                $this->entityManager->remove($attachment);
+            }
+
+            if ($hearingPost instanceof HearingPostRequest) {
+                $recipient = $hearingPost->getRecipient();
+                if (null !== $recipient) {
+                    $this->entityManager->remove($recipient);
+                }
+            } elseif ($hearingPost instanceof HearingPostResponse) {
+                $sender = $hearingPost->getSender();
+                if (null !== $sender) {
+                    $this->entityManager->remove($sender);
+                }
+            }
+
+            $this->entityManager->remove($hearingPost);
+        }
+
+        foreach ($case->getCaseDocumentRelation() as $relation) {
+            $document = $relation->getDocument();
+            $digitalPosts = $this->entityManager
+                ->getRepository(DigitalPost::class)
+                ->findBy(['document' => $document])
+            ;
+            foreach ($digitalPosts as $digitalPost) {
+                foreach ($digitalPost->getAttachments() as $attachment) {
+                    $this->entityManager->remove($attachment);
+                }
+                foreach ($digitalPost->getRecipients() as $recipient) {
+                    $this->entityManager->remove($recipient);
+                }
+                $this->entityManager->remove($digitalPost);
+            }
+
+            $this->entityManager->remove($relation);
+
+            // Check if the document is only related to this case and remove it if so.
+            if ($document->getCaseDocumentRelations()->isEmpty()) {
+                $this->documentUploader->deleteDocumentFile($document);
+                $this->entityManager->remove($document);
+            }
+        }
+
+        // Finally remove the case.
+        $this->entityManager->remove($case);
         $this->entityManager->flush();
     }
 }
