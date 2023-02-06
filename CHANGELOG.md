@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.0.6] 2023-02-06
+
 - [SERV-628](https://jira.itkdev.dk/browse/SERV-628):
   Security fix.
 
@@ -151,7 +153,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.5...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.6...HEAD
+[1.0.5]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.2...1.0.3
