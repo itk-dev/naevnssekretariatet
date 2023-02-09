@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.0.7] 2023-02-09
+
 - [TVIST1-752](https://jira.itkdev.dk/browse/TVIST1-752)
   Added pagination on document list.
 
@@ -156,7 +158,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.6...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.7...HEAD
+[1.0.7]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.6...1.0.7
 [1.0.6]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.3...1.0.4
