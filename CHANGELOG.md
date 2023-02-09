@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [TVIST1-754](https://jira.itkdev.dk/browse/TVIST1-754)
+  Added finished on logic to cases.
+
 ## [1.0.7] 2023-02-09
 
 - [TVIST1-752](https://jira.itkdev.dk/browse/TVIST1-752)
