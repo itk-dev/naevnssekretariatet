@@ -75,18 +75,20 @@ class DocumentController extends AbstractController
 
         $pagination = $paginator->paginate(
             $query,
-            1,
-            null, // Show all documents.
+            $request->query->getInt('page', 1), /*page number*/
+            10,
             [
                 'defaultSortFieldName' => 'd.uploadedAt',
                 'defaultSortDirection' => Criteria::DESC,
             ]
         );
 
+        $pagination->setCustomParameters(['align' => 'center']);
+
         return $this->render('documents/index.html.twig', [
             'filter_form' => $filterForm->createView(),
             'case' => $case,
-            'documents' => $pagination,
+            'pagination' => $pagination,
         ]);
     }
 
