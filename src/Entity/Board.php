@@ -451,4 +451,14 @@ class Board implements LoggableEntityInterface
 
         return $this;
     }
+
+    public function getFinalStatus(): string
+    {
+        $rawPlaces = explode(
+            PHP_EOL,
+            trim($this->getStatuses())
+        );
+
+        return trim(end($rawPlaces));
+    }
 }

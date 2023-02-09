@@ -200,13 +200,6 @@ class CaseEntityRepository extends ServiceEntityRepository
 
         $count = 0;
         foreach ($boards as $board) {
-            $rawPlaces = explode(
-                PHP_EOL,
-                trim($board->getStatuses())
-            );
-
-            $finishedStatus = trim(end($rawPlaces));
-
             // Construct different variable names for each board
             $statusDQLVariable = 'board_finish_status_'.$count;
             $boardDQLVariable = 'board_'.$count;
@@ -219,7 +212,7 @@ class CaseEntityRepository extends ServiceEntityRepository
             ));
 
             $qb
-                ->setParameter($statusDQLVariable, $finishedStatus)
+                ->setParameter($statusDQLVariable, $board->getFinalStatus())
                 ->setParameter($boardDQLVariable, $board->getId()->toBinary())
             ;
             ++$count;

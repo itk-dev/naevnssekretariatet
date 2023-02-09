@@ -238,6 +238,11 @@ abstract class CaseEntity implements Timestampable
      */
     private $onBehalfOf;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $finishedOn;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -814,6 +819,18 @@ abstract class CaseEntity implements Timestampable
     public function setOnBehalfOf(?string $onBehalfOf): self
     {
         $this->onBehalfOf = $onBehalfOf;
+
+        return $this;
+    }
+
+    public function getFinishedOn(): ?\DateTimeInterface
+    {
+        return $this->finishedOn;
+    }
+
+    public function setFinishedOn(?\DateTimeInterface $finishedOn): self
+    {
+        $this->finishedOn = $finishedOn;
 
         return $this;
     }
