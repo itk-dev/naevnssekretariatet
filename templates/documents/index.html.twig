@@ -17,9 +17,9 @@
     </div>
 {% endblock %}
 
-{% macro pagination_header(documents, property, text) %}
-    <th class="{{ documents.isSorted(property) ? 'sorted' }}">
-        {{ knp_pagination_sortable(documents, text, property) }}
+{% macro pagination_header(pagination, property, text) %}
+    <th class="{{ pagination.isSorted(property) ? 'sorted' }}">
+        {{ knp_pagination_sortable(pagination, text, property) }}
     </th>
 {% endmacro %}
 
@@ -52,18 +52,18 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        {{ _self.pagination_header(documents, 'd.documentName', 'Document name'|trans) }}
-                        {{ _self.pagination_header(documents, 'd.originalFileName', 'Original file name'|trans) }}
-                        {{ _self.pagination_header(documents, 'd.type', 'Document type'|trans) }}
+                        {{ _self.pagination_header(pagination, 'd.documentName', 'Document name'|trans) }}
+                        {{ _self.pagination_header(pagination, 'd.originalFileName', 'Original file name'|trans) }}
+                        {{ _self.pagination_header(pagination, 'd.type', 'Document type'|trans) }}
                         <th>{% trans %}Uploaded by{% endtrans %}</th>
-                        {{ _self.pagination_header(documents, 'd.uploadedAt', 'Upload date'|trans) }}
+                        {{ _self.pagination_header(pagination, 'd.uploadedAt', 'Upload date'|trans) }}
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                             <th class="text-right">{% trans %}Functions{% endtrans %}</th>
                         {% endif %}
                     </tr>
                 </thead>
                 <tbody>
-                    {% for document in documents %}
+                    {% for document in pagination %}
                         <tr>
                             <td>{{ document.documentName|e }}</td>
                             <td>
@@ -103,6 +103,9 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
         </div>
     </main>
 {% endblock %}
