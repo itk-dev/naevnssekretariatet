@@ -50,6 +50,10 @@ class HearingPostListener extends AbstractEntityListener
         /** @var HearingPost $hearingPost */
         $hearingPost = $args->getObject();
 
+        if (null === $hearingPost->getHearing()) {
+            return;
+        }
+
         $logEntry = $this->createLogEntry($action, $hearingPost->getHearing()->getCaseEntity(), $args);
         $em->persist($logEntry);
         $em->flush();

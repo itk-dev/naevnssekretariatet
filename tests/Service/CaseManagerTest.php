@@ -7,6 +7,7 @@ use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\MunicipalityRepository;
 use App\Service\CaseManager;
+use App\Service\DocumentUploader;
 use App\Service\WorkflowService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,6 +25,7 @@ class CaseManagerTest extends TestCase
     private $lockFactory;
     private $mockMunicipalityRepository;
     private $propertyAccessor;
+    private $documentUploader;
 
     protected function setUp(): void
     {
@@ -36,6 +38,7 @@ class CaseManagerTest extends TestCase
         $this->lockFactory = $this->createMock(LockFactory::class);
         $this->mockMunicipalityRepository = $this->createMock(MunicipalityRepository::class);
         $this->propertyAccessor = $this->createMock(PropertyAccessorInterface::class);
+        $this->documentUploader = $this->createMock(DocumentUploader::class);
 
         $this->caseManager = new CaseManager(
             $this->mockBoardRepository,
@@ -44,7 +47,8 @@ class CaseManagerTest extends TestCase
             $this->lockFactory,
             $this->mockMunicipalityRepository,
             $this->propertyAccessor,
-            $this->mockWorkflowService
+            $this->mockWorkflowService,
+            $this->documentUploader
         );
     }
 
