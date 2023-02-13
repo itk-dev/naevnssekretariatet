@@ -8,6 +8,8 @@ use App\Entity\CaseEntity;
 use App\Entity\CasePartyRelation;
 use App\Entity\DigitalPost;
 use App\Entity\Embeddable\Address;
+use App\Entity\LogEntry;
+use App\Entity\Reminder;
 use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\DigitalPostRepository;
@@ -200,7 +202,7 @@ class CaseManager implements LoggerAwareInterface
         /** @var DigitalPostRepository $digitalPostRepostiory */
         $digitalPostRepository = $this->entityManager->getRepository(DigitalPost::class);
 
-        // Remote notes
+        // Remove notes
         $notes = $case->getNotes();
 
         foreach ($notes as $note) {
@@ -231,7 +233,7 @@ class CaseManager implements LoggerAwareInterface
             $this->entityManager->remove($agendaCaseItem);
         }
 
-        // Delete hearing stuff - but keep party till later.
+        // Remove hearing stuff - but keep party till later.
         foreach ($case->getHearing()->getHearingPosts() as $hearingPost) {
             foreach ($hearingPost->getAttachments() as $attachment) {
                 $this->entityManager->remove($attachment);
@@ -242,7 +244,7 @@ class CaseManager implements LoggerAwareInterface
             $this->entityManager->remove($hearingPost);
         }
 
-        // Delete Digital Post stuff
+        // Remove Digital Post stuff - but keep party till later.
         $digitalPosts = $digitalPostRepository->findBy(['entityId' => $case]);
 
         foreach ($digitalPosts as $digitalPost) {
@@ -256,7 +258,17 @@ class CaseManager implements LoggerAwareInterface
             $this->entityManager->remove($digitalPost);
         }
 
-        // Delete document stuff.
+        // Remove Decision stuff
+        foreach ($case->getDecisions() as $decision) {
+            foreach ($decision->getAttachments() as $attachment) {
+                $attachment->setDocument(null);
+                $this->entityManager->remove($attachment);
+            }
+
+            $this->entityManager->remove($decision);
+        }
+
+        // Remove document stuff.
         foreach ($case->getCaseDocumentRelation() as $relation) {
             $document = $relation->getDocument();
 
@@ -282,6 +294,22 @@ class CaseManager implements LoggerAwareInterface
             }
 
             $this->entityManager->remove($relation);
+        }
+
+        // Remove Reminder stuff
+        $reminderRepository = $this->entityManager->getRepository(Reminder::class);
+        $reminders = $reminderRepository->findBy(['caseEntity' => $case]);
+
+        foreach ($reminders as $reminder) {
+            $this->entityManager->remove($reminder);
+        }
+
+        // Remove log entries
+        $logEntryRepository = $this->entityManager->getRepository(LogEntry::class);
+        $logEntries = $logEntryRepository->findBy(['caseID' => $case]);
+
+        foreach ($logEntries as $logEntry) {
+            $this->entityManager->remove($logEntry);
         }
 
         // Finally remove the case.
