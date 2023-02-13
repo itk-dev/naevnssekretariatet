@@ -8,8 +8,6 @@ use App\Entity\CaseEntity;
 use App\Entity\CasePartyRelation;
 use App\Entity\DigitalPost;
 use App\Entity\Embeddable\Address;
-use App\Entity\HearingPostRequest;
-use App\Entity\HearingPostResponse;
 use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
 use App\Repository\MunicipalityRepository;
@@ -198,6 +196,84 @@ class CaseManager implements LoggerAwareInterface
 
     public function deleteCase(CaseEntity $case)
     {
+        // Remote notes
+        $notes = $case->getNotes();
+
+        foreach ($notes as $note) {
+            $this->entityManager->remove($note);
+        }
+
+        // Remove Agenda stuff - but keep party till later.
+        $agendaCaseItems = $case->getAgendaCaseItems();
+
+        foreach ($agendaCaseItems as $agendaCaseItem) {
+            /** @var DigitalPost[] $digitalPosts */
+            $digitalPosts = $this->entityManager
+                ->getRepository(DigitalPost::class)
+                ->findBy(['entityId' => $agendaCaseItem])
+            ;
+
+            foreach ($digitalPosts as $digitalPost) {
+                // Inspection letters cannot have attachments so no need to check for those.
+                foreach ($digitalPost->getRecipients() as $recipient) {
+                    $this->entityManager->remove($recipient);
+                }
+                $this->entityManager->remove($digitalPost);
+            }
+
+            foreach ($agendaCaseItem->getInspectionLetters() as $inspectionLetter) {
+                $document = $inspectionLetter->getDocument();
+                $this->entityManager->remove($document);
+
+                $agendaCaseItem->removeInspectionLetter($inspectionLetter);
+            }
+
+            $this->entityManager->remove($agendaCaseItem);
+        }
+
+        // Delete hearing stuff - but keep party till later.
+        foreach ($case->getHearing()->getHearingPosts() as $hearingPost) {
+            foreach ($hearingPost->getAttachments() as $attachment) {
+                $this->entityManager->remove($attachment);
+            }
+
+            $hearingPost->getHearing()->removeHearingPost($hearingPost);
+
+            $this->entityManager->remove($hearingPost);
+        }
+
+        // Delete Digital Post stuff
+        /** @var DigitalPost[] $digitalPosts */
+        $digitalPosts = $this->entityManager
+            ->getRepository(DigitalPost::class)
+            ->findBy(['entityId' => $case])
+        ;
+
+        foreach ($digitalPosts as $digitalPost) {
+            foreach ($digitalPost->getAttachments() as $attachment) {
+                $attachment->setDocument(null);
+                $this->entityManager->remove($attachment);
+            }
+            foreach ($digitalPost->getRecipients() as $recipient) {
+                $this->entityManager->remove($recipient);
+            }
+            $this->entityManager->remove($digitalPost);
+        }
+
+        // Delete document stuff.
+        foreach ($case->getCaseDocumentRelation() as $relation) {
+            $document = $relation->getDocument();
+
+            $document->removeCaseDocumentRelation($relation);
+            $this->entityManager->remove($relation);
+
+            // Check if the document was only related to this case and remove it if so.
+            if ($document->getCaseDocumentRelations()->isEmpty()) {
+                $this->documentUploader->deleteDocumentFile($document);
+                $this->entityManager->remove($document);
+            }
+        }
+
         foreach ($case->getCasePartyRelation() as $relation) {
             // Check if the party is only related to this case and remove it if so.
             $party = $relation->getParty();
@@ -210,51 +286,6 @@ class CaseManager implements LoggerAwareInterface
             }
 
             $this->entityManager->remove($relation);
-        }
-
-        foreach ($case->getHearing()->getHearingPosts() as $hearingPost) {
-            foreach ($hearingPost->getAttachments() as $attachment) {
-                $this->entityManager->remove($attachment);
-            }
-
-            if ($hearingPost instanceof HearingPostRequest) {
-                $recipient = $hearingPost->getRecipient();
-                if (null !== $recipient) {
-                    $this->entityManager->remove($recipient);
-                }
-            } elseif ($hearingPost instanceof HearingPostResponse) {
-                $sender = $hearingPost->getSender();
-                if (null !== $sender) {
-                    $this->entityManager->remove($sender);
-                }
-            }
-
-            $this->entityManager->remove($hearingPost);
-        }
-
-        foreach ($case->getCaseDocumentRelation() as $relation) {
-            $document = $relation->getDocument();
-            $digitalPosts = $this->entityManager
-                ->getRepository(DigitalPost::class)
-                ->findBy(['document' => $document])
-            ;
-            foreach ($digitalPosts as $digitalPost) {
-                foreach ($digitalPost->getAttachments() as $attachment) {
-                    $this->entityManager->remove($attachment);
-                }
-                foreach ($digitalPost->getRecipients() as $recipient) {
-                    $this->entityManager->remove($recipient);
-                }
-                $this->entityManager->remove($digitalPost);
-            }
-
-            $this->entityManager->remove($relation);
-
-            // Check if the document is only related to this case and remove it if so.
-            if ($document->getCaseDocumentRelations()->isEmpty()) {
-                $this->documentUploader->deleteDocumentFile($document);
-                $this->entityManager->remove($document);
-            }
         }
 
         // Finally remove the case.
