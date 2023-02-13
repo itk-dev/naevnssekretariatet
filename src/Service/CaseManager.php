@@ -24,7 +24,7 @@ class CaseManager implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private MunicipalityRepository $municipalityRepository, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService, private DocumentUploader $documentUploader, private DigitalPostRepository $digitalPostRepository)
+    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private MunicipalityRepository $municipalityRepository, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService, private DocumentUploader $documentUploader)
     {
     }
 
@@ -197,6 +197,9 @@ class CaseManager implements LoggerAwareInterface
 
     public function deleteCase(CaseEntity $case)
     {
+        /** @var DigitalPostRepository $digitalPostRepostiory */
+        $digitalPostRepository = $this->entityManager->getRepository(DigitalPost::class);
+
         // Remote notes
         $notes = $case->getNotes();
 
@@ -209,7 +212,7 @@ class CaseManager implements LoggerAwareInterface
 
         foreach ($agendaCaseItems as $agendaCaseItem) {
 
-            $digitalPosts = $this->digitalPostRepository->findBy(['entityId' => $agendaCaseItem]);
+            $digitalPosts = $digitalPostRepository->findBy(['entityId' => $agendaCaseItem]);
 
             foreach ($digitalPosts as $digitalPost) {
                 // Inspection letters cannot have attachments so no need to check for those.
@@ -241,7 +244,7 @@ class CaseManager implements LoggerAwareInterface
         }
 
         // Delete Digital Post stuff
-        $digitalPosts = $this->digitalPostRepository->findBy(['entityId' => $case]);
+        $digitalPosts = $digitalPostRepository->findBy(['entityId' => $case]);
 
         foreach ($digitalPosts as $digitalPost) {
             foreach ($digitalPost->getAttachments() as $attachment) {
