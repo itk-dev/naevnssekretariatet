@@ -211,7 +211,6 @@ class CaseManager implements LoggerAwareInterface
         $agendaCaseItems = $case->getAgendaCaseItems();
 
         foreach ($agendaCaseItems as $agendaCaseItem) {
-
             $digitalPosts = $digitalPostRepository->findBy(['entityId' => $agendaCaseItem]);
 
             foreach ($digitalPosts as $digitalPost) {
