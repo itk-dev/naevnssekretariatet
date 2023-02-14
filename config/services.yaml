@@ -256,3 +256,8 @@ services:
         arguments:
             $options:
                 view_timezone: '%view_timezone%'
+
+    App\Controller\Admin\UserController:
+        arguments:
+            $options:
+              signature_file_directory: '%kernel.project_dir%/upload/user-signatures'

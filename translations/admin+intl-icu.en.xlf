@@ -369,6 +369,18 @@
         <source>List of custom fields (one per line). Format «name»|«label»|«type».&lt;br/&gt;«name» must start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_").&lt;br/&gt;«type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text.&lt;br/&gt;Example: full_name|Full name|textarea.</source>
         <target><![CDATA[List of custom fields (one per line). Format «name»|«label»|«type».<br/>«name» must start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_").<br/>«type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text.<br/>Example: full_name|Full name|textarea.]]></target>
       </trans-unit>
+      <trans-unit id="8ac_IgS" resname="Signature">
+        <source>Signature</source>
+        <target>Signature</target>
+      </trans-unit>
+      <trans-unit id="x5YPG98" resname="Upload an image of your signature ({formats}).">
+        <source>Upload an image of your signature ({formats}).</source>
+        <target>Upload an image of your signature ({formats}).</target>
+      </trans-unit>
+      <trans-unit id="2E8CqJ6" resname="Upload an image of your signature.">
+        <source>Upload an image of your signature.</source>
+        <target>Upload an image of your signature.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
