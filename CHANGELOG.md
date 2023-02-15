@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- Bumped digital post max subject length to 50 characters
+
 ## [1.1.0] 2023-02-15
 
 - Added check for updated changelog.
