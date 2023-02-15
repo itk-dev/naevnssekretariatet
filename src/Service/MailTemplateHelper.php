@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\AgendaBroadcast;
+use App\Entity\CaseEntity;
 use App\Entity\HearingPost;
 use App\Entity\InspectionLetter;
 use App\Entity\MailTemplate;
@@ -204,7 +205,7 @@ class MailTemplateHelper
 
         if (null !== $entity) {
             $this->validateEntityType($mailTemplate, $entity);
-            $macroValues = $this->getComplexMacros($entity, $values);
+            $macroValues = $this->getComplexMacros($entity, $values, $templateProcessor);
             foreach ($macroValues as $name => $value) {
                 $element = $value->getElement();
 
@@ -329,6 +330,20 @@ class MailTemplateHelper
                 $data += json_decode($this->serializer->serialize($case, 'json', ['groups' => ['mail_template']]), true);
             }
 
+            if (null !== $case || $entity instanceof CaseEntity) {
+                $case = $case ?? $entity;
+                $signatureFilename = $case->getAssignedTo()?->getSignatureFilename() ?? null;
+                if (null !== $signatureFilename) {
+                    $filename = rtrim($this->options['user_signatures_file_directory'], '/').'/'.$signatureFilename;
+                    $templateProcessor->setImageValue('assignedTo.signature', [
+                        'path' => $filename,
+                        'height' => $this->options['user_signature_height'],
+                        // Setting the width to the empty string will keep the image aspect ratio
+                        'width' => '',
+                    ]);
+                }
+            }
+
             $values += $this->flatten($data);
         }
 
@@ -405,7 +420,7 @@ class MailTemplateHelper
     /**
      * @return array|ComplexMacro[]
      */
-    private function getComplexMacros(object $entity, array $values): array
+    private function getComplexMacros(object $entity, array $values, TemplateProcessor $templateProcessor = null): array
     {
         $macros = [];
 
@@ -425,7 +440,9 @@ class MailTemplateHelper
             }
         }
 
-        return $macros + $this->macroHelper->buildMacros($entity);
+        return $macros + $this->macroHelper
+                ->buildMacros($entity)
+        ;
     }
 
     /**
@@ -495,6 +512,8 @@ class MailTemplateHelper
             'template_types',
             'upload_destination',
             'template_file_directory',
+            'user_signatures_file_directory',
+            'user_signature_height',
             'libreoffice_http_client_options',
         ]);
         $resolver->setAllowedTypes('template_types', 'array');

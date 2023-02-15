@@ -42,7 +42,7 @@
         "league/oauth2-client": "^2.6",
         "lexik/form-filter-bundle": "^7.0",
         "phpdocumentor/reflection-docblock": "^5.2",
-        "phpoffice/phpword": "^0.18.2",
+        "phpoffice/phpword": "^1.0",
         "sensio/framework-extra-bundle": "^5.1",
         "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/asset": "5.4.*",

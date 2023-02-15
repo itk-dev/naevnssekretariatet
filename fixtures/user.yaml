@@ -18,6 +18,7 @@ App\Entity\User:
     email: admin@example.com
     roles: [ROLE_ADMIN]
     favoriteMunicipality: '@municipality-aarhus'
+    signatureFilename: <uploadFile(user_signature/administration.png, signatureFile, App\Entity\User)>
 
   user-super-admin:
     name: Super Admin
