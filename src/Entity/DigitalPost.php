@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\DigitalPost\Recipient;
 use App\Repository\DigitalPostRepository;
+use App\Service\DigitalPostHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -266,9 +267,16 @@ class DigitalPost
         }
     }
 
-    public function getSubject(): ?string
+    /**
+     * Get subject.
+     *
+     * @see DigitalPostHelper::SUBJECT_MAX_LENGTH.
+     *
+     * @param bool $truncate If set, the subject will be truncated to the maximum length allowed when actually sending the post
+     */
+    public function getSubject(bool $truncate = false): ?string
     {
-        return $this->subject;
+        return $truncate ? mb_substr($this->subject, 0, DigitalPostHelper::SUBJECT_MAX_LENGTH) : $this->subject;
     }
 
     public function setSubject(string $subject): self

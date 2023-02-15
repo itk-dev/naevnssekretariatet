@@ -61,6 +61,7 @@ class DigitalPostListCommand extends Command
             $io->definitionList(
                 ['Id' => $digitalPost->getId()],
                 ['Subject' => $digitalPost->getSubject()],
+                ['Subject (truncated)' => $digitalPost->getSubject(true)],
                 ['Status' => $digitalPost->getStatus() ?? self::STATUS_NULL],
                 ['Recipients' => implode(PHP_EOL, $digitalPost->getRecipients()->map(static fn (DigitalPost\Recipient $recipient) => (string) $recipient)->toArray())],
                 ['Created at' => $digitalPost->getCreatedAt()->format(\DateTimeInterface::ATOM)],
