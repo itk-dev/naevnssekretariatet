@@ -27,7 +27,7 @@
                 <tbody>
                 {% for log_entry in log_entries %}
                     <tr>
-                        <td>{{ log_entry.createdAt|date(format_datetime, 'Europe/Copenhagen') }}</td>
+                        <td>{{ log_entry.createdAt|date(format_datetime) }}</td>
                         <td>{{ log_entry.user }}</td>
                         <td>{{ log_entry.action|trans }}</td>
                         <td>

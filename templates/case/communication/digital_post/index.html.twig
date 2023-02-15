@@ -29,7 +29,11 @@
             {% for digital_post in digital_posts %}
                 <tr>
                     <td>{{ digital_post.createdAt ? digital_post.createdAt|date(format_datetime) : '' }}</td>
-                    <td>{{ digital_post.subject }}</td>
+                    <td>{{ digital_post.subject(true) }}
+                        {% if digital_post.subject(true) != digital_post.subject %}
+                            ({{ 'truncated'|trans }})
+                        {% endif %}
+                    </td>
                     <td>{{ digital_post.status ?? '–' }}</td>
                     <td>{{ digital_post.sentAt ? digital_post.sentAt|date(format_datetime) : '–' }}</td>
                     <td>{{ digital_post.document.documentName }}</td>

@@ -304,7 +304,16 @@ class CaseController extends AbstractController
 
         $caseStatusForm->handleRequest($request);
         if ($caseStatusForm->isSubmitted() && $caseStatusForm->isValid()) {
+            // Switch status
             $workflow->apply($case, $caseStatus->getStatus());
+
+            // If final status set finishedOn
+            if ($case->getBoard()->getFinalStatus() === $case->getCurrentPlace()) {
+                $case->setFinishedOn(new \DateTime('now'));
+            } else {
+                $case->setFinishedOn(null);
+            }
+
             $em->persist($case);
             $em->flush();
             $this->addFlash('success', new TranslatableMessage('Case status updated', [], 'case'));

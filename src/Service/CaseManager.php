@@ -5,9 +5,14 @@ namespace App\Service;
 use App\Entity\Board;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
+use App\Entity\CasePartyRelation;
+use App\Entity\DigitalPost;
 use App\Entity\Embeddable\Address;
+use App\Entity\LogEntry;
+use App\Entity\Reminder;
 use App\Repository\BoardRepository;
 use App\Repository\CaseEntityRepository;
+use App\Repository\DigitalPostRepository;
 use App\Repository\MunicipalityRepository;
 use App\Service\OS2Forms\SubmissionManager\CaseSubmissionManagerInterface;
 use DateTime;
@@ -21,7 +26,7 @@ class CaseManager implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private MunicipalityRepository $municipalityRepository, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService)
+    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private MunicipalityRepository $municipalityRepository, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService, private DocumentUploader $documentUploader)
     {
     }
 
@@ -189,6 +194,126 @@ class CaseManager implements LoggerAwareInterface
         // Cases created via OS2Forms get a default received at (today).
         $case->setReceivedAt(new DateTime('today'));
 
+        $this->entityManager->flush();
+    }
+
+    public function deleteCase(CaseEntity $case)
+    {
+        /** @var DigitalPostRepository $digitalPostRepostiory */
+        $digitalPostRepository = $this->entityManager->getRepository(DigitalPost::class);
+
+        // Remove notes
+        $notes = $case->getNotes();
+
+        foreach ($notes as $note) {
+            $this->entityManager->remove($note);
+        }
+
+        // Remove Agenda stuff - but keep party till later.
+        $agendaCaseItems = $case->getAgendaCaseItems();
+
+        foreach ($agendaCaseItems as $agendaCaseItem) {
+            $digitalPosts = $digitalPostRepository->findBy(['entityId' => $agendaCaseItem]);
+
+            foreach ($digitalPosts as $digitalPost) {
+                // Inspection letters cannot have attachments so no need to check for those.
+                foreach ($digitalPost->getRecipients() as $recipient) {
+                    $this->entityManager->remove($recipient);
+                }
+                $this->entityManager->remove($digitalPost);
+            }
+
+            foreach ($agendaCaseItem->getInspectionLetters() as $inspectionLetter) {
+                $document = $inspectionLetter->getDocument();
+                $this->entityManager->remove($document);
+
+                $agendaCaseItem->removeInspectionLetter($inspectionLetter);
+            }
+
+            $this->entityManager->remove($agendaCaseItem);
+        }
+
+        // Remove hearing stuff - but keep party till later.
+        foreach ($case->getHearing()->getHearingPosts() as $hearingPost) {
+            foreach ($hearingPost->getAttachments() as $attachment) {
+                $this->entityManager->remove($attachment);
+            }
+
+            $hearingPost->getHearing()->removeHearingPost($hearingPost);
+
+            $this->entityManager->remove($hearingPost);
+        }
+
+        // Remove Digital Post stuff - but keep party till later.
+        $digitalPosts = $digitalPostRepository->findBy(['entityId' => $case]);
+
+        foreach ($digitalPosts as $digitalPost) {
+            foreach ($digitalPost->getAttachments() as $attachment) {
+                $attachment->setDocument(null);
+                $this->entityManager->remove($attachment);
+            }
+            foreach ($digitalPost->getRecipients() as $recipient) {
+                $this->entityManager->remove($recipient);
+            }
+            $this->entityManager->remove($digitalPost);
+        }
+
+        // Remove Decision stuff
+        foreach ($case->getDecisions() as $decision) {
+            foreach ($decision->getAttachments() as $attachment) {
+                $attachment->setDocument(null);
+                $this->entityManager->remove($attachment);
+            }
+
+            $this->entityManager->remove($decision);
+        }
+
+        // Remove document stuff.
+        foreach ($case->getCaseDocumentRelation() as $relation) {
+            $document = $relation->getDocument();
+
+            $document->removeCaseDocumentRelation($relation);
+            $this->entityManager->remove($relation);
+
+            // Check if the document was only related to this case and remove it if so.
+            if ($document->getCaseDocumentRelations()->isEmpty()) {
+                $this->documentUploader->deleteDocumentFile($document);
+                $this->entityManager->remove($document);
+            }
+        }
+
+        foreach ($case->getCasePartyRelation() as $relation) {
+            // Check if the party is only related to this case and remove it if so.
+            $party = $relation->getParty();
+            $partyRelations = $this->entityManager
+                ->getRepository(CasePartyRelation::class)
+                ->findBy(['party' => $party])
+            ;
+            if (1 === count($partyRelations)) {
+                $this->entityManager->remove($party);
+            }
+
+            $this->entityManager->remove($relation);
+        }
+
+        // Remove Reminder stuff
+        $reminderRepository = $this->entityManager->getRepository(Reminder::class);
+        $reminders = $reminderRepository->findBy(['caseEntity' => $case]);
+
+        foreach ($reminders as $reminder) {
+            $this->entityManager->remove($reminder);
+        }
+
+        // Remove log entries
+        $logEntryRepository = $this->entityManager->getRepository(LogEntry::class);
+        $logEntries = $logEntryRepository->findBy(['caseID' => $case]);
+
+        foreach ($logEntries as $logEntry) {
+            $this->entityManager->remove($logEntry);
+        }
+
+        // Finally remove the case.
+        $this->entityManager->remove($case);
         $this->entityManager->flush();
     }
 }

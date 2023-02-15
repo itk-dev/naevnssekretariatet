@@ -28,7 +28,11 @@
             <dd class="col-sm-9">{{ digital_post.createdAt ? digital_post.createdAt|date(format_datetime) : '–' }}</dd>
 
             <dt class="col-sm-3">{% trans %}Subject{% endtrans %}</dt>
-            <dd class="col-sm-9">{{ digital_post.subject }}</dd>
+            <dd class="col-sm-9">{{ digital_post.subject(true) }}
+                {% if digital_post.subject(true) != digital_post.subject %}
+                    ({{ 'truncated'|trans }})
+                {% endif %}
+            </dd>
 
             {% if digital_post.next %}
                 <dt class="col-sm-3">{% trans %}Next{% endtrans %}</dt>

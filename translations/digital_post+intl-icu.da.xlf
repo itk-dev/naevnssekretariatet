@@ -73,6 +73,10 @@
         <source>PNR for {boardMember} not found ({cprNumber})</source>
         <target state="translated">Cpr nummer for {boardMember} kunne ikke findes ({cprNumber})</target>
       </trans-unit>
+      <trans-unit id="InscLlP" resname="truncated">
+        <source>truncated</source>
+        <target state="translated">afkortet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

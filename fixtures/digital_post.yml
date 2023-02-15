@@ -18,6 +18,12 @@ App\Entity\DigitalPost:
         entityId: '@agenda-1->id'
         subject: 'Agenda Broadcast'
 
+    digital-post-004:
+        document: '@document-001'
+        entityType: 'App\Entity\ResidentComplaintBoardCase'
+        entityId: '@test-case-aarhus-1->id'
+        subject: 'Digital post with a very long subject'
+
 App\Entity\DigitalPostAttachment:
     digital-post-attachment-001:
         digitalPost: '@digital-post-001'

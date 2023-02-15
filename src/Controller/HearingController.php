@@ -221,7 +221,6 @@ class HearingController extends AbstractController
             // Create document
             $document = $documentUploader->createDocumentFromPath($fileName, $hearingPost->getTitle(), 'Hearing');
 
-            $document->setHearingPost($hearingPost);
             $hearingPost->setDocument($document);
 
             // Create case document relation
@@ -528,8 +527,7 @@ class HearingController extends AbstractController
             // Remove file
             $documentUploader->deleteDocumentFile($document);
 
-            // Remove references between post and document
-            $document->setHearingPost(null);
+            // Remove reference between post and document
             $hearingPost->setDocument(null);
             $this->entityManager->flush();
 
