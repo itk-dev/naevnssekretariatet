@@ -20,11 +20,13 @@ class DigitalPostHelper extends DigitalPost
     /**
      * Maximum length of digital post subject.
      *
-     * It's not obvious, i.e. clearly documented, what the maximum length actually
-     * is, but XSDs embedded in the documentation on
-     * https://digitaliseringskataloget.dk/integration/sf1600 suggest that it's 34.
+     * https://docs.kombit.dk/integration/sf1600/2.5/pakke > "SF1600 - Print på
+     * Serviceplatformen v.2.5.pdf" > Page 76:
+     *
+     * > Titel på dokumentet. Ved forsendelser til eBoks, må der maksimalt
+     * > angives 50 tegn.
      */
-    public const SUBJECT_MAX_LENGTH = 34;
+    public const SUBJECT_MAX_LENGTH = 50;
 
     private array $serviceOptions;
 
