@@ -65,9 +65,9 @@
                 {% for agenda in pagination %}
                     <tr>
                         <td>{{ agenda.board|e }}</td>
-                        <td>{{ agenda.date|date_nullable(format_date) }}</td>
-                        <td>{{ agenda.start|date_nullable(format_time) }}</td>
-                        <td>{{ agenda.end|date_nullable(format_time) }}</td>
+                        <td>{{ agenda.date ? agenda.date|date(format_date) : '-' }}</td>
+                        <td>{{ agenda.start ? agenda.start|date(format_time, false) : '-' }}</td>
+                        <td>{{ agenda.end ? agenda.end|date(format_time, false) : '-' }}</td>
                         <td>{{ agenda.status|trans({}, 'agenda_status') }}</td>
                         <td class="text-right">
                             <!-- Show button -->
