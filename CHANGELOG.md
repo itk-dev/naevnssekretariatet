@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.1.0] 2023-02-15
+
+- Added check for updated changelog.
 - [TVIST1-754](https://jira.itkdev.dk/browse/TVIST1-754)
   Added finished on logic to cases.
 - [TVIST1-778](https://jira.itkdev.dk/browse/TVIST1-778)
@@ -163,7 +166,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.7...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.7...1.1.0
 [1.0.7]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.6...1.0.7
 [1.0.6]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.4...1.0.5
