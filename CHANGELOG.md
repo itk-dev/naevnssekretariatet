@@ -12,6 +12,8 @@ about writing changes to this log.
 
 - [TVIST1-754](https://jira.itkdev.dk/browse/TVIST1-754)
   Added finished on logic to cases.
+- [TVIST1-778](https://jira.itkdev.dk/browse/TVIST1-778)
+  Showed correct time in frontend
 
 ## [1.0.7] 2023-02-09
 
