@@ -180,26 +180,41 @@ class MailTemplateHelper
         return $values;
     }
 
-    /**
-     * Render mail template to a file.
-     *
-     * @throws MailTemplateException
-     */
     public function renderMailTemplate(MailTemplate $mailTemplate, $entity = null, array $options = [
         'format' => 'pdf',
     ]): string
     {
-        $resolver = new OptionsResolver();
-        $resolver
-            ->setDefault('format', 'pdf')
-            ->setAllowedValues('format', ['docx', 'pdf'])
+        $options = (new OptionsResolver())
+                 ->setDefault('format', 'pdf')
+                 ->setAllowedValues('format', ['docx', 'pdf'])
+                 ->resolve($options)
         ;
-        $options = $resolver->resolve($options);
 
+        // Expand all macros.
         $templateFileName = $this->getTemplateFile($mailTemplate);
 
+        $templateProcessor = new TemplateProcessor($templateFileName);
+        $macroValues = $this->getMacroValues($mailTemplate);
+        foreach ($macroValues as $macro => $value) {
+            $this->setTemplateValue($macro, $value, $templateProcessor);
+        }
+
+        // Render images.
+        $templateFileName = $templateProcessor->save();
+        $templateProcessor = new TemplateProcessor($templateFileName);
+        $this->filesystem->remove($templateFileName);
+
+        $this->renderImages($entity, $templateProcessor);
+
+        // Set the final values.
+        $templateFileName = $templateProcessor->save();
         // https://phpword.readthedocs.io/en/latest/templates-processing.html
         $templateProcessor = new LinkedTemplateProcessor($templateFileName);
+        $this->filesystem->remove($templateFileName);
+
+        // For some reason we have to render images again to make images inside
+        // and outside macros show up.
+        $this->renderImages($entity, $templateProcessor);
 
         $values = $this->getValues($entity, $templateProcessor, $mailTemplate);
 
@@ -219,11 +234,7 @@ class MailTemplateHelper
                 }
             }
         }
-        // Handle macros.
-        $macroValues = $this->getMacroValues($mailTemplate);
-        foreach ($macroValues as $macro => $value) {
-            $this->setTemplateValue($macro, $value, $templateProcessor);
-        }
+
         $this->setTemplateValues($values, $templateProcessor);
         $processedFileName = $templateProcessor->save();
 
@@ -295,6 +306,7 @@ class MailTemplateHelper
 
         // Flatten and make unique.
         $placeHolders = array_unique(array_merge(...$placeHolders));
+        $imagePlaceholders = [];
 
         $values = [];
 
@@ -314,33 +326,17 @@ class MailTemplateHelper
 
             $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
 
-            // Make hearing and case data and other date easily available.
-            $case = null;
+            // Make hearing, agenda and case data easily available.
             if ($entity instanceof HearingPost) {
-                $hearing = $entity->getHearing();
-                $case = $hearing->getCaseEntity();
-                $data += json_decode($this->serializer->serialize($hearing, 'json', ['groups' => ['mail_template']]), true);
-            } elseif ($entity instanceof InspectionLetter) {
-                $case = $entity->getAgendaCaseItem()?->getCaseEntity();
+                $data += json_decode($this->serializer->serialize($entity->getHearing(), 'json', ['groups' => ['mail_template']]), true);
             } elseif ($entity instanceof AgendaBroadcast) {
                 $data += json_decode($this->serializer->serialize($entity->getAgenda(), 'json', ['groups' => ['mail_template']]), true);
             }
-
+            $case = $this->getCase($entity);
             if (null !== $case) {
-                $data += json_decode($this->serializer->serialize($case, 'json', ['groups' => ['mail_template']]), true);
-            }
-
-            if (null !== $case || $entity instanceof CaseEntity) {
-                $case = $case ?? $entity;
-                $signatureFilename = $case->getAssignedTo()?->getSignatureFilename() ?? null;
-                if (null !== $signatureFilename) {
-                    $filename = rtrim($this->options['user_signatures_file_directory'], '/').'/'.$signatureFilename;
-                    $templateProcessor->setImageValue('assignedTo.signature', [
-                        'path' => $filename,
-                        'height' => $this->options['user_signature_height'],
-                        // Setting the width to the empty string will keep the image aspect ratio
-                        'width' => '',
-                    ]);
+                // If the entity itself is a case it has already been added to the data.
+                if ($case !== $entity) {
+                    $data += json_decode($this->serializer->serialize($case, 'json', ['groups' => ['mail_template']]), true);
                 }
             }
 
@@ -385,9 +381,45 @@ class MailTemplateHelper
         }
 
         // Set empty string values for all template variables without a value.
-        $values += array_map(static function ($count) { return ''; }, $templateProcessor->getVariableCount());
+        $values += array_map(static function () { return ''; }, $templateProcessor->getVariableCount());
 
         return $values;
+    }
+
+    private function renderImages($entity, TemplateProcessor $templateProcessor)
+    {
+        $case = $this->getCase($entity);
+        if (null !== $case) {
+            $signatureFilename = $case->getAssignedTo()?->getSignatureFilename() ?? null;
+            if (null !== $signatureFilename) {
+                $placeholder = 'assignedTo.signature';
+                $filename = rtrim($this->options['user_signatures_file_directory'], '/').'/'.$signatureFilename;
+                if (file_exists($filename)) {
+                    $templateProcessor->setImageValue($placeholder, [
+                        'path' => $filename,
+                        'height' => $this->options['user_signature_height'],
+                        // Setting the width to the empty string will keep the image aspect ratio
+                        'width' => '',
+                    ]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Get case related to entity or the entity itself if it's a case.
+     */
+    private function getCase($entity): ?CaseEntity
+    {
+        if ($entity instanceof CaseEntity) {
+            return $entity;
+        } elseif ($entity instanceof HearingPost) {
+            return $entity->getHearing()->getCaseEntity();
+        } elseif ($entity instanceof InspectionLetter) {
+            return $entity->getAgendaCaseItem()?->getCaseEntity();
+        }
+
+        return null;
     }
 
     private function getMacroValues(MailTemplate $mailTemplate): array
