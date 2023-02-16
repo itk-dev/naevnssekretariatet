@@ -20,6 +20,7 @@ about writing changes to this log.
 - [TVIST1-788](https://jira.itkdev.dk/browse/TVIST1-788)
   - Updated `CaseEvent` with `senders` and `recipients` property.
   - Removed `CaseEventPartyRelation`.
+- Added user signatures [TVIST1-726](https://jira.itkdev.dk/browse/TVIST1-726)
 
 ## [1.1.2] 2023-02-17
 
