@@ -365,9 +365,9 @@
         <source>KLE</source>
         <target>KLE</target>
       </trans-unit>
-      <trans-unit id="6njiE3P" resname="List of custom fields (one per line). Format «name»|«label»|«type». Here «type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text. Example: full_name|Full name|textarea.">
-        <source>List of custom fields (one per line). Format «name»|«label»|«type». Here «type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text. Example: full_name|Full name|textarea.</source>
-        <target>List of custom fields (one per line). Format «name»|«label»|«type». Here «type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text. Example: full_name|Full name|textarea.</target>
+      <trans-unit id="wRH_Y.w" resname="List of custom fields (one per line). Format «name»|«label»|«type».&lt;br/&gt;«name» must start with a letter, digit or underscore and only contain letters, digits, numbers, underscores (&quot;_&quot;).&lt;br/&gt;«type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text.&lt;br/&gt;Example: full_name|Full name|textarea.">
+        <source>List of custom fields (one per line). Format «name»|«label»|«type».&lt;br/&gt;«name» must start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_").&lt;br/&gt;«type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text.&lt;br/&gt;Example: full_name|Full name|textarea.</source>
+        <target><![CDATA[List of custom fields (one per line). Format «name»|«label»|«type».<br/>«name» must start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_").<br/>«type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text.<br/>Example: full_name|Full name|textarea.]]></target>
       </trans-unit>
     </body>
   </file>
