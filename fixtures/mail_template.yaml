@@ -41,6 +41,9 @@ App\Entity\MailTemplate:
     customFields: |-
       some_merge_field1|Some merge field1
       some_merge_field2|Some merge field2
+      description|Description|textarea
+
+      An invalid field name.|An invalid field name|textarea
 
   mail-template-agenda-inspection-001:
     type: agenda_inspection

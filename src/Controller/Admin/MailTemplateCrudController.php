@@ -57,8 +57,11 @@ class MailTemplateCrudController extends AbstractCrudController
             ->setChoices($this->mailTemplateHelper->getMailTemplateTypeChoices())
         ;
         yield TextField::new('name');
+
+        // Note: We don't validate the custom field names, but make sure they're
+        // valid when used (cf. MailTemplateHelper::getCustomFields()).
         yield TextareaField::new('customFields', 'Custom fields')
-            ->setHelp($this->translator->trans('List of custom fields (one per line). Format «name»|«label»|«type». Here «type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text. Example: full_name|Full name|textarea.',
+            ->setHelp($this->translator->trans('List of custom fields (one per line). Format «name»|«label»|«type».<br/>«name» must start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_").<br/>«type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text.<br/>Example: full_name|Full name|textarea.',
                 [], 'admin'))
             // Avoid showing 'Null' or 'Tom' if customFields is not set.
             ->formatValue(function ($value) {

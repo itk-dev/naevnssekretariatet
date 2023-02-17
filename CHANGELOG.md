@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [SUPP0RT-874](https://jira.itkdev.dk/browse/SUPP0RT-874)
+  Handled invalid custom field element names.
+
 ## [1.1.1] 2023-02-15
 
 - Bumped digital post max subject length to 50 characters
