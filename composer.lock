@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34786271f06c5db5776c5f2d41cdf7af",
+    "content-hash": "913f69776f4de82a2d947c37aded2359",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2462,6 +2462,51 @@
                 "source": "https://github.com/itk-dev/AzureKeyVaultPhp/tree/1.0.0"
             },
             "time": "2021-02-08T11:39:53+00:00"
+        },
+        {
+            "name": "itk-dev/beskedfordeler-symfony",
+            "version": "dev-feature/beskedfordeler",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itk-dev/beskedfordeler-symfony.git",
+                "reference": "e7c6eb07a016ccc162350d47d38da00ee49c9a04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itk-dev/beskedfordeler-symfony/zipball/e7c6eb07a016ccc162350d47d38da00ee49c9a04",
+                "reference": "e7c6eb07a016ccc162350d47d38da00ee49c9a04",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "^5.4|^6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.14",
+                "phpstan/phpstan": "^1.9",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Itkdev\\BeskedfordelerBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikkel Ricky",
+                    "email": "rimi@aarhus.dk"
+                }
+            ],
+            "description": "Beskedfordeler for Symfony",
+            "support": {
+                "issues": "https://github.com/itk-dev/beskedfordeler-symfony/issues",
+                "source": "https://github.com/itk-dev/beskedfordeler-symfony/tree/feature/beskedfordeler"
+            },
+            "time": "2023-02-19T16:43:27+00:00"
         },
         {
             "name": "itk-dev/datafordeler-php-client",
@@ -14418,6 +14463,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "itk-dev/beskedfordeler-symfony": 20,
         "itk-dev/datafordeler-php-client": 20,
         "itk-dev/openid-connect-bundle": 20,
         "itk-dev/serviceplatformen": 20
