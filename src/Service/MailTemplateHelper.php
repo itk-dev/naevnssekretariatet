@@ -526,22 +526,33 @@ class MailTemplateHelper
             return [];
         }
 
-        $rawCustomFields = explode(
-            PHP_EOL,
-            $template->getCustomFields()
+        $rawCustomFields = array_filter(
+            array_map(
+                'trim',
+                explode(
+                    PHP_EOL,
+                    $template->getCustomFields()
+                )
+            )
         );
 
-        $trimmedCustomFields = [];
+        $customFields = [];
         foreach ($rawCustomFields as $rawCustomField) {
-            if (preg_match('/(?P<name>[^|]*)\|(?P<label>[^|]*)\|?(?P<type>.*)/', trim($rawCustomField), $matches)) {
-                $trimmedCustomFields[$matches['name']] = [
+            // Match «name»|«label»|«type» where «type» is optional.
+            if (preg_match('/^(?P<name>[^|]+)\s*\|\s*(?P<label>[^|]+)\s*(:?\|\s*(?P<type>.+))?/', $rawCustomField, $matches)) {
+                // Name must be a valid form element name.
+                $name = preg_replace('/[^\w_]+/i', '_', $matches['name']);
+                $customFields[$name] = [
                     'label' => $matches['label'],
-                    'type' => MailTemplateCustomDataType::TYPE_TEXTAREA === $matches['type'] ? MailTemplateCustomDataType::TYPE_TEXTAREA : MailTemplateCustomDataType::TYPE_TEXT,
+                    'type' => match ($matches['type'] ?? null) {
+                        MailTemplateCustomDataType::TYPE_TEXTAREA => MailTemplateCustomDataType::TYPE_TEXTAREA,
+                        default => MailTemplateCustomDataType::TYPE_TEXT
+                    },
                 ];
             }
         }
 
-        return $trimmedCustomFields;
+        return $customFields;
     }
 
     /**
