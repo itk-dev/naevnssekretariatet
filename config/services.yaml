@@ -255,6 +255,7 @@ services:
         arguments:
             $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
 
+
     App\Controller\CaseEventController:
         arguments:
             $options:
@@ -264,3 +265,19 @@ services:
         arguments:
             $options:
               signature_file_directory: '%kernel.project_dir%/upload/user-signatures'
+
+    App\Service\SF1601\CertificateLocatorHelper:
+        arguments:
+            $options:
+                tenant_id: '%env(AZURE_TENANT_ID)%'
+                application_id: '%env(AZURE_APPLICATION_ID)%'
+                client_secret: '%env(AZURE_CLIENT_SECRET)%'
+                name: '%env(AZURE_KEY_VAULT_SF1601_NAME)%'
+                secret: '%env(AZURE_KEY_VAULT_SF1601_SECRET)%'
+                version: '%env(AZURE_KEY_VAULT_SF1601_VERSION)%'
+
+    App\Service\SF1601\DigitalPoster:
+        arguments:
+            $options:
+                sf1601:
+                    authority_cvr: '%env(SF1601_AUTHORITY_CVR)%'

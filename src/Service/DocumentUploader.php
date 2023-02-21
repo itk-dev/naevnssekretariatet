@@ -122,7 +122,7 @@ class DocumentUploader
         );
 
         $response->headers->set('Content-Disposition', $disposition);
-        $response->headers->set('Content-Type', $this->mimeTypeGuesser->guessMimeType($this->getFilepath($document->getFilename())));
+        $response->headers->set('Content-Type', $this->getMimeType($document));
 
         return $response;
     }
@@ -158,6 +158,11 @@ class DocumentUploader
         $filepath = $this->getFilepath($document->getFilename());
 
         return file_get_contents($filepath);
+    }
+
+    public function getMimeType(Document $document): string
+    {
+        return $this->mimeTypeGuesser->guessMimeType($this->getFilepath($document->getFilename()));
     }
 
     /**
