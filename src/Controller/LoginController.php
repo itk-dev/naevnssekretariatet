@@ -133,7 +133,7 @@ class LoginController extends AbstractController
             $this->providerManager->getProvider($key ?? '');
 
             return true;
-        } catch (InvalidProviderException $exception) {
+        } catch (InvalidProviderException) {
         }
 
         return false;
@@ -150,7 +150,7 @@ class LoginController extends AbstractController
                     new \DateTimeImmutable($value);
 
                     return true;
-                } catch (\Exception $exception) {
+                } catch (\Exception) {
                     return false;
                 }
             })

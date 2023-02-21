@@ -91,7 +91,7 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
             $message = $this->translator->trans('Access denied', [], 'login');
             try {
                 $request->getSession()->getFlashBag()->add('danger', $message);
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
             }
             // @todo Log this?
             throw new CustomUserMessageAuthenticationException($message);

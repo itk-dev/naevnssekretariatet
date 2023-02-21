@@ -50,7 +50,7 @@ class BoardHelper
                 'RentBoardCaseType' => new RentBoardCase(),
                 'ResidentComplaintBoardCaseType' => new ResidentComplaintBoardCase()
             };
-        } catch (\UnhandledMatchError $exception) {
+        } catch (\UnhandledMatchError) {
             $message = sprintf('Unhandled case form type %s', $caseType);
             throw new CaseClassException($message);
         }

@@ -106,7 +106,7 @@ class MailTemplateRenderCommand extends Command
             if (class_exists(\Locale::class, false)) {
                 \Locale::setDefault($locale ?? $this->getDefaultLocale());
             }
-        } catch (\Exception $e) {
+        } catch (\Exception) {
         }
     }
 }

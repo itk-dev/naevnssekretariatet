@@ -89,7 +89,7 @@ class MailTemplateHelper
                 if (null !== $entity) {
                     return $entity;
                 }
-            } catch (MappingException $mappingException) {
+            } catch (MappingException) {
                 // Cannot get repository for the class name. Continue to see if another class name succeeds.
             }
         }
@@ -114,7 +114,7 @@ class MailTemplateHelper
                 $repository = $this->entityManager->getRepository($className);
                 // Get at most 20 entities.
                 $entities[] = $repository->findBy([], null, 20);
-            } catch (MappingException $mappingException) {
+            } catch (MappingException) {
                 // Cannot get repository for the class name. Continue to see if another class name succeeds.
             }
         }
@@ -439,7 +439,7 @@ class MailTemplateHelper
             $formatter->setPattern($format);
 
             return $formatter->format($date);
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
         }
 
         return $value;

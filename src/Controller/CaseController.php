@@ -523,7 +523,7 @@ class CaseController extends AbstractController
 
         try {
             return $this->redirect($bbrHelper->getBBRMeddelelseUrlForCase($case, $addressProperty, $_format));
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             $this->addFlash('error', new TranslatableMessage('Cannot get url for BBR-Meddelelse', [], 'case'));
         }
 
