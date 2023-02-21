@@ -381,12 +381,13 @@ class HearingController extends AbstractController
         // Send receipt
         if ($hearingPost->getSendReceipt()) {
             $sender = $hearingPost->getSender();
-            $digitalPostRecipients[] = (new DigitalPost\Recipient())
-                ->setName($sender->getName())
-                ->setIdentifierType($sender->getIdentification()->getType())
-                ->setIdentifier($sender->getIdentification()->getIdentifier())
-                ->setAddress($sender->getAddress())
-            ;
+            $digitalPostRecipients = [
+                (new DigitalPost\Recipient())
+                    ->setName($sender->getName())
+                    ->setIdentifierType($sender->getIdentification()->getType())
+                    ->setIdentifier($sender->getIdentification()->getIdentifier())
+                    ->setAddress($sender->getAddress())
+            ];
             $case = $hearingPost->getHearing()?->getCaseEntity();
             $template = $case?->getBoard()?->getReceiptHearingPost();
 
