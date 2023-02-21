@@ -129,9 +129,6 @@ class DigitalPost
         return $this->entityType;
     }
 
-    /**
-     * @return DigitalPost
-     */
     public function setEntityType(string $entityType): self
     {
         $this->entityType = $entityType;
@@ -144,9 +141,6 @@ class DigitalPost
         return $this->entityId;
     }
 
-    /**
-     * @return DigitalPost
-     */
     public function setEntityId(Uuid $entityId): self
     {
         $this->entityId = $entityId;

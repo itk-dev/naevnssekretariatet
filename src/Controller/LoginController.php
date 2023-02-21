@@ -144,7 +144,7 @@ class LoginController extends AbstractController
         $resolver
             ->setRequired('firewall_name')
             ->setAllowedTypes('firewall_name', 'string')
-            ->setRequired('cookie_end_time', 'string')
+            ->setRequired('cookie_end_time')
             ->setAllowedValues('cookie_end_time', function ($value) {
                 try {
                     new \DateTimeImmutable($value);

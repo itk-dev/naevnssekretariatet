@@ -131,8 +131,8 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
      */
     public function getInspectionAddress(CaseEntity $case): Address
     {
-            'App\Entity\FenceReviewCase' => $case->getBringerAddress(),
         return match ($case::class) {
+            \App\Entity\FenceReviewCase::class => $case->getBringerAddress(),
             default => $case->getLeaseAddress(),
         };
     }

@@ -9,7 +9,7 @@ class CaseDeletedFilter extends SQLFilter
 {
     public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias)
     {
-        if ('App\Entity\CaseEntity' != $targetEntity->getReflectionClass()->name) {
+        if (\App\Entity\CaseEntity::class != $targetEntity->getReflectionClass()->name) {
             return '';
         }
 
