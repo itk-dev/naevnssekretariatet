@@ -13,7 +13,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
  */
-class Document implements LoggableEntityInterface
+class Document implements LoggableEntityInterface, \Stringable
 {
     /**
      * @ORM\Id
@@ -200,9 +200,9 @@ class Document implements LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->documentName;
+        return (string) $this->documentName;
     }
 
     public function getOriginalFileName(): ?string

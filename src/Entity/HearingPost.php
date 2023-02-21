@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\EntityListeners({"App\Logging\EntityListener\HearingPostListener"})
  * @ORM\HasLifecycleCallbacks()
  */
-abstract class HearingPost implements LoggableEntityInterface
+abstract class HearingPost implements LoggableEntityInterface, \Stringable
 {
     use TimestampableEntity;
 

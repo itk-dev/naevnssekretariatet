@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Embeddable
  */
-class Address implements LoggableEntityInterface
+class Address implements LoggableEntityInterface, \Stringable
 {
     /**
      * @ORM\Column(type="string")

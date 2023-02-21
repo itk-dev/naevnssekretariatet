@@ -13,7 +13,7 @@ use Symfony\Component\Uid\Uuid;
  * @ORM\Entity(repositoryClass=BoardMemberRepository::class)
  * @UniqueEntity(fields={"cpr"})
  */
-class BoardMember
+class BoardMember implements \Stringable
 {
     /**
      * @ORM\Id
@@ -119,9 +119,9 @@ class BoardMember
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getCpr(): ?string

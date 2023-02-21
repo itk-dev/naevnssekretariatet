@@ -11,7 +11,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @ORM\Entity(repositoryClass=AgendaBroadcastRepository::class)
  */
-class AgendaBroadcast
+class AgendaBroadcast implements \Stringable
 {
     use CustomDataTrait;
     use TimestampableEntity;
@@ -44,7 +44,7 @@ class AgendaBroadcast
      */
     private $agenda;
 
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf('%s (%s)', $this->title, $this->id);
     }

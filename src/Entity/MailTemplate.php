@@ -16,7 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass=MailTemplateRepository::class)
  * @Vich\Uploadable
  */
-class MailTemplate implements LoggableEntityInterface
+class MailTemplate implements LoggableEntityInterface, \Stringable
 {
     use BlameableEntity;
     use TimestampableEntity;

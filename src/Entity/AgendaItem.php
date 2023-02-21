@@ -12,7 +12,7 @@ use Symfony\Component\Uid\Uuid;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"caseEntity" = "CaseEntity", "agendaCaseItem" = "AgendaCaseItem", "agendaManuelItem" = "AgendaManuelItem"})
  */
-abstract class AgendaItem
+abstract class AgendaItem implements \Stringable
 {
     /**
      * @ORM\Id

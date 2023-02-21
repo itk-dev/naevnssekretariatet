@@ -14,7 +14,7 @@ use Symfony\Component\Uid\Uuid;
  * @ORM\Entity(repositoryClass=ComplaintCategoryRepository::class)
  * @ORM\EntityListeners({"App\Logging\EntityListener\ComplaintCategoryListener"})
  */
-class ComplaintCategory implements LoggableEntityInterface
+class ComplaintCategory implements LoggableEntityInterface, \Stringable
 {
     /**
      * @ORM\Id
@@ -86,9 +86,9 @@ class ComplaintCategory implements LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getLoggableProperties(): array

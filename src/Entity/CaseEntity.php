@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\DiscriminatorMap({"caseEntity" = "CaseEntity", "residentComplaintBoardCase" = "ResidentComplaintBoardCase", "rentBoardCase" = "RentBoardCase", "fenceReviewCase" = "FenceReviewCase"})
  * @ORM\EntityListeners({"App\Logging\EntityListener\CaseListener"})
  */
-abstract class CaseEntity implements Timestampable
+abstract class CaseEntity implements Timestampable, \Stringable
 {
     use BlameableEntity;
     use SoftDeletableEntity;
@@ -424,9 +424,9 @@ abstract class CaseEntity implements Timestampable
         return $this->bringerAddress;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->caseNumber;
+        return (string) $this->caseNumber;
     }
 
     /**

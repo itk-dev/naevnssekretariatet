@@ -14,7 +14,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User implements UserInterface, LoggableEntityInterface
+class User implements UserInterface, LoggableEntityInterface, \Stringable
 {
     /**
      * @ORM\Id
@@ -197,9 +197,9 @@ class User implements UserInterface, LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**

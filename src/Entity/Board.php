@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=BoardRepository::class)
  * @ORM\EntityListeners({"App\Logging\EntityListener\BoardListener"})
  */
-class Board implements LoggableEntityInterface
+class Board implements LoggableEntityInterface, \Stringable
 {
     /**
      * @ORM\Id
@@ -176,7 +176,7 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name.' '.$this->getMunicipality()->getName();
     }

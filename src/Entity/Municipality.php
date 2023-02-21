@@ -14,7 +14,7 @@ use Symfony\Component\Uid\Uuid;
  * @ORM\Entity(repositoryClass=MunicipalityRepository::class)
  * @ORM\EntityListeners({"App\Logging\EntityListener\MunicipalityListener"})
  */
-class Municipality implements LoggableEntityInterface
+class Municipality implements LoggableEntityInterface, \Stringable
 {
     /**
      * @ORM\Id
@@ -98,9 +98,9 @@ class Municipality implements LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**

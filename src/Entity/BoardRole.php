@@ -11,7 +11,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @ORM\Entity(repositoryClass=BoardRoleRepository::class)
  */
-class BoardRole
+class BoardRole implements \Stringable
 {
     /**
      * @ORM\Id
@@ -82,7 +82,7 @@ class BoardRole
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->board->__toString().' '.$this->getTitle();
     }

@@ -10,7 +10,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @ORM\Entity(repositoryClass=DocumentTypeRepository::class)
  */
-class UploadedDocumentType implements LoggableEntityInterface
+class UploadedDocumentType implements LoggableEntityInterface, \Stringable
 {
     /**
      * @ORM\Id
@@ -45,9 +45,9 @@ class UploadedDocumentType implements LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getLoggableProperties(): array

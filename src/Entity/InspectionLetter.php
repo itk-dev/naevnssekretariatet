@@ -13,7 +13,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @ORM\Entity(repositoryClass=InspectionLetterRepository::class)
  */
-class InspectionLetter
+class InspectionLetter implements \Stringable
 {
     use CustomDataTrait;
     use TimestampableEntity;
@@ -51,7 +51,7 @@ class InspectionLetter
      */
     private $recipients;
 
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf('%s (%s)', $this->title, $this->id);
     }

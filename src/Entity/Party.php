@@ -15,7 +15,7 @@ use Symfony\Component\Uid\Uuid;
  * @ORM\Entity(repositoryClass=PartyRepository::class)
  * @ORM\EntityListeners({"App\Logging\EntityListener\PartyListener"})
  */
-class Party implements LoggableEntityInterface
+class Party implements LoggableEntityInterface, \Stringable
 {
     /**
      * @ORM\Id
@@ -109,9 +109,9 @@ class Party implements LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getLoggableProperties(): array

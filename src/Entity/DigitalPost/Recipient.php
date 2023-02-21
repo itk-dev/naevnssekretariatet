@@ -10,7 +10,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @ORM\Entity(repositoryClass=RecipientRepository::class)
  */
-class Recipient
+class Recipient implements \Stringable
 {
     /**
      * @ORM\Id

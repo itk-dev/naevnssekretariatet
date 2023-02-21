@@ -14,7 +14,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @ORM\Entity(repositoryClass=AgendaRepository::class)
  */
-class Agenda implements LoggableEntityInterface
+class Agenda implements LoggableEntityInterface, \Stringable
 {
     /**
      * @ORM\Id
@@ -255,7 +255,7 @@ class Agenda implements LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->date ? 'Agenda '.$this->date->format('d/m/y') : 'Agenda';
     }
