@@ -53,7 +53,7 @@ class MailTemplateRenderCommand extends Command
         try {
             $mailTemplate = $this->mailTemplateRepository->findOneBy(['name' => $templateIdentifier])
                 ?? $this->mailTemplateRepository->findOneBy(['id' => $templateIdentifier]);
-        } catch (ConversionException $conversionException) {
+        } catch (ConversionException) {
             // $templateIdentifier may not be a valid uuid.
         }
         if (null === $mailTemplate) {
