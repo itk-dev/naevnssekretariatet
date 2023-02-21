@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.1.2] 2023-02-17
+
 - [SUPP0RT-874](https://jira.itkdev.dk/browse/SUPP0RT-874)
   Handled invalid custom field element names.
 
@@ -173,7 +175,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.1...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.2...HEAD
+[1.1.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.7...1.1.0
 [1.0.7]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.6...1.0.7
