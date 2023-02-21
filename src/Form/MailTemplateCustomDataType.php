@@ -14,7 +14,7 @@ class MailTemplateCustomDataType extends AbstractType
     public const TYPE_TEXTAREA = 'textarea';
     public const TYPE_TEXT = 'text';
 
-    public function __construct(private MailTemplateHelper $mailTemplateHelper)
+    public function __construct(private readonly MailTemplateHelper $mailTemplateHelper)
     {
     }
 
