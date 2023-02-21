@@ -70,7 +70,7 @@ class DigitalPostSendCommand extends Command
 
         foreach ($digitalPosts as $index => $digitalPost) {
             if (!$forceSend && !in_array($digitalPost->getStatus(), $statuses)) {
-                $io->error(sprintf('Digital post %s has invalid status %s (expected one of %s)', $digitalPost->getId(), json_encode($digitalPost->getStatus()), implode(', ', array_map('json_encode', $statuses))));
+                $io->error(sprintf('Digital post %s has invalid status %s (expected one of %s)', $digitalPost->getId(), json_encode($digitalPost->getStatus(), JSON_THROW_ON_ERROR), implode(', ', array_map('json_encode', $statuses))));
                 continue;
             }
 

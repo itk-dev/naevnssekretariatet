@@ -178,7 +178,7 @@ class CprHelper
         $id = $this->propertyAccessor->getValue($case, $idProperty);
 
         $cprData = $this->lookupCPR($id->getIdentifier());
-        $cprDataArray = json_decode(json_encode($cprData), true);
+        $cprDataArray = json_decode(json_encode($cprData, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
 
         $cprIdentificationRelevantData = $this->collectRelevantData($cprDataArray);
 
@@ -214,7 +214,7 @@ class CprHelper
     {
         $cprObject = $this->lookupCPR($cpr);
 
-        $cprArray = json_decode(json_encode($cprObject), true);
+        $cprArray = json_decode(json_encode($cprObject, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
 
         $street = $cprArray['adresse']['aktuelAdresse']['vejadresseringsnavn'];
         $number = ltrim($cprArray['adresse']['aktuelAdresse']['husnummer'], '0');

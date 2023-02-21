@@ -35,7 +35,7 @@ class ApiController extends AbstractController
         try {
             $this->authenticate($request);
 
-            $data = json_decode($request->getContent(), true);
+            $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
             $this->bus->dispatch(new NewWebformSubmissionMessage($data));
 

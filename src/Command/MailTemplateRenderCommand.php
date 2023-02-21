@@ -69,7 +69,7 @@ class MailTemplateRenderCommand extends Command
 
         if ($dumpData) {
             $data = $this->templateHelper->getTemplateData($mailTemplate, $entity);
-            $output->writeln(json_encode($data));
+            $output->writeln(json_encode($data, JSON_THROW_ON_ERROR));
             // If we don't have an output file name to write the pdf to, we stop
             // now.
             if (!$outputName) {

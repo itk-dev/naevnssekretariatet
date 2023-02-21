@@ -234,7 +234,7 @@ class ComplexMacroHelper
             } elseif (null === $value) {
                 $row->addCell()->addText('');
             } else {
-                throw new \RuntimeException(sprintf('Cannot handle table cell value with type %s: %s', gettype($value), json_encode($value)));
+                throw new \RuntimeException(sprintf('Cannot handle table cell value with type %s: %s', gettype($value), json_encode($value, JSON_THROW_ON_ERROR)));
             }
         }
 

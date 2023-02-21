@@ -70,7 +70,7 @@ class WebformSubmissionMessageHandler implements MessageHandlerInterface
                 ]
             );
 
-            $content = json_decode($response->getContent(), true);
+            $content = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
             $submissionData = $content['data'];
 

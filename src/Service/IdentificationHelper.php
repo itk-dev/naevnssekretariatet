@@ -45,7 +45,7 @@ class IdentificationHelper implements EventSubscriberInterface
             return new JsonResponse();
         }
 
-        $dataArray = json_decode(json_encode($data), true);
+        $dataArray = json_decode(json_encode($data, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
 
         $relevantData = self::IDENTIFIER_TYPE_CPR == $type ? $this->cprHelper->collectRelevantData($dataArray) : $this->cvrHelper->collectRelevantData($dataArray);
 
