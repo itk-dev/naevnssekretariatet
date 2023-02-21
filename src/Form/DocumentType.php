@@ -121,7 +121,7 @@ class DocumentType extends AbstractType
         $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
         if ($unit) {
             // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
-            return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
+            return round($size * 1024 ** stripos('bkmgtpezy', $unit[0]));
         } else {
             return round($size);
         }
@@ -135,7 +135,7 @@ class DocumentType extends AbstractType
         $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
         $pow = min($pow, count($units) - 1);
 
-        $bytes /= pow(1024, $pow);
+        $bytes /= 1024 ** $pow;
 
         return round($bytes, $precision).' '.$units[$pow];
     }
