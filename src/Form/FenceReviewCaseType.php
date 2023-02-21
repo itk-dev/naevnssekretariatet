@@ -21,7 +21,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FenceReviewCaseType extends AbstractType
 {
-    public function __construct(private TranslatorInterface $translator, private ComplaintCategoryRepository $categoryRepository)
+    public function __construct(private readonly TranslatorInterface $translator, private readonly ComplaintCategoryRepository $categoryRepository)
     {
     }
 

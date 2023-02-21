@@ -6,7 +6,7 @@ use PhpOffice\PhpWord\Element\AbstractElement;
 
 class ComplexMacro
 {
-    public function __construct(private AbstractElement $element, private string $description)
+    public function __construct(private readonly AbstractElement $element, private readonly string $description)
     {
     }
 

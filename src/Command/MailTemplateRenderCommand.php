@@ -23,7 +23,7 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 class MailTemplateRenderCommand extends Command
 {
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateHelper $templateHelper, private EntityManagerInterface $entityManager, private Filesystem $filesystem, private ParameterBagInterface $parameters)
+    public function __construct(private readonly MailTemplateRepository $mailTemplateRepository, private readonly MailTemplateHelper $templateHelper, private readonly EntityManagerInterface $entityManager, private readonly Filesystem $filesystem, private readonly ParameterBagInterface $parameters)
     {
         parent::__construct(null);
     }

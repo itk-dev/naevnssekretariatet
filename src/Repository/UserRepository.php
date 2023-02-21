@@ -15,14 +15,8 @@ use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    /**
-     * @var RoleHierarchyInterface
-     */
-    private $roleHierarchy;
-
-    public function __construct(ManagerRegistry $registry, RoleHierarchyInterface $roleHierarchy)
+    public function __construct(ManagerRegistry $registry, private readonly RoleHierarchyInterface $roleHierarchy)
     {
-        $this->roleHierarchy = $roleHierarchy;
         parent::__construct($registry, User::class);
     }
 

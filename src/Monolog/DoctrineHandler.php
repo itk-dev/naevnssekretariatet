@@ -10,14 +10,9 @@ use Symfony\Component\Security\Core\Security;
 
 class DoctrineHandler extends AbstractProcessingHandler
 {
-    private EntityManagerInterface $entityManager;
-    private Security $security;
-
-    public function __construct(EntityManagerInterface $entityManager, Security $security, $level = Logger::DEBUG, bool $bubble = true)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly Security $security, $level = Logger::DEBUG, bool $bubble = true)
     {
         parent::__construct($level, $bubble);
-        $this->entityManager = $entityManager;
-        $this->security = $security;
     }
 
     protected function write(array $record): void

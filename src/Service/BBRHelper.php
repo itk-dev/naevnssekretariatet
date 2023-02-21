@@ -25,9 +25,9 @@ class BBRHelper implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    private array $options;
+    private readonly array $options;
 
-    public function __construct(private AddressHelper $addressHelper, private PropertyAccessorInterface $propertyAccessor, private BBRDataRepository $bbrDataRepository, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private TranslatorInterface $translator, array $bbrHelperOptions)
+    public function __construct(private readonly AddressHelper $addressHelper, private readonly PropertyAccessorInterface $propertyAccessor, private readonly BBRDataRepository $bbrDataRepository, private readonly EntityManagerInterface $entityManager, private readonly HttpClientInterface $httpClient, private readonly TranslatorInterface $translator, array $bbrHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);

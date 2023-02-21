@@ -26,7 +26,7 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
 {
     use TargetPathTrait;
 
-    public function __construct(private EntityManagerInterface $entityManager, private UserRepository $userRepository, private OpenIdConfigurationProviderManager $providerManager, private SessionInterface $session, private UrlGeneratorInterface $router, private BoardMemberRepository $boardMemberRepository, private TranslatorInterface $translator, int $leeway = 0)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly UserRepository $userRepository, private readonly OpenIdConfigurationProviderManager $providerManager, private readonly SessionInterface $session, private readonly UrlGeneratorInterface $router, private readonly BoardMemberRepository $boardMemberRepository, private readonly TranslatorInterface $translator, int $leeway = 0)
     {
         parent::__construct($providerManager, $session, $leeway);
     }

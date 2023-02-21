@@ -20,14 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PartyController extends AbstractController
 {
-    /**
-     * @var PartyHelper
-     */
-    private $partyHelper;
-
-    public function __construct(PartyHelper $partyHelper)
+    public function __construct(private readonly PartyHelper $partyHelper)
     {
-        $this->partyHelper = $partyHelper;
     }
 
     /**

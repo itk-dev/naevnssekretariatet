@@ -18,7 +18,7 @@ class InspectionLetterType extends AbstractType
 {
     use TemplateFormTrait;
 
-    public function __construct(private TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
     }
 

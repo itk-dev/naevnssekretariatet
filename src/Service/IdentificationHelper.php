@@ -17,7 +17,7 @@ class IdentificationHelper implements EventSubscriberInterface
     public const IDENTIFIER_TYPE_CPR = 'CPR';
     public const IDENTIFIER_TYPE_CVR = 'CVR';
 
-    public function __construct(private CprHelper $cprHelper, private CvrHelper $cvrHelper, private PropertyAccessorInterface $propertyAccessor)
+    public function __construct(private readonly CprHelper $cprHelper, private readonly CvrHelper $cvrHelper, private readonly PropertyAccessorInterface $propertyAccessor)
     {
     }
 

@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class HearingHelper
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 

@@ -15,9 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
 {
-    private array $serviceOptions;
+    private readonly array $serviceOptions;
 
-    public function __construct(private MessageBusInterface $bus, private BoardRepository $boardRepository, array $options)
+    public function __construct(private readonly MessageBusInterface $bus, private readonly BoardRepository $boardRepository, array $options)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);

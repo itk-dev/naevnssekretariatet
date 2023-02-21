@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AgendaCaseItemNewType extends AbstractType
 {
-    public function __construct(private BoardHelper $boardHelper, private TranslatorInterface $translator)
+    public function __construct(private readonly BoardHelper $boardHelper, private readonly TranslatorInterface $translator)
     {
     }
 

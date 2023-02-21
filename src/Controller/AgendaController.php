@@ -39,19 +39,8 @@ use Symfony\Component\Uid\UuidV4;
  */
 class AgendaController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var AgendaHelper
-     */
-    private $agendaHelper;
-
-    public function __construct(AgendaHelper $agendaHelper, EntityManagerInterface $entityManager)
+    public function __construct(private readonly AgendaHelper $agendaHelper, private readonly EntityManagerInterface $entityManager)
     {
-        $this->agendaHelper = $agendaHelper;
-        $this->entityManager = $entityManager;
     }
 
     /**

@@ -14,7 +14,7 @@ class CPRLookupCommand extends Command
     protected static $defaultName = 'tvist1:cpr:lookup';
     protected static $defaultDescription = 'Looks up CPR number';
 
-    public function __construct(private CprHelper $cprHelper)
+    public function __construct(private readonly CprHelper $cprHelper)
     {
         parent::__construct();
     }

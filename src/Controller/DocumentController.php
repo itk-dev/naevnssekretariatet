@@ -32,24 +32,8 @@ use Symfony\Component\Translation\TranslatableMessage;
  */
 class DocumentController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var DocumentCopyHelper
-     */
-    private $copyHelper;
-    /**
-     * @var DocumentUploader
-     */
-    private $documentUploader;
-
-    public function __construct(EntityManagerInterface $entityManager, DocumentCopyHelper $copyHelper, DocumentUploader $documentUploader)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly DocumentCopyHelper $copyHelper, private readonly DocumentUploader $documentUploader)
     {
-        $this->entityManager = $entityManager;
-        $this->copyHelper = $copyHelper;
-        $this->documentUploader = $documentUploader;
     }
 
     /**

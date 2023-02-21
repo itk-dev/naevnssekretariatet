@@ -25,7 +25,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CaseFilterType extends AbstractType
 {
-    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseEntityRepository, private FilterHelper $filterHelper, private TranslatorInterface $translator, private UserRepository $userRepository)
+    public function __construct(private readonly BoardRepository $boardRepository, private readonly CaseEntityRepository $caseEntityRepository, private readonly FilterHelper $filterHelper, private readonly TranslatorInterface $translator, private readonly UserRepository $userRepository)
     {
     }
 

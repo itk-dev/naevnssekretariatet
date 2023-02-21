@@ -27,14 +27,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartyCrudController extends AbstractCrudController
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public static function getEntityFqcn(): string

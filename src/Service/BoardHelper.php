@@ -13,7 +13,7 @@ use App\Repository\CaseEntityRepository;
 
 class BoardHelper
 {
-    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository)
+    public function __construct(private readonly BoardRepository $boardRepository, private readonly CaseEntityRepository $caseRepository)
     {
     }
 

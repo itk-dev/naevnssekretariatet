@@ -40,14 +40,12 @@ class MailTemplateHelper
 {
     /**
      * The options.
-     *
-     * @var array
      */
-    private $options;
+    private readonly array $options;
 
     private string $placeholderPattern = '/\$\{(?P<key>[^}]+)\}/';
 
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, private TranslatorInterface $translator, private ComplexMacroHelper $macroHelper, array $mailTemplateHelperOptions)
+    public function __construct(private readonly MailTemplateRepository $mailTemplateRepository, private readonly MailTemplateMacroRepository $mailTemplateMacroRepository, private readonly EntityManagerInterface $entityManager, private readonly SerializerInterface $serializer, private readonly Filesystem $filesystem, private readonly LoggerInterface $logger, private readonly TokenStorageInterface $tokenStorage, private readonly TranslatorInterface $translator, private readonly ComplexMacroHelper $macroHelper, array $mailTemplateHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);

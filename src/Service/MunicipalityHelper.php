@@ -10,24 +10,8 @@ use Symfony\Component\Security\Core\Security;
 
 class MunicipalityHelper
 {
-    /**
-     * @var MunicipalityRepository
-     */
-    private $municipalityRepository;
-    /**
-     * @var Security
-     */
-    private $security;
-    /**
-     * @var SessionInterface
-     */
-    private $session;
-
-    public function __construct(MunicipalityRepository $municipalityRepository, Security $security, SessionInterface $session)
+    public function __construct(private readonly MunicipalityRepository $municipalityRepository, private readonly Security $security, private readonly SessionInterface $session)
     {
-        $this->municipalityRepository = $municipalityRepository;
-        $this->security = $security;
-        $this->session = $session;
     }
 
     /**

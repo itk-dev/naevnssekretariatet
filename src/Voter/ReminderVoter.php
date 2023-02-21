@@ -15,7 +15,7 @@ class ReminderVoter extends Voter
     public const EDIT = 'edit';
     public const DELETE = 'delete';
 
-    public function __construct(private Security $security)
+    public function __construct(private readonly Security $security)
     {
     }
 

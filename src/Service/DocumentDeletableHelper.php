@@ -10,7 +10,7 @@ use App\Repository\DigitalPostRepository;
 
 class DocumentDeletableHelper
 {
-    public function __construct(private DigitalPostRepository $digitalPostRepository, private DigitalPostAttachmentRepository $digitalPostAttachmentRepository, private AgendaCaseItemRepository $agendaCaseItemRepository)
+    public function __construct(private readonly DigitalPostRepository $digitalPostRepository, private readonly DigitalPostAttachmentRepository $digitalPostAttachmentRepository, private readonly AgendaCaseItemRepository $agendaCaseItemRepository)
     {
     }
 

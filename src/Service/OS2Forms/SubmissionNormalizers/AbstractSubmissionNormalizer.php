@@ -9,7 +9,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInterface
 {
-    public function __construct(private DocumentUploader $documentUploader, private string $selvbetjeningUserApiToken, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient)
+    public function __construct(private readonly DocumentUploader $documentUploader, private readonly string $selvbetjeningUserApiToken, private readonly EntityManagerInterface $entityManager, private readonly HttpClientInterface $httpClient)
     {
     }
 

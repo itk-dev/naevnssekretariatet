@@ -14,7 +14,7 @@ class CVRLookupCommand extends Command
     protected static $defaultName = 'tvist1:cvr:lookup';
     protected static $defaultDescription = 'Looks up CVR number';
 
-    public function __construct(private CvrHelper $cvrHelper)
+    public function __construct(private readonly CvrHelper $cvrHelper)
     {
         parent::__construct();
     }

@@ -15,24 +15,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AgendaFilterType extends AbstractType
 {
-    /**
-     * @var BoardRepository
-     */
-    private $boardRepository;
-    /**
-     * @var FilterHelper
-     */
-    private $filterHelper;
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(BoardRepository $boardRepository, FilterHelper $filterHelper, TranslatorInterface $translator)
+    public function __construct(private readonly BoardRepository $boardRepository, private readonly FilterHelper $filterHelper, private readonly TranslatorInterface $translator)
     {
-        $this->boardRepository = $boardRepository;
-        $this->filterHelper = $filterHelper;
-        $this->translator = $translator;
     }
 
     public function getBlockPrefix()

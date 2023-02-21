@@ -7,7 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 
 class SearchService
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 

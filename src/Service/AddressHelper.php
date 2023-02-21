@@ -21,7 +21,7 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
 {
     use LoggerAwareTrait;
 
-    public function __construct(private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private TranslatorInterface $translator)
+    public function __construct(private readonly PropertyAccessorInterface $propertyAccessor, private readonly EntityManagerInterface $entityManager, private readonly HttpClientInterface $httpClient, private readonly TranslatorInterface $translator)
     {
     }
 

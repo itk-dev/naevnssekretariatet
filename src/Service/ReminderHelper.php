@@ -13,19 +13,9 @@ use Psr\Log\LoggerAwareTrait;
 class ReminderHelper implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var ReminderRepository
-     */
-    private $reminderRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, ReminderRepository $reminderRepository)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly ReminderRepository $reminderRepository)
     {
-        $this->entityManager = $entityManager;
-        $this->reminderRepository = $reminderRepository;
     }
 
     /**

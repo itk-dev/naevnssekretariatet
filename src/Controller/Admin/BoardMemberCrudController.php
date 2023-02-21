@@ -19,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BoardMemberCrudController extends AbstractCrudController
 {
-    public function __construct(private TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
     }
 

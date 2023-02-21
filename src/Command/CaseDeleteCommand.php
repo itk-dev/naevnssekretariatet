@@ -17,7 +17,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class CaseDeleteCommand extends Command
 {
-    public function __construct(private CaseEntityRepository $caseRepository, private CaseManager $caseManager)
+    public function __construct(private readonly CaseEntityRepository $caseRepository, private readonly CaseManager $caseManager)
     {
         parent::__construct(null);
     }

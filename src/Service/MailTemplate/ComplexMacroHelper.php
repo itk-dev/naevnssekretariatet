@@ -23,9 +23,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ComplexMacroHelper
 {
-    private array $options;
+    private readonly array $options;
 
-    public function __construct(private RouterInterface $router, private TranslatorInterface $translator, private BoardMemberRepository $memberRepository, array $options)
+    public function __construct(private readonly RouterInterface $router, private readonly TranslatorInterface $translator, private readonly BoardMemberRepository $memberRepository, array $options)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);

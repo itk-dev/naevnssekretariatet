@@ -17,14 +17,9 @@ class BBRCaseDataCommand extends Command
     protected static $defaultName = 'tvist1:bbr:update-case-data';
     protected static $defaultDescription = 'Update BBR data on cases addresses';
 
-    private BBRHelper $bbrHelper;
-    private CaseEntityRepository $caseEntityRepository;
-
-    public function __construct(BBRHelper $bbrHelper, CaseEntityRepository $caseEntityRepository)
+    public function __construct(private readonly BBRHelper $bbrHelper, private readonly CaseEntityRepository $caseEntityRepository)
     {
         parent::__construct();
-        $this->bbrHelper = $bbrHelper;
-        $this->caseEntityRepository = $caseEntityRepository;
     }
 
     protected function configure(): void

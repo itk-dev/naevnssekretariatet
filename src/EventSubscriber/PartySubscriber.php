@@ -11,19 +11,8 @@ use Doctrine\ORM\Events;
 
 class PartySubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var CasePartyRelationRepository
-     */
-    private $relationRepository;
-    /**
-     * @var PartyHelper
-     */
-    private $partyHelper;
-
-    public function __construct(CasePartyRelationRepository $relationRepository, PartyHelper $partyHelper)
+    public function __construct(private readonly CasePartyRelationRepository $relationRepository, private readonly PartyHelper $partyHelper)
     {
-        $this->relationRepository = $relationRepository;
-        $this->partyHelper = $partyHelper;
     }
 
     public function preUpdate(PreUpdateEventArgs $args)

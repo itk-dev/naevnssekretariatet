@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EntityPostPersistSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private MailTemplateHelper $mailTemplateHelper, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private DigitalPostHelper $digitalPostHelper, private TranslatorInterface $translator)
+    public function __construct(private readonly MailTemplateHelper $mailTemplateHelper, private readonly DocumentUploader $documentUploader, private readonly EntityManagerInterface $entityManager, private readonly DigitalPostHelper $digitalPostHelper, private readonly TranslatorInterface $translator)
     {
     }
 

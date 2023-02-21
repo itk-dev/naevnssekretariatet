@@ -12,14 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AddPartyFromIndexType extends AbstractType
 {
-    /**
-     * @var PartyHelper
-     */
-    private $partyHelper;
-
-    public function __construct(PartyHelper $partyHelper)
+    public function __construct(private readonly PartyHelper $partyHelper)
     {
-        $this->partyHelper = $partyHelper;
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -13,7 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MailTemplateMacroCrudController extends AbstractCrudController
 {
-    public function __construct(private MailTemplateHelper $mailTemplateHelper, private TranslatorInterface $translator)
+    public function __construct(private readonly MailTemplateHelper $mailTemplateHelper, private readonly TranslatorInterface $translator)
     {
     }
 

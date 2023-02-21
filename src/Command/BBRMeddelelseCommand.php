@@ -17,12 +17,9 @@ class BBRMeddelelseCommand extends Command
     protected static $defaultName = 'tvist1:bbr:meddelelse-url';
     protected static $defaultDescription = 'Get url to “BBR-Meddelelse”';
 
-    private BBRHelper $bbrHelper;
-
-    public function __construct(BBRHelper $bbrHelper)
+    public function __construct(private readonly BBRHelper $bbrHelper)
     {
         parent::__construct();
-        $this->bbrHelper = $bbrHelper;
     }
 
     protected function configure(): void

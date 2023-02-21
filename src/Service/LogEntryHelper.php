@@ -11,9 +11,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogEntryHelper
 {
-    private array $options;
+    private readonly array $options;
 
-    public function __construct(private PropertyAccessorInterface $propertyAccessor, private TranslatorInterface $translator, array $logEntryHelperOptions)
+    public function __construct(private readonly PropertyAccessorInterface $propertyAccessor, private readonly TranslatorInterface $translator, array $logEntryHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);

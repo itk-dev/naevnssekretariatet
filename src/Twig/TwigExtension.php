@@ -14,7 +14,7 @@ use Twig\TwigFunction;
 
 class TwigExtension extends AbstractExtension
 {
-    public function __construct(private Environment $twig, private DocumentDeletableHelper $deletableHelper, private MailTemplateHelper $mailTemplateHelper)
+    public function __construct(private readonly Environment $twig, private readonly DocumentDeletableHelper $deletableHelper, private readonly MailTemplateHelper $mailTemplateHelper)
     {
     }
 

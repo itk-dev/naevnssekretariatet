@@ -22,19 +22,8 @@ use Symfony\Component\Translation\TranslatableMessage;
  */
 class AgendaItemController extends AbstractController
 {
-    /**
-     * @var AgendaItemHelper
-     */
-    private $agendaItemHelper;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    public function __construct(AgendaItemHelper $agendaItemHelper, EntityManagerInterface $entityManager)
+    public function __construct(private readonly AgendaItemHelper $agendaItemHelper, private readonly EntityManagerInterface $entityManager)
     {
-        $this->agendaItemHelper = $agendaItemHelper;
-        $this->entityManager = $entityManager;
     }
 
     /**

@@ -13,14 +13,9 @@ class UpdateCaseDeadlineBooleansCommand extends Command
 {
     protected static $defaultName = 'tvist1:update-case-deadlines';
     protected static $defaultDescription = 'Updates case deadline booleans';
-    /**
-     * @var CaseManager
-     */
-    private $caseManager;
 
-    public function __construct(CaseManager $caseManager)
+    public function __construct(private readonly CaseManager $caseManager)
     {
-        $this->caseManager = $caseManager;
         parent::__construct();
     }
 

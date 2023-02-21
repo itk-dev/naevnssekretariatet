@@ -28,11 +28,11 @@ class CprHelper
     /**
      * The client.
      */
-    private Client $guzzleClient;
-    private array $serviceOptions;
+    private readonly Client $guzzleClient;
+    private readonly array $serviceOptions;
     private PersonBaseDataExtendedService $service;
 
-    public function __construct(private CaseManager $caseManager, private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private TranslatorInterface $translator, array $options)
+    public function __construct(private readonly CaseManager $caseManager, private readonly PropertyAccessorInterface $propertyAccessor, private readonly EntityManagerInterface $entityManager, private readonly TranslatorInterface $translator, array $options)
     {
         $this->guzzleClient = new Client();
         $resolver = new OptionsResolver();

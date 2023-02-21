@@ -26,7 +26,7 @@ use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class MailTemplateCrudController extends AbstractCrudController
 {
-    public function __construct(private MailTemplateHelper $mailTemplateHelper, private TranslatorInterface $translator)
+    public function __construct(private readonly MailTemplateHelper $mailTemplateHelper, private readonly TranslatorInterface $translator)
     {
     }
 

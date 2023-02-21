@@ -28,9 +28,9 @@ class DigitalPostHelper extends DigitalPost
      */
     public const SUBJECT_MAX_LENGTH = 50;
 
-    private array $serviceOptions;
+    private readonly array $serviceOptions;
 
-    public function __construct(private CprHelper $cprHelper, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, array $options)
+    public function __construct(private readonly CprHelper $cprHelper, private readonly DocumentUploader $documentUploader, private readonly EntityManagerInterface $entityManager, array $options)
     {
         parent::__construct();
         $resolver = new OptionsResolver();

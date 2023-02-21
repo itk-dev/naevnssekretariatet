@@ -7,7 +7,7 @@ use App\Service\HearingHelper;
 
 class OS2FormsManager
 {
-    public function __construct(private CaseManager $caseManager, private HearingHelper $hearingHelper, private ResidentComplaintBoardCaseTypeManager $residentComplaintBoardCaseTypeManager, private RentComplaintBoardCaseTypeManager $rentComplaintBoardCaseTypeManager, private FenceComplaintBoardCaseTypeManager $fenceComplaintBoardCaseTypeManager, private HearingResponseManager $hearingResponseManager)
+    public function __construct(private readonly CaseManager $caseManager, private readonly HearingHelper $hearingHelper, private readonly ResidentComplaintBoardCaseTypeManager $residentComplaintBoardCaseTypeManager, private readonly RentComplaintBoardCaseTypeManager $rentComplaintBoardCaseTypeManager, private readonly FenceComplaintBoardCaseTypeManager $fenceComplaintBoardCaseTypeManager, private readonly HearingResponseManager $hearingResponseManager)
     {
     }
 

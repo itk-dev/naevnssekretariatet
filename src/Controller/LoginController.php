@@ -22,9 +22,9 @@ class LoginController extends AbstractController
 
     private string $authenticationProviderCookieName = 'default_authentication_provider';
 
-    private array $options;
+    private readonly array $options;
 
-    public function __construct(private OpenIdConfigurationProviderManager $providerManager, array $loginControllerOptions)
+    public function __construct(private readonly OpenIdConfigurationProviderManager $providerManager, array $loginControllerOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);

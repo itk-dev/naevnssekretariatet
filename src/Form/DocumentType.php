@@ -18,7 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DocumentType extends AbstractType
 {
-    public function __construct(private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private int $maxFileSize)
+    public function __construct(private readonly TranslatorInterface $translator, private readonly EntityManagerInterface $entityManager, private readonly int $maxFileSize)
     {
     }
 

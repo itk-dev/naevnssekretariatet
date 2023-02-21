@@ -25,7 +25,7 @@ class DigitalPostSendCommand extends Command
 {
     private int $maxNumberOfRetries = 10;
 
-    public function __construct(private DigitalPostHelper $digitalPostHelper, private DigitalPostRepository $digitalPostRepository, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private LoggerInterface $databaseLogger)
+    public function __construct(private readonly DigitalPostHelper $digitalPostHelper, private readonly DigitalPostRepository $digitalPostRepository, private readonly DocumentUploader $documentUploader, private readonly EntityManagerInterface $entityManager, private readonly LoggerInterface $databaseLogger)
     {
         parent::__construct(null);
     }

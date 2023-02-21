@@ -23,10 +23,10 @@ class CvrHelper
     /**
      * The client.
      */
-    private Client $guzzleClient;
-    private array $serviceOptions;
+    private readonly Client $guzzleClient;
+    private readonly array $serviceOptions;
 
-    public function __construct(private CaseManager $caseManager, private EntityManagerInterface $entityManager, private PropertyAccessorInterface $propertyAccessor, private TranslatorInterface $translator, array $options)
+    public function __construct(private readonly CaseManager $caseManager, private readonly EntityManagerInterface $entityManager, private readonly PropertyAccessorInterface $propertyAccessor, private readonly TranslatorInterface $translator, array $options)
     {
         $this->guzzleClient = new Client();
         $resolver = new OptionsResolver();

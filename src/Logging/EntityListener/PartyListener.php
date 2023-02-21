@@ -9,14 +9,8 @@ use Symfony\Component\Security\Core\Security;
 
 class PartyListener extends AbstractEntityListener
 {
-    /**
-     * @var CasePartyRelationRepository
-     */
-    private $relationRepository;
-
-    public function __construct(CasePartyRelationRepository $relationRepository, Security $security)
+    public function __construct(private readonly CasePartyRelationRepository $relationRepository, Security $security)
     {
-        $this->relationRepository = $relationRepository;
         parent::__construct($security);
     }
 

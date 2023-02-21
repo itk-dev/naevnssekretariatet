@@ -16,7 +16,7 @@ use Symfony\Component\Uid\UuidV4;
 
 abstract class AbstractEntityListener
 {
-    public function __construct(private Security $security)
+    public function __construct(private readonly Security $security)
     {
     }
 

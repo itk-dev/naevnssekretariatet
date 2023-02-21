@@ -12,7 +12,7 @@ use App\Service\OS2Forms\SubmissionNormalizers\SubmissionNormalizerInterface;
 
 class RentComplaintBoardCaseTypeManager implements CaseSubmissionManagerInterface
 {
-    public function __construct(private CaseSubmissionNormalizer $caseSubmissionNormalizer, private ResidentAndRentBoardSubmissionNormalizer $residentAndRentBoardSubmissionNormalizer, private RentBoardSubmissionNormalizer $rentBoardSubmissionNormalizer, private UserRepository $userRepository)
+    public function __construct(private readonly CaseSubmissionNormalizer $caseSubmissionNormalizer, private readonly ResidentAndRentBoardSubmissionNormalizer $residentAndRentBoardSubmissionNormalizer, private readonly RentBoardSubmissionNormalizer $rentBoardSubmissionNormalizer, private readonly UserRepository $userRepository)
     {
     }
 

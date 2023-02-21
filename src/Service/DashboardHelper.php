@@ -12,7 +12,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DashboardHelper
 {
-    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private TranslatorInterface $translator, private UrlGeneratorInterface $router, private UserRepository $userRepository)
+    public function __construct(private readonly BoardRepository $boardRepository, private readonly CaseEntityRepository $caseRepository, private readonly TranslatorInterface $translator, private readonly UrlGeneratorInterface $router, private readonly UserRepository $userRepository)
     {
     }
 

@@ -19,24 +19,8 @@ use Symfony\Component\Translation\TranslatableMessage;
 
 class CaseReminderController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var ReminderHelper
-     */
-    private $reminderHelper;
-    /**
-     * @var Security
-     */
-    private $security;
-
-    public function __construct(EntityManagerInterface $entityManager, ReminderHelper $reminderHelper, Security $security)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly ReminderHelper $reminderHelper, private readonly Security $security)
     {
-        $this->entityManager = $entityManager;
-        $this->reminderHelper = $reminderHelper;
-        $this->security = $security;
     }
 
     /**

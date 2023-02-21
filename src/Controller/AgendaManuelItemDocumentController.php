@@ -23,19 +23,8 @@ use Symfony\Component\Translation\TranslatableMessage;
  */
 class AgendaManuelItemDocumentController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var DocumentUploader
-     */
-    private $documentUploader;
-
-    public function __construct(DocumentUploader $documentUploader, EntityManagerInterface $entityManager)
+    public function __construct(private readonly DocumentUploader $documentUploader, private readonly EntityManagerInterface $entityManager)
     {
-        $this->documentUploader = $documentUploader;
-        $this->entityManager = $entityManager;
     }
 
     /**

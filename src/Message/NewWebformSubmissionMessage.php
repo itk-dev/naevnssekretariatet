@@ -4,7 +4,7 @@ namespace App\Message;
 
 class NewWebformSubmissionMessage
 {
-    public function __construct(private array $webformSubmission)
+    public function __construct(private readonly array $webformSubmission)
     {
     }
 

@@ -18,7 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 
 class DeletedCasesCrudController extends AbstractCrudController
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 
