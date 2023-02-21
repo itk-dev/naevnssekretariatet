@@ -36,15 +36,11 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
         $claims = $this->validateClaims($request);
 
         $providerKey = $claims['open_id_connect_provider'] ?? null;
-        switch ($providerKey) {
-            case 'admin':
-                return $this->getAdminUser($claims);
-
-            case 'board-member':
-                return $this->getBoardMemberUser($claims, $request);
-        }
-
-        throw new \RuntimeException(sprintf('Invalid open id connect provider: %s', $providerKey));
+        return match ($providerKey) {
+            'admin' => $this->getAdminUser($claims),
+            'board-member' => $this->getBoardMemberUser($claims, $request),
+            default => throw new \RuntimeException(sprintf('Invalid open id connect provider: %s', $providerKey)),
+        };
     }
 
     private function getAdminUser(array $claims)
