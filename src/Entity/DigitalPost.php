@@ -47,12 +47,12 @@ class DigitalPost
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $entityType;
+    private ?string $entityType = null;
 
     /**
      * @ORM\Column(type="uuid", nullable=true)
      */
-    private ?Uuid $entityId;
+    private ?Uuid $entityId = null;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
