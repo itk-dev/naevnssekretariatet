@@ -245,9 +245,9 @@ class Board implements LoggableEntityInterface, \Stringable
         ];
     }
 
-    public function getStatuses(): ?string
+    public function getStatuses(): string
     {
-        return $this->statuses;
+        return $this->statuses ?? '';
     }
 
     public function setStatuses(string $statuses): self
@@ -287,9 +287,9 @@ class Board implements LoggableEntityInterface, \Stringable
         return $this;
     }
 
-    public function getPartyTypes(): ?string
+    public function getPartyTypes(): string
     {
-        return $this->partyTypes;
+        return $this->partyTypes ?? '';
     }
 
     public function setPartyTypes(string $partyTypes): self
@@ -317,9 +317,9 @@ class Board implements LoggableEntityInterface, \Stringable
         return $this;
     }
 
-    public function getCounterpartyTypes(): ?string
+    public function getCounterpartyTypes(): string
     {
-        return $this->counterpartyTypes;
+        return $this->counterpartyTypes ?? '';
     }
 
     public function setCounterpartyTypes(string $counterpartyTypes): self

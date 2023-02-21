@@ -41,9 +41,9 @@ class LogEntryHelper
     {
         $data = $logEntry->getData();
         foreach ($this->options['log_entry_display']['exclude_keys'] as $key) {
-            if (preg_match('/([\/#~]).+\1$/', $key)) {
+            if (preg_match('/([\/#~]).+\1$/', (string) $key)) {
                 // It looks like a regex.
-                $data = array_filter($data, fn ($name) => 0 === preg_match($key, $name), ARRAY_FILTER_USE_KEY);
+                $data = array_filter($data, fn ($name) => 0 === preg_match($key, (string) $name), ARRAY_FILTER_USE_KEY);
             } else {
                 unset($data[$key]);
             }

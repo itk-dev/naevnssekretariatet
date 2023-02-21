@@ -23,7 +23,7 @@ class SearchService
             $match = $caseNumberMatches[0];
 
             // Add '-' if missing.
-            if (8 === \strlen($match)) {
+            if (8 === \strlen((string) $match)) {
                 $match = substr($match, 0, 2).'-'.substr($match, 2, 6);
             }
 

@@ -283,7 +283,7 @@ class MailTemplateHelper
         $templateType = $mailTemplate->getType();
         $macros = $this->mailTemplateMacroRepository->findByTemplateType($templateType);
         foreach ($macros as $macro) {
-            if (preg_match_all($this->placeholderPattern, $macro->getContent(), $matches)) {
+            if (preg_match_all($this->placeholderPattern, (string) $macro->getContent(), $matches)) {
                 $placeHolders[] = $matches['key'];
             }
         }
@@ -350,7 +350,7 @@ class MailTemplateHelper
         foreach ($placeHolders as $placeHolder) {
             // Handle placeholders on the form «key»|«filter»(«argument»), e.g.
             //   case.inspection_date:dd/mm/yyyy
-            if (preg_match('/^(?P<key>.+)\|(?P<filter>[a-z]+)\((?P<argument>.+)\)$/', $placeHolder, $matches)) {
+            if (preg_match('/^(?P<key>.+)\|(?P<filter>[a-z]+)\((?P<argument>.+)\)$/', (string) $placeHolder, $matches)) {
                 [, $key, $filter, $argument] = $matches;
                 if (isset($values[$key])) {
                     $argument = trim($argument, '\'"');

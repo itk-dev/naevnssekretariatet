@@ -295,9 +295,9 @@ class User implements UserInterface, LoggableEntityInterface, \Stringable
         return $this;
     }
 
-    public function getShortcuts(): ?string
+    public function getShortcuts(): string
     {
-        return $this->shortcuts;
+        return $this->shortcuts ?? '';
     }
 
     public function setShortcuts(?string $shortcuts): self

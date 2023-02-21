@@ -44,9 +44,9 @@ class Identification implements LoggableEntityInterface
         return $this;
     }
 
-    public function getIdentifier(): ?string
+    public function getIdentifier(): string
     {
-        return $this->identifier;
+        return $this->identifier ?? '';
     }
 
     public function setIdentifier(?string $identifier): self
