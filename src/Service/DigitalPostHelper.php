@@ -26,7 +26,7 @@ class DigitalPostHelper extends DigitalPost
      * > Titel på dokumentet. Ved forsendelser til eBoks, må der maksimalt
      * > angives 50 tegn.
      */
-    public const SUBJECT_MAX_LENGTH = 50;
+    public final const SUBJECT_MAX_LENGTH = 50;
 
     private readonly array $serviceOptions;
 

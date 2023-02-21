@@ -11,9 +11,9 @@ use Symfony\Component\Security\Core\Security;
 
 class CaseVoter extends Voter
 {
-    public const VIEW = 'view';
-    public const EDIT = 'edit';
-    public const DELETE = 'delete';
+    public final const VIEW = 'view';
+    public final const EDIT = 'edit';
+    public final const DELETE = 'delete';
 
     public function __construct(private readonly Security $security)
     {

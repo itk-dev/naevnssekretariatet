@@ -14,8 +14,8 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class IdentificationHelper implements EventSubscriberInterface
 {
-    public const IDENTIFIER_TYPE_CPR = 'CPR';
-    public const IDENTIFIER_TYPE_CVR = 'CVR';
+    public final const IDENTIFIER_TYPE_CPR = 'CPR';
+    public final const IDENTIFIER_TYPE_CVR = 'CVR';
 
     public function __construct(private readonly CprHelper $cprHelper, private readonly CvrHelper $cvrHelper, private readonly PropertyAccessorInterface $propertyAccessor)
     {

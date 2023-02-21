@@ -11,8 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MailTemplateCustomDataType extends AbstractType
 {
-    public const TYPE_TEXTAREA = 'textarea';
-    public const TYPE_TEXT = 'text';
+    public final const TYPE_TEXTAREA = 'textarea';
+    public final const TYPE_TEXT = 'text';
 
     public function __construct(private readonly MailTemplateHelper $mailTemplateHelper)
     {
