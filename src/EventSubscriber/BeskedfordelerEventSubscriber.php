@@ -2,6 +2,8 @@
 
 namespace App\EventSubscriber;
 
+use App\Entity\DigitalPostEnvelope;
+use App\Repository\DigitalPostEnvelopeRepository;
 use Itkdev\BeskedfordelerBundle\Event\PostStatusBeskedModtagEvent;
 use Itkdev\BeskedfordelerBundle\Helper\MessageHelper;
 use Psr\Log\LoggerAwareTrait;
@@ -12,9 +14,7 @@ class BeskedfordelerEventSubscriber implements EventSubscriberInterface
 {
     use LoggerAwareTrait;
 
-    private MessageHelper $messageHelper;
-
-    public function __construct(MessageHelper $messageHelper, LoggerInterface $logger)
+    public function __construct(private MessageHelper $messageHelper, private DigitalPostEnvelopeRepository $envelopeRepository, LoggerInterface $logger)
     {
         $this->messageHelper = $messageHelper;
         $this->setLogger($logger);
@@ -30,8 +30,33 @@ class BeskedfordelerEventSubscriber implements EventSubscriberInterface
     public function postStatusBeskedModtag(PostStatusBeskedModtagEvent $event): void
     {
         try {
-            $data = $this->messageHelper->getBeskeddata($event->getDocument()->saveXML());
-            $this->logger->debug(json_encode(['data' => $data]));
+            $beskedfordelerMessage = $event->getDocument()->saveXML();
+            $data = $this->messageHelper->getBeskeddata($beskedfordelerMessage);
+            if ($messageUuid = ($data['MessageUUID'] ?? null)) {
+                $envelope = $this->envelopeRepository->findOneBy(['messageUuid' => $messageUuid]);
+                if (null !== $envelope) {
+                    // We may receive the same message multiple times.
+                    if (!in_array($beskedfordelerMessage, $envelope->getBeskedfordelerMessages(), true)) {
+                        $envelope
+                            ->addBeskedfordelerMessage($beskedfordelerMessage)
+                            ->setStatusMessage($data['TransaktionsStatusKode'])
+                        ;
+
+                        if (!empty($data['FejlDetaljer'])) {
+                            $envelope->setStatus(DigitalPostEnvelope::STATUS_FAILED);
+                        } else {
+                            // @todo physical post may generate multiple messages.
+                            $envelope->setStatus(DigitalPostEnvelope::STATUS_DELIVERED);
+                        }
+
+                        $this->envelopeRepository->save($envelope, true);
+                        $this->logger->info(sprintf('Beskedfordeler message "%s" added to message %s',
+                            $data['TransaktionsStatusKode'] ?? null, $messageUuid));
+                    }
+                } else {
+                    $this->logger->warning(sprintf('Unknown Beskedfordeler message uuid: %s', $messageUuid));
+                }
+            }
         } catch (\Throwable $exception) {
             $this->logger->error($exception->getMessage(), [
                 'exception' => $exception,

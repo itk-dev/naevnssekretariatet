@@ -24,6 +24,12 @@ App\Entity\DigitalPost:
         entityId: '@test-case-aarhus-1->id'
         subject: 'Digital post with a very long subject'
 
+    digital-post-005:
+        document: '@document-001'
+        entityType: 'App\Entity\ResidentComplaintBoardCase'
+        entityId: '@test-case-aarhus-1->id'
+        subject: 'Digital post with multiple recipients'
+
 App\Entity\DigitalPostAttachment:
     digital-post-attachment-001:
         digitalPost: '@digital-post-001'
@@ -47,4 +53,18 @@ App\Entity\DigitalPost\Recipient:
         name: 'Mr. Bean'
         identifierType: 'CPR'
         identifier: '0000000000'
+        address: '@test-case-aarhus-1-bringer-address'
+
+    recipient-003:
+        digitalPost: '@digital-post-005'
+        name: 'Test Testersen'
+        identifierType: 'CPR'
+        identifier: '1705880000'
+        address: '@test-case-aarhus-1-bringer-address'
+
+    recipient-004:
+        digitalPost: '@digital-post-005'
+        name: 'TestbrugerA'
+        identifierType: 'CPR'
+        identifier: '2611740000'
         address: '@test-case-aarhus-1-bringer-address'
