@@ -62,7 +62,7 @@ class DigitalPost
     /**
      * @ORM\Column(type="json", nullable=true)
      */
-    private $data = [];
+    private array $data = [];
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
@@ -98,7 +98,7 @@ class DigitalPost
     /**
      * @ORM\Column(type="integer")
      */
-    private $totalFileSize = 0;
+    private int $totalFileSize = 0;
 
     public function __construct()
     {

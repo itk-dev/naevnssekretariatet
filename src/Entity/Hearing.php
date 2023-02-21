@@ -39,17 +39,17 @@ class Hearing implements LoggableEntityInterface
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $partyHasNoMoreToAdd = false;
+    private bool $partyHasNoMoreToAdd = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $counterpartHasNoMoreToAdd = false;
+    private bool $counterpartHasNoMoreToAdd = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $hasNewHearingPost = false;
+    private bool $hasNewHearingPost = false;
 
     /**
      * @ORM\Column(type="date", nullable=true)

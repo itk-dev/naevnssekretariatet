@@ -51,7 +51,7 @@ class FenceReviewCase extends CaseEntity
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $accusedIsUnderAddressProtection = false;
+    private bool $accusedIsUnderAddressProtection = false;
 
     public function __construct()
     {

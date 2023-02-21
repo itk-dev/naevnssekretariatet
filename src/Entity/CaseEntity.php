@@ -84,12 +84,12 @@ abstract class CaseEntity implements Timestampable, \Stringable
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $isReadyForAgenda = false;
+    private bool $isReadyForAgenda = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $shouldBeInspected = false;
+    private bool $shouldBeInspected = false;
 
     /**
      * @ORM\OneToOne(targetEntity=CasePresentation::class, inversedBy="caseEntity", cascade={"persist", "remove"}, fetch="EAGER")
@@ -156,12 +156,12 @@ abstract class CaseEntity implements Timestampable, \Stringable
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $hasReachedHearingDeadline = false;
+    private bool $hasReachedHearingDeadline = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $hasReachedProcessingDeadline = false;
+    private bool $hasReachedProcessingDeadline = false;
 
     /**
      * @ORM\OneToOne(targetEntity=Hearing::class, inversedBy="caseEntity", cascade={"persist", "remove"})
@@ -193,7 +193,7 @@ abstract class CaseEntity implements Timestampable, \Stringable
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $bringerIsUnderAddressProtection = false;
+    private bool $bringerIsUnderAddressProtection = false;
 
     /**
      * @ORM\Column(type="datetime")
@@ -216,7 +216,7 @@ abstract class CaseEntity implements Timestampable, \Stringable
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $hasReachedHearingResponseDeadline = false;
+    private bool $hasReachedHearingResponseDeadline = false;
 
     /**
      * @ORM\Column(type="date", nullable=true)

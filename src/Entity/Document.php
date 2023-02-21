@@ -66,7 +66,7 @@ class Document implements LoggableEntityInterface, \Stringable
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $isCreatedManually = false;
+    private bool $isCreatedManually = false;
 
     public function __construct()
     {

@@ -16,7 +16,7 @@ class AgendaCaseItem extends AgendaItem
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $inspection = false;
+    private bool $inspection = false;
 
     /**
      * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="agendaCaseItems")

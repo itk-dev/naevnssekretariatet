@@ -30,7 +30,7 @@ class User implements UserInterface, LoggableEntityInterface, \Stringable
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

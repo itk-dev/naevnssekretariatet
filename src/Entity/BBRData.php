@@ -35,7 +35,7 @@ class BBRData
     /**
      * @ORM\Column(type="json")
      */
-    private $data = [];
+    private array $data = [];
 
     public function __construct()
     {

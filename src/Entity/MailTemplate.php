@@ -41,15 +41,12 @@ class MailTemplate implements LoggableEntityInterface, \Stringable
 
     /**
      * @ORM\Column(type="string", length=255)
-     *
-     * @var string
      */
-    private $templateFilename;
+    private string $templateFilename;
 
     /**
      * @Vich\UploadableField(mapping="mail_templates", fileNameProperty="templateFilename")
      *
-     * @var File
      *
      * @Assert\File(
      *     maxSize = "4M",
@@ -57,7 +54,7 @@ class MailTemplate implements LoggableEntityInterface, \Stringable
      *     mimeTypesMessage = "Please upload a valid Word document (docx)."
      * )
      */
-    private $templateFile;
+    private ?\Symfony\Component\HttpFoundation\File\File $templateFile = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -72,7 +69,7 @@ class MailTemplate implements LoggableEntityInterface, \Stringable
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $isArchived = false;
+    private bool $isArchived = false;
 
     public function __construct()
     {

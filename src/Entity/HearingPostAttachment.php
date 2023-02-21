@@ -36,7 +36,7 @@ class HearingPostAttachment implements LoggableEntityInterface
     /**
      * @ORM\Column(type="integer")
      */
-    private $position = 0;
+    private int $position = 0;
 
     public function __construct()
     {

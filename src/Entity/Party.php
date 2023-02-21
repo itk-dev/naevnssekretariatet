@@ -61,7 +61,7 @@ class Party implements LoggableEntityInterface, \Stringable
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $isUnderAddressProtection = false;
+    private bool $isUnderAddressProtection = false;
 
     public function __construct()
     {

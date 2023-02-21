@@ -44,7 +44,7 @@ class Agenda implements LoggableEntityInterface, \Stringable
      * @ORM\Column(type="integer", length=255, nullable=true)
      * @Groups({"mail_template"})
      */
-    private $status = AgendaStatus::OPEN;
+    private int $status = AgendaStatus::OPEN;
 
     /**
      * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="agendas")
@@ -79,7 +79,7 @@ class Agenda implements LoggableEntityInterface, \Stringable
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isPublished = false;
+    private bool $isPublished = false;
 
     /**
      * @ORM\OneToMany(targetEntity=AgendaBroadcast::class, mappedBy="agenda", orphanRemoval=true)

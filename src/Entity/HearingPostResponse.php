@@ -32,7 +32,7 @@ class HearingPostResponse extends HearingPost
     /**
      * @ORM\Column(type="boolean", options={"default":"1"})
      */
-    private $sendReceipt = true;
+    private bool $sendReceipt = true;
 
     public function getSender(): ?Party
     {
