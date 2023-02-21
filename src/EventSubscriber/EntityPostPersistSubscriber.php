@@ -67,7 +67,7 @@ class EntityPostPersistSubscriber implements EventSubscriberInterface
             $this->entityManager->persist($relation);
             $this->entityManager->persist($document);
 
-            $this->digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($case), $case->getId(), [], $digitalPostRecipients);
+            $this->digitalPostHelper->createDigitalPost($document, $documentTitle, $case::class, $case->getId(), [], $digitalPostRecipients);
         }
     }
 }

@@ -416,7 +416,7 @@ class HearingController extends AbstractController
             $this->entityManager->persist($relation);
             $this->entityManager->persist($document);
 
-            $digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($case), $case->getId(), [], $digitalPostRecipients);
+            $digitalPostHelper->createDigitalPost($document, $documentTitle, $case::class, $case->getId(), [], $digitalPostRecipients);
         }
 
         $today = new DateTime('today');
@@ -460,7 +460,7 @@ class HearingController extends AbstractController
             ->setAddress($hearingPost->getRecipient()->getAddress())
         ;
 
-        $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+        $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), $hearingPost->getTitle(), $case::class, $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
 
         $today = new DateTime('today');
 
@@ -539,7 +539,7 @@ class HearingController extends AbstractController
             $this->entityManager->remove($document);
             $this->entityManager->flush();
 
-            $message = match (get_class($hearingPost)) {
+            $message = match ($hearingPost::class) {
                 HearingPostResponse::class => new TranslatableMessage('Hearing post response deleted', [], 'case'),
                 default => new TranslatableMessage('Hearing post request deleted', [], 'case'),
             };

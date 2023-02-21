@@ -100,7 +100,7 @@ class AgendaInspectionController extends AbstractController
 
             $entityManager->persist($inspection);
 
-            $digitalPostHelper->createDigitalPost($document, $inspection->getTitle(), get_class($agendaItem), $agendaItem->getId(), [], $digitalPostRecipients);
+            $digitalPostHelper->createDigitalPost($document, $inspection->getTitle(), $agendaItem::class, $agendaItem->getId(), [], $digitalPostRecipients);
 
             return $this->redirectToRoute('agenda_case_item_inspection', [
                 'id' => $agenda->getId(),

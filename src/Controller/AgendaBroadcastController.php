@@ -112,7 +112,7 @@ class AgendaBroadcastController extends AbstractController
 
             $entityManager->persist($agendaBroadcast);
 
-            $digitalPostHelper->createDigitalPost($document, $agendaBroadcast->getTitle(), get_class($agenda), $agenda->getId(), [], $digitalPostRecipients);
+            $digitalPostHelper->createDigitalPost($document, $agendaBroadcast->getTitle(), $agenda::class, $agenda->getId(), [], $digitalPostRecipients);
 
             return $this->redirectToRoute('agenda_broadcast', [
                 'id' => $agenda->getId(),

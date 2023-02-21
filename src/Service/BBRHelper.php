@@ -172,7 +172,7 @@ class BBRHelper implements LoggerAwareInterface
     {
         $address = $this->propertyAccessor->getValue($entity, $property);
         if (!($address instanceof Address)) {
-            throw $this->createException(sprintf('Property %s.%s must be an instance of %s; is %s', get_class($entity), $property, Address::class, get_class($address)));
+            throw $this->createException(sprintf('Property %s.%s must be an instance of %s; is %s', $entity::class, $property, Address::class, $address::class));
         }
 
         return $address;

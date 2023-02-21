@@ -74,7 +74,7 @@ class DigitalPostSendCommand extends Command
                 continue;
             }
 
-            $io->title(sprintf('% 3d/%d %s:%s', $index + 1, count($digitalPosts), get_class($digitalPost), $digitalPost->getId()));
+            $io->title(sprintf('% 3d/%d %s:%s', $index + 1, count($digitalPosts), $digitalPost::class, $digitalPost->getId()));
 
             try {
                 $content = $this->documentUploader->getFileContent($digitalPost->getDocument());

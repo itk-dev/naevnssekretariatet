@@ -109,7 +109,7 @@ class DecisionController extends AbstractController
                 ;
             }
 
-            $digitalPostHelper->createDigitalPost($document, $decision->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+            $digitalPostHelper->createDigitalPost($document, $decision->getTitle(), $case::class, $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
 
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Decision created', [], 'decision'));

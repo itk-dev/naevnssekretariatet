@@ -43,7 +43,7 @@ class AgendaItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             $agendaItem = $form->get('agendaItem')->getData();
 
-            if (AgendaCaseItem::class === get_class($agendaItem)) {
+            if (AgendaCaseItem::class === $agendaItem::class) {
                 $agendaItem->getCaseEntity()->setDateForActiveAgenda($agenda->getDate());
 
                 $agendaItem->setInspection(
@@ -54,7 +54,7 @@ class AgendaItemController extends AbstractController
             $agenda->addAgendaItem($agendaItem);
             $this->entityManager->persist($agendaItem);
             $this->entityManager->flush();
-            $message = match (get_class($agendaItem)) {
+            $message = match ($agendaItem::class) {
                 AgendaManuelItem::class => new TranslatableMessage('Agenda manual item created', [], 'agenda'),
                 default => new TranslatableMessage('Agenda case item created', [], 'agenda'),
             };
@@ -93,7 +93,7 @@ class AgendaItemController extends AbstractController
             $this->denyAccessUnlessGranted('edit', $agendaItem);
 
             $this->entityManager->flush();
-            $message = match (get_class($agendaItem)) {
+            $message = match ($agendaItem::class) {
                 AgendaManuelItem::class => new TranslatableMessage('Agenda manual item updated', [], 'agenda'),
                 default => new TranslatableMessage('Agenda case item updated', [], 'agenda'),
             };
@@ -129,7 +129,7 @@ class AgendaItemController extends AbstractController
             }
             $this->entityManager->remove($agendaItem);
             $this->entityManager->flush();
-            $message = match (get_class($agendaItem)) {
+            $message = match ($agendaItem::class) {
                 AgendaManuelItem::class => new TranslatableMessage('Agenda manual item deleted', [], 'agenda'),
                 default => new TranslatableMessage('Agenda case item deleted', [], 'agenda'),
             };

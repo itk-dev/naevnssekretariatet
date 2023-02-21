@@ -159,7 +159,7 @@ class MailTemplateHelper
                     if ($element instanceof Text) {
                         return $element->getText();
                     }
-                    throw new MailTemplateException(sprintf('Unhandled element: %s', get_class($element)));
+                    throw new MailTemplateException(sprintf('Unhandled element: %s', $element::class));
                 }, $value->getElements()));
             }
             if ($expandMacros) {
@@ -267,7 +267,7 @@ class MailTemplateHelper
 
     private function isBlockElement(AbstractElement $element)
     {
-        return in_array(get_class($element), self::$blockElementClasses, true);
+        return in_array($element::class, self::$blockElementClasses, true);
     }
 
     /**
@@ -562,7 +562,7 @@ class MailTemplateHelper
      */
     private function validateEntityType(MailTemplate $mailTemplate, string|object $entity)
     {
-        $entityType = is_string($entity) ? $entity : get_class($entity);
+        $entityType = is_string($entity) ? $entity : $entity::class;
         $classNames = $this->getTemplateEntityClassNames($mailTemplate) ?? [];
         foreach ($classNames as $className) {
             if (is_a($entityType, $className, true)) {

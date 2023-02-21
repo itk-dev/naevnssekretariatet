@@ -124,7 +124,7 @@ abstract class AbstractEntityListener
             }
 
             // Property was not handled
-            $message = sprintf('Unhandled property %s of type %s.', $key, is_scalar($changedValue) ? gettype($changedValue) : (is_array($changedValue) ? 'array' : get_class($changedValue)));
+            $message = sprintf('Unhandled property %s of type %s.', $key, is_scalar($changedValue) ? gettype($changedValue) : (is_array($changedValue) ? 'array' : $changedValue::class));
             throw new ItkDevLoggingException($message);
         }
 
@@ -133,7 +133,7 @@ abstract class AbstractEntityListener
 
         // Set values on log entry
         $logEntry->setCaseID($case->getId());
-        $logEntry->setEntity(get_class($object));
+        $logEntry->setEntity($object::class);
         $logEntry->setEntityID($object->getId());
         $logEntry->setAction($action);
 
@@ -163,7 +163,7 @@ abstract class AbstractEntityListener
             $nameOfGetter = 'get'.ucfirst($loggedProperty);
 
             if (!method_exists($entity, $nameOfGetter)) {
-                $message = sprintf('Getter %s not found in %s.', $nameOfGetter, get_class($entity));
+                $message = sprintf('Getter %s not found in %s.', $nameOfGetter, $entity::class);
                 throw new ItkDevGetFunctionNotFoundException($message);
             }
 
