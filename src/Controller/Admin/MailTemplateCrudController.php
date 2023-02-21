@@ -64,9 +64,7 @@ class MailTemplateCrudController extends AbstractCrudController
             ->setHelp($this->translator->trans('List of custom fields (one per line). Format «name»|«label»|«type».<br/>«name» must start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_").<br/>«type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text.<br/>Example: full_name|Full name|textarea.',
                 [], 'admin'))
             // Avoid showing 'Null' or 'Tom' if customFields is not set.
-            ->formatValue(function ($value) {
-                return $value ?? ' ';
-            })
+            ->formatValue(fn($value) => $value ?? ' ')
         ;
         yield TextareaField::new('description');
         yield Field::new('templateFile')

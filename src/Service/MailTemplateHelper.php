@@ -165,9 +165,7 @@ class MailTemplateHelper
             if ($expandMacros) {
                 $value = preg_replace_callback(
                     $this->placeholderPattern,
-                    static function (array $matches) use ($values) {
-                        return $values[$matches['key']] ?? $matches[0];
-                    },
+                    static fn(array $matches) => $values[$matches['key']] ?? $matches[0],
                     $value
                 );
             }
@@ -368,7 +366,7 @@ class MailTemplateHelper
         }
 
         // Set empty string values for all template variables without a value.
-        $values += array_map(static function ($count) { return ''; }, $templateProcessor->getVariableCount());
+        $values += array_map(static fn($count) => '', $templateProcessor->getVariableCount());
 
         return $values;
     }

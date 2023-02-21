@@ -51,12 +51,8 @@ class DocumentType extends AbstractType
         // Add a transformer from string to UploadedDocumentType and back.
         $builder->get('type')
             ->addModelTransformer(new CallbackTransformer(
-                function ($name) {
-                    return $this->entityManager->getRepository(UploadedDocumentType::class)->findOneBy(['name' => $name]);
-                },
-                function (UploadedDocumentType $type) {
-                    return $type->getName();
-                }
+                fn($name) => $this->entityManager->getRepository(UploadedDocumentType::class)->findOneBy(['name' => $name]),
+                fn(UploadedDocumentType $type) => $type->getName()
             ))
         ;
 

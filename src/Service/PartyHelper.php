@@ -179,12 +179,10 @@ class PartyHelper
         ;
 
         $parties = array_map(
-            function ($relation) {
-                return [
-                    'party' => $relation->getParty(),
-                    'type' => $relation->getType(),
-                ];
-            }, $partyRelations
+            fn($relation) => [
+                'party' => $relation->getParty(),
+                'type' => $relation->getType(),
+            ], $partyRelations
         );
 
         $counterpartyRelations = $this->relationRepository
@@ -196,12 +194,10 @@ class PartyHelper
         ;
 
         $counterparties = array_map(
-            function ($relation) {
-                return [
-                    'party' => $relation->getParty(),
-                    'type' => $relation->getType(),
-                ];
-            }, $counterpartyRelations
+            fn($relation) => [
+                'party' => $relation->getParty(),
+                'type' => $relation->getType(),
+            ], $counterpartyRelations
         );
 
         return ['parties' => $parties, 'counterparties' => $counterparties];

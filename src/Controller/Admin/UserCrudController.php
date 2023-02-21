@@ -55,9 +55,7 @@ class UserCrudController extends AbstractCrudController
         ;
         yield TextField::new('initials', 'Initials');
         yield AssociationField::new('favoriteMunicipality', 'Favorite municipality')
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                return $queryBuilder->orderBy('entity.name', 'ASC');
-            })
+            ->setQueryBuilder(fn(QueryBuilder $queryBuilder) => $queryBuilder->orderBy('entity.name', 'ASC'))
         ;
         yield TextareaField::new('shortcuts', 'Shortcuts')
             ->setHelp($this->translator->trans("List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).", [], 'admin'))

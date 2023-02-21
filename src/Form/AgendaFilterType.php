@@ -64,9 +64,7 @@ class AgendaFilterType extends AbstractType
                     ->getQuery()->getResult(),
                 'label' => false,
                 'placeholder' => $this->translator->trans('All boards', [], 'agenda'),
-                'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
-                    return $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values);
-                },
+                'apply_filter' => fn(QueryInterface $filterQuery, $field, $values) => $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values),
             ])
             ->add('date', Filters\DateFilterType::class, [
                 'label' => false,

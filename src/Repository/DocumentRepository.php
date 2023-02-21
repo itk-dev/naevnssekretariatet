@@ -27,9 +27,7 @@ class DocumentRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('d')
             ->where('d.id IN (:ids)')
-            ->setParameter('ids', array_map(function ($id) {
-                return Uuid::fromString($id)->toBinary();
-            }, $ids))
+            ->setParameter('ids', array_map(fn($id) => Uuid::fromString($id)->toBinary(), $ids))
             ->getQuery()
             ->getResult()
         ;
@@ -48,9 +46,7 @@ class DocumentRepository extends ServiceEntityRepository
 
         if (!$agendaCaseItem->getDocuments()->isEmpty()) {
             $qb->andWhere('d.id NOT IN (:agenda_doc_ids)')
-                ->setParameter(':agenda_doc_ids', $agendaCaseItem->getDocuments()->map(function (Document $doc) {
-                    return $doc->getId()->toBinary();
-                }))
+                ->setParameter(':agenda_doc_ids', $agendaCaseItem->getDocuments()->map(fn(Document $doc) => $doc->getId()->toBinary()))
             ;
         }
 

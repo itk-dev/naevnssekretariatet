@@ -97,9 +97,7 @@ class ComplexMacroHelper
         // Complaint categories comma separated names
         $text = new Text();
 
-        $value = implode(', ', array_map(static function (ComplaintCategory $complaintCategory) {
-            return $complaintCategory->getName();
-        }, $case->getComplaintCategories()->toArray()));
+        $value = implode(', ', array_map(static fn(ComplaintCategory $complaintCategory) => $complaintCategory->getName(), $case->getComplaintCategories()->toArray()));
 
         $text->setText($value);
 
