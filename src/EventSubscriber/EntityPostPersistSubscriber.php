@@ -30,6 +30,9 @@ class EntityPostPersistSubscriber implements EventSubscriberInterface
 
     public function postPersist(LifecycleEventArgs $args): void
     {
+        $digitalPostRecipients = [];
+        $documentTitle = null;
+        $documentType = null;
         $entity = $args->getEntity();
 
         $case = null;

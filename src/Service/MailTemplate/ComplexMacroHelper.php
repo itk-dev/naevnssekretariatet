@@ -63,6 +63,7 @@ class ComplexMacroHelper
 
     private function buildCaseMacros(CaseEntity $case): array
     {
+        $values = [];
         // Note: Setting text on the link will break the link.
         $values['case.link'] = new ComplexMacro(
             $this->createLink(
@@ -111,6 +112,7 @@ class ComplexMacroHelper
 
     private function buildAgendaMacros(Agenda $agenda): array
     {
+        $values = [];
         // Note: Setting text on the link will break the link.
         $values['agenda.link'] = new ComplexMacro(
             $this->createLink(

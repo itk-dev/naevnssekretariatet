@@ -56,6 +56,7 @@ class DocumentUploader
      */
     public function createDocumentFromUploadedFile(UploadedFile $file, string $documentName, string $documentType): Document
     {
+        $tempPath = null;
         try {
             $tempDir = sys_get_temp_dir();
             $file = $file->move($tempDir, $file->getClientOriginalName());
