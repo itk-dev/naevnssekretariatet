@@ -16,12 +16,12 @@ class UploadedDocumentType implements LoggableEntityInterface, \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name = null;
 
     public function __construct()
     {

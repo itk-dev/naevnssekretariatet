@@ -19,27 +19,27 @@ class BoardMember implements \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=BoardRole::class, mappedBy="boardMembers")
      */
-    private $boardRoles;
+    private \Doctrine\Common\Collections\ArrayCollection|array $boardRoles;
 
     /**
      * @ORM\ManyToMany(targetEntity=Agenda::class, mappedBy="boardmembers")
      */
-    private $agendas;
+    private \Doctrine\Common\Collections\ArrayCollection|array $agendas;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $cpr;
+    private ?string $cpr = null;
 
     public function __construct()
     {

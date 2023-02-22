@@ -23,18 +23,18 @@ class Hearing implements LoggableEntityInterface
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\OneToMany(targetEntity=HearingPost::class, mappedBy="hearing")
      */
-    private $hearingPosts;
+    private \Doctrine\Common\Collections\ArrayCollection|array $hearingPosts;
 
     /**
      * @ORM\OneToOne(targetEntity=CaseEntity::class, mappedBy="hearing", cascade={"persist", "remove"})
      * @Groups({"mail_template"})
      */
-    private $caseEntity;
+    private ?\App\Entity\CaseEntity $caseEntity = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
@@ -55,12 +55,12 @@ class Hearing implements LoggableEntityInterface
      * @ORM\Column(type="date", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $startedOn;
+    private ?\DateTimeInterface $startedOn = null;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $finishedOn;
+    private ?\DateTimeInterface $finishedOn = null;
 
     public function __construct()
     {

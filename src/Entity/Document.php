@@ -19,49 +19,49 @@ class Document implements LoggableEntityInterface, \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $documentName;
+    private ?string $documentName = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private ?string $type = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $uploadedBy;
+    private ?\App\Entity\User $uploadedBy = null;
 
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    private $uploadedAt;
+    private ?\DateTimeInterface $uploadedAt = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $filename;
+    private ?string $filename = null;
 
     /**
      * @ORM\OneToMany(targetEntity="CaseDocumentRelation", mappedBy="document")
      */
-    private $caseDocumentRelations;
+    private \Doctrine\Common\Collections\ArrayCollection|array $caseDocumentRelations;
 
     /**
      * @ORM\ManyToMany(targetEntity=AgendaCaseItem::class, mappedBy="documents")
      */
-    private $agendaCaseItems;
+    private \Doctrine\Common\Collections\ArrayCollection|array $agendaCaseItems;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $originalFileName;
+    private ?string $originalFileName = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})

@@ -20,25 +20,25 @@ class Agenda implements LoggableEntityInterface, \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $date;
+    private ?\DateTimeInterface $date = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $start;
+    private ?\DateTimeInterface $start = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $end;
+    private ?\DateTimeInterface $end = null;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=true)
@@ -50,31 +50,31 @@ class Agenda implements LoggableEntityInterface, \Stringable
      * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="agendas")
      * @Groups({"mail_template"})
      */
-    private $boardmembers;
+    private \Doctrine\Common\Collections\ArrayCollection|array $boardmembers;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $remarks;
+    private ?string $remarks = null;
 
     /**
      * @ORM\OneToMany(targetEntity=AgendaItem::class, mappedBy="agenda")
      * @ORM\OrderBy({"startTime" = "ASC"})
      */
-    private $agendaItems;
+    private \Doctrine\Common\Collections\ArrayCollection|array $agendaItems;
 
     /**
      * @ORM\OneToOne(targetEntity=AgendaProtocol::class, cascade={"persist", "remove"})
      */
-    private $protocol;
+    private ?\App\Entity\AgendaProtocol $protocol = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="agendas")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"mail_template"})
      */
-    private $board;
+    private ?\App\Entity\Board $board = null;
 
     /**
      * @ORM\Column(type="boolean")
@@ -84,13 +84,13 @@ class Agenda implements LoggableEntityInterface, \Stringable
     /**
      * @ORM\OneToMany(targetEntity=AgendaBroadcast::class, mappedBy="agenda", orphanRemoval=true)
      */
-    private $agendaBroadcasts;
+    private \Doctrine\Common\Collections\ArrayCollection|array $agendaBroadcasts;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $agendaMeetingPoint;
+    private ?string $agendaMeetingPoint = null;
 
     public function __construct()
     {

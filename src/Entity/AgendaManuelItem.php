@@ -15,12 +15,12 @@ class AgendaManuelItem extends AgendaItem
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=Document::class)
      */
-    private $documents;
+    private \Doctrine\Common\Collections\ArrayCollection|array $documents;
 
     public function __construct()
     {

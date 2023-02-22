@@ -15,12 +15,12 @@ class AgendaProtocol
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $protocol;
+    private ?string $protocol = null;
 
     public function __construct()
     {

@@ -17,21 +17,21 @@ class HearingPostAttachment implements LoggableEntityInterface
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=HearingPost::class, inversedBy="attachments")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotNull()
      */
-    private $hearingPost;
+    private ?\App\Entity\HearingPost $hearingPost = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotNull()
      */
-    private $document;
+    private ?\App\Entity\Document $document = null;
 
     /**
      * @ORM\Column(type="integer")

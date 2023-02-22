@@ -16,37 +16,37 @@ class FenceReviewCase extends CaseEntity
     /**
      * @ORM\Column(type="text")
      */
-    private $conditions;
+    private ?string $conditions = null;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $bringerClaim;
+    private ?string $bringerClaim = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $bringerCadastralNumber;
+    private ?string $bringerCadastralNumber = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $accused;
+    private ?string $accused = null;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      */
-    private $accusedAddress;
+    private \App\Entity\Embeddable\Address $accusedAddress;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $accusedCadastralNumber;
+    private ?string $accusedCadastralNumber = null;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
      */
-    private $accusedIdentification;
+    private \App\Entity\Embeddable\Identification $accusedIdentification;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})

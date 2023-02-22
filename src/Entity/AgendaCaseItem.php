@@ -21,27 +21,27 @@ class AgendaCaseItem extends AgendaItem
     /**
      * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="agendaCaseItems")
      */
-    private $caseEntity;
+    private ?\App\Entity\CaseEntity $caseEntity = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=Document::class, inversedBy="agendaCaseItems")
      */
-    private $documents;
+    private \Doctrine\Common\Collections\ArrayCollection|array $documents;
 
     /**
      * @ORM\OneToOne(targetEntity=CasePresentation::class, cascade={"persist", "remove"})
      */
-    private $presentation;
+    private ?\App\Entity\CasePresentation $presentation = null;
 
     /**
      * @ORM\OneToOne(targetEntity=CaseDecisionProposal::class, cascade={"persist", "remove"})
      */
-    private $decisionProposal;
+    private ?\App\Entity\CaseDecisionProposal $decisionProposal = null;
 
     /**
      * @ORM\OneToMany(targetEntity=InspectionLetter::class, mappedBy="agendaCaseItem", orphanRemoval=true)
      */
-    private $inspectionLetters;
+    private \Doctrine\Common\Collections\ArrayCollection|array $inspectionLetters;
 
     public function __construct()
     {

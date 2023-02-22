@@ -16,43 +16,43 @@ class LogEntry
      * @ORM\Id
      * @ORM\Column(type="ulid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\Ulid $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $caseID;
+    private ?string $caseID = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $entityType;
+    private ?string $entityType = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $entityID;
+    private ?string $entityID = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $action;
+    private ?string $action = null;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $data;
+    private ?array $data = null;
 
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $user;
+    private ?string $user = null;
 
     public function __construct()
     {

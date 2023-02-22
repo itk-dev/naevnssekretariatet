@@ -18,33 +18,33 @@ abstract class AgendaItem implements \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $startTime;
+    private ?\DateTimeInterface $startTime = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $endTime;
+    private ?\DateTimeInterface $endTime = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $meetingPoint;
+    private ?string $meetingPoint = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Agenda::class, inversedBy="agendaItems")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $agenda;
+    private ?\App\Entity\Agenda $agenda = null;
 
     public function __construct()
     {

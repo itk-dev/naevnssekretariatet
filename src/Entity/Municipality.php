@@ -20,28 +20,28 @@ class Municipality implements LoggableEntityInterface, \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Groups({"mail_template"})
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Board::class, mappedBy="municipality")
      */
-    private $boards;
+    private \Doctrine\Common\Collections\ArrayCollection|array $boards;
 
     /**
      * @ORM\OneToMany(targetEntity=ComplaintCategory::class, mappedBy="municipality")
      */
-    private $complaintCategories;
+    private \Doctrine\Common\Collections\ArrayCollection|array $complaintCategories;
 
     /**
      * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="municipality")
      */
-    private $caseEntities;
+    private \Doctrine\Common\Collections\ArrayCollection|array $caseEntities;
 
     public function __construct()
     {

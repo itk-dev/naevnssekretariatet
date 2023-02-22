@@ -16,25 +16,25 @@ class DigitalPostAttachment
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=DigitalPost::class, inversedBy="attachments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $digitalPost;
+    private ?\App\Entity\DigitalPost $digitalPost = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $document;
+    private ?\App\Entity\Document $document = null;
 
     /**
      * @Gedmo\SortablePosition()
      * @ORM\Column(type="integer")
      */
-    private $position;
+    private ?int $position = null;
 
     public function __construct()
     {

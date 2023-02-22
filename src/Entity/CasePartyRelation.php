@@ -20,24 +20,24 @@ class CasePartyRelation implements LoggableEntityInterface
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="CaseEntity", inversedBy="casePartyRelation")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $case;
+    private ?\App\Entity\CaseEntity $case = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Party", inversedBy="casePartyRelation")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $party;
+    private ?\App\Entity\Party $party = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private ?string $type = null;
 
     public function __construct()
     {

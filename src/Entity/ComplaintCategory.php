@@ -20,35 +20,35 @@ class ComplaintCategory implements LoggableEntityInterface, \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"mail_template"})
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $fee;
+    private ?float $fee = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=Board::class, inversedBy="complaintCategories")
      */
-    private $boards;
+    private \Doctrine\Common\Collections\ArrayCollection|array $boards;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"mail_template"})
      */
-    private $kle;
+    private ?string $kle = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=CaseEntity::class, mappedBy="complaintCategories")
      */
-    private $caseEntities;
+    private \Doctrine\Common\Collections\ArrayCollection|array $caseEntities;
 
     public function __construct()
     {

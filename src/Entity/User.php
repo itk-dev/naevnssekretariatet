@@ -20,12 +20,12 @@ class User implements UserInterface, LoggableEntityInterface, \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(type="json")
@@ -41,38 +41,38 @@ class User implements UserInterface, LoggableEntityInterface, \Stringable
      * @ORM\Column(type="string", length=255)
      * @Groups({"mail_template"})
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Municipality::class)
      */
-    private $favoriteMunicipality;
+    private ?\App\Entity\Municipality $favoriteMunicipality = null;
 
     /**
      * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="assignedTo")
      */
-    private $assignedCases;
+    private \Doctrine\Common\Collections\ArrayCollection|array $assignedCases;
 
     /**
      * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="createdBy")
      */
-    private $reminders;
+    private \Doctrine\Common\Collections\ArrayCollection|array $reminders;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"mail_template"})
      */
-    private $initials;
+    private ?string $initials = null;
 
     /**
      * @ORM\OneToOne(targetEntity=BoardMember::class, cascade={"persist", "remove"})
      */
-    private $boardMember;
+    private ?\App\Entity\BoardMember $boardMember = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $shortcuts;
+    private ?string $shortcuts = null;
 
     public function __construct()
     {

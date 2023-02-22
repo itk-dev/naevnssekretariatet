@@ -17,81 +17,81 @@ class RentBoardCase extends CaseEntity
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $leaseSize;
+    private ?int $leaseSize = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $bringerPhone;
+    private ?int $bringerPhone = null;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $hasVacated;
+    private ?bool $hasVacated = null;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      * @Groups({"mail_template"})
      */
-    private $leaseAddress;
+    private \App\Entity\Embeddable\Address $leaseAddress;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $leaseStarted;
+    private ?\DateTimeInterface $leaseStarted = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $leaseAgreedRent;
+    private ?int $leaseAgreedRent = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $leaseInteriorMaintenance;
+    private ?string $leaseInteriorMaintenance = null;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $leaseRegulatedRent;
+    private ?bool $leaseRegulatedRent = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $leaseRentAtCollectionTime;
+    private ?int $leaseRentAtCollectionTime = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $leaseSecurityDeposit;
+    private ?int $leaseSecurityDeposit = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $previousCasesAtLease;
+    private ?string $previousCasesAtLease = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $prepaidRent;
+    private ?int $prepaidRent = null;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $feePaid;
+    private ?bool $feePaid = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $leaseType;
+    private ?string $leaseType = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $leaseRegulatedAt;
+    private ?\DateTimeInterface $leaseRegulatedAt = null;
 
     public function __construct()
     {

@@ -13,24 +13,24 @@ class Identification implements LoggableEntityInterface
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
      */
-    private $type;
+    private ?string $type = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $identifier;
+    private ?string $identifier = null;
 
     /**
      * @see https://www.billy.dk/billypedia/p-nummer/
      *
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    private $pNumber;
+    private ?string $pNumber = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $validatedAt;
+    private ?\DateTimeInterface $validatedAt = null;
 
     public function getType(): ?string
     {

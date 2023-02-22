@@ -21,24 +21,24 @@ class Party implements LoggableEntityInterface, \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      * @Groups({"mail_template"})
      */
-    private $address;
+    private \App\Entity\Embeddable\Address $address;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"mail_template"})
      */
-    private $phoneNumber;
+    private ?string $phoneNumber = null;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isPartOfPartIndex;
+    private ?bool $isPartOfPartIndex = null;
 
     /**
      * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="party")
@@ -49,14 +49,14 @@ class Party implements LoggableEntityInterface, \Stringable
      * @ORM\Column(type="string", length=255)
      * @Groups({"mail_template"})
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
      * @Groups({"mail_template"})
      * @Tvist1Assert\PartyIdentification()
      */
-    private $identification;
+    private \App\Entity\Embeddable\Identification $identification;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})

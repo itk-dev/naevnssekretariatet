@@ -25,19 +25,19 @@ class MailTemplate implements LoggableEntityInterface, \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
-    private $description;
+    private ?string $description = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -59,12 +59,12 @@ class MailTemplate implements LoggableEntityInterface, \Stringable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private ?string $type = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $customFields;
+    private ?string $customFields = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})

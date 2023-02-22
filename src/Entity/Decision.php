@@ -22,36 +22,36 @@ class Decision
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $document;
+    private ?\App\Entity\Document $document = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="decisions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $caseEntity;
+    private ?\App\Entity\CaseEntity $caseEntity = null;
 
     /**
      * @ORM\OneToMany(targetEntity=DecisionAttachment::class, mappedBy="decision", orphanRemoval=true, cascade={"persist"})
      * @ORM\OrderBy({"position": "ASC"})
      * @Assert\Valid
      */
-    private $attachments;
+    private \Doctrine\Common\Collections\ArrayCollection|array $attachments;
 
     /**
      * @ORM\ManyToMany(targetEntity=Party::class)
      */
-    private $recipients;
+    private \Doctrine\Common\Collections\ArrayCollection|array $recipients;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title = null;
 
     public function __construct()
     {

@@ -17,23 +17,23 @@ class BoardRole implements \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="boardRoles")
      */
-    private $boardMembers;
+    private \Doctrine\Common\Collections\ArrayCollection|array $boardMembers;
 
     /**
      * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="boardRoles")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $board;
+    private ?\App\Entity\Board $board = null;
 
     public function __construct()
     {

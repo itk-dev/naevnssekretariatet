@@ -21,78 +21,78 @@ class Board implements LoggableEntityInterface, \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"mail_template"})
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="boards")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"mail_template"})
      */
-    private $municipality;
+    private ?\App\Entity\Municipality $municipality = null;
 
     /**
      * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="board")
      */
-    private $caseEntities;
+    private \Doctrine\Common\Collections\ArrayCollection|array $caseEntities;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $caseFormType;
+    private ?string $caseFormType = null;
 
     /**
      * @Assert\Positive
      * @ORM\Column(type="integer")
      */
-    private $hearingResponseDeadline;
+    private ?int $hearingResponseDeadline = null;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $statuses;
+    private ?string $statuses = null;
 
     /**
      * @ORM\OneToMany(targetEntity=BoardRole::class, mappedBy="board")
      */
-    private $boardRoles;
+    private \Doctrine\Common\Collections\ArrayCollection|array $boardRoles;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $partyTypes;
+    private ?string $partyTypes = null;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $counterpartyTypes;
+    private ?string $counterpartyTypes = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Agenda::class, mappedBy="board")
      */
-    private $agendas;
+    private \Doctrine\Common\Collections\ArrayCollection|array $agendas;
 
     /**
      * @Assert\Positive
      * @ORM\Column(type="integer")
      */
-    private $finishProcessingDeadlineDefault;
+    private ?int $finishProcessingDeadlineDefault = null;
 
     /**
      * @Assert\Positive
      * @ORM\Column(type="integer")
      */
-    private $finishHearingDeadlineDefault;
+    private ?int $finishHearingDeadlineDefault = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=ComplaintCategory::class, mappedBy="boards")
      */
-    private $complaintCategories;
+    private \Doctrine\Common\Collections\ArrayCollection|array $complaintCategories;
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
@@ -102,7 +102,7 @@ class Board implements LoggableEntityInterface, \Stringable
      *     message="Please select a template with type board_receipt_case"
      * )
      */
-    private $receiptCase;
+    private ?\App\Entity\MailTemplate $receiptCase = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
@@ -112,21 +112,21 @@ class Board implements LoggableEntityInterface, \Stringable
      *     message="Please select a template with type board_receipt_hearing_post"
      * )
      */
-    private $receiptHearingPost;
+    private ?\App\Entity\MailTemplate $receiptHearingPost = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Email()
      * @Groups({"mail_template"})
      */
-    private $email;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Url()
      * @Groups({"mail_template"})
      */
-    private $url;
+    private ?string $url = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
@@ -136,7 +136,7 @@ class Board implements LoggableEntityInterface, \Stringable
      *     message="Please select a template with type hearing_post_response_template"
      * )
      */
-    private $hearingPostResponseTemplate;
+    private ?\App\Entity\MailTemplate $hearingPostResponseTemplate = null;
 
     public function __construct()
     {

@@ -15,53 +15,53 @@ class Address implements LoggableEntityInterface, \Stringable
      * @ORM\Column(type="string")
      * @Groups({"mail_template"})
      */
-    private $street;
+    private ?string $street = null;
 
     /**
      * @ORM\Column(type="string")
      * @Groups({"mail_template"})
      */
-    private $number;
+    private ?string $number = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $floor;
+    private ?string $floor = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $side;
+    private ?string $side = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"mail_template"})
      */
-    private $postalCode;
+    private ?int $postalCode = null;
 
     /**
      * @ORM\Column(type="string")
      * @Groups({"mail_template"})
      */
-    private $city;
+    private ?string $city = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $validatedAt;
+    private ?\DateTimeInterface $validatedAt = null;
 
     /**
      * @ORM\Column(type="json", nullable=true)
      */
-    private $bbrData;
+    private ?array $bbrData = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"mail_template"})
      */
-    private $extraInformation;
+    private ?string $extraInformation = null;
 
     public function getStreet(): string
     {

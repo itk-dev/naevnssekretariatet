@@ -28,26 +28,26 @@ abstract class HearingPost implements LoggableEntityInterface, \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Hearing::class, inversedBy="hearingPosts")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"mail_template"})
      */
-    private $hearing;
+    private ?\App\Entity\Hearing $hearing = null;
 
     /**
      * @ORM\OneToMany(targetEntity=HearingPostAttachment::class, mappedBy="hearingPost", orphanRemoval=true, cascade={"persist"})
      * @ORM\OrderBy({"position": "ASC"})
      * @Assert\Valid()
      */
-    private $attachments;
+    private \Doctrine\Common\Collections\ArrayCollection|array $attachments;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
      */
-    private $document;
+    private ?\App\Entity\Document $document = null;
 
     public function __construct()
     {

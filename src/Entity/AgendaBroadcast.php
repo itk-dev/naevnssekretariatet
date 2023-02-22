@@ -20,29 +20,29 @@ class AgendaBroadcast implements \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $template;
+    private ?\App\Entity\MailTemplate $template = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
      */
-    private $document;
+    private ?\App\Entity\Document $document = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Agenda::class, inversedBy="agendaBroadcasts")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $agenda;
+    private ?\App\Entity\Agenda $agenda = null;
 
     public function __toString(): string
     {

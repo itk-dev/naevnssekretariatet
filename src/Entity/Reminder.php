@@ -15,33 +15,33 @@ class Reminder
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $status;
+    private ?int $status = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="reminders")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $caseEntity;
+    private ?\App\Entity\CaseEntity $caseEntity = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date;
+    private ?\DateTimeInterface $date = null;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $content;
+    private ?string $content = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reminders")
      */
-    private $createdBy;
+    private ?\App\Entity\User $createdBy = null;
 
     public function __construct()
     {

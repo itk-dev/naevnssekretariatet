@@ -17,17 +17,17 @@ class CasePresentation implements LoggableEntityInterface
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $presentation;
+    private ?string $presentation = null;
 
     /**
      * @ORM\OneToOne(targetEntity=CaseEntity::class, mappedBy="presentation", cascade={"persist", "remove"})
      */
-    private $caseEntity;
+    private ?\App\Entity\CaseEntity $caseEntity = null;
 
     public function __construct()
     {

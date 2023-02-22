@@ -22,34 +22,34 @@ class InspectionLetter implements \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $template;
+    private ?\App\Entity\MailTemplate $template = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
      */
-    private $document;
+    private ?\App\Entity\Document $document = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=AgendaCaseItem::class, inversedBy="inspectionLetters")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $agendaCaseItem;
+    private ?\App\Entity\AgendaCaseItem $agendaCaseItem = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=Party::class)
      */
-    private $recipients;
+    private \Doctrine\Common\Collections\ArrayCollection|array $recipients;
 
     public function __toString(): string
     {

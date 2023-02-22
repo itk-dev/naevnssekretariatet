@@ -4,7 +4,7 @@ namespace App\Form\Model;
 
 class CaseStatusFormModel
 {
-    private $status;
+    private ?string $status = null;
 
     public function setStatus(string $status)
     {

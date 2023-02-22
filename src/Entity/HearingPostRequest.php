@@ -19,24 +19,24 @@ class HearingPostRequest extends HearingPost
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"mail_template"})
      */
-    private $recipient;
+    private ?\App\Entity\Party $recipient = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $template;
+    private ?\App\Entity\MailTemplate $template = null;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $forwardedOn;
+    private ?\DateTimeInterface $forwardedOn = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"mail_template"})
      */
-    private $title;
+    private ?string $title = null;
 
     public function getRecipient(): ?Party
     {

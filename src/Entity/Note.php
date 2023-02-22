@@ -16,41 +16,41 @@ class Note
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $subject;
+    private ?string $subject = null;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $content;
+    private ?string $content = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $caseEntity;
+    private ?\App\Entity\CaseEntity $caseEntity = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $createdBy;
+    private ?\App\Entity\User $createdBy = null;
 
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private ?\DateTimeInterface $createdAt = null;
 
     /**
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
-    private $updatedAt;
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {

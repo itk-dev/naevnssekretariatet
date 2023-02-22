@@ -16,18 +16,18 @@ class HearingPostResponse extends HearingPost
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"mail_template"})
      */
-    private $sender;
+    private ?\App\Entity\Party $sender = null;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $approvedOn;
+    private ?\DateTimeInterface $approvedOn = null;
 
     /**
      * @ORM\Column(type="text", nullable=false)
      * @Groups({"mail_template"})
      */
-    private $response;
+    private ?string $response = null;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"1"})

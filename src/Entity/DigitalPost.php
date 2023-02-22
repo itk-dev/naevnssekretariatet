@@ -36,13 +36,13 @@ class DigitalPost
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $document;
+    private ?\App\Entity\Document $document = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -57,7 +57,7 @@ class DigitalPost
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
      */
-    private $status;
+    private ?string $status = null;
 
     /**
      * @ORM\Column(type="json", nullable=true)
@@ -67,33 +67,33 @@ class DigitalPost
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $sentAt;
+    private ?\DateTimeImmutable $sentAt = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Recipient::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist"})
      */
-    private $recipients;
+    private \Doctrine\Common\Collections\ArrayCollection|array $recipients;
 
     /**
      * @ORM\OneToMany(targetEntity=DigitalPostAttachment::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist"})
      * @ORM\OrderBy({"position": "ASC"})
      */
-    private $attachments;
+    private \Doctrine\Common\Collections\ArrayCollection|array $attachments;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $subject;
+    private ?string $subject = null;
 
     /**
      * @ORM\OneToOne(targetEntity=DigitalPost::class, inversedBy="previous", cascade={"persist", "remove"})
      */
-    private $next;
+    private ?\App\Entity\DigitalPost $next = null;
 
     /**
      * @ORM\OneToOne(targetEntity=DigitalPost::class, mappedBy="next", cascade={"persist", "remove"})
      */
-    private $previous;
+    private ?\App\Entity\DigitalPost $previous = null;
 
     /**
      * @ORM\Column(type="integer")

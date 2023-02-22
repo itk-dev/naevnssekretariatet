@@ -19,24 +19,24 @@ class CaseDocumentRelation
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="CaseEntity", inversedBy="caseDocumentRelation")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $case;
+    private ?\App\Entity\CaseEntity $case = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Document", inversedBy="caseDocumentRelations")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $document;
+    private ?\App\Entity\Document $document = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $removalReason;
+    private ?string $removalReason = null;
 
     public function __construct()
     {

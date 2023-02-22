@@ -16,33 +16,33 @@ class Recipient implements \Stringable
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=DigitalPost::class, inversedBy="recipients")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $digitalPost;
+    private ?\App\Entity\DigitalPost $digitalPost = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=32)
      */
-    private $identifierType;
+    private ?string $identifierType = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $identifier;
+    private ?string $identifier = null;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
      */
-    private $address;
+    private ?\App\Entity\Embeddable\Address $address = null;
 
     public function __construct()
     {

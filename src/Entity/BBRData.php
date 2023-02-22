@@ -24,13 +24,13 @@ class BBRData
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      */
-    private $address;
+    private ?string $address = null;
 
     /**
      * @ORM\Column(type="json")

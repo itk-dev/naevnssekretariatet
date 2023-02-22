@@ -21,28 +21,28 @@ class MailTemplateMacro
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private \Symfony\Component\Uid\UuidV4 $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Regex(pattern="/^[[:alnum:]._-]+$/", message="Only letters, digits, dots, dashed and underscores allowed")
      */
-    private $macro;
+    private ?string $macro = null;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $content;
+    private ?string $content = null;
 
     /**
      * @ORM\Column(type="json", nullable=true)
      */
-    private $templateTypes;
+    private ?array $templateTypes = null;
 
     public function __construct()
     {
