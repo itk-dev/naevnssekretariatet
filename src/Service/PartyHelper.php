@@ -156,7 +156,7 @@ class PartyHelper
     {
         $trimmedTypes = [];
         foreach ($rawTypes as $rawType) {
-            $trimmedRawType = trim($rawType);
+            $trimmedRawType = trim((string) $rawType);
             $trimmedTypes[$trimmedRawType] = $trimmedRawType;
         }
 

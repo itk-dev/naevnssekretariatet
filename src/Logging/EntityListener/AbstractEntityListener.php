@@ -160,7 +160,7 @@ abstract class AbstractEntityListener
         $valuesToLog = [];
 
         foreach ($loggedProperties as $loggedProperty) {
-            $nameOfGetter = 'get'.ucfirst($loggedProperty);
+            $nameOfGetter = 'get'.ucfirst((string) $loggedProperty);
 
             if (!method_exists($entity, $nameOfGetter)) {
                 $message = sprintf('Getter %s not found in %s.', $nameOfGetter, $entity::class);

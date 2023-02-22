@@ -198,9 +198,9 @@ class CprHelper
 
         $relevantData['name'] = $data['persondata']['navn']['personadresseringsnavn'];
         $relevantData['street'] = $data['adresse']['aktuelAdresse']['vejadresseringsnavn'];
-        $relevantData['number'] = ltrim($data['adresse']['aktuelAdresse']['husnummer'], '0');
+        $relevantData['number'] = ltrim((string) $data['adresse']['aktuelAdresse']['husnummer'], '0');
         $relevantData['floor'] = array_key_exists('etage', $data['adresse']['aktuelAdresse']) ? $data['adresse']['aktuelAdresse']['etage'] : '';
-        $relevantData['side'] = array_key_exists('sidedoer', $data['adresse']['aktuelAdresse']) ? ltrim($data['adresse']['aktuelAdresse']['sidedoer'], '0') : '';
+        $relevantData['side'] = array_key_exists('sidedoer', $data['adresse']['aktuelAdresse']) ? ltrim((string) $data['adresse']['aktuelAdresse']['sidedoer'], '0') : '';
         $relevantData['postalCode'] = $data['adresse']['aktuelAdresse']['postnummer'];
         $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'];
 
@@ -217,9 +217,9 @@ class CprHelper
         $cprArray = json_decode(json_encode($cprObject, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
 
         $street = $cprArray['adresse']['aktuelAdresse']['vejadresseringsnavn'];
-        $number = ltrim($cprArray['adresse']['aktuelAdresse']['husnummer'], '0');
+        $number = ltrim((string) $cprArray['adresse']['aktuelAdresse']['husnummer'], '0');
         $floor = array_key_exists('etage', $cprArray['adresse']['aktuelAdresse']) ? $cprArray['adresse']['aktuelAdresse']['etage'] : null;
-        $side = array_key_exists('sidedoer', $cprArray['adresse']['aktuelAdresse']) ? ltrim($cprArray['adresse']['aktuelAdresse']['sidedoer'], '0') : null;
+        $side = array_key_exists('sidedoer', $cprArray['adresse']['aktuelAdresse']) ? ltrim((string) $cprArray['adresse']['aktuelAdresse']['sidedoer'], '0') : null;
         $postalCode = $cprArray['adresse']['aktuelAdresse']['postnummer'];
         $city = $cprArray['adresse']['aktuelAdresse']['postdistrikt'];
 

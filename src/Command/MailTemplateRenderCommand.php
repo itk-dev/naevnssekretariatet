@@ -84,7 +84,7 @@ class MailTemplateRenderCommand extends Command
         $filename = $this->templateHelper->renderMailTemplate($mailTemplate, $entity, $options);
 
         if (null !== $outputName) {
-            $this->filesystem->mkdir(dirname($outputName), 0755);
+            $this->filesystem->mkdir(dirname((string) $outputName), 0755);
             $this->filesystem->rename($filename, $outputName, true);
             $io->success(sprintf('Rendered template written to file: %s', $outputName));
         } else {

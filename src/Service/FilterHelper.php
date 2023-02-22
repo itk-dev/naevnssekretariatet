@@ -13,7 +13,7 @@ class FilterHelper
             return null;
         }
 
-        $paramName = sprintf('p_%s', str_replace('.', '_', $field));
+        $paramName = sprintf('p_%s', str_replace('.', '_', (string) $field));
 
         // expression that represent the condition
         $expression = $filterQuery->getExpr()->eq($field, ':'.$paramName);

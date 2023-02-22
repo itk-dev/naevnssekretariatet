@@ -26,7 +26,7 @@ class LinkedTemplateProcessor extends BaseTemplateProcessor
         $this->links = [];
 
         // Store the current links in the template as an XML object.
-        $this->xmlRelationships = simplexml_load_string($this->tempDocumentRelationships);
+        $this->xmlRelationships = simplexml_load_string((string) $this->tempDocumentRelationships);
     }
 
     /**

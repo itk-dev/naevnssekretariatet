@@ -79,7 +79,7 @@ class ComplexMacroHelper
                 'CASE_ID' => $case->getId(),
                 default => ''
             }),
-            $this->options['hearing_post_form_url']
+            (string) $this->options['hearing_post_form_url']
         );
         $values['hearing_post_form.url'] = new ComplexMacro(
             (new TextRun())

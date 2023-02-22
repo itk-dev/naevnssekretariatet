@@ -166,7 +166,7 @@ class MailTemplateHelper
                 $value = preg_replace_callback(
                     $this->placeholderPattern,
                     static fn(array $matches) => $values[$matches['key']] ?? $matches[0],
-                    $value
+                    (string) $value
                 );
             }
             $values[$macro] = $value;
@@ -378,7 +378,7 @@ class MailTemplateHelper
         $templateType = $mailTemplate->getType();
         $macros = $this->mailTemplateMacroRepository->findByTemplateType($templateType);
         foreach ($macros as $macro) {
-            $lines = explode(PHP_EOL, trim($macro->getContent()));
+            $lines = explode(PHP_EOL, trim((string) $macro->getContent()));
             // Handle line breaks in macro content.
             if (count($lines) > 1) {
                 $element = new TextRun();
