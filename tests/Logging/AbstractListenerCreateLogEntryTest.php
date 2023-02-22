@@ -16,16 +16,16 @@ use Symfony\Component\Uid\UuidV4;
 
 class AbstractListenerCreateLogEntryTest extends TestCase
 {
-    private $mockListener;
-    private $testAction;
-    private $mockCase;
-    private $mockArgs;
-    private $mockUnitOfWork;
-    private $mockUsername;
-    private $mockCaseID;
-    private $mockSecurity;
-    private $expectedDataArray;
-    private $mockEntityManager;
+    private ?\PHPUnit\Framework\MockObject\MockObject $mockListener = null;
+    private ?string $testAction = null;
+    private $mockCase = null;
+    private $mockArgs = null;
+    private $mockUnitOfWork = null;
+    private ?string $mockUsername = null;
+    private ?string $mockCaseID = null;
+    private $mockSecurity = null;
+    private ?array $expectedDataArray = null;
+    private $mockEntityManager = null;
 
     public function testCreateLogEntryOnStringChange()
     {
@@ -281,7 +281,7 @@ class AbstractListenerCreateLogEntryTest extends TestCase
     {
         // Assert all properties are as expected
         $this->assertSame($this->mockCaseID, $logEntry->getCaseID());
-        $this->assertSame(get_class($this->mockCase), $logEntry->getEntityType());
+        $this->assertSame($this->mockCase::class, $logEntry->getEntityType());
         $this->assertSame($this->mockCaseID, $logEntry->getEntityID());
         $this->assertSame($this->testAction, $logEntry->getAction());
         $this->assertSame($this->mockUsername, $logEntry->getUser());
