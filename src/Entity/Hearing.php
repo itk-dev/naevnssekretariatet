@@ -11,56 +11,38 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=HearingRepository::class)
- * @ORM\EntityListeners({"App\Logging\EntityListener\HearingListener"})
- */
+#[ORM\Entity(repositoryClass: HearingRepository::class)]
+#[ORM\EntityListeners([\App\Logging\EntityListener\HearingListener::class])]
 class Hearing implements LoggableEntityInterface
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\OneToMany(targetEntity=HearingPost::class, mappedBy="hearing")
-     */
-    private $hearingPosts;
+    #[ORM\OneToMany(targetEntity: HearingPost::class, mappedBy: 'hearing')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $hearingPosts;
 
-    /**
-     * @ORM\OneToOne(targetEntity=CaseEntity::class, mappedBy="hearing", cascade={"persist", "remove"})
-     * @Groups({"mail_template"})
-     */
-    private $caseEntity;
+    #[ORM\OneToOne(targetEntity: CaseEntity::class, mappedBy: 'hearing', cascade: ['persist', 'remove'])]
+    #[Groups(['mail_template'])]
+    private ?\App\Entity\CaseEntity $caseEntity = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
-    private $partyHasNoMoreToAdd = false;
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    private bool $partyHasNoMoreToAdd = false;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
-    private $counterpartHasNoMoreToAdd = false;
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    private bool $counterpartHasNoMoreToAdd = false;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
-    private $hasNewHearingPost = false;
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    private bool $hasNewHearingPost = false;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     * @Groups({"mail_template"})
-     */
-    private $startedOn;
+    #[ORM\Column(type: 'date', nullable: true)]
+    #[Groups(['mail_template'])]
+    private ?\DateTimeInterface $startedOn = null;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $finishedOn;
+    #[ORM\Column(type: 'date', nullable: true)]
+    private ?\DateTimeInterface $finishedOn = null;
 
     public function __construct()
     {

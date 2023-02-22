@@ -13,7 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartyHelper
 {
-    public function __construct(private EntityManagerInterface $entityManager, private PartyRepository $partyRepository, private CasePartyRelationRepository $relationRepository, private TranslatorInterface $translator)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly PartyRepository $partyRepository, private readonly CasePartyRelationRepository $relationRepository, private readonly TranslatorInterface $translator)
     {
     }
 
@@ -156,7 +156,7 @@ class PartyHelper
     {
         $trimmedTypes = [];
         foreach ($rawTypes as $rawType) {
-            $trimmedRawType = trim($rawType);
+            $trimmedRawType = trim((string) $rawType);
             $trimmedTypes[$trimmedRawType] = $trimmedRawType;
         }
 
@@ -179,12 +179,10 @@ class PartyHelper
         ;
 
         $parties = array_map(
-            function ($relation) {
-                return [
-                    'party' => $relation->getParty(),
-                    'type' => $relation->getType(),
-                ];
-            }, $partyRelations
+            fn ($relation) => [
+                'party' => $relation->getParty(),
+                'type' => $relation->getType(),
+            ], $partyRelations
         );
 
         $counterpartyRelations = $this->relationRepository
@@ -196,12 +194,10 @@ class PartyHelper
         ;
 
         $counterparties = array_map(
-            function ($relation) {
-                return [
-                    'party' => $relation->getParty(),
-                    'type' => $relation->getType(),
-                ];
-            }, $counterpartyRelations
+            fn ($relation) => [
+                'party' => $relation->getParty(),
+                'type' => $relation->getType(),
+            ], $counterpartyRelations
         );
 
         return ['parties' => $parties, 'counterparties' => $counterparties];

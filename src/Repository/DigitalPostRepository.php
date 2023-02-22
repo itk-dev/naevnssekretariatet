@@ -23,7 +23,7 @@ class DigitalPostRepository extends ServiceEntityRepository
 
     public function findByEntity(object $entity, array $criteria = [], array $orderBy = null, $limit = null, $offset = null): array
     {
-        $criteria['entityType'] = get_class($entity);
+        $criteria['entityType'] = $entity::class;
         $criteria['entityId'] = $entity->getId();
 
         return $this->findBy($criteria, $orderBy, $limit, $offset);

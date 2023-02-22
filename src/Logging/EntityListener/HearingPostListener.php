@@ -39,7 +39,7 @@ class HearingPostListener extends AbstractEntityListener
         return match (true) {
             $hearingPost instanceof HearingPostRequest => 'Hearing post request',
             $hearingPost instanceof HearingPostResponse => 'Hearing post response',
-            default => throw new ItkDevLoggingException(sprintf('Unhandled hearing post type %s found.', get_class($hearingPost)))
+            default => throw new ItkDevLoggingException(sprintf('Unhandled hearing post type %s found.', $hearingPost::class))
         };
     }
 

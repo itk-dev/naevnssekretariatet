@@ -22,9 +22,9 @@ class LoginController extends AbstractController
 
     private string $authenticationProviderCookieName = 'default_authentication_provider';
 
-    private array $options;
+    private readonly array $options;
 
-    public function __construct(private OpenIdConfigurationProviderManager $providerManager, array $loginControllerOptions)
+    public function __construct(private readonly OpenIdConfigurationProviderManager $providerManager, array $loginControllerOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -32,9 +32,7 @@ class LoginController extends AbstractController
         $this->options = $resolver->resolve($loginControllerOptions);
     }
 
-    /**
-     * @Route("/login", name="login")
-     */
+    #[Route(path: '/login', name: 'login')]
     public function index(Request $request, SessionInterface $session): Response
     {
         $authenticationProviderKey = $this->getAuthenticationProviderKey($request);
@@ -133,7 +131,7 @@ class LoginController extends AbstractController
             $this->providerManager->getProvider($key ?? '');
 
             return true;
-        } catch (InvalidProviderException $exception) {
+        } catch (InvalidProviderException) {
         }
 
         return false;
@@ -144,13 +142,13 @@ class LoginController extends AbstractController
         $resolver
             ->setRequired('firewall_name')
             ->setAllowedTypes('firewall_name', 'string')
-            ->setRequired('cookie_end_time', 'string')
+            ->setRequired('cookie_end_time')
             ->setAllowedValues('cookie_end_time', function ($value) {
                 try {
                     new \DateTimeImmutable($value);
 
                     return true;
-                } catch (\Exception $exception) {
+                } catch (\Exception) {
                     return false;
                 }
             })

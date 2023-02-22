@@ -25,7 +25,7 @@ class DigitalPostSendCommand extends Command
 {
     private int $maxNumberOfRetries = 10;
 
-    public function __construct(private DigitalPostHelper $digitalPostHelper, private DigitalPostRepository $digitalPostRepository, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private LoggerInterface $databaseLogger)
+    public function __construct(private readonly DigitalPostHelper $digitalPostHelper, private readonly DigitalPostRepository $digitalPostRepository, private readonly DocumentUploader $documentUploader, private readonly EntityManagerInterface $entityManager, private readonly LoggerInterface $databaseLogger)
     {
         parent::__construct(null);
     }
@@ -70,11 +70,11 @@ class DigitalPostSendCommand extends Command
 
         foreach ($digitalPosts as $index => $digitalPost) {
             if (!$forceSend && !in_array($digitalPost->getStatus(), $statuses)) {
-                $io->error(sprintf('Digital post %s has invalid status %s (expected one of %s)', $digitalPost->getId(), json_encode($digitalPost->getStatus()), implode(', ', array_map('json_encode', $statuses))));
+                $io->error(sprintf('Digital post %s has invalid status %s (expected one of %s)', $digitalPost->getId(), json_encode($digitalPost->getStatus(), JSON_THROW_ON_ERROR), implode(', ', array_map('json_encode', $statuses))));
                 continue;
             }
 
-            $io->title(sprintf('% 3d/%d %s:%s', $index + 1, count($digitalPosts), get_class($digitalPost), $digitalPost->getId()));
+            $io->title(sprintf('% 3d/%d %s:%s', $index + 1, count($digitalPosts), $digitalPost::class, $digitalPost->getId()));
 
             try {
                 $content = $this->documentUploader->getFileContent($digitalPost->getDocument());
@@ -161,6 +161,9 @@ class DigitalPostSendCommand extends Command
 
                 // Keep track of posts and fail when max number of retries exceeded.
                 $postStatuses = $digitalPost->getData()['post_statuses'] ?? [];
+                if (!is_array($postStatuses)) {
+                    $postStatuses = [];
+                }
                 $postStatuses[] = [
                     'created_at' => $now->format($now::ATOM),
                     'status' => $digitalPost->getStatus(),

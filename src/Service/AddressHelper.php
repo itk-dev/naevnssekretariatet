@@ -21,7 +21,7 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
 {
     use LoggerAwareTrait;
 
-    public function __construct(private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private TranslatorInterface $translator)
+    public function __construct(private readonly PropertyAccessorInterface $propertyAccessor, private readonly EntityManagerInterface $entityManager, private readonly HttpClientInterface $httpClient, private readonly TranslatorInterface $translator)
     {
     }
 
@@ -49,7 +49,7 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
     {
         $address = $this->propertyAccessor->getValue($entity, $property);
         if (!($address instanceof Address)) {
-            throw $this->createException(sprintf('Property %s.%s must be an instance of %s; is %s', get_class($entity), $property, Address::class, get_class($address)));
+            throw $this->createException(sprintf('Property %s.%s must be an instance of %s; is %s', $entity::class, $property, Address::class, $address::class));
         }
 
         return $address;
@@ -131,8 +131,8 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
      */
     public function getInspectionAddress(CaseEntity $case): Address
     {
-        return match (get_class($case)) {
-            'App\Entity\FenceReviewCase' => $case->getBringerAddress(),
+        return match ($case::class) {
+            \App\Entity\FenceReviewCase::class => $case->getBringerAddress(),
             default => $case->getLeaseAddress(),
         };
     }

@@ -11,11 +11,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CaseMoveType extends AbstractType
 {
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -34,9 +31,7 @@ class CaseMoveType extends AbstractType
             ->add('board', ChoiceType::class, [
                 'label' => $this->translator->trans('Move to', [], 'case'),
                 'choices' => $boards,
-                'choice_label' => function ($key) {
-                    return $key->getName();
-                },
+                'choice_label' => fn ($key) => $key->getName(),
             ])
         ;
     }

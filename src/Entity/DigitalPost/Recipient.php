@@ -7,42 +7,28 @@ use App\Entity\Embeddable\Address;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=RecipientRepository::class)
- */
-class Recipient
+#[ORM\Entity(repositoryClass: RecipientRepository::class)]
+class Recipient implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=DigitalPost::class, inversedBy="recipients")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $digitalPost;
+    #[ORM\ManyToOne(targetEntity: DigitalPost::class, inversedBy: 'recipients')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\DigitalPost $digitalPost = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="string", length=32)
-     */
-    private $identifierType;
+    #[ORM\Column(type: 'string', length: 32)]
+    private ?string $identifierType = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $identifier;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $identifier = null;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
-     */
-    private $address;
+    #[ORM\Embedded(class: \App\Entity\Embeddable\Address::class)]
+    private ?\App\Entity\Embeddable\Address $address = null;
 
     public function __construct()
     {

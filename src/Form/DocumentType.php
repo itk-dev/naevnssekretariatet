@@ -18,7 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DocumentType extends AbstractType
 {
-    public function __construct(private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private int $maxFileSize)
+    public function __construct(private readonly TranslatorInterface $translator, private readonly EntityManagerInterface $entityManager, private readonly int $maxFileSize)
     {
     }
 
@@ -51,12 +51,8 @@ class DocumentType extends AbstractType
         // Add a transformer from string to UploadedDocumentType and back.
         $builder->get('type')
             ->addModelTransformer(new CallbackTransformer(
-                function ($name) {
-                    return $this->entityManager->getRepository(UploadedDocumentType::class)->findOneBy(['name' => $name]);
-                },
-                function (UploadedDocumentType $type) {
-                    return $type->getName();
-                }
+                fn ($name) => $this->entityManager->getRepository(UploadedDocumentType::class)->findOneBy(['name' => $name]),
+                fn (UploadedDocumentType $type) => $type->getName()
             ))
         ;
 
@@ -125,7 +121,7 @@ class DocumentType extends AbstractType
         $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
         if ($unit) {
             // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
-            return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
+            return round($size * 1024 ** stripos('bkmgtpezy', $unit[0]));
         } else {
             return round($size);
         }
@@ -139,7 +135,7 @@ class DocumentType extends AbstractType
         $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
         $pow = min($pow, count($units) - 1);
 
-        $bytes /= pow(1024, $pow);
+        $bytes /= 1024 ** $pow;
 
         return round($bytes, $precision).' '.$units[$pow];
     }

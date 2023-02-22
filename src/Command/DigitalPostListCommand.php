@@ -25,7 +25,7 @@ class DigitalPostListCommand extends Command
 {
     private const STATUS_NULL = 'null';
 
-    public function __construct(private DigitalPostRepository $digitalPostRepository, private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly DigitalPostRepository $digitalPostRepository, private readonly UrlGeneratorInterface $urlGenerator)
     {
         parent::__construct(null);
     }

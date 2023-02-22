@@ -15,19 +15,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AgendaCaseItemEditType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-    /**
-     * @var CaseEntityRepository
-     */
-    private $caseRepository;
-
-    public function __construct(CaseEntityRepository $caseRepository, TranslatorInterface $translator)
+    public function __construct(private readonly CaseEntityRepository $caseRepository, private readonly TranslatorInterface $translator)
     {
-        $this->caseRepository = $caseRepository;
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

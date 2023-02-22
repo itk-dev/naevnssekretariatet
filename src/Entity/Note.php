@@ -7,50 +7,38 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=NoteRepository::class)
- */
+#[ORM\Entity(repositoryClass: NoteRepository::class)]
 class Note
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $subject;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $subject = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
+    #[ORM\Column(type: 'text')]
+    private ?string $content = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="notes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $caseEntity;
+    #[ORM\ManyToOne(targetEntity: CaseEntity::class, inversedBy: 'notes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\CaseEntity $caseEntity = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $createdBy;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\User $createdBy = null;
 
     /**
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $createdAt = null;
 
     /**
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
      */
-    private $updatedAt;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {

@@ -25,14 +25,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BoardCrudController extends AbstractCrudController
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public static function getEntityFqcn(): string
@@ -69,9 +63,7 @@ class BoardCrudController extends AbstractCrudController
         ;
 
         yield AssociationField::new('municipality', 'Municipality')
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                return $queryBuilder->orderBy('entity.name', 'ASC');
-            })
+            ->setQueryBuilder(fn (QueryBuilder $queryBuilder) => $queryBuilder->orderBy('entity.name', 'ASC'))
         ;
 
         yield EmailField::new('email', 'Email')

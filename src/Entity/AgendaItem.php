@@ -6,45 +6,31 @@ use App\Repository\AgendaItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=AgendaItemRepository::class)
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"caseEntity" = "CaseEntity", "agendaCaseItem" = "AgendaCaseItem", "agendaManuelItem" = "AgendaManuelItem"})
- */
-abstract class AgendaItem
+#[ORM\Entity(repositoryClass: AgendaItemRepository::class)]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
+#[ORM\DiscriminatorMap(['caseEntity' => 'CaseEntity', 'agendaCaseItem' => 'AgendaCaseItem', 'agendaManuelItem' => 'AgendaManuelItem'])]
+abstract class AgendaItem implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $title = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $startTime;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $startTime = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $endTime;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $endTime = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $meetingPoint;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $meetingPoint = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Agenda::class, inversedBy="agendaItems")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $agenda;
+    #[ORM\ManyToOne(targetEntity: Agenda::class, inversedBy: 'agendaItems')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\Agenda $agenda = null;
 
     public function __construct()
     {

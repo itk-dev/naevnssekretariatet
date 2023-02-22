@@ -13,14 +13,9 @@ class UpdateReminderCommand extends Command
 {
     protected static $defaultName = 'tvist1:update-reminder';
     protected static $defaultDescription = 'Updates reminder statuses';
-    /**
-     * @var ReminderHelper
-     */
-    private $reminderHelper;
 
-    public function __construct(ReminderHelper $reminderHelper)
+    public function __construct(private readonly ReminderHelper $reminderHelper)
     {
-        $this->reminderHelper = $reminderHelper;
         parent::__construct();
     }
 

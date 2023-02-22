@@ -23,9 +23,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ComplexMacroHelper
 {
-    private array $options;
+    private readonly array $options;
 
-    public function __construct(private RouterInterface $router, private TranslatorInterface $translator, private BoardMemberRepository $memberRepository, array $options)
+    public function __construct(private readonly RouterInterface $router, private readonly TranslatorInterface $translator, private readonly BoardMemberRepository $memberRepository, array $options)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -63,6 +63,7 @@ class ComplexMacroHelper
 
     private function buildCaseMacros(CaseEntity $case): array
     {
+        $values = [];
         // Note: Setting text on the link will break the link.
         $values['case.link'] = new ComplexMacro(
             $this->createLink(
@@ -78,7 +79,7 @@ class ComplexMacroHelper
                 'CASE_ID' => $case->getId(),
                 default => ''
             }),
-            $this->options['hearing_post_form_url']
+            (string) $this->options['hearing_post_form_url']
         );
         $values['hearing_post_form.url'] = new ComplexMacro(
             (new TextRun())
@@ -97,9 +98,7 @@ class ComplexMacroHelper
         // Complaint categories comma separated names
         $text = new Text();
 
-        $value = implode(', ', array_map(static function (ComplaintCategory $complaintCategory) {
-            return $complaintCategory->getName();
-        }, $case->getComplaintCategories()->toArray()));
+        $value = implode(', ', array_map(static fn (ComplaintCategory $complaintCategory) => $complaintCategory->getName(), $case->getComplaintCategories()->toArray()));
 
         $text->setText($value);
 
@@ -113,6 +112,7 @@ class ComplexMacroHelper
 
     private function buildAgendaMacros(Agenda $agenda): array
     {
+        $values = [];
         // Note: Setting text on the link will break the link.
         $values['agenda.link'] = new ComplexMacro(
             $this->createLink(
@@ -234,7 +234,7 @@ class ComplexMacroHelper
             } elseif (null === $value) {
                 $row->addCell()->addText('');
             } else {
-                throw new \RuntimeException(sprintf('Cannot handle table cell value with type %s: %s', gettype($value), json_encode($value)));
+                throw new \RuntimeException(sprintf('Cannot handle table cell value with type %s: %s', gettype($value), json_encode($value, JSON_THROW_ON_ERROR)));
             }
         }
 

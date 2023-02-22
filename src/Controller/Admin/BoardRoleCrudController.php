@@ -37,9 +37,7 @@ class BoardRoleCrudController extends AbstractCrudController
     {
         yield TextField::new('title', 'Title');
         yield AssociationField::new('board', 'Board')
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                return $queryBuilder->orderBy('entity.name', 'ASC');
-            })
+            ->setQueryBuilder(fn (QueryBuilder $queryBuilder) => $queryBuilder->orderBy('entity.name', 'ASC'))
         ;
     }
 

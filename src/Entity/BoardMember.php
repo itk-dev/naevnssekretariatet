@@ -9,37 +9,25 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=BoardMemberRepository::class)
- * @UniqueEntity(fields={"cpr"})
- */
-class BoardMember
+#[ORM\Entity(repositoryClass: BoardMemberRepository::class)]
+#[UniqueEntity(fields: ['cpr'])]
+class BoardMember implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=BoardRole::class, mappedBy="boardMembers")
-     */
-    private $boardRoles;
+    #[ORM\ManyToMany(targetEntity: BoardRole::class, mappedBy: 'boardMembers')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $boardRoles;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Agenda::class, mappedBy="boardmembers")
-     */
-    private $agendas;
+    #[ORM\ManyToMany(targetEntity: Agenda::class, mappedBy: 'boardmembers')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $agendas;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $cpr;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $cpr = null;
 
     public function __construct()
     {
@@ -119,9 +107,9 @@ class BoardMember
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getCpr(): ?string

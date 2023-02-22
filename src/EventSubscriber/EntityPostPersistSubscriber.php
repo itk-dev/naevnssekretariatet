@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EntityPostPersistSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private MailTemplateHelper $mailTemplateHelper, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private DigitalPostHelper $digitalPostHelper, private TranslatorInterface $translator)
+    public function __construct(private readonly MailTemplateHelper $mailTemplateHelper, private readonly DocumentUploader $documentUploader, private readonly EntityManagerInterface $entityManager, private readonly DigitalPostHelper $digitalPostHelper, private readonly TranslatorInterface $translator)
     {
     }
 
@@ -30,6 +30,9 @@ class EntityPostPersistSubscriber implements EventSubscriberInterface
 
     public function postPersist(LifecycleEventArgs $args): void
     {
+        $digitalPostRecipients = [];
+        $documentTitle = null;
+        $documentType = null;
         $entity = $args->getEntity();
 
         $case = null;
@@ -67,7 +70,7 @@ class EntityPostPersistSubscriber implements EventSubscriberInterface
             $this->entityManager->persist($relation);
             $this->entityManager->persist($document);
 
-            $this->digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($case), $case->getId(), [], $digitalPostRecipients);
+            $this->digitalPostHelper->createDigitalPost($document, $documentTitle, $case::class, $case->getId(), [], $digitalPostRecipients);
         }
     }
 }

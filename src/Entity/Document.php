@@ -10,63 +10,43 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=DocumentRepository::class)
- */
-class Document implements LoggableEntityInterface
+#[ORM\Entity(repositoryClass: DocumentRepository::class)]
+class Document implements LoggableEntityInterface, \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $documentName;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $documentName = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $type;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $type = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $uploadedBy;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\User $uploadedBy = null;
 
     /**
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
      */
-    private $uploadedAt;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $uploadedAt = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $filename;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $filename = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="CaseDocumentRelation", mappedBy="document")
-     */
-    private $caseDocumentRelations;
+    #[ORM\OneToMany(targetEntity: 'CaseDocumentRelation', mappedBy: 'document')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $caseDocumentRelations;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=AgendaCaseItem::class, mappedBy="documents")
-     */
-    private $agendaCaseItems;
+    #[ORM\ManyToMany(targetEntity: AgendaCaseItem::class, mappedBy: 'documents')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $agendaCaseItems;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $originalFileName;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $originalFileName = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
-    private $isCreatedManually = false;
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    private bool $isCreatedManually = false;
 
     public function __construct()
     {
@@ -200,9 +180,9 @@ class Document implements LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->documentName;
+        return (string) $this->documentName;
     }
 
     public function getOriginalFileName(): ?string

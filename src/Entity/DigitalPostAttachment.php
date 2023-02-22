@@ -7,34 +7,26 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=DigitalPostAttachmentRepository::class)
- */
+#[ORM\Entity(repositoryClass: DigitalPostAttachmentRepository::class)]
 class DigitalPostAttachment
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=DigitalPost::class, inversedBy="attachments")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $digitalPost;
+    #[ORM\ManyToOne(targetEntity: DigitalPost::class, inversedBy: 'attachments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\DigitalPost $digitalPost = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Document::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $document;
+    #[ORM\ManyToOne(targetEntity: Document::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\Document $document = null;
 
     /**
      * @Gedmo\SortablePosition()
-     * @ORM\Column(type="integer")
      */
-    private $position;
+    #[ORM\Column(type: 'integer')]
+    private ?int $position = null;
 
     public function __construct()
     {

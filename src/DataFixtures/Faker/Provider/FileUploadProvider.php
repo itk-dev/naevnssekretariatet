@@ -10,7 +10,7 @@ use Vich\UploaderBundle\Mapping\PropertyMappingFactory;
 
 class FileUploadProvider extends Base
 {
-    public function __construct(Generator $generator, private ContainerInterface $container, private PropertyMappingFactory $propertyMappingFactory, private Filesystem $filesystem)
+    public function __construct(Generator $generator, private readonly ContainerInterface $container, private readonly PropertyMappingFactory $propertyMappingFactory, private readonly Filesystem $filesystem)
     {
         parent::__construct($generator);
     }

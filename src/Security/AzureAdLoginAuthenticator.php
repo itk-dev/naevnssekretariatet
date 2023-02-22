@@ -26,7 +26,7 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
 {
     use TargetPathTrait;
 
-    public function __construct(private EntityManagerInterface $entityManager, private UserRepository $userRepository, private OpenIdConfigurationProviderManager $providerManager, private SessionInterface $session, private UrlGeneratorInterface $router, private BoardMemberRepository $boardMemberRepository, private TranslatorInterface $translator, int $leeway = 0)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly UserRepository $userRepository, private readonly OpenIdConfigurationProviderManager $providerManager, private readonly SessionInterface $session, private readonly UrlGeneratorInterface $router, private readonly BoardMemberRepository $boardMemberRepository, private readonly TranslatorInterface $translator, int $leeway = 0)
     {
         parent::__construct($providerManager, $session, $leeway);
     }
@@ -36,15 +36,12 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
         $claims = $this->validateClaims($request);
 
         $providerKey = $claims['open_id_connect_provider'] ?? null;
-        switch ($providerKey) {
-            case 'admin':
-                return $this->getAdminUser($claims);
 
-            case 'board-member':
-                return $this->getBoardMemberUser($claims, $request);
-        }
-
-        throw new \RuntimeException(sprintf('Invalid open id connect provider: %s', $providerKey));
+        return match ($providerKey) {
+            'admin' => $this->getAdminUser($claims),
+            'board-member' => $this->getBoardMemberUser($claims, $request),
+            default => throw new \RuntimeException(sprintf('Invalid open id connect provider: %s', $providerKey)),
+        };
     }
 
     private function getAdminUser(array $claims)
@@ -91,7 +88,7 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
             $message = $this->translator->trans('Access denied', [], 'login');
             try {
                 $request->getSession()->getFlashBag()->add('danger', $message);
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
             }
             // @todo Log this?
             throw new CustomUserMessageAuthenticationException($message);

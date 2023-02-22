@@ -40,14 +40,12 @@ class MailTemplateHelper
 {
     /**
      * The options.
-     *
-     * @var array
      */
-    private $options;
+    private readonly array $options;
 
     private string $placeholderPattern = '/\$\{(?P<key>[^}]+)\}/';
 
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, private TranslatorInterface $translator, private ComplexMacroHelper $macroHelper, array $mailTemplateHelperOptions)
+    public function __construct(private readonly MailTemplateRepository $mailTemplateRepository, private readonly MailTemplateMacroRepository $mailTemplateMacroRepository, private readonly EntityManagerInterface $entityManager, private readonly SerializerInterface $serializer, private readonly Filesystem $filesystem, private readonly LoggerInterface $logger, private readonly TokenStorageInterface $tokenStorage, private readonly TranslatorInterface $translator, private readonly ComplexMacroHelper $macroHelper, array $mailTemplateHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -91,7 +89,7 @@ class MailTemplateHelper
                 if (null !== $entity) {
                     return $entity;
                 }
-            } catch (MappingException $mappingException) {
+            } catch (MappingException) {
                 // Cannot get repository for the class name. Continue to see if another class name succeeds.
             }
         }
@@ -116,7 +114,7 @@ class MailTemplateHelper
                 $repository = $this->entityManager->getRepository($className);
                 // Get at most 20 entities.
                 $entities[] = $repository->findBy([], null, 20);
-            } catch (MappingException $mappingException) {
+            } catch (MappingException) {
                 // Cannot get repository for the class name. Continue to see if another class name succeeds.
             }
         }
@@ -161,16 +159,14 @@ class MailTemplateHelper
                     if ($element instanceof Text) {
                         return $element->getText();
                     }
-                    throw new MailTemplateException(sprintf('Unhandled element: %s', get_class($element)));
+                    throw new MailTemplateException(sprintf('Unhandled element: %s', $element::class));
                 }, $value->getElements()));
             }
             if ($expandMacros) {
                 $value = preg_replace_callback(
                     $this->placeholderPattern,
-                    static function (array $matches) use ($values) {
-                        return $values[$matches['key']] ?? $matches[0];
-                    },
-                    $value
+                    static fn (array $matches) => $values[$matches['key']] ?? $matches[0],
+                    (string) $value
                 );
             }
             $values[$macro] = $value;
@@ -269,7 +265,7 @@ class MailTemplateHelper
 
     private function isBlockElement(AbstractElement $element)
     {
-        return in_array(get_class($element), self::$blockElementClasses, true);
+        return in_array($element::class, self::$blockElementClasses, true);
     }
 
     /**
@@ -287,7 +283,7 @@ class MailTemplateHelper
         $templateType = $mailTemplate->getType();
         $macros = $this->mailTemplateMacroRepository->findByTemplateType($templateType);
         foreach ($macros as $macro) {
-            if (preg_match_all($this->placeholderPattern, $macro->getContent(), $matches)) {
+            if (preg_match_all($this->placeholderPattern, (string) $macro->getContent(), $matches)) {
                 $placeHolders[] = $matches['key'];
             }
         }
@@ -311,22 +307,22 @@ class MailTemplateHelper
         } else {
             // Convert entity to array.
 
-            $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
+            $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true, 512, JSON_THROW_ON_ERROR);
 
             // Make hearing and case data and other date easily available.
             $case = null;
             if ($entity instanceof HearingPost) {
                 $hearing = $entity->getHearing();
                 $case = $hearing->getCaseEntity();
-                $data += json_decode($this->serializer->serialize($hearing, 'json', ['groups' => ['mail_template']]), true);
+                $data += json_decode($this->serializer->serialize($hearing, 'json', ['groups' => ['mail_template']]), true, 512, JSON_THROW_ON_ERROR);
             } elseif ($entity instanceof InspectionLetter) {
                 $case = $entity->getAgendaCaseItem()?->getCaseEntity();
             } elseif ($entity instanceof AgendaBroadcast) {
-                $data += json_decode($this->serializer->serialize($entity->getAgenda(), 'json', ['groups' => ['mail_template']]), true);
+                $data += json_decode($this->serializer->serialize($entity->getAgenda(), 'json', ['groups' => ['mail_template']]), true, 512, JSON_THROW_ON_ERROR);
             }
 
             if (null !== $case) {
-                $data += json_decode($this->serializer->serialize($case, 'json', ['groups' => ['mail_template']]), true);
+                $data += json_decode($this->serializer->serialize($case, 'json', ['groups' => ['mail_template']]), true, 512, JSON_THROW_ON_ERROR);
             }
 
             $values += $this->flatten($data);
@@ -354,7 +350,7 @@ class MailTemplateHelper
         foreach ($placeHolders as $placeHolder) {
             // Handle placeholders on the form «key»|«filter»(«argument»), e.g.
             //   case.inspection_date:dd/mm/yyyy
-            if (preg_match('/^(?P<key>.+)\|(?P<filter>[a-z]+)\((?P<argument>.+)\)$/', $placeHolder, $matches)) {
+            if (preg_match('/^(?P<key>.+)\|(?P<filter>[a-z]+)\((?P<argument>.+)\)$/', (string) $placeHolder, $matches)) {
                 [, $key, $filter, $argument] = $matches;
                 if (isset($values[$key])) {
                     $argument = trim($argument, '\'"');
@@ -370,7 +366,7 @@ class MailTemplateHelper
         }
 
         // Set empty string values for all template variables without a value.
-        $values += array_map(static function ($count) { return ''; }, $templateProcessor->getVariableCount());
+        $values += array_map(static fn ($count) => '', $templateProcessor->getVariableCount());
 
         return $values;
     }
@@ -382,7 +378,7 @@ class MailTemplateHelper
         $templateType = $mailTemplate->getType();
         $macros = $this->mailTemplateMacroRepository->findByTemplateType($templateType);
         foreach ($macros as $macro) {
-            $lines = explode(PHP_EOL, trim($macro->getContent()));
+            $lines = explode(PHP_EOL, trim((string) $macro->getContent()));
             // Handle line breaks in macro content.
             if (count($lines) > 1) {
                 $element = new TextRun();
@@ -441,7 +437,7 @@ class MailTemplateHelper
             $formatter->setPattern($format);
 
             return $formatter->format($date);
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
         }
 
         return $value;
@@ -564,7 +560,7 @@ class MailTemplateHelper
      */
     private function validateEntityType(MailTemplate $mailTemplate, string|object $entity)
     {
-        $entityType = is_string($entity) ? $entity : get_class($entity);
+        $entityType = is_string($entity) ? $entity : $entity::class;
         $classNames = $this->getTemplateEntityClassNames($mailTemplate) ?? [];
         foreach ($classNames as $className) {
             if (is_a($entityType, $className, true)) {

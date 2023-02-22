@@ -7,20 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=AgendaManuelItemRepository::class)
- */
+#[ORM\Entity(repositoryClass: AgendaManuelItemRepository::class)]
 class AgendaManuelItem extends AgendaItem
 {
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Document::class)
-     */
-    private $documents;
+    #[ORM\ManyToMany(targetEntity: Document::class)]
+    private \Doctrine\Common\Collections\ArrayCollection|array $documents;
 
     public function __construct()
     {

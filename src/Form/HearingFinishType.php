@@ -16,14 +16,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HearingFinishType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -40,7 +34,7 @@ class HearingFinishType extends AbstractType
     {
         $case = $options['case'];
 
-        switch (get_class($case)) {
+        switch ($case::class) {
             case ResidentComplaintBoardCase::class:
             case RentBoardCase::class:
                 $partyLabel = new TranslatableMessage('Tenant side has no more to add', [], 'case');
@@ -51,7 +45,7 @@ class HearingFinishType extends AbstractType
                 $counterPartyLabel = new TranslatableMessage('Neighbour side has no more to add', [], 'case');
                 break;
             default:
-                $message = sprintf('Case class %s not handled.', get_class($case));
+                $message = sprintf('Case class %s not handled.', $case::class);
                 throw new CaseClassException($message);
         }
 

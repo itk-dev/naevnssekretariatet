@@ -7,27 +7,19 @@ use App\Repository\CaseDecisionProposalRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=CaseDecisionProposalRepository::class)
- * @ORM\EntityListeners({"App\Logging\EntityListener\CaseDecisionProposalListener"})
- */
+#[ORM\Entity(repositoryClass: CaseDecisionProposalRepository::class)]
+#[ORM\EntityListeners([\App\Logging\EntityListener\CaseDecisionProposalListener::class])]
 class CaseDecisionProposal implements LoggableEntityInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $decisionProposal;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $decisionProposal = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=CaseEntity::class, mappedBy="decisionProposal", cascade={"persist", "remove"})
-     */
-    private $caseEntity;
+    #[ORM\OneToOne(targetEntity: CaseEntity::class, mappedBy: 'decisionProposal', cascade: ['persist', 'remove'])]
+    private ?\App\Entity\CaseEntity $caseEntity = null;
 
     public function __construct()
     {

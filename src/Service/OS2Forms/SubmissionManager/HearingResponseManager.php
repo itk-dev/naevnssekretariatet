@@ -20,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HearingResponseManager
 {
-    public function __construct(private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private HearingPostRepository $hearingPostRepository, private HearingResponseSubmissionNormalizer $normalizer, private MailTemplateHelper $mailTemplateHelper, private PartyRepository $partyRepository, private TranslatorInterface $translator)
+    public function __construct(private readonly DocumentUploader $documentUploader, private readonly EntityManagerInterface $entityManager, private readonly HearingPostRepository $hearingPostRepository, private readonly HearingResponseSubmissionNormalizer $normalizer, private readonly MailTemplateHelper $mailTemplateHelper, private readonly PartyRepository $partyRepository, private readonly TranslatorInterface $translator)
     {
     }
 

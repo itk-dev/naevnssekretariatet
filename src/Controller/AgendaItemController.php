@@ -17,29 +17,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 
-/**
- * @Route("/agenda/{id}/item")
- */
+#[Route(path: '/agenda/{id}/item')]
 class AgendaItemController extends AbstractController
 {
-    /**
-     * @var AgendaItemHelper
-     */
-    private $agendaItemHelper;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    public function __construct(AgendaItemHelper $agendaItemHelper, EntityManagerInterface $entityManager)
+    public function __construct(private readonly AgendaItemHelper $agendaItemHelper, private readonly EntityManagerInterface $entityManager)
     {
-        $this->agendaItemHelper = $agendaItemHelper;
-        $this->entityManager = $entityManager;
     }
 
-    /**
-     * @Route("/create", name="agenda_item_create", methods={"GET", "POST"})
-     */
+    #[Route(path: '/create', name: 'agenda_item_create', methods: ['GET', 'POST'])]
     public function create(Agenda $agenda, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
@@ -54,7 +39,7 @@ class AgendaItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() && !$isFinishedAgenda) {
             $agendaItem = $form->get('agendaItem')->getData();
 
-            if (AgendaCaseItem::class === get_class($agendaItem)) {
+            if (AgendaCaseItem::class === $agendaItem::class) {
                 $agendaItem->getCaseEntity()->setDateForActiveAgenda($agenda->getDate());
 
                 $agendaItem->setInspection(
@@ -65,7 +50,7 @@ class AgendaItemController extends AbstractController
             $agenda->addAgendaItem($agendaItem);
             $this->entityManager->persist($agendaItem);
             $this->entityManager->flush();
-            $message = match (get_class($agendaItem)) {
+            $message = match ($agendaItem::class) {
                 AgendaManuelItem::class => new TranslatableMessage('Agenda manual item created', [], 'agenda'),
                 default => new TranslatableMessage('Agenda case item created', [], 'agenda'),
             };
@@ -81,12 +66,12 @@ class AgendaItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}/edit", name="agenda_item_edit", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      *
      * @throws Exception
      */
+    #[Route(path: '/{agenda_item_id}/edit', name: 'agenda_item_edit', methods: ['GET', 'POST'])]
     public function edit(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
     {
         $formClass = $this->agendaItemHelper->getFormType($agendaItem);
@@ -104,7 +89,7 @@ class AgendaItemController extends AbstractController
             $this->denyAccessUnlessGranted('edit', $agendaItem);
 
             $this->entityManager->flush();
-            $message = match (get_class($agendaItem)) {
+            $message = match ($agendaItem::class) {
                 AgendaManuelItem::class => new TranslatableMessage('Agenda manual item updated', [], 'agenda'),
                 default => new TranslatableMessage('Agenda case item updated', [], 'agenda'),
             };
@@ -125,10 +110,10 @@ class AgendaItemController extends AbstractController
     }
 
     /**
-     * @Route("/{agenda_item_id}", name="agenda_item_delete", methods={"DELETE"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
+    #[Route(path: '/{agenda_item_id}', name: 'agenda_item_delete', methods: ['DELETE'])]
     public function delete(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
     {
         $this->denyAccessUnlessGranted('delete', $agendaItem);
@@ -140,7 +125,7 @@ class AgendaItemController extends AbstractController
             }
             $this->entityManager->remove($agendaItem);
             $this->entityManager->flush();
-            $message = match (get_class($agendaItem)) {
+            $message = match ($agendaItem::class) {
                 AgendaManuelItem::class => new TranslatableMessage('Agenda manual item deleted', [], 'agenda'),
                 default => new TranslatableMessage('Agenda case item deleted', [], 'agenda'),
             };

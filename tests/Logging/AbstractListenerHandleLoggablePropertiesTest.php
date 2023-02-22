@@ -11,7 +11,7 @@ use Symfony\Component\Uid\UuidV4;
 
 class AbstractListenerHandleLoggablePropertiesTest extends TestCase
 {
-    private $mockListener;
+    private \PHPUnit\Framework\MockObject\MockObject $mockListener;
 
     protected function setUp(): void
     {

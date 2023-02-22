@@ -26,7 +26,7 @@ class CaseManager implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseRepository, private EntityManagerInterface $entityManager, private LockFactory $lockFactory, private MunicipalityRepository $municipalityRepository, private PropertyAccessorInterface $propertyAccessor, private WorkflowService $workflowService, private DocumentUploader $documentUploader)
+    public function __construct(private readonly BoardRepository $boardRepository, private readonly CaseEntityRepository $caseRepository, private readonly EntityManagerInterface $entityManager, private readonly LockFactory $lockFactory, private readonly MunicipalityRepository $municipalityRepository, private readonly PropertyAccessorInterface $propertyAccessor, private readonly WorkflowService $workflowService, private readonly DocumentUploader $documentUploader)
     {
     }
 

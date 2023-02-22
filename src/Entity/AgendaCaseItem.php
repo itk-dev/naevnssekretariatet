@@ -7,41 +7,27 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\EntityListeners({"App\Logging\EntityListener\AgendaCaseItemListener"})
- * @ORM\Entity(repositoryClass=AgendaCaseItemRepository::class)
- */
+#[ORM\EntityListeners([\App\Logging\EntityListener\AgendaCaseItemListener::class])]
+#[ORM\Entity(repositoryClass: AgendaCaseItemRepository::class)]
 class AgendaCaseItem extends AgendaItem
 {
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
-    private $inspection = false;
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    private bool $inspection = false;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="agendaCaseItems")
-     */
-    private $caseEntity;
+    #[ORM\ManyToOne(targetEntity: CaseEntity::class, inversedBy: 'agendaCaseItems')]
+    private ?\App\Entity\CaseEntity $caseEntity = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Document::class, inversedBy="agendaCaseItems")
-     */
-    private $documents;
+    #[ORM\ManyToMany(targetEntity: Document::class, inversedBy: 'agendaCaseItems')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $documents;
 
-    /**
-     * @ORM\OneToOne(targetEntity=CasePresentation::class, cascade={"persist", "remove"})
-     */
-    private $presentation;
+    #[ORM\OneToOne(targetEntity: CasePresentation::class, cascade: ['persist', 'remove'])]
+    private ?\App\Entity\CasePresentation $presentation = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=CaseDecisionProposal::class, cascade={"persist", "remove"})
-     */
-    private $decisionProposal;
+    #[ORM\OneToOne(targetEntity: CaseDecisionProposal::class, cascade: ['persist', 'remove'])]
+    private ?\App\Entity\CaseDecisionProposal $decisionProposal = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=InspectionLetter::class, mappedBy="agendaCaseItem", orphanRemoval=true)
-     */
-    private $inspectionLetters;
+    #[ORM\OneToMany(targetEntity: InspectionLetter::class, mappedBy: 'agendaCaseItem', orphanRemoval: true)]
+    private \Doctrine\Common\Collections\ArrayCollection|array $inspectionLetters;
 
     public function __construct()
     {

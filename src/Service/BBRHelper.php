@@ -25,9 +25,9 @@ class BBRHelper implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    private array $options;
+    private readonly array $options;
 
-    public function __construct(private AddressHelper $addressHelper, private PropertyAccessorInterface $propertyAccessor, private BBRDataRepository $bbrDataRepository, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private TranslatorInterface $translator, array $bbrHelperOptions)
+    public function __construct(private readonly AddressHelper $addressHelper, private readonly PropertyAccessorInterface $propertyAccessor, private readonly BBRDataRepository $bbrDataRepository, private readonly EntityManagerInterface $entityManager, private readonly HttpClientInterface $httpClient, private readonly TranslatorInterface $translator, array $bbrHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -172,7 +172,7 @@ class BBRHelper implements LoggerAwareInterface
     {
         $address = $this->propertyAccessor->getValue($entity, $property);
         if (!($address instanceof Address)) {
-            throw $this->createException(sprintf('Property %s.%s must be an instance of %s; is %s', get_class($entity), $property, Address::class, get_class($address)));
+            throw $this->createException(sprintf('Property %s.%s must be an instance of %s; is %s', $entity::class, $property, Address::class, $address::class));
         }
 
         return $address;

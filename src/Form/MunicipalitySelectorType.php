@@ -12,19 +12,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MunicipalitySelectorType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-    /**
-     * @var SessionInterface
-     */
-    private $session;
-
-    public function __construct(SessionInterface $session, TranslatorInterface $translator)
+    public function __construct(private readonly SessionInterface $session, private readonly TranslatorInterface $translator)
     {
-        $this->session = $session;
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -43,9 +32,7 @@ class MunicipalitySelectorType extends AbstractType
 
         $builder->add('municipality', ChoiceType::class, [
             'choices' => $municipalities,
-            'choice_label' => function (?Municipality $municipality) {
-                return $municipality->getName();
-            },
+            'choice_label' => fn (?Municipality $municipality) => $municipality->getName(),
             'label' => $this->translator->trans('Show for', [], 'agenda'),
             'data' => $activeMunicipality,
         ]);

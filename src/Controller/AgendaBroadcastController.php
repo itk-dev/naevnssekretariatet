@@ -25,14 +25,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route("/agenda/{id}/broadcast")
- */
+#[Route(path: '/agenda/{id}/broadcast')]
 class AgendaBroadcastController extends AbstractController
 {
-    /**
-     * @Route("/index", name="agenda_broadcast", methods={"GET"})
-     */
+    #[Route(path: '/index', name: 'agenda_broadcast', methods: ['GET'])]
     public function index(Agenda $agenda, DigitalPostRepository $digitalPostRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
@@ -43,9 +39,7 @@ class AgendaBroadcastController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/create", name="agenda_broadcast_create", methods={"GET", "POST"})
-     */
+    #[Route(path: '/create', name: 'agenda_broadcast_create', methods: ['GET', 'POST'])]
     public function broadcastAgenda(Agenda $agenda, CprHelper $cprHelper, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager, MailTemplateHelper $mailTemplateHelper, TranslatorInterface $translator, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
@@ -112,7 +106,7 @@ class AgendaBroadcastController extends AbstractController
 
             $entityManager->persist($agendaBroadcast);
 
-            $digitalPostHelper->createDigitalPost($document, $agendaBroadcast->getTitle(), get_class($agenda), $agenda->getId(), [], $digitalPostRecipients);
+            $digitalPostHelper->createDigitalPost($document, $agendaBroadcast->getTitle(), $agenda::class, $agenda->getId(), [], $digitalPostRecipients);
 
             return $this->redirectToRoute('agenda_broadcast', [
                 'id' => $agenda->getId(),
@@ -126,9 +120,9 @@ class AgendaBroadcastController extends AbstractController
     }
 
     /**
-     * @Route("/{digital_post}/show", name="agenda_broadcast_show", methods={"GET", "POST"})
      * @Entity("digitalPost", expr="repository.find(digital_post)")
      */
+    #[Route(path: '/{digital_post}/show', name: 'agenda_broadcast_show', methods: ['GET', 'POST'])]
     public function show(Agenda $agenda, DigitalPost $digitalPost)
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
@@ -140,10 +134,9 @@ class AgendaBroadcastController extends AbstractController
     }
 
     /**
-     * @Route("/view/{document}", name="agenda_broadcast_document_view", methods={"GET"})
-     *
      * @throws DocumentDirectoryException
      */
+    #[Route(path: '/view/{document}', name: 'agenda_broadcast_document_view', methods: ['GET'])]
     public function view(Agenda $agenda, Document $document, DocumentUploader $uploader): Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);

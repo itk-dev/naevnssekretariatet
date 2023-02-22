@@ -10,38 +10,26 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=MunicipalityRepository::class)
- * @ORM\EntityListeners({"App\Logging\EntityListener\MunicipalityListener"})
- */
-class Municipality implements LoggableEntityInterface
+#[ORM\Entity(repositoryClass: MunicipalityRepository::class)]
+#[ORM\EntityListeners([\App\Logging\EntityListener\MunicipalityListener::class])]
+class Municipality implements LoggableEntityInterface, \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups({"mail_template"})
-     */
-    private $name;
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Groups(['mail_template'])]
+    private ?string $name = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Board::class, mappedBy="municipality")
-     */
-    private $boards;
+    #[ORM\OneToMany(targetEntity: Board::class, mappedBy: 'municipality')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $boards;
 
-    /**
-     * @ORM\OneToMany(targetEntity=ComplaintCategory::class, mappedBy="municipality")
-     */
-    private $complaintCategories;
+    #[ORM\OneToMany(targetEntity: ComplaintCategory::class, mappedBy: 'municipality')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $complaintCategories;
 
-    /**
-     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="municipality")
-     */
-    private $caseEntities;
+    #[ORM\OneToMany(targetEntity: CaseEntity::class, mappedBy: 'municipality')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $caseEntities;
 
     public function __construct()
     {
@@ -98,9 +86,9 @@ class Municipality implements LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**

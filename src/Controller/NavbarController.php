@@ -12,19 +12,8 @@ use Symfony\Component\Security\Core\Security;
 
 class NavbarController extends AbstractController
 {
-    /**
-     * @var Security
-     */
-    private $security;
-    /**
-     * @var ReminderRepository
-     */
-    private $reminderRepository;
-
-    public function __construct(Security $security, ReminderRepository $reminderRepository)
+    public function __construct(private readonly Security $security, private readonly ReminderRepository $reminderRepository)
     {
-        $this->security = $security;
-        $this->reminderRepository = $reminderRepository;
     }
 
     public function renderReminders(): Response

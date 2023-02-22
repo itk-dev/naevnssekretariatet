@@ -11,7 +11,7 @@ use App\Service\OS2Forms\SubmissionNormalizers\SubmissionNormalizerInterface;
 
 class FenceComplaintBoardCaseTypeManager implements CaseSubmissionManagerInterface
 {
-    public function __construct(private CaseSubmissionNormalizer $caseSubmissionNormalizer, private FenceBoardSubmissionNormalizer $fenceBoardSubmissionNormalizer, private UserRepository $userRepository)
+    public function __construct(private readonly CaseSubmissionNormalizer $caseSubmissionNormalizer, private readonly FenceBoardSubmissionNormalizer $fenceBoardSubmissionNormalizer, private readonly UserRepository $userRepository)
     {
     }
 

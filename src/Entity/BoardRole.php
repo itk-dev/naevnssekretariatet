@@ -8,32 +8,22 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=BoardRoleRepository::class)
- */
-class BoardRole
+#[ORM\Entity(repositoryClass: BoardRoleRepository::class)]
+class BoardRole implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $title = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="boardRoles")
-     */
-    private $boardMembers;
+    #[ORM\ManyToMany(targetEntity: BoardMember::class, inversedBy: 'boardRoles')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $boardMembers;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="boardRoles")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $board;
+    #[ORM\ManyToOne(targetEntity: Board::class, inversedBy: 'boardRoles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?\App\Entity\Board $board = null;
 
     public function __construct()
     {
@@ -82,7 +72,7 @@ class BoardRole
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->board->__toString().' '.$this->getTitle();
     }

@@ -7,91 +7,59 @@ use App\Repository\RentBoardCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass=RentBoardCaseRepository::class)
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity(repositoryClass: RentBoardCaseRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class RentBoardCase extends CaseEntity
 {
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"mail_template"})
-     */
-    private $leaseSize;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['mail_template'])]
+    private ?int $leaseSize = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"mail_template"})
-     */
-    private $bringerPhone;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['mail_template'])]
+    private ?int $bringerPhone = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $hasVacated;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $hasVacated = null;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
-     * @Groups({"mail_template"})
-     */
-    private $leaseAddress;
+    #[ORM\Embedded(class: \App\Entity\Embeddable\Address::class)]
+    #[Groups(['mail_template'])]
+    private \App\Entity\Embeddable\Address $leaseAddress;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"mail_template"})
-     */
-    private $leaseStarted;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Groups(['mail_template'])]
+    private ?\DateTimeInterface $leaseStarted = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"mail_template"})
-     */
-    private $leaseAgreedRent;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['mail_template'])]
+    private ?int $leaseAgreedRent = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $leaseInteriorMaintenance;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $leaseInteriorMaintenance = null;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $leaseRegulatedRent;
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $leaseRegulatedRent = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $leaseRentAtCollectionTime;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $leaseRentAtCollectionTime = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $leaseSecurityDeposit;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $leaseSecurityDeposit = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $previousCasesAtLease;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $previousCasesAtLease = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $prepaidRent;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $prepaidRent = null;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $feePaid;
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $feePaid = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $leaseType;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $leaseType = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $leaseRegulatedAt;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $leaseRegulatedAt = null;
 
     public function __construct()
     {
@@ -265,10 +233,8 @@ class RentBoardCase extends CaseEntity
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateSortingAddress()
     {
         $this->setSortingAddress($this->getLeaseAddress()->__toString());

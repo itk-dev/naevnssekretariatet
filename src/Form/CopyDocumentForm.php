@@ -26,7 +26,7 @@ class CopyDocumentForm extends AbstractType
 
         $builder->add('cases', EntityType::class, [
             'choices' => $suitableCases,
-            'class' => get_class($case),
+            'class' => $case::class,
             'label' => 'Copy to',
             'multiple' => true,
             'attr' => [

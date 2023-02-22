@@ -5,32 +5,23 @@ namespace App\Entity\Embeddable;
 use App\Logging\LoggableEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Embeddable
- */
+#[ORM\Embeddable]
 class Identification implements LoggableEntityInterface
 {
-    /**
-     * @ORM\Column(type="string", length=32, nullable=true)
-     */
-    private $type;
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
+    private ?string $type = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $identifier;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $identifier = null;
 
     /**
      * @see https://www.billy.dk/billypedia/p-nummer/
-     *
-     * @ORM\Column(type="string", length=10, nullable=true)
      */
-    private $pNumber;
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    private ?string $pNumber = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $validatedAt;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $validatedAt = null;
 
     public function getType(): ?string
     {
@@ -44,9 +35,9 @@ class Identification implements LoggableEntityInterface
         return $this;
     }
 
-    public function getIdentifier(): ?string
+    public function getIdentifier(): string
     {
-        return $this->identifier;
+        return $this->identifier ?? '';
     }
 
     public function setIdentifier(?string $identifier): self

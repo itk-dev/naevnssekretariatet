@@ -11,132 +11,83 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=BoardRepository::class)
- * @ORM\EntityListeners({"App\Logging\EntityListener\BoardListener"})
- */
-class Board implements LoggableEntityInterface
+#[ORM\Entity(repositoryClass: BoardRepository::class)]
+#[ORM\EntityListeners([\App\Logging\EntityListener\BoardListener::class])]
+class Board implements LoggableEntityInterface, \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"mail_template"})
-     */
-    private $name;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['mail_template'])]
+    private ?string $name = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="boards")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"mail_template"})
-     */
-    private $municipality;
+    #[ORM\ManyToOne(targetEntity: Municipality::class, inversedBy: 'boards')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['mail_template'])]
+    private ?\App\Entity\Municipality $municipality = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="board")
-     */
-    private $caseEntities;
+    #[ORM\OneToMany(targetEntity: CaseEntity::class, mappedBy: 'board')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $caseEntities;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $caseFormType;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $caseFormType = null;
 
-    /**
-     * @Assert\Positive
-     * @ORM\Column(type="integer")
-     */
-    private $hearingResponseDeadline;
+    #[Assert\Positive]
+    #[ORM\Column(type: 'integer')]
+    private ?int $hearingResponseDeadline = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $statuses;
+    #[ORM\Column(type: 'text')]
+    private ?string $statuses = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=BoardRole::class, mappedBy="board")
-     */
-    private $boardRoles;
+    #[ORM\OneToMany(targetEntity: BoardRole::class, mappedBy: 'board')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $boardRoles;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $partyTypes;
+    #[ORM\Column(type: 'text')]
+    private ?string $partyTypes = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $counterpartyTypes;
+    #[ORM\Column(type: 'text')]
+    private ?string $counterpartyTypes = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Agenda::class, mappedBy="board")
-     */
-    private $agendas;
+    #[ORM\OneToMany(targetEntity: Agenda::class, mappedBy: 'board')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $agendas;
 
-    /**
-     * @Assert\Positive
-     * @ORM\Column(type="integer")
-     */
-    private $finishProcessingDeadlineDefault;
+    #[Assert\Positive]
+    #[ORM\Column(type: 'integer')]
+    private ?int $finishProcessingDeadlineDefault = null;
 
-    /**
-     * @Assert\Positive
-     * @ORM\Column(type="integer")
-     */
-    private $finishHearingDeadlineDefault;
+    #[Assert\Positive]
+    #[ORM\Column(type: 'integer')]
+    private ?int $finishHearingDeadlineDefault = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=ComplaintCategory::class, mappedBy="boards")
-     */
-    private $complaintCategories;
+    #[ORM\ManyToMany(targetEntity: ComplaintCategory::class, mappedBy: 'boards')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $complaintCategories;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
-     * @Assert\NotNull()
-     * @Assert\Expression(
-     *     "'board_receipt_case' == value.getType()",
-     *     message="Please select a template with type board_receipt_case"
-     * )
-     */
-    private $receiptCase;
+    #[ORM\ManyToOne(targetEntity: MailTemplate::class)]
+    #[Assert\NotNull]
+    #[Assert\Expression("'board_receipt_case' == value.getType()", message: 'Please select a template with type board_receipt_case')]
+    private ?\App\Entity\MailTemplate $receiptCase = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
-     * @Assert\NotNull()
-     * @Assert\Expression(
-     *     "'board_receipt_hearing_post' == value.getType()",
-     *     message="Please select a template with type board_receipt_hearing_post"
-     * )
-     */
-    private $receiptHearingPost;
+    #[ORM\ManyToOne(targetEntity: MailTemplate::class)]
+    #[Assert\NotNull]
+    #[Assert\Expression("'board_receipt_hearing_post' == value.getType()", message: 'Please select a template with type board_receipt_hearing_post')]
+    private ?\App\Entity\MailTemplate $receiptHearingPost = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Email()
-     * @Groups({"mail_template"})
-     */
-    private $email;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Email]
+    #[Groups(['mail_template'])]
+    private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Url()
-     * @Groups({"mail_template"})
-     */
-    private $url;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Url]
+    #[Groups(['mail_template'])]
+    private ?string $url = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
-     * @Assert\NotNull()
-     * @Assert\Expression(
-     *     "'hearing_post_response_template' == value.getType()",
-     *     message="Please select a template with type hearing_post_response_template"
-     * )
-     */
-    private $hearingPostResponseTemplate;
+    #[ORM\ManyToOne(targetEntity: MailTemplate::class)]
+    #[Assert\NotNull]
+    #[Assert\Expression("'hearing_post_response_template' == value.getType()", message: 'Please select a template with type hearing_post_response_template')]
+    private ?\App\Entity\MailTemplate $hearingPostResponseTemplate = null;
 
     public function __construct()
     {
@@ -176,7 +127,7 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name.' '.$this->getMunicipality()->getName();
     }
@@ -245,9 +196,9 @@ class Board implements LoggableEntityInterface
         ];
     }
 
-    public function getStatuses(): ?string
+    public function getStatuses(): string
     {
-        return $this->statuses;
+        return $this->statuses ?? '';
     }
 
     public function setStatuses(string $statuses): self
@@ -287,9 +238,9 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
-    public function getPartyTypes(): ?string
+    public function getPartyTypes(): string
     {
-        return $this->partyTypes;
+        return $this->partyTypes ?? '';
     }
 
     public function setPartyTypes(string $partyTypes): self
@@ -317,9 +268,9 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
-    public function getCounterpartyTypes(): ?string
+    public function getCounterpartyTypes(): string
     {
-        return $this->counterpartyTypes;
+        return $this->counterpartyTypes ?? '';
     }
 
     public function setCounterpartyTypes(string $counterpartyTypes): self

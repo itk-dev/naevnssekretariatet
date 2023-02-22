@@ -19,20 +19,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartyFormType extends AbstractType
 {
-    /**
-     * @var PartyHelper
-     */
-    private $partyHelper;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(PartyHelper $partyHelper, TranslatorInterface $translator)
+    public function __construct(private readonly PartyHelper $partyHelper, private readonly TranslatorInterface $translator)
     {
-        $this->partyHelper = $partyHelper;
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver)

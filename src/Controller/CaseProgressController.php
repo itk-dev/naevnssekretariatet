@@ -9,11 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CaseProgressController extends AbstractController
 {
-    private $workflowService;
-
-    public function __construct(WorkflowService $workflowService)
+    public function __construct(private readonly WorkflowService $workflowService)
     {
-        $this->workflowService = $workflowService;
     }
 
     public function renderCaseProgressBar(CaseEntity $case): Response

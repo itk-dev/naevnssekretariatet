@@ -15,14 +15,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/mail-template", name="admin_mail_template_")
- */
+#[Route(path: '/admin/mail-template', name: 'admin_mail_template_')]
 class MailTemplateController extends AbstractController
 {
-    /**
-     * @Route("/preview/{id}", name="preview")
-     */
+    #[Route(path: '/preview/{id}', name: 'preview')]
     public function preview(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper, AdminUrlGenerator $adminUrlGenerator): Response
     {
         try {
@@ -47,9 +43,7 @@ class MailTemplateController extends AbstractController
         return new BinaryFileResponse($fileName, 200, ['content-type' => $mimeType]);
     }
 
-    /**
-     * @Route("/data/{id}", name="data")
-     */
+    #[Route(path: '/data/{id}', name: 'data')]
     public function data(Request $request, MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper, AdminUrlGenerator $adminUrlGenerator): Response
     {
         try {
@@ -72,9 +66,7 @@ class MailTemplateController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/template-file/{id}", name="template_file")
-     */
+    #[Route(path: '/template-file/{id}', name: 'template_file')]
     public function templateFile(MailTemplate $mailTemplate, MailTemplateHelper $mailTemplateHelper): Response
     {
         $file = $mailTemplateHelper->getTemplateFile($mailTemplate);

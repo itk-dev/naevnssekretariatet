@@ -13,66 +13,43 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity(repositoryClass=MailTemplateRepository::class)
  * @Vich\Uploadable
  */
-class MailTemplate implements LoggableEntityInterface
+#[ORM\Entity(repositoryClass: MailTemplateRepository::class)]
+class MailTemplate implements LoggableEntityInterface, \Stringable
 {
     use BlameableEntity;
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $name;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
-     */
-    private $description;
+    #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
+    private ?string $description = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @var string
-     */
-    private $templateFilename;
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $templateFilename;
 
     /**
      * @Vich\UploadableField(mapping="mail_templates", fileNameProperty="templateFilename")
-     *
-     * @var File
-     *
-     * @Assert\File(
-     *     maxSize = "4M",
-     *     mimeTypes = {"application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
-     *     mimeTypesMessage = "Please upload a valid Word document (docx)."
-     * )
      */
-    private $templateFile;
+    #[Assert\File(maxSize: '4M', mimeTypes: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'], mimeTypesMessage: 'Please upload a valid Word document (docx).')]
+    private ?\Symfony\Component\HttpFoundation\File\File $templateFile = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $type;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $type = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $customFields;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $customFields = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
-    private $isArchived = false;
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    private bool $isArchived = false;
 
     public function __construct()
     {

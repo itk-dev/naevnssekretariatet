@@ -14,10 +14,10 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class IdentificationHelper implements EventSubscriberInterface
 {
-    public const IDENTIFIER_TYPE_CPR = 'CPR';
-    public const IDENTIFIER_TYPE_CVR = 'CVR';
+    final public const IDENTIFIER_TYPE_CPR = 'CPR';
+    final public const IDENTIFIER_TYPE_CVR = 'CVR';
 
-    public function __construct(private CprHelper $cprHelper, private CvrHelper $cvrHelper, private PropertyAccessorInterface $propertyAccessor)
+    public function __construct(private readonly CprHelper $cprHelper, private readonly CvrHelper $cvrHelper, private readonly PropertyAccessorInterface $propertyAccessor)
     {
     }
 
@@ -45,7 +45,7 @@ class IdentificationHelper implements EventSubscriberInterface
             return new JsonResponse();
         }
 
-        $dataArray = json_decode(json_encode($data), true);
+        $dataArray = json_decode(json_encode($data, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
 
         $relevantData = self::IDENTIFIER_TYPE_CPR == $type ? $this->cprHelper->collectRelevantData($dataArray) : $this->cvrHelper->collectRelevantData($dataArray);
 

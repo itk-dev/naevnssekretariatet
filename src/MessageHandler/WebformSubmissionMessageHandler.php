@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class WebformSubmissionMessageHandler implements MessageHandlerInterface
 {
-    public function __construct(private OS2FormsManager $formsManager, private HttpClientInterface $client, private $selvbetjeningUserApiToken, private TokenStorageInterface $tokenStorage, private AuthenticationManagerInterface $authenticationManager, private UserRepository $userRepository, private Security $security)
+    public function __construct(private readonly OS2FormsManager $formsManager, private readonly HttpClientInterface $client, private $selvbetjeningUserApiToken, private readonly TokenStorageInterface $tokenStorage, private readonly AuthenticationManagerInterface $authenticationManager, private readonly UserRepository $userRepository, private readonly Security $security)
     {
     }
 
@@ -70,7 +70,7 @@ class WebformSubmissionMessageHandler implements MessageHandlerInterface
                 ]
             );
 
-            $content = json_decode($response->getContent(), true);
+            $content = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
             $submissionData = $content['data'];
 

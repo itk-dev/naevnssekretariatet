@@ -7,52 +7,36 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Uid\Ulid;
 
-/**
- * @ORM\Entity(repositoryClass=LogEntryRepository::class)
- */
+#[ORM\Entity(repositoryClass: LogEntryRepository::class)]
 class LogEntry
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="ulid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'ulid', unique: true)]
+    private readonly \Symfony\Component\Uid\Ulid $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $caseID;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $caseID = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $entityType;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $entityType = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $entityID;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $entityID = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $action;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $action = null;
 
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $data;
+    #[ORM\Column(type: 'json')]
+    private ?array $data = null;
 
     /**
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $createdAt = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $user;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $user = null;
 
     public function __construct()
     {

@@ -6,62 +6,42 @@ use App\Logging\LoggableEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Embeddable
- */
-class Address implements LoggableEntityInterface
+#[ORM\Embeddable]
+class Address implements LoggableEntityInterface, \Stringable
 {
-    /**
-     * @ORM\Column(type="string")
-     * @Groups({"mail_template"})
-     */
-    private $street;
+    #[ORM\Column(type: 'string')]
+    #[Groups(['mail_template'])]
+    private ?string $street = null;
 
-    /**
-     * @ORM\Column(type="string")
-     * @Groups({"mail_template"})
-     */
-    private $number;
+    #[ORM\Column(type: 'string')]
+    #[Groups(['mail_template'])]
+    private ?string $number = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Groups({"mail_template"})
-     */
-    private $floor;
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['mail_template'])]
+    private ?string $floor = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Groups({"mail_template"})
-     */
-    private $side;
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['mail_template'])]
+    private ?string $side = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"mail_template"})
-     */
-    private $postalCode;
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['mail_template'])]
+    private ?int $postalCode = null;
 
-    /**
-     * @ORM\Column(type="string")
-     * @Groups({"mail_template"})
-     */
-    private $city;
+    #[ORM\Column(type: 'string')]
+    #[Groups(['mail_template'])]
+    private ?string $city = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $validatedAt;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $validatedAt = null;
 
-    /**
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $bbrData;
+    #[ORM\Column(type: 'json', nullable: true)]
+    private ?array $bbrData = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Groups({"mail_template"})
-     */
-    private $extraInformation;
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['mail_template'])]
+    private ?string $extraInformation = null;
 
     public function getStreet(): string
     {

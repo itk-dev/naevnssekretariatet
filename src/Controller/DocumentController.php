@@ -27,34 +27,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 
-/**
- * @Route("/case/{id}/documents")
- */
+#[Route(path: '/case/{id}/documents')]
 class DocumentController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var DocumentCopyHelper
-     */
-    private $copyHelper;
-    /**
-     * @var DocumentUploader
-     */
-    private $documentUploader;
-
-    public function __construct(EntityManagerInterface $entityManager, DocumentCopyHelper $copyHelper, DocumentUploader $documentUploader)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly DocumentCopyHelper $copyHelper, private readonly DocumentUploader $documentUploader)
     {
-        $this->entityManager = $entityManager;
-        $this->copyHelper = $copyHelper;
-        $this->documentUploader = $documentUploader;
     }
 
-    /**
-     * @Route("/", name="document_index", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'document_index', methods: ['GET'])]
     public function index(Request $request, CaseEntity $case, DocumentRepository $documentRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater, PaginatorInterface $paginator): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -93,11 +73,10 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="document_create", methods={"GET", "POST"})
-     *
      * @throws FileMovingException
      * @throws DocumentDirectoryException
      */
+    #[Route(path: '/create', name: 'document_create', methods: ['GET', 'POST'])]
     public function create(CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -137,11 +116,10 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{document}", name="document_edit", methods={"GET", "POST"})
-     *
      * @throws FileMovingException
      * @throws DocumentDirectoryException
      */
+    #[Route(path: '/edit/{document}', name: 'document_edit', methods: ['GET', 'POST'])]
     public function edit(CaseEntity $case, Document $document, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -162,10 +140,10 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/{document_id}", name="document_delete", methods={"GET", "DELETE"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
+    #[Route(path: '/{document_id}', name: 'document_delete', methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Document $document, CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -198,10 +176,10 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/copy/{document_id}", name="document_copy", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
+    #[Route(path: '/copy/{document_id}', name: 'document_copy', methods: ['GET', 'POST'])]
     public function copy(Request $request, Document $document, CaseEntity $case, CaseDocumentRelationRepository $relationRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -228,12 +206,12 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/view/{document_id}", name="document_view", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      *
      * @throws DocumentDirectoryException
      */
+    #[Route(path: '/view/{document_id}', name: 'document_view', methods: ['GET', 'POST'])]
     public function view(CaseEntity $case, Document $document, DocumentUploader $uploader): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);

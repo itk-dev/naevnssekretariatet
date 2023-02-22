@@ -11,7 +11,7 @@ use App\Service\OS2Forms\SubmissionNormalizers\SubmissionNormalizerInterface;
 
 class ResidentComplaintBoardCaseTypeManager implements CaseSubmissionManagerInterface
 {
-    public function __construct(private CaseSubmissionNormalizer $caseSubmissionNormalizer, private ResidentAndRentBoardSubmissionNormalizer $residentAndRentBoardSubmissionNormalizer, private UserRepository $userRepository)
+    public function __construct(private readonly CaseSubmissionNormalizer $caseSubmissionNormalizer, private readonly ResidentAndRentBoardSubmissionNormalizer $residentAndRentBoardSubmissionNormalizer, private readonly UserRepository $userRepository)
     {
     }
 

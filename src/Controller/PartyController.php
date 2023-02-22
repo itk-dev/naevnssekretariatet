@@ -15,24 +15,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/case/{id}/party")
- */
+#[Route(path: '/case/{id}/party')]
 class PartyController extends AbstractController
 {
-    /**
-     * @var PartyHelper
-     */
-    private $partyHelper;
-
-    public function __construct(PartyHelper $partyHelper)
+    public function __construct(private readonly PartyHelper $partyHelper)
     {
-        $this->partyHelper = $partyHelper;
     }
 
-    /**
-     * @Route("/add", name="party_add")
-     */
+    #[Route(path: '/add', name: 'party_add')]
     public function addParty(CaseEntity $case, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -72,9 +62,7 @@ class PartyController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/add_party_from_index", name="party_add_from_index")
-     */
+    #[Route(path: '/add_party_from_index', name: 'party_add_from_index')]
     public function addPartyFromIndex(CaseEntity $case, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -108,10 +96,10 @@ class PartyController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{party_id}", name="party_edit")
      * @Entity("party", expr="repository.find(party_id)")
      * @Entity("case", expr="repository.find(id)")
      */
+    #[Route(path: '/edit/{party_id}', name: 'party_edit')]
     public function edit(CaseEntity $case, Party $party, CasePartyRelationRepository $relationRepository, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -144,10 +132,10 @@ class PartyController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{party_id}", name="party_delete", methods={"DELETE"})
      * @Entity("party", expr="repository.find(party_id)")
      * @Entity("case", expr="repository.find(id)")
      */
+    #[Route(path: '/delete/{party_id}', name: 'party_delete', methods: ['DELETE'])]
     public function delete(Request $request, Party $party, CaseEntity $case, CasePartyRelationRepository $relationRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);

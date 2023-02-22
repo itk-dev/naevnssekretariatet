@@ -6,21 +6,15 @@ use App\Repository\AgendaProtocolRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=AgendaProtocolRepository::class)
- */
+#[ORM\Entity(repositoryClass: AgendaProtocolRepository::class)]
 class AgendaProtocol
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $protocol;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $protocol = null;
 
     public function __construct()
     {

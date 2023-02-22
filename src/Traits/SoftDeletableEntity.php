@@ -6,14 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait SoftDeletableEntity
 {
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private $softDeleted = false;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private $softDeletedAt;
 
     public function setSoftDeletedAt(\DateTime $softDeletedAt = null): self

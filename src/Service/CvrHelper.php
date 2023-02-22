@@ -23,10 +23,10 @@ class CvrHelper
     /**
      * The client.
      */
-    private Client $guzzleClient;
-    private array $serviceOptions;
+    private readonly Client $guzzleClient;
+    private readonly array $serviceOptions;
 
-    public function __construct(private CaseManager $caseManager, private EntityManagerInterface $entityManager, private PropertyAccessorInterface $propertyAccessor, private TranslatorInterface $translator, array $options)
+    public function __construct(private readonly CaseManager $caseManager, private readonly EntityManagerInterface $entityManager, private readonly PropertyAccessorInterface $propertyAccessor, private readonly TranslatorInterface $translator, array $options)
     {
         $this->guzzleClient = new Client();
         $resolver = new OptionsResolver();
@@ -76,7 +76,7 @@ class CvrHelper
             throw new CvrException($e->getMessage(), $e->getCode(), $e);
         }
 
-        return json_decode((string) $res->getBody(), true);
+        return json_decode((string) $res->getBody(), true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -124,7 +124,7 @@ class CvrHelper
         $id = $this->propertyAccessor->getValue($case, $idProperty);
 
         $cvrData = $this->lookupCvr($id->getIdentifier());
-        $cvrDataArray = json_decode(json_encode($cvrData), true);
+        $cvrDataArray = json_decode(json_encode($cvrData, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
 
         $cvrIdentificationRelevantData = $this->collectRelevantData($cvrDataArray);
 

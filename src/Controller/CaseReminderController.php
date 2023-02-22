@@ -19,29 +19,11 @@ use Symfony\Component\Translation\TranslatableMessage;
 
 class CaseReminderController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var ReminderHelper
-     */
-    private $reminderHelper;
-    /**
-     * @var Security
-     */
-    private $security;
-
-    public function __construct(EntityManagerInterface $entityManager, ReminderHelper $reminderHelper, Security $security)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly ReminderHelper $reminderHelper, private readonly Security $security)
     {
-        $this->entityManager = $entityManager;
-        $this->reminderHelper = $reminderHelper;
-        $this->security = $security;
     }
 
-    /**
-     * @Route("/reminder", name="reminder_index")
-     */
+    #[Route(path: '/reminder', name: 'reminder_index')]
     public function index(ReminderRepository $reminderRepository): Response
     {
         if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
@@ -58,9 +40,7 @@ class CaseReminderController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/case/{id}/reminder/new", name="reminder_new", methods={"POST"})
-     */
+    #[Route(path: '/case/{id}/reminder/new', name: 'reminder_new', methods: ['POST'])]
     public function new(CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -96,9 +76,7 @@ class CaseReminderController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/reminder/{id}/complete", name="reminder_complete", methods={"DELETE"})
-     */
+    #[Route(path: '/reminder/{id}/complete', name: 'reminder_complete', methods: ['DELETE'])]
     public function complete(Reminder $reminder, Request $request): Response
     {
         $this->denyAccessUnlessGranted('delete', $reminder);
@@ -113,9 +91,7 @@ class CaseReminderController extends AbstractController
         return $this->redirectToRoute('reminder_index');
     }
 
-    /**
-     * @Route("/reminder/{id}/edit", name="reminder_edit", methods={"POST"})
-     */
+    #[Route(path: '/reminder/{id}/edit', name: 'reminder_edit', methods: ['POST'])]
     public function edit(Reminder $reminder, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $reminder);

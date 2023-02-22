@@ -27,9 +27,7 @@ class AgendaAddBoardMemberType extends AbstractType
                 'class' => BoardMember::class,
                 'choices' => $choices,
                 'choice_label' => function (BoardMember $boardMember) use ($board) {
-                    $roles = $boardMember->getBoardRoles()->filter(function ($role) use ($board) {
-                        return $role->getBoard() === $board;
-                    });
+                    $roles = $boardMember->getBoardRoles()->filter(fn ($role) => $role->getBoard() === $board);
 
                     if (1 != sizeof($roles)) {
                         $message = sprintf('Board member: %s, is assigned %s roles on board %s.', $boardMember->getName(), sizeof($roles), $board->getName());

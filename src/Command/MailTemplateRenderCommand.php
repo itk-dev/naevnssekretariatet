@@ -23,7 +23,7 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 class MailTemplateRenderCommand extends Command
 {
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateHelper $templateHelper, private EntityManagerInterface $entityManager, private Filesystem $filesystem, private ParameterBagInterface $parameters)
+    public function __construct(private readonly MailTemplateRepository $mailTemplateRepository, private readonly MailTemplateHelper $templateHelper, private readonly EntityManagerInterface $entityManager, private readonly Filesystem $filesystem, private readonly ParameterBagInterface $parameters)
     {
         parent::__construct(null);
     }
@@ -53,7 +53,7 @@ class MailTemplateRenderCommand extends Command
         try {
             $mailTemplate = $this->mailTemplateRepository->findOneBy(['name' => $templateIdentifier])
                 ?? $this->mailTemplateRepository->findOneBy(['id' => $templateIdentifier]);
-        } catch (ConversionException $conversionException) {
+        } catch (ConversionException) {
             // $templateIdentifier may not be a valid uuid.
         }
         if (null === $mailTemplate) {
@@ -69,7 +69,7 @@ class MailTemplateRenderCommand extends Command
 
         if ($dumpData) {
             $data = $this->templateHelper->getTemplateData($mailTemplate, $entity);
-            $output->writeln(json_encode($data));
+            $output->writeln(json_encode($data, JSON_THROW_ON_ERROR));
             // If we don't have an output file name to write the pdf to, we stop
             // now.
             if (!$outputName) {
@@ -84,7 +84,7 @@ class MailTemplateRenderCommand extends Command
         $filename = $this->templateHelper->renderMailTemplate($mailTemplate, $entity, $options);
 
         if (null !== $outputName) {
-            $this->filesystem->mkdir(dirname($outputName), 0755);
+            $this->filesystem->mkdir(dirname((string) $outputName), 0755);
             $this->filesystem->rename($filename, $outputName, true);
             $io->success(sprintf('Rendered template written to file: %s', $outputName));
         } else {
@@ -106,7 +106,7 @@ class MailTemplateRenderCommand extends Command
             if (class_exists(\Locale::class, false)) {
                 \Locale::setDefault($locale ?? $this->getDefaultLocale());
             }
-        } catch (\Exception $e) {
+        } catch (\Exception) {
         }
     }
 }

@@ -22,9 +22,7 @@ use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends AbstractController
 {
-    /**
-     * @Route("/", name="default")
-     */
+    #[Route(path: '/', name: 'default')]
     public function index(CaseEntityRepository $caseRepository, DashboardHelper $dashboardHelper, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, ReminderHelper $reminderHelper, ReminderRepository $reminderRepository, Security $security, Request $request): Response
     {
         // Board member are redirected to case index
@@ -74,9 +72,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/user-settings", name="user_settings")
-     */
+    #[Route(path: '/user-settings', name: 'user_settings')]
     public function redirectToUserSettings(AdminUrlGenerator $urlGenerator): Response
     {
         if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {

@@ -15,9 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
 {
-    private array $serviceOptions;
+    private readonly array $serviceOptions;
 
-    public function __construct(private MessageBusInterface $bus, private BoardRepository $boardRepository, array $options)
+    public function __construct(private readonly MessageBusInterface $bus, private readonly BoardRepository $boardRepository, array $options)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -26,16 +26,15 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/api/os2forms/submission", name="api_add_submission_to_queue", methods={"POST"})
-     *
      * @throws ApiException
      */
+    #[Route(path: '/api/os2forms/submission', name: 'api_add_submission_to_queue', methods: ['POST'])]
     public function addSubmissionToQueue(Request $request): Response
     {
         try {
             $this->authenticate($request);
 
-            $data = json_decode($request->getContent(), true);
+            $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
             $this->bus->dispatch(new NewWebformSubmissionMessage($data));
 
@@ -45,9 +44,7 @@ class ApiController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/api/complaint-categories/{board_id}", name="api_get_complaint_categories", methods={"GET"})
-     */
+    #[Route(path: '/api/complaint-categories/{board_id}', name: 'api_get_complaint_categories', methods: ['GET'])]
     public function getComplaintCategoriesForSelect(string $board_id, Request $request): Response
     {
         try {

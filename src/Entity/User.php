@@ -11,68 +11,44 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- */
-class User implements UserInterface, LoggableEntityInterface
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+class User implements UserInterface, LoggableEntityInterface, \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $email;
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $loginToken;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"mail_template"})
-     */
-    private $name;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['mail_template'])]
+    private ?string $name = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Municipality::class)
-     */
-    private $favoriteMunicipality;
+    #[ORM\ManyToOne(targetEntity: Municipality::class)]
+    private ?\App\Entity\Municipality $favoriteMunicipality = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="assignedTo")
-     */
-    private $assignedCases;
+    #[ORM\OneToMany(targetEntity: CaseEntity::class, mappedBy: 'assignedTo')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $assignedCases;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="createdBy")
-     */
-    private $reminders;
+    #[ORM\OneToMany(targetEntity: Reminder::class, mappedBy: 'createdBy')]
+    private \Doctrine\Common\Collections\ArrayCollection|array $reminders;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"mail_template"})
-     */
-    private $initials;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['mail_template'])]
+    private ?string $initials = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=BoardMember::class, cascade={"persist", "remove"})
-     */
-    private $boardMember;
+    #[ORM\OneToOne(targetEntity: BoardMember::class, cascade: ['persist', 'remove'])]
+    private ?\App\Entity\BoardMember $boardMember = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $shortcuts;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $shortcuts = null;
 
     public function __construct()
     {
@@ -197,9 +173,9 @@ class User implements UserInterface, LoggableEntityInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**
@@ -295,9 +271,9 @@ class User implements UserInterface, LoggableEntityInterface
         return $this;
     }
 
-    public function getShortcuts(): ?string
+    public function getShortcuts(): string
     {
-        return $this->shortcuts;
+        return $this->shortcuts ?? '';
     }
 
     public function setShortcuts(?string $shortcuts): self

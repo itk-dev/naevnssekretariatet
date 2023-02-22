@@ -15,7 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DocumentFilterType extends AbstractType
 {
-    public function __construct(private DocumentRepository $documentRepository, private TranslatorInterface $translator)
+    public function __construct(private readonly DocumentRepository $documentRepository, private readonly TranslatorInterface $translator)
     {
     }
 

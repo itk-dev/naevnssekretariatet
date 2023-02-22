@@ -23,18 +23,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 
-/**
- * @Route("/case/{id}/decision")
- */
+#[Route(path: '/case/{id}/decision')]
 class DecisionController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 
-    /**
-     * @Route("/", name="case_decision", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'case_decision', methods: ['GET'])]
     public function index(CaseEntity $case, CasePartyRelationRepository $casePartyRelationRepository, DecisionRepository $decisionRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -50,9 +46,7 @@ class DecisionController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/create", name="case_decision_create")
-     */
+    #[Route(path: '/create', name: 'case_decision_create')]
     public function create(CaseEntity $case, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, DocumentRepository $documentRepository, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -109,7 +103,7 @@ class DecisionController extends AbstractController
                 ;
             }
 
-            $digitalPostHelper->createDigitalPost($document, $decision->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+            $digitalPostHelper->createDigitalPost($document, $decision->getTitle(), $case::class, $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
 
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Decision created', [], 'decision'));
@@ -124,10 +118,10 @@ class DecisionController extends AbstractController
     }
 
     /**
-     * @Route("/{decision_id}/show", name="case_decision_show")
      * @Entity("decision", expr="repository.find(decision_id)")
      * @Entity("case", expr="repository.find(id)")
      */
+    #[Route(path: '/{decision_id}/show', name: 'case_decision_show')]
     public function show(CaseEntity $case, Decision $decision): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);

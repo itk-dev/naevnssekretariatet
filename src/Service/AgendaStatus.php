@@ -4,9 +4,9 @@ namespace App\Service;
 
 abstract class AgendaStatus
 {
-    public const OPEN = 1;
-    public const FULL = 2;
-    public const READY = 3;
-    public const FINISHED = 4;
-    public const NOT_FINISHED = 5;
+    final public const OPEN = 1;
+    final public const FULL = 2;
+    final public const READY = 3;
+    final public const FINISHED = 4;
+    final public const NOT_FINISHED = 5;
 }

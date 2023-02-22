@@ -7,51 +7,33 @@ use App\Entity\Embeddable\Identification;
 use App\Repository\FenceReviewCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=FenceReviewCaseRepository::class)
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity(repositoryClass: FenceReviewCaseRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class FenceReviewCase extends CaseEntity
 {
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $conditions;
+    #[ORM\Column(type: 'text')]
+    private ?string $conditions = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $bringerClaim;
+    #[ORM\Column(type: 'text')]
+    private ?string $bringerClaim = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $bringerCadastralNumber;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $bringerCadastralNumber = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $accused;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $accused = null;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
-     */
-    private $accusedAddress;
+    #[ORM\Embedded(class: \App\Entity\Embeddable\Address::class)]
+    private \App\Entity\Embeddable\Address $accusedAddress;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $accusedCadastralNumber;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $accusedCadastralNumber = null;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
-     */
-    private $accusedIdentification;
+    #[ORM\Embedded(class: \App\Entity\Embeddable\Identification::class)]
+    private \App\Entity\Embeddable\Identification $accusedIdentification;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
-    private $accusedIsUnderAddressProtection = false;
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    private bool $accusedIsUnderAddressProtection = false;
 
     public function __construct()
     {
@@ -130,10 +112,8 @@ class FenceReviewCase extends CaseEntity
         $this->accusedAddress = $address;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateSortingAddress()
     {
         $this->setSortingAddress($this->getBringerAddress()->__toString());

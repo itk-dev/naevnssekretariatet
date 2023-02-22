@@ -12,7 +12,7 @@ use PhpOffice\PhpWord\TemplateProcessor as BaseTemplateProcessor;
  */
 class LinkedTemplateProcessor extends BaseTemplateProcessor
 {
-    private \SimpleXMLElement $xmlRelationships;
+    private readonly \SimpleXMLElement $xmlRelationships;
 
     public function __construct($documentTemplate)
     {
@@ -26,7 +26,7 @@ class LinkedTemplateProcessor extends BaseTemplateProcessor
         $this->links = [];
 
         // Store the current links in the template as an XML object.
-        $this->xmlRelationships = simplexml_load_string($this->tempDocumentRelationships);
+        $this->xmlRelationships = simplexml_load_string((string) $this->tempDocumentRelationships);
     }
 
     /**
@@ -104,7 +104,7 @@ class LinkedTemplateProcessor extends BaseTemplateProcessor
         foreach ($this->xmlRelationships as $xmlRelationship) {
             $attributes = $xmlRelationship->attributes();
             if (isset($attributes['Id'])) {
-                if ('rId' === substr($attributes['Id'], 0, 3)) {
+                if (str_starts_with($attributes['Id'], 'rId')) {
                     $link_nums[] = intval(substr($attributes['Id'], 3));
                 }
             }

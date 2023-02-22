@@ -18,7 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NewCaseMunicipalityAndBoardType extends AbstractType
 {
-    public function __construct(private TranslatorInterface $translator, private BoardRepository $boardRepository, private MunicipalityRepository $municipalityRepository)
+    public function __construct(private readonly TranslatorInterface $translator, private readonly BoardRepository $boardRepository, private readonly MunicipalityRepository $municipalityRepository)
     {
     }
 

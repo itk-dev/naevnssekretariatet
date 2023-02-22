@@ -15,23 +15,8 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class DocumentUploader
 {
-    private $uploadDocumentDirectory;
-
-    /**
-     * @var Filesystem
-     */
-    private $filesystem;
-    private $projectDirectory;
-    private MimeTypeGuesserInterface $mimeTypeGuesser;
-    private Security $security;
-
-    public function __construct(string $uploadDocumentDirectory, string $projectDirectory, Filesystem $filesystem, MimeTypeGuesserInterface $mimeTypeGuesser, Security $security)
+    public function __construct(private readonly string $uploadDocumentDirectory, private readonly string $projectDirectory, private readonly Filesystem $filesystem, private readonly MimeTypeGuesserInterface $mimeTypeGuesser, private readonly Security $security)
     {
-        $this->projectDirectory = $projectDirectory;
-        $this->uploadDocumentDirectory = $uploadDocumentDirectory;
-        $this->filesystem = $filesystem;
-        $this->mimeTypeGuesser = $mimeTypeGuesser;
-        $this->security = $security;
     }
 
     /**
@@ -71,6 +56,7 @@ class DocumentUploader
      */
     public function createDocumentFromUploadedFile(UploadedFile $file, string $documentName, string $documentType): Document
     {
+        $tempPath = null;
         try {
             $tempDir = sys_get_temp_dir();
             $file = $file->move($tempDir, $file->getClientOriginalName());

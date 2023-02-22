@@ -15,24 +15,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AgendaFilterType extends AbstractType
 {
-    /**
-     * @var BoardRepository
-     */
-    private $boardRepository;
-    /**
-     * @var FilterHelper
-     */
-    private $filterHelper;
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(BoardRepository $boardRepository, FilterHelper $filterHelper, TranslatorInterface $translator)
+    public function __construct(private readonly BoardRepository $boardRepository, private readonly FilterHelper $filterHelper, private readonly TranslatorInterface $translator)
     {
-        $this->boardRepository = $boardRepository;
-        $this->filterHelper = $filterHelper;
-        $this->translator = $translator;
     }
 
     public function getBlockPrefix()
@@ -80,9 +64,7 @@ class AgendaFilterType extends AbstractType
                     ->getQuery()->getResult(),
                 'label' => false,
                 'placeholder' => $this->translator->trans('All boards', [], 'agenda'),
-                'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
-                    return $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values);
-                },
+                'apply_filter' => fn (QueryInterface $filterQuery, $field, $values) => $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values),
             ])
             ->add('date', Filters\DateFilterType::class, [
                 'label' => false,
