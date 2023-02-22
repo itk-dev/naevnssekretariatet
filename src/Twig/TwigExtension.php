@@ -21,19 +21,19 @@ class TwigExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('camelCaseToUnderscore', [$this, 'camelCaseToUnderscore']),
-            new TwigFunction('class', [$this, 'getClass']),
+            new TwigFunction('camelCaseToUnderscore', $this->camelCaseToUnderscore(...)),
+            new TwigFunction('class', $this->getClass(...)),
             new TwigFunction('type', 'gettype'),
-            new TwigFunction('isDocumentDeletable', [$this, 'isDocumentDeletable']),
-            new TwigFunction('getCustomFields', [$this, 'getCustomFields']),
+            new TwigFunction('isDocumentDeletable', $this->isDocumentDeletable(...)),
+            new TwigFunction('getCustomFields', $this->getCustomFields(...)),
         ];
     }
 
     public function getFilters()
     {
         return [
-            new TwigFilter('with_unit', [$this, 'withUnit']),
-            new TwigFilter('date_nullable', [$this, 'dateNullableFilter']),
+            new TwigFilter('with_unit', $this->withUnit(...)),
+            new TwigFilter('date_nullable', $this->dateNullableFilter(...)),
         ];
     }
 
