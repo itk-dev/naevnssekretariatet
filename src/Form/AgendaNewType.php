@@ -30,7 +30,7 @@ class AgendaNewType extends AbstractType
         $builder
             ->add('board', EntityType::class, [
                 'class' => Board::class,
-                'query_builder' => fn(EntityRepository $er) => $er->createQueryBuilder('b')
+                'query_builder' => fn (EntityRepository $er) => $er->createQueryBuilder('b')
                     ->where('b.municipality = :municipality')
                     ->setParameter('municipality', $municipality->getId()->toBinary())
                     ->orderBy('b.name', 'ASC'),

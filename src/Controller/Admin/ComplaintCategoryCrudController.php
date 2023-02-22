@@ -42,12 +42,12 @@ class ComplaintCategoryCrudController extends AbstractCrudController
         ;
         yield TextField::new('kle', 'KLE')
             // Avoid showing 'Null' or 'Tom' if kle is not set.
-            ->formatValue(fn($value) => $value ?? ' ')
+            ->formatValue(fn ($value) => $value ?? ' ')
         ;
         yield AssociationField::new('boards', 'Boards')
             ->setRequired(true)
             ->formatValue(function ($value, ComplaintCategory $category) {
-                $boards = $category->getBoards()->map(fn(Board $board) => $board->__toString());
+                $boards = $category->getBoards()->map(fn (Board $board) => $board->__toString());
 
                 return implode(', ', $boards->getValues());
             })

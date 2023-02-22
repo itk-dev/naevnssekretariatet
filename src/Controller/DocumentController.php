@@ -73,7 +73,6 @@ class DocumentController extends AbstractController
     }
 
     /**
-     *
      * @throws FileMovingException
      * @throws DocumentDirectoryException
      */
@@ -117,7 +116,6 @@ class DocumentController extends AbstractController
     }
 
     /**
-     *
      * @throws FileMovingException
      * @throws DocumentDirectoryException
      */
@@ -210,6 +208,7 @@ class DocumentController extends AbstractController
     /**
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
+     *
      * @throws DocumentDirectoryException
      */
     #[Route(path: '/view/{document_id}', name: 'document_view', methods: ['GET', 'POST'])]

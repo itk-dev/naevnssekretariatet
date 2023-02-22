@@ -368,7 +368,7 @@ class HearingController extends AbstractController
                     ->setName($sender->getName())
                     ->setIdentifierType($sender->getIdentification()->getType())
                     ->setIdentifier($sender->getIdentification()->getIdentifier())
-                    ->setAddress($sender->getAddress())
+                    ->setAddress($sender->getAddress()),
             ];
             $case = $hearingPost->getHearing()?->getCaseEntity();
             $template = $case?->getBoard()?->getReceiptHearingPost();

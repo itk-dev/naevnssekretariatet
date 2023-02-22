@@ -38,7 +38,6 @@ class MailTemplate implements LoggableEntityInterface, \Stringable
 
     /**
      * @Vich\UploadableField(mapping="mail_templates", fileNameProperty="templateFilename")
-     *
      */
     #[Assert\File(maxSize: '4M', mimeTypes: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'], mimeTypesMessage: 'Please upload a valid Word document (docx).')]
     private ?\Symfony\Component\HttpFoundation\File\File $templateFile = null;

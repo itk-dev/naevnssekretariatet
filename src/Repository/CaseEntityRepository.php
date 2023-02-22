@@ -40,7 +40,7 @@ class CaseEntityRepository extends ServiceEntityRepository
     {
         $activeCases = $this->findCasesWithActiveAgenda();
 
-        $binaryIdsOfActiveCases = array_map(fn(CaseEntity $case) => $case->getId()->toBinary(), $activeCases);
+        $binaryIdsOfActiveCases = array_map(fn (CaseEntity $case) => $case->getId()->toBinary(), $activeCases);
 
         $qb = $this->createQueryBuilder('c');
 

@@ -17,15 +17,15 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class CaseManagerTest extends TestCase
 {
-    private \App\Repository\BoardRepository&\PHPUnit\Framework\MockObject\MockObject $mockBoardRepository;
-    private \App\Repository\CaseEntityRepository&\PHPUnit\Framework\MockObject\MockObject $mockCaseRepository;
-    private \App\Service\WorkflowService&\PHPUnit\Framework\MockObject\MockObject $mockWorkflowService;
+    private \App\Repository\BoardRepository & \PHPUnit\Framework\MockObject\MockObject $mockBoardRepository;
+    private \App\Repository\CaseEntityRepository & \PHPUnit\Framework\MockObject\MockObject $mockCaseRepository;
+    private \App\Service\WorkflowService & \PHPUnit\Framework\MockObject\MockObject $mockWorkflowService;
     private \App\Service\CaseManager $caseManager;
-    private \Doctrine\ORM\EntityManagerInterface&\PHPUnit\Framework\MockObject\MockObject $mockEntityManager;
-    private \PHPUnit\Framework\MockObject\MockObject&\Symfony\Component\Lock\LockFactory $lockFactory;
-    private \App\Repository\MunicipalityRepository&\PHPUnit\Framework\MockObject\MockObject $mockMunicipalityRepository;
-    private \PHPUnit\Framework\MockObject\MockObject&\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor;
-    private \App\Service\DocumentUploader&\PHPUnit\Framework\MockObject\MockObject $documentUploader;
+    private \Doctrine\ORM\EntityManagerInterface & \PHPUnit\Framework\MockObject\MockObject $mockEntityManager;
+    private \PHPUnit\Framework\MockObject\MockObject & \Symfony\Component\Lock\LockFactory $lockFactory;
+    private \App\Repository\MunicipalityRepository & \PHPUnit\Framework\MockObject\MockObject $mockMunicipalityRepository;
+    private \PHPUnit\Framework\MockObject\MockObject & \Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor;
+    private \App\Service\DocumentUploader & \PHPUnit\Framework\MockObject\MockObject $documentUploader;
 
     protected function setUp(): void
     {

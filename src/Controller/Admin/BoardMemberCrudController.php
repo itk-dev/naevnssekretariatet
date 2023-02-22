@@ -60,9 +60,9 @@ class BoardMemberCrudController extends AbstractCrudController
             ->setFormTypeOptions([
                 'by_reference' => false,
             ])
-            ->setQueryBuilder(fn(QueryBuilder $queryBuilder) => $queryBuilder->orderBy('entity.title', 'ASC'))
+            ->setQueryBuilder(fn (QueryBuilder $queryBuilder) => $queryBuilder->orderBy('entity.title', 'ASC'))
             ->formatValue(function ($value, BoardMember $member) {
-                $roles = $member->getBoardRoles()->map(fn(BoardRole $boardRole) => $boardRole->__toString());
+                $roles = $member->getBoardRoles()->map(fn (BoardRole $boardRole) => $boardRole->__toString());
 
                 return implode(', ', $roles->getValues());
             })

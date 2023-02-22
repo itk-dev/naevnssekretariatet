@@ -151,6 +151,7 @@ class AgendaCaseItemController extends AbstractController
     /**
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     *
      * @throws DocumentDirectoryException
      */
     #[Route(path: '/view/{document_id}', name: 'agenda_case_item_document_view', methods: ['GET', 'POST'])]

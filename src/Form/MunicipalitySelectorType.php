@@ -32,7 +32,7 @@ class MunicipalitySelectorType extends AbstractType
 
         $builder->add('municipality', ChoiceType::class, [
             'choices' => $municipalities,
-            'choice_label' => fn(?Municipality $municipality) => $municipality->getName(),
+            'choice_label' => fn (?Municipality $municipality) => $municipality->getName(),
             'label' => $this->translator->trans('Show for', [], 'agenda'),
             'data' => $activeMunicipality,
         ]);

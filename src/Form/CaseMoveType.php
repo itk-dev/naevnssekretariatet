@@ -31,7 +31,7 @@ class CaseMoveType extends AbstractType
             ->add('board', ChoiceType::class, [
                 'label' => $this->translator->trans('Move to', [], 'case'),
                 'choices' => $boards,
-                'choice_label' => fn($key) => $key->getName(),
+                'choice_label' => fn ($key) => $key->getName(),
             ])
         ;
     }

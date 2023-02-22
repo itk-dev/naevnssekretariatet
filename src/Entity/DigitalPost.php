@@ -19,11 +19,11 @@ class DigitalPost
 {
     use TimestampableEntity;
 
-    public final const STATUS_SENT = 'sent';
-    public final const STATUS_ERROR = 'error';
-    public final const STATUS_FAILED = 'failed';
+    final public const STATUS_SENT = 'sent';
+    final public const STATUS_ERROR = 'error';
+    final public const STATUS_FAILED = 'failed';
 
-    public final const STATUSES = [
+    final public const STATUSES = [
         self::STATUS_SENT,
         self::STATUS_ERROR,
         self::STATUS_FAILED,

@@ -179,7 +179,7 @@ class PartyHelper
         ;
 
         $parties = array_map(
-            fn($relation) => [
+            fn ($relation) => [
                 'party' => $relation->getParty(),
                 'type' => $relation->getType(),
             ], $partyRelations
@@ -194,7 +194,7 @@ class PartyHelper
         ;
 
         $counterparties = array_map(
-            fn($relation) => [
+            fn ($relation) => [
                 'party' => $relation->getParty(),
                 'type' => $relation->getType(),
             ], $counterpartyRelations

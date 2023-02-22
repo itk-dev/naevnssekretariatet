@@ -4,7 +4,7 @@ namespace App\Service;
 
 abstract class ReminderStatus
 {
-    public final const PENDING = 1;
-    public final const ACTIVE = 2;
-    public final const EXCEEDED = 3;
+    final public const PENDING = 1;
+    final public const ACTIVE = 2;
+    final public const EXCEEDED = 3;
 }

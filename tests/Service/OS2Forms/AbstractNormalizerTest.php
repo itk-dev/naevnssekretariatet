@@ -12,11 +12,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AbstractNormalizerTest extends TestCase
 {
-    private \PHPUnit\Framework\MockObject\MockObject&\App\Service\OS2Forms\SubmissionNormalizers\AbstractSubmissionNormalizer $normalizer;
-    private \App\Service\DocumentUploader&\PHPUnit\Framework\MockObject\MockObject $mockDocumentUploader;
+    private \PHPUnit\Framework\MockObject\MockObject & \App\Service\OS2Forms\SubmissionNormalizers\AbstractSubmissionNormalizer $normalizer;
+    private \App\Service\DocumentUploader & \PHPUnit\Framework\MockObject\MockObject $mockDocumentUploader;
     private string $mockSelvbetjeningUserApiToken;
-    private \Doctrine\ORM\EntityManagerInterface&\PHPUnit\Framework\MockObject\MockObject $mockEntityManager;
-    private \PHPUnit\Framework\MockObject\MockObject&\Symfony\Contracts\HttpClient\HttpClientInterface $mockHttpClientInterface;
+    private \Doctrine\ORM\EntityManagerInterface & \PHPUnit\Framework\MockObject\MockObject $mockEntityManager;
+    private \PHPUnit\Framework\MockObject\MockObject & \Symfony\Contracts\HttpClient\HttpClientInterface $mockHttpClientInterface;
 
     protected function setUp(): void
     {
@@ -152,7 +152,7 @@ class AbstractNormalizerTest extends TestCase
 
         $config = [
             $mockProperty => [
-                'value_callback' => fn(string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) => $submissionData['some_key'],
+                'value_callback' => fn (string $property, array $spec, array $submissionData, array $normalizedData, EntityManagerInterface $entityManager) => $submissionData['some_key'],
                 'type' => 'string',
             ],
         ];

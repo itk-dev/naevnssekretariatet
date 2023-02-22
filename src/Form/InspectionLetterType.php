@@ -45,7 +45,7 @@ class InspectionLetterType extends AbstractType
                 'class' => Party::class,
                 'label' => $this->translator->trans('Recipients', [], 'case'),
                 'choices' => $availableRecipients,
-                'choice_label' => fn($key, $value) => $value,
+                'choice_label' => fn ($key, $value) => $value,
                 'multiple' => true,
                 'expanded' => true,
                 'constraints' => [

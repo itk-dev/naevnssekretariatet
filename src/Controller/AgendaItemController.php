@@ -68,6 +68,7 @@ class AgendaItemController extends AbstractController
     /**
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
+     *
      * @throws Exception
      */
     #[Route(path: '/{agenda_item_id}/edit', name: 'agenda_item_edit', methods: ['GET', 'POST'])]

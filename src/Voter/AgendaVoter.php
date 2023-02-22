@@ -11,9 +11,9 @@ use Symfony\Component\Security\Core\Security;
 
 class AgendaVoter extends Voter
 {
-    public final const VIEW = 'view';
-    public final const EDIT = 'edit';
-    public final const DELETE = 'delete';
+    final public const VIEW = 'view';
+    final public const EDIT = 'edit';
+    final public const DELETE = 'delete';
 
     public function __construct(private readonly Security $security)
     {

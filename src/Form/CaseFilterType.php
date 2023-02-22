@@ -60,9 +60,9 @@ class CaseFilterType extends AbstractType
                     ->getQuery()->getResult(),
                 'label' => false,
                 // Use ID as choice value
-                'choice_value' => fn(?Board $board) => $board ? $board->getId() : '',
+                'choice_value' => fn (?Board $board) => $board ? $board->getId() : '',
                 'placeholder' => $this->translator->trans('All boards', [], 'case'),
-                'apply_filter' => fn(QueryInterface $filterQuery, $field, $values) => $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values),
+                'apply_filter' => fn (QueryInterface $filterQuery, $field, $values) => $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values),
             ])
         ;
 
@@ -116,9 +116,9 @@ class CaseFilterType extends AbstractType
                 'choices' => $correctedCaseworkers,
                 'label' => false,
                 // Use ID as choice value
-                'choice_value' => fn(?User $user) => $user ? $user->getId() : '',
+                'choice_value' => fn (?User $user) => $user ? $user->getId() : '',
                 'placeholder' => $this->translator->trans('All caseworkers', [], 'case'),
-                'apply_filter' => fn(QueryInterface $filterQuery, $field, $values) => $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values),
+                'apply_filter' => fn (QueryInterface $filterQuery, $field, $values) => $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values),
             ])
             ;
 

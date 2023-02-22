@@ -63,7 +63,7 @@ class BoardCrudController extends AbstractCrudController
         ;
 
         yield AssociationField::new('municipality', 'Municipality')
-            ->setQueryBuilder(fn(QueryBuilder $queryBuilder) => $queryBuilder->orderBy('entity.name', 'ASC'))
+            ->setQueryBuilder(fn (QueryBuilder $queryBuilder) => $queryBuilder->orderBy('entity.name', 'ASC'))
         ;
 
         yield EmailField::new('email', 'Email')

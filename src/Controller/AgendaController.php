@@ -185,7 +185,6 @@ class AgendaController extends AbstractController
     }
 
     /**
-     *
      * @throws Exception
      * @throws \Doctrine\DBAL\Driver\Exception
      */

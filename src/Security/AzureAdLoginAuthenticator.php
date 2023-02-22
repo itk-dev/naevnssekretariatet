@@ -36,6 +36,7 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
         $claims = $this->validateClaims($request);
 
         $providerKey = $claims['open_id_connect_provider'] ?? null;
+
         return match ($providerKey) {
             'admin' => $this->getAdminUser($claims),
             'board-member' => $this->getBoardMemberUser($claims, $request),
