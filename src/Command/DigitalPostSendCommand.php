@@ -161,6 +161,9 @@ class DigitalPostSendCommand extends Command
 
                 // Keep track of posts and fail when max number of retries exceeded.
                 $postStatuses = $digitalPost->getData()['post_statuses'] ?? [];
+                if (!is_array($postStatuses)) {
+                    $postStatuses = [];
+                }
                 $postStatuses[] = [
                     'created_at' => $now->format($now::ATOM),
                     'status' => $digitalPost->getStatus(),

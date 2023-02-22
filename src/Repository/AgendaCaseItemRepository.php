@@ -54,7 +54,7 @@ class AgendaCaseItemRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findByDocumentAndCase(Document $document, CaseEntity $case)
+    public function findByDocumentAndCase(Document $document, CaseEntity $case): array
     {
         $qb = $this->createQueryBuilder('aci');
 
