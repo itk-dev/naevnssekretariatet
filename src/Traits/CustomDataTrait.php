@@ -7,10 +7,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 trait CustomDataTrait
 {
-    /**
-     * @ORM\Column(type="json")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'json')]
+    #[Groups(['mail_template'])]
     private $customData = [];
 
     public function getCustomData(): ?array

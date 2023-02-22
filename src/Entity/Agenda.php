@@ -11,85 +11,57 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=AgendaRepository::class)
- */
+#[ORM\Entity(repositoryClass: AgendaRepository::class)]
 class Agenda implements LoggableEntityInterface, \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?\DateTimeInterface $start = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?\DateTimeInterface $end = null;
 
-    /**
-     * @ORM\Column(type="integer", length=255, nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'integer', length: 255, nullable: true)]
+    #[Groups(['mail_template'])]
     private int $status = AgendaStatus::OPEN;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="agendas")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\ManyToMany(targetEntity: BoardMember::class, inversedBy: 'agendas')]
+    #[Groups(['mail_template'])]
     private \Doctrine\Common\Collections\ArrayCollection|array $boardmembers;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?string $remarks = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=AgendaItem::class, mappedBy="agenda")
-     * @ORM\OrderBy({"startTime" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: AgendaItem::class, mappedBy: 'agenda')]
+    #[ORM\OrderBy(['startTime' => 'ASC'])]
     private \Doctrine\Common\Collections\ArrayCollection|array $agendaItems;
 
-    /**
-     * @ORM\OneToOne(targetEntity=AgendaProtocol::class, cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: AgendaProtocol::class, cascade: ['persist', 'remove'])]
     private ?\App\Entity\AgendaProtocol $protocol = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="agendas")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\ManyToOne(targetEntity: Board::class, inversedBy: 'agendas')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['mail_template'])]
     private ?\App\Entity\Board $board = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private bool $isPublished = false;
 
-    /**
-     * @ORM\OneToMany(targetEntity=AgendaBroadcast::class, mappedBy="agenda", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: AgendaBroadcast::class, mappedBy: 'agenda', orphanRemoval: true)]
     private \Doctrine\Common\Collections\ArrayCollection|array $agendaBroadcasts;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?string $agendaMeetingPoint = null;
 
     public function __construct()

@@ -8,31 +8,21 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=BoardRoleRepository::class)
- */
+#[ORM\Entity(repositoryClass: BoardRoleRepository::class)]
 class BoardRole implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $title = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="boardRoles")
-     */
+    #[ORM\ManyToMany(targetEntity: BoardMember::class, inversedBy: 'boardRoles')]
     private \Doctrine\Common\Collections\ArrayCollection|array $boardMembers;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="boardRoles")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Board::class, inversedBy: 'boardRoles')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\Board $board = null;
 
     public function __construct()

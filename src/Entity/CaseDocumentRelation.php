@@ -6,36 +6,26 @@ use App\Traits\SoftDeletableEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=CaseDocumentRelationRepository::class)
- * @ORM\Table(name="case_documents")
- * @ORM\EntityListeners({"App\Logging\EntityListener\CaseDocumentRelationListener"})
- */
+#[ORM\Table(name: 'case_documents')]
+#[ORM\Entity(repositoryClass: CaseDocumentRelationRepository::class)]
+#[ORM\EntityListeners([\App\Logging\EntityListener\CaseDocumentRelationListener::class])]
 class CaseDocumentRelation
 {
     use SoftDeletableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="CaseEntity", inversedBy="caseDocumentRelation")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: 'CaseEntity', inversedBy: 'caseDocumentRelation')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\CaseEntity $case = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Document", inversedBy="caseDocumentRelations")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: 'Document', inversedBy: 'caseDocumentRelations')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\Document $document = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $removalReason = null;
 
     public function __construct()

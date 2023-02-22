@@ -6,41 +6,27 @@ use App\Repository\ReminderRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=ReminderRepository::class)
- */
+#[ORM\Entity(repositoryClass: ReminderRepository::class)]
 class Reminder
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private ?int $status = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="reminders")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: CaseEntity::class, inversedBy: 'reminders')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\CaseEntity $caseEntity = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private ?string $content = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reminders")
-     */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reminders')]
     private ?\App\Entity\User $createdBy = null;
 
     public function __construct()

@@ -18,9 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 
-/**
- * @Route("/agenda/{id}/item/{agenda_item_id}/documents")
- */
+#[Route(path: '/agenda/{id}/item/{agenda_item_id}/documents')]
 class AgendaManuelItemDocumentController extends AbstractController
 {
     public function __construct(private readonly DocumentUploader $documentUploader, private readonly EntityManagerInterface $entityManager)
@@ -28,10 +26,10 @@ class AgendaManuelItemDocumentController extends AbstractController
     }
 
     /**
-     * @Route("", name="agenda_manuel_item_documents", methods={"GET"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
+    #[Route(path: '', name: 'agenda_manuel_item_documents', methods: ['GET'])]
     public function index(Agenda $agenda, AgendaManuelItem $agendaItem): Response
     {
         $this->denyAccessUnlessGranted('view', $agendaItem);
@@ -46,13 +44,13 @@ class AgendaManuelItemDocumentController extends AbstractController
     }
 
     /**
-     * @Route("/upload", name="agenda_manuel_item_upload_document", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      *
      * @throws DocumentDirectoryException
      * @throws FileMovingException
      */
+    #[Route(path: '/upload', name: 'agenda_manuel_item_upload_document', methods: ['GET', 'POST'])]
     public function upload(Agenda $agenda, AgendaManuelItem $agendaItem, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agendaItem);
@@ -96,12 +94,11 @@ class AgendaManuelItemDocumentController extends AbstractController
     }
 
     /**
-     * @Route("/view/{document_id}", name="agenda_manuel_item_document_view", methods={"GET", "POST"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
-     *
      * @throws DocumentDirectoryException
      */
+    #[Route(path: '/view/{document_id}', name: 'agenda_manuel_item_document_view', methods: ['GET', 'POST'])]
     public function view(AgendaManuelItem $agendaItem, Document $document, DocumentUploader $uploader): Response
     {
         $this->denyAccessUnlessGranted('view', $agendaItem);
@@ -112,11 +109,11 @@ class AgendaManuelItemDocumentController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{document_id}", name="agenda_manuel_item_document_delete", methods={"DELETE"})
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
+    #[Route(path: '/delete/{document_id}', name: 'agenda_manuel_item_document_delete', methods: ['DELETE'])]
     public function delete(Agenda $agenda, AgendaManuelItem $agendaItem, Document $document, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agendaItem);

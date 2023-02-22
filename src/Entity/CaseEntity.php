@@ -16,231 +16,150 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=CaseEntityRepository::class)
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"caseEntity" = "CaseEntity", "residentComplaintBoardCase" = "ResidentComplaintBoardCase", "rentBoardCase" = "RentBoardCase", "fenceReviewCase" = "FenceReviewCase"})
- * @ORM\EntityListeners({"App\Logging\EntityListener\CaseListener"})
- */
+#[ORM\Entity(repositoryClass: CaseEntityRepository::class)]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
+#[ORM\DiscriminatorMap(['caseEntity' => 'CaseEntity', 'residentComplaintBoardCase' => 'ResidentComplaintBoardCase', 'rentBoardCase' => 'RentBoardCase', 'fenceReviewCase' => 'FenceReviewCase'])]
+#[ORM\EntityListeners([\App\Logging\EntityListener\CaseListener::class])]
 abstract class CaseEntity implements Timestampable, \Stringable
 {
     use BlameableEntity;
     use SoftDeletableEntity;
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="caseEntities")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\ManyToOne(targetEntity: Board::class, inversedBy: 'caseEntities')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['mail_template'])]
     private ?\App\Entity\Board $board = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="caseEntities")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\ManyToOne(targetEntity: Municipality::class, inversedBy: 'caseEntities')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['mail_template'])]
     private ?\App\Entity\Municipality $municipality = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['mail_template'])]
     private ?string $caseNumber = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="CaseDocumentRelation", mappedBy="case")
-     */
+    #[ORM\OneToMany(targetEntity: 'CaseDocumentRelation', mappedBy: 'case')]
     private \Doctrine\Common\Collections\ArrayCollection|array $caseDocumentRelation;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['mail_template'])]
     private ?string $currentPlace = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="case")
-     */
+    #[ORM\OneToMany(targetEntity: 'CasePartyRelation', mappedBy: 'case')]
     private \Doctrine\Common\Collections\ArrayCollection|array $casePartyRelation;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Note::class, mappedBy="caseEntity")
-     */
+    #[ORM\OneToMany(targetEntity: Note::class, mappedBy: 'caseEntity')]
     private \Doctrine\Common\Collections\ArrayCollection|array $notes;
 
-    /**
-     * @ORM\OneToMany(targetEntity=AgendaCaseItem::class, mappedBy="caseEntity")
-     */
+    #[ORM\OneToMany(targetEntity: AgendaCaseItem::class, mappedBy: 'caseEntity')]
     private \Doctrine\Common\Collections\ArrayCollection|array $agendaCaseItems;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $isReadyForAgenda = false;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $shouldBeInspected = false;
 
-    /**
-     * @ORM\OneToOne(targetEntity=CasePresentation::class, inversedBy="caseEntity", cascade={"persist", "remove"}, fetch="EAGER")
-     */
+    #[ORM\OneToOne(targetEntity: CasePresentation::class, inversedBy: 'caseEntity', cascade: ['persist', 'remove'], fetch: 'EAGER')]
     private ?\App\Entity\CasePresentation $presentation = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=CaseDecisionProposal::class, inversedBy="caseEntity", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: CaseDecisionProposal::class, inversedBy: 'caseEntity', cascade: ['persist', 'remove'])]
     private ?\App\Entity\CaseDecisionProposal $decisionProposal = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignedCases")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'assignedCases')]
+    #[Groups(['mail_template'])]
     private ?\App\Entity\User $assignedTo = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['mail_template'])]
     private ?string $bringer = null;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Embedded(class: \App\Entity\Embeddable\Address::class)]
+    #[Groups(['mail_template'])]
     private \App\Entity\Embeddable\Address $bringerAddress;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Reminder::class, mappedBy="caseEntity")
-     */
+    #[ORM\OneToMany(targetEntity: Reminder::class, mappedBy: 'caseEntity')]
     private \Doctrine\Common\Collections\ArrayCollection|array $reminders;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $sortingAddress = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $sortingParty = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $sortingCounterparty = null;
 
-    /**
-     * @Assert\GreaterThanOrEqual(propertyPath="finishHearingDeadline", groups={"process_finish"})
-     * @Assert\NotBlank()
-     * @ORM\Column(type="date")
-     */
+    #[Assert\GreaterThanOrEqual(propertyPath: 'finishHearingDeadline', groups: ['process_finish'])]
+    #[Assert\NotBlank]
+    #[ORM\Column(type: 'date')]
     private \DateTime|\DateTimeInterface|null $finishProcessingDeadline = null;
 
-    /**
-     * @Assert\GreaterThanOrEqual("today", groups={"hearing_finish"})
-     * @Assert\NotBlank()
-     * @ORM\Column(type="date")
-     */
+    #[Assert\GreaterThanOrEqual('today', groups: ['hearing_finish'])]
+    #[Assert\NotBlank]
+    #[ORM\Column(type: 'date')]
     private \DateTime|\DateTimeInterface $finishHearingDeadline;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $hasReachedHearingDeadline = false;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $hasReachedProcessingDeadline = false;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Hearing::class, inversedBy="caseEntity", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: Hearing::class, inversedBy: 'caseEntity', cascade: ['persist', 'remove'])]
     private ?\App\Entity\Hearing $hearing = null;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Embedded(class: \App\Entity\Embeddable\Identification::class)]
+    #[Groups(['mail_template'])]
     private \App\Entity\Embeddable\Identification $bringerIdentification;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Decision::class, mappedBy="caseEntity", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: Decision::class, mappedBy: 'caseEntity', orphanRemoval: true)]
     private \Doctrine\Common\Collections\ArrayCollection|array $decisions;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $removalReason = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['mail_template'])]
     private ?string $extraComplaintCategoryInformation = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $bringerIsUnderAddressProtection = false;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'datetime')]
+    #[Groups(['mail_template'])]
     private ?\DateTimeInterface $receivedAt = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?\DateTimeInterface $validatedAt = null;
 
-    /**
-     * @Assert\GreaterThanOrEqual("today", groups={"hearing_response_deadline"})
-     * @ORM\Column(type="date", nullable=true)
-     */
+    #[Assert\GreaterThanOrEqual('today', groups: ['hearing_response_deadline'])]
+    #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $hearingResponseDeadline = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $hasReachedHearingResponseDeadline = false;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'date', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?\DateTimeInterface $dateForActiveAgenda = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=ComplaintCategory::class, inversedBy="caseEntities")
-     * @Assert\Count(
-     *      min = "1",
-     *      minMessage = "You have to select at least 1 item"
-     * )
-     */
+    #[ORM\ManyToMany(targetEntity: ComplaintCategory::class, inversedBy: 'caseEntities')]
+    #[Assert\Count(min: 1, minMessage: 'You have to select at least 1 item')]
     private \Doctrine\Common\Collections\ArrayCollection|array $complaintCategories;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $onBehalfOf = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $finishedOn = null;
 
     public function __construct()

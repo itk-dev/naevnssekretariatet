@@ -12,41 +12,31 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=HearingPostRepository::class)
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"hearingPost" = "HearingPost", "hearingPostRequest" = "HearingPostRequest", "hearingPostResponse" = "HearingPostResponse"})
- * @ORM\EntityListeners({"App\Logging\EntityListener\HearingPostListener"})
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity(repositoryClass: HearingPostRepository::class)]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
+#[ORM\DiscriminatorMap(['hearingPost' => 'HearingPost', 'hearingPostRequest' => 'HearingPostRequest', 'hearingPostResponse' => 'HearingPostResponse'])]
+#[ORM\EntityListeners([\App\Logging\EntityListener\HearingPostListener::class])]
+#[ORM\HasLifecycleCallbacks]
 abstract class HearingPost implements LoggableEntityInterface, \Stringable
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Hearing::class, inversedBy="hearingPosts")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\ManyToOne(targetEntity: Hearing::class, inversedBy: 'hearingPosts')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['mail_template'])]
     private ?\App\Entity\Hearing $hearing = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=HearingPostAttachment::class, mappedBy="hearingPost", orphanRemoval=true, cascade={"persist"})
-     * @ORM\OrderBy({"position": "ASC"})
-     * @Assert\Valid()
-     */
+    #[ORM\OneToMany(targetEntity: HearingPostAttachment::class, mappedBy: 'hearingPost', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OrderBy(['position' => 'ASC'])]
+    #[Assert\Valid]
     private \Doctrine\Common\Collections\ArrayCollection|array $attachments;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Document::class)
-     */
+    #[ORM\ManyToOne(targetEntity: Document::class)]
     private ?\App\Entity\Document $document = null;
 
     public function __construct()
@@ -113,10 +103,8 @@ abstract class HearingPost implements LoggableEntityInterface, \Stringable
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateAttachmentPositions()
     {
         $index = 0;

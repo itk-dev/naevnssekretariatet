@@ -7,34 +7,24 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=DecisionAttachmentRepository::class)
- */
+#[ORM\Entity(repositoryClass: DecisionAttachmentRepository::class)]
 class DecisionAttachment
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Decision::class, inversedBy="attachments")
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotNull()
-     */
+    #[ORM\ManyToOne(targetEntity: Decision::class, inversedBy: 'attachments')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull]
     private ?\App\Entity\Decision $decision = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Document::class)
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotNull()
-     */
+    #[ORM\ManyToOne(targetEntity: Document::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull]
     private ?\App\Entity\Document $document = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private int $position = 0;
 
     public function __construct()

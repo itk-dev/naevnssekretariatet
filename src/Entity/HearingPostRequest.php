@@ -7,35 +7,25 @@ use App\Traits\CustomDataTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass=HearingPostRequestRepository::class)
- */
+#[ORM\Entity(repositoryClass: HearingPostRequestRepository::class)]
 class HearingPostRequest extends HearingPost
 {
     use CustomDataTrait;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Party::class)
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\ManyToOne(targetEntity: Party::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['mail_template'])]
     private ?\App\Entity\Party $recipient = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: MailTemplate::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\MailTemplate $template = null;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
+    #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $forwardedOn = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['mail_template'])]
     private ?string $title = null;
 
     public function getRecipient(): ?Party

@@ -7,26 +7,18 @@ use App\Repository\CasePresentationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=CasePresentationRepository::class)
- * @ORM\EntityListeners({"App\Logging\EntityListener\CasePresentationListener"})
- */
+#[ORM\Entity(repositoryClass: CasePresentationRepository::class)]
+#[ORM\EntityListeners([\App\Logging\EntityListener\CasePresentationListener::class])]
 class CasePresentation implements LoggableEntityInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $presentation = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=CaseEntity::class, mappedBy="presentation", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: CaseEntity::class, mappedBy: 'presentation', cascade: ['persist', 'remove'])]
     private ?\App\Entity\CaseEntity $caseEntity = null;
 
     public function __construct()

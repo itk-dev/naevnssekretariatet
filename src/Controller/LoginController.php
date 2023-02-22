@@ -32,9 +32,7 @@ class LoginController extends AbstractController
         $this->options = $resolver->resolve($loginControllerOptions);
     }
 
-    /**
-     * @Route("/login", name="login")
-     */
+    #[Route(path: '/login', name: 'login')]
     public function index(Request $request, SessionInterface $session): Response
     {
         $authenticationProviderKey = $this->getAuthenticationProviderKey($request);

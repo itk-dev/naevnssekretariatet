@@ -10,47 +10,33 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=DecisionRepository::class)
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity(repositoryClass: DecisionRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Decision
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Document::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Document::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\Document $document = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="decisions")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: CaseEntity::class, inversedBy: 'decisions')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\CaseEntity $caseEntity = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=DecisionAttachment::class, mappedBy="decision", orphanRemoval=true, cascade={"persist"})
-     * @ORM\OrderBy({"position": "ASC"})
-     * @Assert\Valid
-     */
+    #[ORM\OneToMany(targetEntity: DecisionAttachment::class, mappedBy: 'decision', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OrderBy(['position' => 'ASC'])]
+    #[Assert\Valid]
     private \Doctrine\Common\Collections\ArrayCollection|array $attachments;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Party::class)
-     */
+    #[ORM\ManyToMany(targetEntity: Party::class)]
     private \Doctrine\Common\Collections\ArrayCollection|array $recipients;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $title = null;
 
     public function __construct()
@@ -119,10 +105,8 @@ class Decision
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateAttachmentPositions()
     {
         $index = 0;

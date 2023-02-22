@@ -7,84 +7,54 @@ use App\Repository\ResidentComplaintBoardCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass=ResidentComplaintBoardCaseRepository::class)
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity(repositoryClass: ResidentComplaintBoardCaseRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class ResidentComplaintBoardCase extends CaseEntity
 {
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?int $leaseSize = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?int $bringerPhone = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(['mail_template'])]
     private ?bool $hasVacated = null;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Embedded(class: \App\Entity\Embeddable\Address::class)]
+    #[Groups(['mail_template'])]
     private \App\Entity\Embeddable\Address $leaseAddress;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $leaseStarted = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $leaseAgreedRent = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $leaseInteriorMaintenance = null;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $leaseRegulatedRent = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $leaseRentAtCollectionTime = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $leaseSecurityDeposit = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $previousCasesAtLease = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $prepaidRent = null;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $feePaid = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $leaseRegulatedAt = null;
 
     public function __construct()
@@ -247,10 +217,8 @@ class ResidentComplaintBoardCase extends CaseEntity
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateSortingAddress()
     {
         $this->setSortingAddress($this->getLeaseAddress()->__toString());

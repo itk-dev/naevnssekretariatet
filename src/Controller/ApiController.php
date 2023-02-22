@@ -26,10 +26,9 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/api/os2forms/submission", name="api_add_submission_to_queue", methods={"POST"})
-     *
      * @throws ApiException
      */
+    #[Route(path: '/api/os2forms/submission', name: 'api_add_submission_to_queue', methods: ['POST'])]
     public function addSubmissionToQueue(Request $request): Response
     {
         try {
@@ -45,9 +44,7 @@ class ApiController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/api/complaint-categories/{board_id}", name="api_get_complaint_categories", methods={"GET"})
-     */
+    #[Route(path: '/api/complaint-categories/{board_id}', name: 'api_get_complaint_categories', methods: ['GET'])]
     public function getComplaintCategoriesForSelect(string $board_id, Request $request): Response
     {
         try {

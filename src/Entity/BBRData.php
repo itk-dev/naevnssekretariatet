@@ -9,32 +9,23 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=BBRDataRepository::class)
- * @ORM\Table(name="bbr_data", indexes={
- *     @ORM\Index(name="address_idx", columns={"address"})
- * })
- * @UniqueEntity(fields={"address"})
- */
+#[ORM\Table(name: 'bbr_data')]
+#[ORM\Index(name: 'address_idx', columns: ['address'])]
+#[ORM\Entity(repositoryClass: BBRDataRepository::class)]
+#[UniqueEntity(fields: ['address'])]
 class BBRData
 {
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     */
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Assert\NotBlank]
     private ?string $address = null;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: 'json')]
     private array $data = [];
 
     public function __construct()

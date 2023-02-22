@@ -16,18 +16,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 
-/**
- * @Route("/case/{id}/notes")
- */
+#[Route(path: '/case/{id}/notes')]
 class NoteController extends AbstractController
 {
     public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 
-    /**
-     * @Route("", name="note_index", methods={"GET", "POST"})
-     */
+    #[Route(path: '', name: 'note_index', methods: ['GET', 'POST'])]
     public function index(CaseEntity $case, PaginatorInterface $paginator, NoteRepository $repository, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -67,9 +63,7 @@ class NoteController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="note_new")
-     */
+    #[Route(path: '/new', name: 'note_new')]
     public function new(CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -100,10 +94,10 @@ class NoteController extends AbstractController
     }
 
     /**
-     * @Route("/{note_id}/edit", name="note_edit", methods={"GET", "POST"})
      * @Entity("note", expr="repository.find(note_id)")
      * @Entity("case", expr="repository.find(id)")
      */
+    #[Route(path: '/{note_id}/edit', name: 'note_edit', methods: ['GET', 'POST'])]
     public function edit(CaseEntity $case, Note $note, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -130,10 +124,10 @@ class NoteController extends AbstractController
     }
 
     /**
-     * @Route("/{note_id}/delete", name="note_delete", methods={"DELETE"})
      * @Entity("note", expr="repository.find(note_id)")
      * @Entity("case", expr="repository.find(id)")
      */
+    #[Route(path: '/{note_id}/delete', name: 'note_delete', methods: ['DELETE'])]
     public function delete(CaseEntity $case, Note $note, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);

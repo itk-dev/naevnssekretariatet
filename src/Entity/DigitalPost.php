@@ -11,13 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=DigitalPostRepository::class)
- * @ORM\Table(indexes={
- *     @ORM\Index(name="entity_idx", columns={"entity_type", "entity_id"})
- * })
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Table]
+#[ORM\Index(name: 'entity_idx', columns: ['entity_type', 'entity_id'])]
+#[ORM\Entity(repositoryClass: DigitalPostRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class DigitalPost
 {
     use TimestampableEntity;
@@ -32,72 +29,46 @@ class DigitalPost
         self::STATUS_FAILED,
     ];
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Document::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Document::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\Document $document = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $entityType = null;
 
-    /**
-     * @ORM\Column(type="uuid", nullable=true)
-     */
+    #[ORM\Column(type: 'uuid', nullable: true)]
     private ?Uuid $entityId = null;
 
-    /**
-     * @ORM\Column(type="string", length=32, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
     private ?string $status = null;
 
-    /**
-     * @ORM\Column(type="json", nullable=true)
-     */
+    #[ORM\Column(type: 'json', nullable: true)]
     private array $data = [];
 
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $sentAt = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Recipient::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist"})
-     */
+    #[ORM\OneToMany(targetEntity: Recipient::class, mappedBy: 'digitalPost', orphanRemoval: true, cascade: ['persist'])]
     private \Doctrine\Common\Collections\ArrayCollection|array $recipients;
 
-    /**
-     * @ORM\OneToMany(targetEntity=DigitalPostAttachment::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist"})
-     * @ORM\OrderBy({"position": "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: DigitalPostAttachment::class, mappedBy: 'digitalPost', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     private \Doctrine\Common\Collections\ArrayCollection|array $attachments;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $subject = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=DigitalPost::class, inversedBy="previous", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: DigitalPost::class, inversedBy: 'previous', cascade: ['persist', 'remove'])]
     private ?\App\Entity\DigitalPost $next = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=DigitalPost::class, mappedBy="next", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: DigitalPost::class, mappedBy: 'next', cascade: ['persist', 'remove'])]
     private ?\App\Entity\DigitalPost $previous = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private int $totalFileSize = 0;
 
     public function __construct()
@@ -249,10 +220,8 @@ class DigitalPost
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateAttachmentPositions()
     {
         $index = 0;

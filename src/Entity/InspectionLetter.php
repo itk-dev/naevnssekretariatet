@@ -10,45 +10,31 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=InspectionLetterRepository::class)
- */
+#[ORM\Entity(repositoryClass: InspectionLetterRepository::class)]
 class InspectionLetter implements \Stringable
 {
     use CustomDataTrait;
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $title = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: MailTemplate::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\MailTemplate $template = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Document::class)
-     */
+    #[ORM\ManyToOne(targetEntity: Document::class)]
     private ?\App\Entity\Document $document = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=AgendaCaseItem::class, inversedBy="inspectionLetters")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: AgendaCaseItem::class, inversedBy: 'inspectionLetters')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\AgendaCaseItem $agendaCaseItem = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Party::class)
-     */
+    #[ORM\ManyToMany(targetEntity: Party::class)]
     private \Doctrine\Common\Collections\ArrayCollection|array $recipients;
 
     public function __toString(): string

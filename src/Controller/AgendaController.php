@@ -34,18 +34,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Uid\UuidV4;
 
-/**
- * @Route("/agenda")
- */
+#[Route(path: '/agenda')]
 class AgendaController extends AbstractController
 {
     public function __construct(private readonly AgendaHelper $agendaHelper, private readonly EntityManagerInterface $entityManager)
     {
     }
 
-    /**
-     * @Route("/", name="agenda_index", methods={"GET", "POST"})
-     */
+    #[Route(path: '/', name: 'agenda_index', methods: ['GET', 'POST'])]
     public function index(AgendaRepository $agendaRepository, PaginatorInterface $paginator, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, Request $request): Response
     {
         $activeMunicipality = $municipalityHelper->getActiveMunicipality();
@@ -139,9 +135,7 @@ class AgendaController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/create", name="agenda_create", methods={"GET", "POST"})
-     */
+    #[Route(path: '/create', name: 'agenda_create', methods: ['GET', 'POST'])]
     public function create(MunicipalityHelper $municipalityHelper, Request $request): Response
     {
         if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
@@ -175,9 +169,7 @@ class AgendaController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="agenda_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/{id}', name: 'agenda_delete', methods: ['DELETE'])]
     public function delete(Agenda $agenda, Request $request): Response
     {
         $this->denyAccessUnlessGranted('delete', $agenda);
@@ -193,11 +185,11 @@ class AgendaController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/show", name="agenda_show", methods={"GET", "POST"})
      *
      * @throws Exception
      * @throws \Doctrine\DBAL\Driver\Exception
      */
+    #[Route(path: '/{id}/show', name: 'agenda_show', methods: ['GET', 'POST'])]
     public function show(Agenda $agenda, AgendaItemRepository $agendaItemRepository, BoardMemberRepository $memberRepository, Request $request): Response
     {
         $memberTriplesWithBinaryId = $memberRepository->getMembersAndRolesByAgenda($agenda);
@@ -227,9 +219,7 @@ class AgendaController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="agenda_edit", methods={"POST"})
-     */
+    #[Route(path: '/{id}/edit', name: 'agenda_edit', methods: ['POST'])]
     public function edit(Agenda $agenda, Request $request): ?Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
@@ -312,9 +302,7 @@ class AgendaController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/add-board-member", name="agenda_add_board_member", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/add-board-member', name: 'agenda_add_board_member', methods: ['GET', 'POST'])]
     public function addBoardMember(Agenda $agenda, BoardMemberRepository $memberRepository, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
@@ -352,10 +340,10 @@ class AgendaController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/show/{board_member_id}", name="agenda_board_member_remove", methods={"DELETE"})
      * @Entity("boardMember", expr="repository.find(board_member_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
+    #[Route(path: '/{id}/show/{board_member_id}', name: 'agenda_board_member_remove', methods: ['DELETE'])]
     public function removeBoardMember(Agenda $agenda, BoardMember $boardMember, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
@@ -370,9 +358,7 @@ class AgendaController extends AbstractController
         return $this->redirectToRoute('agenda_show', ['id' => $agenda->getId()]);
     }
 
-    /**
-     * @Route("/{id}/protocol", name="agenda_protocol", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/protocol', name: 'agenda_protocol', methods: ['GET', 'POST'])]
     public function protocol(Agenda $agenda, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
@@ -416,9 +402,7 @@ class AgendaController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/publish", name="agenda_publish", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/publish', name: 'agenda_publish', methods: ['GET', 'POST'])]
     public function publishAgenda(Agenda $agenda): Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);

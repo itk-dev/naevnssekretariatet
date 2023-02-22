@@ -10,44 +10,30 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=ComplaintCategoryRepository::class)
- * @ORM\EntityListeners({"App\Logging\EntityListener\ComplaintCategoryListener"})
- */
+#[ORM\Entity(repositoryClass: ComplaintCategoryRepository::class)]
+#[ORM\EntityListeners([\App\Logging\EntityListener\ComplaintCategoryListener::class])]
 class ComplaintCategory implements LoggableEntityInterface, \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['mail_template'])]
     private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'float', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?float $fee = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Board::class, inversedBy="complaintCategories")
-     */
+    #[ORM\ManyToMany(targetEntity: Board::class, inversedBy: 'complaintCategories')]
     private \Doctrine\Common\Collections\ArrayCollection|array $boards;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['mail_template'])]
     private ?string $kle = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=CaseEntity::class, mappedBy="complaintCategories")
-     */
+    #[ORM\ManyToMany(targetEntity: CaseEntity::class, mappedBy: 'complaintCategories')]
     private \Doctrine\Common\Collections\ArrayCollection|array $caseEntities;
 
     public function __construct()

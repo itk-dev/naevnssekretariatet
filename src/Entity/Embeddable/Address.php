@@ -6,61 +6,41 @@ use App\Logging\LoggableEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Embeddable
- */
+#[ORM\Embeddable]
 class Address implements LoggableEntityInterface, \Stringable
 {
-    /**
-     * @ORM\Column(type="string")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string')]
+    #[Groups(['mail_template'])]
     private ?string $street = null;
 
-    /**
-     * @ORM\Column(type="string")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string')]
+    #[Groups(['mail_template'])]
     private ?string $number = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?string $floor = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?string $side = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['mail_template'])]
     private ?int $postalCode = null;
 
-    /**
-     * @ORM\Column(type="string")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string')]
+    #[Groups(['mail_template'])]
     private ?string $city = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $validatedAt = null;
 
-    /**
-     * @ORM\Column(type="json", nullable=true)
-     */
+    #[ORM\Column(type: 'json', nullable: true)]
     private ?array $bbrData = null;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['mail_template'])]
     private ?string $extraInformation = null;
 
     public function getStreet(): string

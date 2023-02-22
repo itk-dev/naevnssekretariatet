@@ -11,56 +11,40 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=PartyRepository::class)
- * @ORM\EntityListeners({"App\Logging\EntityListener\PartyListener"})
- */
+#[ORM\Entity(repositoryClass: PartyRepository::class)]
+#[ORM\EntityListeners([\App\Logging\EntityListener\PartyListener::class])]
 class Party implements LoggableEntityInterface, \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Embedded(class="App\Entity\Embeddable\Address")
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Embedded(class: \App\Entity\Embeddable\Address::class)]
+    #[Groups(['mail_template'])]
     private \App\Entity\Embeddable\Address $address;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['mail_template'])]
     private ?string $phoneNumber = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private ?bool $isPartOfPartIndex = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="CasePartyRelation", mappedBy="party")
-     */
+    #[ORM\OneToMany(targetEntity: 'CasePartyRelation', mappedBy: 'party')]
     private $casePartyRelation;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['mail_template'])]
     private ?string $name = null;
 
     /**
-     * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
-     * @Groups({"mail_template"})
      * @Tvist1Assert\PartyIdentification()
      */
+    #[ORM\Embedded(class: \App\Entity\Embeddable\Identification::class)]
+    #[Groups(['mail_template'])]
     private \App\Entity\Embeddable\Identification $identification;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default":"0"})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $isUnderAddressProtection = false;
 
     public function __construct()

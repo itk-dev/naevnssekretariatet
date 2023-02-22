@@ -7,36 +7,26 @@ use App\Traits\SoftDeletableEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="case_parties")
- * @ORM\EntityListeners({"App\Logging\EntityListener\CasePartyRelationListener"})
- */
+#[ORM\Table(name: 'case_parties')]
+#[ORM\Entity]
+#[ORM\EntityListeners([\App\Logging\EntityListener\CasePartyRelationListener::class])]
 class CasePartyRelation implements LoggableEntityInterface
 {
     use SoftDeletableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="CaseEntity", inversedBy="casePartyRelation")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: 'CaseEntity', inversedBy: 'casePartyRelation')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\CaseEntity $case = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Party", inversedBy="casePartyRelation")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: 'Party', inversedBy: 'casePartyRelation')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?\App\Entity\Party $party = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $type = null;
 
     public function __construct()

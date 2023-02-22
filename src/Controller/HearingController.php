@@ -32,18 +32,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route("/case")
- */
+#[Route(path: '/case')]
 class HearingController extends AbstractController
 {
     public function __construct(private readonly EntityManagerInterface $entityManager, private readonly TranslatorInterface $translator)
     {
     }
 
-    /**
-     * @Route("/{id}/hearing", name="case_hearing_index")
-     */
+    #[Route(path: '/{id}/hearing', name: 'case_hearing_index')]
     public function index(CaseEntity $case, HearingPostRepository $hearingPostRepository, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -99,9 +95,7 @@ class HearingController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/hearing/start", name="case_hearing_start")
-     */
+    #[Route(path: '/{id}/hearing/start', name: 'case_hearing_start')]
     public function startHearing(CaseEntity $case): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -118,9 +112,7 @@ class HearingController extends AbstractController
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
 
-    /**
-     * @Route("/{case}/hearing/{hearing}/response/create", name="case_hearing_post_response_create")
-     */
+    #[Route(path: '/{case}/hearing/{hearing}/response/create', name: 'case_hearing_post_response_create')]
     public function hearingPostResponseCreate(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, Hearing $hearing, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -178,9 +170,7 @@ class HearingController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{case}/hearing/{hearing}/request/create", name="case_hearing_post_request_create")
-     */
+    #[Route(path: '/{case}/hearing/{hearing}/request/create', name: 'case_hearing_post_request_create')]
     public function hearingPostRequestCreate(CaseEntity $case, DocumentUploader $documentUploader, DocumentRepository $documentRepository, Hearing $hearing, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -245,9 +235,7 @@ class HearingController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{case}/hearing/{hearingPost}/show", name="case_hearing_post_show")
-     */
+    #[Route(path: '/{case}/hearing/{hearingPost}/show', name: 'case_hearing_post_show')]
     public function hearingPostShow(CaseEntity $case, HearingPost $hearingPost): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -258,9 +246,7 @@ class HearingController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{case}/hearing/{hearingPost}/response/edit", name="case_hearing_post_response_edit")
-     */
+    #[Route(path: '/{case}/hearing/{hearingPost}/response/edit', name: 'case_hearing_post_response_edit')]
     public function hearingPostResponseEdit(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, HearingPost $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -307,9 +293,7 @@ class HearingController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{case}/hearing/{hearingPost}/request/edit", name="case_hearing_post_request_edit")
-     */
+    #[Route(path: '/{case}/hearing/{hearingPost}/request/edit', name: 'case_hearing_post_request_edit')]
     public function hearingPostRequestEdit(CaseEntity $case, DocumentRepository $documentRepository, DocumentUploader $documentUploader, HearingPostRequest $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -367,9 +351,7 @@ class HearingController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{case}/hearing/{hearingPost}/approve", name="case_hearing_post_approve", methods={"POST"})
-     */
+    #[Route(path: '/{case}/hearing/{hearingPost}/approve', name: 'case_hearing_post_approve', methods: ['POST'])]
     public function hearingPostApprove(CaseEntity $case, HearingPostResponse $hearingPost, MailTemplateHelper $mailTemplateHelper, DocumentUploader $documentUploader, DigitalPostHelper $digitalPostHelper): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -429,9 +411,7 @@ class HearingController extends AbstractController
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
 
-    /**
-     * @Route("/{case}/hearing/{hearingPost}/forward", name="case_hearing_post_forward", methods={"POST"})
-     */
+    #[Route(path: '/{case}/hearing/{hearingPost}/forward', name: 'case_hearing_post_forward', methods: ['POST'])]
     public function hearingPostForward(CaseEntity $case, HearingPostRequest $hearingPost, DigitalPostHelper $digitalPostHelper): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -476,9 +456,7 @@ class HearingController extends AbstractController
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
 
-    /**
-     * @Route("/{case}/hearing/{hearing}/finish", name="case_hearing_finish")
-     */
+    #[Route(path: '/{case}/hearing/{hearing}/finish', name: 'case_hearing_finish')]
     public function finishHearing(CaseEntity $case, Hearing $hearing): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -492,9 +470,7 @@ class HearingController extends AbstractController
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
 
-    /**
-     * @Route("/{case}/hearing/{hearing}/resume", name="case_hearing_resume")
-     */
+    #[Route(path: '/{case}/hearing/{hearing}/resume', name: 'case_hearing_resume')]
     public function resumeHearing(CaseEntity $case, Hearing $hearing): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -507,9 +483,7 @@ class HearingController extends AbstractController
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
     }
 
-    /**
-     * @Route("/{case}/hearing/{hearingPost}/delete", name="case_hearing_post_delete")
-     */
+    #[Route(path: '/{case}/hearing/{hearingPost}/delete', name: 'case_hearing_post_delete')]
     public function hearingPostDelete(CaseEntity $case, HearingPost $hearingPost, DocumentUploader $documentUploader, CaseDocumentRelationRepository $relationRepository, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);

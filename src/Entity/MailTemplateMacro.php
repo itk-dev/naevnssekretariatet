@@ -9,39 +9,27 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=MailTemplateMacroRepository::class)
- */
+#[ORM\Entity(repositoryClass: MailTemplateMacroRepository::class)]
 class MailTemplateMacro
 {
     use BlameableEntity;
     use TimestampableEntity;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Regex(pattern="/^[[:alnum:]._-]+$/", message="Only letters, digits, dots, dashed and underscores allowed")
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Regex(pattern: '/^[[:alnum:]._-]+$/', message: 'Only letters, digits, dots, dashed and underscores allowed')]
     private ?string $macro = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private ?string $content = null;
 
-    /**
-     * @ORM\Column(type="json", nullable=true)
-     */
+    #[ORM\Column(type: 'json', nullable: true)]
     private ?array $templateTypes = null;
 
     public function __construct()

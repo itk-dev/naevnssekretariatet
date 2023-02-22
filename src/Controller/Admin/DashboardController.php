@@ -33,9 +33,7 @@ class DashboardController extends AbstractDashboardController
     {
     }
 
-    /**
-     * @Route("/admin", name="admin")
-     */
+    #[Route(path: '/admin', name: 'admin')]
     public function index(): Response
     {
         $routeBuilder = $this->get(AdminUrlGenerator::class);

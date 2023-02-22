@@ -10,37 +10,25 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * @ORM\Entity(repositoryClass=MunicipalityRepository::class)
- * @ORM\EntityListeners({"App\Logging\EntityListener\MunicipalityListener"})
- */
+#[ORM\Entity(repositoryClass: MunicipalityRepository::class)]
+#[ORM\EntityListeners([\App\Logging\EntityListener\MunicipalityListener::class])]
 class Municipality implements LoggableEntityInterface, \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
-     */
-    private \Symfony\Component\Uid\UuidV4 $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private readonly \Symfony\Component\Uid\UuidV4 $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups({"mail_template"})
-     */
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Groups(['mail_template'])]
     private ?string $name = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Board::class, mappedBy="municipality")
-     */
+    #[ORM\OneToMany(targetEntity: Board::class, mappedBy: 'municipality')]
     private \Doctrine\Common\Collections\ArrayCollection|array $boards;
 
-    /**
-     * @ORM\OneToMany(targetEntity=ComplaintCategory::class, mappedBy="municipality")
-     */
+    #[ORM\OneToMany(targetEntity: ComplaintCategory::class, mappedBy: 'municipality')]
     private \Doctrine\Common\Collections\ArrayCollection|array $complaintCategories;
 
-    /**
-     * @ORM\OneToMany(targetEntity=CaseEntity::class, mappedBy="municipality")
-     */
+    #[ORM\OneToMany(targetEntity: CaseEntity::class, mappedBy: 'municipality')]
     private \Doctrine\Common\Collections\ArrayCollection|array $caseEntities;
 
     public function __construct()

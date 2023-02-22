@@ -13,9 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends AbstractController
 {
-    /**
-     * @Route("/search", name="search")
-     */
+    #[Route(path: '/search', name: 'search')]
     public function index(CaseEntityRepository $caseRepository, PaginatorInterface $paginator, Request $request, SearchService $searchService): Response
     {
         $search = $request->query->get('search');

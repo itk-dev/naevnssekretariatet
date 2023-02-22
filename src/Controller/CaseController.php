@@ -61,14 +61,10 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route("/case")
- */
+#[Route(path: '/case')]
 class CaseController extends AbstractController
 {
-    /**
-     * @Route("/", name="case_index", methods={"GET", "POST"})
-     */
+    #[Route(path: '/', name: 'case_index', methods: ['GET', 'POST'])]
     public function index(CaseEntityRepository $caseRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater, MunicipalityHelper $municipalityHelper, MunicipalityRepository $municipalityRepository, PaginatorInterface $paginator, Request $request): Response
     {
         if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION') || $this->isGranted('ROLE_BOARD_MEMBER'))) {
@@ -155,9 +151,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="case_new_prepare", methods={"GET", "POST"})
-     */
+    #[Route(path: '/new', name: 'case_new_prepare', methods: ['GET', 'POST'])]
     public function newPrepare(MunicipalityHelper $municipalityHelper, Request $request): Response
     {
         if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
@@ -185,9 +179,9 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/new/{municipality_id}/{board_id}", name="case_new", methods={"GET", "POST"})
      * @Entity("board", expr="repository.find(board_id)")
      */
+    #[Route(path: '/new/{municipality_id}/{board_id}', name: 'case_new', methods: ['GET', 'POST'])]
     public function new(Board $board, BoardHelper $boardHelper, Request $request, CaseManager $caseManager): Response
     {
         $case = $boardHelper->createNewCase($board);
@@ -212,9 +206,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/summary", name="case_summary", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/summary', name: 'case_summary', methods: ['GET', 'POST'])]
     public function summary(BoardRepository $boardRepository, CaseEntity $case, NoteRepository $noteRepository, DigitalPostRepository $digitalPostRepository): Response
     {
         $this->denyAccessUnlessGranted('view', $case);
@@ -235,9 +227,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="case_show", methods={"GET"})
-     */
+    #[Route(path: '/{id}', name: 'case_show', methods: ['GET'])]
     public function show(CaseEntity $case, PartyHelper $partyHelper): Response
     {
         $this->denyAccessUnlessGranted('view', $case);
@@ -251,9 +241,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="case_edit", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/edit', name: 'case_edit', methods: ['GET', 'POST'])]
     public function edit(CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -281,9 +269,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/status", name="case_status", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/status', name: 'case_status', methods: ['GET', 'POST'])]
     public function status(CaseEntity $case, AgendaCaseItemRepository $agendaCaseItemRepository, CaseManager $caseManager, HearingPostRepository $hearingPostRepository, HearingPostResponseRepository $hearingPostResponseRepository, TranslatorInterface $translator, WorkflowService $workflowService, Request $request): Response
     {
         $this->denyAccessUnlessGranted('view', $case);
@@ -386,9 +372,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/communication", name="case_communication", methods={"GET"})
-     */
+    #[Route(path: '/{id}/communication', name: 'case_communication', methods: ['GET'])]
     public function communication(CaseEntity $case): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -396,9 +380,7 @@ class CaseController extends AbstractController
         return $this->redirectToRoute('digital_post_index', ['id' => $case->getId()]);
     }
 
-    /**
-     * @Route("/{id}/log", name="case_log", methods={"GET"})
-     */
+    #[Route(path: '/{id}/log', name: 'case_log', methods: ['GET'])]
     public function log(CaseEntity $case, LogEntryRepository $logEntryRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -416,9 +398,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{case}/log/{logEntry}", name="case_log_entry_show", methods={"GET"})
-     */
+    #[Route(path: '/{case}/log/{logEntry}', name: 'case_log_entry_show', methods: ['GET'])]
     public function logEntryShow(Request $request, CaseEntity $case, LogEntry $logEntry, LogEntryRepository $logEntryRepository, LogEntryHelper $logEntryHelper): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -439,9 +419,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/presentation", name="case_presentation", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/presentation', name: 'case_presentation', methods: ['GET', 'POST'])]
     public function presentation(CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -474,9 +452,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/decision-proposal", name="case_decision_proposal", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/decision-proposal', name: 'case_decision_proposal', methods: ['GET', 'POST'])]
     public function decisionProposal(CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -509,14 +485,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/bbr-meddelelse/{addressProperty}.{_format}", name="case_bbr_meddelelse", methods={"GET"},
-     *     format="pdf",
-     *     requirements={
-     *         "_format": "pdf",
-     *     }
-     * )
-     */
+    #[Route(path: '/{id}/bbr-meddelelse/{addressProperty}.{_format}', name: 'case_bbr_meddelelse', methods: ['GET'], format: 'pdf', requirements: ['_format' => 'pdf'])]
     public function bbrMeddelelse(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, string $_format): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -533,9 +502,7 @@ class CaseController extends AbstractController
         return $this->redirect($redirectUrl);
     }
 
-    /**
-     * @Route("/{id}/bbr-data/{addressProperty}/update", name="case_bbr_data_update", methods={"POST"})
-     */
+    #[Route(path: '/{id}/bbr-data/{addressProperty}/update', name: 'case_bbr_data_update', methods: ['POST'])]
     public function bbrData(Request $request, CaseEntity $case, BBRHelper $bbrHelper, string $addressProperty, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -555,9 +522,7 @@ class CaseController extends AbstractController
         return $this->redirect($redirectUrl);
     }
 
-    /**
-     * @Route("/{id}/reschedule-hearing-response-deadline", name="case_reschedule_hearing_response_deadline", methods={"GET","POST"})
-     */
+    #[Route(path: '/{id}/reschedule-hearing-response-deadline', name: 'case_reschedule_hearing_response_deadline', methods: ['GET', 'POST'])]
     public function rescheduleHearingResponseDeadline(CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -588,9 +553,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/reschedule-process-deadline", name="case_reschedule_finish_processing_deadline", methods={"GET","POST"})
-     */
+    #[Route(path: '/{id}/reschedule-process-deadline', name: 'case_reschedule_finish_processing_deadline', methods: ['GET', 'POST'])]
     public function rescheduleFinishProcessDeadline(CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -621,9 +584,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/reschedule-hearing-deadline", name="case_reschedule_finish_hearing_deadline", methods={"GET","POST"})
-     */
+    #[Route(path: '/{id}/reschedule-hearing-deadline', name: 'case_reschedule_finish_hearing_deadline', methods: ['GET', 'POST'])]
     public function rescheduleFinishHearingDeadline(CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -660,9 +621,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/assign-caseworker", name="case_assign_caseworker", methods={"POST"})
-     */
+    #[Route(path: '/{id}/assign-caseworker', name: 'case_assign_caseworker', methods: ['POST'])]
     public function assignCaseworker(CaseEntity $case, UserRepository $userRepository, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -711,9 +670,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/validate-address/{addressProperty}", name="case_validate_address", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/validate-address/{addressProperty}', name: 'case_validate_address', methods: ['GET', 'POST'])]
     public function validateAddress(Request $request, CaseEntity $case, AddressHelper $addressHelper, string $addressProperty, TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -751,9 +708,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/move_case", name="case_move", methods={"POST"})
-     */
+    #[Route(path: '/{id}/move_case', name: 'case_move', methods: ['POST'])]
     public function move(BoardRepository $boardRepository, CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -779,9 +734,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/delete", name="case_delete", methods={"POST"})
-     */
+    #[Route(path: '/{id}/delete', name: 'case_delete', methods: ['POST'])]
     public function delete(CaseEntity $case, Request $request): Response
     {
         $this->denyAccessUnlessGranted('delete', $case);
@@ -825,9 +778,7 @@ class CaseController extends AbstractController
         return $case->getAgendaCaseItems()->isEmpty() && !$hasBeenInHearing;
     }
 
-    /**
-     * @Route("/{id}/validate-identifier/{idProperty}/{addressProperty}/{addressProtectionProperty}/{nameProperty}", name="case_validate_identifier", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/validate-identifier/{idProperty}/{addressProperty}/{addressProtectionProperty}/{nameProperty}', name: 'case_validate_identifier', methods: ['GET', 'POST'])]
     public function validateIdentifier(Request $request, CaseEntity $case, IdentificationHelper $identificationHelper, string $idProperty, string $addressProperty, string $addressProtectionProperty, string $nameProperty, TranslatorInterface $translator, PropertyAccessorInterface $propertyAccessor): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
@@ -869,9 +820,7 @@ class CaseController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new/apply-identifier-data", name="case_new_apply_identifier_data", methods={"GET", "POST"})
-     */
+    #[Route(path: '/new/apply-identifier-data', name: 'case_new_apply_identifier_data', methods: ['GET', 'POST'])]
     public function applyIdentifierData(IdentificationHelper $identificationHelper, Request $request): Response
     {
         $type = $request->request->get('type');
@@ -880,9 +829,7 @@ class CaseController extends AbstractController
         return $identificationHelper->fetchIdentifierData($identifier, $type);
     }
 
-    /**
-     * @Route("/get/inspection-address", name="case_get_inspection_address", methods={"GET", "POST"})
-     */
+    #[Route(path: '/get/inspection-address', name: 'case_get_inspection_address', methods: ['GET', 'POST'])]
     public function getInspectionAddress(CaseEntityRepository $repository, AddressHelper $addressHelper, Request $request): Response
     {
         $identifier = $request->request->get('identifier');

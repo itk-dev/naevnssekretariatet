@@ -22,16 +22,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/agenda/{id}/item/{agenda_item_id}/inspection")
- */
+#[Route(path: '/agenda/{id}/item/{agenda_item_id}/inspection')]
 class AgendaInspectionController extends AbstractController
 {
     /**
-     * @Route("/", name="agenda_case_item_inspection", methods={"GET"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
+    #[Route(path: '/', name: 'agenda_case_item_inspection', methods: ['GET'])]
     public function index(Agenda $agenda, AgendaCaseItem $agendaItem, DigitalPostRepository $digitalPostRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $agendaItem);
@@ -44,10 +42,10 @@ class AgendaInspectionController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="agenda_case_item_inspection_letter_create", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
+    #[Route(path: '/create', name: 'agenda_case_item_inspection_letter_create', methods: ['GET', 'POST'])]
     public function create(Agenda $agenda, AgendaCaseItem $agendaItem, CprHelper $cprHelper, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agendaItem);
@@ -116,11 +114,11 @@ class AgendaInspectionController extends AbstractController
     }
 
     /**
-     * @Route("/{digital_post}/show", name="agenda_case_item_inspection_letter_show", methods={"GET", "POST"})
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("digitalPost", expr="repository.find(digital_post)")
      */
+    #[Route(path: '/{digital_post}/show', name: 'agenda_case_item_inspection_letter_show', methods: ['GET', 'POST'])]
     public function show(Agenda $agenda, AgendaCaseItem $agendaItem, DigitalPost $digitalPost)
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
@@ -132,9 +130,7 @@ class AgendaInspectionController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/view/{document}", name="agenda_case_item_inspection_document_view", methods={"GET"})
-     */
+    #[Route(path: '/view/{document}', name: 'agenda_case_item_inspection_document_view', methods: ['GET'])]
     public function view(Agenda $agenda, Document $document, DocumentUploader $uploader): Response
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
