@@ -18,6 +18,7 @@ use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
 use App\Service\MailTemplateHelper;
 use App\Service\PartyHelper;
+use DateTime;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -130,6 +131,7 @@ class AgendaInspectionController extends AbstractController
             }
 
             $caseEvent->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING);
+            $caseEvent->setReceivedAt(new DateTime('now'));
             $caseEvent->setCreatedBy($this->getUser());
 
             $digitalPost = $digitalPostRepository->findByDocumentAndAgendaCaseItem($inspection->getDocument(), $agendaItem);

@@ -16,6 +16,7 @@ use Symfony\Component\Uid\Uuid;
 class CaseEvent
 {
     use TimestampableEntity;
+
     public const CATEGORY_INCOMING = 'Indgående';
     public const CATEGORY_OUTGOING = 'Udgående';
     public const CATEGORY_NOTE = 'Notat';
@@ -65,7 +66,7 @@ class CaseEvent
     private $noteContent;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $receivedAt;
 
@@ -81,7 +82,7 @@ class CaseEvent
         $this->caseEventPartyRelations = new ArrayCollection();
     }
 
-    public function getId(): ?Uuid
+    public function getId(): Uuid
     {
         return $this->id;
     }
@@ -98,7 +99,7 @@ class CaseEvent
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getCategory(): string
     {
         return $this->category;
     }
@@ -110,7 +111,7 @@ class CaseEvent
         return $this;
     }
 
-    public function getSubject(): ?string
+    public function getSubject(): string
     {
         return $this->subject;
     }
@@ -134,12 +135,12 @@ class CaseEvent
         return $this;
     }
 
-    public function getCreatedBy(): ?User
+    public function getCreatedBy(): User
     {
         return $this->createdBy;
     }
 
-    public function setCreatedBy(?UserInterface $createdBy): self
+    public function setCreatedBy(UserInterface $createdBy): self
     {
         $this->createdBy = $createdBy;
 
@@ -182,12 +183,12 @@ class CaseEvent
         return $this;
     }
 
-    public function getReceivedAt(): ?\DateTimeInterface
+    public function getReceivedAt(): \DateTimeInterface
     {
         return $this->receivedAt;
     }
 
-    public function setReceivedAt(?\DateTimeInterface $receivedAt): self
+    public function setReceivedAt(\DateTimeInterface $receivedAt): self
     {
         $this->receivedAt = $receivedAt;
 

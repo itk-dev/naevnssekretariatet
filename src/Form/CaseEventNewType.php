@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,6 +36,14 @@ class CaseEventNewType extends AbstractType
             ->add('noteContent', TextareaType::class, [
                 'label' => $this->translator->trans('Note content', [], 'case_event'),
                 'attr' => ['rows' => 6],
+            ])
+            ->add('receivedAt', DateTimeType::class, [
+                'label' => $this->translator->trans('Received at', [], 'case_event'),
+                'widget' => 'single_text',
+                'with_seconds' => true,
+                'data' => new DateTime('now'),
+                'view_timezone' => 'Europe/Copenhagen',
+                'model_timezone' => 'UTC',
             ])
             ->add('senders', ChoiceType::class, [
                 'label' => $this->translator->trans('Senders', [], 'case_event'),

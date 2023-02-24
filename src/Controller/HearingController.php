@@ -425,7 +425,7 @@ class HearingController extends AbstractController
 
             $digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($case), $case->getId(), [], $digitalPostRecipients);
 
-            // Create digital post  case event (sagshændelse)
+            // Create digital post case event (sagshændelse)
             $digitalPostCaseEvent = new CaseEvent();
             $digitalPostCaseEvent->setCaseEntity($case);
             $digitalPostCaseEvent->setCategory(CaseEvent::CATEGORY_OUTGOING);
@@ -440,7 +440,6 @@ class HearingController extends AbstractController
             $digitalPostCaseEvent->setReceivedAt(new DateTime('now'));
             $digitalPostCaseEvent->setCreatedBy($caseEventUser);
 
-            // If DigitalPost sent attach this to CaseEvent.
             $digitalPost = $digitalPostRepository->findByDocumentAndCase($document, $case);
 
             if (1 !== count($digitalPost)) {
@@ -495,7 +494,7 @@ class HearingController extends AbstractController
             throw new HearingException();
         }
 
-        //Create DigitalPost attachments without linking them to a specific DigitalPost
+        // Create DigitalPost attachments without linking them to a specific DigitalPost
         $digitalPostAttachments = [];
 
         $attachments = $hearingPost->getAttachments();
@@ -530,7 +529,7 @@ class HearingController extends AbstractController
         $this->entityManager->persist($caseEventPartyRelation);
 
         $caseEvent->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING);
-        $caseEvent->setReceivedAt(new DateTime('now'));
+        $caseEvent->setReceivedAt((new DateTime('now')));
         $caseEvent->setCreatedBy($this->getUser());
 
         $digitalPost = $digitalPostRepository->findByDocumentAndCase($hearingPost->getDocument(), $case);

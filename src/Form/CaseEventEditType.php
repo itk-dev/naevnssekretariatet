@@ -36,6 +36,9 @@ class CaseEventEditType extends AbstractType
             ->add('receivedAt', DateTimeType::class, [
                 'label' => $this->translator->trans('Received at', [], 'case_event'),
                 'widget' => 'single_text',
+                'with_seconds' => true,
+                'view_timezone' => 'Europe/Copenhagen',
+                'model_timezone' => 'UTC',
             ])
         ;
 

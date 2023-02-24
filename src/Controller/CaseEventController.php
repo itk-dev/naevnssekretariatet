@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use _PHPStan_3e014c27f\Nette\Utils\DateTime;
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
 use App\Entity\CaseEventPartyRelation;
@@ -12,6 +11,7 @@ use App\Form\CaseEventFilterType;
 use App\Form\CaseEventNewType;
 use App\Repository\CaseEventRepository;
 use App\Service\PartyHelper;
+use DateTime;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -49,7 +49,7 @@ class CaseEventController extends AbstractController
             1,
             1000, // Hopefully this is never reached.
             [
-                'defaultSortFieldName' => 'ce.createdAt',
+                'defaultSortFieldName' => 'ce.receivedAt',
                 'defaultSortDirection' => Criteria::DESC,
             ]
         );
