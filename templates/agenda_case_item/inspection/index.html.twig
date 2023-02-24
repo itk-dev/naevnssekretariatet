@@ -38,10 +38,10 @@
             <tbody>
             {% for digital_post in digital_posts %}
                 <tr>
-                    <td>{{ digital_post.createdAt|date_nullable(format_time) }}</td>
+                    <td>{{ digital_post.createdAt|date(format_datetime) }}</td>
                     <td>{{ digital_post.subject }}</td>
                     <td>{{ digital_post.status ?? '–' }}</td>
-                    <td>{{ digital_post.sentAt|date_nullable(format_time, '-') }}</td>
+                    <td>{{ digital_post.sentAt|date_nullable(format_datetime, '-') }}</td>
                     <td>{{ digital_post.document.documentName }}</td>
                     <td>
                         <a href="{{ path('agenda_case_item_inspection_letter_show', {'id': agenda.id, 'agenda_item_id': agenda_item.id, 'digital_post': digital_post.id}) }}">{% trans %}Show{% endtrans %}</a>

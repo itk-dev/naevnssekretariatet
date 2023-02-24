@@ -10,8 +10,8 @@ twig:
 
     date:
       format: 'd/m/Y H:i'
-      # All times EXCEPT LOG ENTRIES are kept as separate DateTime properties,
-      # meaning when a user sets a startTime to 17:00 we can save it exactly like that in the database,
-      # i.e. saving all times separate from dates means we can ignore timezones.
-      # Log entry exceptions are in templates/case/log.html.twig and templates/case/log_entry_show.html.twig.
-      # timezone: Europe/Copenhagen
+      # By default translate all datetimes to Copenhagen timezone.
+      # Exceptions are agenda & agenda items start/end time.
+      # @see e.g. templates/agenda/index.html.twig
+      # @see https://twig.symfony.com/doc/2.x/filters/date.html#timezone
+      timezone: Europe/Copenhagen

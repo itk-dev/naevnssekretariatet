@@ -17,6 +17,17 @@ use Symfony\Component\Uid\Uuid;
 
 class DigitalPostHelper extends DigitalPost
 {
+    /**
+     * Maximum length of digital post subject.
+     *
+     * https://docs.kombit.dk/integration/sf1600/2.5/pakke > "SF1600 - Print på
+     * Serviceplatformen v.2.5.pdf" > Page 76:
+     *
+     * > Titel på dokumentet. Ved forsendelser til eBoks, må der maksimalt
+     * > angives 50 tegn.
+     */
+    public const SUBJECT_MAX_LENGTH = 50;
+
     private array $serviceOptions;
 
     public function __construct(private CprHelper $cprHelper, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, array $options)
@@ -37,6 +48,8 @@ class DigitalPostHelper extends DigitalPost
     public function sendDigitalPostCPR(string $cpr, string $name, Address $address, string $title, string $content, array $attachments = []): array
     {
         $bilag = $this->buildBilag($attachments);
+
+        $title = mb_substr($title, 0, self::SUBJECT_MAX_LENGTH);
 
         $result = $this->setServiceOptions($this->serviceOptions['digital_post_options'])
             ->afsendBrevPerson(
@@ -74,6 +87,8 @@ class DigitalPostHelper extends DigitalPost
     public function sendDigitalPostCVR(string $cvr, string $name, Address $address, string $title, string $content, array $attachments = []): array
     {
         $bilag = $this->buildBilag($attachments);
+
+        $title = mb_substr($title, 0, self::SUBJECT_MAX_LENGTH);
 
         $result = $this->setServiceOptions($this->serviceOptions['digital_post_options'])
             ->afsendBrevCVR(
@@ -189,7 +204,8 @@ class DigitalPostHelper extends DigitalPost
                 $digitalPost->setPrevious($digitalPosts[$index - 1]);
             }
             if ($numberOfDigitalPosts > 1) {
-                $newSubject = sprintf('%s (%d/%d)', $digitalPost->getSubject(), $index + 1, $numberOfDigitalPosts);
+                // The subject will be truncated to at most self::SUBJECT_MAX_LENGTH characters so we prefix with the counter.
+                $newSubject = sprintf('(%2$d/%3$d) %1$s', $digitalPost->getSubject(), $index + 1, $numberOfDigitalPosts);
                 $digitalPost->setSubject($newSubject);
             }
 

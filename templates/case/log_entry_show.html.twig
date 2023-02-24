@@ -81,7 +81,7 @@
 
         <dl>
             <dt>{% trans %}Created at{% endtrans %}</dt>
-            <dd>{{ log_entry.createdAt|date(format_datetime, 'Europe/Copenhagen') }}</dd>
+            <dd>{{ log_entry.createdAt|date(format_datetime) }}</dd>
 
             <dt>{% trans %}Username{% endtrans %}</dt>
             <dd>{{ log_entry.user }}</dd>
