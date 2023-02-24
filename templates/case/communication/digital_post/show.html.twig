@@ -9,9 +9,11 @@
         <div class="col">
             <h1>{% trans %}Digital post{% endtrans %}</h1>
         </div>
-        <div class="col-auto">
-            <a class="btn btn-secondary" href="{{ path('digital_post_index', {id: case.id}) }}">{% trans %}Back to digital post{% endtrans %}</a>
-        </div>
+        {% if digital_post.caseEvent %}
+            <div class="col-auto">
+                <a class="btn btn-secondary" href="{{ path('case_event_show', {id: case.id, caseEvent: digital_post.caseEvent.id}) }}">{% trans %}Back to case event{% endtrans %}</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 

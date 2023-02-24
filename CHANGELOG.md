@@ -1,3 +1,4 @@
+
 <!-- markdownlint-disable MD024 -->
 # Changelog
 
@@ -10,6 +11,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [TVIST1-743](https://jira.itkdev.dk/browse/TVIST1-743)
+  Added case events.
 - [TVIST1-754](https://jira.itkdev.dk/browse/TVIST1-754)
   Added finished on logic to cases.
 

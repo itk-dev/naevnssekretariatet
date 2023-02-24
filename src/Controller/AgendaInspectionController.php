@@ -4,9 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
+use App\Entity\CaseDocumentRelation;
+use App\Entity\CaseEvent;
+use App\Entity\CaseEventPartyRelation;
 use App\Entity\DigitalPost;
 use App\Entity\Document;
 use App\Entity\InspectionLetter;
+use App\Exception\CaseEventException;
 use App\Form\InspectionLetterType;
 use App\Repository\DigitalPostRepository;
 use App\Service\CprHelper;
@@ -48,7 +52,7 @@ class AgendaInspectionController extends AbstractController
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
-    public function create(Agenda $agenda, AgendaCaseItem $agendaItem, CprHelper $cprHelper, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
+    public function create(Agenda $agenda, AgendaCaseItem $agendaItem, CprHelper $cprHelper, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, DigitalPostRepository $digitalPostRepository, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agendaItem);
 
@@ -101,6 +105,44 @@ class AgendaInspectionController extends AbstractController
             $entityManager->persist($inspection);
 
             $digitalPostHelper->createDigitalPost($document, $inspection->getTitle(), get_class($agendaItem), $agendaItem->getId(), [], $digitalPostRecipients);
+
+            // Attach document to case
+            $case = $agendaItem->getCaseEntity();
+            $caseDocumentRelation = new CaseDocumentRelation();
+            $caseDocumentRelation->setCase($case);
+            $caseDocumentRelation->setDocument($document);
+
+            $entityManager->persist($caseDocumentRelation);
+
+            $case->addCaseDocumentRelation($caseDocumentRelation);
+
+            // Create case event (sagshændelse)
+            $caseEvent = new CaseEvent();
+            $caseEvent->setCaseEntity($case);
+
+            $caseEvent->setCategory(CaseEvent::CATEGORY_OUTGOING);
+            foreach ($inspection->getRecipients() as $recipient) {
+                $caseEventPartyRelation = new CaseEventPartyRelation();
+                $caseEventPartyRelation->setParty($recipient);
+                $caseEventPartyRelation->setCaseEvent($caseEvent);
+                $caseEventPartyRelation->setType(CaseEventPartyRelation::TYPE_RECIPIENT);
+                $entityManager->persist($caseEventPartyRelation);
+            }
+
+            $caseEvent->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING);
+            $caseEvent->setCreatedBy($this->getUser());
+
+            $digitalPost = $digitalPostRepository->findByDocumentAndAgendaCaseItem($inspection->getDocument(), $agendaItem);
+
+            if (1 !== count($digitalPost)) {
+                throw new CaseEventException(sprintf('Should find one DigitalPost but found %d', count($digitalPost)));
+            }
+
+            $digitalPost = reset($digitalPost);
+            $caseEvent->setDigitalPost($digitalPost);
+
+            $entityManager->persist($caseEvent);
+            $entityManager->flush();
 
             return $this->redirectToRoute('agenda_case_item_inspection', [
                 'id' => $agenda->getId(),

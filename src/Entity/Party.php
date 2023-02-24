@@ -7,6 +7,8 @@ use App\Entity\Embeddable\Identification;
 use App\Logging\LoggableEntityInterface;
 use App\Repository\PartyRepository;
 use App\Validator as Tvist1Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
@@ -63,11 +65,17 @@ class Party implements LoggableEntityInterface
      */
     private $isUnderAddressProtection = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CaseEventPartyRelation::class, mappedBy="party", orphanRemoval=true)
+     */
+    private $caseEventPartyRelations;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
         $this->address = new Address();
         $this->identification = new Identification();
+        $this->caseEventPartyRelations = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -154,6 +162,36 @@ class Party implements LoggableEntityInterface
     public function setIsUnderAddressProtection(bool $isUnderAddressProtection): self
     {
         $this->isUnderAddressProtection = $isUnderAddressProtection;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaseEventPartyRelation[]
+     */
+    public function getCaseEventPartyRelations(): Collection
+    {
+        return $this->caseEventPartyRelations;
+    }
+
+    public function addCaseEventPartyRelation(CaseEventPartyRelation $caseEventPartyRelation): self
+    {
+        if (!$this->caseEventPartyRelations->contains($caseEventPartyRelation)) {
+            $this->caseEventPartyRelations[] = $caseEventPartyRelation;
+            $caseEventPartyRelation->setParty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaseEventPartyRelation(CaseEventPartyRelation $caseEventPartyRelation): self
+    {
+        if ($this->caseEventPartyRelations->removeElement($caseEventPartyRelation)) {
+            // set the owning side to null (unless already changed)
+            if ($caseEventPartyRelation->getParty() === $this) {
+                $caseEventPartyRelation->setParty(null);
+            }
+        }
 
         return $this;
     }

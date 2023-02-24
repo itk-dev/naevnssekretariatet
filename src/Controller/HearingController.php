@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
+use App\Entity\CaseEvent;
+use App\Entity\CaseEventPartyRelation;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
@@ -12,11 +14,13 @@ use App\Entity\HearingPost;
 use App\Entity\HearingPostRequest;
 use App\Entity\HearingPostResponse;
 use App\Entity\User;
+use App\Exception\CaseEventException;
 use App\Exception\HearingException;
 use App\Form\HearingFinishType;
 use App\Form\HearingPostRequestType;
 use App\Form\HearingPostResponseType;
 use App\Repository\CaseDocumentRelationRepository;
+use App\Repository\DigitalPostRepository;
 use App\Repository\DocumentRepository;
 use App\Repository\HearingPostRepository;
 use App\Service\DigitalPostHelper;
@@ -370,13 +374,16 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/approve", name="case_hearing_post_approve", methods={"POST"})
      */
-    public function hearingPostApprove(CaseEntity $case, HearingPostResponse $hearingPost, MailTemplateHelper $mailTemplateHelper, DocumentUploader $documentUploader, DigitalPostHelper $digitalPostHelper): Response
+    public function hearingPostApprove(CaseEntity $case, HearingPostResponse $hearingPost, MailTemplateHelper $mailTemplateHelper, DocumentUploader $documentUploader, DigitalPostHelper $digitalPostHelper, DigitalPostRepository $digitalPostRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
         if ($hearingPost->getHearing()->getFinishedOn()) {
             throw new HearingException();
         }
+
+        /** @var User $caseEventUser */
+        $caseEventUser = $this->getUser();
 
         // Send receipt
         if ($hearingPost->getSendReceipt()) {
@@ -391,7 +398,7 @@ class HearingController extends AbstractController
             $template = $case?->getBoard()?->getReceiptHearingPost();
 
             if (null === $case) {
-                $message = sprintf('Coild not get case.');
+                $message = sprintf('Could not get case.');
                 throw new HearingException($message);
             }
             if (null === $template) {
@@ -417,11 +424,60 @@ class HearingController extends AbstractController
             $this->entityManager->persist($document);
 
             $digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($case), $case->getId(), [], $digitalPostRecipients);
+
+            // Create digital post  case event (sagshændelse)
+            $digitalPostCaseEvent = new CaseEvent();
+            $digitalPostCaseEvent->setCaseEntity($case);
+            $digitalPostCaseEvent->setCategory(CaseEvent::CATEGORY_OUTGOING);
+
+            $caseEventPartyRelation = new CaseEventPartyRelation();
+            $caseEventPartyRelation->setParty($sender);
+            $caseEventPartyRelation->setCaseEvent($digitalPostCaseEvent);
+            $caseEventPartyRelation->setType(CaseEventPartyRelation::TYPE_RECIPIENT);
+            $this->entityManager->persist($caseEventPartyRelation);
+
+            $digitalPostCaseEvent->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING);
+            $digitalPostCaseEvent->setReceivedAt(new DateTime('now'));
+            $digitalPostCaseEvent->setCreatedBy($caseEventUser);
+
+            // If DigitalPost sent attach this to CaseEvent.
+            $digitalPost = $digitalPostRepository->findByDocumentAndCase($document, $case);
+
+            if (1 !== count($digitalPost)) {
+                throw new CaseEventException(sprintf('Should find one DigitalPost but found %d', count($digitalPost)));
+            }
+
+            $digitalPostCaseEvent->setDigitalPost(reset($digitalPost));
+            $this->entityManager->persist($digitalPostCaseEvent);
         }
+
+        // Create case event (sagshændelse)
+        $caseEvent = new CaseEvent();
+        $caseEvent->setCaseEntity($case);
+        $caseEvent->setCategory(CaseEvent::CATEGORY_INCOMING);
+
+        $caseEventPartyRelation = new CaseEventPartyRelation();
+        $caseEventPartyRelation->setParty($hearingPost->getSender());
+        $caseEventPartyRelation->setCaseEvent($caseEvent);
+        $caseEventPartyRelation->setType(CaseEventPartyRelation::TYPE_SENDER);
+        $this->entityManager->persist($caseEventPartyRelation);
+
+        $caseEvent->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING);
+        $caseEvent->setReceivedAt(new DateTime('now'));
+        $caseEvent->setCreatedBy($caseEventUser);
+
+        $caseEvent->addDocument($hearingPost->getDocument());
+
+        foreach ($hearingPost->getAttachments() as $attachment) {
+            $caseEvent->addDocument($attachment->getDocument());
+        }
+
+        $this->entityManager->persist($caseEvent);
 
         $today = new DateTime('today');
         $hearingPost->setApprovedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
+
         $this->entityManager->flush();
         $this->addFlash('success', new TranslatableMessage('Hearing post approved', [], 'case'));
 
@@ -431,7 +487,7 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/forward", name="case_hearing_post_forward", methods={"POST"})
      */
-    public function hearingPostForward(CaseEntity $case, HearingPostRequest $hearingPost, DigitalPostHelper $digitalPostHelper): Response
+    public function hearingPostForward(CaseEntity $case, HearingPostRequest $hearingPost, DigitalPostHelper $digitalPostHelper, DigitalPostRepository $digitalPostRepository): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -461,6 +517,32 @@ class HearingController extends AbstractController
         ;
 
         $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+
+        // Create case event (sagshændelse)
+        $caseEvent = new CaseEvent();
+        $caseEvent->setCaseEntity($case);
+        $caseEvent->setCategory(CaseEvent::CATEGORY_OUTGOING);
+
+        $caseEventPartyRelation = new CaseEventPartyRelation();
+        $caseEventPartyRelation->setParty($hearingPost->getRecipient());
+        $caseEventPartyRelation->setCaseEvent($caseEvent);
+        $caseEventPartyRelation->setType(CaseEventPartyRelation::TYPE_RECIPIENT);
+        $this->entityManager->persist($caseEventPartyRelation);
+
+        $caseEvent->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING);
+        $caseEvent->setReceivedAt(new DateTime('now'));
+        $caseEvent->setCreatedBy($this->getUser());
+
+        $digitalPost = $digitalPostRepository->findByDocumentAndCase($hearingPost->getDocument(), $case);
+
+        if (1 !== count($digitalPost)) {
+            throw new CaseEventException(sprintf('Should find one DigitalPost but found %d', count($digitalPost)));
+        }
+
+        $digitalPost = reset($digitalPost);
+        $caseEvent->setDigitalPost($digitalPost);
+
+        $this->entityManager->persist($caseEvent);
 
         $today = new DateTime('today');
 

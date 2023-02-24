@@ -1,0 +1,89 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case_event' %}
+
+{% block title %}{% trans %}Case events{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Case events{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-success" href="{{ url('case_event_create', {id: case.id}) }}" role="button">{% trans %}Create case event{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% macro pagination_header(pagination, property, text) %}
+    <th class="{{ pagination.isSorted(property) ? 'sorted' }}">
+        {{ knp_pagination_sortable(pagination, text, property) }}
+    </th>
+{% endmacro %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(filter_form) }}
+        <div class="row no-gutters">
+            <div class="col-auto">
+                {{ form_widget(filter_form.category) }}
+            </div>
+            <div class="col-auto ml-2">
+                {{ form_widget(filter_form.query) }}
+            </div>
+            <div class="col-auto ml-2">
+                <button class="btn btn-primary">{% trans %}Apply filter{% endtrans %}</button>
+
+{#                 Get query parameters without filter#}
+                {% set query_parameters = app.request.query.all|filter((v, k) => k != 'case_event_filter') %}
+                {% set reset_filter_path = path(
+                    app.request.attributes.get('_route'),
+                    app.request.attributes.get('_route_params')|merge(query_parameters)
+                ) %}
+                <a class="btn btn-secondary" href="{{ reset_filter_path }}" role="button">{% trans %}Reset filter{% endtrans %}</a>
+            </div>
+        </div>
+        {{ form_rest(filter_form) }}
+        {{ form_end(filter_form) }}
+
+        <table class="table table-striped mt-2">
+            <thead>
+            <tr>
+                <th>{% trans %}Category{% endtrans %}</th>
+                <th>{% trans %}Sender{% endtrans %}</th>
+                <th>{% trans %}Recipient{% endtrans %}</th>
+                <th>{% trans %}Subject{% endtrans %}</th>
+                <th>{% trans %}Received at{% endtrans %}</th>
+                <th>{% trans %}User{% endtrans %}</th>
+                <th>{% trans %}Status{% endtrans %}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for case_event in pagination %}
+                <tr>
+                    <td>{{ case_event.category }}</td>
+                    <td>
+                        {{ case_event.caseEventPartyRelations|filter(r => r.type == "Sender")|map(r => r.party.name)|join(', ') }}
+                    </td>
+                    <td>
+                        {{ case_event.caseEventPartyRelations|filter(r => r.type == "Recipient")|map(r => r.party.name)|join(', ') }}
+                    </td>
+                    <td>{{ case_event.subject }}</td>
+                    <td>{{ case_event.receivedAt ? case_event.receivedAt|date(format_datetime) : '' }}</td>
+                    <td>{{ case_event.createdBy.name }}</td>
+                    {# We leave status empty if case event does not involve a digital post, but show a - if it does and the status of digital post is null #}
+                    <td>{{ case_event.digitalPost ? case_event.digitalPost.status ?? '-' : '' }}</td>
+                    <td>
+                        <a href="{{ path('case_event_show', {'id': case.id, 'caseEvent': case_event.id}) }}">{% trans %}Show{% endtrans %}</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">{% trans %}No case events{% endtrans %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}
