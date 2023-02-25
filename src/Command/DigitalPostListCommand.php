@@ -6,6 +6,7 @@ use _PHPStan_3e014c27f\Symfony\Component\Console\Exception\InvalidOptionExceptio
 use App\Entity\CaseDocumentRelation;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostAttachment;
+use App\Entity\DigitalPostEnvelope;
 use App\Entity\Document;
 use App\Repository\DigitalPostRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -67,6 +68,8 @@ class DigitalPostListCommand extends Command
                 ['Created at' => $digitalPost->getCreatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Updated at' => $digitalPost->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Url' => implode(PHP_EOL, $urls)],
+                ['Envelopes' => implode(PHP_EOL, array_map(static fn (DigitalPostEnvelope $envelope) => sprintf('%s: %s (%s)', $envelope->getStatus(), $envelope->getStatusMessage(), $envelope->getMessageUuid()),
+                                                           iterator_to_array($digitalPost->getEnvelopes())))],
             );
 
             if ($output->isDebug()) {

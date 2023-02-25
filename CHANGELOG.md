@@ -20,6 +20,9 @@ about writing changes to this log.
 - [TVIST1-788](https://jira.itkdev.dk/browse/TVIST1-788)
   - Updated `CaseEvent` with `senders` and `recipients` property.
   - Removed `CaseEventPartyRelation`.
+- [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
+  Implemented Next Generation Digitapl Post (NgDP) and handling of
+  Beskedfordeler messages.
 
 ## [1.1.2] 2023-02-17
 
