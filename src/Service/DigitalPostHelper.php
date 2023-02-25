@@ -6,12 +6,14 @@ use App\Entity\DigitalPost as DigitalPostBase;
 use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
 use App\Entity\Embeddable\Address;
+use App\Message\DigitalPostMessage;
 use Doctrine\ORM\EntityManagerInterface;
 use ItkDev\Serviceplatformen\DigitalPost\DigitalPost;
 use ItkDev\Serviceplatformen\SF1600\EnumType\KanalvalgType;
 use ItkDev\Serviceplatformen\SF1600\EnumType\PrioritetType;
 use ItkDev\Serviceplatformen\SF1600\StructType\BilagSamlingType;
 use ItkDev\Serviceplatformen\SF1600\StructType\BilagType;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Uid\Uuid;
 
@@ -30,7 +32,7 @@ class DigitalPostHelper extends DigitalPost
 
     private array $serviceOptions;
 
-    public function __construct(private CprHelper $cprHelper, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, array $options)
+    public function __construct(private CprHelper $cprHelper, private DocumentUploader $documentUploader, private EntityManagerInterface $entityManager, private MessageBusInterface $bus, array $options)
     {
         parent::__construct();
         $resolver = new OptionsResolver();
@@ -213,6 +215,11 @@ class DigitalPostHelper extends DigitalPost
         }
 
         $this->entityManager->flush();
+
+        // Queue digital post for sending to each recipient.
+        foreach ($digitalPost->getRecipients() as $recipient) {
+            $this->bus->dispatch(new DigitalPostMessage($digitalPost, $recipient));
+        }
 
         return $digitalPost;
     }

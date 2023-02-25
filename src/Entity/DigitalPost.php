@@ -106,7 +106,9 @@ class DigitalPost
     private $caseEvent;
 
     /**
-     * @ORM\OneToMany(targetEntity=DigitalPostEnvelope::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist"})
+     * @var DigitalPostEnvelope[]
+     *
+     * @ORM\OneToMany(targetEntity=DigitalPostEnvelope::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $envelopes;
 
