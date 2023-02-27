@@ -57,7 +57,7 @@ class BeskedfordelerEventSubscriber implements EventSubscriberInterface
                 }
             }
         } catch (\Throwable $exception) {
-            $this->logger->error($exception->getMessage(), [
+            $this->logger->error(sprintf('Error handling Beskedfordeler message: %s', $exception->getMessage()), [
                 'exception' => $exception,
                 'event' => $event,
             ]);
