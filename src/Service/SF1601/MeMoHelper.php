@@ -64,34 +64,22 @@ class MeMoHelper
             ->setCreatedDateTime(new \DateTime())
         ;
 
-        $mainDocument = (new MainDocument())
-            ->setLabel(__METHOD__)
-            ->setFile([(new File())
-                    ->setFilename('text.txt')
-                    ->setEncodingFormat('text/plain')
-                    ->setLanguage('da')
-                    ->setContent('Hep-hey!'),
-            ])
-        ;
-
-        /*
         $document = $digitalPost->getDocument();
         $mainDocument = (new MainDocument())
             ->setLabel($document->getDocumentName())
-            ->setFile([$this->createFile($document)]);
-        //*/
+            ->setFile([$this->createFile($document)])
+        ;
         $body->setMainDocument($mainDocument);
 
-        /*
         foreach ($digitalPost->getAttachments() as $attachment) {
             $document = $attachment->getDocument();
 
             $additionalDocument = (new AdditionalDocument())
                 ->setLabel($document->getDocumentName())
-                ->setFile([$this->createFile($document)]);
+                ->setFile([$this->createFile($document)])
+            ;
             $body->addToAdditionalDocument($additionalDocument);
         }
-//*/
 
         $message->setMessageBody($body);
 
