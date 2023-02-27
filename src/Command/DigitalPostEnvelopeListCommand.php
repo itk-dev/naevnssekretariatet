@@ -26,7 +26,7 @@ class DigitalPostEnvelopeListCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $envelopes = $this->findEnvelopes($input);
+        $envelopes = $this->findEnvelopes();
         foreach ($envelopes as $envelope) {
             $data = array_map(
                 fn (string $message) => $this->messageHelper->getBeskeddata($message),
@@ -47,7 +47,7 @@ class DigitalPostEnvelopeListCommand extends Command
     /**
      * @return DigitalPostEnvelope[]
      */
-    private function findEnvelopes(InputInterface $input): array
+    private function findEnvelopes(): array
     {
         return $this->envelopeRepository->findAll();
     }
