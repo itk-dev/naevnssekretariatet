@@ -16,7 +16,6 @@ class BeskedfordelerEventSubscriber implements EventSubscriberInterface
 
     public function __construct(private MessageHelper $messageHelper, private DigitalPostEnvelopeRepository $envelopeRepository, LoggerInterface $logger)
     {
-        $this->messageHelper = $messageHelper;
         $this->setLogger($logger);
     }
 
