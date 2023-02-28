@@ -1,5 +1,5 @@
 App\Entity\AgendaBroadcast:
-  agenda-broadcast-1:
-    title: Dagsorden
-    agenda: '@agenda-1'
-    template: '@mail-template-agenda-broadcast-001'
+    agenda-broadcast-1:
+        title: Dagsorden
+        agenda: '@agenda-1'
+        template: '@mail-template-agenda-broadcast-001'

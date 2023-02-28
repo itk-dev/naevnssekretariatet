@@ -1,0 +1,33 @@
+# @see https://yamllint.readthedocs.io/en/stable/configuration.html#extending-the-default-configuration
+extends: default
+
+ignore:
+    - .docker/
+    - .github/
+    - node_modules/
+    - vendor/
+    - 'docker-compose*.yml'
+
+rules:
+    # @see https://yamllint.readthedocs.io/en/stable/rules.html#module-yamllint.rules.braces
+    braces:
+        min-spaces-inside: 1
+        max-spaces-inside: 1
+    # @see https://yamllint.readthedocs.io/en/stable/rules.html#module-yamllint.rules.brackets
+    brackets:
+        min-spaces-inside: 0
+        max-spaces-inside: 1
+    # @see https://yamllint.readthedocs.io/en/stable/rules.html#module-yamllint.rules.comments
+    comments:
+        min-spaces-from-content: 1
+        require-starting-space: false
+    # @see https://yamllint.readthedocs.io/en/stable/rules.html#module-yamllint.rules.document_start
+    document-start:
+        present: false
+    # @see https://yamllint.readthedocs.io/en/stable/rules.html#module-yamllint.rules.indentation
+    indentation:
+        spaces: 4
+    # 80 chars should be enough, but don't fail if a line is longer
+    line-length:
+        max: 160
+        level: warning

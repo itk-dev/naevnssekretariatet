@@ -1,162 +1,162 @@
 App\Entity\Embeddable\Address:
-  test-address-party-1:
-    street: Nyborgvej
-    number: 54
-    city: Aarhus C
-    postalCode: 8000
+    test-address-party-1:
+        street: Nyborgvej
+        number: 54
+        city: Aarhus C
+        postalCode: 8000
 
-  test-address-party-2:
-    street: Lærkevej
-    number: 14
-    city: Aarhus N
-    postalCode: 8200
+    test-address-party-2:
+        street: Lærkevej
+        number: 14
+        city: Aarhus N
+        postalCode: 8200
 
-  test-address-party-3:
-    street: Birkevej
-    number: 19
-    city: Aarhus V
-    postalCode: 8210
+    test-address-party-3:
+        street: Birkevej
+        number: 19
+        city: Aarhus V
+        postalCode: 8210
 
-  test-address-party-4:
-    street: Vibevej
-    number: 20
-    city: Brabrand
-    postalCode: 8220
+    test-address-party-4:
+        street: Vibevej
+        number: 20
+        city: Brabrand
+        postalCode: 8220
 
-  test-address-party-5:
-    street: Vinkelvej
-    number: 94
-    city: Åbyhøj
-    postalCode: 8230
+    test-address-party-5:
+        street: Vinkelvej
+        number: 94
+        city: Åbyhøj
+        postalCode: 8230
 
-  test-address-party-6:
-    street: Vestergade
-    number: 81
-    city: Risskov
-    postalCode: 8240
+    test-address-party-6:
+        street: Vestergade
+        number: 81
+        city: Risskov
+        postalCode: 8240
 
-  test-address-party-7:
-    street: Elmvevej
-    number: 42
-    city: Egå
-    postalCode: 8250
+    test-address-party-7:
+        street: Elmvevej
+        number: 42
+        city: Egå
+        postalCode: 8250
 
-  test-address-party-8:
-    street: Stationsvej
-    number: 74
-    city: Viby J
-    postalCode: 8260
+    test-address-party-8:
+        street: Stationsvej
+        number: 74
+        city: Viby J
+        postalCode: 8260
 
-  test-address-party-9:
-    street: Skovvej
-    number: 24
-    city: Højbjerg
-    postalCode: 8270
+    test-address-party-9:
+        street: Skovvej
+        number: 24
+        city: Højbjerg
+        postalCode: 8270
 
-  test-address-party-10:
-    street: Nørregade
-    number: 21
-    city: Tranbjerg J
-    postalCode: 8310
+    test-address-party-10:
+        street: Nørregade
+        number: 21
+        city: Tranbjerg J
+        postalCode: 8310
 
-  test-address-party-11:
-    street: Drosselvej
-    number: 73
-    city: Mårslet
-    postalCode: 8320
+    test-address-party-11:
+        street: Drosselvej
+        number: 73
+        city: Mårslet
+        postalCode: 8320
 
-  test-address-party-12:
-    street: Skolevej
-    number: 35
-    city: Beder
-    postalCode: 8330
+    test-address-party-12:
+        street: Skolevej
+        number: 35
+        city: Beder
+        postalCode: 8330
 
 App\Entity\Embeddable\Identification:
-  test-party-identification-1:
-    type: CPR
-    identifier: 1234567890
+    test-party-identification-1:
+        type: CPR
+        identifier: 1234567890
 
 App\Entity\Party:
-  party-1:
-    name: Anne Nielsen
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-1'
-    phoneNumber: '57209633'
-    isPartOfPartIndex: true
+    party-1:
+        name: Anne Nielsen
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-1'
+        phoneNumber: '57209633'
+        isPartOfPartIndex: true
 
-  party-2:
-    name: Kirsten Jensen
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-2'
-    phoneNumber: '75568314'
-    isPartOfPartIndex: true
+    party-2:
+        name: Kirsten Jensen
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-2'
+        phoneNumber: '75568314'
+        isPartOfPartIndex: true
 
-  party-3:
-    name: Mette Hansen
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-3'
-    phoneNumber: '80264719'
-    isPartOfPartIndex: true
+    party-3:
+        name: Mette Hansen
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-3'
+        phoneNumber: '80264719'
+        isPartOfPartIndex: true
 
-  party-4:
-    name: Hanne Andersen
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-4'
-    phoneNumber: '34223320'
-    isPartOfPartIndex: true
+    party-4:
+        name: Hanne Andersen
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-4'
+        phoneNumber: '34223320'
+        isPartOfPartIndex: true
 
-  party-5:
-    name: Helle Pedersen
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-5'
-    phoneNumber: '88466494'
-    isPartOfPartIndex: true
+    party-5:
+        name: Helle Pedersen
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-5'
+        phoneNumber: '88466494'
+        isPartOfPartIndex: true
 
-  party-6:
-    name: Susanne Christensen
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-6'
-    phoneNumber: '71952881'
-    isPartOfPartIndex: true
+    party-6:
+        name: Susanne Christensen
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-6'
+        phoneNumber: '71952881'
+        isPartOfPartIndex: true
 
-  party-7:
-    name: Peter Sørensen
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-7'
-    phoneNumber: '38261742'
-    isPartOfPartIndex: true
+    party-7:
+        name: Peter Sørensen
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-7'
+        phoneNumber: '38261742'
+        isPartOfPartIndex: true
 
-  party-8:
-    name: Michael Larsen
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-8'
-    phoneNumber: '21336274'
-    isPartOfPartIndex: true
+    party-8:
+        name: Michael Larsen
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-8'
+        phoneNumber: '21336274'
+        isPartOfPartIndex: true
 
-  party-9:
-    name: Jens Rasmussen
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-9'
-    phoneNumber: '63374224'
-    isPartOfPartIndex: true
+    party-9:
+        name: Jens Rasmussen
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-9'
+        phoneNumber: '63374224'
+        isPartOfPartIndex: true
 
-  party-10:
-    name: Lars Jørgensen
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-10'
-    phoneNumber: '23616621'
-    isPartOfPartIndex: true
+    party-10:
+        name: Lars Jørgensen
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-10'
+        phoneNumber: '23616621'
+        isPartOfPartIndex: true
 
-  party-11:
-    name: Thomas Møller
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-11'
-    phoneNumber: '92209974'
-    isPartOfPartIndex: true
+    party-11:
+        name: Thomas Møller
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-11'
+        phoneNumber: '92209974'
+        isPartOfPartIndex: true
 
-  party-12:
-    name: Henrik Schmidt
-    identification: '@test-party-identification-1'
-    address: '@test-address-party-12'
-    phoneNumber: '23479335'
-    isPartOfPartIndex: true
+    party-12:
+        name: Henrik Schmidt
+        identification: '@test-party-identification-1'
+        address: '@test-address-party-12'
+        phoneNumber: '23479335'
+        isPartOfPartIndex: true

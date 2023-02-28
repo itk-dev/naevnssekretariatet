@@ -1,24 +1,24 @@
 App\Entity\BoardRole:
-  resident-complaint-board-aarhus-role-chairman:
-    board: '@resident-complaint-board-aarhus'
-    title: Formand
+    resident-complaint-board-aarhus-role-chairman:
+        board: '@resident-complaint-board-aarhus'
+        title: Formand
 
-  resident-complaint-board-aarhus-role-chairman-alternate:
-    board: '@resident-complaint-board-aarhus'
-    title: Formand suppleant
+    resident-complaint-board-aarhus-role-chairman-alternate:
+        board: '@resident-complaint-board-aarhus'
+        title: Formand suppleant
 
-  resident-complaint-board-aarhus-role-landlord-representative:
-    board: '@resident-complaint-board-aarhus'
-    title: Udlejerrepræsentant
+    resident-complaint-board-aarhus-role-landlord-representative:
+        board: '@resident-complaint-board-aarhus'
+        title: Udlejerrepræsentant
 
-  resident-complaint-board-aarhus-role-landlord-representative-alternate:
-    board: '@resident-complaint-board-aarhus'
-    title: Udlejerrepræsentant suppleant
+    resident-complaint-board-aarhus-role-landlord-representative-alternate:
+        board: '@resident-complaint-board-aarhus'
+        title: Udlejerrepræsentant suppleant
 
-  resident-complaint-board-aarhus-role-tenant-representative:
-    board: '@resident-complaint-board-aarhus'
-    title: Lejerrepræsentant
+    resident-complaint-board-aarhus-role-tenant-representative:
+        board: '@resident-complaint-board-aarhus'
+        title: Lejerrepræsentant
 
-  resident-complaint-board-aarhus-role-tenant-representative-alternate:
-    board: '@resident-complaint-board-aarhus'
-    title: Lejerrepræsentant suppleant
+    resident-complaint-board-aarhus-role-tenant-representative-alternate:
+        board: '@resident-complaint-board-aarhus'
+        title: Lejerrepræsentant suppleant

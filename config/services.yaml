@@ -74,13 +74,13 @@ services:
                         entity_class_names:
                             - App\Entity\HearingPost
                     agenda_inspection:
-                      label: Agenda inspection
-                      entity_class_names:
-                        - App\Entity\InspectionLetter
+                        label: Agenda inspection
+                        entity_class_names:
+                            - App\Entity\InspectionLetter
                     agenda_broadcast:
                         label: Agenda broadcast
                         entity_class_names:
-                          - App\Entity\AgendaBroadcast
+                            - App\Entity\AgendaBroadcast
                     board_receipt_case:
                         label: Board receipt (case)
                         entity_class_names:
@@ -139,33 +139,33 @@ services:
     App\Service\DigitalPostHelper:
         arguments:
             $options:
-              digital_post_options:
-                digital_post_system_id: '%env(DIGITAL_POST_SYSTEM_ID)%'
-                digital_post_afsender_system: '%env(DIGITAL_POST_AFSENDER_SYSTEM)%'
+                digital_post_options:
+                    digital_post_system_id: '%env(DIGITAL_POST_SYSTEM_ID)%'
+                    digital_post_afsender_system: '%env(DIGITAL_POST_AFSENDER_SYSTEM)%'
 
-                digital_post_materiale_id: '%env(DIGITAL_POST_MATERIALE_ID)%'
+                    digital_post_materiale_id: '%env(DIGITAL_POST_MATERIALE_ID)%'
 
-                digital_post_forsendelses_type: '%env(DIGITAL_POST_FORSENDELSES_TYPE)%'
+                    digital_post_forsendelses_type: '%env(DIGITAL_POST_FORSENDELSES_TYPE)%'
 
-                azure_tenant_id: '%env(AZURE_TENANT_ID)%'
-                azure_application_id: '%env(AZURE_APPLICATION_ID)%'
-                azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
+                    azure_tenant_id: '%env(AZURE_TENANT_ID)%'
+                    azure_application_id: '%env(AZURE_APPLICATION_ID)%'
+                    azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
 
-                azure_key_vault_name: '%env(AZURE_KEY_VAULT_NAME)%'
-                azure_key_vault_secret: '%env(AZURE_KEY_VAULT_SECRET)%'
-                azure_key_vault_secret_version: '%env(AZURE_KEY_VAULT_SECRET_VERSION)%'
+                    azure_key_vault_name: '%env(AZURE_KEY_VAULT_NAME)%'
+                    azure_key_vault_secret: '%env(AZURE_KEY_VAULT_SECRET)%'
+                    azure_key_vault_secret_version: '%env(AZURE_KEY_VAULT_SECRET_VERSION)%'
 
-                service_agreement_uuid: '%env(SERVICE_AGREEMENT_UUID)%'
-                user_system_uuid: '%env(USER_SYSTEM_UUID)%'
-                user_uuid: '%env(USER_UUID)%'
+                    service_agreement_uuid: '%env(SERVICE_AGREEMENT_UUID)%'
+                    user_system_uuid: '%env(USER_SYSTEM_UUID)%'
+                    user_uuid: '%env(USER_UUID)%'
 
-                service_uuid: '%env(SERVICE_UUID)%'
-                service_endpoint: '%env(SERVICE_ENDPOINT)%'
-                service_contract: '%env(resolve:SERVICE_CONTRACT)%'
+                    service_uuid: '%env(SERVICE_UUID)%'
+                    service_endpoint: '%env(SERVICE_ENDPOINT)%'
+                    service_contract: '%env(resolve:SERVICE_CONTRACT)%'
 
-              restriction_options:
-                  number_of_attachments_allowed: '%env(NUMBER_OF_ATTACHMENTS_ALLOWED)%'
-                  total_filesize_allowed: '%env(TOTAL_FILESIZE_ALLOWED)%'
+                restriction_options:
+                    number_of_attachments_allowed: '%env(NUMBER_OF_ATTACHMENTS_ALLOWED)%'
+                    total_filesize_allowed: '%env(TOTAL_FILESIZE_ALLOWED)%'
 
     # Setting level in config/packages/monolog.yaml does not work as expected
     # (cf. https://github.com/symfony/monolog-bundle/issues/322)
@@ -199,15 +199,15 @@ services:
     App\Service\CvrHelper:
         arguments:
             $options:
-              azure_tenant_id: '%env(AZURE_TENANT_ID)%'
-              azure_application_id: '%env(AZURE_APPLICATION_ID)%'
-              azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
+                azure_tenant_id: '%env(AZURE_TENANT_ID)%'
+                azure_application_id: '%env(AZURE_APPLICATION_ID)%'
+                azure_client_secret: '%env(AZURE_CLIENT_SECRET)%'
 
-              azure_key_vault_name: '%env(AZURE_KEY_VAULT_DATAFORDELER_NAME)%'
-              azure_key_vault_datafordeler_secret: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET)%'
-              azure_key_vault_datafordeler_secret_version: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSION)%'
+                azure_key_vault_name: '%env(AZURE_KEY_VAULT_DATAFORDELER_NAME)%'
+                azure_key_vault_datafordeler_secret: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET)%'
+                azure_key_vault_datafordeler_secret_version: '%env(AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSION)%'
 
-              datafordeler_cvr_lookup_base_url: '%env(DATAFORDELER_CVR_LOOKUP_BASE_URL)%'
+                datafordeler_cvr_lookup_base_url: '%env(DATAFORDELER_CVR_LOOKUP_BASE_URL)%'
 
     App\Service\MailTemplate\ComplexMacroHelper:
         arguments:

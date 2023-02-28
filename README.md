@@ -370,6 +370,12 @@ we decided to adhere to in this project.
   docker run -v ${PWD}:/app itkdev/yarn:latest markdownlint README.md
   ```
 
+* YAML
+
+  ```sh
+  docker run --rm --volume $(pwd):/data cytopia/yamllint config
+  ```
+
 ## Code analysis
 
 We use [PHPStan](https://phpstan.org/) and [Psalm](https://psalm.dev/) for code
