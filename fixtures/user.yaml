@@ -1,37 +1,37 @@
 App\Entity\User:
-  user-caseworker:
-    name: Caseworker
-    email: caseworker@example.com
-    roles: [ROLE_CASEWORKER]
-    favoriteMunicipality: '@municipality-aarhus'
+    user-caseworker:
+        name: Caseworker
+        email: caseworker@example.com
+        roles: [ROLE_CASEWORKER]
+        favoriteMunicipality: '@municipality-aarhus'
 
-  user-administration:
-    name: Administration
-    email: administration@example.com
-    roles: [ROLE_ADMINISTRATION]
-    favoriteMunicipality: '@municipality-aarhus'
+    user-administration:
+        name: Administration
+        email: administration@example.com
+        roles: [ROLE_ADMINISTRATION]
+        favoriteMunicipality: '@municipality-aarhus'
 
-  user-admin:
-    name: Admin
-    email: admin@example.com
-    roles: [ROLE_ADMIN]
-    favoriteMunicipality: '@municipality-aarhus'
+    user-admin:
+        name: Admin
+        email: admin@example.com
+        roles: [ROLE_ADMIN]
+        favoriteMunicipality: '@municipality-aarhus'
 
-  user-super-admin:
-    name: Super Admin
-    email: super-admin@example.com
-    roles: [ROLE_SUPER_ADMIN]
-    favoriteMunicipality: '@municipality-aarhus'
+    user-super-admin:
+        name: Super Admin
+        email: super-admin@example.com
+        roles: [ROLE_SUPER_ADMIN]
+        favoriteMunicipality: '@municipality-aarhus'
 
-  user-tess-holst:
-    name: Tess Holst
-    # Must match the email generated in App\Security\AzureAdLoginAuthenticator::getBoardMemberUser.
-    email: '1111610556@cpr.example.com'
-    roles: [ROLE_BOARD_MEMBER]
-    favoriteMunicipality: '@municipality-aarhus'
-    boardMember: '@board-member-tess-holst'
+    user-tess-holst:
+        name: Tess Holst
+        # Must match the email generated in App\Security\AzureAdLoginAuthenticator::getBoardMemberUser.
+        email: '1111610556@cpr.example.com'
+        roles: [ROLE_BOARD_MEMBER]
+        favoriteMunicipality: '@municipality-aarhus'
+        boardMember: '@board-member-tess-holst'
 
-  user-os2forms:
-    name: OS2Forms
-    email: 'OS2Forms@example.com'
-    roles: [ROLE_ADMIN]
+    user-os2forms:
+        name: OS2Forms
+        email: 'OS2Forms@example.com'
+        roles: [ROLE_ADMIN]

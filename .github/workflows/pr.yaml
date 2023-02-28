@@ -259,6 +259,15 @@ jobs:
       - name: markdownlint
         run: yarn check-coding-standards/markdownlint
 
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: yamllint
+        run: docker run --rm --volume $(pwd):/data cytopia/yamllint -f github .
+
   translations:
     runs-on: ubuntu-20.04
     strategy:

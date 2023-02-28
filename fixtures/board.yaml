@@ -1,156 +1,156 @@
 App\Entity\Board:
-  resident-complaint-board-aarhus:
-    name: Beboerklagenævnet
-    municipality: '@municipality-aarhus'
-    email: beboerklagenaevnet@aarhus.dk
-    url: https://beboerklagenaevnet.aarhus.dk
-    caseFormType: ResidentComplaintBoardCaseType
-    hearingResponseDeadline: 14
-    finishHearingDeadlineDefault: 90
-    finishProcessingDeadlineDefault: 120
-    statuses: |-
-      Oprettet
-      Valideret
-      Partshøring
-      Sagsbehandling
-      Dagsorden
-      Afgørelse
-    partyTypes: |-
-      Lejer
-      Lejer repræsentant
-    counterpartyTypes: |-
-      Udlejer
-      Udlejer administrator
-    receiptCase: '@mail-template-board-receipt-case-001'
-    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
-    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+    resident-complaint-board-aarhus:
+        name: Beboerklagenævnet
+        municipality: '@municipality-aarhus'
+        email: beboerklagenaevnet@aarhus.dk
+        url: https://beboerklagenaevnet.aarhus.dk
+        caseFormType: ResidentComplaintBoardCaseType
+        hearingResponseDeadline: 14
+        finishHearingDeadlineDefault: 90
+        finishProcessingDeadlineDefault: 120
+        statuses: |-
+            Oprettet
+            Valideret
+            Partshøring
+            Sagsbehandling
+            Dagsorden
+            Afgørelse
+        partyTypes: |-
+            Lejer
+            Lejer repræsentant
+        counterpartyTypes: |-
+            Udlejer
+            Udlejer administrator
+        receiptCase: '@mail-template-board-receipt-case-001'
+        receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
+        hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
 
-  resident-complaint-board-randers:
-    name: Beboerklagenævnet
-    municipality: '@municipality-randers'
-    email: beboerklagenaevnet@randers.dk
-    url: https://beboerklagenaevnet.randers.dk
-    caseFormType: ResidentComplaintBoardCaseType
-    hearingResponseDeadline: 10
-    finishHearingDeadlineDefault: 90
-    finishProcessingDeadlineDefault: 120
-    statuses: |-
-      Oprettet
-      Valideret
-      Partshøring
-      Sagsbehandling
-      Dagsorden
-      Afgørelse
-    partyTypes: |-
-      Lejer
-      Lejer repræsentant
-    counterpartyTypes: |-
-      Udlejer
-      Udlejer administrator
-    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
-    receiptCase: '@mail-template-board-receipt-case-001'
-    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
+    resident-complaint-board-randers:
+        name: Beboerklagenævnet
+        municipality: '@municipality-randers'
+        email: beboerklagenaevnet@randers.dk
+        url: https://beboerklagenaevnet.randers.dk
+        caseFormType: ResidentComplaintBoardCaseType
+        hearingResponseDeadline: 10
+        finishHearingDeadlineDefault: 90
+        finishProcessingDeadlineDefault: 120
+        statuses: |-
+            Oprettet
+            Valideret
+            Partshøring
+            Sagsbehandling
+            Dagsorden
+            Afgørelse
+        partyTypes: |-
+            Lejer
+            Lejer repræsentant
+        counterpartyTypes: |-
+            Udlejer
+            Udlejer administrator
+        hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+        receiptCase: '@mail-template-board-receipt-case-001'
+        receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
 
-  rent-board-aarhus:
-    name: Huslejenævnet
-    municipality: '@municipality-aarhus'
-    email: huslejenaevnet@aarhus.dk
-    url: https://huslejenaevnet.aarhus.dk
-    caseFormType: RentBoardCaseType
-    hearingResponseDeadline: 14
-    finishHearingDeadlineDefault: 90
-    finishProcessingDeadlineDefault: 120
-    statuses: |-
-      Oprettet
-      Valideret
-      Partshøring
-      Sagsbehandling
-      Dagsorden
-      Afgørelse
-    partyTypes: |-
-      Lejer
-      Lejer repræsentant
-    counterpartyTypes: |-
-      Udlejer
-      Udlejer administrator
-    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
-    receiptCase: '@mail-template-board-receipt-case-001'
-    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
+    rent-board-aarhus:
+        name: Huslejenævnet
+        municipality: '@municipality-aarhus'
+        email: huslejenaevnet@aarhus.dk
+        url: https://huslejenaevnet.aarhus.dk
+        caseFormType: RentBoardCaseType
+        hearingResponseDeadline: 14
+        finishHearingDeadlineDefault: 90
+        finishProcessingDeadlineDefault: 120
+        statuses: |-
+            Oprettet
+            Valideret
+            Partshøring
+            Sagsbehandling
+            Dagsorden
+            Afgørelse
+        partyTypes: |-
+            Lejer
+            Lejer repræsentant
+        counterpartyTypes: |-
+            Udlejer
+            Udlejer administrator
+        hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+        receiptCase: '@mail-template-board-receipt-case-001'
+        receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
 
-  rent-board-randers:
-    name: Huslejenævnet
-    municipality: '@municipality-randers'
-    email: huslejenaevnet@randers.dk
-    url: https://huslejenaevnet.randers.dk
-    caseFormType: RentBoardCaseType
-    hearingResponseDeadline: 10
-    finishHearingDeadlineDefault: 90
-    finishProcessingDeadlineDefault: 120
-    statuses: |-
-      Oprettet
-      Valideret
-      Partshøring
-      Sagsbehandling
-      Dagsorden
-      Afgørelse
-    partyTypes: |-
-      Lejer
-      Lejer repræsentant
-    counterpartyTypes: |-
-      Udlejer
-      Udlejer administrator
-    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
-    receiptCase: '@mail-template-board-receipt-case-001'
-    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
+    rent-board-randers:
+        name: Huslejenævnet
+        municipality: '@municipality-randers'
+        email: huslejenaevnet@randers.dk
+        url: https://huslejenaevnet.randers.dk
+        caseFormType: RentBoardCaseType
+        hearingResponseDeadline: 10
+        finishHearingDeadlineDefault: 90
+        finishProcessingDeadlineDefault: 120
+        statuses: |-
+            Oprettet
+            Valideret
+            Partshøring
+            Sagsbehandling
+            Dagsorden
+            Afgørelse
+        partyTypes: |-
+            Lejer
+            Lejer repræsentant
+        counterpartyTypes: |-
+            Udlejer
+            Udlejer administrator
+        hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+        receiptCase: '@mail-template-board-receipt-case-001'
+        receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
 
-  fence-board-aarhus:
-    name: Hegnsnævnet
-    municipality: '@municipality-aarhus'
-    email: hegnsnaevnet@aarhus.dk
-    url: https://hegnsnaevnet.aarhus.dk
-    caseFormType: FenceReviewCaseType
-    hearingResponseDeadline: 14
-    finishHearingDeadlineDefault: 90
-    finishProcessingDeadlineDefault: 120
-    statuses: |-
-      Oprettet
-      Valideret
-      Partshøring
-      Sagsbehandling
-      Dagsorden
-      Afgørelse
-    partyTypes: |-
-      Klager
-      Klager repræsentant
-    counterpartyTypes: |-
-      Nabo
-      Nabo repræsentant
-    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
-    receiptCase: '@mail-template-board-receipt-case-001'
-    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
+    fence-board-aarhus:
+        name: Hegnsnævnet
+        municipality: '@municipality-aarhus'
+        email: hegnsnaevnet@aarhus.dk
+        url: https://hegnsnaevnet.aarhus.dk
+        caseFormType: FenceReviewCaseType
+        hearingResponseDeadline: 14
+        finishHearingDeadlineDefault: 90
+        finishProcessingDeadlineDefault: 120
+        statuses: |-
+            Oprettet
+            Valideret
+            Partshøring
+            Sagsbehandling
+            Dagsorden
+            Afgørelse
+        partyTypes: |-
+            Klager
+            Klager repræsentant
+        counterpartyTypes: |-
+            Nabo
+            Nabo repræsentant
+        hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+        receiptCase: '@mail-template-board-receipt-case-001'
+        receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
 
-  fence-board-randers:
-    name: Hegnsnævnet
-    municipality: '@municipality-randers'
-    email: hegnsnaevnet@randers.dk
-    url: https://hegnsnaevnet.randers.dk
-    caseFormType: FenceReviewCaseType
-    hearingResponseDeadline: 10
-    finishHearingDeadlineDefault: 90
-    finishProcessingDeadlineDefault: 120
-    statuses: |-
-      Oprettet
-      Valideret
-      Partshøring
-      Sagsbehandling
-      Dagsorden
-      Afgørelse
-    partyTypes: |-
-      Klager
-      Klager repræsentant
-    counterpartyTypes: |-
-      Nabo
-      Nabo repræsentant
-    hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
-    receiptCase: '@mail-template-board-receipt-case-001'
-    receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'
+    fence-board-randers:
+        name: Hegnsnævnet
+        municipality: '@municipality-randers'
+        email: hegnsnaevnet@randers.dk
+        url: https://hegnsnaevnet.randers.dk
+        caseFormType: FenceReviewCaseType
+        hearingResponseDeadline: 10
+        finishHearingDeadlineDefault: 90
+        finishProcessingDeadlineDefault: 120
+        statuses: |-
+            Oprettet
+            Valideret
+            Partshøring
+            Sagsbehandling
+            Dagsorden
+            Afgørelse
+        partyTypes: |-
+            Klager
+            Klager repræsentant
+        counterpartyTypes: |-
+            Nabo
+            Nabo repræsentant
+        hearingPostResponseTemplate: '@mail-template-hearing-post-response-001'
+        receiptCase: '@mail-template-board-receipt-case-001'
+        receiptHearingPost: '@mail-template-board-receipt-hearing_post-001'

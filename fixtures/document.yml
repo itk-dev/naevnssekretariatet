@@ -1,31 +1,31 @@
 App\Entity\Document:
-  document-001:
-    type: '@document-type-4'
-    documentName: The first document
-    # @see \DataFixtures\Faker\Provider\FileUploadProvider
-    filename: <copyFile(document/test1.pdf, upload/documents)>
-    uploadedBy: '@user-caseworker'
+    document-001:
+        type: '@document-type-4'
+        documentName: The first document
+        # @see \DataFixtures\Faker\Provider\FileUploadProvider
+        filename: <copyFile(document/test1.pdf, upload/documents)>
+        uploadedBy: '@user-caseworker'
 
-  attachment-001:
-    type: '@document-type-4'
-    documentName: The first attachment
-    # @see \DataFixtures\Faker\Provider\FileUploadProvider
-    filename: <copyFile(document/attachment1.pdf, upload/documents)>
-    uploadedBy: '@user-caseworker'
+    attachment-001:
+        type: '@document-type-4'
+        documentName: The first attachment
+        # @see \DataFixtures\Faker\Provider\FileUploadProvider
+        filename: <copyFile(document/attachment1.pdf, upload/documents)>
+        uploadedBy: '@user-caseworker'
 
-  attachment-002:
-    type: '@document-type-4'
-    documentName: Another attachment
-    # @see \DataFixtures\Faker\Provider\FileUploadProvider
-    filename: <copyFile(document/attachment2.pdf, upload/documents)>
-    uploadedBy: '@user-caseworker'
+    attachment-002:
+        type: '@document-type-4'
+        documentName: Another attachment
+        # @see \DataFixtures\Faker\Provider\FileUploadProvider
+        filename: <copyFile(document/attachment2.pdf, upload/documents)>
+        uploadedBy: '@user-caseworker'
 
-  document-002:
-      type: '@document-type-4'
-      documentName: The first agenda broadcast
-      # @see \DataFixtures\Faker\Provider\FileUploadProvider
-      filename: <copyFile(document/test1.pdf, upload/documents)>
-      uploadedBy: '@user-caseworker'
+    document-002:
+        type: '@document-type-4'
+        documentName: The first agenda broadcast
+        # @see \DataFixtures\Faker\Provider\FileUploadProvider
+        filename: <copyFile(document/test1.pdf, upload/documents)>
+        uploadedBy: '@user-caseworker'
 
 # Relate documents to cases.
 App\Entity\CaseDocumentRelation:

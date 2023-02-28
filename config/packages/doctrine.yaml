@@ -23,6 +23,6 @@ doctrine:
                 prefix: 'App\Monolog'
                 alias: Log
         filters:
-          case_deleted_filter:
-              class: App\Doctrine\CaseDeletedFilter
-              enabled: true
+            case_deleted_filter:
+                class: App\Doctrine\CaseDeletedFilter
+                enabled: true
