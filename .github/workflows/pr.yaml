@@ -78,7 +78,26 @@ jobs:
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Unit tests
-        run: ./bin/phpunit --coverage-clover=coverage/unit.xml
+        run: SYMFONY_DEPRECATIONS_HELPER='disabled=1' ./bin/phpunit --coverage-clover=coverage/unit.xml --testsuite=Unit
+
+  application_tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    name: Application tests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Application tests
+        run: |
+          docker network create frontend
+          docker compose up --detach
+          docker run -v $(pwd):/app --workdir /app node:16 yarn install
+          docker run -v $(pwd):/app --workdir /app node:16 yarn build
+          docker compose exec phpfpm composer install --no-interaction
+          docker compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
+          docker compose exec phpfpm bin/console hautelook:fixtures:load --no-bundles --purge-with-truncate --no-interaction
+          docker compose exec --env SYMFONY_DEPRECATIONS_HELPER='disabled=1' phpfpm bin/phpunit --testsuite Application
 
   # end-to-end-tests:
   #   runs-on: ubuntu-20.04
