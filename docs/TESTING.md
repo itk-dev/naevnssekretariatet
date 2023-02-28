@@ -104,3 +104,13 @@ in the JavaScript Standard Style FAQ for more information.
 * [Cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html#In-a-nutshell)
 * [Guidelines for writing and organizing tests](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html)
 * [FAQ answer about ignoring functions in the global namespace](https://standardjs.com/#i-use-a-library-that-pollutes-the-global-namespace-how-do-i-prevent-variable-is-not-defined-errors)
+
+## Running application tests
+
+```sh
+docker compose exec --env SYMFONY_DEPRECATIONS_HELPER='disabled=1' phpfpm bin/phpunit --testsuite Application
+```
+
+See [Disabling the Deprecation
+Helper](https://symfony.com/doc/5.4/components/phpunit_bridge.html#disabling-the-deprecation-helper)
+for details on `SYMFONY_DEPRECATIONS_HELPER='disabled=1'`.
