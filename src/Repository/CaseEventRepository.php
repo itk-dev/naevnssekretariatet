@@ -6,6 +6,7 @@ use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
 use App\Entity\CaseEventPartyRelation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,6 +41,7 @@ class CaseEventRepository extends ServiceEntityRepository
             ->setParameter('case', $caseEntity->getId(), 'uuid')
             ->leftJoin(CaseEventPartyRelation::class, $relationAlias, Join::WITH, $alias.'.id = '.$relationAlias.'.caseEvent')
             ->leftJoin($relationAlias.'.party', $partyAlias)
+            ->orderBy($alias.'.receivedAt', Criteria::DESC)
             ;
     }
 

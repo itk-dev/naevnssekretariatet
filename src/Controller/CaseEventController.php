@@ -4,21 +4,19 @@ namespace App\Controller;
 
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
-use App\Entity\CaseEventPartyRelation;
 use App\Entity\Party;
 use App\Form\CaseEventEditType;
 use App\Form\CaseEventFilterType;
 use App\Form\CaseEventNewType;
 use App\Repository\CaseEventRepository;
+use App\Service\CaseEventHelper;
 use App\Service\PartyHelper;
-use DateTime;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Translation\TranslatableMessage;
@@ -26,8 +24,17 @@ use Symfony\Component\Translation\TranslatableMessage;
 #[Route('/case/{id}/case-events')]
 class CaseEventController extends AbstractController
 {
+
+    public function __construct(private array $options)
+    {
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+
+        $this->serviceOptions = $resolver->resolve($options);
+    }
+
     #[Route('/', name: 'case_event_index', methods: ['GET'])]
-    public function index(CaseEntity $case, CaseEventRepository $caseEventRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater, PaginatorInterface $paginator, Request $request): Response
+    public function index(CaseEntity $case, CaseEventRepository $caseEventRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater, Request $request): Response
     {
         $filterOptions = [
             'case' => $case,
@@ -42,22 +49,13 @@ class CaseEventController extends AbstractController
 
         $filterBuilder = $caseEventRepository->createAvailableCaseEventsForCaseQueryBuilder('ce', $case);
         $filterBuilderUpdater->addFilterConditions($filterForm, $filterBuilder);
-        $query = $filterBuilder->getQuery();
 
-        $pagination = $paginator->paginate(
-            $query,
-            1,
-            1000, // Hopefully this is never reached.
-            [
-                'defaultSortFieldName' => 'ce.receivedAt',
-                'defaultSortDirection' => Criteria::DESC,
-            ]
-        );
+        $caseEvents = $filterBuilder->getQuery()->getResult();
 
         return $this->render('case/event/index.html.twig', [
             'filter_form' => $filterForm->createView(),
             'case' => $case,
-            'pagination' => $pagination,
+            'case_events' => $caseEvents,
         ]);
     }
 
@@ -71,7 +69,7 @@ class CaseEventController extends AbstractController
     }
 
     #[Route('/create', name: 'case_event_create', methods: ['GET', 'POST'])]
-    public function create(CaseEntity $case, EntityManagerInterface $manager, PartyHelper $partyHelper, Request $request): Response
+    public function create(CaseEntity $case, EntityManagerInterface $manager, PartyHelper $partyHelper, CaseEventHelper $caseEventHelper, Request $request): Response
     {
         if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
             throw new AccessDeniedException();
@@ -96,30 +94,17 @@ class CaseEventController extends AbstractController
         }
 
         // Setup form and handle it.
-        $form = $this->createForm(CaseEventNewType::class, null, ['choices' => $choices]);
+        $form = $this->createForm(CaseEventNewType::class, null, [
+            'choices' => $choices,
+            'view_timezone' => $this->options['view_timezone'],
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $caseEvent = new CaseEvent();
 
-            if (is_array($data['senders'])) {
-                $this->createCaseEventRelations($caseEvent, $manager, CaseEventPartyRelation::TYPE_SENDER, $data['senders']);
-            }
-
-            if (is_array($data['recipients'])) {
-                $this->createCaseEventRelations($caseEvent, $manager, CaseEventPartyRelation::TYPE_RECIPIENT, $data['recipients']);
-            }
-
-            $caseEvent->setSubject($data['subject']);
-            $caseEvent->setNoteContent($data['noteContent']);
-            $caseEvent->setCategory(CaseEvent::CATEGORY_NOTE);
-            $caseEvent->setCaseEntity($case);
-            $caseEvent->setCreatedBy($this->getUser());
-            $caseEvent->setReceivedAt(new DateTime('now'));
-
-            $manager->persist($caseEvent);
-            $manager->flush();
+            $caseEventHelper->createManualCaseEvent($case, $data['subject'], $data['noteContent'], $data['senders'], $data['recipients'], $data['receivedAt']);
 
             $this->addFlash('success', new TranslatableMessage('Case event created', [], 'case_event'));
 
@@ -138,7 +123,7 @@ class CaseEventController extends AbstractController
     public function edit(CaseEntity $case, CaseEvent $caseEvent, EntityManagerInterface $manager, Request $request): Response
     {
         // Setup form and handle it.
-        $form = $this->createForm(CaseEventEditType::class, $caseEvent);
+        $form = $this->createForm(CaseEventEditType::class, $caseEvent, ['view_timezone' => $this->options['view_timezone']]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -158,15 +143,10 @@ class CaseEventController extends AbstractController
         ]);
     }
 
-    private function createCaseEventRelations(CaseEvent $caseEvent, EntityManagerInterface $manager, string $type, array $parties)
+    private function configureOptions(OptionsResolver $resolver)
     {
-        foreach ($parties as $party) {
-            $caseEventPartyRelation = new CaseEventPartyRelation();
-            $caseEventPartyRelation->setParty($party);
-            $caseEventPartyRelation->setCaseEvent($caseEvent);
-            $caseEventPartyRelation->setType($type);
-
-            $manager->persist($caseEventPartyRelation);
-        }
+        $resolver
+            ->setRequired('view_timezone')
+        ;
     }
 }

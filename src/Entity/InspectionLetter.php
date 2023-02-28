@@ -116,7 +116,7 @@ class InspectionLetter
     }
 
     /**
-     * @return Collection|Party[]
+     * @return Collection
      */
     public function getRecipients(): Collection
     {

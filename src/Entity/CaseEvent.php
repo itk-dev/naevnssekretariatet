@@ -56,7 +56,7 @@ class CaseEvent
     private $createdBy;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Document::class, inversedBy="caseEvents")
+     * @ORM\ManyToMany(targetEntity=Document::class)
      */
     private $documents;
 

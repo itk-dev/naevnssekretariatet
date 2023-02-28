@@ -15,12 +15,6 @@
     </div>
 {% endblock %}
 
-{% macro pagination_header(pagination, property, text) %}
-    <th class="{{ pagination.isSorted(property) ? 'sorted' }}">
-        {{ knp_pagination_sortable(pagination, text, property) }}
-    </th>
-{% endmacro %}
-
 {% block content %}
     <main role="main" class="col-12 mt-3">
         {{ form_start(filter_form) }}
@@ -34,7 +28,7 @@
             <div class="col-auto ml-2">
                 <button class="btn btn-primary">{% trans %}Apply filter{% endtrans %}</button>
 
-{#                 Get query parameters without filter#}
+                {# Get query parameters without filter#}
                 {% set query_parameters = app.request.query.all|filter((v, k) => k != 'case_event_filter') %}
                 {% set reset_filter_path = path(
                     app.request.attributes.get('_route'),
@@ -60,7 +54,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for case_event in pagination %}
+            {% for case_event in case_events %}
                 <tr>
                     <td>{{ case_event.category }}</td>
                     <td>

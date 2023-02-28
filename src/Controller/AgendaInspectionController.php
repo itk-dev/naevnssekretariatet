@@ -13,6 +13,7 @@ use App\Entity\InspectionLetter;
 use App\Exception\CaseEventException;
 use App\Form\InspectionLetterType;
 use App\Repository\DigitalPostRepository;
+use App\Service\CaseEventHelper;
 use App\Service\CprHelper;
 use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
@@ -53,7 +54,7 @@ class AgendaInspectionController extends AbstractController
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
-    public function create(Agenda $agenda, AgendaCaseItem $agendaItem, CprHelper $cprHelper, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, DigitalPostRepository $digitalPostRepository, Request $request): Response
+    public function create(Agenda $agenda, AgendaCaseItem $agendaItem, CprHelper $cprHelper, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, DigitalPostRepository $digitalPostRepository, CaseEventHelper $caseEventHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agendaItem);
 
@@ -105,7 +106,11 @@ class AgendaInspectionController extends AbstractController
 
             $entityManager->persist($inspection);
 
-            $digitalPostHelper->createDigitalPost($document, $inspection->getTitle(), get_class($agendaItem), $agendaItem->getId(), [], $digitalPostRecipients);
+            $digitalPost = $digitalPostHelper->createDigitalPost($document, $inspection->getTitle(), get_class($agendaItem), $agendaItem->getId(), [], $digitalPostRecipients);
+
+            $case = $agendaItem->getCaseEntity();
+
+            $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, $inspection->getRecipients()->toArray());
 
             // Attach document to case
             $case = $agendaItem->getCaseEntity();
@@ -117,33 +122,6 @@ class AgendaInspectionController extends AbstractController
 
             $case->addCaseDocumentRelation($caseDocumentRelation);
 
-            // Create case event (sagshændelse)
-            $caseEvent = new CaseEvent();
-            $caseEvent->setCaseEntity($case);
-
-            $caseEvent->setCategory(CaseEvent::CATEGORY_OUTGOING);
-            foreach ($inspection->getRecipients() as $recipient) {
-                $caseEventPartyRelation = new CaseEventPartyRelation();
-                $caseEventPartyRelation->setParty($recipient);
-                $caseEventPartyRelation->setCaseEvent($caseEvent);
-                $caseEventPartyRelation->setType(CaseEventPartyRelation::TYPE_RECIPIENT);
-                $entityManager->persist($caseEventPartyRelation);
-            }
-
-            $caseEvent->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING);
-            $caseEvent->setReceivedAt(new DateTime('now'));
-            $caseEvent->setCreatedBy($this->getUser());
-
-            $digitalPost = $digitalPostRepository->findByDocumentAndAgendaCaseItem($inspection->getDocument(), $agendaItem);
-
-            if (1 !== count($digitalPost)) {
-                throw new CaseEventException(sprintf('Should find one DigitalPost but found %d', count($digitalPost)));
-            }
-
-            $digitalPost = reset($digitalPost);
-            $caseEvent->setDigitalPost($digitalPost);
-
-            $entityManager->persist($caseEvent);
             $entityManager->flush();
 
             return $this->redirectToRoute('agenda_case_item_inspection', [

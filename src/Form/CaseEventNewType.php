@@ -22,6 +22,7 @@ class CaseEventNewType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => null,
+            'view_timezone' => null,
         ]);
     }
 
@@ -42,7 +43,7 @@ class CaseEventNewType extends AbstractType
                 'widget' => 'single_text',
                 'with_seconds' => true,
                 'data' => new DateTime('now'),
-                'view_timezone' => 'Europe/Copenhagen',
+                'view_timezone' => $options['view_timezone'],
                 'model_timezone' => 'UTC',
             ])
             ->add('senders', ChoiceType::class, [
@@ -50,12 +51,14 @@ class CaseEventNewType extends AbstractType
                 'choices' => $choices,
                 'multiple' => true,
                 'expanded' => true,
+                'required' => false,
             ])
             ->add('recipients', ChoiceType::class, [
                 'label' => $this->translator->trans('Recipients', [], 'case_event'),
                 'choices' => $choices,
                 'multiple' => true,
                 'expanded' => true,
+                'required' => false,
             ])
         ;
     }

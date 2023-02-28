@@ -21,6 +21,7 @@ class CaseEventEditType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CaseEvent::class,
+            'view_timezone' => null,
         ]);
     }
 
@@ -37,7 +38,7 @@ class CaseEventEditType extends AbstractType
                 'label' => $this->translator->trans('Received at', [], 'case_event'),
                 'widget' => 'single_text',
                 'with_seconds' => true,
-                'view_timezone' => 'Europe/Copenhagen',
+                'view_timezone' => $options['view_timezone'],
                 'model_timezone' => 'UTC',
             ])
         ;

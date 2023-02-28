@@ -68,17 +68,11 @@ class Document implements LoggableEntityInterface
      */
     private $isCreatedManually = false;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=CaseEvent::class, mappedBy="documents")
-     */
-    private $caseEvents;
-
     public function __construct()
     {
         $this->id = Uuid::v4();
         $this->caseDocumentRelations = new ArrayCollection();
         $this->agendaCaseItems = new ArrayCollection();
-        $this->caseEvents = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -231,33 +225,6 @@ class Document implements LoggableEntityInterface
     public function setIsCreatedManually(bool $isCreatedManually): self
     {
         $this->isCreatedManually = $isCreatedManually;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CaseEvent[]
-     */
-    public function getCaseEvents(): Collection
-    {
-        return $this->caseEvents;
-    }
-
-    public function addCaseEvent(CaseEvent $caseEvent): self
-    {
-        if (!$this->caseEvents->contains($caseEvent)) {
-            $this->caseEvents[] = $caseEvent;
-            $caseEvent->addDocument($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCaseEvent(CaseEvent $caseEvent): self
-    {
-        if ($this->caseEvents->removeElement($caseEvent)) {
-            $caseEvent->removeDocument($this);
-        }
 
         return $this;
     }
