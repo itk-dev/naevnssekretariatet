@@ -56,10 +56,10 @@ class CaseEventFilterType extends AbstractType
                     CaseEvent::CATEGORY_OUTGOING => CaseEvent::CATEGORY_OUTGOING,
                     CaseEvent::CATEGORY_NOTE => CaseEvent::CATEGORY_NOTE,
                 ],
-                'placeholder' => $this->translator->trans('Select case event category', [], 'case_events'),
+                'placeholder' => $this->translator->trans('Select case event category', [], 'case_event'),
             ])
             ->add('query', Filters\ChoiceFilterType::class, [
-                'placeholder' => $this->translator->trans('Select sender/recipient', [], 'case_events'),
+                'placeholder' => $this->translator->trans('Select sender/recipient', [], 'case_event'),
                 'choices' => $partyChoices,
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                     if (empty($values['value'])) {

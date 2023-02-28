@@ -138,6 +138,7 @@ class CaseEventController extends AbstractController
 
         return $this->render('case/event/edit.html.twig', [
             'case' => $case,
+            'case_event' => $caseEvent,
             'form' => $form->createView(),
         ]);
     }

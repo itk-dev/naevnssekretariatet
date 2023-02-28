@@ -10,7 +10,7 @@
             <h1>{% trans %}Edit case event{% endtrans %}</h1>
         </div>
         <div class="col-auto">
-            <a class="btn btn-secondary" href="{{ url('case_event_index', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+            <a class="btn btn-secondary" href="{{ url('case_event_show', {id: case.id, caseEvent: case_event.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
