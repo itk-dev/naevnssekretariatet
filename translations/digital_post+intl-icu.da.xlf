@@ -77,6 +77,10 @@
         <source>truncated</source>
         <target state="translated">afkortet</target>
       </trans-unit>
+      <trans-unit id="p82eWRS" resname="Back to case event">
+        <source>Back to case event</source>
+        <target state="translated">Tilbage til sagshændelse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
