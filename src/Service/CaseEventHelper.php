@@ -24,7 +24,7 @@ class CaseEventHelper
             ->setCaseEntity($case)
             ->setCategory(CaseEvent::CATEGORY_OUTGOING)
             ->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING)
-            ->setReceivedAt(new \DateTime('now'))
+            ->setReceivedAt(new \DateTimeImmutable())
             ->setCreatedBy($this->security->getUser())
             ->setDigitalPost($digitalPost)
         ;
@@ -35,7 +35,7 @@ class CaseEventHelper
         $this->entityManager->flush();
     }
 
-    public function createManualCaseEvent(CaseEntity $case, string $subject, string $note, array $senders, array $recipients, \DateTime $receivedAt)
+    public function createManualCaseEvent(CaseEntity $case, string $subject, string $note, array $senders, array $recipients, \DateTimeInterface $receivedAt)
     {
         $caseEvent = new CaseEvent();
 
@@ -60,7 +60,7 @@ class CaseEventHelper
         $this->entityManager->flush();
     }
 
-    public function createDocumentCaseEvent(CaseEntity $case, Party $sender, array $documents, \DateTime $receivedAt)
+    public function createDocumentCaseEvent(CaseEntity $case, Party $sender, array $documents, \DateTimeInterface $receivedAt = new \DateTimeImmutable())
     {
         $caseEvent = new CaseEvent();
 

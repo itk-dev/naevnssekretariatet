@@ -255,4 +255,4 @@ services:
     App\Controller\CaseEventController:
         arguments:
             $options:
-              view_timezone: '%view_timezone%'
+                view_timezone: '%view_timezone%'

@@ -432,7 +432,7 @@ class HearingController extends AbstractController
             $documents[] = $attachment->getDocument();
         }
 
-        $caseEventHelper->createDocumentCaseEvent($case, $hearingPost->getSender(), $documents, new DateTime('now'));
+        $caseEventHelper->createDocumentCaseEvent($case, $hearingPost->getSender(), $documents);
 
         $today = new DateTime('today');
         $hearingPost->setApprovedOn($today);
