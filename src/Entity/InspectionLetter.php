@@ -115,9 +115,6 @@ class InspectionLetter
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getRecipients(): Collection
     {
         return $this->recipients;

@@ -24,7 +24,6 @@ use Symfony\Component\Translation\TranslatableMessage;
 #[Route('/case/{id}/case-events')]
 class CaseEventController extends AbstractController
 {
-
     public function __construct(private array $options)
     {
         $resolver = new OptionsResolver();

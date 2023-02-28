@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
-use App\Entity\CaseEvent;
-use App\Entity\CaseEventPartyRelation;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostAttachment;
 use App\Entity\Hearing;
