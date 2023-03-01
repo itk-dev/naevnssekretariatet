@@ -52,6 +52,7 @@ class CaseEvent
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $createdBy;
 
