@@ -12,6 +12,8 @@ about writing changes to this log.
 
 - [TVIST1-743](https://jira.itkdev.dk/browse/TVIST1-743)
   Added case events.
+- [TVIST1-747](https://jira.itkdev.dk/browse/TVIST1-747)
+  Added suffix to document names when uploading multiple in one go.
 
 ## [1.1.2] 2023-02-17
 
