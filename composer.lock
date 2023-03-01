@@ -2494,12 +2494,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/beskedfordeler-symfony.git",
-                "reference": "9d34f8ce7709e1b7abe75b88975759d9851d3bd9"
+                "reference": "fd2d7fa4fd13fbe9a1cdaf5df54fa95dfdceb494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/beskedfordeler-symfony/zipball/9d34f8ce7709e1b7abe75b88975759d9851d3bd9",
-                "reference": "9d34f8ce7709e1b7abe75b88975759d9851d3bd9",
+                "url": "https://api.github.com/repos/itk-dev/beskedfordeler-symfony/zipball/fd2d7fa4fd13fbe9a1cdaf5df54fa95dfdceb494",
+                "reference": "fd2d7fa4fd13fbe9a1cdaf5df54fa95dfdceb494",
                 "shasum": ""
             },
             "require": {
@@ -2531,7 +2531,7 @@
                 "issues": "https://github.com/itk-dev/beskedfordeler-symfony/issues",
                 "source": "https://github.com/itk-dev/beskedfordeler-symfony/tree/feature/beskedfordeler"
             },
-            "time": "2023-02-19T17:35:37+00:00"
+            "time": "2023-02-23T15:44:39+00:00"
         },
         {
             "name": "itk-dev/datafordeler-php-client",
