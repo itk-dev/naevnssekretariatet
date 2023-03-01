@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [TVIST1-743](https://jira.itkdev.dk/browse/TVIST1-743)
+  Added case events.
+
 ## [1.1.2] 2023-02-17
 
 - [SUPP0RT-874](https://jira.itkdev.dk/browse/SUPP0RT-874)

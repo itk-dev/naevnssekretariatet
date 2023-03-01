@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="da" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="aJcSg4Q" resname="Subject">
+        <source>Subject</source>
+        <target state="translated">Emne</target>
+      </trans-unit>
+      <trans-unit id="Hdsadcx" resname="Received at">
+        <source>Received at</source>
+        <target state="translated">Modtaget</target>
+      </trans-unit>
+      <trans-unit id="0psjY1J" resname="Note content">
+        <source>Note content</source>
+        <target state="translated">Noteindhold</target>
+      </trans-unit>
+      <trans-unit id="uhBjnEU" resname="Senders">
+        <source>Senders</source>
+        <target state="translated">Afsender(e)</target>
+      </trans-unit>
+      <trans-unit id="HoVoqCw" resname="Recipients">
+        <source>Recipients</source>
+        <target state="translated">Modtager(e)</target>
+      </trans-unit>
+      <trans-unit id="O61qD4Z" resname="Case event created">
+        <source>Case event created</source>
+        <target state="translated">Sagshændelse oprettet</target>
+      </trans-unit>
+      <trans-unit id="AMo6hSk" resname="Case event updated">
+        <source>Case event updated</source>
+        <target state="translated">Sagshændelse opdateret</target>
+      </trans-unit>
+      <trans-unit id="JEW8akY" resname="Case event">
+        <source>Case event</source>
+        <target state="translated">Sagshændelse</target>
+      </trans-unit>
+      <trans-unit id="3_OEObh" resname="Edit case event">
+        <source>Edit case event</source>
+        <target state="translated">Rediger sagshændelse</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target state="translated">Anuller</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target state="translated">Gem</target>
+      </trans-unit>
+      <trans-unit id="fh2ysiV" resname="Case events">
+        <source>Case events</source>
+        <target state="translated">Sagshændelser</target>
+      </trans-unit>
+      <trans-unit id="1f6doW." resname="Create case event">
+        <source>Create case event</source>
+        <target state="translated">Opret sagshændelse</target>
+      </trans-unit>
+      <trans-unit id="118Faxu" resname="Apply filter">
+        <source>Apply filter</source>
+        <target state="translated">Anvend filter</target>
+      </trans-unit>
+      <trans-unit id="iba0ng1" resname="Reset filter">
+        <source>Reset filter</source>
+        <target state="translated">Nulstil filter</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target state="translated">Kategori</target>
+      </trans-unit>
+      <trans-unit id="wpn5uFy" resname="Sender">
+        <source>Sender</source>
+        <target state="translated">Afsender</target>
+      </trans-unit>
+      <trans-unit id="UfrJhel" resname="Recipient">
+        <source>Recipient</source>
+        <target state="translated">Modtager</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target state="translated">Systembruger</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target state="translated">Status</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target state="translated">Vis</target>
+      </trans-unit>
+      <trans-unit id="Ye9DgEy" resname="No case events">
+        <source>No case events</source>
+        <target state="translated">Ingen sagshændelser</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target state="translated">Rediger</target>
+      </trans-unit>
+      <trans-unit id="J9l_j1Q" resname="Back to case events">
+        <source>Back to case events</source>
+        <target state="translated">Tilbage til sagshændelser</target>
+      </trans-unit>
+      <trans-unit id="N0zZ0iD" resname="Created by">
+        <source>Created by</source>
+        <target state="translated">Oprettet af</target>
+      </trans-unit>
+      <trans-unit id="GNihv2g" resname="Digital Post">
+        <source>Digital Post</source>
+        <target state="translated">Digital Post</target>
+      </trans-unit>
+      <trans-unit id="tOkp2Lz" resname="Documents">
+        <source>Documents</source>
+        <target state="translated">Dokumenter</target>
+      </trans-unit>
+      <trans-unit id="ykB4LzV" resname="Create note for case">
+        <source>Create note for case</source>
+        <target state="translated">Opret note for sag</target>
+      </trans-unit>
+      <trans-unit id="R1lJisK" resname="Create">
+        <source>Create</source>
+        <target state="translated">Opret</target>
+      </trans-unit>
+      <trans-unit id="_suGd9u" resname="Select case event category">
+        <source>Select case event category</source>
+        <target state="translated">Vælg sagshændelses kategori</target>
+      </trans-unit>
+      <trans-unit id="_0ObOCt" resname="Select sender/recipient">
+        <source>Select sender/recipient</source>
+        <target state="translated">Vælg afsender/modtager</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

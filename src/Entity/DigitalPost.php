@@ -100,6 +100,11 @@ class DigitalPost
      */
     private $totalFileSize = 0;
 
+    /**
+     * @ORM\OneToOne(targetEntity=CaseEvent::class, mappedBy="digitalPost", cascade={"persist", "remove"})
+     */
+    private $caseEvent;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -328,6 +333,28 @@ class DigitalPost
     public function setTotalFileSize(int $totalFileSize): self
     {
         $this->totalFileSize = $totalFileSize;
+
+        return $this;
+    }
+
+    public function getCaseEvent(): ?CaseEvent
+    {
+        return $this->caseEvent;
+    }
+
+    public function setCaseEvent(?CaseEvent $caseEvent): self
+    {
+        // unset the owning side of the relation if necessary
+        if (null === $caseEvent && null !== $this->caseEvent) {
+            $this->caseEvent->setDigitalPost(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if (null !== $caseEvent && $caseEvent->getDigitalPost() !== $this) {
+            $caseEvent->setDigitalPost($this);
+        }
+
+        $this->caseEvent = $caseEvent;
 
         return $this;
     }

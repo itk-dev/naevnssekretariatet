@@ -243,6 +243,11 @@ abstract class CaseEntity implements Timestampable
      */
     private $finishedOn;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CaseEvent::class, mappedBy="caseEntity", orphanRemoval=true)
+     */
+    private $caseEvents;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -257,6 +262,7 @@ abstract class CaseEntity implements Timestampable
         $this->decisions = new ArrayCollection();
         $this->bringerIdentification = new Identification();
         $this->complaintCategories = new ArrayCollection();
+        $this->caseEvents = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -831,6 +837,36 @@ abstract class CaseEntity implements Timestampable
     public function setFinishedOn(?\DateTimeInterface $finishedOn): self
     {
         $this->finishedOn = $finishedOn;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CaseEvent[]
+     */
+    public function getCaseEvents(): Collection
+    {
+        return $this->caseEvents;
+    }
+
+    public function addCaseEvent(CaseEvent $caseEvent): self
+    {
+        if (!$this->caseEvents->contains($caseEvent)) {
+            $this->caseEvents[] = $caseEvent;
+            $caseEvent->setCaseEntity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCaseEvent(CaseEvent $caseEvent): self
+    {
+        if ($this->caseEvents->removeElement($caseEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($caseEvent->getCaseEntity() === $this) {
+                $caseEvent->setCaseEntity(null);
+            }
+        }
 
         return $this;
     }

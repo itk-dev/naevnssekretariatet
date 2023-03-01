@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="aJcSg4Q" resname="Subject">
+        <source>Subject</source>
+        <target>Subject</target>
+      </trans-unit>
+      <trans-unit id="Hdsadcx" resname="Received at">
+        <source>Received at</source>
+        <target>Received at</target>
+      </trans-unit>
+      <trans-unit id="0psjY1J" resname="Note content">
+        <source>Note content</source>
+        <target>Note content</target>
+      </trans-unit>
+      <trans-unit id="uhBjnEU" resname="Senders">
+        <source>Senders</source>
+        <target>Senders</target>
+      </trans-unit>
+      <trans-unit id="HoVoqCw" resname="Recipients">
+        <source>Recipients</source>
+        <target>Recipients</target>
+      </trans-unit>
+      <trans-unit id="O61qD4Z" resname="Case event created">
+        <source>Case event created</source>
+        <target>Case event created</target>
+      </trans-unit>
+      <trans-unit id="AMo6hSk" resname="Case event updated">
+        <source>Case event updated</source>
+        <target>Case event updated</target>
+      </trans-unit>
+      <trans-unit id="JEW8akY" resname="Case event">
+        <source>Case event</source>
+        <target>Case event</target>
+      </trans-unit>
+      <trans-unit id="3_OEObh" resname="Edit case event">
+        <source>Edit case event</source>
+        <target>Edit case event</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target>Save</target>
+      </trans-unit>
+      <trans-unit id="fh2ysiV" resname="Case events">
+        <source>Case events</source>
+        <target>Case events</target>
+      </trans-unit>
+      <trans-unit id="1f6doW." resname="Create case event">
+        <source>Create case event</source>
+        <target>Create case event</target>
+      </trans-unit>
+      <trans-unit id="118Faxu" resname="Apply filter">
+        <source>Apply filter</source>
+        <target>Apply filter</target>
+      </trans-unit>
+      <trans-unit id="iba0ng1" resname="Reset filter">
+        <source>Reset filter</source>
+        <target>Reset filter</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="wpn5uFy" resname="Sender">
+        <source>Sender</source>
+        <target>Sender</target>
+      </trans-unit>
+      <trans-unit id="UfrJhel" resname="Recipient">
+        <source>Recipient</source>
+        <target>Recipient</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target>User</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target>Show</target>
+      </trans-unit>
+      <trans-unit id="Ye9DgEy" resname="No case events">
+        <source>No case events</source>
+        <target>No case events</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="J9l_j1Q" resname="Back to case events">
+        <source>Back to case events</source>
+        <target>Back to case events</target>
+      </trans-unit>
+      <trans-unit id="N0zZ0iD" resname="Created by">
+        <source>Created by</source>
+        <target>Created by</target>
+      </trans-unit>
+      <trans-unit id="GNihv2g" resname="Digital Post">
+        <source>Digital Post</source>
+        <target>Digital Post</target>
+      </trans-unit>
+      <trans-unit id="tOkp2Lz" resname="Documents">
+        <source>Documents</source>
+        <target>Documents</target>
+      </trans-unit>
+      <trans-unit id="ykB4LzV" resname="Create note for case">
+        <source>Create note for case</source>
+        <target>Create note for case</target>
+      </trans-unit>
+      <trans-unit id="R1lJisK" resname="Create">
+        <source>Create</source>
+        <target>Create</target>
+      </trans-unit>
+      <trans-unit id="_suGd9u" resname="Select case event category">
+        <source>Select case event category</source>
+        <target>Select case event category</target>
+      </trans-unit>
+      <trans-unit id="_0ObOCt" resname="Select sender/recipient">
+        <source>Select sender/recipient</source>
+        <target>Select sender/recipient</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

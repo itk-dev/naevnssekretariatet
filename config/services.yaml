@@ -8,6 +8,7 @@ parameters:
     site_name: '%env(SITE_NAME)%'
     site_url: '%env(SITE_URL)%'
     upload_document_directory: 'upload/documents'
+    view_timezone: '%env(VIEW_TIMEZONE)%'
 
 services:
     # default configuration for services in *this* file
@@ -250,3 +251,8 @@ services:
     App\Service\OS2Forms\SubmissionNormalizers\HearingResponseSubmissionNormalizer:
         arguments:
             $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
+
+    App\Controller\CaseEventController:
+        arguments:
+            $options:
+                view_timezone: '%view_timezone%'

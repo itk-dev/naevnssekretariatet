@@ -77,6 +77,10 @@
         <source>truncated</source>
         <target>truncated</target>
       </trans-unit>
+      <trans-unit id="p82eWRS" resname="Back to case event">
+        <source>Back to case event</source>
+        <target>Back to case event</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

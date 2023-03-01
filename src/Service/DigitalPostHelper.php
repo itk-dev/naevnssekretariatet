@@ -136,7 +136,7 @@ class DigitalPostHelper extends DigitalPost
         return $bilag;
     }
 
-    public function createDigitalPost(Document $document, string $subject, string $entityType, Uuid $entityId, array $digitalPostAttachments, array $digitalPostRecipients): void
+    public function createDigitalPost(Document $document, string $subject, string $entityType, Uuid $entityId, array $digitalPostAttachments, array $digitalPostRecipients): DigitalPostBase
     {
         $digitalPosts = [];
 
@@ -213,6 +213,8 @@ class DigitalPostHelper extends DigitalPost
         }
 
         $this->entityManager->flush();
+
+        return $digitalPost;
     }
 
     protected function acquireLock(): bool

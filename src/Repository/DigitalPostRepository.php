@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\AgendaCaseItem;
 use App\Entity\CaseEntity;
 use App\Entity\DigitalPost;
 use App\Entity\Document;
@@ -34,5 +35,12 @@ class DigitalPostRepository extends ServiceEntityRepository
         $criteria['document'] = $document;
 
         return $this->findByEntity($case, $criteria, $orderBy, $limit, $offset);
+    }
+
+    public function findByDocumentAndAgendaCaseItem(Document $document, AgendaCaseItem $agendaCaseItem, array $criteria = [], array $orderBy = null, $limit = null, $offset = null): array
+    {
+        $criteria['document'] = $document;
+
+        return $this->findByEntity($agendaCaseItem, $criteria, $orderBy, $limit, $offset);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Board;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
+use App\Entity\CaseEvent;
 use App\Entity\CasePartyRelation;
 use App\Entity\DigitalPost;
 use App\Entity\Embeddable\Address;
@@ -194,6 +195,9 @@ class CaseManager implements LoggerAwareInterface
         // Cases created via OS2Forms get a default received at (today).
         $case->setReceivedAt(new DateTime('today'));
 
+        // Create case event (sagshændelse).
+        $this->createCaseEvent($case, $documents);
+
         $this->entityManager->flush();
     }
 
@@ -315,5 +319,21 @@ class CaseManager implements LoggerAwareInterface
         // Finally remove the case.
         $this->entityManager->remove($case);
         $this->entityManager->flush();
+    }
+
+    private function createCaseEvent(CaseEntity $case, array $documents)
+    {
+        $caseEvent = new CaseEvent();
+
+        $caseEvent->setCaseEntity($case);
+        $caseEvent->setCategory(CaseEvent::CATEGORY_INCOMING);
+        $caseEvent->setSubject(CaseEvent::SUBJECT_CASE_BRINGING);
+        $caseEvent->setReceivedAt(new DateTime('now'));
+
+        foreach ($documents as $document) {
+            $caseEvent->addDocument($document);
+        }
+
+        $this->entityManager->persist($caseEvent);
     }
 }

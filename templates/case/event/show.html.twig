@@ -1,0 +1,93 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case_event' %}
+
+{% block title %}{% trans %}Case event{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Case event{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-primary" href="{{ path('case_event_edit', {id: case.id, caseEvent: case_event.id}) }}">{% trans %}Edit{% endtrans %}</a>
+            <a class="btn btn-secondary" href="{{ path('case_event_index', {id: case.id}) }}">{% trans %}Back to case events{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% macro show_document_content_button(case, document) %}
+    <a target="document-content" href="{{ path('document_view', {id: case.id, document_id: document.id}) }}">
+        {{ document.documentName }}
+    </a>
+{% endmacro %}
+
+{% block content %}
+    <div class="col">
+        <dl class="row">
+            <dt class="col-sm-3">{% trans %}Received at{% endtrans %}</dt>
+            <dd class="col-sm-9">{{ case_event.receivedAt ? case_event.receivedAt|date(format_datetime) : '–' }}</dd>
+
+            {% if case_event.createdBy is not null %}
+                <dt class="col-sm-3">{% trans %}Created by{% endtrans %}</dt>
+                <dd class="col-sm-9">
+                    {{ case_event.createdBy.name }}
+                </dd>
+            {% endif %}
+
+            <dt class="col-sm-3">{% trans %}Sender{% endtrans %}</dt>
+            <dd class="col-sm-9">
+                {{ case_event.caseEventPartyRelations|filter(r => r.type == "Sender")|map(r => r.party.name)|join(', ') }}
+            </dd>
+            <dt class="col-sm-3">{% trans %}Recipient{% endtrans %}</dt>
+            <dd class="col-sm-9">
+                {{ case_event.caseEventPartyRelations|filter(r => r.type == "Recipient")|map(r => r.party.name)|join(', ') }}
+            </dd>
+
+            <dt class="col-sm-3">{% trans %}Subject{% endtrans %}</dt>
+            <dd class="col-sm-9">{{ case_event.subject }}</dd>
+
+            {% if case_event.digitalPost %}
+                <dt class="col-sm-3">{% trans %}Digital Post{% endtrans %}</dt>
+                <dd class="col-sm-9">
+                    <a href="{{ path('digital_post_show', {'id': case.id, 'digitalPost': case_event.digitalPost.id}) }}">{% trans %}Show{% endtrans %}</a>
+                </dd>
+            {% endif %}
+
+            {% if case_event.documents is not empty %}
+                <dt class="col-sm-3">{% trans %}Documents{% endtrans %}</dt>
+                <dd class="col-sm-9">
+                    <ol class="list-unstyled">
+                        {% for document in case_event.documents %}
+                            <li>
+                                {{ _self.show_document_content_button(case, document) }}
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </dd>
+            {% endif %}
+
+            {% if case_event.noteContent %}
+                <dt class="col-sm-3">{% trans %}Note content{% endtrans %}</dt>
+                <dd class="col-sm-9">
+                    {{ case_event.noteContent }}
+                </dd>
+            {% endif %}
+
+            </dl>
+
+        <iframe name="document-content" style="border: none; width: 100%;" src="about:blank"></iframe>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Compute height if iframe element to make it take up (most of) the remaining space on the page.
+        window.addEventListener('load', function () {
+            const iframe = document.querySelector('[name="document-content"]');
+            const rect = iframe.getBoundingClientRect()
+            iframe.style.height = (window.innerHeight-rect.top-40)+'px'
+        })
+    </script>
+{% endblock %}

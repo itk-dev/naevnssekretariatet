@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Agenda;
 use App\Entity\AgendaCaseItem;
+use App\Entity\CaseDocumentRelation;
 use App\Entity\DigitalPost;
 use App\Entity\Document;
 use App\Entity\InspectionLetter;
 use App\Form\InspectionLetterType;
 use App\Repository\DigitalPostRepository;
+use App\Service\CaseEventHelper;
 use App\Service\CprHelper;
 use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
@@ -48,7 +50,7 @@ class AgendaInspectionController extends AbstractController
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
-    public function create(Agenda $agenda, AgendaCaseItem $agendaItem, CprHelper $cprHelper, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
+    public function create(Agenda $agenda, AgendaCaseItem $agendaItem, CprHelper $cprHelper, DigitalPostHelper $digitalPostHelper, DocumentUploader $documentUploader, EntityManagerInterface $entityManager, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, DigitalPostRepository $digitalPostRepository, CaseEventHelper $caseEventHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $agendaItem);
 
@@ -100,7 +102,23 @@ class AgendaInspectionController extends AbstractController
 
             $entityManager->persist($inspection);
 
-            $digitalPostHelper->createDigitalPost($document, $inspection->getTitle(), get_class($agendaItem), $agendaItem->getId(), [], $digitalPostRecipients);
+            $digitalPost = $digitalPostHelper->createDigitalPost($document, $inspection->getTitle(), get_class($agendaItem), $agendaItem->getId(), [], $digitalPostRecipients);
+
+            $case = $agendaItem->getCaseEntity();
+
+            $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, $inspection->getRecipients()->toArray());
+
+            // Attach document to case
+            $case = $agendaItem->getCaseEntity();
+            $caseDocumentRelation = new CaseDocumentRelation();
+            $caseDocumentRelation->setCase($case);
+            $caseDocumentRelation->setDocument($document);
+
+            $entityManager->persist($caseDocumentRelation);
+
+            $case->addCaseDocumentRelation($caseDocumentRelation);
+
+            $entityManager->flush();
 
             return $this->redirectToRoute('agenda_case_item_inspection', [
                 'id' => $agenda->getId(),
