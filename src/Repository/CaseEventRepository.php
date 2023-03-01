@@ -4,10 +4,8 @@ namespace App\Repository;
 
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
-use App\Entity\CaseEventPartyRelation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
