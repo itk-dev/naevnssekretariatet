@@ -24,7 +24,9 @@ use Symfony\Component\Translation\TranslatableMessage;
 #[Route('/case/{id}/case-events')]
 class CaseEventController extends AbstractController
 {
-    public function __construct(private array $options)
+    private array $serviceOptions;
+
+    public function __construct(array $options)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -35,6 +37,10 @@ class CaseEventController extends AbstractController
     #[Route('/', name: 'case_event_index', methods: ['GET'])]
     public function index(CaseEntity $case, CaseEventRepository $caseEventRepository, FilterBuilderUpdaterInterface $filterBuilderUpdater, Request $request): Response
     {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
         $filterOptions = [
             'case' => $case,
             'method' => 'get',
@@ -61,6 +67,10 @@ class CaseEventController extends AbstractController
     #[Route('/{caseEvent}/show', name: 'case_event_show', methods: ['GET'])]
     public function show(CaseEntity $case, CaseEvent $caseEvent): Response
     {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
         return $this->render('case/event/show.html.twig', [
             'case' => $case,
             'case_event' => $caseEvent,
@@ -95,7 +105,7 @@ class CaseEventController extends AbstractController
         // Setup form and handle it.
         $form = $this->createForm(CaseEventNewType::class, null, [
             'choices' => $choices,
-            'view_timezone' => $this->options['view_timezone'],
+            'view_timezone' => $this->serviceOptions['view_timezone'],
         ]);
 
         $form->handleRequest($request);
@@ -121,8 +131,12 @@ class CaseEventController extends AbstractController
     #[Route('/{caseEvent}/edit', name: 'case_event_edit', methods: ['GET', 'POST'])]
     public function edit(CaseEntity $case, CaseEvent $caseEvent, EntityManagerInterface $manager, Request $request): Response
     {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
         // Setup form and handle it.
-        $form = $this->createForm(CaseEventEditType::class, $caseEvent, ['view_timezone' => $this->options['view_timezone']]);
+        $form = $this->createForm(CaseEventEditType::class, $caseEvent, ['view_timezone' => $this->serviceOptions['view_timezone']]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
