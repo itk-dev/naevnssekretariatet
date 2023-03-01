@@ -114,8 +114,12 @@ class DocumentController extends AbstractController
             $documentType = $document->getType();
             /** @var UploadedFile[] $files */
             $files = $form->get('files')->getData();
+            $numberOfDocuments = count($files);
+            $count = 1;
             foreach ($files as $file) {
-                $newDocument = $this->documentUploader->createDocumentFromUploadedFile($file, $documentName, $documentType);
+                $modifiedDocumentName = $numberOfDocuments === 1 ? $documentName : $documentName.' '.$count.' af '.$numberOfDocuments;
+
+                $newDocument = $this->documentUploader->createDocumentFromUploadedFile($file, $modifiedDocumentName, $documentType);
 
                 $relation = new CaseDocumentRelation();
                 $relation->setCase($case);
@@ -123,6 +127,8 @@ class DocumentController extends AbstractController
 
                 $this->entityManager->persist($newDocument);
                 $this->entityManager->persist($relation);
+
+                $count++;
             }
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('{count, plural, =1 {One document created} other {# documents created}}', ['count' => count($files)], 'documents'));
