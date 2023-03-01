@@ -7,6 +7,13 @@ When a digital post is sent an envelope (`DigitalPostEnvelope`) is created for
 each recipient and the envelope is queued for sending to the recipient via
 SF1601.
 
+Use the `tvist1:digital-post-envelope:list` command to list all digital post
+envelopes:
+
+```sh
+docker compose exec phpfpm bin/console tvist1:digital-post-envelope:list
+```
+
 ## Digital post queue
 
 Process the digital post send queue with
@@ -64,12 +71,45 @@ Use
 npx localtunnel --port "$(docker compose port nginx 80 | cut -d: -f2)" --subdomain "$USER-naevnssekretariatet" --print-requests
 ```
 
-to expose your local docker compose setup and forward Beskedfordeler messages to the url reported by
+to expose your local docker compose setup and forward Beskedfordeler messages to
+the url reported by
 
 ```sh
 echo "https://$USER-naevnssekretariatet.loca.lt/beskedfordeler/PostStatusBeskedModtag"
 ```
 
+#### Testing
+
+The `tvist1:digital-post-envelope:send` command can be used to send digital post:
+
+```sh
+docker compose exec phpfpm bin/console tvist1:digital-post-envelope:send --help
+```
+
+#### Testing error in MeMe message
+
+Apply a patch that to send invalid MeMo message (without a header label):
+
+```sh
+git apply tests/patches/sf1601/malformed-memo-message.patch
+```
+
+```sh
+docker compose exec phpfpm bin/console hautelook:fixtures:load --no-bundles --purge-with-truncate --no-interaction
+docker compose exec phpfpm bin/console tvist1:digital-post-envelope:send --digital-post-subject='Digital post with multiple recipients' --no-interaction
+```
+
+Remove the patch:
+
+```sh
+git apply --reverse tests/patches/sf1601/malformed-memo-message.patch
+```
+
+List the envelopes:
+
+```sh
+docker compose exec phpfpm bin/console tvist1:digital-post-envelope:list --status=failed
+```
 
 ## Class diagram
 

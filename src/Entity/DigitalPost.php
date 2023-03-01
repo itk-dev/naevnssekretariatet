@@ -119,6 +119,11 @@ class DigitalPost
         $this->recipients = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return sprintf('%s (#%s)', $this->subject, $this->id);
+    }
+
     public function getId(): ?Uuid
     {
         return $this->id;
