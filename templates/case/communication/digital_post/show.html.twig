@@ -61,20 +61,48 @@
             <dd class="col-sm-9">{{ digital_post.sentAt ? digital_post.sentAt|date(format_datetime) : '–' }}</dd>
 
             <dt class="col-sm-3">{% trans %}Recipients{% endtrans %}</dt>
-            <dd class="col-sm-9">
-                <ul class="list-unstyled">
-                    {% for recipient in digital_post.recipients %}
-                        <li>{{ recipient.name }} ({{ recipient.identifierType }}: {{ recipient.identifier }}); {{ recipient.address }}</li>
-                    {% endfor %}
-                </ul>
-            </dd>
+
+            {% if digital_post.envelopes is empty %}
+                <dd class="col-sm-9">
+                    <ul class="list-unstyled digital-post-recipients">
+                        {% for recipient in digital_post.recipients %}
+                            <li>
+                                <div class="recipient">
+                                    {{ recipient.name }} ({{ recipient.identifierType }}: {{ recipient.identifier }}); {{ recipient.address }}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+            {% else %}
+                <dd class="col-sm-9">
+                    <ul class="list-unstyled digital-post-recipients digital-post-envelopes">
+                        {% for envelope in digital_post.envelopes %}
+                            {% set recipient = envelope.recipient %}
+                            <li>
+                                <div class="recipient">
+                                    {{ recipient.name }} ({{ recipient.identifierType }}: {{ recipient.identifier }}); {{ recipient.address }}
+                                </div>
+                                <div class="envelope">
+                                    {% apply spaceless %}
+                                    <span class="digital-post-envelope-status">{{ envelope.status }}</span>
+                                        {%- if envelope.statusMessage -%}:
+                                            <span class="digital-post-envelope-status-message">{{ envelope.statusMessage }}</span>
+                                        {%- endif -%}
+                                    {% endapply %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+            {% endif %}
 
             <dt class="col-sm-3">{% trans %}Document{% endtrans %}</dt>
             <dd class="col-sm-9">
                 {{ _self.show_document_content_button(case, digital_post.document) }}
             </dd>
 
-            {% if digital_post.attachments %}
+            {% if not digital_post.attachments is empty %}
                 <dt class="col-sm-3">{% trans %}Attachments{% endtrans %}</dt>
                 <dd class="col-sm-9">
                     <ol class="list-unstyled">

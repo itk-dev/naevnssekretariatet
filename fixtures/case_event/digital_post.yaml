@@ -5,3 +5,4 @@ App\Entity\CaseEvent:
       subject: 'Digital post 87'
       receivedAt: <(new \DateTimeImmutable('2023-03-01'))>
       createdBy: '@user-caseworker'
+      digitalPost: '@digital-post-005'

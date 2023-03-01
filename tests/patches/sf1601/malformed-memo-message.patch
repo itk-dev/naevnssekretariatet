@@ -1,0 +1,26 @@
+diff --git a/src/Service/SF1601/MeMoHelper.php b/src/Service/SF1601/MeMoHelper.php
+index d94ceead..0e39d327 100644
+--- a/src/Service/SF1601/MeMoHelper.php
++++ b/src/Service/SF1601/MeMoHelper.php
+@@ -51,7 +51,6 @@ class MeMoHelper
+             ->setMessageType(SF1601::MESSAGE_TYPE_DIGITAL_POST)
+             ->setMessageUUID($messageUUID)
+             ->setMessageID($messageID)
+-            ->setLabel($label)
+             ->setMandatory(false)
+             ->setLegalNotification(false)
+             ->setSender($sender)
+diff --git a/vendor/itk-dev/serviceplatformen/src/Service/SF1601/SF1601.php b/vendor/itk-dev/serviceplatformen/src/Service/SF1601/SF1601.php
+index d3e19ed5..c8a02231 100644
+--- a/vendor/itk-dev/serviceplatformen/src/Service/SF1601/SF1601.php
++++ b/vendor/itk-dev/serviceplatformen/src/Service/SF1601/SF1601.php
+@@ -140,9 +140,6 @@ class SF1601 extends AbstractRESTService
+         if (empty($header)) {
+             throw new InvalidMemoException('MeMo message must have a header');
+         }
+-        if (empty($header->getLabel())) {
+-            throw new InvalidMemoException('MeMo message header must have a label');
+-        }
+         // @phpstan-ignore-next-line
+         if (empty($header->getSender()) || empty($header->getSender()->getLabel())) {
+             throw new InvalidMemoException('MeMo message header must have a sender with a label');
