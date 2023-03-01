@@ -19,13 +19,14 @@ provided by Symfony is used. This means that the project use the Webpack Encore 
 To build the assets in the project, run the following command in a terminal:
 
 ```sh
-docker run -v ${PWD}:/app itkdev/yarn:latest encore dev
+docker compose run --rm node yarn install
+docker compose run --rm node yarn dev
 ```
 
-When building assets for production use, omit the dev option:
+When building assets for production use
 
 ```sh
-docker run -v ${PWD}:/app itkdev/yarn:latest encore
+docker compose run --rm node yarn build
 ```
 
 ## JavaScript

@@ -232,7 +232,7 @@ jobs:
           node-version: '12'
       - run: yarn install
       - name: javascript-standard-style
-        run: yarn standard
+        run: yarn check-coding-standards/standard
 
   markdownlint:
     runs-on: ubuntu-20.04

@@ -51,25 +51,25 @@ To get a local copy up and running follow these simple steps.
 4. Install yarn packages
 
    ```sh
-   docker run -v ${PWD}:/app node:16 yarn --cwd=/app install
+   docker compose run --rm node yarn install
    ```
 
 5. Build assets
 
    ```sh
-   docker run -v ${PWD}:/app node:16 yarn --cwd=/app build
+   docker compose run --rm node yarn build
    ```
 
    During development, run
 
    ```sh
-   docker run -v ${PWD}:/app node:16 yarn --cwd=/app dev
+   docker compose run --rm node yarn dev
    ```
 
    and to watch for for changes run
 
    ```sh
-   docker run --interactive --tty -v ${PWD}:/app node:16 yarn --cwd=/app dev --watch
+   docker compose run --rm node yarn watch
    ```
 
 6. Run database migrations
@@ -301,8 +301,9 @@ docker-compose --env-file .env.docker.local --file docker-compose.server.yml res
 docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --env COMPOSER_MEMORY_LIMIT=-1 --user deploy phpfpm composer install
 
 # Build assets
-docker run -v ${PWD}:/app node:16 yarn --cwd=/app install
-docker run -v ${PWD}:/app node:16 yarn --cwd=/app build
+
+docker compose run --rm node yarn install
+docker compose run --rm node yarn build
 
 docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console cache:clear
 docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console assets:install public
@@ -355,19 +356,19 @@ we decided to adhere to in this project.
 * Javascript files (Standard with standard settings)
 
   ```sh
-  docker run -v ${PWD}:/app itkdev/yarn:latest standard
+  docker compose run --rm node yarn check-coding-standards/standard
   ```
 
 * Sass files (Sass guidelines)
 
   ```sh
-  docker run -v ${PWD}:/app itkdev/yarn:latest stylelint "assets/**/*.scss"
+  docker compose run --rm node yarn check-coding-standards/stylelint
   ```
 
 * Markdown files (markdownlint standard rules)
 
   ```sh
-  docker run -v ${PWD}:/app itkdev/yarn:latest markdownlint README.md
+  docker compose run --rm node yarn check-coding-standards/markdownlint
   ```
 
 ## Code analysis
