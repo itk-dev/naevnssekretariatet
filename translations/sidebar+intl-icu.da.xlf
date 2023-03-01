@@ -101,9 +101,9 @@
         <source>Decision</source>
         <target state="translated">Afgørelse</target>
       </trans-unit>
-      <trans-unit id="JEW8akY" resname="Case event">
-        <source>Case event</source>
-        <target state="translated">Sagshændelse</target>
+      <trans-unit id="fh2ysiV" resname="Case events">
+        <source>Case events</source>
+        <target state="translated">Sagshændelser</target>
       </trans-unit>
     </body>
   </file>
