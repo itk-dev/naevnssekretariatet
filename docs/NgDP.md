@@ -58,6 +58,19 @@ local development you can use tools like
 [localtunnel](https://github.com/localtunnel/localtunnel) or
 [ngrok](https://ngrok.com/) to forward to your local machine.
 
+Use
+
+```sh
+npx localtunnel --port "$(docker compose port nginx 80 | cut -d: -f2)" --subdomain "$USER-naevnssekretariatet" --print-requests
+```
+
+to expose your local docker compose setup and forward Beskedfordeler messages to the url reported by
+
+```sh
+echo "https://$USER-naevnssekretariatet.loca.lt/beskedfordeler/PostStatusBeskedModtag"
+```
+
+
 ## Class diagram
 
 ```mermaid
