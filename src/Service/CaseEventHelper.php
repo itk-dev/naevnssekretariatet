@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
-use App\Entity\CaseEventPartyRelation;
 use App\Entity\DigitalPost;
 use App\Entity\Party;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,15 +26,14 @@ class CaseEventHelper
             ->setReceivedAt(new \DateTimeImmutable())
             ->setCreatedBy($this->security->getUser())
             ->setDigitalPost($digitalPost)
+            ->setRecipients(array_map(static fn (Party $party) => $party->getName(), $recipients))
         ;
-
-        $this->createCaseEventRelations($caseEvent, CaseEventPartyRelation::TYPE_RECIPIENT, $recipients);
 
         $this->entityManager->persist($caseEvent);
         $this->entityManager->flush();
     }
 
-    public function createManualCaseEvent(CaseEntity $case, string $subject, string $note, array $senders, array $recipients, \DateTimeInterface $receivedAt)
+    public function createManualCaseEvent(CaseEntity $case, string $subject, string $note, array $partySenders, ?string $manualSenders, array $partyRecipients, ?string $manualRecipients, \DateTimeInterface $receivedAt)
     {
         $caseEvent = new CaseEvent();
 
@@ -46,15 +44,9 @@ class CaseEventHelper
             ->setReceivedAt($receivedAt)
             ->setCreatedBy($this->security->getUser())
             ->setNoteContent($note)
+            ->setSenders($this->computeCaseEventSenderOrRecipient($partySenders, $manualSenders))
+            ->setRecipients($this->computeCaseEventSenderOrRecipient($partyRecipients, $manualRecipients))
         ;
-
-        if (!empty($senders)) {
-            $this->createCaseEventRelations($caseEvent, CaseEventPartyRelation::TYPE_SENDER, $senders);
-        }
-
-        if (!empty($recipients)) {
-            $this->createCaseEventRelations($caseEvent, CaseEventPartyRelation::TYPE_RECIPIENT, $recipients);
-        }
 
         $this->entityManager->persist($caseEvent);
         $this->entityManager->flush();
@@ -70,30 +62,25 @@ class CaseEventHelper
             ->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING)
             ->setReceivedAt($receivedAt)
             ->setCreatedBy($this->security->getUser())
+            ->setSenders([$sender->getName()])
         ;
 
         foreach ($documents as $document) {
             $caseEvent->addDocument($document);
         }
 
-        $this->createCaseEventRelations($caseEvent, CaseEventPartyRelation::TYPE_SENDER, [$sender]);
-
         $this->entityManager->persist($caseEvent);
         $this->entityManager->flush();
     }
 
-    private function createCaseEventRelations(CaseEvent $caseEvent, string $type, array $parties)
+    private function computeCaseEventSenderOrRecipient(array $parties, ?string $suffix): array
     {
-        foreach ($parties as $party) {
-            $caseEventPartyRelation = new CaseEventPartyRelation();
+        $names = array_map(static fn (Party $party) => $party->getName(), $parties);
 
-            $caseEventPartyRelation
-                ->setParty($party)
-                ->setCaseEvent($caseEvent)
-                ->setType($type)
-            ;
-
-            $this->entityManager->persist($caseEventPartyRelation);
+        if (null !== $suffix) {
+            $names[] = $suffix;
         }
+
+        return $names;
     }
 }

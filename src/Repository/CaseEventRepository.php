@@ -39,8 +39,8 @@ class CaseEventRepository extends ServiceEntityRepository
         return $this->createQueryBuilder($alias)
             ->where($alias.'.caseEntity = :case')
             ->setParameter('case', $caseEntity->getId(), 'uuid')
-            ->leftJoin(CaseEventPartyRelation::class, $relationAlias, Join::WITH, $alias.'.id = '.$relationAlias.'.caseEvent')
-            ->leftJoin($relationAlias.'.party', $partyAlias)
+//            ->leftJoin(CaseEventPartyRelation::class, $relationAlias, Join::WITH, $alias.'.id = '.$relationAlias.'.caseEvent')
+//            ->leftJoin($relationAlias.'.party', $partyAlias)
             ->orderBy($alias.'.receivedAt', Criteria::DESC)
             ;
     }

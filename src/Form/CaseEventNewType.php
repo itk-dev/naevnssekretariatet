@@ -53,11 +53,19 @@ class CaseEventNewType extends AbstractType
                 'expanded' => true,
                 'required' => false,
             ])
+            ->add('manualSenders', TextType::class, [
+                'label' => $this->translator->trans('Senders', [], 'case_event'),
+                'required' => false,
+            ])
             ->add('recipients', ChoiceType::class, [
                 'label' => $this->translator->trans('Recipients', [], 'case_event'),
                 'choices' => $choices,
                 'multiple' => true,
                 'expanded' => true,
+                'required' => false,
+            ])
+            ->add('manualRecipients', TextType::class, [
+                'label' => $this->translator->trans('Senders', [], 'case_event'),
                 'required' => false,
             ])
         ;

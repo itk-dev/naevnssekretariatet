@@ -78,7 +78,7 @@ class CaseEventController extends AbstractController
     }
 
     #[Route('/create', name: 'case_event_create', methods: ['GET', 'POST'])]
-    public function create(CaseEntity $case, EntityManagerInterface $manager, PartyHelper $partyHelper, CaseEventHelper $caseEventHelper, Request $request): Response
+    public function create(CaseEntity $case, PartyHelper $partyHelper, CaseEventHelper $caseEventHelper, Request $request): Response
     {
         if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
             throw new AccessDeniedException();
@@ -113,7 +113,7 @@ class CaseEventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $caseEventHelper->createManualCaseEvent($case, $data['subject'], $data['noteContent'], $data['senders'], $data['recipients'], $data['receivedAt']);
+            $caseEventHelper->createManualCaseEvent($case, $data['subject'], $data['noteContent'], $data['senders'], $data['manualSenders'], $data['recipients'], $data['manualRecipients'], $data['receivedAt']);
 
             $this->addFlash('success', new TranslatableMessage('Case event created', [], 'case_event'));
 
