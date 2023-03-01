@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
+  Made `CaseEvent.createdBy` not nullable.
 - [TVIST1-743](https://jira.itkdev.dk/browse/TVIST1-743)
   Added case events.
 
