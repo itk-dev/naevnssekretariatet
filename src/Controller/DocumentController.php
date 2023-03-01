@@ -117,7 +117,7 @@ class DocumentController extends AbstractController
             $numberOfDocuments = count($files);
             $count = 1;
             foreach ($files as $file) {
-                $modifiedDocumentName = $numberOfDocuments === 1 ? $documentName : $documentName.' '.$count.' af '.$numberOfDocuments;
+                $modifiedDocumentName = 1 === $numberOfDocuments ? $documentName : $documentName.' '.$count.' af '.$numberOfDocuments;
 
                 $newDocument = $this->documentUploader->createDocumentFromUploadedFile($file, $modifiedDocumentName, $documentType);
 
@@ -128,7 +128,7 @@ class DocumentController extends AbstractController
                 $this->entityManager->persist($newDocument);
                 $this->entityManager->persist($relation);
 
-                $count++;
+                ++$count;
             }
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('{count, plural, =1 {One document created} other {# documents created}}', ['count' => count($files)], 'documents'));
