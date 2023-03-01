@@ -16,7 +16,8 @@ about writing changes to this log.
 - [TVIST1-743](https://jira.itkdev.dk/browse/TVIST1-743)
   Added case events.
 - [TVIST1-788](https://jira.itkdev.dk/browse/TVIST1-788)
-  Updated case event sender and recipients to be simple text.
+  - Updated `CaseEvent` with `senders` and `recipients` property.
+  - Removed `CaseEventPartyRelation`.
 
 ## [1.1.2] 2023-02-17
 
