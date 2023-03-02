@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\DigitalPost as DigitalPostBase;
 use App\Entity\DigitalPostAttachment;
+use App\Entity\DigitalPostEnvelope;
 use App\Entity\Document;
 use App\Entity\Embeddable\Address;
 use App\Message\DigitalPostMessage;
@@ -214,12 +215,19 @@ class DigitalPostHelper extends DigitalPost
             $this->entityManager->persist($digitalPost);
         }
 
-        $this->entityManager->flush();
-
         // Queue digital post for sending to each recipient.
         foreach ($digitalPost->getRecipients() as $recipient) {
+            // Create digital post envelope for later processing by
+            // DigitalPostMessageHandler.
+            $envelope = (new DigitalPostEnvelope())
+                ->setDigitalPost($digitalPost)
+                ->setRecipient($recipient)
+            ;
+            $this->entityManager->persist($envelope);
             $this->bus->dispatch(new DigitalPostMessage($digitalPost, $recipient));
         }
+
+        $this->entityManager->flush();
 
         return $digitalPost;
     }
