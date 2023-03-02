@@ -4,7 +4,6 @@ namespace App\Command;
 
 use App\Kernel;
 use App\Message\DigitalPostMessage;
-use App\MessageHandler\DigitalPostMessageHandler;
 use App\Repository\DigitalPostRepository;
 use App\Service\SF1601\DigitalPoster;
 use function Safe\json_encode;
@@ -29,7 +28,6 @@ class DigitalPostEnvelopeSendCommand extends Command
         readonly private DigitalPostRepository $digitalPostRepository,
         readonly private DigitalPoster $digitalPoster,
         readonly private MessageBusInterface $bus,
-        readonly private DigitalPostMessageHandler $digitalPostMessageHandler,
         readonly private Kernel $kernel
     ) {
         parent::__construct(null);
@@ -85,7 +83,7 @@ class DigitalPostEnvelopeSendCommand extends Command
                     $this->bus->dispatch($message);
                 } else {
                     $io->info(sprintf('Sending %s to %s', $digitalPost, $recipient));
-                    $this->digitalPostMessageHandler->__invoke($message);
+                    $this->digitalPoster->sendDigitalPost($digitalPost, $recipient);
                 }
             }
         }

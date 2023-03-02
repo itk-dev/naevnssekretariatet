@@ -117,6 +117,7 @@ class DigitalPost
         $this->id = Uuid::v4();
         $this->attachments = new ArrayCollection();
         $this->recipients = new ArrayCollection();
+        $this->envelopes = new ArrayCollection();
     }
 
     public function __toString(): string

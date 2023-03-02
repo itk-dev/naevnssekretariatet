@@ -25,25 +25,6 @@ class DigitalPoster
 
     public function sendDigitalPost(DigitalPost $digitalPost, DigitalPost\Recipient $recipient)
     {
-        $meMoOptions = [
-            MeMoHelper::SENDER_IDENTIFIER_TYPE => MeMoHelper::IDENTIFIER_TYPE_CVR,
-            MeMoHelper::SENDER_IDENTIFIER => $this->options['sf1601']['authority_cvr'],
-        ];
-
-        $meMoMessage = $this->meMoHelper->createMeMoMessage($digitalPost, $recipient, $meMoOptions);
-        $messageUuid = $meMoMessage->getMessageHeader()->getMessageUUID();
-
-        $options = $this->options['sf1601']
-            + [
-                    'certificate_locator' => $this->certificateLocatorHelper->getCertificateLocator(),
-            ];
-        $service = new SF1601($options);
-        $transactionId = Serializer::createUuid();
-        $response = $service->kombiPostAfsend($transactionId, SF1601::TYPE_AUTOMATISK_VALG, $meMoMessage);
-
-        $serializer = new Serializer();
-        $receipt = $response->getContent();
-
         $isNew = false;
         $envelope = $this->envelopeRepository->findOneBy([
             'digitalPost' => $digitalPost,
@@ -52,11 +33,9 @@ class DigitalPoster
         if (null === $envelope) {
             $isNew = true;
             $this->logger->debug(sprintf(
-                'Creating new envelope for digital post "%s" (#%s) for sending to %s (#%s)',
-                $digitalPost->getSubject(),
-                $digitalPost->getId(),
-                $recipient->getName(),
-                $recipient->getId(),
+                'Creating new envelope for digital post %s for sending to %s',
+                $digitalPost,
+                $recipient
             ));
             $envelope = (new DigitalPostEnvelope())
                 ->setDigitalPost($digitalPost)
@@ -64,42 +43,65 @@ class DigitalPoster
             ;
         } else {
             $this->logger->debug(sprintf(
-                'Reusing envelope %s for digital post "%s" (#%s) for sending to %s (#%s)',
+                'Reusing envelope %s for digital post %s for sending to %s',
                 $envelope->getMessageUuid(),
-                $digitalPost->getSubject(),
-                $digitalPost->getId(),
-                $recipient->getName(),
-                $recipient->getId(),
+                $digitalPost,
+                $recipient
             ));
         }
 
-        $envelope
-            ->setMessage($serializer->serialize($meMoMessage))
-            ->setMessageUuid($messageUuid)
-            ->setReceipt($receipt)
-        ;
+        try {
+            $meMoOptions = [
+                MeMoHelper::SENDER_IDENTIFIER_TYPE => MeMoHelper::IDENTIFIER_TYPE_CVR,
+                MeMoHelper::SENDER_IDENTIFIER => $this->options['sf1601']['authority_cvr'],
+            ];
 
-        $this->envelopeRepository->save($envelope, true);
+            $meMoMessage = $this->meMoHelper->createMeMoMessage($digitalPost, $recipient, $meMoOptions);
+            $messageUuid = $meMoMessage->getMessageHeader()->getMessageUUID();
 
-        $this->logger->info(
-            $isNew
-                ? sprintf(
-                'Created envelope %s for digital post "%s" (#%s) to %s (#%s)',
-                $envelope->getMessageUuid(),
-                $digitalPost->getSubject(),
-                $digitalPost->getId(),
-                $recipient->getName(),
-                $recipient->getId()
-            )
-                : sprintf(
-                'Reused envelope %s for digital post "%s" (#%s) to %s (#%s)',
-                $envelope->getMessageUuid(),
-                $digitalPost->getSubject(),
-                $digitalPost->getId(),
-                $recipient->getName(),
-                $recipient->getId()
-            )
-        );
+            $options = $this->options['sf1601']
+                + [
+                    'certificate_locator' => $this->certificateLocatorHelper->getCertificateLocator(),
+                ];
+            $service = new SF1601($options);
+            $transactionId = Serializer::createUuid();
+            $response = $service->kombiPostAfsend($transactionId, SF1601::TYPE_AUTOMATISK_VALG, $meMoMessage);
+
+            $serializer = new Serializer();
+            $receipt = $response->getContent();
+
+            $envelope
+                ->setStatus(DigitalPostEnvelope::STATUS_SENT)
+                ->setMessage($serializer->serialize($meMoMessage))
+                ->setMessageUuid($messageUuid)
+                ->setReceipt($receipt)
+            ;
+
+            $this->envelopeRepository->save($envelope, true);
+
+            $this->logger->info(
+                $isNew
+                    ? sprintf(
+                    'Created envelope %s for digital post %s to %s',
+                    $envelope->getMessageUuid(),
+                    $digitalPost,
+                    $recipient
+                )
+                    : sprintf(
+                    'Reused envelope %s for digital post %s to %s',
+                    $envelope->getMessageUuid(),
+                    $digitalPost,
+                    $recipient
+                )
+            );
+        } catch (\Throwable $throwable) {
+            $envelope
+                ->setStatus(DigitalPostEnvelope::STATUS_FAILED)
+                ->setStatusMessage($throwable->getMessage())
+            ;
+
+            $this->envelopeRepository->save($envelope, true);
+        }
     }
 
     private function resolveOptions(array $options): array

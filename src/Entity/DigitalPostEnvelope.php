@@ -6,6 +6,7 @@ use App\Entity\DigitalPost\Recipient;
 use App\Repository\DigitalPostEnvelopeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=DigitalPostEnvelopeRepository::class)
@@ -16,14 +17,22 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class DigitalPostEnvelope
 {
     use TimestampableEntity;
+
+    public const STATUS_CREATED = 'created';
     public const STATUS_SENT = 'sent';
     public const STATUS_DELIVERED = 'delivered';
     public const STATUS_FAILED = 'failed';
 
     /**
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     */
+    private ?Uuid $id;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
-    private $status = self::STATUS_SENT;
+    private $status = self::STATUS_CREATED;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -45,29 +54,38 @@ class DigitalPostEnvelope
     /**
      * The MeMo message Uuid.
      *
-     * @ORM\Id
-     * @ORM\Column(type="string", length=36, unique=true)
+     * @ORM\Column(type="string", length=36, nullable=true)
      */
-    private string $messageUuid;
+    private ?string $messageUuid;
 
     /**
      * The MeMo message (XML).
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private string $message;
+    private ?string $message;
 
     /**
      * The MeMo message receipt (XML).
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private string $receipt;
+    private ?string $receipt;
 
     /**
      * @ORM\Column(type="json", name="beskedfordeler_messages")
      */
     private array $beskedfordelerMessages = [];
+
+    public function __construct()
+    {
+        $this->id = Uuid::v4();
+    }
+
+    public function getId(): ?Uuid
+    {
+        return $this->id;
+    }
 
     public function getStatus(): ?string
     {
@@ -117,7 +135,7 @@ class DigitalPostEnvelope
         return $this;
     }
 
-    public function getMessageUuid(): string
+    public function getMessageUuid(): ?string
     {
         return $this->messageUuid;
     }
@@ -129,7 +147,7 @@ class DigitalPostEnvelope
         return $this;
     }
 
-    public function getMessage(): string
+    public function getMessage(): ?string
     {
         return $this->message;
     }
@@ -141,7 +159,7 @@ class DigitalPostEnvelope
         return $this;
     }
 
-    public function getReceipt(): string
+    public function getReceipt(): ?string
     {
         return $this->receipt;
     }
