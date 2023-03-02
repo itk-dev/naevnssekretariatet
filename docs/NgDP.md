@@ -93,7 +93,7 @@ The `tvist1:digital-post-envelope:send` command can be used to send digital post
 docker compose exec phpfpm bin/console tvist1:digital-post-envelope:send --help
 ```
 
-#### Testing error in MeMe message
+#### Testing error in MeMo message
 
 Apply a patch that to send invalid MeMo message (without a header label):
 
