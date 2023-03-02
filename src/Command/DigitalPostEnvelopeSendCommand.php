@@ -6,7 +6,6 @@ use App\Kernel;
 use App\Message\DigitalPostMessage;
 use App\Repository\DigitalPostRepository;
 use App\Service\SF1601\DigitalPoster;
-use function Safe\json_encode;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidOptionException;
@@ -17,6 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Uid\Uuid;
+use function Safe\json_encode;
 
 #[AsCommand(
     name: 'tvist1:digital-post-envelope:send',
