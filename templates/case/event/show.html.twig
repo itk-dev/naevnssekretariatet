@@ -28,6 +28,9 @@
             <dt class="col-sm-3">{% trans %}Received at{% endtrans %}</dt>
             <dd class="col-sm-9">{{ case_event.receivedAt ? case_event.receivedAt|date(format_datetime) : '–' }}</dd>
 
+            <dt class="col-sm-3">{% trans %}Category{% endtrans %}</dt>
+            <dd class="col-sm-9">{{ case_event.category }}</dd>
+
             {% if case_event.createdBy is not null %}
                 <dt class="col-sm-3">{% trans %}Created by{% endtrans %}</dt>
                 <dd class="col-sm-9">

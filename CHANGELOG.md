@@ -15,6 +15,8 @@ about writing changes to this log.
   Marked `Document.originalFileName` as nullable
 - [TVIST1-743](https://jira.itkdev.dk/browse/TVIST1-743)
   Added case events.
+- [TVIST1-747](https://jira.itkdev.dk/browse/TVIST1-747)
+  Added suffix to document names when uploading multiple in one go.
 - [TVIST1-788](https://jira.itkdev.dk/browse/TVIST1-788)
   - Updated `CaseEvent` with `senders` and `recipients` property.
   - Removed `CaseEventPartyRelation`.
