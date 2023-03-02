@@ -22,9 +22,10 @@ Process the digital post send queue with
 docker compose exec phpfpm bin/console messenger:consume async -vv
 ```
 
-See <https://symfony.com/doc/current/messenger.html#deploying-to-production> for
-details on how to process the queue in production. If using `cron`, you want to
-use something along the lines of `--limit=10 --time-limit=240` to not let the
+See [Deploying to
+Production](https://symfony.com/doc/5.4/messenger.html#deploying-to-production)
+for details on how to process the queue in production. If using `cron`, you want
+to use something along the lines of `--limit=10 --time-limit=240` to not let the
 worker run forever.
 
 The final `cron` spell may look like
@@ -35,6 +36,12 @@ The final `cron` spell may look like
 
 `--time-limit` should depend on `*/5`, i.e. when running the cron task every 5
 minutes, the time limit should be a little less than 300 (5 × 60) seconds.
+
+### Failed queue messages
+
+Failed messages are added to a “failed” transport. See [Saving & Retrying Failed
+Messages](https://symfony.com/doc/5.4/messenger.html#saving-retrying-failed-messages)
+for details on how to handle these.
 
 ## Beskedfordeler
 
@@ -109,6 +116,12 @@ List the envelopes:
 
 ```sh
 docker compose exec phpfpm bin/console tvist1:digital-post-envelope:list --status=failed
+```
+
+#### Testing invalid responses
+
+```sh
+git apply tests/patches/sf1601/invalid-service-urls.patch
 ```
 
 ## Class diagram

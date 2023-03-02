@@ -8,11 +8,11 @@ use App\Repository\DigitalPostRepository;
 use App\Service\SF1601\DigitalPoster;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
-use function Safe\json_encode;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Uid\Uuid;
+use function Safe\json_encode;
 
 #[AsMessageHandler]
 class DigitalPostMessageHandler implements MessageHandlerInterface
@@ -24,6 +24,9 @@ class DigitalPostMessageHandler implements MessageHandlerInterface
         $this->setLogger($logger);
     }
 
+    /**
+     * @see https://symfony.com/doc/current/messenger.html#retries-failures
+     */
     public function __invoke(DigitalPostMessage $message)
     {
         $this->logger->debug(sprintf('Handling %s: %s', $message::class, json_encode($message)));
