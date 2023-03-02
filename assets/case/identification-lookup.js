@@ -12,7 +12,7 @@ window.addEventListener('ajaxload', function () {
 
       $.ajax({
         url: '/case/new/apply-identifier-data',
-        type: 'POST',
+        type: 'GET',
         data: {
           type: $identifierType,
           identifier: $identifier
