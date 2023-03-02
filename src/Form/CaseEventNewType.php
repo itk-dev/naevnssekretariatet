@@ -53,12 +53,28 @@ class CaseEventNewType extends AbstractType
                 'expanded' => true,
                 'required' => false,
             ])
+            ->add('additionalSenders', TextareaType::class, [
+                'label' => $this->translator->trans('Senders', [], 'case_event'),
+                'required' => false,
+                'attr' => [
+                    'rows' => 4,
+                ],
+                'help' => $this->translator->trans('List of additional senders that are not parties on the case (one per line).', [], 'case_event'),
+            ])
             ->add('recipients', ChoiceType::class, [
                 'label' => $this->translator->trans('Recipients', [], 'case_event'),
                 'choices' => $choices,
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
+            ])
+            ->add('additionalRecipients', TextareaType::class, [
+                'label' => $this->translator->trans('Recipients', [], 'case_event'),
+                'required' => false,
+                'attr' => [
+                    'rows' => 4,
+                ],
+                'help' => $this->translator->trans('List of additional recipients that are not parties on the case (one per line).', [], 'case_event'),
             ])
         ;
     }

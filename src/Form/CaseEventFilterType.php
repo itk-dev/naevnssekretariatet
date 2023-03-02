@@ -70,7 +70,10 @@ class CaseEventFilterType extends AbstractType
                     $expr = $filterQuery->getQueryBuilder()->expr();
                     $expression = $expr->orX();
                     $expression->add(
-                        $filterQuery->getExpressionBuilder()->stringLike('ce_relation_part.name', $values['value'], $values['condition_pattern'] ?? FilterOperands::STRING_EQUALS)
+                        $filterQuery->getExpressionBuilder()->stringLike('ce.senders', $values['value'], $values['condition_pattern'] ?? FilterOperands::STRING_CONTAINS)
+                    );
+                    $expression->add(
+                        $filterQuery->getExpressionBuilder()->stringLike('ce.recipients', $values['value'], $values['condition_pattern'] ?? FilterOperands::STRING_CONTAINS)
                     );
 
                     return $filterQuery->createCondition($expression);

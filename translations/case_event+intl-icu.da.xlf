@@ -129,6 +129,14 @@
         <source>Select sender/recipient</source>
         <target state="translated">Vælg afsender/modtager</target>
       </trans-unit>
+      <trans-unit id="wh5D.gg" resname="List of additional senders that are not parties on the case (one per line).">
+        <source>List of additional senders that are not parties on the case (one per line).</source>
+        <target state="translated">Liste af ekstra afsender(e) som ikke er parter på sagen (en pr. linje).</target>
+      </trans-unit>
+      <trans-unit id="kCGHzVN" resname="List of additional recipients that are not parties on the case (one per line).">
+        <source>List of additional recipients that are not parties on the case (one per line).</source>
+        <target state="translated">Liste af ekstra modtager(e) som ikke er parter på sagen (en pr. linje).</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
