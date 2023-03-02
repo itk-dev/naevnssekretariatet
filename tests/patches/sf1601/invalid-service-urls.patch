@@ -1,0 +1,15 @@
+diff --git a/vendor/itk-dev/serviceplatformen/src/Service/SF1601/SF1601.php b/vendor/itk-dev/serviceplatformen/src/Service/SF1601/SF1601.php
+index d3e19ed5..05f4fe0d 100644
+--- a/vendor/itk-dev/serviceplatformen/src/Service/SF1601/SF1601.php
++++ b/vendor/itk-dev/serviceplatformen/src/Service/SF1601/SF1601.php
+@@ -76,8 +76,8 @@ class SF1601 extends AbstractRESTService
+             'svc_entity_id' => 'http://entityid.kombit.dk/service/kombipostafsend/1',
+             'svc_endpoint' => static function (Options $options) {
+                 return $options['test_mode']
+-                    ? 'https://exttest.serviceplatformen.dk/service/KombiPostAfsend_1/kombi'
+-                    : 'https://prod.serviceplatformen.dk/service/KombiPostAfsend_1/kombi';
++                    ? 'https://invalid-subdomain-exttest.serviceplatformen.dk/service/KombiPostAfsend_1/kombi'
++                    : 'https://invalid-subdomain-prod.serviceplatformen.dk/service/KombiPostAfsend_1/kombi';
+             },
+         ]);
+     }
