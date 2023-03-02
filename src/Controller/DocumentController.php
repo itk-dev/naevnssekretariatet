@@ -107,19 +107,18 @@ class DocumentController extends AbstractController
         $form = $this->createForm(DocumentType::class, $document);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            // Extract filename and handle it
-            // Users will only see document name, not filename
-            $documentName = $document->getDocumentName();
             $documentType = $document->getType();
             /** @var UploadedFile[] $files */
             $files = $form->get('files')->getData();
             $numberOfDocuments = count($files);
-            $count = 1;
-            foreach ($files as $file) {
-                $modifiedDocumentName = 1 === $numberOfDocuments ? $documentName : $documentName.' '.$count.' af '.$numberOfDocuments;
 
-                $newDocument = $this->documentUploader->createDocumentFromUploadedFile($file, $modifiedDocumentName, $documentType);
+            foreach ($files as $index => $file) {
+                // Users will only see document name, not filename
+                $documentName = 1 === $numberOfDocuments ? $document->getDocumentName() : sprintf('%s %d af %d', $document->getDocumentName(), $index + 1, $numberOfDocuments);
+
+                $newDocument = $this->documentUploader->createDocumentFromUploadedFile($file, $documentName, $documentType);
 
                 $relation = new CaseDocumentRelation();
                 $relation->setCase($case);
@@ -127,8 +126,6 @@ class DocumentController extends AbstractController
 
                 $this->entityManager->persist($newDocument);
                 $this->entityManager->persist($relation);
-
-                ++$count;
             }
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('{count, plural, =1 {One document created} other {# documents created}}', ['count' => count($files)], 'documents'));
