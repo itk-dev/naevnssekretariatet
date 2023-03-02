@@ -129,6 +129,14 @@
         <source>Select sender/recipient</source>
         <target>Select sender/recipient</target>
       </trans-unit>
+      <trans-unit id="wh5D.gg" resname="List of additional senders that are not parties on the case (one per line).">
+        <source>List of additional senders that are not parties on the case (one per line).</source>
+        <target>List of additional senders that are not parties on the case (one per line).</target>
+      </trans-unit>
+      <trans-unit id="kCGHzVN" resname="List of additional recipients that are not parties on the case (one per line).">
+        <source>List of additional recipients that are not parties on the case (one per line).</source>
+        <target>List of additional recipients that are not parties on the case (one per line).</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

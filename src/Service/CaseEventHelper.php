@@ -33,7 +33,7 @@ class CaseEventHelper
         $this->entityManager->flush();
     }
 
-    public function createManualCaseEvent(CaseEntity $case, string $subject, string $note, array $partySenders, ?string $manualSenders, array $partyRecipients, ?string $manualRecipients, \DateTimeInterface $receivedAt)
+    public function createManualCaseEvent(CaseEntity $case, string $subject, string $note, array $partySenders, ?string $additionalSenders, array $partyRecipients, ?string $additionalRecipients, \DateTimeInterface $receivedAt)
     {
         $caseEvent = new CaseEvent();
 
@@ -44,8 +44,8 @@ class CaseEventHelper
             ->setReceivedAt($receivedAt)
             ->setCreatedBy($this->security->getUser())
             ->setNoteContent($note)
-            ->setSenders($this->computeCaseEventSenderOrRecipient($partySenders, $manualSenders))
-            ->setRecipients($this->computeCaseEventSenderOrRecipient($partyRecipients, $manualRecipients))
+            ->setSenders($this->computeCaseEventSenderOrRecipient($partySenders, $additionalSenders))
+            ->setRecipients($this->computeCaseEventSenderOrRecipient($partyRecipients, $additionalRecipients))
         ;
 
         $this->entityManager->persist($caseEvent);
@@ -73,14 +73,19 @@ class CaseEventHelper
         $this->entityManager->flush();
     }
 
-    private function computeCaseEventSenderOrRecipient(array $parties, ?string $suffix): array
+    private function computeCaseEventSenderOrRecipient(array $parties, ?string $additionalParties): array
     {
         $names = array_map(static fn (Party $party) => $party->getName(), $parties);
 
-        if (null !== $suffix) {
-            $names[] = $suffix;
+        if (null !== $additionalParties) {
+            $names = [...$names, ...$this->getLines($additionalParties)];
         }
 
         return $names;
+    }
+
+    private function getLines(string $additionalParties): array
+    {
+        return array_filter(array_map('trim', explode(PHP_EOL, $additionalParties)));
     }
 }

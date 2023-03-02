@@ -113,7 +113,7 @@ class CaseEventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $caseEventHelper->createManualCaseEvent($case, $data['subject'], $data['noteContent'], $data['senders'], $data['manualSenders'], $data['recipients'], $data['manualRecipients'], $data['receivedAt']);
+            $caseEventHelper->createManualCaseEvent($case, $data['subject'], $data['noteContent'], $data['senders'], $data['additionalSenders'], $data['recipients'], $data['additionalRecipients'], $data['receivedAt']);
 
             $this->addFlash('success', new TranslatableMessage('Case event created', [], 'case_event'));
 
