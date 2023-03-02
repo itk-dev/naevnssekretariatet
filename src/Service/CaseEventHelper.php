@@ -77,7 +77,7 @@ class CaseEventHelper
     {
         $names = array_map(static fn (Party $party) => $party->getName(), $parties);
 
-        return  [...$names, ...$additionalParties];
+        return [...$names, ...$additionalParties];
     }
 
     private function getLines(string $additionalParties): array
