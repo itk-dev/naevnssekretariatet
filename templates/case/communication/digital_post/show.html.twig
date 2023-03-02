@@ -54,11 +54,13 @@
                 </dd>
             {% endif %}
 
+            {# TODO: Do we still need this?
             <dt class="col-sm-3">{% trans %}Status{% endtrans %}</dt>
             <dd class="col-sm-9">{{ digital_post.status ?? '–' }}</dd>
 
             <dt class="col-sm-3">{% trans %}Sent at{% endtrans %}</dt>
             <dd class="col-sm-9">{{ digital_post.sentAt ? digital_post.sentAt|date(format_datetime) : '–' }}</dd>
+            #}
 
             <dt class="col-sm-3">{% trans %}Recipients{% endtrans %}</dt>
 
@@ -76,20 +78,52 @@
                 </dd>
             {% else %}
                 <dd class="col-sm-9">
-                    <ul class="list-unstyled digital-post-recipients digital-post-envelopes">
+                    <ul class="list-group digital-post-recipients digital-post-envelopes">
                         {% for envelope in digital_post.envelopes %}
                             {% set recipient = envelope.recipient %}
-                            <li>
+                            <li class="list-group-item">
+                                <div class="envelope-status">
+                                    {% set status_label = {
+                                        (constant('STATUS_CREATED', envelope)): 'Created'|trans,
+                                        (constant('STATUS_SENT', envelope)): 'Sent'|trans,
+                                        (constant('STATUS_DELIVERED', envelope)): 'Delivered'|trans,
+                                        (constant('STATUS_FAILED', envelope)): 'Failed'|trans
+                                        }[envelope.status]|default(envelope.status) %}
+                                    {% set status_level = {
+                                        (constant('STATUS_CREATED', envelope)): 'dark',
+                                        (constant('STATUS_SENT', envelope)): 'info',
+                                        (constant('STATUS_DELIVERED', envelope)): 'success',
+                                        (constant('STATUS_FAILED', envelope)): 'danger'
+                                        }[envelope.status]|default('dark') %}
+                                    {% set status_message = envelope.statusMessage|default({
+                                        (constant('STATUS_CREATED', envelope)): 'Digital post created',
+                                        (constant('STATUS_SENT', envelope)): 'Digital post sent',
+                                        (constant('STATUS_DELIVERED', envelope)): 'Digital post delivered',
+                                        (constant('STATUS_FAILED', envelope)): 'Digital post failed'
+                                        }[envelope.status]|default('')) %}
+
+                                    <span class="badge badge-{{ status_level }} digital-post-envelope-status">{{ status_label }}</span>
+                                    {% if status_message %}
+                                        <span class="small digital-post-envelope-status-message">{{ status_message }}</span>
+                                    {% endif %}
+                                </div>
+
                                 <div class="recipient">
                                     {{ recipient.name }} ({{ recipient.identifierType }}: {{ recipient.identifier }}); {{ recipient.address }}
                                 </div>
-                                <div class="envelope">
-                                    {% apply spaceless %}
-                                    <span class="digital-post-envelope-status">{{ envelope.status }}</span>
-                                        {%- if envelope.statusMessage -%}:
-                                            <span class="digital-post-envelope-status-message">{{ envelope.statusMessage }}</span>
-                                        {%- endif -%}
-                                    {% endapply %}
+
+                                <div class="envelope-message-details">
+                                    {# Render last beskedfordeler message if any #}
+                                    {% set message = envelope.beskedfordelerMessages|last %}
+                                    {% if message %}
+                                        {% set data = message_helper.beskeddata(message) %}
+                                        {% if data.FejlDetaljer|default() %}
+                                            <details>
+                                                <summary>{{ 'Beskedfordeler message details'|trans }}</summary>
+                                                <pre>{{ data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+                                            </details>
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
                             </li>
                         {% endfor %}

@@ -81,6 +81,26 @@
         <source>Back to case event</source>
         <target>Back to case event</target>
       </trans-unit>
+      <trans-unit id="1wueJLy" resname="Created">
+        <source>Created</source>
+        <target>Created</target>
+      </trans-unit>
+      <trans-unit id="wWvIK.H" resname="Sent">
+        <source>Sent</source>
+        <target>Sent</target>
+      </trans-unit>
+      <trans-unit id="kGEVZXO" resname="Delivered">
+        <source>Delivered</source>
+        <target>Delivered</target>
+      </trans-unit>
+      <trans-unit id="AxqPD2W" resname="Failed">
+        <source>Failed</source>
+        <target>Failed</target>
+      </trans-unit>
+      <trans-unit id="FmF4lNQ" resname="Beskedfordeler message details">
+        <source>Beskedfordeler message details</source>
+        <target>Beskedfordeler message details</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
