@@ -44,8 +44,8 @@ class CaseEventHelper
             ->setReceivedAt($receivedAt)
             ->setCreatedBy($this->security->getUser())
             ->setNoteContent($note)
-            ->setSenders($this->computeCaseEventSenderOrRecipient($partySenders, $additionalSenders))
-            ->setRecipients($this->computeCaseEventSenderOrRecipient($partyRecipients, $additionalRecipients))
+            ->setSenders($this->computeCaseEventSenderOrRecipient($partySenders, $this->getLines($additionalSenders)))
+            ->setRecipients($this->computeCaseEventSenderOrRecipient($partyRecipients, $this->getLines($additionalRecipients)))
         ;
 
         $this->entityManager->persist($caseEvent);
@@ -73,15 +73,11 @@ class CaseEventHelper
         $this->entityManager->flush();
     }
 
-    private function computeCaseEventSenderOrRecipient(array $parties, ?string $additionalParties): array
+    private function computeCaseEventSenderOrRecipient(array $parties, array $additionalParties): array
     {
         $names = array_map(static fn (Party $party) => $party->getName(), $parties);
 
-        if (null !== $additionalParties) {
-            $names = [...$names, ...$this->getLines($additionalParties)];
-        }
-
-        return $names;
+        return  [...$names, ...$additionalParties];
     }
 
     private function getLines(string $additionalParties): array
