@@ -57,12 +57,8 @@
             {% for case_event in case_events %}
                 <tr>
                     <td>{{ case_event.category }}</td>
-                    <td>
-                        {{ case_event.caseEventPartyRelations|filter(r => r.type == "Sender")|map(r => r.party.name)|join(', ') }}
-                    </td>
-                    <td>
-                        {{ case_event.caseEventPartyRelations|filter(r => r.type == "Recipient")|map(r => r.party.name)|join(', ') }}
-                    </td>
+                    <td>{{ case_event.senders|join(', ') }}</td>
+                    <td>{{ case_event.recipients|join(', ') }}</td>
                     <td>{{ case_event.subject }}</td>
                     <td>{{ case_event.receivedAt ? case_event.receivedAt|date(format_datetime) : '' }}</td>
                     <td>{{ case_event.createdBy.name }}</td>

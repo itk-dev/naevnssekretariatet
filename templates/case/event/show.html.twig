@@ -38,14 +38,31 @@
                 </dd>
             {% endif %}
 
-            <dt class="col-sm-3">{% trans %}Sender{% endtrans %}</dt>
-            <dd class="col-sm-9">
-                {{ case_event.caseEventPartyRelations|filter(r => r.type == "Sender")|map(r => r.party.name)|join(', ') }}
-            </dd>
-            <dt class="col-sm-3">{% trans %}Recipient{% endtrans %}</dt>
-            <dd class="col-sm-9">
-                {{ case_event.caseEventPartyRelations|filter(r => r.type == "Recipient")|map(r => r.party.name)|join(', ') }}
-            </dd>
+            {% if case_event.senders %}
+                <dt class="col-sm-3">{% trans %}Sender{% endtrans %}</dt>
+                <dd class="col-sm-9">
+                    <ol class="list-unstyled">
+                        {% for sender in case_event.senders %}
+                            <li>
+                                {{ sender }}
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </dd>
+            {% endif %}
+
+            {% if case_event.recipients %}
+                <dt class="col-sm-3">{% trans %}Recipient{% endtrans %}</dt>
+                <dd class="col-sm-9">
+                    <ol class="list-unstyled">
+                        {% for recipient in case_event.recipients %}
+                            <li>
+                                {{ recipient }}
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </dd>
+            {% endif %}
 
             <dt class="col-sm-3">{% trans %}Subject{% endtrans %}</dt>
             <dd class="col-sm-9">{{ case_event.subject }}</dd>

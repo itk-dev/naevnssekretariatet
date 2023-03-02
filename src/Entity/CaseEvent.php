@@ -52,6 +52,7 @@ class CaseEvent
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $createdBy;
 
@@ -71,15 +72,19 @@ class CaseEvent
     private $receivedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=CaseEventPartyRelation::class, mappedBy="caseEvent", orphanRemoval=true)
+     * @ORM\Column(type="json")
      */
-    private $caseEventPartyRelations;
+    private $senders = [];
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $recipients = [];
 
     public function __construct()
     {
         $this->id = Uuid::v4();
         $this->documents = new ArrayCollection();
-        $this->caseEventPartyRelations = new ArrayCollection();
     }
 
     public function getId(): Uuid
@@ -195,32 +200,26 @@ class CaseEvent
         return $this;
     }
 
-    /**
-     * @return Collection|CaseEventPartyRelation[]
-     */
-    public function getCaseEventPartyRelations(): Collection
+    public function getSenders(): array
     {
-        return $this->caseEventPartyRelations;
+        return $this->senders;
     }
 
-    public function addCaseEventPartyRelation(CaseEventPartyRelation $caseEventPartyRelation): self
+    public function setSenders(array $senders): self
     {
-        if (!$this->caseEventPartyRelations->contains($caseEventPartyRelation)) {
-            $this->caseEventPartyRelations[] = $caseEventPartyRelation;
-            $caseEventPartyRelation->setCaseEvent($this);
-        }
+        $this->senders = $senders;
 
         return $this;
     }
 
-    public function removeCaseEventPartyRelation(CaseEventPartyRelation $caseEventPartyRelation): self
+    public function getRecipients(): array
     {
-        if ($this->caseEventPartyRelations->removeElement($caseEventPartyRelation)) {
-            // set the owning side to null (unless already changed)
-            if ($caseEventPartyRelation->getCaseEvent() === $this) {
-                $caseEventPartyRelation->setCaseEvent(null);
-            }
-        }
+        return $this->recipients;
+    }
+
+    public function setRecipients(array $recipients): self
+    {
+        $this->recipients = $recipients;
 
         return $this;
     }
