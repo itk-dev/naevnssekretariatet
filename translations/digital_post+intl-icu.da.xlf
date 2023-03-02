@@ -81,6 +81,26 @@
         <source>Back to case event</source>
         <target state="translated">Tilbage til sagshændelse</target>
       </trans-unit>
+      <trans-unit id="1wueJLy" resname="Created">
+        <source>Created</source>
+        <target state="translated">Oprettet</target>
+      </trans-unit>
+      <trans-unit id="wWvIK.H" resname="Sent">
+        <source>Sent</source>
+        <target state="translated">Afsendt</target>
+      </trans-unit>
+      <trans-unit id="kGEVZXO" resname="Delivered">
+        <source>Delivered</source>
+        <target state="translated">Leveret</target>
+      </trans-unit>
+      <trans-unit id="AxqPD2W" resname="Failed">
+        <source>Failed</source>
+        <target state="translated">Fejlet</target>
+      </trans-unit>
+      <trans-unit id="FmF4lNQ" resname="Beskedfordeler message details">
+        <source>Beskedfordeler message details</source>
+        <target state="translated">Detaljer</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
