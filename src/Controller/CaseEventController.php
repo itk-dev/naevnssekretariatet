@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
-use App\Entity\Party;
 use App\Form\CaseEventEditType;
 use App\Form\CaseEventFilterType;
 use App\Form\CaseEventNewType;
@@ -84,27 +83,11 @@ class CaseEventController extends AbstractController
             throw new AccessDeniedException();
         }
 
-        $parties = $partyHelper->getRelevantPartiesByCase($case);
-
-        // Convert into choices for CaseEventNewType.
-        $choices = [];
-        foreach ($parties['parties'] as $data) {
-            /** @var Party $party */
-            $party = $data['party'];
-            $type = $data['type'];
-            $choices[$party->getName().', '.$type] = $party;
-        }
-
-        foreach ($parties['counterparties'] as $data) {
-            /** @var Party $party */
-            $party = $data['party'];
-            $type = $data['type'];
-            $choices[$party->getName().', '.$type] = $party;
-        }
+        $transformedPartyChoices = $partyHelper->getTransformedRelevantPartiesByCase($case);
 
         // Setup form and handle it.
         $form = $this->createForm(CaseEventNewType::class, null, [
-            'choices' => $choices,
+            'choices' => $transformedPartyChoices,
             'view_timezone' => $this->serviceOptions['view_timezone'],
         ]);
 

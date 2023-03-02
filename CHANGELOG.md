@@ -16,7 +16,8 @@ about writing changes to this log.
 - [TVIST1-743](https://jira.itkdev.dk/browse/TVIST1-743)
   Added case events.
 - [TVIST1-747](https://jira.itkdev.dk/browse/TVIST1-747)
-  Added suffix to document names when uploading multiple in one go.
+  - Added suffix to document names when uploading multiple in one go.
+  - Added ability to create case events when uploading documents.
 - [TVIST1-788](https://jira.itkdev.dk/browse/TVIST1-788)
   - Updated `CaseEvent` with `senders` and `recipients` property.
   - Removed `CaseEventPartyRelation`.

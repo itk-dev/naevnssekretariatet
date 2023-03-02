@@ -21,9 +21,16 @@
             {{ form_row(document_form.documentName) }}
             {{ form_row(document_form.type) }}
             {{ form_row(document_form.files) }}
+            {{ form_row(document_form.createCaseEvent) }}
+            {{ form_row(document_form.caseEvent) }}
 
             <button class="btn btn-success float-right">{{ button_label|default('Upload'|trans([], 'documents')) }}</button>
             {{ form_rest(document_form) }}
         {{ form_end(document_form) }}
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('document_case_event') }}
 {% endblock %}
