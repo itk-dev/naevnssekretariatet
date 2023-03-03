@@ -36,6 +36,7 @@ class DocumentType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Document::class,
             'case' => null,
+            'view_timezone' => null,
         ]);
     }
 
@@ -103,53 +104,55 @@ class DocumentType extends AbstractType
                         ]),
                     ],
                 ])
-                ->add('createCaseEvent', ChoiceType::class, [
-                    'choices' => [
-                        self::CASE_EVENT_OPTION_NO => self::CASE_EVENT_OPTION_NO,
-                        self::CASE_EVENT_OPTION_YES => self::CASE_EVENT_OPTION_YES,
-                    ],
-                    'data' => self::CASE_EVENT_OPTION_NO,
-                    'label' => $this->translator->trans('Create case event?', [], 'documents'),
-                    'mapped' => false,
-                ])
             ;
-
-            $formModifier = function (FormInterface $form, ?string $createCaseEvent = null) use ($options) {
-                if (self::CASE_EVENT_OPTION_YES === $createCaseEvent) {
-                    $form->add('caseEvent', CaseEventDocumentType::class, [
-                        'mapped' => false,
-                        'choices' => $this->partyHelper->getTransformedRelevantPartiesByCase($options['case']),
-                    ]);
-                } else {
-                    $form->add('caseEvent', HiddenType::class, [
-                        'mapped' => false,
-                    ]);
-                }
-            };
-
-            $builder->addEventListener(
-                FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($formModifier) {
-                    // this would be your entity, i.e. Document
-                    $data = $event->getData();
-
-                    $formModifier($event->getForm(), $data->getType() ?? null);
-                }
-            );
-
-            $builder->get('createCaseEvent')->addEventListener(
-                FormEvents::POST_SUBMIT,
-                function (FormEvent $event) use ($formModifier) {
-                    // It's important here to fetch $event->getForm()->getData(), as
-                    // $event->getData() will get you the client data (that is, the ID)
-                    $createCaseEvent = $event->getForm()->getData();
-
-                    // since we've added the listener to the child, we'll have to pass on
-                    // the parent to the callback function!
-                    $formModifier($event->getForm()->getParent(), $createCaseEvent);
-                }
-            );
         }
+
+        $builder->add('createCaseEvent', ChoiceType::class, [
+            'choices' => [
+                self::CASE_EVENT_OPTION_NO => self::CASE_EVENT_OPTION_NO,
+                self::CASE_EVENT_OPTION_YES => self::CASE_EVENT_OPTION_YES,
+            ],
+            'data' => self::CASE_EVENT_OPTION_NO,
+            'label' => $this->translator->trans('Create case event?', [], 'documents'),
+            'mapped' => false,
+        ]);
+
+        $formModifier = function (FormInterface $form, ?string $createCaseEvent = null) use ($options) {
+            if (self::CASE_EVENT_OPTION_YES === $createCaseEvent) {
+                $form->add('caseEvent', CaseEventDocumentType::class, [
+                    'mapped' => false,
+                    'choices' => $this->partyHelper->getTransformedRelevantPartiesByCase($options['case']),
+                    'view_timezone' => $options['view_timezone'],
+                ]);
+            } else {
+                $form->add('caseEvent', HiddenType::class, [
+                    'mapped' => false,
+                ]);
+            }
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                // this would be your entity, i.e. Document
+                $data = $event->getData();
+
+                $formModifier($event->getForm(), $data->getType() ?? null);
+            }
+        );
+
+        $builder->get('createCaseEvent')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                // It's important here to fetch $event->getForm()->getData(), as
+                // $event->getData() will get you the client data (that is, the ID)
+                $createCaseEvent = $event->getForm()->getData();
+
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback function!
+                $formModifier($event->getForm()->getParent(), $createCaseEvent);
+            }
+        );
     }
 
     public function getMinimumMaximumFileSizeRestriction(): string

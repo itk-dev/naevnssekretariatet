@@ -2,6 +2,8 @@
 
 window.addEventListener('ajaxload', function () {
   const $caseEventSelector = $('#document_createCaseEvent')
+  const $documentName = $('#document_documentName')
+  const $documentType = $('#document_type')
   // When case event selector gets selected ...
   $caseEventSelector
     .off('change')
@@ -13,6 +15,8 @@ window.addEventListener('ajaxload', function () {
       // Simulate form data, but only include the selected case event selector value.
       const data = {}
       data[$caseEventSelector.attr('name')] = $caseEventSelector.val()
+      data[$documentName.attr('name')] = $documentName.val()
+      data[$documentType.attr('name')] = $documentType.val()
       // Submit data via AJAX to the form's action path.
       $.ajax({
         url: $form.attr('action'),

@@ -22,9 +22,11 @@ use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 
@@ -33,24 +35,14 @@ use Symfony\Component\Translation\TranslatableMessage;
  */
 class DocumentController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var DocumentCopyHelper
-     */
-    private $copyHelper;
-    /**
-     * @var DocumentUploader
-     */
-    private $documentUploader;
+    private array $serviceOptions;
 
-    public function __construct(EntityManagerInterface $entityManager, DocumentCopyHelper $copyHelper, DocumentUploader $documentUploader)
+    public function __construct(private EntityManagerInterface $entityManager, private DocumentCopyHelper $copyHelper, private DocumentUploader $documentUploader, private CaseEventHelper $caseEventHelper, array $options)
     {
-        $this->entityManager = $entityManager;
-        $this->copyHelper = $copyHelper;
-        $this->documentUploader = $documentUploader;
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+
+        $this->serviceOptions = $resolver->resolve($options);
     }
 
     /**
@@ -105,7 +97,10 @@ class DocumentController extends AbstractController
 
         // Create new document and its form
         $document = new Document();
-        $form = $this->createForm(DocumentType::class, $document, ['case' => $case]);
+        $form = $this->createForm(DocumentType::class, $document, [
+            'case' => $case,
+            'view_timezone' => $this->serviceOptions['view_timezone'],
+        ]);
 
         $form->handleRequest($request);
 
@@ -134,16 +129,7 @@ class DocumentController extends AbstractController
             }
 
             if (DocumentType::CASE_EVENT_OPTION_YES === $form->get('createCaseEvent')->getData()) {
-                $subject = $form->get('caseEvent')->get('subject')->getData();
-                $receivedAt = $form->get('caseEvent')->get('receivedAt')->getData();
-                $senders = $form->get('caseEvent')->get('senders')->getData();
-                $additionalSenders = $form->get('caseEvent')->get('additionalSenders')->getData();
-                $recipients = $form->get('caseEvent')->get('recipients')->getData();
-                $additionalRecipients = $form->get('caseEvent')->get('additionalRecipients')->getData();
-
-                $caseEventHelper->createDocumentCaseEvent($case, $subject, $senders, $additionalSenders, $recipients, $additionalRecipients, $documents, $receivedAt);
-
-                $this->addFlash('success', new TranslatableMessage('Case event created', [], 'case_event'));
+                $this->handleCaseEventCreation($case, $documents, $form->get('caseEvent'));
             }
 
             $this->entityManager->flush();
@@ -164,13 +150,20 @@ class DocumentController extends AbstractController
      * @throws FileMovingException
      * @throws DocumentDirectoryException
      */
-    public function edit(CaseEntity $case, Document $document, Request $request): Response
+    public function edit(CaseEntity $case, Document $document, CaseEventHelper $caseEventHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
-        $form = $this->createForm(DocumentType::class, $document, ['case' => null]);
+        $form = $this->createForm(DocumentType::class, $document, [
+            'case' => $case,
+            'view_timezone' => $this->serviceOptions['view_timezone'],
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if (DocumentType::CASE_EVENT_OPTION_YES === $form->get('createCaseEvent')->getData()) {
+                $this->handleCaseEventCreation($case, [$document], $form->get('caseEvent'));
+            }
+
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Document updated', [], 'documents'));
 
@@ -263,5 +256,26 @@ class DocumentController extends AbstractController
         $response = $uploader->handleViewDocument($document);
 
         return $response;
+    }
+
+    private function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setRequired('view_timezone')
+        ;
+    }
+
+    private function handleCaseEventCreation(CaseEntity $case, array $documents, FormInterface $form)
+    {
+        $subject = $form->get('subject')->getData();
+        $receivedAt = $form->get('receivedAt')->getData();
+        $senders = $form->get('senders')->getData();
+        $additionalSenders = $form->get('additionalSenders')->getData();
+        $recipients = $form->get('recipients')->getData();
+        $additionalRecipients = $form->get('additionalRecipients')->getData();
+
+        $this->caseEventHelper->createDocumentCaseEvent($case, $subject, $senders, $additionalSenders, $recipients, $additionalRecipients, $documents, $receivedAt);
+
+        $this->addFlash('success', new TranslatableMessage('Case event created', [], 'case_event'));
     }
 }

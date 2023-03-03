@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -42,7 +41,7 @@ class CaseEventNewType extends AbstractType
                 'label' => $this->translator->trans('Received at', [], 'case_event'),
                 'widget' => 'single_text',
                 'with_seconds' => true,
-                'data' => new DateTime('now'),
+                'data' => new \DateTimeImmutable('now'),
                 'view_timezone' => $options['view_timezone'],
                 'model_timezone' => 'UTC',
             ])
