@@ -50,6 +50,9 @@ class LinkedTemplateProcessor extends BaseTemplateProcessor
      */
     public function addLink($link)
     {
+        // @see https://github.com/PHPOffice/PHPWord/issues/1678#issuecomment-1281011981
+        $this->xmlRelationships = simplexml_load_string($this->tempDocumentRelations['word/document.xml']);
+
         // This is not tested, but I think there might not be an entry in the
         // relationships file for internal links.
         if ($link->isInternal()) {

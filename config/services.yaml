@@ -104,6 +104,9 @@ services:
                 upload_destination: '%kernel.project_dir%/upload/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination
                 template_file_directory: '%kernel.project_dir%/upload/mail-templates'
+                # This value must match vich_uploader.mappings.user_signatures.upload_destination
+                user_signatures_file_directory: '%kernel.project_dir%/upload/user-signatures'
+                user_signature_height: '%env(USER_SIGNATURE_HEIGHT)%'
                 libreoffice_http_client_options:
                     base_uri: '%env(LIBREOFFICE_API_BASE_URL)%'
                     verify_peer: false
@@ -261,3 +264,8 @@ services:
         arguments:
             $options:
                 view_timezone: '%view_timezone%'
+
+    App\Controller\Admin\UserController:
+        arguments:
+            $options:
+              signature_file_directory: '%kernel.project_dir%/upload/user-signatures'
