@@ -105,11 +105,24 @@ class DigitalPost
      */
     private $caseEvent;
 
+    /**
+     * @var DigitalPostEnvelope[]
+     *
+     * @ORM\OneToMany(targetEntity=DigitalPostEnvelope::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    private $envelopes;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
         $this->attachments = new ArrayCollection();
         $this->recipients = new ArrayCollection();
+        $this->envelopes = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return sprintf('%s (#%s)', $this->subject, $this->id);
     }
 
     public function getId(): ?Uuid
@@ -355,6 +368,18 @@ class DigitalPost
         }
 
         $this->caseEvent = $caseEvent;
+
+        return $this;
+    }
+
+    public function getEnvelopes()
+    {
+        return $this->envelopes;
+    }
+
+    public function setEnvelopes($envelopes): self
+    {
+        $this->envelopes = $envelopes;
 
         return $this;
     }

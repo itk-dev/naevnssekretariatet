@@ -6,6 +6,7 @@ use App\Entity\CaseEntity;
 use App\Entity\DigitalPost;
 use App\Repository\DigitalPostRepository;
 use Doctrine\Common\Collections\Criteria;
+use Itkdev\BeskedfordelerBundle\Helper\MessageHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,11 +24,12 @@ class DigitalPostController extends AbstractController
     }
 
     #[Route('/{digitalPost}', name: 'digital_post_show', methods: ['GET'])]
-    public function show(CaseEntity $case, DigitalPost $digitalPost): Response
+    public function show(CaseEntity $case, DigitalPost $digitalPost, MessageHelper $messageHelper): Response
     {
         return $this->render('case/communication/digital_post/show.html.twig', [
             'case' => $case,
             'digital_post' => $digitalPost,
+            'message_helper' => $messageHelper,
         ]);
     }
 }

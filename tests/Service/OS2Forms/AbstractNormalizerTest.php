@@ -6,9 +6,9 @@ use App\Exception\WebformSubmissionException;
 use App\Service\DocumentUploader;
 use App\Service\OS2Forms\SubmissionNormalizers\AbstractSubmissionNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
-use function PHPUnit\Framework\assertEquals;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use function PHPUnit\Framework\assertEquals;
 
 class AbstractNormalizerTest extends TestCase
 {

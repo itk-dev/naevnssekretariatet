@@ -63,6 +63,14 @@ services:
       - "traefik.docker.network=frontend"
       - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_DOMAIN}`)"
 
+  node:
+    image: node:16
+    networks:
+      - app
+    volumes:
+      - .:/app:delegated
+    working_dir: /app
+
   mailhog:
     image: mailhog/mailhog
     networks:

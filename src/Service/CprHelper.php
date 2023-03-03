@@ -14,7 +14,6 @@ use ItkDev\AzureKeyVault\Authorisation\VaultToken;
 use ItkDev\AzureKeyVault\KeyVault\VaultSecret;
 use ItkDev\Serviceplatformen\Certificate\AzureKeyVaultCertificateLocator;
 use ItkDev\Serviceplatformen\Certificate\CertificateLocatorInterface;
-use ItkDev\Serviceplatformen\Certificate\Exception\CertificateLocatorException;
 use ItkDev\Serviceplatformen\Request\InvocationContextRequestGenerator;
 use ItkDev\Serviceplatformen\Service\Exception\NoPnrFoundException;
 use ItkDev\Serviceplatformen\Service\Exception\ServiceException;
@@ -75,26 +74,18 @@ class CprHelper
             $this->serviceOptions['azure_key_vault_secret_version']
         );
 
-        try {
-            $pathToCertificate = $certificateLocator->getAbsolutePathToCertificate();
-        } catch (CertificateLocatorException $e) {
-            throw new CprException($e->getMessage(), $e->getCode());
-        }
-
-        $options = [
-            'local_cert' => $pathToCertificate,
-            'passphrase' => $certificateLocator->getPassphrase(),
-            'location' => $this->serviceOptions['serviceplatformen_cpr_service_endpoint'],
+        $serviceContractFilename = $this->serviceOptions['serviceplatformen_cpr_service_contract'];
+        $serviceEndpoint = $this->serviceOptions['serviceplatformen_cpr_service_endpoint'];
+        $soapClientOptions = [
+            'wsdl' => $serviceContractFilename,
+            'certificate_locator' => $certificateLocator,
+            'options' => [
+                'location' => $serviceEndpoint,
+            ],
         ];
 
-        if (!realpath($this->serviceOptions['serviceplatformen_cpr_service_contract'])) {
-            throw new CprException(sprintf('The path (%s) to the service contract is invalid.', $this->serviceOptions['serviceplatformen_cpr_service_contract']));
-        }
-
-        try {
-            $soapClient = new \SoapClient($this->serviceOptions['serviceplatformen_cpr_service_contract'], $options);
-        } catch (\SoapFault $e) {
-            throw new CprException($e->getMessage(), $e->getCode());
+        if (!realpath($serviceContractFilename)) {
+            throw new CprException(sprintf('The path (%s) to the service contract is invalid.', $serviceContractFilename));
         }
 
         $requestGenerator = new InvocationContextRequestGenerator(
@@ -104,7 +95,7 @@ class CprHelper
             $this->serviceOptions['serviceplatformen_cpr_user_uuid']
         );
 
-        $this->service = new PersonBaseDataExtendedService($soapClient, $requestGenerator);
+        $this->service = new PersonBaseDataExtendedService($soapClientOptions, $requestGenerator);
     }
 
     private function configureOptions(OptionsResolver $resolver)
@@ -129,7 +120,7 @@ class CprHelper
     }
 
     /**
-     * Get absolute path to certificate.
+     * Get AzureKeyVaultCertificateLocator.
      */
     private function getAzureKeyVaultCertificateLocator(
         string $tenantId,
@@ -196,13 +187,13 @@ class CprHelper
     {
         $relevantData = [];
 
-        $relevantData['name'] = $data['persondata']['navn']['personadresseringsnavn'];
-        $relevantData['street'] = $data['adresse']['aktuelAdresse']['vejadresseringsnavn'];
-        $relevantData['number'] = ltrim($data['adresse']['aktuelAdresse']['husnummer'], '0');
-        $relevantData['floor'] = array_key_exists('etage', $data['adresse']['aktuelAdresse']) ? $data['adresse']['aktuelAdresse']['etage'] : '';
-        $relevantData['side'] = array_key_exists('sidedoer', $data['adresse']['aktuelAdresse']) ? ltrim($data['adresse']['aktuelAdresse']['sidedoer'], '0') : '';
-        $relevantData['postalCode'] = $data['adresse']['aktuelAdresse']['postnummer'];
-        $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'];
+        $relevantData['name'] = $data['persondata']['navn']['personadresseringsnavn'] ?? '';
+        $relevantData['street'] = $data['adresse']['aktuelAdresse']['vejadresseringsnavn'] ?? $data['adresse']['aktuelAdresse']['vejnavn'] ?? '';
+        $relevantData['number'] = ltrim($data['adresse']['aktuelAdresse']['husnummer'] ?? '', '0');
+        $relevantData['floor'] = $data['adresse']['aktuelAdresse']['etage'] ?? '';
+        $relevantData['side'] = ltrim($data['adresse']['aktuelAdresse']['sidedoer'] ?? '', '0');
+        $relevantData['postalCode'] = $data['adresse']['aktuelAdresse']['postnummer'] ?? '';
+        $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'] ?? '';
 
         // If person is NOT under address protection, 'adressebeskyttelse' is simply an empty array
         $relevantData['isUnderAddressProtection'] = !empty($data['persondata']['adressebeskyttelse']);

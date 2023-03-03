@@ -8,7 +8,6 @@ use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
 use App\Entity\HearingPostRequest;
 use App\Entity\LogEntry;
-use App\Entity\Municipality;
 use App\Entity\User;
 use App\Exception\BoardMemberException;
 use App\Form\CaseAgendaStatusType;
@@ -870,12 +869,12 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/new/apply-identifier-data", name="case_new_apply_identifier_data", methods={"GET", "POST"})
+     * @Route("/new/apply-identifier-data", name="case_new_apply_identifier_data", methods={"GET"})
      */
     public function applyIdentifierData(IdentificationHelper $identificationHelper, Request $request): Response
     {
-        $type = $request->request->get('type');
-        $identifier = $request->request->get('identifier');
+        $type = (string) $request->get('type');
+        $identifier = (string) $request->get('identifier');
 
         return $identificationHelper->fetchIdentifierData($identifier, $type);
     }

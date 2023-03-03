@@ -1,0 +1,2 @@
+itkdev_beskedfordeler:
+  resource: '@BeskedfordelerBundle/Resources/config/routes.php'
