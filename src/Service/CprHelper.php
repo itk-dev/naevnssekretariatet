@@ -187,13 +187,13 @@ class CprHelper
     {
         $relevantData = [];
 
-        $relevantData['name'] = $data['persondata']['navn']['personadresseringsnavn'];
-        $relevantData['street'] = $data['adresse']['aktuelAdresse']['vejadresseringsnavn'];
-        $relevantData['number'] = ltrim($data['adresse']['aktuelAdresse']['husnummer'], '0');
-        $relevantData['floor'] = array_key_exists('etage', $data['adresse']['aktuelAdresse']) ? $data['adresse']['aktuelAdresse']['etage'] : '';
-        $relevantData['side'] = array_key_exists('sidedoer', $data['adresse']['aktuelAdresse']) ? ltrim($data['adresse']['aktuelAdresse']['sidedoer'], '0') : '';
-        $relevantData['postalCode'] = $data['adresse']['aktuelAdresse']['postnummer'];
-        $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'];
+        $relevantData['name'] = $data['persondata']['navn']['personadresseringsnavn'] ?? '';
+        $relevantData['street'] = $data['adresse']['aktuelAdresse']['vejadresseringsnavn'] ?? $data['adresse']['aktuelAdresse']['vejnavn'] ?? '';
+        $relevantData['number'] = ltrim($data['adresse']['aktuelAdresse']['husnummer'] ?? '', '0');
+        $relevantData['floor'] = $data['adresse']['aktuelAdresse']['etage'] ?? '';
+        $relevantData['side'] = ltrim($data['adresse']['aktuelAdresse']['sidedoer'] ?? '', '0');
+        $relevantData['postalCode'] = $data['adresse']['aktuelAdresse']['postnummer'] ?? '';
+        $relevantData['city'] = $data['adresse']['aktuelAdresse']['postdistrikt'] ?? '';
 
         // If person is NOT under address protection, 'adressebeskyttelse' is simply an empty array
         $relevantData['isUnderAddressProtection'] = !empty($data['persondata']['adressebeskyttelse']);
