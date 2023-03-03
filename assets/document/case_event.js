@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-/* global $, Event */
+/* global $ */
 
 window.addEventListener('ajaxload', function () {
   const $caseEventSelector = $('#document_createCaseEvent')
@@ -25,7 +24,6 @@ window.addEventListener('ajaxload', function () {
             // ... with the returned one from the AJAX response.
             $(html.responseText).find('#document_caseEvent')
           )
-          // Case event field now displays the appropriate positions.
         }
       })
     })
