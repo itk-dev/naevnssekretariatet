@@ -86,3 +86,11 @@ App\Entity\MailTemplate:
     description: |-
       Bruges til oprettelse af partshøringssvar
     templateFilename: <uploadFile(mail_template/mail_template_hearing_post_response.docx, templateFile, App\Entity\MailTemplate)>
+
+  mail-template-decision-attorney:
+    type: decision
+    name: Decision from attorney
+    description: |-
+      A template using attorney signature.
+    # @see \DataFixtures\Faker\Provider\FileUploadProvider
+    templateFilename: <uploadFile(mail_template/mail_template_decision_attorney.docx, templateFile, App\Entity\MailTemplate)>

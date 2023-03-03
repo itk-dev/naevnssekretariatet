@@ -11,10 +11,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\PropertyAccess\PropertyPath;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -61,6 +64,23 @@ class UserCrudController extends AbstractCrudController
         ;
         yield TextareaField::new('shortcuts', 'Shortcuts')
             ->setHelp($this->translator->trans("List of shortcuts (one per line). Format: 'Identifier: URL', e.g. Aarhus Kommune: https://www.aarhus.dk/. Identifier must not contain a colon (:).", [], 'admin'))
+        ;
+
+        /** @var User $user */
+        $user = $this->getContext()->getEntity()->getInstance();
+
+        yield Field::new('signatureFile')
+            ->setLabel($this->translator->trans('Signature', [], 'admin'))
+            ->setHelp($this->translator->trans('Upload an image of your signature.', [], 'admin'))
+            ->setFormType(VichImageType::class)
+            ->setFormTypeOptions([
+                'allow_delete' => true,
+                'download_uri' => $user->getSignatureFilename()
+                    ? $this->generateUrl('admin_user_signature_file', ['id' => $user->getId()])
+                    : false,
+                'download_label' => new PropertyPath('signatureFilename'),
+            ])
+            ->onlyOnForms()
         ;
     }
 

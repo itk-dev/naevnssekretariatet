@@ -44,6 +44,15 @@ App\Entity\MailTemplateMacro:
         ${assignedTo.name|prepend('f. ')}
     templateTypes: []
 
+  closing_from_attorney_with_signature:
+    name: Closing from attorney (with signature)
+    macro: closing_from_attorney_with_signature
+    content: |-
+        Venlig hilsen
+        ${assignedTo.name|prepend('f. ')}
+        ${assignedTo.signature}
+    templateTypes: []
+
   closing_from_case_worker:
     name: Closing from case worker
     macro: closing_from_case_worker

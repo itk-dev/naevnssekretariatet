@@ -6,3 +6,7 @@ vich_uploader:
             uri_prefix: /admin/mail-template/template-file
             upload_destination: '%kernel.project_dir%/upload/mail-templates'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        user_signatures:
+            uri_prefix: /admin/user/signature
+            upload_destination: '%kernel.project_dir%/upload/user-signatures'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
