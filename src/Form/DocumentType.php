@@ -24,8 +24,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DocumentType extends AbstractType
 {
-    public const CASE_EVENT_OPTION_NO = 'Nej';
-    public const CASE_EVENT_OPTION_YES = 'Ja';
+    public const CASE_EVENT_OPTION_NO = 'No';
+    public const CASE_EVENT_OPTION_YES = 'Yes';
 
     public function __construct(private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private PartyHelper $partyHelper, private int $maxFileSize)
     {
@@ -36,7 +36,6 @@ class DocumentType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Document::class,
             'case' => null,
-            'view_timezone' => null,
         ]);
     }
 
@@ -112,6 +111,7 @@ class DocumentType extends AbstractType
                 self::CASE_EVENT_OPTION_NO => self::CASE_EVENT_OPTION_NO,
                 self::CASE_EVENT_OPTION_YES => self::CASE_EVENT_OPTION_YES,
             ],
+            'choice_translation_domain' => 'documents',
             'data' => self::CASE_EVENT_OPTION_NO,
             'label' => $this->translator->trans('Create case event?', [], 'documents'),
             'mapped' => false,
@@ -122,7 +122,6 @@ class DocumentType extends AbstractType
                 $form->add('caseEvent', CaseEventDocumentType::class, [
                     'mapped' => false,
                     'choices' => $this->partyHelper->getTransformedRelevantPartiesByCase($options['case']),
-                    'view_timezone' => $options['view_timezone'],
                 ]);
             } else {
                 $form->add('caseEvent', HiddenType::class, [

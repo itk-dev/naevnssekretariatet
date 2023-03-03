@@ -26,7 +26,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 
@@ -35,14 +34,8 @@ use Symfony\Component\Translation\TranslatableMessage;
  */
 class DocumentController extends AbstractController
 {
-    private array $serviceOptions;
-
-    public function __construct(private EntityManagerInterface $entityManager, private DocumentCopyHelper $copyHelper, private DocumentUploader $documentUploader, private CaseEventHelper $caseEventHelper, array $options)
+    public function __construct(private EntityManagerInterface $entityManager, private DocumentCopyHelper $copyHelper, private DocumentUploader $documentUploader, private CaseEventHelper $caseEventHelper)
     {
-        $resolver = new OptionsResolver();
-        $this->configureOptions($resolver);
-
-        $this->serviceOptions = $resolver->resolve($options);
     }
 
     /**
@@ -99,7 +92,6 @@ class DocumentController extends AbstractController
         $document = new Document();
         $form = $this->createForm(DocumentType::class, $document, [
             'case' => $case,
-            'view_timezone' => $this->serviceOptions['view_timezone'],
         ]);
 
         $form->handleRequest($request);
@@ -128,9 +120,7 @@ class DocumentController extends AbstractController
                 $this->entityManager->persist($relation);
             }
 
-            if (DocumentType::CASE_EVENT_OPTION_YES === $form->get('createCaseEvent')->getData()) {
-                $this->handleCaseEventCreation($case, $documents, $form->get('caseEvent'));
-            }
+            $this->handleCaseEventCreation($case, $documents, $form);
 
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('{count, plural, =1 {One document created} other {# documents created}}', ['count' => count($files)], 'documents'));
@@ -155,14 +145,11 @@ class DocumentController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $case);
         $form = $this->createForm(DocumentType::class, $document, [
             'case' => $case,
-            'view_timezone' => $this->serviceOptions['view_timezone'],
         ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if (DocumentType::CASE_EVENT_OPTION_YES === $form->get('createCaseEvent')->getData()) {
-                $this->handleCaseEventCreation($case, [$document], $form->get('caseEvent'));
-            }
+            $this->handleCaseEventCreation($case, [$document], $form);
 
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Document updated', [], 'documents'));
@@ -258,24 +245,20 @@ class DocumentController extends AbstractController
         return $response;
     }
 
-    private function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver
-            ->setRequired('view_timezone')
-        ;
-    }
-
     private function handleCaseEventCreation(CaseEntity $case, array $documents, FormInterface $form)
     {
-        $subject = $form->get('subject')->getData();
-        $receivedAt = $form->get('receivedAt')->getData();
-        $senders = $form->get('senders')->getData();
-        $additionalSenders = $form->get('additionalSenders')->getData();
-        $recipients = $form->get('recipients')->getData();
-        $additionalRecipients = $form->get('additionalRecipients')->getData();
+        if (DocumentType::CASE_EVENT_OPTION_YES === $form->get('createCaseEvent')->getData()) {
+            $caseEventForm = $form->get('caseEvent');
+            $subject = $caseEventForm->get('subject')->getData();
+            $receivedAt = $caseEventForm->get('receivedAt')->getData();
+            $senders = $caseEventForm->get('senders')->getData();
+            $additionalSenders = $caseEventForm->get('additionalSenders')->getData();
+            $recipients = $caseEventForm->get('recipients')->getData();
+            $additionalRecipients = $caseEventForm->get('additionalRecipients')->getData();
 
-        $this->caseEventHelper->createDocumentCaseEvent($case, $subject, $senders, $additionalSenders, $recipients, $additionalRecipients, $documents, $receivedAt);
+            $this->caseEventHelper->createDocumentCaseEvent($case, $subject, $senders, $additionalSenders, $recipients, $additionalRecipients, $documents, $receivedAt);
 
-        $this->addFlash('success', new TranslatableMessage('Case event created', [], 'case_event'));
+            $this->addFlash('success', new TranslatableMessage('Case event created', [], 'case_event'));
+        }
     }
 }

@@ -165,6 +165,14 @@
         <source>Create case event?</source>
         <target state="translated">Opret sagshændelse?</target>
       </trans-unit>
+      <trans-unit id="haOas0X" resname="Yes">
+        <source>Yes</source>
+        <target state="translated">Ja</target>
+      </trans-unit>
+      <trans-unit id="HqRCoTS" resname="No">
+        <source>No</source>
+        <target state="translated">Nej</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -260,7 +260,7 @@ services:
             $options:
                 view_timezone: '%view_timezone%'
 
-    App\Controller\DocumentController:
+    App\Form\CaseEventDocumentType:
         arguments:
             $options:
                 view_timezone: '%view_timezone%'

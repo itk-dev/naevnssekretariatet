@@ -8,8 +8,6 @@ window.addEventListener('ajaxload', function () {
   $caseEventSelector
     .off('change')
     .on('change', function () {
-      console.log($caseEventSelector.val())
-      console.log($caseEventSelector.attr('name'))
       // ... retrieve the corresponding form.
       const $form = $(this).closest('form')
       // Simulate form data, but only include the selected case event selector value.
