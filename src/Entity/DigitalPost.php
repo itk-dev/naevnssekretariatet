@@ -22,16 +22,6 @@ class DigitalPost
 {
     use TimestampableEntity;
 
-    public const STATUS_SENT = 'sent';
-    public const STATUS_ERROR = 'error';
-    public const STATUS_FAILED = 'failed';
-
-    public const STATUSES = [
-        self::STATUS_SENT,
-        self::STATUS_ERROR,
-        self::STATUS_FAILED,
-    ];
-
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -53,11 +43,6 @@ class DigitalPost
      * @ORM\Column(type="uuid", nullable=true)
      */
     private ?Uuid $entityId;
-
-    /**
-     * @ORM\Column(type="string", length=32, nullable=true)
-     */
-    private $status;
 
     /**
      * @ORM\Column(type="json", nullable=true)
@@ -174,14 +159,9 @@ class DigitalPost
 
     public function getStatus(): ?string
     {
-        return $this->status;
-    }
+        $status = null;
 
-    public function setStatus(?string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
+        return $status;
     }
 
     public function getData(): ?array

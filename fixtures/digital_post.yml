@@ -10,7 +10,6 @@ App\Entity\DigitalPost:
         entityType: 'App\Entity\ResidentComplaintBoardCase'
         entityId: '@test-case-aarhus-1->id'
         subject: 'Another interesting title'
-        status: sent
 
     digital-post-003:
         document: '@document-002'
