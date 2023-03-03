@@ -8,6 +8,7 @@ use App\Entity\Document;
 use App\Service\DocumentUploader;
 use App\Service\IdentificationHelper;
 use DataGovDk\Model\Core\Address;
+use DigitalPost\MeMo\AdditionalDocument;
 use DigitalPost\MeMo\AttentionData;
 use DigitalPost\MeMo\AttentionPerson;
 use DigitalPost\MeMo\File;
