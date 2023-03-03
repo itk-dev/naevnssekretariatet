@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
+use App\Entity\CaseEvent;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostAttachment;
 use App\Entity\Hearing;
@@ -432,7 +433,7 @@ class HearingController extends AbstractController
             $documents[] = $attachment->getDocument();
         }
 
-        $caseEventHelper->createDocumentCaseEvent($case, $hearingPost->getSender(), $documents);
+        $caseEventHelper->createDocumentCaseEvent($case, CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING, [$hearingPost->getSender()], null, [], null, $documents);
 
         $today = new DateTime('today');
         $hearingPost->setApprovedOn($today);

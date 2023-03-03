@@ -52,17 +52,18 @@ class CaseEventHelper
         $this->entityManager->flush();
     }
 
-    public function createDocumentCaseEvent(CaseEntity $case, Party $sender, array $documents, \DateTimeInterface $receivedAt = new \DateTimeImmutable())
+    public function createDocumentCaseEvent(CaseEntity $case, string $subject, array $partySenders, ?string $additionalSenders, array $partyRecipients, ?string $additionalRecipients, array $documents, \DateTimeInterface $receivedAt = new \DateTimeImmutable())
     {
         $caseEvent = new CaseEvent();
 
         $caseEvent
             ->setCaseEntity($case)
             ->setCategory(CaseEvent::CATEGORY_INCOMING)
-            ->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING)
+            ->setSubject($subject)
             ->setReceivedAt($receivedAt)
             ->setCreatedBy($this->security->getUser())
-            ->setSenders([$sender->getName()])
+            ->setSenders($this->computeCaseEventSenderOrRecipient($partySenders, $this->getLines($additionalSenders)))
+            ->setRecipients($this->computeCaseEventSenderOrRecipient($partyRecipients, $this->getLines($additionalRecipients)))
         ;
 
         foreach ($documents as $document) {
@@ -80,7 +81,7 @@ class CaseEventHelper
         return [...$names, ...$additionalParties];
     }
 
-    private function getLines(string $additionalParties): array
+    private function getLines(?string $additionalParties): array
     {
         return array_filter(array_map('trim', explode(PHP_EOL, $additionalParties)));
     }

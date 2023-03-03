@@ -261,6 +261,11 @@ services:
             $options:
                 view_timezone: '%view_timezone%'
 
+    App\Form\CaseEventDocumentType:
+        arguments:
+            $options:
+                view_timezone: '%view_timezone%'
+
     App\Controller\Admin\UserController:
         arguments:
             $options:

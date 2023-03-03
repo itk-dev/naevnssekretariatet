@@ -11,17 +11,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class CaseEventNewType extends AbstractType
+class CaseEventDocumentType extends AbstractType
 {
-    public function __construct(private TranslatorInterface $translator)
+    private array $serviceOptions;
+
+    public function __construct(private TranslatorInterface $translator, array $options)
     {
+        $resolver = new OptionsResolver();
+        $this->configureOptionsResolver($resolver);
+
+        $this->serviceOptions = $resolver->resolve($options);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'choices' => null,
-            'view_timezone' => null,
         ]);
     }
 
@@ -33,16 +38,12 @@ class CaseEventNewType extends AbstractType
             ->add('subject', TextType::class, [
                 'label' => $this->translator->trans('Subject', [], 'case_event'),
             ])
-            ->add('noteContent', TextareaType::class, [
-                'label' => $this->translator->trans('Note content', [], 'case_event'),
-                'attr' => ['rows' => 6],
-            ])
             ->add('receivedAt', DateTimeType::class, [
                 'label' => $this->translator->trans('Received at', [], 'case_event'),
                 'widget' => 'single_text',
                 'with_seconds' => true,
-                'data' => new \DateTimeImmutable('now'),
-                'view_timezone' => $options['view_timezone'],
+                'data' => new \DateTimeImmutable(),
+                'view_timezone' => $this->serviceOptions['view_timezone'],
                 'model_timezone' => 'UTC',
             ])
             ->add('senders', ChoiceType::class, [
@@ -75,6 +76,13 @@ class CaseEventNewType extends AbstractType
                 ],
                 'help' => $this->translator->trans('List of additional recipients that are not parties on the case (one per line).', [], 'case_event'),
             ])
+        ;
+    }
+
+    private function configureOptionsResolver(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setRequired('view_timezone')
         ;
     }
 }

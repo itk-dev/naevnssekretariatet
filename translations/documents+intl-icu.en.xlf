@@ -161,6 +161,18 @@
         <source>Cannot delete document that has been sent or is attached to an agenda</source>
         <target>Cannot delete document that has been sent or is attached to an agenda</target>
       </trans-unit>
+      <trans-unit id="o41rQDA" resname="Create case event?">
+        <source>Create case event?</source>
+        <target>Create case event?</target>
+      </trans-unit>
+      <trans-unit id="haOas0X" resname="Yes">
+        <source>Yes</source>
+        <target>Yes</target>
+      </trans-unit>
+      <trans-unit id="HqRCoTS" resname="No">
+        <source>No</source>
+        <target>No</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -299,4 +299,27 @@ class PartyHelper
 
         return [$this->translator->trans('Parties', [], 'case') => $parties, $this->translator->trans('Counterparties', [], 'case') => $counterparties];
     }
+
+    public function getTransformedRelevantPartiesByCase(CaseEntity $case): array
+    {
+        $parties = $this->getRelevantPartiesByCase($case);
+
+        // Convert into choices for CaseEventNewType.
+        $choices = [];
+        foreach ($parties['parties'] as $data) {
+            /** @var Party $party */
+            $party = $data['party'];
+            $type = $data['type'];
+            $choices[$party->getName().', '.$type] = $party;
+        }
+
+        foreach ($parties['counterparties'] as $data) {
+            /** @var Party $party */
+            $party = $data['party'];
+            $type = $data['type'];
+            $choices[$party->getName().', '.$type] = $party;
+        }
+
+        return $choices;
+    }
 }
