@@ -101,6 +101,22 @@
         <source>Beskedfordeler message details</source>
         <target>Beskedfordeler message details</target>
       </trans-unit>
+      <trans-unit id="KZEuK50" resname="Digital post created">
+        <source>Digital post created</source>
+        <target>Digital post created</target>
+      </trans-unit>
+      <trans-unit id="inGbhmi" resname="Digital post sent">
+        <source>Digital post sent</source>
+        <target>Digital post sent</target>
+      </trans-unit>
+      <trans-unit id="KAomYMi" resname="Digital post delivered">
+        <source>Digital post delivered</source>
+        <target>Digital post delivered</target>
+      </trans-unit>
+      <trans-unit id="PYL.vAl" resname="Digital post failed">
+        <source>Digital post failed</source>
+        <target>Digital post failed</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

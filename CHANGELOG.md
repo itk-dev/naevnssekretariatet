@@ -27,6 +27,9 @@ about writing changes to this log.
   Beskedfordeler messages.
 - [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
   Fixed CPR lookup.
+- [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
+  - Removed defunct command and removed digital post status property.
+  - Added display of digital post statuses.
 
 ## [1.1.2] 2023-02-17
 

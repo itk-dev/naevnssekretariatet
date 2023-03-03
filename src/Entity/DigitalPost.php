@@ -157,11 +157,15 @@ class DigitalPost
         return $this;
     }
 
-    public function getStatus(): ?string
+    /**
+     * Get unique envelope statuses.
+     */
+    public function getStatuses(): ?array
     {
-        $status = null;
-
-        return $status;
+        return array_unique(array_map(
+            static fn (DigitalPostEnvelope $envelope) => $envelope->getStatus(),
+            $this->getEnvelopes()->toArray()
+        )) ?: null;
     }
 
     public function getData(): ?array

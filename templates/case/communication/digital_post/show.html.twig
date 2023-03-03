@@ -23,6 +23,8 @@
     </a>
 {% endmacro %}
 
+{% import 'case/communication/digital_post/_digital_post_envelope.html.twig' as digital_post_envelope %}
+
 {% block content %}
     <div class="col">
         <dl class="row">
@@ -83,29 +85,7 @@
                             {% set recipient = envelope.recipient %}
                             <li class="list-group-item">
                                 <div class="envelope-status">
-                                    {% set status_label = {
-                                        (constant('STATUS_CREATED', envelope)): 'Created'|trans,
-                                        (constant('STATUS_SENT', envelope)): 'Sent'|trans,
-                                        (constant('STATUS_DELIVERED', envelope)): 'Delivered'|trans,
-                                        (constant('STATUS_FAILED', envelope)): 'Failed'|trans
-                                        }[envelope.status]|default(envelope.status) %}
-                                    {% set status_level = {
-                                        (constant('STATUS_CREATED', envelope)): 'dark',
-                                        (constant('STATUS_SENT', envelope)): 'info',
-                                        (constant('STATUS_DELIVERED', envelope)): 'success',
-                                        (constant('STATUS_FAILED', envelope)): 'danger'
-                                        }[envelope.status]|default('dark') %}
-                                    {% set status_message = envelope.statusMessage|default({
-                                        (constant('STATUS_CREATED', envelope)): 'Digital post created',
-                                        (constant('STATUS_SENT', envelope)): 'Digital post sent',
-                                        (constant('STATUS_DELIVERED', envelope)): 'Digital post delivered',
-                                        (constant('STATUS_FAILED', envelope)): 'Digital post failed'
-                                        }[envelope.status]|default('')) %}
-
-                                    <span class="badge badge-{{ status_level }} digital-post-envelope-status">{{ status_label }}</span>
-                                    {% if status_message %}
-                                        <span class="small digital-post-envelope-status-message">{{ status_message }}</span>
-                                    {% endif %}
+                                    {{ digital_post_envelope.digital_post_envelope_status(envelope, {show_message: true}) }}
                                 </div>
 
                                 <div class="recipient">
