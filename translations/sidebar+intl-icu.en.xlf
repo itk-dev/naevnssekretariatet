@@ -53,10 +53,6 @@
         <source>Hearing</source>
         <target>Hearing</target>
       </trans-unit>
-      <trans-unit id="OYGiucH" resname="Communication">
-        <source>Communication</source>
-        <target>Communication</target>
-      </trans-unit>
       <trans-unit id="tOkp2Lz" resname="Documents">
         <source>Documents</source>
         <target>Documents</target>
@@ -88,10 +84,6 @@
       <trans-unit id="bk_hPaS" resname="Inspection">
         <source>Inspection</source>
         <target>Inspection</target>
-      </trans-unit>
-      <trans-unit id="8VCI9Yd" resname="Back to agenda">
-        <source>Back to agenda</source>
-        <target>Back to agenda</target>
       </trans-unit>
       <trans-unit id="FfhuJO0" resname="Case">
         <source>Case</source>

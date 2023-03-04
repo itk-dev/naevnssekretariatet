@@ -5,18 +5,6 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="BXXynfi" resname="Template">
-        <source>Template</source>
-        <target>Skabelon</target>
-      </trans-unit>
-      <trans-unit id="0RVtB8p" resname="Select a template">
-        <source>Select a template</source>
-        <target>Vælg en skabelon</target>
-      </trans-unit>
-      <trans-unit id="Q3rqYqW" resname="Contents">
-        <source>Contents</source>
-        <target>Indhold</target>
-      </trans-unit>
       <trans-unit id="WXAMe6v" resname="Broadcast agenda">
         <source>Broadcast agenda</source>
         <target>Offentliggør dagsorden</target>
@@ -93,10 +81,6 @@
         <source>Function</source>
         <target>Handlinger</target>
       </trans-unit>
-      <trans-unit id="ImnkQgY" resname="List functions">
-        <source>List functions</source>
-        <target>Handlinger</target>
-      </trans-unit>
       <trans-unit id="87gIr9x" resname="Show agenda">
         <source>Show agenda</source>
         <target>Vis dagsorden</target>
@@ -116,10 +100,6 @@
       <trans-unit id="D99IX1v" resname="Agenda">
         <source>Agenda</source>
         <target>Dagsorden</target>
-      </trans-unit>
-      <trans-unit id="p8Pk0Cg" resname="Publish to boardmembers">
-        <source>Publish to boardmembers</source>
-        <target state="translated">Publiser til nævnsmedlemmer</target>
       </trans-unit>
       <trans-unit id="tQJcc1A" resname="Remarks">
         <source>Remarks</source>
@@ -221,14 +201,6 @@
         <source>Ready</source>
         <target>Klar</target>
       </trans-unit>
-      <trans-unit id="0bvdoe6" resname="Send notice to board members informing them that they now has access to the agenda.">
-        <source>Send notice to board members informing them that they now has access to the agenda.</source>
-        <target state="translated">Send besked til nævnsmedlemmer med besked om at de nu har adgang til dagsordenen.</target>
-      </trans-unit>
-      <trans-unit id="7UP_NFQ" resname="Agenda must have status: ready, before being able to send notice to board members.">
-        <source>Agenda must have status: ready, before being able to send notice to board members.</source>
-        <target state="translated">Dagsordenen skal have status “klar” før du kan sende besked omkring adgang til nævnsmedlemmer.</target>
-      </trans-unit>
       <trans-unit id="QuUbfCR" resname="Case decision proposal">
         <source>Case decision proposal</source>
         <target state="translated">Sags afgørelsesforslag</target>
@@ -281,10 +253,6 @@
         <source>Attach</source>
         <target>Vedhæft</target>
       </trans-unit>
-      <trans-unit id="FV_BbAQ" resname="Submit">
-        <source>Submit</source>
-        <target>Indsend</target>
-      </trans-unit>
       <trans-unit id="0dUuar9" resname="Agenda item">
         <source>Agenda item</source>
         <target state="translated">Dagsordenspunkt</target>
@@ -304,30 +272,6 @@
       <trans-unit id="OI8Dt5w" resname="Create inspection letter">
         <source>Create inspection letter</source>
         <target>Opret besigtigelsesbrev</target>
-      </trans-unit>
-      <trans-unit id="OAd9aCc" resname="Landlord">
-        <source>Landlord</source>
-        <target>Udlejer</target>
-      </trans-unit>
-      <trans-unit id="Aksk8Gv" resname="Letter sent">
-        <source>Letter sent</source>
-        <target>Sendt brev</target>
-      </trans-unit>
-      <trans-unit id="HoVoqCw" resname="Recipients">
-        <source>Recipients</source>
-        <target>Modtagere</target>
-      </trans-unit>
-      <trans-unit id="L3W2Ssk" resname="Choices">
-        <source>Choices</source>
-        <target>Valgmuligheder</target>
-      </trans-unit>
-      <trans-unit id="ak5D7v9" resname="Show letter">
-        <source>Show letter</source>
-        <target state="translated">Vis brev</target>
-      </trans-unit>
-      <trans-unit id="4jlp0oT" resname="Tenant">
-        <source>Tenant</source>
-        <target>Lejer</target>
       </trans-unit>
       <trans-unit id="0CeFT6c" resname="Inspection letter">
         <source>Inspection letter</source>
@@ -381,21 +325,9 @@
         <source>Presentation</source>
         <target>Sagsfremstilling</target>
       </trans-unit>
-      <trans-unit id="1xOGbPf" resname="Select recipients">
-        <source>Select recipients</source>
-        <target>Vælg modtagere</target>
-      </trans-unit>
       <trans-unit id="aJcSg4Q" resname="Subject">
         <source>Subject</source>
         <target>Emne</target>
-      </trans-unit>
-      <trans-unit id="IZ8kQJx" resname="Attach document(s)">
-        <source>Attach document(s)</source>
-        <target>Vedhæft dokument(er)</target>
-      </trans-unit>
-      <trans-unit id="oTm2FLZ" resname="Send inspection letter">
-        <source>Send inspection letter</source>
-        <target>Send besigtigelsesbrev</target>
       </trans-unit>
       <trans-unit id="tOkp2Lz" resname="Documents">
         <source>Documents</source>
@@ -408,26 +340,6 @@
       <trans-unit id="sZy9p79" resname="Upload documents">
         <source>Upload documents</source>
         <target>Opret dokumenter</target>
-      </trans-unit>
-      <trans-unit id="eA.VRbI" resname="Provide a recognizable name for the document">
-        <source>Provide a recognizable name for the document</source>
-        <target>Angiv et genkendeligt navn til dokumentet</target>
-      </trans-unit>
-      <trans-unit id="wgscFcd" resname="Select a document type">
-        <source>Select a document type</source>
-        <target>Vælg dokumenttype</target>
-      </trans-unit>
-      <trans-unit id="KmdBDvj" resname="Provide a document type">
-        <source>Provide a document type</source>
-        <target>Angiv en dokumenttype</target>
-      </trans-unit>
-      <trans-unit id="apXUKzK" resname="Chose a file">
-        <source>Chose a file</source>
-        <target>Vælg en fil</target>
-      </trans-unit>
-      <trans-unit id="p9p3rZy" resname="Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
-        <source>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
-        <target state="translated">Max filstørrelse: 10mb. Accepterede filformater: .pdf, .txt, .md, .jpg, .png, .webp</target>
       </trans-unit>
       <trans-unit id="LqCaMFb" resname="Upload and remove documents">
         <source>Upload and remove documents</source>
@@ -453,21 +365,9 @@
         <source>Choose a title for the broadcast</source>
         <target state="translated">Vælg et navn til publiseringen af dagsordenen</target>
       </trans-unit>
-      <trans-unit id="MpqO824" resname="Choose a template">
-        <source>Choose a template</source>
-        <target state="translated">Vælg en skabelon</target>
-      </trans-unit>
-      <trans-unit id="GjZq2fp" resname="Mail template">
-        <source>Mail template</source>
-        <target state="translated">Skabelon</target>
-      </trans-unit>
       <trans-unit id="9vRoj.I" resname="Send">
         <source>Send</source>
         <target state="translated">Send</target>
-      </trans-unit>
-      <trans-unit id="HtGnOKw" resname="Agenda broadcast">
-        <source>Agenda broadcast</source>
-        <target state="translated">Dagsordenspublisering</target>
       </trans-unit>
       <trans-unit id="QSX8nui" resname="Send notice to board members informing them that they now have access to the agenda.">
         <source>Send notice to board members informing them that they now have access to the agenda.</source>
@@ -520,10 +420,6 @@
       <trans-unit id="vzRWYyS" resname="Choose a title for the inspection letter">
         <source>Choose a title for the inspection letter</source>
         <target state="translated">Vælg en titel for besigtigelsesbrev</target>
-      </trans-unit>
-      <trans-unit id="1FdZ800" resname="Agenda inspection">
-        <source>Agenda inspection</source>
-        <target state="translated">Besigtigelsesbrev</target>
       </trans-unit>
       <trans-unit id="35AGWK2" resname="Open agenda in browser">
         <source>Open agenda in browser</source>

@@ -5,10 +5,6 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="6bzwwVZ" resname="List of complainant party types (one per line). The first party type can be used for sorting cases.">
-        <source>List of complainant party types (one per line). The first party type can be used for sorting cases.</source>
-        <target>List of complainant party types (one per line). The first party type can be used for sorting cases.</target>
-      </trans-unit>
       <trans-unit id="XVtm1Zq" resname="List of counterparty types (one per line). The first party type can be used for sorting cases.">
         <source>List of counterparty types (one per line). The first party type can be used for sorting cases.</source>
         <target>List of counterparty types (one per line). The first party type can be used for sorting cases.</target>
@@ -16,10 +12,6 @@
       <trans-unit id="Z7aWRoY" resname="Dashboard">
         <source>Dashboard</source>
         <target>Dashboard</target>
-      </trans-unit>
-      <trans-unit id="xsCUvAB" resname="Empty">
-        <source>Empty</source>
-        <target>Empty</target>
       </trans-unit>
       <trans-unit id="SaPHHYy" resname="Complaint category">
         <source>Complaint category</source>
@@ -372,10 +364,6 @@
       <trans-unit id="8ac_IgS" resname="Signature">
         <source>Signature</source>
         <target>Signature</target>
-      </trans-unit>
-      <trans-unit id="x5YPG98" resname="Upload an image of your signature ({formats}).">
-        <source>Upload an image of your signature ({formats}).</source>
-        <target>Upload an image of your signature ({formats}).</target>
       </trans-unit>
       <trans-unit id="2E8CqJ6" resname="Upload an image of your signature.">
         <source>Upload an image of your signature.</source>

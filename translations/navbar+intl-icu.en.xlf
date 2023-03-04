@@ -25,10 +25,6 @@
         <source>User settings</source>
         <target>User settings</target>
       </trans-unit>
-      <trans-unit id="SWFhRVF" resname="Log out">
-        <source>Log out</source>
-        <target>Log out</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>

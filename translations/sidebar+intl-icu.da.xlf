@@ -49,10 +49,6 @@
         <source>Hearing</source>
         <target>Partshøring</target>
       </trans-unit>
-      <trans-unit id="OYGiucH" resname="Communication">
-        <source>Communication</source>
-        <target>Kommunikation</target>
-      </trans-unit>
       <trans-unit id="tOkp2Lz" resname="Documents">
         <source>Documents</source>
         <target>Dokumentoversigt</target>
@@ -92,10 +88,6 @@
       <trans-unit id="bk_hPaS" resname="Inspection">
         <source>Inspection</source>
         <target>Besigtigelse</target>
-      </trans-unit>
-      <trans-unit id="8VCI9Yd" resname="Back to agenda">
-        <source>Back to agenda</source>
-        <target>Til dagsorden</target>
       </trans-unit>
       <trans-unit id="ZArkuvl" resname="Decision">
         <source>Decision</source>

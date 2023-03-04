@@ -288,8 +288,8 @@ jobs:
         run: |
           set -a && source .env && set +a
           APP_ENV=prod composer install --no-dev -o
-          APP_ENV=prod DEFAULT_LOCALE=en bin/console translation:extract --force en --prefix=''
-          APP_ENV=prod DEFAULT_LOCALE=en bin/console translation:extract --force da
+          APP_ENV=prod DEFAULT_LOCALE=en bin/console translation:extract --clean --force en --prefix=''
+          APP_ENV=prod DEFAULT_LOCALE=en bin/console translation:extract --clean --force da
           # Mark default translations (prefixed with `__`) as “Needs work” in Danish translations
           # @fixme Something's not escaped correctly in the following command …
           # sed -i '''' ''s/\<target\>__/\<target state="needs-l10n"\>__/'' translations/*.da.*xlf

@@ -10,6 +10,7 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- Cleaned up translations.
 - [PR-368](https://github.com/itk-dev/naevnssekretariatet/pull/368)
   Added `message-uuid` filter on `tvist1:digital-post-envelope:list` command.
 - [PR-367](https://github.com/itk-dev/naevnssekretariatet/pull/367)

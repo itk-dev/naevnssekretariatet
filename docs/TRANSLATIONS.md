@@ -56,8 +56,8 @@ $translator->trans('No results for {searchTerm}', ['searchTerm' => $search])
 
    ```sh
    # We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.
-   docker compose exec -e DEFAULT_LOCALE=en phpfpm bin/console translation:extract --force en --prefix=''
-   docker compose exec -e DEFAULT_LOCALE=en phpfpm bin/console translation:extract --force da
+   docker compose exec -e DEFAULT_LOCALE=en phpfpm bin/console translation:extract --clean --force en --prefix=''
+   docker compose exec -e DEFAULT_LOCALE=en phpfpm bin/console translation:extract --clean --force da
    # Mark default translations (prefixed with `__`) as “Needs work” in Danish translations
    sed -i '' 's/\<target\>__/\<target state="needs-l10n"\>__/' translations/*.da.*xlf
    ```
