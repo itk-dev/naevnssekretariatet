@@ -27,6 +27,7 @@ about writing changes to this log.
   Beskedfordeler messages.
 - [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
   Fixed CPR lookup.
+- Updated cypress test setup.
 
 ## [1.1.2] 2023-02-17
 
