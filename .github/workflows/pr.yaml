@@ -269,31 +269,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup PHP, with composer and extensions
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php}}
-          extensions: apcu, ctype, iconv, imagick, json, redis, soap, xmlreader, zip
-          coverage: none
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache composer dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ matrix.php }}-composer-
-      - name: Composer install with exported .env variables
+      - name: Update translations
         run: |
-          set -a && source .env && set +a
-          APP_ENV=prod composer install --no-dev -o
-          APP_ENV=prod DEFAULT_LOCALE=en bin/console translation:extract --clean --force en --prefix=''
-          APP_ENV=prod DEFAULT_LOCALE=en bin/console translation:extract --clean --force da
-          # Mark default translations (prefixed with `__`) as “Needs work” in Danish translations
-          # @fixme Something's not escaped correctly in the following command …
-          # sed -i '''' ''s/\<target\>__/\<target state="needs-l10n"\>__/'' translations/*.da.*xlf
+          docker network create frontend
+          docker compose run --rm phpfpm composer install --no-scripts
+          docker compose run --rm phpfpm composer update-translations
       - name: Check for changes in translation files
-        run: git diff --diff-filter=ACMRT --exit-code translations
+        run: |
+          git diff --diff-filter=ACMRT --exit-code translations
 
   # @todo Run code analysis
