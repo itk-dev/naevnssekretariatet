@@ -26,7 +26,7 @@
     <span class="badge badge-{{ info.level|default('dark') }} digital-post-envelope-status">
         {{ info.label ?: status }}
     </span>
-    {% if options.show_message|default(false) and info.message %}
-        <span class="small digital-post-envelope-status-message">{{ info.message }}</span>
+    {% if options.show_message|default(false) %}
+        <span class="small digital-post-envelope-status-message">{{ envelope.statusMessage ?? info.message }}</span>
     {% endif %}
 {% endmacro %}
