@@ -28,6 +28,11 @@ about writing changes to this log.
   Beskedfordeler messages.
 - [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
   Fixed CPR lookup.
+- [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
+  - Removed defunct command and removed digital post status property.
+  - Added display of digital post statuses.
+- [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
+  Skipped storing MeMo file content in database.
 - [TVIST1-789](https://jira.itkdev.dk/browse/TVIST1-789)
   Added `select2` to case selection when copying document or case event.
 

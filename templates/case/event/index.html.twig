@@ -15,6 +15,19 @@
     </div>
 {% endblock %}
 
+{% macro case_event_status(case_event) %}
+    {% import 'case/communication/digital_post/_digital_post_envelope.html.twig' as digital_post_envelope %}
+    {% if case_event.digitalPost %}
+        {% if case_event.digitalPost.statuses %}
+            {% for status in case_event.digitalPost.statuses %}
+                {{ digital_post_envelope.digital_post_envelope_status({status: status}) }}
+            {% endfor %}
+        {% else %}
+            –
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
 {% block content %}
     <main role="main" class="col-12 mt-3">
         {{ form_start(filter_form) }}
@@ -62,8 +75,7 @@
                     <td>{{ case_event.subject }}</td>
                     <td>{{ case_event.receivedAt ? case_event.receivedAt|date(format_datetime) : '' }}</td>
                     <td>{{ case_event.createdBy.name }}</td>
-                    {# We leave status empty if case event does not involve a digital post, but show a - if it does and the status of digital post is null #}
-                    <td>{{ case_event.digitalPost ? case_event.digitalPost.status ?? '-' : '' }}</td>
+                    <td>{{ _self.case_event_status(case_event) }}</td>
                     <td>
                         <a href="{{ path('case_event_show', {'id': case.id, 'caseEvent': case_event.id}) }}">{% trans %}Show{% endtrans %}</a>
                     </td>
