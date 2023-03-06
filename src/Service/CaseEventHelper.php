@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
 use App\Entity\DigitalPost;
@@ -90,29 +89,8 @@ class CaseEventHelper
 
     public function handleCopyCaseEventForm(array $cases, CaseEvent $caseEvent)
     {
-        if (CaseEvent::CATEGORY_NOTE === $caseEvent->getCategory()) {
-            foreach ($cases as $case) {
-                $clonedEvent = clone $caseEvent;
-
-                $clonedEvent->setCaseEntity($case);
-                $this->entityManager->persist($clonedEvent);
-            }
-        } elseif (CaseEvent::CATEGORY_INCOMING === $caseEvent->getCategory()) {
-            $documents = $caseEvent->getDocuments();
-
-            foreach ($cases as $case) {
-                $clonedEvent = clone $caseEvent;
-
-                foreach ($documents as $document) {
-                    $relation = new CaseDocumentRelation();
-                    $relation->setCase($case);
-                    $relation->setDocument($document);
-                    $this->entityManager->persist($relation);
-                }
-
-                $clonedEvent->setCaseEntity($case);
-                $this->entityManager->persist($clonedEvent);
-            }
+        foreach ($cases as $case) {
+            $caseEvent->addCaseEntity($case);
         }
 
         $this->entityManager->flush();

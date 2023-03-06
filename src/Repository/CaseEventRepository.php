@@ -32,10 +32,16 @@ class CaseEventRepository extends ServiceEntityRepository
     public function createAvailableCaseEventsForCaseQueryBuilder($alias, CaseEntity $caseEntity): QueryBuilder
     {
         return $this->createQueryBuilder($alias)
-            ->where($alias.'.caseEntity = :case')
+            ->join($alias.'.caseEntities', 'hest')
+            ->where('hest.id = :case')
             ->setParameter('case', $caseEntity->getId(), 'uuid')
             ->orderBy($alias.'.receivedAt', Criteria::DESC)
             ;
+//
+//        ->join('d.caseDocumentRelations', 'r')
+//        ->where('r.softDeleted = false')
+//        ->andWhere('r.case = :caseId')
+//        ->setParameter('caseId', $agendaCaseItem->getCaseEntity()->getId(), 'uuid')
     }
 
     public function getAvailableCaseEventsForCase(CaseEntity $caseEntity)

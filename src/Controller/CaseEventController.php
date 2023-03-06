@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
-use App\Exception\CaseEventException;
 use App\Form\CaseEventCopyType;
 use App\Form\CaseEventEditType;
 use App\Form\CaseEventFilterType;
@@ -77,7 +76,6 @@ class CaseEventController extends AbstractController
         return $this->render('case/event/show.html.twig', [
             'case' => $case,
             'case_event' => $caseEvent,
-            'is_copyable' => CaseEvent::CATEGORY_OUTGOING != $caseEvent->getCategory(),
         ]);
     }
 
@@ -153,10 +151,6 @@ class CaseEventController extends AbstractController
         }
 
         $this->denyAccessUnlessGranted('edit', $case);
-
-        if (CaseEvent::CATEGORY_OUTGOING === $caseEvent->getCategory()) {
-            throw new CaseEventException(sprintf('Cannot copy event of category %s.', CaseEvent::CATEGORY_OUTGOING));
-        }
 
         // Collect all cases of same type and within same municipality
         $statuses = $boardHelper->getStatusesByBoard($case->getBoard());
