@@ -2,16 +2,18 @@
 
 namespace App\Service;
 
+use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
 use App\Entity\DigitalPost;
 use App\Entity\Party;
+use App\Repository\CaseEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
 class CaseEventHelper
 {
-    public function __construct(private EntityManagerInterface $entityManager, private Security $security)
+    public function __construct(private EntityManagerInterface $entityManager, private Security $security, private CaseEntityRepository $caseRepository)
     {
     }
 
@@ -84,5 +86,42 @@ class CaseEventHelper
     private function getLines(?string $additionalParties): array
     {
         return array_filter(array_map('trim', explode(PHP_EOL, $additionalParties)));
+    }
+
+    public function handleCopyCaseEventForm(array $cases, CaseEvent $caseEvent)
+    {
+        if (CaseEvent::CATEGORY_NOTE === $caseEvent->getCategory()) {
+            foreach ($cases as $case) {
+                $clonedEvent = clone $caseEvent;
+
+                $clonedEvent->setCaseEntity($case);
+                $this->entityManager->persist($clonedEvent);
+            }
+        } elseif (CaseEvent::CATEGORY_INCOMING === $caseEvent->getCategory()) {
+            $documents = $caseEvent->getDocuments();
+
+            foreach ($cases as $case) {
+                $clonedEvent = clone $caseEvent;
+
+                foreach ($documents as $document) {
+                    $relation = new CaseDocumentRelation();
+                    $relation->setCase($case);
+                    $relation->setDocument($document);
+                    $this->entityManager->persist($relation);
+                }
+
+                $clonedEvent->setCaseEntity($case);
+                $this->entityManager->persist($clonedEvent);
+            }
+        }
+
+        $this->entityManager->flush();
+    }
+
+    public function findSuitableCasesForCopy(CaseEntity $case, string $endStatus): array
+    {
+        $cases = $this->caseRepository->findNonFinishedCasesInSameBoard($case, $endStatus);
+
+        return array_diff($cases, [$case]);
     }
 }

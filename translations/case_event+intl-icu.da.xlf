@@ -137,6 +137,30 @@
         <source>List of additional recipients that are not parties on the case (one per line).</source>
         <target state="translated">Liste af ekstra modtager(e) som ikke er parter på sagen (en pr. linje).</target>
       </trans-unit>
+      <trans-unit id="qN1ZW2b" resname="Copy to">
+        <source>Copy to</source>
+        <target state="translated">Kopier til</target>
+      </trans-unit>
+      <trans-unit id="Alp.wD5" resname="Case event copied">
+        <source>Case event copied</source>
+        <target state="translated">Sagshændelse kopieret</target>
+      </trans-unit>
+      <trans-unit id="4h_TXxH" resname="Copy">
+        <source>Copy</source>
+        <target state="translated">Kopier</target>
+      </trans-unit>
+      <trans-unit id="KS2uvl3" resname="Copy case event to other cases">
+        <source>Copy case event to other cases</source>
+        <target state="translated">Kopier sagshændelse til andre sager</target>
+      </trans-unit>
+      <trans-unit id="0V9lqb8" resname="Copy case event">
+        <source>Copy case event</source>
+        <target state="translated">Kopier sagshændelse</target>
+      </trans-unit>
+      <trans-unit id="Ikm9UD7" resname="Cases">
+        <source>Cases</source>
+        <target state="translated">Sager</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

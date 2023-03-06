@@ -1,0 +1,28 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case_event' %}
+
+{% block title %}{% trans %}Copy case event to other cases{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Copy case event{% endtrans %}</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-primary" href="{{ path('case_event_show', {id: case.id, caseEvent: case_event.id}) }}">{% trans %}Cancel{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(form) }}
+        <div>
+            <label >{% trans %}Cases{% endtrans %}</label>
+            {{ form_widget(form.cases) }}
+        </div>
+        <button class="btn btn-success float-right mt-3">{{ button_label|default('Copy'|trans([], 'case_event', 'da')) }}</button>
+        {{ form_end(form) }}
+    </main>
+{% endblock %}

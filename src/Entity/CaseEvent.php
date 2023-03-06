@@ -87,6 +87,11 @@ class CaseEvent
         $this->documents = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->id = Uuid::v4();
+    }
+
     public function getId(): Uuid
     {
         return $this->id;
