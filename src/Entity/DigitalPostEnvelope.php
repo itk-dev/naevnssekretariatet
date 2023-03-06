@@ -183,6 +183,16 @@ class DigitalPostEnvelope
         return $this;
     }
 
+    public function removeBeskedfordelerMessage(string $beskedfordelerMessage): self
+    {
+        foreach (array_keys($this->beskedfordelerMessages, $beskedfordelerMessage, true) as $key) {
+            unset($this->beskedfordelerMessages[$key]);
+        }
+        $this->beskedfordelerMessages = array_keys($this->beskedfordelerMessages);
+
+        return $this;
+    }
+
     public function getBeskedfordelerMessages(): ?array
     {
         return $this->beskedfordelerMessages;

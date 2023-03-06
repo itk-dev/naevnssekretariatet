@@ -101,6 +101,22 @@
         <source>Beskedfordeler message details</source>
         <target state="translated">Detaljer</target>
       </trans-unit>
+      <trans-unit id="KZEuK50" resname="Digital post created">
+        <source>Digital post created</source>
+        <target state="translated">Digital post oprettet</target>
+      </trans-unit>
+      <trans-unit id="inGbhmi" resname="Digital post sent">
+        <source>Digital post sent</source>
+        <target state="translated">Digital post afsendt</target>
+      </trans-unit>
+      <trans-unit id="KAomYMi" resname="Digital post delivered">
+        <source>Digital post delivered</source>
+        <target state="translated">Digital post leveret</target>
+      </trans-unit>
+      <trans-unit id="PYL.vAl" resname="Digital post failed">
+        <source>Digital post failed</source>
+        <target state="translated">Digital post fejlet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

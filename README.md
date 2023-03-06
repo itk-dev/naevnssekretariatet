@@ -261,11 +261,8 @@ Updates case deadline statuses at at 02:00.
 
 ### Send digital post
 
-```cron
-*/5 * * * * /usr/bin/env php path/to/tvist1/bin/console tvist1:digital-post:send
-```
-
-Sends unsent digital post every 5 minutes.
+See [Digital post queue](docs/NgDP.md#digital-post-queue) for details on how to
+handle sending digital post.
 
 ## Release process
 
