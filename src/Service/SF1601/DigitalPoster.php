@@ -70,6 +70,11 @@ class DigitalPoster
             $serializer = new Serializer();
             $receipt = $response->getContent();
 
+            // We don't want to store actual document content in the envelope.
+            $body = $meMoMessage->getMessageBody();
+            $body->getMainDocument()->setFile([]);
+            $body->setAdditionalDocument([]);
+
             $envelope
                 ->setStatus(DigitalPostEnvelope::STATUS_SENT)
                 ->setMessage($serializer->serialize($meMoMessage))
