@@ -173,6 +173,14 @@
         <source>No</source>
         <target state="translated">Nej</target>
       </trans-unit>
+      <trans-unit id="FhrPNii" resname="Click to select">
+        <source>Click to select</source>
+        <target state="translated">Tryk for at vælge</target>
+      </trans-unit>
+      <trans-unit id="qN1ZW2b" resname="Copy to">
+        <source>Copy to</source>
+        <target state="translated">Kopier til</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

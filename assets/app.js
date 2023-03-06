@@ -14,6 +14,7 @@ const bsCustomFileInput = require('bs-custom-file-input')
 
 const $ = require('jquery')
 require('bootstrap')
+require('select2')
 
 $(document).ready(function () {
   $('[data-toggle="popover"]').popover()

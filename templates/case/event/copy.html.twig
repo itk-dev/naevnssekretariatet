@@ -26,3 +26,8 @@
         {{ form_end(form) }}
     </main>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('case_event_copy_select2') }}
+{% endblock %}

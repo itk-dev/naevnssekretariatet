@@ -36,6 +36,7 @@ class CaseEventCopyType extends AbstractType
             'multiple' => true,
             'attr' => [
                 'class' => 'select2',
+                'data-placeholder' => $this->translator->trans('Click to select', [], 'case_event'),
             ],
             'required' => true,
         ]);

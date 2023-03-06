@@ -26,3 +26,8 @@
         {{ form_end(copy_document_form) }}
     </main>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('document_copy_select2') }}
+{% endblock %}

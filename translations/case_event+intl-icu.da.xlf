@@ -161,6 +161,10 @@
         <source>Cases</source>
         <target state="translated">Sager</target>
       </trans-unit>
+      <trans-unit id="FhrPNii" resname="Click to select">
+        <source>Click to select</source>
+        <target state="translated">Tryk for at vælge</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

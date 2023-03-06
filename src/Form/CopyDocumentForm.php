@@ -7,9 +7,14 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CopyDocumentForm extends AbstractType
 {
+    public function __construct(private TranslatorInterface $translator)
+    {
+    }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -27,10 +32,11 @@ class CopyDocumentForm extends AbstractType
         $builder->add('cases', EntityType::class, [
             'choices' => $suitableCases,
             'class' => get_class($case),
-            'label' => 'Copy to',
+            'label' => $this->translator->trans('Copy to', [], 'documents'),
             'multiple' => true,
             'attr' => [
-                'size' => 10,
+                'class' => 'select2',
+                'data-placeholder' => $this->translator->trans('Click to select', [], 'documents'),
             ],
         ]);
     }

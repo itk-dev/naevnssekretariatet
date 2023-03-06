@@ -161,6 +161,10 @@
         <source>Cases</source>
         <target>Cases</target>
       </trans-unit>
+      <trans-unit id="FhrPNii" resname="Click to select">
+        <source>Click to select</source>
+        <target>Click to select</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
