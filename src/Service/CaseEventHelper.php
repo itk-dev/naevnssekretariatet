@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
 use App\Entity\DigitalPost;
@@ -21,7 +22,7 @@ class CaseEventHelper
         $caseEvent = new CaseEvent();
 
         $caseEvent
-            ->setCaseEntity($case)
+            ->addCaseEntity($case)
             ->setCategory(CaseEvent::CATEGORY_OUTGOING)
             ->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING)
             ->setReceivedAt(new \DateTimeImmutable())
@@ -39,7 +40,7 @@ class CaseEventHelper
         $caseEvent = new CaseEvent();
 
         $caseEvent
-            ->setCaseEntity($case)
+            ->addCaseEntity($case)
             ->setCategory(CaseEvent::CATEGORY_NOTE)
             ->setSubject($subject)
             ->setReceivedAt($receivedAt)
@@ -58,7 +59,7 @@ class CaseEventHelper
         $caseEvent = new CaseEvent();
 
         $caseEvent
-            ->setCaseEntity($case)
+            ->addCaseEntity($case)
             ->setCategory(CaseEvent::CATEGORY_INCOMING)
             ->setSubject($subject)
             ->setReceivedAt($receivedAt)
@@ -91,15 +92,22 @@ class CaseEventHelper
     {
         foreach ($cases as $case) {
             $caseEvent->addCaseEntity($case);
+
+            foreach ($caseEvent->getDocuments() as $document) {
+                $relation = new CaseDocumentRelation();
+                $relation->setCase($case);
+                $relation->setDocument($document);
+                $this->entityManager->persist($relation);
+            }
         }
 
         $this->entityManager->flush();
     }
 
-    public function findSuitableCasesForCopy(CaseEntity $case, string $endStatus): array
+    public function findSuitableCasesForCopy(CaseEntity $case, CaseEvent $caseEvent, string $endStatus): array
     {
         $cases = $this->caseRepository->findNonFinishedCasesInSameBoard($case, $endStatus);
 
-        return array_diff($cases, [$case]);
+        return array_diff($cases, $caseEvent->getCaseEntities()->toArray());
     }
 }

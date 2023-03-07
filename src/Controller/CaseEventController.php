@@ -156,7 +156,7 @@ class CaseEventController extends AbstractController
         $statuses = $boardHelper->getStatusesByBoard($case->getBoard());
         $endStatus = end($statuses);
 
-        $cases = $caseEventHelper->findSuitableCasesForCopy($case, $endStatus);
+        $cases = $caseEventHelper->findSuitableCasesForCopy($case, $caseEvent, $endStatus);
 
         // Setup form and handle it.
         $form = $this->createForm(CaseEventCopyType::class, null, [

@@ -87,11 +87,6 @@ class CaseEvent
         $this->caseEntities = new ArrayCollection();
     }
 
-    public function __clone()
-    {
-        $this->id = Uuid::v4();
-    }
-
     public function getId(): Uuid
     {
         return $this->id;
@@ -117,18 +112,6 @@ class CaseEvent
     public function removeCaseEntity(CaseEntity $caseEntity): self
     {
         $this->caseEntities->removeElement($caseEntity);
-
-        return $this;
-    }
-
-    public function getCaseEntity(): CaseEntity
-    {
-        return $this->caseEntity;
-    }
-
-    public function setCaseEntity(CaseEntity $caseEntity): self
-    {
-        $this->caseEntity = $caseEntity;
 
         return $this;
     }
