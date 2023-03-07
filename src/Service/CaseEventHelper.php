@@ -6,6 +6,7 @@ use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
 use App\Entity\DigitalPost;
+use App\Entity\DigitalPostAttachment;
 use App\Entity\Party;
 use App\Repository\CaseEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -93,11 +94,28 @@ class CaseEventHelper
         foreach ($cases as $case) {
             $caseEvent->addCaseEntity($case);
 
+            // Handle documents
             foreach ($caseEvent->getDocuments() as $document) {
                 $relation = new CaseDocumentRelation();
                 $relation->setCase($case);
                 $relation->setDocument($document);
                 $this->entityManager->persist($relation);
+            }
+
+            // Handle Digital Post
+            if ($digitalPost = $caseEvent->getDigitalPost()) {
+                $documents = array_map(static fn (DigitalPostAttachment $attachment) => $attachment->getDocument(), $digitalPost->getAttachments()->toArray());
+
+                // Add main document
+                $documents[] = $digitalPost->getDocument();
+
+                // Add attachments
+                foreach ($documents as $document) {
+                    $relation = new CaseDocumentRelation();
+                    $relation->setCase($case);
+                    $relation->setDocument($document);
+                    $this->entityManager->persist($relation);
+                }
             }
         }
 
