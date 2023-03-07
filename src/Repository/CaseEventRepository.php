@@ -37,11 +37,6 @@ class CaseEventRepository extends ServiceEntityRepository
             ->setParameter('case', $caseEntity->getId(), 'uuid')
             ->orderBy($alias.'.receivedAt', Criteria::DESC)
             ;
-//
-//        ->join('d.caseDocumentRelations', 'r')
-//        ->where('r.softDeleted = false')
-//        ->andWhere('r.case = :caseId')
-//        ->setParameter('caseId', $agendaCaseItem->getCaseEntity()->getId(), 'uuid')
     }
 
     public function getAvailableCaseEventsForCase(CaseEntity $caseEntity)
