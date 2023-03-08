@@ -38,8 +38,7 @@ Encore
   .addEntry('case_new_prepare', './assets/case/municipality_and_board_selector.js')
   .addEntry('mail_templates_custom_data', './assets/mail_templates/custom_data.js')
   .addEntry('document_case_event', './assets/document/case_event.js')
-  .addEntry('case_event_copy_select2', './assets/case_event/copy_select2.js')
-  .addEntry('document_copy_select2', './assets/document/copy_select2.js')
+  .addEntry('select2', './assets/select2.js')
 
   .addStyleEntry('address_protection', './assets/case/address-protection.scss')
 

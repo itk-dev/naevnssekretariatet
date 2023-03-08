@@ -161,9 +161,13 @@
         <source>Cases</source>
         <target state="translated">Sager</target>
       </trans-unit>
-      <trans-unit id="FhrPNii" resname="Click to select">
-        <source>Click to select</source>
-        <target state="translated">Tryk for at vælge</target>
+      <trans-unit id="wSKL8_1" resname="Select cases">
+        <source>Select cases</source>
+        <target state="translated">Vælg sager</target>
+      </trans-unit>
+      <trans-unit id="iVcU_g." resname="Be aware, that this creates a link between the case event and the selected cases, meaning changes to the case event will be shown on all linked cases.">
+        <source>Be aware, that this creates a link between the case event and the selected cases, meaning changes to the case event will be shown on all linked cases.</source>
+        <target state="translated">Vær opmærksom på, at dette tilknytter de valgte sager til sagshændelsen, således at ændringer på sagshændelsen vil tage effekt på alle tilknyttede sager.</target>
       </trans-unit>
     </body>
   </file>

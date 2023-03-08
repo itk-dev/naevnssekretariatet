@@ -173,13 +173,13 @@
         <source>No</source>
         <target>No</target>
       </trans-unit>
-      <trans-unit id="FhrPNii" resname="Click to select">
-        <source>Click to select</source>
-        <target>Click to select</target>
-      </trans-unit>
       <trans-unit id="qN1ZW2b" resname="Copy to">
         <source>Copy to</source>
         <target>Copy to</target>
+      </trans-unit>
+      <trans-unit id="wSKL8_1" resname="Select cases">
+        <source>Select cases</source>
+        <target>Select cases</target>
       </trans-unit>
     </body>
   </file>

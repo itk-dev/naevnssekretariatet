@@ -169,7 +169,7 @@ class CaseEventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $cases = $form->get('cases')->getData()->toArray();
 
-            $caseEventHelper->handleCopyCaseEventForm($cases, $caseEvent);
+            $caseEventHelper->copyCaseEventToCases($cases, $caseEvent);
 
             $manager->flush();
 

@@ -20,14 +20,14 @@
         {{ form_start(copy_document_form) }}
         <div>
             <label >{% trans %}Cases{% endtrans %}</label>
-            {{ form_widget(copy_document_form.cases, {'attr': {'class': 'form-control', 'required': true}}) }}
+            {{ form_widget(copy_document_form.cases) }}
         </div>
-        <button class="btn btn-success float-right mt-3">{{ button_label|default('Copy'|trans([], 'documents', 'da')) }}</button>
+        <button class="btn btn-success float-right mt-3">{{ button_label|default('Copy'|trans([], 'documents')) }}</button>
         {{ form_end(copy_document_form) }}
     </main>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('document_copy_select2') }}
+    {{ encore_entry_script_tags('select2') }}
 {% endblock %}

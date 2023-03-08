@@ -36,9 +36,10 @@ class CaseEventCopyType extends AbstractType
             'multiple' => true,
             'attr' => [
                 'class' => 'select2',
-                'data-placeholder' => $this->translator->trans('Click to select', [], 'case_event'),
+                'data-placeholder' => $this->translator->trans('Select cases', [], 'case_event'),
             ],
             'required' => true,
+            'help' => $this->translator->trans('Be aware, that this creates a link between the case event and the selected cases, meaning changes to the case event will be shown on all linked cases.', [], 'case_event'),
         ]);
     }
 }

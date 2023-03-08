@@ -89,7 +89,7 @@ class CaseEventHelper
         return array_filter(array_map('trim', explode(PHP_EOL, $additionalParties)));
     }
 
-    public function handleCopyCaseEventForm(array $cases, CaseEvent $caseEvent)
+    public function copyCaseEventToCases(array $cases, CaseEvent $caseEvent)
     {
         foreach ($cases as $case) {
             $caseEvent->addCaseEntity($case);

@@ -36,7 +36,7 @@ class CopyDocumentForm extends AbstractType
             'multiple' => true,
             'attr' => [
                 'class' => 'select2',
-                'data-placeholder' => $this->translator->trans('Click to select', [], 'documents'),
+                'data-placeholder' => $this->translator->trans('Select cases', [], 'documents'),
             ],
         ]);
     }

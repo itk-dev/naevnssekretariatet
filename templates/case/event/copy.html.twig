@@ -21,13 +21,14 @@
         <div>
             <label >{% trans %}Cases{% endtrans %}</label>
             {{ form_widget(form.cases) }}
+            {{ form_help(form.cases) }}
         </div>
-        <button class="btn btn-success float-right mt-3">{{ button_label|default('Copy'|trans([], 'case_event', 'da')) }}</button>
+        <button class="btn btn-success float-right mt-3">{{ button_label|default('Copy'|trans([], 'case_event')) }}</button>
         {{ form_end(form) }}
     </main>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('case_event_copy_select2') }}
+    {{ encore_entry_script_tags('select2') }}
 {% endblock %}
