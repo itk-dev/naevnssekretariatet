@@ -18,6 +18,7 @@ about writing changes to this log.
 - [TVIST1-747](https://jira.itkdev.dk/browse/TVIST1-747)
   - Added suffix to document names when uploading multiple in one go.
   - Added ability to create case events when uploading documents.
+  - Added ability to copy case events to other cases.
 - [TVIST1-788](https://jira.itkdev.dk/browse/TVIST1-788)
   - Updated `CaseEvent` with `senders` and `recipients` property.
   - Removed `CaseEventPartyRelation`.
@@ -32,6 +33,8 @@ about writing changes to this log.
   - Added display of digital post statuses.
 - [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
   Skipped storing MeMo file content in database.
+- [TVIST1-789](https://jira.itkdev.dk/browse/TVIST1-789)
+  Added `select2` to case selection when copying document or case event.
 
 ## [1.1.2] 2023-02-17
 

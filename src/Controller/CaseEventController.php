@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
+use App\Form\CaseEventCopyType;
 use App\Form\CaseEventEditType;
 use App\Form\CaseEventFilterType;
 use App\Form\CaseEventNewType;
+use App\Repository\CaseEntityRepository;
 use App\Repository\CaseEventRepository;
+use App\Service\BoardHelper;
 use App\Service\CaseEventHelper;
 use App\Service\PartyHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -134,6 +137,51 @@ class CaseEventController extends AbstractController
         }
 
         return $this->render('case/event/edit.html.twig', [
+            'case' => $case,
+            'case_event' => $caseEvent,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{caseEvent}/copy', name: 'case_event_copy', methods: ['GET', 'POST'])]
+    public function copy(CaseEntity $case, CaseEvent $caseEvent, CaseEntityRepository $caseRepository, EntityManagerInterface $manager, CaseEventHelper $caseEventHelper, BoardHelper $boardHelper, Request $request): Response
+    {
+        if (!($this->isGranted('ROLE_CASEWORKER') || $this->isGranted('ROLE_ADMINISTRATION'))) {
+            throw new AccessDeniedException();
+        }
+
+        $this->denyAccessUnlessGranted('edit', $case);
+
+        // Collect all cases of same type and within same municipality
+        $statuses = $boardHelper->getStatusesByBoard($case->getBoard());
+        $endStatus = end($statuses);
+
+        $cases = $caseEventHelper->findSuitableCasesForCopy($case, $caseEvent, $endStatus);
+
+        // Setup form and handle it.
+        $form = $this->createForm(CaseEventCopyType::class, null, [
+            'case' => $case,
+            'suitableCases' => $cases,
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $cases = $form->get('cases')->getData()->toArray();
+
+            $caseEventHelper->copyCaseEventToCases($cases, $caseEvent);
+
+            $manager->flush();
+
+            $this->addFlash('success', new TranslatableMessage('Case event copied', [], 'case_event'));
+
+            return $this->redirectToRoute('case_event_show', [
+                'id' => $case->getId()->__toString(),
+                'caseEvent' => $caseEvent->getId()->__toString(),
+            ]);
+        }
+
+        return $this->render('case/event/copy.html.twig', [
             'case' => $case,
             'case_event' => $caseEvent,
             'form' => $form->createView(),

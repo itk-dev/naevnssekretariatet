@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class CopyDocumentForm extends AbstractType
+class CaseEventCopyType extends AbstractType
 {
     public function __construct(private TranslatorInterface $translator)
     {
@@ -32,12 +32,14 @@ class CopyDocumentForm extends AbstractType
         $builder->add('cases', EntityType::class, [
             'choices' => $suitableCases,
             'class' => get_class($case),
-            'label' => $this->translator->trans('Copy to', [], 'documents'),
+            'label' => $this->translator->trans('Copy to', [], 'case_event'),
             'multiple' => true,
             'attr' => [
                 'class' => 'select2',
-                'data-placeholder' => $this->translator->trans('Select cases', [], 'documents'),
+                'data-placeholder' => $this->translator->trans('Select cases', [], 'case_event'),
             ],
+            'required' => true,
+            'help' => $this->translator->trans('Be aware, that this creates a link between the case event and the selected cases, meaning changes to the case event will be shown on all linked cases.', [], 'case_event'),
         ]);
     }
 }

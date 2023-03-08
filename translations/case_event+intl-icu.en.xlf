@@ -137,6 +137,38 @@
         <source>List of additional recipients that are not parties on the case (one per line).</source>
         <target>List of additional recipients that are not parties on the case (one per line).</target>
       </trans-unit>
+      <trans-unit id="qN1ZW2b" resname="Copy to">
+        <source>Copy to</source>
+        <target>Copy to</target>
+      </trans-unit>
+      <trans-unit id="Alp.wD5" resname="Case event copied">
+        <source>Case event copied</source>
+        <target>Case event copied</target>
+      </trans-unit>
+      <trans-unit id="4h_TXxH" resname="Copy">
+        <source>Copy</source>
+        <target>Copy</target>
+      </trans-unit>
+      <trans-unit id="KS2uvl3" resname="Copy case event to other cases">
+        <source>Copy case event to other cases</source>
+        <target>Copy case event to other cases</target>
+      </trans-unit>
+      <trans-unit id="0V9lqb8" resname="Copy case event">
+        <source>Copy case event</source>
+        <target>Copy case event</target>
+      </trans-unit>
+      <trans-unit id="Ikm9UD7" resname="Cases">
+        <source>Cases</source>
+        <target>Cases</target>
+      </trans-unit>
+      <trans-unit id="wSKL8_1" resname="Select cases">
+        <source>Select cases</source>
+        <target>Select cases</target>
+      </trans-unit>
+      <trans-unit id="iVcU_g." resname="Be aware, that this creates a link between the case event and the selected cases, meaning changes to the case event will be shown on all linked cases.">
+        <source>Be aware, that this creates a link between the case event and the selected cases, meaning changes to the case event will be shown on all linked cases.</source>
+        <target>Be aware, that this creates a link between the case event and the selected cases, meaning changes to the case event will be shown on all linked cases.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -30,10 +30,9 @@ class CaseEvent
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="caseEvents")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=CaseEntity::class, inversedBy="caseEvents")
      */
-    private $caseEntity;
+    private $caseEntities;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -85,6 +84,7 @@ class CaseEvent
     {
         $this->id = Uuid::v4();
         $this->documents = new ArrayCollection();
+        $this->caseEntities = new ArrayCollection();
     }
 
     public function getId(): Uuid
@@ -92,14 +92,26 @@ class CaseEvent
         return $this->id;
     }
 
-    public function getCaseEntity(): CaseEntity
+    /**
+     * @return Collection|CaseEntity[]
+     */
+    public function getCaseEntities(): Collection
     {
-        return $this->caseEntity;
+        return $this->caseEntities;
     }
 
-    public function setCaseEntity(CaseEntity $caseEntity): self
+    public function addCaseEntity(CaseEntity $caseEntity): self
     {
-        $this->caseEntity = $caseEntity;
+        if (!$this->caseEntities->contains($caseEntity)) {
+            $this->caseEntities[] = $caseEntity;
+        }
+
+        return $this;
+    }
+
+    public function removeCaseEntity(CaseEntity $caseEntity): self
+    {
+        $this->caseEntities->removeElement($caseEntity);
 
         return $this;
     }

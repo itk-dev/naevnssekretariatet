@@ -244,7 +244,7 @@ abstract class CaseEntity implements Timestampable
     private $finishedOn;
 
     /**
-     * @ORM\OneToMany(targetEntity=CaseEvent::class, mappedBy="caseEntity", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity=CaseEvent::class, mappedBy="caseEntities")
      */
     private $caseEvents;
 

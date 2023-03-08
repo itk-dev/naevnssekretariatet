@@ -11,6 +11,7 @@
         </div>
         <div class="col-auto">
             <a class="btn btn-primary" href="{{ path('case_event_edit', {id: case.id, caseEvent: case_event.id}) }}">{% trans %}Edit{% endtrans %}</a>
+            <a class="btn btn-warning" href="{{ path('case_event_copy', {id: case.id, caseEvent: case_event.id}) }}">{% trans %}Copy{% endtrans %}</a>
             <a class="btn btn-secondary" href="{{ path('case_event_index', {id: case.id}) }}">{% trans %}Back to case events{% endtrans %}</a>
         </div>
     </div>

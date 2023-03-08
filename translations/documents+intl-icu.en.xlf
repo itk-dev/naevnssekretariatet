@@ -173,6 +173,14 @@
         <source>No</source>
         <target>No</target>
       </trans-unit>
+      <trans-unit id="qN1ZW2b" resname="Copy to">
+        <source>Copy to</source>
+        <target>Copy to</target>
+      </trans-unit>
+      <trans-unit id="wSKL8_1" resname="Select cases">
+        <source>Select cases</source>
+        <target>Select cases</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
