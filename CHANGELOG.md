@@ -204,7 +204,7 @@ Fixed error in unescaped characters in filename
   Resolved issue regarding time formats.
 
 [Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.2.0...HEAD
-[1.1.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.2...1.2.0
+[1.2.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.2...1.2.0
 [1.1.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.7...1.1.0
