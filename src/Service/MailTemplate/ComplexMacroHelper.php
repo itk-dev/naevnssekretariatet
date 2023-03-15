@@ -4,7 +4,6 @@ namespace App\Service\MailTemplate;
 
 use App\Entity\Agenda;
 use App\Entity\AgendaBroadcast;
-use App\Entity\Board;
 use App\Entity\CaseEntity;
 use App\Entity\ComplaintCategory;
 use App\Entity\HearingPost;
@@ -14,7 +13,6 @@ use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Element\Text;
 use PhpOffice\PhpWord\Element\TextRun;
-use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\Style\Font;
 use Symfony\Component\OptionsResolver\OptionsResolver;

@@ -13,6 +13,7 @@ use App\Form\DocumentRelationDeleteType;
 use App\Form\DocumentType;
 use App\Repository\CaseDocumentRelationRepository;
 use App\Repository\DocumentRepository;
+use App\Service\CaseEventHelper;
 use App\Service\DocumentCopyHelper;
 use App\Service\DocumentUploader;
 use Doctrine\Common\Collections\Criteria;
@@ -21,6 +22,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,24 +34,8 @@ use Symfony\Component\Translation\TranslatableMessage;
  */
 class DocumentController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var DocumentCopyHelper
-     */
-    private $copyHelper;
-    /**
-     * @var DocumentUploader
-     */
-    private $documentUploader;
-
-    public function __construct(EntityManagerInterface $entityManager, DocumentCopyHelper $copyHelper, DocumentUploader $documentUploader)
+    public function __construct(private EntityManagerInterface $entityManager, private DocumentCopyHelper $copyHelper, private DocumentUploader $documentUploader, private CaseEventHelper $caseEventHelper)
     {
-        $this->entityManager = $entityManager;
-        $this->copyHelper = $copyHelper;
-        $this->documentUploader = $documentUploader;
     }
 
     /**
@@ -98,24 +84,33 @@ class DocumentController extends AbstractController
      * @throws FileMovingException
      * @throws DocumentDirectoryException
      */
-    public function create(CaseEntity $case, Request $request): Response
+    public function create(CaseEntity $case, CaseEventHelper $caseEventHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
         // Create new document and its form
         $document = new Document();
-        $form = $this->createForm(DocumentType::class, $document);
+        $form = $this->createForm(DocumentType::class, $document, [
+            'case' => $case,
+        ]);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            // Extract filename and handle it
-            // Users will only see document name, not filename
-            $documentName = $document->getDocumentName();
             $documentType = $document->getType();
             /** @var UploadedFile[] $files */
             $files = $form->get('files')->getData();
-            foreach ($files as $file) {
+            $numberOfDocuments = count($files);
+
+            $documents = [];
+
+            foreach ($files as $index => $file) {
+                // Users will only see document name, not filename
+                $documentName = 1 === $numberOfDocuments ? $document->getDocumentName() : sprintf('%s %d af %d', $document->getDocumentName(), $index + 1, $numberOfDocuments);
+
                 $newDocument = $this->documentUploader->createDocumentFromUploadedFile($file, $documentName, $documentType);
+
+                $documents[] = $newDocument;
 
                 $relation = new CaseDocumentRelation();
                 $relation->setCase($case);
@@ -124,6 +119,9 @@ class DocumentController extends AbstractController
                 $this->entityManager->persist($newDocument);
                 $this->entityManager->persist($relation);
             }
+
+            $this->handleCaseEventCreation($case, $documents, $form);
+
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('{count, plural, =1 {One document created} other {# documents created}}', ['count' => count($files)], 'documents'));
 
@@ -142,13 +140,17 @@ class DocumentController extends AbstractController
      * @throws FileMovingException
      * @throws DocumentDirectoryException
      */
-    public function edit(CaseEntity $case, Document $document, Request $request): Response
+    public function edit(CaseEntity $case, Document $document, CaseEventHelper $caseEventHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
-        $form = $this->createForm(DocumentType::class, $document);
+        $form = $this->createForm(DocumentType::class, $document, [
+            'case' => $case,
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->handleCaseEventCreation($case, [$document], $form);
+
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Document updated', [], 'documents'));
 
@@ -241,5 +243,22 @@ class DocumentController extends AbstractController
         $response = $uploader->handleViewDocument($document);
 
         return $response;
+    }
+
+    private function handleCaseEventCreation(CaseEntity $case, array $documents, FormInterface $form)
+    {
+        if (DocumentType::CASE_EVENT_OPTION_YES === $form->get('createCaseEvent')->getData()) {
+            $caseEventForm = $form->get('caseEvent');
+            $subject = $caseEventForm->get('subject')->getData();
+            $receivedAt = $caseEventForm->get('receivedAt')->getData();
+            $senders = $caseEventForm->get('senders')->getData();
+            $additionalSenders = $caseEventForm->get('additionalSenders')->getData();
+            $recipients = $caseEventForm->get('recipients')->getData();
+            $additionalRecipients = $caseEventForm->get('additionalRecipients')->getData();
+
+            $this->caseEventHelper->createDocumentCaseEvent($case, $subject, $senders, $additionalSenders, $recipients, $additionalRecipients, $documents, $receivedAt);
+
+            $this->addFlash('success', new TranslatableMessage('Case event created', [], 'case_event'));
+        }
     }
 }

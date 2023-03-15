@@ -10,6 +10,34 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.2.0] 2023-03-15
+
+- [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
+  Made `CaseEvent.createdBy` not nullable.
+  Marked `Document.originalFileName` as nullable
+- [TVIST1-743](https://jira.itkdev.dk/browse/TVIST1-743)
+  Added case events.
+- [TVIST1-747](https://jira.itkdev.dk/browse/TVIST1-747)
+  - Added suffix to document names when uploading multiple in one go.
+  - Added ability to create case events when uploading documents.
+  - Added ability to copy case events to other cases.
+- [TVIST1-788](https://jira.itkdev.dk/browse/TVIST1-788)
+  - Updated `CaseEvent` with `senders` and `recipients` property.
+  - Removed `CaseEventPartyRelation`.
+- Added user signatures [TVIST1-726](https://jira.itkdev.dk/browse/TVIST1-726)
+- [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
+  Implemented Next Generation Digitapl Post (NgDP) and handling of
+  Beskedfordeler messages.
+- [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
+  Fixed CPR lookup.
+- [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
+  - Removed defunct command and removed digital post status property.
+  - Added display of digital post statuses.
+- [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
+  Skipped storing MeMo file content in database.
+- [TVIST1-789](https://jira.itkdev.dk/browse/TVIST1-789)
+  Added `select2` to case selection when copying document or case event.
+
 ## [1.1.2] 2023-02-17
 
 - [SUPP0RT-874](https://jira.itkdev.dk/browse/SUPP0RT-874)
@@ -175,7 +203,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.2...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.2...1.2.0
 [1.1.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.7...1.1.0

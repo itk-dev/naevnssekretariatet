@@ -4,18 +4,21 @@ App\Entity\User:
     email: caseworker@example.com
     roles: [ROLE_CASEWORKER]
     favoriteMunicipality: '@municipality-aarhus'
+    signatureFilename: <uploadFile(user_signature/caseworker.png, signatureFile, App\Entity\User)>
 
   user-administration:
     name: Administration
     email: administration@example.com
     roles: [ROLE_ADMINISTRATION]
     favoriteMunicipality: '@municipality-aarhus'
+    signatureFilename: <uploadFile(user_signature/administration.png, signatureFile, App\Entity\User)>
 
   user-admin:
     name: Admin
     email: admin@example.com
     roles: [ROLE_ADMIN]
     favoriteMunicipality: '@municipality-aarhus'
+    signatureFilename: <uploadFile(user_signature/administration.png, signatureFile, App\Entity\User)>
 
   user-super-admin:
     name: Super Admin

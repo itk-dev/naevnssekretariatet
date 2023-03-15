@@ -33,6 +33,7 @@ services:
       - XDEBUG_SESSION=${XDEBUG_SESSION:-0}
       - PHP_MAX_EXECUTION_TIME=30
       - PHP_MEMORY_LIMIT=256M
+      - PHP_IDE_CONFIG=serverName=localhost
       # - PHP_MAIL=1 # Uncomment to enable mailhog.
       - DOCKER_HOST_DOMAIN=${COMPOSE_DOMAIN}
       - PHP_UPLOAD_MAX_FILESIZE=70M
@@ -61,6 +62,14 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=frontend"
       - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_DOMAIN}`)"
+
+  node:
+    image: node:16
+    networks:
+      - app
+    volumes:
+      - .:/app:delegated
+    working_dir: /app
 
   mailhog:
     image: mailhog/mailhog

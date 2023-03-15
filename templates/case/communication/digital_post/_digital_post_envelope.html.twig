@@ -1,0 +1,32 @@
+{% macro digital_post_envelope_status(envelope, options={}) %}
+    {% set digital_post_envelope_info = {
+        (constant('App\\Entity\\DigitalPostEnvelope::STATUS_CREATED')): {
+            label: 'Created'|trans([], 'digital_post'),
+            level: 'dark',
+            message: 'Digital post created'|trans([], 'digital_post')
+        },
+        (constant('App\\Entity\\DigitalPostEnvelope::STATUS_SENT')): {
+            label: 'Sent'|trans([], 'digital_post'),
+            level: 'info',
+            message: 'Digital post sent'|trans([], 'digital_post')
+        },
+        (constant('App\\Entity\\DigitalPostEnvelope::STATUS_DELIVERED')): {
+            label: 'Delivered'|trans([], 'digital_post'),
+            level: 'success',
+            message: 'Digital post delivered'|trans([], 'digital_post')
+        },
+        (constant('App\\Entity\\DigitalPostEnvelope::STATUS_FAILED')): {
+            label: 'Failed'|trans([], 'digital_post'),
+            level: 'danger',
+            message: 'Digital post failed'|trans([], 'digital_post')
+        }
+    } %}
+    {% set info = digital_post_envelope_info[envelope.status]|default({}) %}
+
+    <span class="badge badge-{{ info.level|default('dark') }} digital-post-envelope-status">
+        {{ info.label ?: status }}
+    </span>
+    {% if options.show_message|default(false) %}
+        <span class="small digital-post-envelope-status-message">{{ envelope.statusMessage ?? info.message }}</span>
+    {% endif %}
+{% endmacro %}

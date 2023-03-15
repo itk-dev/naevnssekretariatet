@@ -4,12 +4,18 @@ namespace App\Form;
 
 use App\Entity\Document;
 use App\Entity\UploadedDocumentType;
+use App\Service\PartyHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\All;
@@ -18,7 +24,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DocumentType extends AbstractType
 {
-    public function __construct(private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private int $maxFileSize)
+    public const CASE_EVENT_OPTION_NO = 'No';
+    public const CASE_EVENT_OPTION_YES = 'Yes';
+
+    public function __construct(private TranslatorInterface $translator, private EntityManagerInterface $entityManager, private PartyHelper $partyHelper, private int $maxFileSize)
     {
     }
 
@@ -26,6 +35,7 @@ class DocumentType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Document::class,
+            'case' => null,
         ]);
     }
 
@@ -54,13 +64,13 @@ class DocumentType extends AbstractType
                 function ($name) {
                     return $this->entityManager->getRepository(UploadedDocumentType::class)->findOneBy(['name' => $name]);
                 },
-                function (UploadedDocumentType $type) {
-                    return $type->getName();
+                function (?UploadedDocumentType $type) {
+                    return $type?->getName();
                 }
             ))
         ;
 
-        // Allow files only on new documents.
+        // Allow files and case event only on new documents.
         if ($isNewDocument) {
             $builder
                 ->add('files', FileType::class, [
@@ -95,6 +105,53 @@ class DocumentType extends AbstractType
                 ])
             ;
         }
+
+        $builder->add('createCaseEvent', ChoiceType::class, [
+            'choices' => [
+                self::CASE_EVENT_OPTION_NO => self::CASE_EVENT_OPTION_NO,
+                self::CASE_EVENT_OPTION_YES => self::CASE_EVENT_OPTION_YES,
+            ],
+            'choice_translation_domain' => 'documents',
+            'data' => self::CASE_EVENT_OPTION_NO,
+            'label' => $this->translator->trans('Create case event?', [], 'documents'),
+            'mapped' => false,
+        ]);
+
+        $formModifier = function (FormInterface $form, ?string $createCaseEvent = null) use ($options) {
+            if (self::CASE_EVENT_OPTION_YES === $createCaseEvent) {
+                $form->add('caseEvent', CaseEventDocumentType::class, [
+                    'mapped' => false,
+                    'choices' => $this->partyHelper->getTransformedRelevantPartiesByCase($options['case']),
+                ]);
+            } else {
+                $form->add('caseEvent', HiddenType::class, [
+                    'mapped' => false,
+                ]);
+            }
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                // this would be your entity, i.e. Document
+                $data = $event->getData();
+
+                $formModifier($event->getForm(), $data->getType() ?? null);
+            }
+        );
+
+        $builder->get('createCaseEvent')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                // It's important here to fetch $event->getForm()->getData(), as
+                // $event->getData() will get you the client data (that is, the ID)
+                $createCaseEvent = $event->getForm()->getData();
+
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback function!
+                $formModifier($event->getForm()->getParent(), $createCaseEvent);
+            }
+        );
     }
 
     public function getMinimumMaximumFileSizeRestriction(): string

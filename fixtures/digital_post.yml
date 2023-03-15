@@ -10,7 +10,6 @@ App\Entity\DigitalPost:
         entityType: 'App\Entity\ResidentComplaintBoardCase'
         entityId: '@test-case-aarhus-1->id'
         subject: 'Another interesting title'
-        status: sent
 
     digital-post-003:
         document: '@document-002'
@@ -23,6 +22,12 @@ App\Entity\DigitalPost:
         entityType: 'App\Entity\ResidentComplaintBoardCase'
         entityId: '@test-case-aarhus-1->id'
         subject: 'Digital post with a very long subject'
+
+    digital-post-005:
+        document: '@document-001'
+        entityType: 'App\Entity\ResidentComplaintBoardCase'
+        entityId: '@test-case-aarhus-1->id'
+        subject: 'Digital post with multiple recipients'
 
 App\Entity\DigitalPostAttachment:
     digital-post-attachment-001:
@@ -48,3 +53,56 @@ App\Entity\DigitalPost\Recipient:
         identifierType: 'CPR'
         identifier: '0000000000'
         address: '@test-case-aarhus-1-bringer-address'
+
+    recipient-003:
+        digitalPost: '@digital-post-005'
+        name: 'Test Testersen'
+        identifierType: 'CPR'
+        identifier: '1705880000'
+        address: '@test-case-aarhus-1-bringer-address'
+
+    recipient-004:
+        digitalPost: '@digital-post-005'
+        name: 'TestbrugerA'
+        identifierType: 'CPR'
+        identifier: '2611740000'
+        address: '@test-case-aarhus-1-bringer-address'
+
+    recipient-005:
+        digitalPost: '@digital-post-005'
+        name: 'TestbrugerA'
+        identifierType: 'CPR'
+        identifier: '2611740000'
+        address: '@test-case-aarhus-1-bringer-address'
+
+    recipient-006:
+        digitalPost: '@digital-post-005'
+        name: 'TestbrugerA'
+        identifierType: 'CPR'
+        identifier: '2611740000'
+        address: '@test-case-aarhus-1-bringer-address'
+
+App\Entity\DigitalPostEnvelope:
+    digital-post-005/envelope/recipient-003:
+        digitalPost: '@digital-post-005'
+        recipient: '@recipient-003'
+
+    digital-post-005/envelope/recipient-004:
+        digitalPost: '@digital-post-005'
+        recipient: '@recipient-004'
+        status: <(App\Entity\DigitalPostEnvelope::STATUS_DELIVERED)>
+        beskedfordelerMessages:
+            - <(file_get_contents('fixtures/beskedfordeler_messages/sf1601/PostStatusBeskedModtag.success.xml'))>
+
+    digital-post-005/envelope/recipient-005:
+        digitalPost: '@digital-post-005'
+        recipient: '@recipient-005'
+        status: <(App\Entity\DigitalPostEnvelope::STATUS_FAILED)>
+        statusMessage: 'Error sending digital post'
+
+    digital-post-005/envelope/recipient-006:
+        digitalPost: '@digital-post-005'
+        recipient: '@recipient-006'
+        status: <(App\Entity\DigitalPostEnvelope::STATUS_FAILED)>
+        beskedfordelerMessages:
+            - <(file_get_contents('fixtures/beskedfordeler_messages/sf1601/PostStatusBeskedModtag.error.xml'))>

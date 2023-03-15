@@ -245,4 +245,19 @@ class CaseEntityRepository extends ServiceEntityRepository
             ;
         }
     }
+
+    public function findNonFinishedCasesInSameBoard(CaseEntity $case, string $endStatus)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb
+            ->where('c.board = :board')
+            ->setParameter('board', $case->getBoard()->getId(), 'uuid')
+            ->andWhere('c.currentPlace != :end_status')
+            ->setParameter('end_status', $endStatus)
+            ->orderBy('c.caseNumber', 'ASC')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

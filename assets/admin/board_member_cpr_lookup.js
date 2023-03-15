@@ -9,7 +9,6 @@ $(function () {
 
     $.ajax({
       url: '/case/new/apply-identifier-data',
-      type: 'POST',
       data: {
         type: 'CPR',
         identifier: $cpr

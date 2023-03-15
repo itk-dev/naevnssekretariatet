@@ -381,6 +381,14 @@
         <source>List of custom fields (one per line). Format «name»|«label»|«type».&lt;br/&gt;«name» must start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_").&lt;br/&gt;«type» can be text or textarea. If «type» is omitted or does not match either of the allowed types the input field will be of type text.&lt;br/&gt;Example: full_name|Full name|textarea.</source>
         <target><![CDATA[Liste af brugerdefinerede flettefelter (ét pr. linje) i formatet «navn»|«label»|«type»<br/>«name» skal starte med et bogstav, tal eller underscore og må kun indeholde bogstaver (a–z), tal og underscores ("_").<br/>«type» være enten text eller textarea. Hvis «type» er udeladt eller ikke matcher en af de tilladte typer vil inputfeltet være af typen text.<br/>Eksempel: fulde_navn|Fulde navn|textarea.]]></target>
       </trans-unit>
+      <trans-unit id="8ac_IgS" resname="Signature">
+        <source>Signature</source>
+        <target state="translated">Signatur</target>
+      </trans-unit>
+      <trans-unit id="2E8CqJ6" resname="Upload an image of your signature.">
+        <source>Upload an image of your signature.</source>
+        <target>Upload et billede af din signatur.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

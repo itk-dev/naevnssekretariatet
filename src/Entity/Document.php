@@ -59,7 +59,7 @@ class Document implements LoggableEntityInterface
     private $agendaCaseItems;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $originalFileName;
 

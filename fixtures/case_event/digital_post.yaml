@@ -1,0 +1,8 @@
+App\Entity\CaseEvent:
+  case_event/digital_post-001:
+      caseEntities: ['@test-case-aarhus-1']
+      category: '<(\App\Entity\CaseEvent::CATEGORY_OUTGOING)>'
+      subject: 'Digital post 87'
+      receivedAt: <(new \DateTimeImmutable('2023-03-01'))>
+      createdBy: '@user-caseworker'
+      digitalPost: '@digital-post-005'

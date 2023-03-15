@@ -1,0 +1,29 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case_event' %}
+
+{% block title %}{% trans %}Case event{% endtrans %}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans %}Create note for case{% endtrans %} {{ case.caseNumber }}</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ url('case_event_index', {id: case.id}) }}" role="button">{% trans %}Cancel{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12">
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button class="btn btn-success float-right mt-2" type="submit" name="submit">{% trans %}Create{% endtrans %}</button>
+        {{ form_end(form) }}
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

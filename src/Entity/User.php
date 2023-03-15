@@ -7,15 +7,22 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @Vich\Uploadable
  */
-class User implements UserInterface, LoggableEntityInterface
+class User implements UserInterface, LoggableEntityInterface, \Serializable
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -73,6 +80,26 @@ class User implements UserInterface, LoggableEntityInterface
      * @ORM\Column(type="text", nullable=true)
      */
     private $shortcuts;
+
+    /**
+     * @Vich\UploadableField(mapping="user_signatures", fileNameProperty="signatureFilename")
+     *
+     * @var File
+     *
+     * @Assert\File(
+     *     maxSize = "1M",
+     *     mimeTypes = {"image/jpeg", "image/png"},
+     *     mimeTypesMessage = "Please upload a valid image (jpg or png (preferred))."
+     * )
+     */
+    private ?File $signatureFile = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private ?string $signatureFilename = null;
 
     public function __construct()
     {
@@ -305,5 +332,92 @@ class User implements UserInterface, LoggableEntityInterface
         $this->shortcuts = $shortcuts;
 
         return $this;
+    }
+
+    public function getSignatureFile(): ?File
+    {
+        return $this->signatureFile;
+    }
+
+    public function setSignatureFile(File $signatureFile = null): self
+    {
+        $this->signatureFile = $signatureFile;
+
+        if ($signatureFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
+    public function getSignatureFilename(): ?string
+    {
+        return $this->signatureFilename;
+    }
+
+    public function setSignatureFilename(?string $signatureFilename): self
+    {
+        $this->signatureFilename = $signatureFilename;
+
+        return $this;
+    }
+
+    /*
+     * Implementation of \Serializable interface.
+     *
+     * The user is serialized in the session to keep the user logged in and we
+     * cannot serialize the signature image file attached to a user. Therefore
+     * we implement the \Serializable interface.
+     *
+     * In PHP 8.1 we must also implement __serialize() and __unserialize() (cf.
+     * https://www.php.net/manual/en/class.serializable.php#class.serializable).
+     */
+
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize()
+    {
+        return serialize($this->__serialize());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function unserialize(string $data)
+    {
+        $this->__unserialize(unserialize($data));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'roles' => $this->roles,
+            'name' => $this->name,
+            'initials' => $this->initials,
+            'shortcuts' => $this->shortcuts,
+            'signatureFilename' => $this->signatureFilename,
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->id = $data['id'];
+        $this->email = $data['email'];
+        $this->roles = $data['roles'];
+        $this->name = $data['name'];
+        $this->initials = $data['initials'];
+        $this->shortcuts = $data['shortcuts'];
+        $this->signatureFilename = $data['signatureFilename'];
     }
 }

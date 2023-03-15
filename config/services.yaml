@@ -8,6 +8,7 @@ parameters:
     site_name: '%env(SITE_NAME)%'
     site_url: '%env(SITE_URL)%'
     upload_document_directory: 'upload/documents'
+    view_timezone: '%env(VIEW_TIMEZONE)%'
 
 services:
     # default configuration for services in *this* file
@@ -103,6 +104,9 @@ services:
                 upload_destination: '%kernel.project_dir%/upload/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination
                 template_file_directory: '%kernel.project_dir%/upload/mail-templates'
+                # This value must match vich_uploader.mappings.user_signatures.upload_destination
+                user_signatures_file_directory: '%kernel.project_dir%/upload/user-signatures'
+                user_signature_height: '%env(USER_SIGNATURE_HEIGHT)%'
                 libreoffice_http_client_options:
                     base_uri: '%env(LIBREOFFICE_API_BASE_URL)%'
                     verify_peer: false
@@ -250,3 +254,35 @@ services:
     App\Service\OS2Forms\SubmissionNormalizers\HearingResponseSubmissionNormalizer:
         arguments:
             $selvbetjeningUserApiToken: '%env(SELVBETJENING_USER_API_TOKEN)%'
+
+
+    App\Controller\CaseEventController:
+        arguments:
+            $options:
+                view_timezone: '%view_timezone%'
+
+    App\Form\CaseEventDocumentType:
+        arguments:
+            $options:
+                view_timezone: '%view_timezone%'
+
+    App\Controller\Admin\UserController:
+        arguments:
+            $options:
+              signature_file_directory: '%kernel.project_dir%/upload/user-signatures'
+
+    App\Service\SF1601\CertificateLocatorHelper:
+        arguments:
+            $options:
+                tenant_id: '%env(AZURE_TENANT_ID)%'
+                application_id: '%env(AZURE_APPLICATION_ID)%'
+                client_secret: '%env(AZURE_CLIENT_SECRET)%'
+                name: '%env(AZURE_KEY_VAULT_SF1601_NAME)%'
+                secret: '%env(AZURE_KEY_VAULT_SF1601_SECRET)%'
+                version: '%env(AZURE_KEY_VAULT_SF1601_VERSION)%'
+
+    App\Service\SF1601\DigitalPoster:
+        arguments:
+            $options:
+                sf1601:
+                    authority_cvr: '%env(SF1601_AUTHORITY_CVR)%'

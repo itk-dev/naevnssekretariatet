@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\CaseDocumentRelation;
 use App\Entity\CaseEntity;
+use App\Entity\CaseEvent;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostAttachment;
-use App\Entity\Document;
 use App\Entity\Hearing;
 use App\Entity\HearingPost;
 use App\Entity\HearingPostRequest;
@@ -19,6 +19,7 @@ use App\Form\HearingPostResponseType;
 use App\Repository\CaseDocumentRelationRepository;
 use App\Repository\DocumentRepository;
 use App\Repository\HearingPostRepository;
+use App\Service\CaseEventHelper;
 use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
 use App\Service\MailTemplateHelper;
@@ -370,13 +371,16 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/approve", name="case_hearing_post_approve", methods={"POST"})
      */
-    public function hearingPostApprove(CaseEntity $case, HearingPostResponse $hearingPost, MailTemplateHelper $mailTemplateHelper, DocumentUploader $documentUploader, DigitalPostHelper $digitalPostHelper): Response
+    public function hearingPostApprove(CaseEntity $case, HearingPostResponse $hearingPost, MailTemplateHelper $mailTemplateHelper, DocumentUploader $documentUploader, DigitalPostHelper $digitalPostHelper, CaseEventHelper $caseEventHelper): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
         if ($hearingPost->getHearing()->getFinishedOn()) {
             throw new HearingException();
         }
+
+        /** @var User $caseEventUser */
+        $caseEventUser = $this->getUser();
 
         // Send receipt
         if ($hearingPost->getSendReceipt()) {
@@ -391,7 +395,7 @@ class HearingController extends AbstractController
             $template = $case?->getBoard()?->getReceiptHearingPost();
 
             if (null === $case) {
-                $message = sprintf('Coild not get case.');
+                $message = sprintf('Could not get case.');
                 throw new HearingException($message);
             }
             if (null === $template) {
@@ -416,12 +420,25 @@ class HearingController extends AbstractController
             $this->entityManager->persist($relation);
             $this->entityManager->persist($document);
 
-            $digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($case), $case->getId(), [], $digitalPostRecipients);
+            $digitalPost = $digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($case), $case->getId(), [], $digitalPostRecipients);
+
+            $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, [$sender]);
         }
+
+        // Create case event (sagshændelse)
+        $documents = [];
+        $documents[] = $hearingPost->getDocument();
+
+        foreach ($hearingPost->getAttachments() as $attachment) {
+            $documents[] = $attachment->getDocument();
+        }
+
+        $caseEventHelper->createDocumentCaseEvent($case, CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING, [$hearingPost->getSender()], null, [], null, $documents);
 
         $today = new DateTime('today');
         $hearingPost->setApprovedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
+
         $this->entityManager->flush();
         $this->addFlash('success', new TranslatableMessage('Hearing post approved', [], 'case'));
 
@@ -431,7 +448,7 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/forward", name="case_hearing_post_forward", methods={"POST"})
      */
-    public function hearingPostForward(CaseEntity $case, HearingPostRequest $hearingPost, DigitalPostHelper $digitalPostHelper): Response
+    public function hearingPostForward(CaseEntity $case, HearingPostRequest $hearingPost, DigitalPostHelper $digitalPostHelper, CaseEventHelper $caseEventHelper): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -439,7 +456,7 @@ class HearingController extends AbstractController
             throw new HearingException();
         }
 
-        //Create DigitalPost attachments without linking them to a specific DigitalPost
+        // Create DigitalPost attachments without linking them to a specific DigitalPost
         $digitalPostAttachments = [];
 
         $attachments = $hearingPost->getAttachments();
@@ -460,7 +477,9 @@ class HearingController extends AbstractController
             ->setAddress($hearingPost->getRecipient()->getAddress())
         ;
 
-        $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+        $digitalPost = $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
+
+        $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, [$hearingPost->getRecipient()]);
 
         $today = new DateTime('today');
 

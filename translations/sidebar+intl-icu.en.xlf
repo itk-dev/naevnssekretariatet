@@ -101,6 +101,10 @@
         <source>Decision</source>
         <target>Decision</target>
       </trans-unit>
+      <trans-unit id="fh2ysiV" resname="Case events">
+        <source>Case events</source>
+        <target>Case events</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

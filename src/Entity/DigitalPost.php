@@ -22,16 +22,6 @@ class DigitalPost
 {
     use TimestampableEntity;
 
-    public const STATUS_SENT = 'sent';
-    public const STATUS_ERROR = 'error';
-    public const STATUS_FAILED = 'failed';
-
-    public const STATUSES = [
-        self::STATUS_SENT,
-        self::STATUS_ERROR,
-        self::STATUS_FAILED,
-    ];
-
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -53,11 +43,6 @@ class DigitalPost
      * @ORM\Column(type="uuid", nullable=true)
      */
     private ?Uuid $entityId;
-
-    /**
-     * @ORM\Column(type="string", length=32, nullable=true)
-     */
-    private $status;
 
     /**
      * @ORM\Column(type="json", nullable=true)
@@ -100,11 +85,29 @@ class DigitalPost
      */
     private $totalFileSize = 0;
 
+    /**
+     * @ORM\OneToOne(targetEntity=CaseEvent::class, mappedBy="digitalPost", cascade={"persist", "remove"})
+     */
+    private $caseEvent;
+
+    /**
+     * @var DigitalPostEnvelope[]
+     *
+     * @ORM\OneToMany(targetEntity=DigitalPostEnvelope::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    private $envelopes;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
         $this->attachments = new ArrayCollection();
         $this->recipients = new ArrayCollection();
+        $this->envelopes = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return sprintf('%s (#%s)', $this->subject, $this->id);
     }
 
     public function getId(): ?Uuid
@@ -154,16 +157,15 @@ class DigitalPost
         return $this;
     }
 
-    public function getStatus(): ?string
+    /**
+     * Get unique envelope statuses.
+     */
+    public function getStatuses(): ?array
     {
-        return $this->status;
-    }
-
-    public function setStatus(?string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
+        return array_unique(array_map(
+            static fn (DigitalPostEnvelope $envelope) => $envelope->getStatus(),
+            $this->getEnvelopes()->toArray()
+        )) ?: null;
     }
 
     public function getData(): ?array
@@ -328,6 +330,40 @@ class DigitalPost
     public function setTotalFileSize(int $totalFileSize): self
     {
         $this->totalFileSize = $totalFileSize;
+
+        return $this;
+    }
+
+    public function getCaseEvent(): ?CaseEvent
+    {
+        return $this->caseEvent;
+    }
+
+    public function setCaseEvent(?CaseEvent $caseEvent): self
+    {
+        // unset the owning side of the relation if necessary
+        if (null === $caseEvent && null !== $this->caseEvent) {
+            $this->caseEvent->setDigitalPost(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if (null !== $caseEvent && $caseEvent->getDigitalPost() !== $this) {
+            $caseEvent->setDigitalPost($this);
+        }
+
+        $this->caseEvent = $caseEvent;
+
+        return $this;
+    }
+
+    public function getEnvelopes()
+    {
+        return $this->envelopes;
+    }
+
+    public function setEnvelopes($envelopes): self
+    {
+        $this->envelopes = $envelopes;
 
         return $this;
     }

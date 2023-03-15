@@ -161,6 +161,26 @@
         <source>Cannot delete document that has been sent or is attached to an agenda</source>
         <target state="translated">Kan ikke slette dokument der er blevet sendt eller er vedlagt dagsorden</target>
       </trans-unit>
+      <trans-unit id="o41rQDA" resname="Create case event?">
+        <source>Create case event?</source>
+        <target state="translated">Opret sagshændelse?</target>
+      </trans-unit>
+      <trans-unit id="haOas0X" resname="Yes">
+        <source>Yes</source>
+        <target state="translated">Ja</target>
+      </trans-unit>
+      <trans-unit id="HqRCoTS" resname="No">
+        <source>No</source>
+        <target state="translated">Nej</target>
+      </trans-unit>
+      <trans-unit id="qN1ZW2b" resname="Copy to">
+        <source>Copy to</source>
+        <target state="translated">Kopier til</target>
+      </trans-unit>
+      <trans-unit id="wSKL8_1" resname="Select cases">
+        <source>Select cases</source>
+        <target state="translated">Vælg sager</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
