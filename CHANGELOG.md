@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.2.0] 2023-03-15
+
 - [TVIST1-436](https://jira.itkdev.dk/browse/TVIST1-436)
   Made `CaseEvent.createdBy` not nullable.
   Marked `Document.originalFileName` as nullable
@@ -201,7 +203,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.2...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.2.0...HEAD
+[1.1.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.2...1.2.0
 [1.1.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.0.7...1.1.0
