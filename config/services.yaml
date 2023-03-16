@@ -286,3 +286,4 @@ services:
             $options:
                 sf1601:
                     authority_cvr: '%env(SF1601_AUTHORITY_CVR)%'
+                    test_mode: '%env(bool:SF1601_TEST_MODE)%'

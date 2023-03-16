@@ -106,7 +106,7 @@ class DigitalPostEnvelope
 
     public function setStatusMessage(?string $statusMessage): self
     {
-        $this->statusMessage = $statusMessage;
+        $this->statusMessage = mb_substr($statusMessage, 0, 255);
 
         return $this;
     }
