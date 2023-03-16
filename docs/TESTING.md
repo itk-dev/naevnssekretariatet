@@ -33,8 +33,8 @@ described within the Symfony framework.
 
 Run the following command in a terminal:
 
-```shell
-docker-compose exec phpfpm bin/phpunit
+```sh
+docker compose exec phpfpm bin/phpunit
 ```
 
 ### Useful links
@@ -69,7 +69,7 @@ Run the following command in a terminal:
 
 ```sh
 docker run -it -v $PWD:/e2e -w /e2e --network=host \
---env CYPRESS_baseUrl=http://$(docker-compose port nginx 80) cypress/included:6.5.0
+--env CYPRESS_baseUrl=http://$(docker compose port nginx 8080) cypress/included:6.5.0
 ```
 
 ### Information about coding standards

@@ -6,7 +6,7 @@
 
 Run
 
-```shell
+```sh
 ./generated-sources/generate
 composer require 'serviceplatformen/sf1600:*'
 ```

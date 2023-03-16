@@ -12,6 +12,8 @@ about writing changes to this log.
 
 - [TVIST1-755](https://jira.itkdev.dk/browse/TVIST1-755)
   Digital post fixes
+- [TVIST1-755](https://jira.itkdev.dk/browse/TVIST1-755)
+  Updated docker compose setup
 
 ## [1.2.0] 2023-03-15
 

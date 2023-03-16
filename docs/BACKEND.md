@@ -35,7 +35,7 @@ EasyAdmin provides a console command for making crud controllers,
 and it's recommended to use that command:
 
 ```sh
-docker-compose exec phpfpm bin/console make:admin:crud
+docker compose exec phpfpm bin/console make:admin:crud
 ```
 
 For more information see EasyAdmins documentation about [CRUD controllers](https://symfony.com/doc/current/bundles/EasyAdminBundle/crud.html).

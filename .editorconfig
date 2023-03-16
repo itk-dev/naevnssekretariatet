@@ -15,3 +15,6 @@ insert_final_newline = true
 
 [*.{js,scss}]
 indent_size = 2
+
+[docker-compose*.yml]
+indent_size = 2
