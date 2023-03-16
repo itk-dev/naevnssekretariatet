@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.2.1] 2023-03-16
+
 - [TVIST1-755](https://jira.itkdev.dk/browse/TVIST1-755)
   Digital post fixes
 - [TVIST1-755](https://jira.itkdev.dk/browse/TVIST1-755)
@@ -210,7 +212,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.2.1...HEAD
+[1.2.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.2...1.2.0
 [1.1.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.0...1.1.1
