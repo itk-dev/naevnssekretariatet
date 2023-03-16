@@ -55,6 +55,10 @@ class BeskedfordelerEventSubscriber implements EventSubscriberInterface
                 } else {
                     $this->logger->warning(sprintf('Unknown Beskedfordeler message uuid: %s', $messageUuid));
                 }
+            } else {
+                $this->logger->warning(sprintf('Unhandled Beskedfordeler message; data: %s', json_encode($data)), [
+                    'message' => $beskedfordelerMessage,
+                ]);
             }
         } catch (\Throwable $exception) {
             $this->logger->error(sprintf('Error handling Beskedfordeler message: %s', $exception->getMessage()), [
