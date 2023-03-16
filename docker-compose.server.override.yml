@@ -13,5 +13,3 @@ services:
     build: ./.docker/libreoffice-api
     networks:
       - app
-    ports:
-      - '9980'
