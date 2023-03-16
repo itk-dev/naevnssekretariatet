@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\DigitalPostEnvelope;
 use App\Repository\DigitalPostEnvelopeRepository;
+use Doctrine\Common\Collections\Criteria;
 use Itkdev\BeskedfordelerBundle\Helper\MessageHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -53,6 +54,8 @@ class DigitalPostEnvelopeListCommand extends Command
                 ['Status' => $envelope->getStatus()],
                 ['Status message' => $envelope->getStatusMessage()],
                 ['Message Uuid' => $envelope->getMessageUuid()],
+                ['Created at' => $envelope->getCreatedAt()->format(\DateTimeInterface::ATOM)],
+                ['Updated at' => $envelope->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Data' => Yaml::dump($data, PHP_INT_MAX)],
                 ['Digital post' => (string) $digitalPost],
                 ['Digital post URL' => implode(PHP_EOL, $digitalPostUrls)]
@@ -71,6 +74,8 @@ class DigitalPostEnvelopeListCommand extends Command
             'status' => $input->getOption('status'),
         ]);
 
-        return $this->envelopeRepository->findBy($criteria);
+        return $this->envelopeRepository->findBy($criteria, [
+            'createdAt' => Criteria::DESC,
+        ]);
     }
 }
