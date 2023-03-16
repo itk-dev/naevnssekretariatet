@@ -75,7 +75,7 @@ local development you can use tools like
 Use
 
 ```sh
-npx localtunnel --port "$(docker compose port nginx 80 | cut -d: -f2)" --subdomain "$USER-naevnssekretariatet" --print-requests
+npx localtunnel --port "$(docker compose port nginx 8080 | cut -d: -f2)" --subdomain "$USER-naevnssekretariatet" --print-requests
 ```
 
 to expose your local docker compose setup and forward Beskedfordeler messages to

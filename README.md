@@ -38,14 +38,14 @@ To get a local copy up and running follow these simple steps.
 2. Pull docker images and start docker containers
 
    ```shell
-   docker-compose pull
-   docker-compose up --detach --build
+   docker compose pull
+   docker compose up --detach --build
    ```
 
 3. Install composer packages
 
    ```shell
-   docker-compose exec phpfpm composer install
+   docker compose exec phpfpm composer install
    ```
 
 4. Install yarn packages
@@ -75,19 +75,19 @@ To get a local copy up and running follow these simple steps.
 6. Run database migrations
 
    ```sh
-   docker-compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
+   docker compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
    ```
 
 7. Load database fixtures
 
    ```sh
-   docker-compose exec phpfpm bin/console hautelook:fixtures:load --no-bundles --purge-with-truncate --no-interaction
+   docker compose exec phpfpm bin/console hautelook:fixtures:load --no-bundles --purge-with-truncate --no-interaction
    ```
 
 You should now be able to browse to the application
 
 ```shell
-open http://$(docker-compose port nginx 80)
+open http://$(docker compose port nginx 8080)
 ```
 
 #### Azure B2C
@@ -230,7 +230,7 @@ by adding the following to your crontab:
 Or if using docker
 
 ```cron
-0 2 * * * (cd path/to/tvist1/ && docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec phpfpm bin/console tvist1:some:command) > /dev/null 2>&1; /usr/local/bin/cron-exit-status -c 'TVIST1 some command' -v $?
+0 2 * * * (cd path/to/tvist1/ && docker compose --env-file .env.docker.local --file docker-compose.server.yml exec phpfpm bin/console tvist1:some:command) > /dev/null 2>&1; /usr/local/bin/cron-exit-status -c 'TVIST1 some command' -v $?
 ```
 
 where
@@ -291,28 +291,28 @@ And continue the process with the following commands.
 
 ```shell
 # Create, recreate, build and/or start containers
-docker-compose --env-file .env.docker.local --file docker-compose.server.yml up --detach --build --remove-orphans
+docker compose --env-file .env.docker.local --file docker-compose.server.yml up --detach --build --remove-orphans
 # Restart container to reload configuration (cf. https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/#controlling-nginx)
-docker-compose --env-file .env.docker.local --file docker-compose.server.yml restart nginx
+docker compose --env-file .env.docker.local --file docker-compose.server.yml restart nginx
 # @see https://stackoverflow.com/questions/36107400/composer-update-memory-limit
-docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --env COMPOSER_MEMORY_LIMIT=-1 --user deploy phpfpm composer install
+docker compose --env-file .env.docker.local --file docker-compose.server.yml exec --env COMPOSER_MEMORY_LIMIT=-1 --user deploy phpfpm composer install
 
 # Build assets
 
 docker compose run --rm node yarn install
 docker compose run --rm node yarn build
 
-docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console cache:clear
-docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console assets:install public
-docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console doctrine:migrations:migrate --no-interaction
+docker compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console cache:clear
+docker compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console assets:install public
+docker compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console doctrine:migrations:migrate --no-interaction
 
 ###> PRODUCTION ONLY ###
-docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm composer dump-env prod
+docker compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm composer dump-env prod
 ###< PRODUCTION ONLY ###
 
 ###> STAGING ONLY ###
 # Staging using fixtures, which means data is 'reset' upon release.
-docker-compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console hautelook:fixtures:load --purge-with-truncate --no-interaction
+docker compose --env-file .env.docker.local --file docker-compose.server.yml exec --user deploy phpfpm bin/console hautelook:fixtures:load --purge-with-truncate --no-interaction
 ###< STAGING ONLY ###
 ```
 
@@ -323,14 +323,14 @@ See the [TESTING.md](docs/TESTING.md) documentation for more information.
 ### Unit tests
 
 ```shell
-docker-compose exec phpfpm bin/phpunit
+docker compose exec phpfpm bin/phpunit
 ```
 
 ### End-to-end tests
 
 ```sh
 docker run -it -v $PWD:/e2e -w /e2e --network=host \
---env CYPRESS_baseUrl=http://$(docker-compose port nginx 80) cypress/included:6.5.0
+--env CYPRESS_baseUrl=http://$(docker compose port nginx 8080) cypress/included:6.5.0
 ```
 
 ### Coding standard tests
@@ -341,13 +341,13 @@ we decided to adhere to in this project.
 * PHP files (PHP-CS-Fixer with the Symfony ruleset enabled)
 
    ```shell
-   docker-compose exec phpfpm vendor/bin/php-cs-fixer fix --dry-run
+   docker compose exec phpfpm vendor/bin/php-cs-fixer fix --dry-run
    ```
 
 * Twig templates (Twigcs with standard settings)
 
    ```shell
-   docker-compose exec phpfpm vendor/bin/twigcs templates
+   docker compose exec phpfpm vendor/bin/twigcs templates
    ```
 
 * Javascript files (Standard with standard settings)
