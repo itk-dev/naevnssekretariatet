@@ -33,7 +33,7 @@ described within the Symfony framework.
 
 Run the following command in a terminal:
 
-```shell
+```sh
 docker compose exec phpfpm bin/phpunit
 ```
 

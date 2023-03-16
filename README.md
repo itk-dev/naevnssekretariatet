@@ -31,20 +31,20 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
 
-   ```shell
+   ```sh
    git clone git@github.com:itk-dev/naevnssekretariatet.git
    ```
 
 2. Pull docker images and start docker containers
 
-   ```shell
+   ```sh
    docker compose pull
    docker compose up --detach --build
    ```
 
 3. Install composer packages
 
-   ```shell
+   ```sh
    docker compose exec phpfpm composer install
    ```
 
@@ -86,8 +86,14 @@ To get a local copy up and running follow these simple steps.
 
 You should now be able to browse to the application
 
-```shell
-open http://$(docker compose port nginx 8080)
+```sh
+open "http://$(docker compose port nginx 8080)"
+```
+
+Sign in as `admin@example.com`:
+
+```sh
+open "$(docker compose exec --env DEFAULT_URI="http://$(docker compose port nginx 8080)" phpfpm bin/console itk-dev:openid-connect:login admin@example.com)"
 ```
 
 #### Azure B2C
@@ -95,7 +101,7 @@ open http://$(docker compose port nginx 8080)
 Configuration of the following environment variables
 must be done in order to login via Azure B2C:
 
-```shell
+```sh
 ###> itk-dev/openid-connect-bundle ###
 CONFIGURATION_URL=APP_CONFIGURATION_URL
 CLIENT_ID=APP_CLIENT_ID
@@ -108,7 +114,7 @@ LEEWAY=APP_LEEWAY
 
 Example configuration:
 
-```shell
+```sh
 CONFIGURATION_URL='https://.../.well-known/openid-configuration...'
 CLIENT_ID={app.client.id}
 CLIENT_SECRET={app.client.secret}
@@ -122,7 +128,7 @@ LEEWAY=10
 In order to use the CLI login feature the following
 environment variable must be set:
 
-```shell
+```sh
 DEFAULT_URI=
 ```
 
@@ -134,8 +140,8 @@ for more information.
 Rather than signing in via Azure B2C, you can get
 a sign in url from the command line. Run
 
-```shell
-bin/console itk-dev:openid-connect:login --help
+```sh
+docker compose exec phpfpm bin/console itk-dev:openid-connect:login --help
 ```
 
 for details. Be aware that a login url will only work once.
@@ -164,7 +170,7 @@ The following roles and, hence, authentication providers can be requested:
 
 The following environment variables must be set in the `.env.local` file:
 
-```shell
+```sh
 # Azure
 AZURE_TENANT_ID='xyz'
 AZURE_APPLICATION_ID='xyz'
@@ -280,7 +286,7 @@ and ensure that all the necessary commands below are executed.
 Make sure you are in the correct directory (`.../htdocs`)
 then checkout branch or release tag:
 
-```shell
+```sh
 git fetch
 git checkout --force {some_branch_or_tag}
 git reset origin/{some_branch_or_tag} --hard
@@ -289,7 +295,7 @@ git pull
 
 And continue the process with the following commands.
 
-```shell
+```sh
 # Create, recreate, build and/or start containers
 docker compose --env-file .env.docker.local --file docker-compose.server.yml up --detach --build --remove-orphans
 # Restart container to reload configuration (cf. https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/#controlling-nginx)
@@ -322,7 +328,7 @@ See the [TESTING.md](docs/TESTING.md) documentation for more information.
 
 ### Unit tests
 
-```shell
+```sh
 docker compose exec phpfpm bin/phpunit
 ```
 
@@ -340,13 +346,13 @@ we decided to adhere to in this project.
 
 * PHP files (PHP-CS-Fixer with the Symfony ruleset enabled)
 
-   ```shell
+   ```sh
    docker compose exec phpfpm vendor/bin/php-cs-fixer fix --dry-run
    ```
 
 * Twig templates (Twigcs with standard settings)
 
-   ```shell
+   ```sh
    docker compose exec phpfpm vendor/bin/twigcs templates
    ```
 
