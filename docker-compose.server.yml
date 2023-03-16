@@ -20,16 +20,6 @@ services:
       - PHP_MAX_EXECUTION_TIME=30
       - PHP_MEMORY_LIMIT=128M
       - COMPOSER_VERSION=2
-      # Custom project settings start
-      - PHP_MEMORY_LIMIT=256M
-      - PHP_UPLOAD_MAX_FILESIZE=70M
-      # Allow uploading 9 very large files.
-      - PHP_POST_MAX_SIZE=700M
-      # Custom project settings end
-    # Custom project settings start
-    depends_on:
-      - libreoffice-api
-    # Custom project settings end
     volumes:
       - .:/app
 
@@ -56,13 +46,3 @@ services:
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_SERVER_DOMAIN}`)"
       - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure"
-
-  # Custom project settings start
-  libreoffice-api:
-    build: ./.docker/libreoffice-api
-    restart: unless-stopped
-    networks:
-      - app
-    ports:
-      - '9980'
-  # Custom project settings end
