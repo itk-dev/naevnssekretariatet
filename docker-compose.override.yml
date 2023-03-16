@@ -1,0 +1,29 @@
+services:
+  mariadb:
+    labels:
+      com.symfony.server.service-prefix: 'DATABASE'
+
+  phpfpm:
+    environment:
+      - PHP_MAX_EXECUTION_TIME=60
+      - PHP_MEMORY_LIMIT=512M
+      - PHP_UPLOAD_MAX_FILESIZE=70M
+      # Allow uploading 9 very large files.
+      - PHP_POST_MAX_SIZE=700M
+    depends_on:
+      - libreoffice-api
+
+  libreoffice-api:
+    build: ./.docker/libreoffice-api
+    networks:
+      - app
+    ports:
+      - '9980'
+
+  node:
+    image: node:16
+    networks:
+      - app
+    volumes:
+      - .:/app:delegated
+    working_dir: /app

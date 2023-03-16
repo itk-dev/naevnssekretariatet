@@ -21,10 +21,6 @@ services:
       - MYSQL_PASSWORD=db
       - MYSQL_DATABASE=db
       #- ENCRYPT=1 # Uncomment to enable database encryption.
-    # Custom project settings start
-    labels:
-      com.symfony.server.service-prefix: 'DATABASE'
-    # Custom project settings end
 
   phpfpm:
     image: itkdev/php8.1-fpm:latest
@@ -38,16 +34,8 @@ services:
       - DOCKER_HOST_DOMAIN=${COMPOSE_DOMAIN}
       - COMPOSER_VERSION=2
       - PHP_IDE_CONFIG=serverName=localhost
-      # Custom project settings start
-      - PHP_UPLOAD_MAX_FILESIZE=70M
-      # Allow uploading 9 very large files.
-      - PHP_POST_MAX_SIZE=700M
-      # Custom project settings end
     depends_on:
       - mariadb
-      # Custom project settings start
-      - libreoffice-api
-      # Custom project settings end
     volumes:
       - .:/app
 
@@ -84,20 +72,3 @@ services:
       - "traefik.docker.network=frontend"
       - "traefik.http.routers.${COMPOSE_PROJECT_NAME}Mailhog.rule=Host(`mailhog-${COMPOSE_DOMAIN}`)"
       - "traefik.http.services.${COMPOSE_PROJECT_NAME}Mailhog.loadbalancer.server.port=8025"
-
-  # Custom project settings start
-  libreoffice-api:
-    build: ./.docker/libreoffice-api
-    networks:
-      - app
-    ports:
-      - '9980'
-
-  node:
-    image: node:16
-    networks:
-      - app
-    volumes:
-      - .:/app:delegated
-    working_dir: /app
-  # Custom project settings end
