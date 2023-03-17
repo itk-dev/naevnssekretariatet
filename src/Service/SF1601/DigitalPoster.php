@@ -10,6 +10,7 @@ use ItkDev\Serviceplatformen\Service\SF1601\SF1601;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 
 class DigitalPoster
 {
@@ -100,6 +101,16 @@ class DigitalPoster
                 )
             );
         } catch (\Throwable $throwable) {
+            $context = [];
+            if ($throwable instanceof ClientExceptionInterface) {
+                $response = $throwable->getResponse();
+                $context['response'] = [
+                    'headers' => $response->getHeaders(false),
+                    'content' => $response->getContent(false),
+                ];
+            }
+            $this->logger->error(sprintf('Error sending digital post: %s', $throwable->getMessage()), $context);
+
             $envelope
                 ->setStatus(DigitalPostEnvelope::STATUS_FAILED)
                 ->setStatusMessage($throwable->getMessage())
