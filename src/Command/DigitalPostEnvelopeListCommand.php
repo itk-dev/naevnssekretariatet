@@ -56,7 +56,7 @@ class DigitalPostEnvelopeListCommand extends Command
                 ['Message Uuid' => $envelope->getMessageUuid()],
                 ['Created at' => $envelope->getCreatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Updated at' => $envelope->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
-                ['Data' => Yaml::dump($data, PHP_INT_MAX)],
+                ['Beskedfordeler message data' => Yaml::dump($data, PHP_INT_MAX)],
                 ['Digital post' => (string) $digitalPost],
                 ['Digital post URL' => implode(PHP_EOL, $digitalPostUrls)]
             );
