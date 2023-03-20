@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [TVIST1-807](https://jira.itkdev.dk/browse/TVIST1-807)
+  Improved digital post logging and handled "fjernprint"
 - [TVIST1-755](https://jira.itkdev.dk/browse/TVIST1-755)
   Digital post fixes
 - [TVIST1-755](https://jira.itkdev.dk/browse/TVIST1-755)
