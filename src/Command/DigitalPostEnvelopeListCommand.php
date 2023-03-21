@@ -53,7 +53,8 @@ class DigitalPostEnvelopeListCommand extends Command
             $io->definitionList(
                 ['Status' => $envelope->getStatus()],
                 ['Status message' => $envelope->getStatusMessage()],
-                ['Message Uuid' => $envelope->getMessageUuid()],
+                ['MeMo message uuid' => $envelope->getMeMoMessageUuid()],
+                ['Forsendelse uuid' => $envelope->getForsendelseUuid()],
                 ['Created at' => $envelope->getCreatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Updated at' => $envelope->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Beskedfordeler message data' => Yaml::dump($data, PHP_INT_MAX)],

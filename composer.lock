@@ -2708,12 +2708,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "8e17768453483ef234b595eb1c27bf416f8f3f30"
+                "reference": "01b8a736bc05f1c98dd0b8937f14cc87f150f59a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/8e17768453483ef234b595eb1c27bf416f8f3f30",
-                "reference": "8e17768453483ef234b595eb1c27bf416f8f3f30",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/01b8a736bc05f1c98dd0b8937f14cc87f150f59a",
+                "reference": "01b8a736bc05f1c98dd0b8937f14cc87f150f59a",
                 "shasum": ""
             },
             "require": {
@@ -2756,6 +2756,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "Oio\\": "lib/Oio/",
                     "KleOnlineDk\\": "lib/KleOnlineDk/",
                     "WwwFormOnlineDk\\": "lib/WwwFormOnlineDk/",
                     "DigitalPost\\MeMo\\": "lib/DigitalPost/MeMo/",
@@ -2787,7 +2788,7 @@
                 "issues": "https://github.com/itk-dev/serviceplatformen/issues",
                 "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/guzzle7-adapter"
             },
-            "time": "2023-02-19T17:50:50+00:00"
+            "time": "2023-03-21T11:55:33+00:00"
         },
         {
             "name": "jms/metadata",

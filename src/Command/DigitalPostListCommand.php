@@ -52,7 +52,7 @@ class DigitalPostListCommand extends Command
                 ['Created at' => $digitalPost->getCreatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Updated at' => $digitalPost->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Url' => implode(PHP_EOL, $urls)],
-                ['Envelopes' => implode(PHP_EOL, array_map(static fn (DigitalPostEnvelope $envelope) => sprintf('%s: %s (%s)', $envelope->getStatus(), $envelope->getStatusMessage(), $envelope->getMessageUuid()),
+                ['Envelopes' => implode(PHP_EOL, array_map(static fn (DigitalPostEnvelope $envelope) => sprintf('%s: %s (%s)', $envelope->getStatus(), $envelope->getStatusMessage(), $envelope->getMeMoMessageUuid()),
                                                            iterator_to_array($digitalPost->getEnvelopes())))],
             );
 

@@ -52,18 +52,32 @@ class DigitalPostEnvelope
     private $recipient;
 
     /**
-     * The MeMo message Uuid.
+     * The MeMo message uuid.
      *
      * @ORM\Column(type="string", length=36, nullable=true)
      */
-    private ?string $messageUuid;
+    private ?string $meMoMessageUuid;
 
     /**
      * The MeMo message (XML).
      *
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?string $message;
+    private ?string $meMoMessage;
+
+    /**
+     * The forsendelse uuid.
+     *
+     * @ORM\Column(type="string", length=36, nullable=true)
+     */
+    private ?string $forsendelseUuid;
+
+    /**
+     * The forsendelse (XML).
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $forsendelse;
 
     /**
      * The MeMo message receipt (XML).
@@ -106,7 +120,10 @@ class DigitalPostEnvelope
 
     public function setStatusMessage(?string $statusMessage): self
     {
-        $this->statusMessage = mb_substr($statusMessage, 0, 255);
+        if (null !== $statusMessage) {
+            $statusMessage = mb_substr($statusMessage, 0, 255);
+        }
+        $this->statusMessage = $statusMessage;
 
         return $this;
     }
@@ -135,26 +152,50 @@ class DigitalPostEnvelope
         return $this;
     }
 
-    public function getMessageUuid(): ?string
+    public function getMeMoMessageUuid(): ?string
     {
-        return $this->messageUuid;
+        return $this->meMoMessageUuid;
     }
 
-    public function setMessageUuid(string $messageUuid): self
+    public function setMeMoMessageUuid(string $meMoMessageUuid): self
     {
-        $this->messageUuid = $messageUuid;
+        $this->meMoMessageUuid = $meMoMessageUuid;
 
         return $this;
     }
 
-    public function getMessage(): ?string
+    public function getMeMoMessage(): ?string
     {
-        return $this->message;
+        return $this->meMoMessage;
     }
 
-    public function setMessage(string $message): self
+    public function setMeMoMessage(string $message): self
     {
-        $this->message = $message;
+        $this->meMoMessage = $message;
+
+        return $this;
+    }
+
+    public function getForsendelseUuid(): ?string
+    {
+        return $this->forsendelseUuid;
+    }
+
+    public function setForsendelseUuid(string $forsendelseUuid): self
+    {
+        $this->forsendelseUuid = $forsendelseUuid;
+
+        return $this;
+    }
+
+    public function getForsendelse(): ?string
+    {
+        return $this->forsendelse;
+    }
+
+    public function setForsendelse(string $forsendelse): self
+    {
+        $this->forsendelse = $forsendelse;
 
         return $this;
     }

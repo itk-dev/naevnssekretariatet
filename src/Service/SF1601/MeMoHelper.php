@@ -87,6 +87,15 @@ class MeMoHelper
         return $message;
     }
 
+    public function removeDocumentContent(Message $message): Message
+    {
+        $body = $message->getMessageBody();
+        $body->getMainDocument()->setFile([]);
+        $body->setAdditionalDocument([]);
+
+        return $message;
+    }
+
     private function createFile(Document $document): File
     {
         return (new File())
@@ -126,7 +135,7 @@ class MeMoHelper
                 ->setDoor($address->getSide() ?: '')
                 ->setZipCode($address->getPostalCode() ?: '')
                 ->setCity($address->getCity() ?: '')
-                ->setCountry('DA')
+                ->setCountry('DK')
             )
         ;
 
