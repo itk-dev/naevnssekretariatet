@@ -126,6 +126,8 @@ class DigitalPoster
             ;
 
             $this->envelopeRepository->save($envelope, true);
+
+            throw $throwable;
         }
     }
 
