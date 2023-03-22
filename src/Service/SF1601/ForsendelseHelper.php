@@ -74,9 +74,7 @@ class ForsendelseHelper
     public function removeDocumentContent(ForsendelseI $forsendelse): ForsendelseI
     {
         $forsendelse->setMeddelelseIndholdData('');
-        foreach ($forsendelse->getBilagSamling() as $bilag) {
-            $bilag->setVedhaeftningIndholdData('');
-        }
+        $forsendelse->setBilagSamling([]);
 
         return $forsendelse;
     }
