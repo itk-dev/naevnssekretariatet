@@ -122,7 +122,7 @@ class DigitalPoster
 
             $envelope
                 ->setStatus(DigitalPostEnvelope::STATUS_FAILED)
-                ->setStatusMessage($throwable->getMessage())
+                ->setThrowable($throwable)
             ;
 
             $this->envelopeRepository->save($envelope, true);

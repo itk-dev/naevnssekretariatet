@@ -40,6 +40,11 @@ class DigitalPostEnvelope
     private $statusMessage;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $throwable;
+
+    /**
      * @ORM\ManyToOne(targetEntity=DigitalPost::class)
      * @ORM\JoinColumn(nullable=false)
      */
@@ -124,6 +129,24 @@ class DigitalPostEnvelope
             $statusMessage = mb_substr($statusMessage, 0, 255);
         }
         $this->statusMessage = $statusMessage;
+
+        return $this;
+    }
+
+    public function getThrowable(): string
+    {
+        return $this->throwable;
+    }
+
+    /**
+     * @param Throwable $throwable
+     *
+     * @return DigitalPostEnvelope
+     */
+    public function setThrowable(\Throwable $throwable)
+    {
+        $this->setStatusMessage($throwable->getMessage());
+        $this->throwable = serialize($throwable);
 
         return $this;
     }
