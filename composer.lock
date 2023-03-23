@@ -2708,12 +2708,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "01b8a736bc05f1c98dd0b8937f14cc87f150f59a"
+                "reference": "e32a8bbc157f8de08b701de7802917c183d79baf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/01b8a736bc05f1c98dd0b8937f14cc87f150f59a",
-                "reference": "01b8a736bc05f1c98dd0b8937f14cc87f150f59a",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/e32a8bbc157f8de08b701de7802917c183d79baf",
+                "reference": "e32a8bbc157f8de08b701de7802917c183d79baf",
                 "shasum": ""
             },
             "require": {
@@ -2788,7 +2788,7 @@
                 "issues": "https://github.com/itk-dev/serviceplatformen/issues",
                 "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/guzzle7-adapter"
             },
-            "time": "2023-03-21T11:55:33+00:00"
+            "time": "2023-03-23T12:27:04+00:00"
         },
         {
             "name": "jms/metadata",
