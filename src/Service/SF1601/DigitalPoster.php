@@ -127,6 +127,7 @@ class DigitalPoster
 
             $this->envelopeRepository->save($envelope, true);
 
+            // Rethrow exception for proper messenger bus retrying.
             throw $throwable;
         }
     }
