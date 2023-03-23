@@ -72,10 +72,6 @@ class DigitalPostEnvelopeListCommand extends Command
      */
     private function findEnvelopes(InputInterface $input): array
     {
-        $criteria = array_filter([
-            'status' => $input->getOption('status'),
-        ]);
-
         $qb = $this->envelopeRepository
             ->createQueryBuilder('e')
             ->orderBy('e.createdAt', Criteria::DESC)
