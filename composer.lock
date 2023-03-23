@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96851160ed60a60148485cc7ce287e61",
+    "content-hash": "72ac2843bb623840a7f9d0d5f7322aea",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2476,16 +2476,16 @@
         },
         {
             "name": "itk-dev/beskedfordeler-symfony",
-            "version": "dev-feature/beskedfordeler",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/beskedfordeler-symfony.git",
-                "reference": "aeea1d5e5077779b27fc9fcdef959f98633eb864"
+                "reference": "08cd744c10f70568385013a3763932da8efbcdae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/beskedfordeler-symfony/zipball/aeea1d5e5077779b27fc9fcdef959f98633eb864",
-                "reference": "aeea1d5e5077779b27fc9fcdef959f98633eb864",
+                "url": "https://api.github.com/repos/itk-dev/beskedfordeler-symfony/zipball/08cd744c10f70568385013a3763932da8efbcdae",
+                "reference": "08cd744c10f70568385013a3763932da8efbcdae",
                 "shasum": ""
             },
             "require": {
@@ -2515,9 +2515,9 @@
             "description": "Beskedfordeler for Symfony",
             "support": {
                 "issues": "https://github.com/itk-dev/beskedfordeler-symfony/issues",
-                "source": "https://github.com/itk-dev/beskedfordeler-symfony/tree/feature/beskedfordeler"
+                "source": "https://github.com/itk-dev/beskedfordeler-symfony/tree/1.0.1"
             },
-            "time": "2023-03-03T10:31:44+00:00"
+            "time": "2023-03-23T08:49:15+00:00"
         },
         {
             "name": "itk-dev/datafordeler-php-client",
@@ -14838,7 +14838,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "itk-dev/beskedfordeler-symfony": 20,
         "itk-dev/datafordeler-php-client": 20,
         "itk-dev/openid-connect-bundle": 20,
         "itk-dev/serviceplatformen": 20
