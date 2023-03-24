@@ -18,6 +18,8 @@ about writing changes to this log.
   Updated docker compose setup
 - [TVIST1-755](https://jira.itkdev.dk/browse/TVIST1-755)
   Moved custom project docker compose settings into override files
+- [TVIST1-809](https://jira.itkdev.dk/browse/TVIST1-809)
+  Made commands a little more useful.
 
 ## [1.2.0] 2023-03-15
 

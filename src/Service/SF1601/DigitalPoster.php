@@ -24,6 +24,19 @@ class DigitalPoster
         $this->setLogger($logger);
     }
 
+    public function canReceive(string $type, string $identifier): ?bool
+    {
+        $options = $this->options['sf1601']
+            + [
+                'certificate_locator' => $this->certificateLocatorHelper->getCertificateLocator(),
+            ];
+        $service = new SF1601($options);
+
+        $transactionId = Serializer::createUuid();
+
+        return $service->postForespoerg($transactionId, $type, $identifier);
+    }
+
     public function sendDigitalPost(DigitalPost $digitalPost, DigitalPost\Recipient $recipient)
     {
         $isNew = false;
@@ -127,6 +140,7 @@ class DigitalPoster
 
             $this->envelopeRepository->save($envelope, true);
 
+            // Rethrow exception for proper messenger bus retrying.
             throw $throwable;
         }
     }

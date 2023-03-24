@@ -72,8 +72,13 @@ class DigitalPostEnvelopeSendCommand extends Command
             throw new RuntimeException(sprintf('Cannot find digital post %s', json_encode($criteria)));
         }
 
+        $io->section('Recipients');
+        foreach ($digitalPost->getRecipients() as $recipient) {
+            $io->writeln(sprintf('%s (#%s)', $recipient, $recipient->getId()));
+        }
+
         $question = sprintf('Send digital post %s to %d recipient(s)', $digitalPost->getSubject(), $digitalPost->getRecipients()->count());
-        if ($io->confirm($question)) {
+        if ($io->confirm($question, !$input->isInteractive())) {
             $dispatch = $input->getOption('dispatch');
 
             foreach ($digitalPost->getRecipients() as $recipient) {

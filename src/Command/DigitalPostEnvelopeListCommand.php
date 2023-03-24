@@ -31,6 +31,7 @@ class DigitalPostEnvelopeListCommand extends Command
     {
         $this
             ->addOption('status', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with this status')
+            ->addOption('digital-post-subject', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with subject matching this LIKE expression')
         ;
     }
 
@@ -71,12 +72,25 @@ class DigitalPostEnvelopeListCommand extends Command
      */
     private function findEnvelopes(InputInterface $input): array
     {
-        $criteria = array_filter([
-            'status' => $input->getOption('status'),
-        ]);
+        $qb = $this->envelopeRepository
+            ->createQueryBuilder('e')
+            ->orderBy('e.createdAt', Criteria::DESC)
+        ;
 
-        return $this->envelopeRepository->findBy($criteria, [
-            'createdAt' => Criteria::DESC,
-        ]);
+        if ($status = $input->getOption('status')) {
+            $qb
+                ->andWhere('e.status = :status')
+                ->setParameter(':status', $status)
+            ;
+        }
+        if ($subject = $input->getOption('digital-post-subject')) {
+            $qb
+                ->join('e.digitalPost', 'p')
+                ->andWhere('p.subject LIKE :subject')
+                ->setParameter(':subject', $subject)
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }
