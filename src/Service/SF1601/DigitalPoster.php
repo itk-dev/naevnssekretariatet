@@ -10,6 +10,7 @@ use ItkDev\Serviceplatformen\Service\SF1601\SF1601;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 
 class DigitalPoster
@@ -97,6 +98,7 @@ class DigitalPoster
             $this->forsendelseHelper->removeDocumentContent($forsendelse);
 
             $envelope
+                ->setTransactionId(Uuid::fromRfc4122($transactionId))
                 ->setStatus(DigitalPostEnvelope::STATUS_SENT)
                 ->setStatusMessage(null)
                 ->setMeMoMessage($serializer->serialize($meMoMessage))

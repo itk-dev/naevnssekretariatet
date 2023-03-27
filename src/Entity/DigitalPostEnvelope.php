@@ -30,6 +30,11 @@ class DigitalPostEnvelope
     private ?Uuid $id;
 
     /**
+     * @ORM\Column(type="uuid", nullable=true)
+     */
+    private ?Uuid $transactionId;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $status = self::STATUS_CREATED;
@@ -106,6 +111,18 @@ class DigitalPostEnvelope
     public function getId(): ?Uuid
     {
         return $this->id;
+    }
+
+    public function getTransactionId(): ?Uuid
+    {
+        return $this->transactionId;
+    }
+
+    public function setTransactionId(Uuid $transactionId): self
+    {
+        $this->transactionId = $transactionId;
+
+        return $this;
     }
 
     public function getStatus(): ?string
