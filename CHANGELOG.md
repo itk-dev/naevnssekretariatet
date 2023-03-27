@@ -16,6 +16,8 @@ about writing changes to this log.
   Updated docker compose setup
 - [TVIST1-755](https://jira.itkdev.dk/browse/TVIST1-755)
   Moved custom project docker compose settings into override files
+- [TVIST-810](https://jira.itkdev.dk/browse/TVIST1-810)
+  Fixes document deletion issue
 
 ## [1.2.0] 2023-03-15
 
