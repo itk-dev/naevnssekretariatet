@@ -32,6 +32,7 @@ class DigitalPostEnvelopeListCommand extends Command
         $this
             ->addOption('status', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with this status')
             ->addOption('digital-post-subject', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with subject matching this LIKE expression')
+            ->addOption('max-results', null, InputOption::VALUE_REQUIRED, 'Show at most this many envelopes', 10)
         ;
     }
 
@@ -72,9 +73,11 @@ class DigitalPostEnvelopeListCommand extends Command
      */
     private function findEnvelopes(InputInterface $input): array
     {
+        $maxResults = (int) $input->getOption('max-results');
         $qb = $this->envelopeRepository
             ->createQueryBuilder('e')
             ->orderBy('e.createdAt', Criteria::DESC)
+            ->setMaxResults($maxResults)
         ;
 
         if ($status = $input->getOption('status')) {

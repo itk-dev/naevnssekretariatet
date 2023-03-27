@@ -30,6 +30,7 @@ class DigitalPoster
             + [
                 'certificate_locator' => $this->certificateLocatorHelper->getCertificateLocator(),
             ];
+        unset($options[ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR]);
         $service = new SF1601($options);
 
         $transactionId = Serializer::createUuid();

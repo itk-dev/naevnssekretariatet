@@ -32,7 +32,7 @@ class BeskedfordelerEventSubscriber implements EventSubscriberInterface
             $beskedfordelerMessage = $event->getDocument()->saveXML();
             $data = $this->messageHelper->getBeskeddata($beskedfordelerMessage);
             if ($messageUuid = ($data['MessageUUID'] ?? null)) {
-                $envelope = $this->envelopeRepository->findOneBy(['messageUuid' => $messageUuid]);
+                $envelope = $this->envelopeRepository->findOneBy(['meMoMessageUuid' => $messageUuid]);
                 if (null !== $envelope) {
                     // We may receive the same message multiple times.
                     if (!in_array($beskedfordelerMessage, $envelope->getBeskedfordelerMessages(), true)) {
@@ -53,7 +53,7 @@ class BeskedfordelerEventSubscriber implements EventSubscriberInterface
                             $data['TransaktionsStatusKode'] ?? null, $messageUuid));
                     }
                 } else {
-                    $this->logger->warning(sprintf('Unknown Beskedfordeler message uuid: %s', $messageUuid));
+                    $this->logger->warning(sprintf('Unknown Beskedfordeler MeMo message uuid: %s', $messageUuid));
                 }
             } else {
                 $this->logger->warning(sprintf('Unhandled Beskedfordeler message; data: %s', json_encode($data)), [
