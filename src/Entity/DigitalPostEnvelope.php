@@ -40,6 +40,8 @@ class DigitalPostEnvelope
     private $statusMessage;
 
     /**
+     * Serialized throwable.
+     *
      * @ORM\Column(type="text", nullable=true)
      */
     private $throwable;
@@ -133,20 +135,26 @@ class DigitalPostEnvelope
         return $this;
     }
 
-    public function getThrowable(): string
+    /**
+     * Get serialized throwable if any.
+     */
+    public function getThrowable(): ?string
     {
         return $this->throwable;
     }
 
-    /**
-     * @param Throwable $throwable
-     *
-     * @return DigitalPostEnvelope
-     */
-    public function setThrowable(\Throwable $throwable)
+    public function setThrowable(\Throwable $throwable): self
     {
         $this->setStatusMessage($throwable->getMessage());
-        $this->throwable = serialize($throwable);
+        try {
+            $this->throwable = serialize($throwable);
+        } catch (\Throwable $throwable) {
+            try {
+                $this->throwable = serialize(['throwable' => ['message' => $throwable->getMessage()]]);
+            } catch (\Throwable) {
+                // Ignore any exceptions.
+            }
+        }
 
         return $this;
     }
