@@ -32,7 +32,9 @@ class BeskedfordelerEventSubscriber implements EventSubscriberInterface
             $beskedfordelerMessage = $event->getDocument()->saveXML();
             $data = $this->messageHelper->getBeskeddata($beskedfordelerMessage);
             if ($messageUuid = ($data['MessageUUID'] ?? null)) {
-                $envelope = $this->envelopeRepository->findOneBy(['meMoMessageUuid' => $messageUuid]);
+                $envelope = $this->envelopeRepository->findOneBy(['meMoMessageUuid' => $messageUuid])
+                    // TODO Find out how Beskedfordeleren actually sends messages on “Fjernprint“ messages.
+                    ?? $this->envelopeRepository->findOneBy(['forsendelseUuid' => $messageUuid]);
                 if (null !== $envelope) {
                     // We may receive the same message multiple times.
                     if (!in_array($beskedfordelerMessage, $envelope->getBeskedfordelerMessages(), true)) {
