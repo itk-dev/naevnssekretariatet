@@ -16,6 +16,8 @@ about writing changes to this log.
   Updated docker compose setup
 - [TVIST1-755](https://jira.itkdev.dk/browse/TVIST1-755)
   Moved custom project docker compose settings into override files
+- [TVIST1-812](https://jira.itkdev.dk/browse/TVIST1-812)
+  Added default `CLI_REDIRECT` to `.env`.
 - [TVIST-810](https://jira.itkdev.dk/browse/TVIST1-810)
   Fixes document deletion issue
 
