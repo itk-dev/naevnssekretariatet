@@ -20,6 +20,10 @@ about writing changes to this log.
   Moved custom project docker compose settings into override files
 - [TVIST1-809](https://jira.itkdev.dk/browse/TVIST1-809)
   Made commands a little more useful.
+- [TVIST1-812](https://jira.itkdev.dk/browse/TVIST1-812)
+  Added default `CLI_REDIRECT` to `.env`.
+- [TVIST-810](https://jira.itkdev.dk/browse/TVIST1-810)
+  Fixes document deletion issue
 
 ## [1.2.0] 2023-03-15
 
