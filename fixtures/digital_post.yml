@@ -29,6 +29,12 @@ App\Entity\DigitalPost:
         entityId: '@test-case-aarhus-1->id'
         subject: 'Digital post with multiple recipients'
 
+    digital-post-fjernprint:
+        document: '@document-001'
+        entityType: 'App\Entity\ResidentComplaintBoardCase'
+        entityId: '@test-case-aarhus-1->id'
+        subject: 'Physical mail (fjernprint)'
+
 App\Entity\DigitalPostAttachment:
     digital-post-attachment-001:
         digitalPost: '@digital-post-001'
@@ -38,6 +44,10 @@ App\Entity\DigitalPostAttachment:
         digitalPost: '@digital-post-001'
         document: '@attachment-002'
         position: 1
+    digital-post-attachment-fjernprint:
+        digitalPost: '@digital-post-fjernprint'
+        document: '@attachment-002'
+        position: 0
 
 App\Entity\DigitalPost\Recipient:
     recipient-001:
@@ -82,6 +92,14 @@ App\Entity\DigitalPost\Recipient:
         identifier: '2611740000'
         address: '@test-case-aarhus-1-bringer-address'
 
+    # Recipient that cannot recipient digital post, but only physical mail ("Fjernprint")
+    recipient-fjernprint:
+        digitalPost: '@digital-post-fjernprint'
+        name: 'FritagetDP'
+        identifierType: 'CPR'
+        identifier: '1008610000'
+        address: '@test-case-aarhus-1-bringer-address'
+
 App\Entity\DigitalPostEnvelope:
     digital-post-005/envelope/recipient-003:
         digitalPost: '@digital-post-005'
@@ -106,3 +124,7 @@ App\Entity\DigitalPostEnvelope:
         status: <(App\Entity\DigitalPostEnvelope::STATUS_FAILED)>
         beskedfordelerMessages:
             - <(file_get_contents('fixtures/beskedfordeler_messages/sf1601/PostStatusBeskedModtag.error.xml'))>
+
+    digital-post-fjernprint/envelope/recipient-fjernprint:
+        digitalPost: '@digital-post-fjernprint'
+        recipient: '@recipient-fjernprint'

@@ -32,7 +32,9 @@ class BeskedfordelerEventSubscriber implements EventSubscriberInterface
             $beskedfordelerMessage = $event->getDocument()->saveXML();
             $data = $this->messageHelper->getBeskeddata($beskedfordelerMessage);
             if ($messageUuid = ($data['MessageUUID'] ?? null)) {
-                $envelope = $this->envelopeRepository->findOneBy(['messageUuid' => $messageUuid]);
+                $envelope = $this->envelopeRepository->findOneBy(['meMoMessageUuid' => $messageUuid])
+                    // TODO Find out how Beskedfordeleren actually sends messages on “Fjernprint“ messages.
+                    ?? $this->envelopeRepository->findOneBy(['forsendelseUuid' => $messageUuid]);
                 if (null !== $envelope) {
                     // We may receive the same message multiple times.
                     if (!in_array($beskedfordelerMessage, $envelope->getBeskedfordelerMessages(), true)) {
@@ -53,8 +55,12 @@ class BeskedfordelerEventSubscriber implements EventSubscriberInterface
                             $data['TransaktionsStatusKode'] ?? null, $messageUuid));
                     }
                 } else {
-                    $this->logger->warning(sprintf('Unknown Beskedfordeler message uuid: %s', $messageUuid));
+                    $this->logger->warning(sprintf('Unknown Beskedfordeler MeMo message uuid: %s', $messageUuid));
                 }
+            } else {
+                $this->logger->warning(sprintf('Unhandled Beskedfordeler message; data: %s', json_encode($data)), [
+                    'message' => $beskedfordelerMessage,
+                ]);
             }
         } catch (\Throwable $exception) {
             $this->logger->error(sprintf('Error handling Beskedfordeler message: %s', $exception->getMessage()), [

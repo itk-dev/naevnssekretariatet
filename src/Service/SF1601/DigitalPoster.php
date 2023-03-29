@@ -10,6 +10,8 @@ use ItkDev\Serviceplatformen\Service\SF1601\SF1601;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 
 class DigitalPoster
 {
@@ -17,10 +19,24 @@ class DigitalPoster
 
     private array $options;
 
-    public function __construct(private CertificateLocatorHelper $certificateLocatorHelper, private MeMoHelper $meMoHelper, private DigitalPostEnvelopeRepository $envelopeRepository, LoggerInterface $logger, array $options)
+    public function __construct(private CertificateLocatorHelper $certificateLocatorHelper, private MeMoHelper $meMoHelper, private readonly ForsendelseHelper $forsendelseHelper, private DigitalPostEnvelopeRepository $envelopeRepository, LoggerInterface $logger, array $options)
     {
         $this->options = $this->resolveOptions($options);
         $this->setLogger($logger);
+    }
+
+    public function canReceive(string $type, string $identifier): ?bool
+    {
+        $options = $this->options['sf1601']
+            + [
+                'certificate_locator' => $this->certificateLocatorHelper->getCertificateLocator(),
+            ];
+        unset($options[ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR]);
+        $service = new SF1601($options);
+
+        $transactionId = Serializer::createUuid();
+
+        return $service->postForespoerg($transactionId, $type, $identifier);
     }
 
     public function sendDigitalPost(DigitalPost $digitalPost, DigitalPost\Recipient $recipient)
@@ -44,7 +60,7 @@ class DigitalPoster
         } else {
             $this->logger->debug(sprintf(
                 'Reusing envelope %s for digital post %s for sending to %s',
-                $envelope->getMessageUuid(),
+                $envelope->getMeMoMessageUuid(),
                 $digitalPost,
                 $recipient
             ));
@@ -59,26 +75,36 @@ class DigitalPoster
             $meMoMessage = $this->meMoHelper->createMeMoMessage($digitalPost, $recipient, $meMoOptions);
             $messageUuid = $meMoMessage->getMessageHeader()->getMessageUUID();
 
+            $forsendelseOptions = [
+                ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR => $this->options['sf1601']['forsendelses_type_identifikator'],
+            ];
+            $forsendelse = $this->forsendelseHelper->createForsendelse($digitalPost, $recipient, $forsendelseOptions);
+            $forsendelseUuid = $forsendelse->getAfsendelseIdentifikator();
+
             $options = $this->options['sf1601']
                 + [
                     'certificate_locator' => $this->certificateLocatorHelper->getCertificateLocator(),
                 ];
+            unset($options[ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR]);
             $service = new SF1601($options);
             $transactionId = Serializer::createUuid();
-            $response = $service->kombiPostAfsend($transactionId, SF1601::TYPE_AUTOMATISK_VALG, $meMoMessage);
+            $response = $service->kombiPostAfsend($transactionId, SF1601::TYPE_AUTOMATISK_VALG, $meMoMessage, $forsendelse);
 
             $serializer = new Serializer();
             $receipt = $response->getContent();
 
             // We don't want to store actual document content in the envelope.
-            $body = $meMoMessage->getMessageBody();
-            $body->getMainDocument()->setFile([]);
-            $body->setAdditionalDocument([]);
+            $this->meMoHelper->removeDocumentContent($meMoMessage);
+            $this->forsendelseHelper->removeDocumentContent($forsendelse);
 
             $envelope
+                ->setTransactionId(Uuid::fromRfc4122($transactionId))
                 ->setStatus(DigitalPostEnvelope::STATUS_SENT)
-                ->setMessage($serializer->serialize($meMoMessage))
-                ->setMessageUuid($messageUuid)
+                ->setStatusMessage(null)
+                ->setMeMoMessage($serializer->serialize($meMoMessage))
+                ->setMeMoMessageUuid($messageUuid)
+                ->setForsendelse($serializer->serialize($forsendelse))
+                ->setForsendelseUuid($forsendelseUuid)
                 ->setReceipt($receipt)
             ;
 
@@ -88,32 +114,53 @@ class DigitalPoster
                 $isNew
                     ? sprintf(
                     'Created envelope %s for digital post %s to %s',
-                    $envelope->getMessageUuid(),
+                    $envelope->getMeMoMessageUuid(),
                     $digitalPost,
                     $recipient
                 )
                     : sprintf(
                     'Reused envelope %s for digital post %s to %s',
-                    $envelope->getMessageUuid(),
+                    $envelope->getMeMoMessageUuid(),
                     $digitalPost,
                     $recipient
                 )
             );
         } catch (\Throwable $throwable) {
+            $context = [];
+            if ($throwable instanceof ClientExceptionInterface) {
+                $response = $throwable->getResponse();
+                $context['response'] = [
+                    'headers' => $response->getHeaders(false),
+                    'content' => $response->getContent(false),
+                ];
+            }
+            $this->logger->error(sprintf('Error sending digital post: %s', $throwable->getMessage()), $context);
+
             $envelope
                 ->setStatus(DigitalPostEnvelope::STATUS_FAILED)
-                ->setStatusMessage($throwable->getMessage())
+                ->setThrowable($throwable)
             ;
 
             $this->envelopeRepository->save($envelope, true);
+
+            // Rethrow exception for proper messenger bus retrying.
+            throw $throwable;
         }
     }
 
     private function resolveOptions(array $options): array
     {
         return (new OptionsResolver())
-            ->setRequired('sf1601')
-            ->setAllowedTypes('sf1601', 'array')
+            ->setDefault('sf1601', static function (OptionsResolver $resolver) {
+                $resolver
+                    ->setDefault('test_mode', true)
+                    ->setAllowedTypes('test_mode', 'bool')
+                    ->setRequired('authority_cvr')
+                    ->setAllowedTypes('authority_cvr', 'string')
+                    ->setRequired('forsendelses_type_identifikator')
+                    ->setAllowedTypes('forsendelses_type_identifikator', 'int')
+                ;
+            })
             ->resolve($options)
         ;
     }
