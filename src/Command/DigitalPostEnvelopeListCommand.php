@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Entity\CaseDocumentRelation;
 use App\Entity\DigitalPostEnvelope;
 use App\Repository\DigitalPostEnvelopeRepository;
+use Doctrine\Common\Collections\Criteria;
 use Itkdev\BeskedfordelerBundle\Helper\MessageHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -30,6 +31,8 @@ class DigitalPostEnvelopeListCommand extends Command
     {
         $this
             ->addOption('status', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with this status')
+            ->addOption('digital-post-subject', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with subject matching this LIKE expression')
+            ->addOption('max-results', null, InputOption::VALUE_REQUIRED, 'Show at most this many envelopes', 10)
         ;
     }
 
@@ -52,8 +55,11 @@ class DigitalPostEnvelopeListCommand extends Command
             $io->definitionList(
                 ['Status' => $envelope->getStatus()],
                 ['Status message' => $envelope->getStatusMessage()],
-                ['Message Uuid' => $envelope->getMessageUuid()],
-                ['Data' => Yaml::dump($data, PHP_INT_MAX)],
+                ['MeMo message uuid' => $envelope->getMeMoMessageUuid()],
+                ['Forsendelse uuid' => $envelope->getForsendelseUuid()],
+                ['Created at' => $envelope->getCreatedAt()->format(\DateTimeInterface::ATOM)],
+                ['Updated at' => $envelope->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
+                ['Beskedfordeler message data' => Yaml::dump($data, PHP_INT_MAX)],
                 ['Digital post' => (string) $digitalPost],
                 ['Digital post URL' => implode(PHP_EOL, $digitalPostUrls)]
             );
@@ -67,10 +73,27 @@ class DigitalPostEnvelopeListCommand extends Command
      */
     private function findEnvelopes(InputInterface $input): array
     {
-        $criteria = array_filter([
-            'status' => $input->getOption('status'),
-        ]);
+        $maxResults = (int) $input->getOption('max-results');
+        $qb = $this->envelopeRepository
+            ->createQueryBuilder('e')
+            ->orderBy('e.createdAt', Criteria::DESC)
+            ->setMaxResults($maxResults)
+        ;
 
-        return $this->envelopeRepository->findBy($criteria);
+        if ($status = $input->getOption('status')) {
+            $qb
+                ->andWhere('e.status = :status')
+                ->setParameter(':status', $status)
+            ;
+        }
+        if ($subject = $input->getOption('digital-post-subject')) {
+            $qb
+                ->join('e.digitalPost', 'p')
+                ->andWhere('p.subject LIKE :subject')
+                ->setParameter(':subject', $subject)
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }

@@ -34,7 +34,7 @@
         "friendsofsymfony/ckeditor-bundle": "^2.3",
         "gedmo/doctrine-extensions": "^3.0",
         "itk-dev/azure-key-vault-php": "^1.0",
-        "itk-dev/beskedfordeler-symfony": "dev-feature/beskedfordeler",
+        "itk-dev/beskedfordeler-symfony": "^1.0",
         "itk-dev/datafordeler-php-client": "dev-develop",
         "itk-dev/openid-connect-bundle": "dev-develop",
         "itk-dev/serviceplatformen": "dev-feature/guzzle7-adapter",
