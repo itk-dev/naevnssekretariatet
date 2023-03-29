@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.3.0] 2023-03-29
+
 - [TVIST1-807](https://jira.itkdev.dk/browse/TVIST1-807)
   Improved digital post logging and handled "fjernprint"
 - [TVIST1-755](https://jira.itkdev.dk/browse/TVIST1-755)
@@ -22,7 +24,7 @@ about writing changes to this log.
   Made commands a little more useful.
 - [TVIST1-812](https://jira.itkdev.dk/browse/TVIST1-812)
   Added default `CLI_REDIRECT` to `.env`.
-- [TVIST-810](https://jira.itkdev.dk/browse/TVIST1-810)
+- [TVIST1-810](https://jira.itkdev.dk/browse/TVIST1-810)
   Fixes document deletion issue
 
 ## [1.2.0] 2023-03-15
@@ -218,7 +220,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.2...1.2.0
 [1.1.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.1.0...1.1.1
