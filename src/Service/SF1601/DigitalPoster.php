@@ -79,7 +79,6 @@ class DigitalPoster
                 ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR => $this->options['sf1601']['forsendelses_type_identifikator'],
             ];
             $forsendelse = $this->forsendelseHelper->createForsendelse($digitalPost, $recipient, $forsendelseOptions);
-            $forsendelseUuid = $forsendelse->getAfsendelseIdentifikator();
 
             $options = $this->options['sf1601']
                 + [
@@ -103,10 +102,15 @@ class DigitalPoster
                 ->setStatusMessage(null)
                 ->setMeMoMessage($serializer->serialize($meMoMessage))
                 ->setMeMoMessageUuid($messageUuid)
-                ->setForsendelse($serializer->serialize($forsendelse))
-                ->setForsendelseUuid($forsendelseUuid)
                 ->setReceipt($receipt)
             ;
+
+            if (null !== $forsendelse) {
+                $envelope
+                    ->setForsendelse($serializer->serialize($forsendelse))
+                    ->setForsendelseUuid($forsendelse->getAfsendelseIdentifikator())
+                ;
+            }
 
             $this->envelopeRepository->save($envelope, true);
 
@@ -134,9 +138,11 @@ class DigitalPoster
                     'content' => $response->getContent(false),
                 ];
             }
-            $this->logger->error(sprintf('Error sending digital post: %s', $throwable->getMessage()), $context);
+            $message = sprintf('Error sending digital post: %s', $throwable->getMessage());
+            $this->logger->error($message, $context);
 
             $envelope
+                ->addError($message, $context)
                 ->setStatus(DigitalPostEnvelope::STATUS_FAILED)
                 ->setThrowable($throwable)
             ;
