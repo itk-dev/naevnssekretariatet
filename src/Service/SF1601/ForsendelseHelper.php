@@ -4,6 +4,7 @@ namespace App\Service\SF1601;
 
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPost\Recipient as DigitalPostRecipient;
+use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
 use App\Service\DocumentUploader;
 use ItkDev\Serviceplatformen\Service\SF1601\Serializer;
@@ -62,6 +63,7 @@ class ForsendelseHelper
             $document = $attachment->getDocument();
 
             $bilag = (new Bilag())
+                ->setBilagNavn($this->getBilagNavn($attachment))
                 ->setFilformatNavn('PDF')
                 ->setVedhaeftningIndholdData($this->documentUploader->getFileContent($document))
             ;
@@ -69,6 +71,21 @@ class ForsendelseHelper
         }
 
         return $forsendelse;
+    }
+
+    /**
+     * "Navnet skal være mellem 1 og 1024 tegn, og må ikke slutte med . eller indeholde specialtegn.".
+     */
+    private function getBilagNavn(DigitalPostAttachment $attachment): string
+    {
+        $document = $attachment->getDocument();
+
+        $navn = $document->getFilename() ?? sprintf('Bilag %d', $attachment->getPosition());
+        $navn = preg_replace('/[^\w-]/', '', $navn);
+        $navn = rtrim($navn, '.');
+        $navn = substr($navn, 0, 1024);
+
+        return $navn;
     }
 
     public function removeDocumentContent(ForsendelseI $forsendelse): ForsendelseI
