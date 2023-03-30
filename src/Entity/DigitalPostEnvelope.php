@@ -103,6 +103,11 @@ class DigitalPostEnvelope
      */
     private array $beskedfordelerMessages = [];
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private array $errors = [];
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -285,5 +290,21 @@ class DigitalPostEnvelope
     public function getBeskedfordelerMessages(): ?array
     {
         return $this->beskedfordelerMessages;
+    }
+
+    public function addError(string $message, array $context): self
+    {
+        $this->errors[] = [
+            'message' => $message,
+            'context' => $context,
+            'created_at' => (new \DateTimeImmutable())->format(\DateTimeImmutable::ATOM),
+        ];
+
+        return $this;
+    }
+
+    public function getErrors(): ?array
+    {
+        return $this->errors;
     }
 }
