@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Yaml\Yaml;
 
 #[AsCommand(
@@ -33,12 +34,18 @@ class DigitalPostEnvelopeListCommand extends Command
             ->addOption('status', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with this status')
             ->addOption('digital-post-subject', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with subject matching this LIKE expression')
             ->addOption('max-results', null, InputOption::VALUE_REQUIRED, 'Show at most this many envelopes', 10)
+            ->addOption('id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Envelope id')
+            ->addOption('show-throwable', null, InputOption::VALUE_NONE, 'show throwable')
+            ->addOption('show-errors', null, InputOption::VALUE_NONE, 'show errors')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+
+        $showThrowable = $input->getOption('show-throwable');
+        $showErrors = $input->getOption('show-errors');
 
         $envelopes = $this->findEnvelopes($input);
         foreach ($envelopes as $envelope) {
@@ -52,7 +59,8 @@ class DigitalPostEnvelopeListCommand extends Command
                 fn (CaseDocumentRelation $relation) => $this->urlGenerator->generate('digital_post_show', ['id' => $relation->getCase()->getId(), 'digitalPost' => $digitalPost->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
                 $digitalPost->getDocument()->getCaseDocumentRelations()->toArray()
             );
-            $io->definitionList(
+            $items = [
+                ['Id' => $envelope->getId()],
                 ['Status' => $envelope->getStatus()],
                 ['Status message' => $envelope->getStatusMessage()],
                 ['MeMo message uuid' => $envelope->getMeMoMessageUuid()],
@@ -61,8 +69,19 @@ class DigitalPostEnvelopeListCommand extends Command
                 ['Updated at' => $envelope->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Beskedfordeler message data' => Yaml::dump($data, PHP_INT_MAX)],
                 ['Digital post' => (string) $digitalPost],
-                ['Digital post URL' => implode(PHP_EOL, $digitalPostUrls)]
-            );
+                ['Digital post URL' => implode(PHP_EOL, $digitalPostUrls)],
+            ];
+
+            if ($showThrowable) {
+                $throwable = unserialize($envelope->getThrowable()) ?: null;
+                $items[] = ['Throwable' => var_export($throwable, true)];
+            }
+
+            if ($showErrors) {
+                $items[] = ['Errors' => var_export($envelope->getErrors(), true)];
+            }
+
+            $io->definitionList(...$items);
         }
 
         return self::SUCCESS;
@@ -80,17 +99,24 @@ class DigitalPostEnvelopeListCommand extends Command
             ->setMaxResults($maxResults)
         ;
 
+        if ($ids = $input->getOption('id')) {
+            $ids = array_map(static fn (string $id) => Uuid::fromString($id)->toBinary(), $ids);
+            $qb
+                ->andWhere('e.id IN (:ids)')
+                ->setParameter('ids', $ids)
+            ;
+        }
         if ($status = $input->getOption('status')) {
             $qb
                 ->andWhere('e.status = :status')
-                ->setParameter(':status', $status)
+                ->setParameter('status', $status)
             ;
         }
         if ($subject = $input->getOption('digital-post-subject')) {
             $qb
                 ->join('e.digitalPost', 'p')
                 ->andWhere('p.subject LIKE :subject')
-                ->setParameter(':subject', $subject)
+                ->setParameter('subject', $subject)
             ;
         }
 
