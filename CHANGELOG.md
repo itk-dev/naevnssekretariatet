@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [TVIST1-809](https://jira.itkdev.dk/browse/TVIST1-809)
+  Digital post fixes and improvements.
+
 ## [1.3.0] 2023-03-29
 
 - [TVIST1-807](https://jira.itkdev.dk/browse/TVIST1-807)
