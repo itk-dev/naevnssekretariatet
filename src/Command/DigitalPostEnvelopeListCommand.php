@@ -37,6 +37,7 @@ class DigitalPostEnvelopeListCommand extends Command
             ->addOption('max-results', null, InputOption::VALUE_REQUIRED, 'Show at most this many envelopes', 10)
             ->addOption('id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Envelope id')
             ->addOption('show-throwable', null, InputOption::VALUE_NONE, 'show throwable')
+            ->addOption('has-errors', null, InputOption::VALUE_NONE, 'Show envelopes with errors')
             ->addOption('show-errors', null, InputOption::VALUE_NONE, 'show errors')
         ;
     }
@@ -81,6 +82,7 @@ class DigitalPostEnvelopeListCommand extends Command
                 ['Digital post' => (string) $digitalPost],
                 ['Filenames' => implode(PHP_EOL, $filenames)],
                 ['Digital post URL' => implode(PHP_EOL, $digitalPostUrls)],
+                ['Errors' => count($envelope->getErrors())],
             ];
 
             if ($showThrowable) {
@@ -128,6 +130,12 @@ class DigitalPostEnvelopeListCommand extends Command
                 ->join('e.digitalPost', 'p')
                 ->andWhere('p.subject LIKE :subject')
                 ->setParameter('subject', $subject)
+            ;
+        }
+
+        if ($input->getOption('has-errors')) {
+            $qb
+                ->andWhere('e.errors <> \'[]\'')
             ;
         }
 
