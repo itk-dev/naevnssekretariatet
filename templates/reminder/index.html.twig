@@ -37,7 +37,7 @@
                         <td>{{ reminder.content|e }}</td>
                         <td>
                             <!-- Complete button -->
-                            <form method="post" class="btn" style="margin:0; padding:0; display:inline;" action="{{ path('reminder_complete', {'id': reminder.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to complete this reminder?{% endtrans %}');">
+                            <form method="post" role="button" style="margin:0; padding:0; display:inline;" action="{{ path('reminder_complete', {'id': reminder.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to complete this reminder?{% endtrans %}');">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('complete' ~ reminder.id) }}">
                                 <button class="btn btn-success" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Mark as completed{% endtrans %}"><i class="fas fa-check-circle"></i></button>
