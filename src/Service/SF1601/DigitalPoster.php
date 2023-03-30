@@ -138,9 +138,11 @@ class DigitalPoster
                     'content' => $response->getContent(false),
                 ];
             }
-            $this->logger->error(sprintf('Error sending digital post: %s', $throwable->getMessage()), $context);
+            $message = sprintf('Error sending digital post: %s', $throwable->getMessage());
+            $this->logger->error($message, $context);
 
             $envelope
+                ->addError($message, $context)
                 ->setStatus(DigitalPostEnvelope::STATUS_FAILED)
                 ->setThrowable($throwable)
             ;
