@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\CaseDocumentRelation;
+use App\Entity\DigitalPostAttachment;
 use App\Entity\DigitalPostEnvelope;
 use App\Repository\DigitalPostEnvelopeRepository;
 use Doctrine\Common\Collections\Criteria;
@@ -59,6 +60,15 @@ class DigitalPostEnvelopeListCommand extends Command
                 fn (CaseDocumentRelation $relation) => $this->urlGenerator->generate('digital_post_show', ['id' => $relation->getCase()->getId(), 'digitalPost' => $digitalPost->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
                 $digitalPost->getDocument()->getCaseDocumentRelations()->toArray()
             );
+
+            $filenames = array_merge(
+                [$digitalPost->getDocument()->getOriginalFileName()],
+                array_map(
+                    static fn (DigitalPostAttachment $attachment) => $attachment->getDocument()->getOriginalFileName(),
+                    $digitalPost->getAttachments()->toArray()
+                )
+            );
+
             $items = [
                 ['Id' => $envelope->getId()],
                 ['Status' => $envelope->getStatus()],
@@ -69,6 +79,7 @@ class DigitalPostEnvelopeListCommand extends Command
                 ['Updated at' => $envelope->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Beskedfordeler message data' => Yaml::dump($data, PHP_INT_MAX)],
                 ['Digital post' => (string) $digitalPost],
+                ['Filenames' => implode(PHP_EOL, $filenames)],
                 ['Digital post URL' => implode(PHP_EOL, $digitalPostUrls)],
             ];
 
