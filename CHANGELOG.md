@@ -12,6 +12,8 @@ about writing changes to this log.
 
 - [PR-350](https://github.com/itk-dev/naevnssekretariatet/pull/350)
   Update dependenscies and migrate bootstrap from v4 to v5
+- [PR-346](https://github.com/itk-dev/naevnssekretariatet/pull/346)
+  Frontend improvements
 
 ## [1.3.2] 2023-03-30
 
