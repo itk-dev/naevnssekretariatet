@@ -9,6 +9,7 @@ See [keep a changelog](https://keepachangelog.com/en/1.0.0/) for information
 about writing changes to this log.
 
 ## [Unreleased]
+
 - [PR-350](https://github.com/itk-dev/naevnssekretariatet/pull/350)
   Update dependenscies and migrate bootstrap from v4 to v5
 
