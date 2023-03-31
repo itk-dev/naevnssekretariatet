@@ -18,28 +18,28 @@
     <main role="main" class="col-12">
         <form id="filter_form11" method="get" action="." class="form">
             {{ form_start(filter_form) }}
-            <div class="row no-gutters">
+            <div class="row g-0">
                 <div class="col-auto">
                     {{ form_widget(filter_form.board) }}
                 </div>
-                <div class="col-auto ml-2">
+                <div class="col-auto ms-2">
                     {{ form_widget(filter_form.currentPlace) }}
                 </div>
                 {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                    <div class="col-auto ml-2">
+                    <div class="col-auto ms-2">
                         {{ form_widget(filter_form.assignedTo) }}
                     </div>
-                    <div class="col-auto ml-2">
+                    <div class="col-auto ms-2">
                         {{ form_widget(filter_form.deadlines) }}
                     </div>
-                    <div class="col-auto ml-2">
+                    <div class="col-auto ms-2">
                         {{ form_widget(filter_form.specialStateFilter) }}
                     </div>
                 {% endif %}
-                <div class="col-auto ml-2">
+                <div class="col-auto ms-2">
                     {{ form_widget(filter_form.activeFilter) }}
                 </div>
-                <div class="col-auto ml-2">
+                <div class="col-auto ms-2">
                     {# Todo: Just reset filter rather than refresh page although it yields the same result #}
                     <a class="btn btn-secondary" href="{{ path('case_index') }}" role="button">{% trans %}Reset{% endtrans %}</a>
                 </div>
@@ -83,7 +83,7 @@
                 <tbody>
                 {% for case in pagination %}
                     <tr>
-                        <td><a href="{{ url('case_summary', {id: case.id}) }}" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ case.casenumber|e }}">{{ case.casenumber|e }}</a></td>
+                        <td><a href="{{ url('case_summary', {id: case.id}) }}" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ case.casenumber|e }}">{{ case.casenumber|e }}</a></td>
                         {% set complaint_catories = "" %}
                         {% for complaint_category in case.complaintCategories|sort((a, b) => a.name <=> b.name) %}
                             {% if complaint_catories is empty %}
@@ -104,12 +104,12 @@
                         <td>
                             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                                 <!-- Assign button -->
-                                <a role="button" class="btn btn-success" data-toggle="modal" data-target="#assign_case{{ case.id }}" data-placement="auto" title="{% trans %}Assign caseworker{% endtrans %}"><i class="fas fa-user-plus"></i><span class="sr-only">{% trans %}Assign caseworker{% endtrans %}</span></a>
+                                <a role="button" class="btn btn-success" data-bs-toggle="modal" data-target="#assign_case{{ case.id }}" data-placement="auto" title="{% trans %}Assign caseworker{% endtrans %}"><i class="fas fa-user-plus"></i><span class="sr-only">{% trans %}Assign caseworker{% endtrans %}</span></a>
                                 <!-- Reminder button -->
-                                <a role="button" class="btn btn-warning" data-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}"><i class="fas fa-clock"></i><span class="sr-only">{% trans %}Add reminder{% endtrans %}</span></a>
+                                <a role="button" class="btn btn-warning" data-bs-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}"><i class="fas fa-clock"></i><span class="sr-only">{% trans %}Add reminder{% endtrans %}</span></a>
                             {% endif %}
                             <!-- Show case button -->
-                            <a href="{{ url('case_summary', {id: case.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show case{% endtrans %}</span></a>
+                            <a href="{{ url('case_summary', {id: case.id}) }}" role="button" class="btn btn-primary" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show case{% endtrans %}</span></a>
                         </td>
                     </tr>
                     {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}

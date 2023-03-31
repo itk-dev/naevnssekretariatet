@@ -25,7 +25,7 @@
     <div class="form-group col-md-{{ validate_identifier_width }}">
         <label class="invisible">{% trans %}Validate{% endtrans %}</label>
         {% if id.validatedAt %}
-            <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Identification validated at {validation_time}'|trans({'validation_time': id.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans with {type: id.type} %}Identifier ({type}) validated{% endtrans %}</span>
+            <span class="btn w-100 btn-success" type="button" data-bs-toggle="tooltip" data-placement="auto" title="{{ 'Identification validated at {validation_time}'|trans({'validation_time': id.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans with {type: id.type} %}Identifier ({type}) validated{% endtrans %}</span>
         {% else %}
             {{ render(controller('App\\Controller\\CaseController:validateIdentifier', {id: case.id, idProperty: id_property, addressProperty: address_property, addressProtectionProperty: address_protection_property, nameProperty: name_property})) }}
         {% endif %}

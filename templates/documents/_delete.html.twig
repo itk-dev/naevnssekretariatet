@@ -10,7 +10,7 @@
                 </button>
             </div>
             {{ form_start(delete_form, {'action': path('document_delete', {'id': case.id, 'document_id': document.id})}) }}
-            <div class="modal-body text-left">
+            <div class="modal-body text-start">
                 {{ form_widget(delete_form) }}
             </div>
             <div class="modal-footer">

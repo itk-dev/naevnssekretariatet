@@ -15,20 +15,20 @@
                     {% if hasSufficientParties %}
                         <a class="btn btn-primary" href="{{ path('case_hearing_resume', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Resume hearing{% endtrans %}</a>
                     {% else %}
-                        <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must contain at least one party or counterparty before entering the hearing phase.{% endtrans %}">{% trans %}Resume hearing{% endtrans %}</button>
+                        <button class="btn btn-primary" disabled data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}A case must contain at least one party or counterparty before entering the hearing phase.{% endtrans %}">{% trans %}Resume hearing{% endtrans %}</button>
                     {% endif %}
                 {% else %}
                     {% if requiresProcessing %}
-                        <button class="btn btn-success" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create request{% endtrans %}</button>
-                        <button class="btn btn-success" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create response{% endtrans %}</button>
+                        <button class="btn btn-success" disabled data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create request{% endtrans %}</button>
+                        <button class="btn btn-success" disabled data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create response{% endtrans %}</button>
                     {% else %}
                         <a class="btn btn-success" href="{{ path('case_hearing_post_request_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create request{% endtrans %}</a>
                         <a class="btn btn-success" href="{{ path('case_hearing_post_response_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create response{% endtrans %}</a>
                     {% endif %}
                     {% if partyHasSomethingToAdd %}
-                        <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while some side still has something to add{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
+                        <button class="btn btn-danger" disabled data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while some side still has something to add{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
                     {% elseif requiresProcessing %}
-                        <button class="btn btn-danger" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while a response or answer needs processing{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
+                        <button class="btn btn-danger" disabled data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot end hearing while a response or answer needs processing{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
                     {% else %}
                         <a class="btn btn-danger" href="{{ path('case_hearing_finish', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}End Hearing{% endtrans %}</a>
                     {% endif %}
@@ -39,7 +39,7 @@
                 {% if hasSufficientParties %}
                     <a class="btn btn-primary" href="{{ path('case_hearing_start', {id: case.id}) }}" role="button">{% trans %}Start hearing{% endtrans %}</a>
                 {% else %}
-                    <button class="btn btn-primary" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}A case must contain at least one party or counterparty before entering the hearing phase.{% endtrans %}">{% trans %}Start hearing{% endtrans %}</button>
+                    <button class="btn btn-primary" disabled data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}A case must contain at least one party or counterparty before entering the hearing phase.{% endtrans %}">{% trans %}Start hearing{% endtrans %}</button>
                 {% endif %}
             </div>
         {% endif %}
@@ -97,7 +97,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <h2 class="m-0 p-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
+                                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
                                                 {{ class(post)|trans({}, 'case') }}
                                                 {% if post.title is defined %}
                                                     - {{ post.title }}
@@ -112,12 +112,12 @@
                                         </h2>
                                     </div>
                                     {% if post.recipient is defined %}
-                                        <div class="col-auto ml-auto">
+                                        <div class="col-auto ms-auto">
                                             <p class="pt-2"><span class="text-muted">{% trans %}Recipient{% endtrans %}:</span> {{ post.recipient|e }}</p>
                                         </div>
                                     {% endif %}
                                     {% if post.sender is defined %}
-                                        <div class="col-auto ml-auto">
+                                        <div class="col-auto ms-auto">
                                             <p class="pt-2"><span class="text-muted">{% trans %}Sender{% endtrans %}:</span> {{ post.sender|e }}</p>
                                         </div>
                                     {% endif %}

@@ -1,7 +1,7 @@
 {% for item in menu_items %}
     <li class="nav-item">
         {# TODO: add active class to highlight current navigation item{{ app.request.get('_route') == '_list' ? 'active' }} #}
-        <a class="nav-link text-light {{ item.active ? 'active' }}" href="{{ item.link|e }}" data-toggle="tooltip" data-placement="right" title="{{ item.tooltip|e }}">
+        <a class="nav-link text-light {{ item.active ? 'active' }}" href="{{ item.link|e }}" data-bs-toggle="tooltip" data-placement="right" title="{{ item.tooltip|e }}">
             <i class="fas fa-{{ item.icon|e }} fa-fw"></i>
             <span class="sr-only">{{ item.name|e }} {# TODO: Add text: (current) when navigation item is active to aid screenreaders #} </span>
         </a>

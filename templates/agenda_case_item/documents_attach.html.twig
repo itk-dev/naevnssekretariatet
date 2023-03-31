@@ -31,7 +31,7 @@
                     <th>{% trans %}Document type{% endtrans %}</th>
                     <th>{% trans %}Uploaded by{% endtrans %}</th>
                     <th>{% trans %}Upload date{% endtrans %}</th>
-                    <th class="text-right">{% trans %}Functions{% endtrans %}</th>
+                    <th class="text-end">{% trans %}Functions{% endtrans %}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,7 @@
                         <td>{{ document.type|e }}</td>
                         <td>{{ document.uploadedBy|e }}</td>
                         <td>{{ document.uploadedAt|date(format_date) }}</td>
-                        <td class="text-right">
+                        <td class="text-end">
                             <div class="form-check">
                                 {% set id = 'documents-' ~ index %}
                                 <input type="checkbox" name="documents[]" class="form-check-input" id="{{ id }}" value="{{ document.id }}">

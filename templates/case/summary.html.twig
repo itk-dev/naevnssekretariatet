@@ -49,18 +49,18 @@
         <div class="col-auto">
             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                 <a class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
-                <button class="btn btn-warning" data-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}">{% trans %}Add reminder{% endtrans %}</button>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}">{% trans %}Add reminder{% endtrans %}</button>
                 {% if suitable_boards %}
-                    <a href="" role="button" class="btn btn-primary" data-toggle="modal" data-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
+                    <a href="" role="button" class="btn btn-primary" data-bs-toggle="modal" data-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
                     {{ render(controller('App\\Controller\\CaseController:move', {id: case.id})) }}
                 {% else %}
-                    <button disabled class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}No suitable boards{% endtrans %}">{% trans %}Move case{% endtrans %}</button>
+                    <button disabled class="btn btn-primary" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}No suitable boards{% endtrans %}">{% trans %}Move case{% endtrans %}</button>
                 {% endif %}
                 {% if is_deletable %}
-                    <a href="" role="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_case" data-placement="auto" title="{% trans %}Delete case{% endtrans %}">{% trans %}Delete case{% endtrans %}</a>
+                    <a href="" role="button" class="btn btn-danger" data-bs-toggle="modal" data-target="#delete_case" data-placement="auto" title="{% trans %}Delete case{% endtrans %}">{% trans %}Delete case{% endtrans %}</a>
                     {{ render(controller('App\\Controller\\CaseController:delete', {id: case.id})) }}
                 {% else %}
-                    <button disabled class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete case that has been in hearing or on an agenda{% endtrans %}">{% trans %}Delete case{% endtrans %}</button>
+                    <button disabled class="btn btn-danger" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot delete case that has been in hearing or on an agenda{% endtrans %}">{% trans %}Delete case{% endtrans %}</button>
                 {% endif %}
                 {{ render(controller('App\\Controller\\CaseReminderController:new', {id: case.id})) }}
             {% endif %}
@@ -105,7 +105,7 @@
                                 {% for communication in communications %}
                                     <a href="{{ url("digital_post_show", {id: case.id, 'digitalPost': communication.id}) }}" class="list-group-item list-group-item-action">
                                         <div class="d-flex w-100 justify-content-between">
-                                            <span class="mr-3">{{ communication.createdAt|date(format_date) }}</span>
+                                            <span class="me-3">{{ communication.createdAt|date(format_date) }}</span>
                                             <p class="mb-1 text-truncate">{{ communication.document.documentName|e }}</p>
                                         </div>
                                     </a>
@@ -131,7 +131,7 @@
                                     {% set note_id = note.id|e %}
                                     <a href="{{ url("note_index", {id: case.id, 'noteShown': note_id}) }}" class="list-group-item list-group-item-action">
                                         <div class="d-flex w-100 justify-content-between">
-                                            <span class="mr-3">{{ note.createdAt|date(format_date) }}</span>
+                                            <span class="me-3">{{ note.createdAt|date(format_date) }}</span>
                                             <p class="mb-1 text-truncate">{{ note.subject|e }}</p>
                                         </div>
                                     </a>

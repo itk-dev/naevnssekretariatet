@@ -2,17 +2,17 @@
 
 <ul class="nav nav-tabs mt-3" id="casestatusTab" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">{% trans %}Overview{% endtrans %}</a>
+        <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">{% trans %}Overview{% endtrans %}</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="lease-tab" data-toggle="tab" href="#lease" role="tab" aria-controls="lease" aria-selected="true">{% trans %}Lease{% endtrans %}</a>
+        <a class="nav-link" id="lease-tab" data-bs-toggle="tab" data-bs-target="#lease" type="button" role="tab" aria-controls="lease" aria-selected="false">{% trans %}Lease{% endtrans %}</a>
     </li>
     {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
         <li class="nav-item">
-            <a class="nav-link" id="tenant-tab" data-toggle="tab" href="#tenant" role="tab" aria-controls="tenant" aria-selected="true">{% trans %}Tenant{% endtrans %}</a>
+            <a class="nav-link" id="tenant-tab" data-bs-toggle="tab" data-bs-target="#tenant" type="button" role="tab" aria-controls="tenant" aria-selected="false">{% trans %}Tenant{% endtrans %}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="landlord-tab" data-toggle="tab" href="#landlord" role="tab" aria-controls="landlord" aria-selected="true">{% trans %}Landlord{% endtrans %}</a>
+            <a class="nav-link" id="landlord-tab" data-bs-toggle="tab" data-bs-target="#landlord" type="button" role="tab" aria-controls="landlord" aria-selected="false">{% trans %}Landlord{% endtrans %}</a>
         </li>
     {% endif %}
 </ul>
@@ -32,7 +32,7 @@
                             <p id="bringerIsUnderAddressProtectionCaseShow">!{% trans %}Is under address protection{% endtrans %}!</p>
                         {% endif %}
                     </legend>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-4">
                             <label>{% trans %}Bringer name{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.bringer }}" readonly>
@@ -52,7 +52,7 @@
                 <fieldset>
                     <legend>{% trans %}Case specifics{% endtrans %}</legend>
                     {% for complaint_category in case.complaintCategories %}
-                    <div class="form-row">
+                    <div class="row mb-3">
                         <div class="form-group col-md-6">
                             <label>{% trans %}Complaint category{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ complaint_category.name }}" readonly>
@@ -67,9 +67,11 @@
                         </div>
                     </div>
                     {% endfor %}
-                    <div class="form-row">
-                        <label>{% trans %}Extra complaint category information{% endtrans %}</label>
-                        <input type="text" class="form-control" value="{{ case.extraComplaintCategoryInformation }}" readonly>
+                    <div class="row">
+                        <div class="col">
+                            <label>{% trans %}Extra complaint category information{% endtrans %}</label>
+                            <input type="text" class="form-control" value="{{ case.extraComplaintCategoryInformation }}" readonly>
+                        </div>
                     </div>
                 </fieldset>
             </div>
@@ -146,7 +148,7 @@
                             <div class="col">
                                 <a class="btn btn-link external" target="_blank" data-referer-query-name="referer" href="{{ path('case_bbr_meddelelse', {id: case.id, addressProperty: 'leaseAddress'}) }}">{% trans %}Show BBR-Meddelelse for lease (PDF){% endtrans %}</a>
                             </div>
-                            <div class="col text-right">
+                            <div class="col text-end">
                                 <form data-referer-query-name="referer" class="btn" method="post" action="{{ path('case_bbr_data_update', {id: case.id, addressProperty: 'leaseAddress'}) }}">
                                     <button class="btn btn-secondary">{% trans %}Update BBR data{% endtrans %}</button>
                                 </form>
@@ -163,7 +165,7 @@
                 </fieldset>
                 <fieldset>
                     <legend>{% trans %}Rent{% endtrans %}</legend>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-3">
                             <label>{% trans %}Agreed rent{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.leaseAgreedRent }}" readonly>
@@ -183,7 +185,7 @@
                     </div>
                 </fieldset>
                 <fieldset>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-3">
                             <label>{% trans %}Security deposit{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.leaseSecurityDeposit }}" readonly>
@@ -227,16 +229,16 @@
                                     <td>{{ party_data.party.identification.identifier|e }}</td>
                                     <td>{{ party_data.party.identification.pNumber|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
-                                    <td class="text-right">
+                                    <td class="text-end">
                                         <!-- Edit button -->
-                                        <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+                                        <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
 
                                         <!-- Delete button -->
 
                                         <form class="btn" style="margin:0; padding:0; display:inline;" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party_data.party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party_data.party.id) }}">
-                                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-danger" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -277,16 +279,16 @@
                                     <td>{{ party_data.party.identification.identifier|e }}</td>
                                     <td>{{ party_data.party.identification.pNumber|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
-                                    <td class="text-right">
+                                    <td class="text-end">
                                         <!-- Edit button -->
-                                        <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
+                                        <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
 
                                         <!-- Delete button -->
 
                                         <form class="btn" style="margin:0; padding:0; display:inline;" method="post" action="{{ path('party_delete', {'id': case.id, 'party_id': party_data.party.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ party_data.party.id) }}">
-                                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-danger" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Delete party{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </td>
                                 </tr>

@@ -1,6 +1,6 @@
 {% trans_default_domain 'case' %}
 
-<div class="form-row">
+<div class="row">
     <div class="form-group col-md-2">
         <label for="inputBasicInformation4">{% trans %}Lease started{% endtrans %}</label>
         <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.leaseStarted|date_nullable(format_date) }}" readonly>

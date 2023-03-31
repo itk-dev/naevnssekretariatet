@@ -12,10 +12,10 @@
         <div class="col-auto">
             {% if not agenda.boardmembers|length > 0 %}
                 {# No boardmembers are assigned to the agenda #}
-                <button class="btn btn-success" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot broadcast agenda with no assigned board members{% endtrans %}">{% trans %}Broadcast agenda{% endtrans %}</button>
+                <button class="btn btn-success" disabled data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot broadcast agenda with no assigned board members{% endtrans %}">{% trans %}Broadcast agenda{% endtrans %}</button>
             {% elseif not agenda.isReady() %}
                 {# The agenda does not have the ready status #}
-                <button class="btn btn-success" disabled data-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot broadcast agenda that does not have status ready{% endtrans %}">{% trans %}Broadcast agenda{% endtrans %}</button>
+                <button class="btn btn-success" disabled data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Cannot broadcast agenda that does not have status ready{% endtrans %}">{% trans %}Broadcast agenda{% endtrans %}</button>
             {% else %}
                 <a class="btn btn-success" href="{{ url('agenda_broadcast_create', {id: agenda.id}) }}" role="button">{% trans %}Broadcast agenda{% endtrans %}</a>
             {% endif %}

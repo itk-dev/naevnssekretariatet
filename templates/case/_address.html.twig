@@ -3,7 +3,7 @@
 {% set address = attribute(case, address_property) %}
 
 <div class="case-address address-{{ address_property }}">
-    <div class="form-row">
+    <div class="row mb-3">
         <div class="form-group col-md-6">
             <label>{% trans %}Road{% endtrans %}</label>
             <input type="text" class="form-control" value="{{ address.street }}" readonly>
@@ -21,7 +21,7 @@
             <input type="text" class="form-control" value="{{ address.side }}" readonly>
         </div>
     </div>
-    <div class="form-row">
+    <div class="row">
         <div class="form-group col-md-2">
             <label>{% trans %}Postal code{% endtrans %}</label>
             <input type="text" class="form-control" value="{{ address.postalCode }}" readonly>
@@ -39,7 +39,7 @@
                 <div class="form-group col-md-2">
                     <label class="invisible">{% trans %}Validate{% endtrans %}</label>
                     {% if address.validatedAt %}
-                        <span class="btn btn-block btn-success" type="button" data-toggle="tooltip" data-placement="auto" title="{{ 'Address validated at {validation_time}'|trans({'validation_time': address.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans %}Address validated{% endtrans %}</span>
+                        <span class="btn w-100 btn-success" type="button" data-bs-toggle="tooltip" data-placement="auto" title="{{ 'Address validated at {validation_time}'|trans({'validation_time': address.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans %}Address validated{% endtrans %}</span>
                     {% else %}
                         {# Render ajax form #}
                         {{ render(controller('App\\Controller\\CaseController:validateAddress', {id: case.id, addressProperty: address_property})) }}
