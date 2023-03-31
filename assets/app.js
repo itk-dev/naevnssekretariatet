@@ -8,16 +8,23 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './app.scss'
+import * as Popper from "@popperjs/core"
+import * as bootstrap from 'bootstrap';
 
 // @see https://getbootstrap.com/docs/4.6/components/forms/#file-browser
 const bsCustomFileInput = require('bs-custom-file-input')
 
+// Enable tooltips
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+
 const $ = require('jquery')
-require('bootstrap')
 require('select2')
 
+
 $(document).ready(function () {
-  $('[data-toggle="popover"]').popover()
+  tooltipList.init()
   bsCustomFileInput.init()
 })
 
