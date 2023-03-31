@@ -94,7 +94,6 @@ class DigitalPoster
 
             // We don't want to store actual document content in the envelope.
             $this->meMoHelper->removeDocumentContent($meMoMessage);
-            $this->forsendelseHelper->removeDocumentContent($forsendelse);
 
             $envelope
                 ->setTransactionId(Uuid::fromRfc4122($transactionId))
@@ -106,6 +105,7 @@ class DigitalPoster
             ;
 
             if (null !== $forsendelse) {
+                $this->forsendelseHelper->removeDocumentContent($forsendelse);
                 $envelope
                     ->setForsendelse($serializer->serialize($forsendelse))
                     ->setForsendelseUuid($forsendelse->getAfsendelseIdentifikator())
