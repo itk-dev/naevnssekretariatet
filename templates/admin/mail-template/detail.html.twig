@@ -14,8 +14,8 @@
                 <button class="btn btn-primary" type="submit" formaction="{{ path('admin_mail_template_data', {id: entity.primaryKeyValue}) }}">{{ 'Preview template data'|trans }}</button>
                 <button class="btn btn-primary" type="submit" name="with_data" value="true" formaction="{{ path('admin_mail_template_preview', {id: entity.primaryKeyValue}) }}">{{ 'Preview template with data'|trans }}</button>
 
-                <div class="form-group">
-                    <label for="previewEntity">{{ 'Preview entity'|trans }}</label>
+                <div class="col">
+                    <label class="form-label" for="previewEntity">{{ 'Preview entity'|trans }}</label>
                     <select id="previewEntity" class="form-control" name="entity[id]">
                         {% for preview_entity in preview_entities %}
                             <option value="{{ preview_entity.id }}">

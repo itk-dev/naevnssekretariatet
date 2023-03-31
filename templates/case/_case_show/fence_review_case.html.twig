@@ -36,8 +36,8 @@
                             {% endif %}
                         </legend>
                         <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="inputBasicInformation1">{% trans %}Bringer name{% endtrans %}</label>
+                            <div class="col col-md-6">
+                                <label class="form-label" for="inputBasicInformation1">{% trans %}Bringer name{% endtrans %}</label>
                                 <input type="text" class="form-control" id="inputBasicInformation1" value="{{ case.bringer }}" readonly>
                             </div>
                             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
@@ -46,8 +46,8 @@
                         </div>
 
                         {% include 'case/_address.html.twig' with {case: case, address_property: 'bringerAddress'} %}
-                        <div class="form-group">
-                            <label>{% trans %}Cadastral number{% endtrans %}</label>
+                        <div class="col">
+                            <label  class="form-label">{% trans %}Cadastral number{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.bringerCadastralNumber }}" readonly>
                         </div>
                     </fieldset>
@@ -59,8 +59,8 @@
                             {% endif %}
                         </legend>
                         <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="inputBasicInformation3">{% trans %}Counterpart name{% endtrans %}</label>
+                            <div class="col col-md-6">
+                                <label class="form-label" for="inputBasicInformation3">{% trans %}Counterpart name{% endtrans %}</label>
                                 <input type="text" class="form-control" id="inputBasicInformation3" value="{{ case.accused }}" readonly>
                             </div>
                             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
@@ -69,8 +69,8 @@
                         </div>
 
                         {% include 'case/_address.html.twig' with {case: case, address_property: 'accusedAddress'} %}
-                        <div class="form-group">
-                            <label>{% trans %}Cadastral number{% endtrans %}</label>
+                        <div class="col">
+                            <label  class="form-label">{% trans %}Cadastral number{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.accusedCadastralNumber }}" readonly>
                         </div>
                     </fieldset>
@@ -78,23 +78,23 @@
                         <legend>{% trans %}Case specifics{% endtrans %}</legend>
                         {% for complaint_category in case.complaintCategories %}
                             <div class="row mb-3">
-                                <div class="form-group col-md-6">
-                                    <label>{% trans %}Complaint category{% endtrans %}</label>
+                                <div class="col col-md-6">
+                                    <label  class="form-label">{% trans %}Complaint category{% endtrans %}</label>
                                     <input type="text" class="form-control" value="{{ complaint_category.name }}" readonly>
                                 </div>
-                                <div class="form-group col-md-3">
-                                    <label>{% trans %}KLE{% endtrans %}</label>
+                                <div class="col col-md-3">
+                                    <label  class="form-label">{% trans %}KLE{% endtrans %}</label>
                                     <input type="text" class="form-control" value="{{ complaint_category.kle }}" readonly>
                                 </div>
-                                <div class="form-group col-md-3">
-                                    <label>{% trans %}Complaint fee in DKK{% endtrans %}</label>
+                                <div class="col col-md-3">
+                                    <label  class="form-label">{% trans %}Complaint fee in DKK{% endtrans %}</label>
                                     <input type="text" class="form-control" value="{{ complaint_category.fee }}" readonly>
                                 </div>
                             </div>
                         {% endfor %}
                         <div class="row">
                             <div class="col">
-                                <label>{% trans %}Extra complaint category information{% endtrans %}</label>
+                                <label  class="form-label">{% trans %}Extra complaint category information{% endtrans %}</label>
                                 <input type="text" class="form-control" value="{{ case.extraComplaintCategoryInformation }}" readonly>
                             </div>
                         </div>
@@ -108,14 +108,14 @@
                     {# TODO: Form validation: https://getbootstrap.com/docs/4.0/components/forms/#validation #}
                     <fieldset>
                         <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="inputBasicInformation7">{% trans %}Conditions{% endtrans %}</label>
+                            <div class="col col-md-12">
+                                <label class="form-label" for="inputBasicInformation7">{% trans %}Conditions{% endtrans %}</label>
                                 <textarea readonly class="form-control" id="inputBasicInformation7" rows="8">{{ case.conditions }}</textarea>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="inputBasicInformation8">{% trans %}Claim{% endtrans %}</label>
+                            <div class="col col-md-12">
+                                <label class="form-label" for="inputBasicInformation8">{% trans %}Claim{% endtrans %}</label>
                                 <textarea readonly class="form-control" id="inputBasicInformation8" rows="8">{{ case.bringerClaim }}</textarea>
                             </div>
                         </div>

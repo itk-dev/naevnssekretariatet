@@ -206,13 +206,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="rescheduleDeadlineNewDate">{% trans %}Enter a new date{% endtrans %}</label>
+                    <div class="col">
+                        <label class="form-label" for="rescheduleDeadlineNewDate">{% trans %}Enter a new date{% endtrans %}</label>
                         <input type="date" class="form-control" name="rescheduleDeadlineNewDate" id="rescheduleDeadlineNewDate" aria-describedby="rescheduleDeadlineNewDateHelp" placeholder="" required>
                         <small id="rescheduleDeadlineNewDateHelp" class="form-text text-muted">{% trans %}New date for the deadline{% endtrans %}</small>
                     </div>
-                    <div class="form-group">
-                        <label for="rescheduleDeadlineNewDateReason">{% trans %}Describe why the date has changed{% endtrans %}</label>
+                    <div class="col">
+                        <label class="form-label" for="rescheduleDeadlineNewDateReason">{% trans %}Describe why the date has changed{% endtrans %}</label>
                         <textarea class="form-control" name="rescheduleDeadlineNewDateReason" id="rescheduleDeadlineNewDateReason" aria-describedby="rescheduleDeadlineNewDateReasonHelp" rows="3" required></textarea>
                         <small id="rescheduleDeadlineNewDateReasonHelp" class="form-text text-muted">{% trans %}This information is needed for journaling purpose{% endtrans %}</small>
                     </div>

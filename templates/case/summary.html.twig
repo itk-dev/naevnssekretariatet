@@ -84,7 +84,7 @@
             <div class="row">
                 {% for item in caseinfo %}
                     <div class="col">
-                        <label for="{{ item.label|e }}">{{ item.label|trans([], 'case', 'da') }}</label>
+                        <label class="form-label" for="{{ item.label|e }}">{{ item.label|trans([], 'case', 'da') }}</label>
                         <p class="m-0" id="{{ item.label|e }}"><strong>{{ item.value|e }}</strong></p>
                     </div>
                 {% endfor %}

@@ -33,12 +33,12 @@
                         {% endif %}
                     </legend>
                     <div class="row">
-                        <div class="form-group col-md-4">
-                            <label>{% trans %}Bringer name{% endtrans %}</label>
+                        <div class="col col-md-4">
+                            <label  class="form-label">{% trans %}Bringer name{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.bringer }}" readonly>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label>{% trans %}Telephone number{% endtrans %}</label>
+                        <div class="col col-md-2">
+                            <label  class="form-label">{% trans %}Telephone number{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.bringerPhone }}" readonly>
                         </div>
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
@@ -53,23 +53,23 @@
                     <legend>{% trans %}Case specifics{% endtrans %}</legend>
                     {% for complaint_category in case.complaintCategories %}
                     <div class="row mb-3">
-                        <div class="form-group col-md-6">
-                            <label>{% trans %}Complaint category{% endtrans %}</label>
+                        <div class="col col-md-6">
+                            <label  class="form-label">{% trans %}Complaint category{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ complaint_category.name }}" readonly>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label>{% trans %}KLE{% endtrans %}</label>
+                        <div class="col col-md-3">
+                            <label  class="form-label">{% trans %}KLE{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ complaint_category.kle }}" readonly>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label>{% trans %}Complaint fee in DKK{% endtrans %}</label>
+                        <div class="col col-md-3">
+                            <label  class="form-label">{% trans %}Complaint fee in DKK{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ complaint_category.fee }}" readonly>
                         </div>
                     </div>
                     {% endfor %}
                     <div class="row">
                         <div class="col">
-                            <label>{% trans %}Extra complaint category information{% endtrans %}</label>
+                            <label  class="form-label">{% trans %}Extra complaint category information{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.extraComplaintCategoryInformation }}" readonly>
                         </div>
                     </div>
@@ -166,32 +166,32 @@
                 <fieldset>
                     <legend>{% trans %}Rent{% endtrans %}</legend>
                     <div class="row">
-                        <div class="form-group col-md-3">
-                            <label>{% trans %}Agreed rent{% endtrans %}</label>
+                        <div class="col col-md-3">
+                            <label  class="form-label">{% trans %}Agreed rent{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.leaseAgreedRent }}" readonly>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label>{% trans %}Regulated rent{% endtrans %}</label>
+                        <div class="col col-md-3">
+                            <label  class="form-label">{% trans %}Regulated rent{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.leaseRegulatedRent is not null ? (case.leaseRegulatedRent ? 'Yes'|trans : 'No'|trans) }}" readonly>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label>{% trans %}Regulated at{% endtrans %}</label>
+                        <div class="col col-md-3">
+                            <label  class="form-label">{% trans %}Regulated at{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.leaseRegulatedAt|date_nullable(format_date) }}" readonly>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label>{% trans %}Rent at collection time{% endtrans %}</label>
+                        <div class="col col-md-3">
+                            <label  class="form-label">{% trans %}Rent at collection time{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.leaseRentAtCollectionTime }}" readonly>
                         </div>
                     </div>
                 </fieldset>
                 <fieldset>
                     <div class="row">
-                        <div class="form-group col-md-3">
-                            <label>{% trans %}Security deposit{% endtrans %}</label>
+                        <div class="col col-md-3">
+                            <label  class="form-label">{% trans %}Security deposit{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.leaseSecurityDeposit }}" readonly>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label>{% trans %}Prepaid rent{% endtrans %}</label>
+                        <div class="col col-md-3">
+                            <label  class="form-label">{% trans %}Prepaid rent{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ case.prepaidRent }}" readonly>
                         </div>
                     </div>
