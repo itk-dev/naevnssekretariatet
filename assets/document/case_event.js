@@ -19,7 +19,7 @@ window.addEventListener('ajaxload', function () {
       $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
-        data: data,
+        data,
         complete: function (html) {
           // Replace current case event field ...
           $('#document_caseEvent').replaceWith(

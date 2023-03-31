@@ -22,7 +22,7 @@ window.addEventListener('ajaxload', function () {
       $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
-        data: data,
+        data,
         success: function (html) {
           $("[id$='customData']").replaceWith(
             $(html).find("[id$='customData']")
