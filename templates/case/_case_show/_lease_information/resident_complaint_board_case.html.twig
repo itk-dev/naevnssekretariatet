@@ -1,20 +1,20 @@
 {% trans_default_domain 'case' %}
 
-<div class="form-row">
-    <div class="form-group col-md-3">
-        <label for="inputBasicInformation4">{% trans %}Lease started{% endtrans %}</label>
+<div class="row">
+    <div class="col col-md-3">
+        <label class="form-label" for="inputBasicInformation4">{% trans %}Lease started{% endtrans %}</label>
         <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.leaseStarted|date_nullable(format_date) }}" readonly>
     </div>
-    <div class="form-group col-md-3">
-        <label for="inputBasicInformation3">{% trans %}Has vacated{% endtrans %}</label>
+    <div class="col col-md-3">
+        <label class="form-label" for="inputBasicInformation3">{% trans %}Has vacated{% endtrans %}</label>
         <input type="text" class="form-control" id="inputBasicInformation3" value="{% if case.hasVacated %}{% trans %}Yes{% endtrans %}{% else %}{% trans %}No{% endtrans %}{% endif %}" readonly>
     </div>
-    <div class="form-group col-md-3">
-        <label for="inputBasicInformation4">{% trans %}Lease size{% endtrans %}</label>
+    <div class="col col-md-3">
+        <label class="form-label" for="inputBasicInformation4">{% trans %}Lease size{% endtrans %}</label>
         <input type="text" class="form-control" id="inputBasicInformation4" value="{{ case.leaseSize }}" readonly>
     </div>
-    <div class="form-group col-md-3">
-        <label for="inputBasicInformation5">{% trans %}Interior maintenance{% endtrans %}</label>
+    <div class="col col-md-3">
+        <label class="form-label" for="inputBasicInformation5">{% trans %}Interior maintenance{% endtrans %}</label>
         <input type="text" class="form-control" id="inputBasicInformation5" value="{{ case.leaseInteriorMaintenance }}" readonly>
     </div>
 </div>

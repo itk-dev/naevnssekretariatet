@@ -33,8 +33,8 @@
                         {% set should_be_expanded = "false" %}
                     {% endif %}
 
-                    <div class="col-auto ml-auto">
-                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="{{ should_be_expanded }}" aria-controls="collapseExample">
+                    <div class="col-auto ms-auto">
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-target="#collapseExample" aria-expanded="{{ should_be_expanded }}" aria-controls="collapseExample">
                             <span class="hide">{% trans %}Hide quick note{% endtrans %}</span>
                             <span class="show">{% trans %}Show quick note{% endtrans %}</span>
                         </button>
@@ -42,13 +42,13 @@
                 </div>
                 <div class="collapse {{ collapse_value }}" id="collapseExample">
                     {{ form_start(note_form) }}
-                    <div class="form-group">
-                        <label>{% trans %}Subject{% endtrans %}</label>
+                    <div class="col">
+                        <label  class="form-label">{% trans %}Subject{% endtrans %}</label>
                         {{ form_widget(note_form.subject, {'attr': {'type': 'text', 'class': 'form-control', 'aria-describedby': 'helpName'}}) }}
                         <small class="form-text text-muted">{% trans %}Add a descriptive subject for ease of finding the note later on{% endtrans %}</small>
                     </div>
-                    <div class="form-group">
-                        <label>{% trans %}Note content{% endtrans %}</label>
+                    <div class="col">
+                        <label  class="form-label">{% trans %}Note content{% endtrans %}</label>
                         {{ form_widget(note_form.content, {'attr': {'type': 'textarea', 'class': 'form-control', 'rows': 3}}) }}
                     </div>
                     <button class="btn btn-success float-right">{{ button_label|default('Create note'|trans([], 'case', 'da')) }}</button>
@@ -69,12 +69,12 @@
                             <div class="row">
                                 <div class="col">
                                     <h2 class="m-0 p-0">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
+                                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
                                             {{ note.subject|e }}
                                         </button>
                                     </h2>
                                 </div>
-                                <div class="col-auto ml-auto">
+                                <div class="col-auto ms-auto">
                                     <p class="pt-2">{% trans %}By{% endtrans %} {{ note.createdBy|e }}</p>
                                 </div>
                                 <div class="col-auto">
@@ -82,12 +82,12 @@
                                 </div>
                                 <div class="col-auto">
                                     <!-- Edit button -->
-                                    <a href="{{ url("note_edit", {id: case.id, note_id: note.id}) }}" role="button" class="btn btn-primary" data-toggle="tooltip" data-placement="auto" title="{% trans %}Edit note{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit note{% endtrans %} </span></a>
+                                    <a href="{{ url("note_edit", {id: case.id, note_id: note.id}) }}" role="button" class="btn btn-primary" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Edit note{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit note{% endtrans %} </span></a>
                                     <!-- Delete button -->
                                     <form class="btn" style="margin:0; padding:0; display:inline;" method="post" action="{{ path('note_delete', {'id': case.id, 'note_id': note.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this item?{% endtrans %}');">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ note.id) }}">
-                                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="auto" title="{% trans %}Delete note{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
+                                        <button class="btn btn-danger" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Delete note{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </div>
                             </div>

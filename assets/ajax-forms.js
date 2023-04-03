@@ -43,7 +43,7 @@ $(() => {
     // Tell that we're ajax'ing.
     url += (url.indexOf('?') < 0 ? '?' : '&') + 'ajax=1'
     $.ajax({
-      url: url,
+      url,
       type: $form.attr('method'),
       data: $form.serialize(),
       success: function (html) {

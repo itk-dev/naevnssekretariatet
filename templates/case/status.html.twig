@@ -62,7 +62,7 @@
                                 {% set hearing_response_deadline_difference = today.diff(case.hearingResponseDeadline) %}
                                 <td>
                                     {{ case.hearingResponseDeadline|date(format_date) }}, {{ hearing_response_deadline_difference.days|e }} {{ hearing_response_deadline_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
-                                    <a class="btn btn-primary float-right" href="" role="button" data-toggle="modal" data-target="#reschedule_hearing_response_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                                    <a class="btn btn-primary float-right" href="" role="button" data-bs-toggle="modal" data-target="#reschedule_hearing_response_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                                 </td>
                             {% else %}
                                 <td>
@@ -75,7 +75,7 @@
                             {% set finished_hearing_difference = today.diff(case.finishHearingDeadline) %}
                             <td>
                                 {{ case.finishHearingDeadline|date(format_date) }}, {{ finished_hearing_difference.days|e }} {{ finished_hearing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
-                                <a class="btn btn-primary float-right" href="" role="button" data-toggle="modal" data-target="#reschedule_finish_hearing_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                                <a class="btn btn-primary float-right" href="" role="button" data-bs-toggle="modal" data-target="#reschedule_finish_hearing_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                             </td>
                         </tr>
                         <tr>
@@ -83,7 +83,7 @@
                             {% set finished_processing_difference = today.diff(case.finishProcessingDeadline) %}
                             <td>
                                 {{ case.finishProcessingDeadline|date(format_date) }}, {{ finished_processing_difference.days|e }} {{ finished_processing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
-                                <a class="btn btn-primary float-right" href="" role="button" data-toggle="modal" data-target="#reschedule_finish_process_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt mr-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                                <a class="btn btn-primary float-right" href="" role="button" data-bs-toggle="modal" data-target="#reschedule_finish_process_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                             </td>
                         </tr>
                         </tbody>
@@ -128,7 +128,7 @@
                             <th>{% trans %}Start time{% endtrans %}</th>
                             <th>{% trans %}End time{% endtrans %}</th>
                             <th>{% trans %}Status{% endtrans %}</th>
-                            <th class="text-right">{% trans %}Show{% endtrans %}</th>
+                            <th class="text-end">{% trans %}Show{% endtrans %}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -144,8 +144,8 @@
                                 <td>{{ active_agenda.agenda.start|date(format_time) }}</td>
                                 <td>{{ active_agenda.agenda.end|date(format_time) }}</td>
                                 <td>{{ active_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
-                                <td class="text-right">
-                                    <a href="{{ url('agenda_show', {id: active_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                <td class="text-end">
+                                    <a href="{{ url('agenda_show', {id: active_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -167,7 +167,7 @@
                             <th>{% trans %}Start time{% endtrans %}</th>
                             <th>{% trans %}End time{% endtrans %}</th>
                             <th>{% trans %}Status{% endtrans %}</th>
-                            <th class="text-right">{% trans %}Show{% endtrans %}</th>
+                            <th class="text-end">{% trans %}Show{% endtrans %}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -183,8 +183,8 @@
                                 <td>{{ finished_agenda.agenda.start|date(format_time) }}</td>
                                 <td>{{ finished_agenda.agenda.end|date(format_time) }}</td>
                                 <td>{{ finished_agenda.agenda.status|trans({}, 'agenda_status') }}</td>
-                                <td class="text-right">
-                                    <a href="{{ url('agenda_show', {id: finished_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
+                                <td class="text-end">
+                                    <a href="{{ url('agenda_show', {id: finished_agenda.agenda.id}) }}" role="button" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Show agenda{% endtrans %}"><i class="fas fa-eye"></i><span class="sr-only">{% trans %}Show agenda{% endtrans %} </span></a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -206,13 +206,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="rescheduleDeadlineNewDate">{% trans %}Enter a new date{% endtrans %}</label>
+                    <div class="col">
+                        <label class="form-label" for="rescheduleDeadlineNewDate">{% trans %}Enter a new date{% endtrans %}</label>
                         <input type="date" class="form-control" name="rescheduleDeadlineNewDate" id="rescheduleDeadlineNewDate" aria-describedby="rescheduleDeadlineNewDateHelp" placeholder="" required>
                         <small id="rescheduleDeadlineNewDateHelp" class="form-text text-muted">{% trans %}New date for the deadline{% endtrans %}</small>
                     </div>
-                    <div class="form-group">
-                        <label for="rescheduleDeadlineNewDateReason">{% trans %}Describe why the date has changed{% endtrans %}</label>
+                    <div class="col">
+                        <label class="form-label" for="rescheduleDeadlineNewDateReason">{% trans %}Describe why the date has changed{% endtrans %}</label>
                         <textarea class="form-control" name="rescheduleDeadlineNewDateReason" id="rescheduleDeadlineNewDateReason" aria-describedby="rescheduleDeadlineNewDateReasonHelp" rows="3" required></textarea>
                         <small id="rescheduleDeadlineNewDateReasonHelp" class="form-text text-muted">{% trans %}This information is needed for journaling purpose{% endtrans %}</small>
                     </div>
