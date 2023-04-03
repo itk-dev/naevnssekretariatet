@@ -6,11 +6,11 @@
 
 {% block header %}
     <h1>{% trans %}Cases{% endtrans %}</h1>
-
-    <div class="row mb-3">
+    <div class="row">
         <div class="col-3">
             {{ form(municipality_form) }}
         </div>
+
     </div>
 {% endblock %}
 
@@ -20,24 +20,24 @@
             {{ form_start(filter_form) }}
             <div class="row g-0">
                 <div class="col-auto">
-                    {{ form_widget(filter_form.board) }}
+                    {{ form_widget(filter_form.board, {'attr': {'class': 'form-select'}}) }}
                 </div>
                 <div class="col-auto ms-2">
-                    {{ form_widget(filter_form.currentPlace) }}
+                    {{ form_widget(filter_form.currentPlace, {'attr': {'class': 'form-select'}}) }}
                 </div>
                 {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                     <div class="col-auto ms-2">
-                        {{ form_widget(filter_form.assignedTo) }}
+                        {{ form_widget(filter_form.assignedTo, {'attr': {'class': 'form-select'}}) }}
                     </div>
                     <div class="col-auto ms-2">
-                        {{ form_widget(filter_form.deadlines) }}
+                        {{ form_widget(filter_form.deadlines, {'attr': {'class': 'form-select'}}) }}
                     </div>
                     <div class="col-auto ms-2">
-                        {{ form_widget(filter_form.specialStateFilter) }}
+                        {{ form_widget(filter_form.specialStateFilter, {'attr': {'class': 'form-select'}}) }}
                     </div>
                 {% endif %}
                 <div class="col-auto ms-2">
-                    {{ form_widget(filter_form.activeFilter) }}
+                    {{ form_widget(filter_form.activeFilter, {'attr': {'class': 'form-select'}}) }}
                 </div>
                 <div class="col-auto ms-2">
                     {# Todo: Just reset filter rather than refresh page although it yields the same result #}
