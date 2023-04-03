@@ -14,7 +14,7 @@
                     <div class="alert alert-{{ 'error' == label ? 'danger' : label }}">
                         {# message may be an instance of TranslatableInterface #}
                         {{ message.trans is defined ? message|trans : message }}
-                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="{{ 'Close'|trans([], 'messages') }}">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ 'Close'|trans([], 'messages') }}">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
