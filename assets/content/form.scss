@@ -1,10 +1,6 @@
 form .required::after {
-  font: {
-      family: 'Font Awesome 5 Free';
-      size: 30%;
-      weight: bold;
-  }
-  content: fa-content($fa-var-circle);
+  font-family: var(--fa-font-solid);
+  content: fa-content($fa-var-asterisk);
   vertical-align: super;
   padding: 0 ($spacer * 0.25);
   color: $danger;
