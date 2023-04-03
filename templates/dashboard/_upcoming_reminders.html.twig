@@ -1,6 +1,6 @@
 {% trans_default_domain 'reminder' %}
 
-<div class="rounded-sm ">
+<div class="rounded-1 ">
     <h2 class="h3">{% trans %}Upcoming reminders{% endtrans %}</h2>
     {% if upcoming_reminders|length > 0 %}
         {% for date, reminders in upcoming_reminders %}
