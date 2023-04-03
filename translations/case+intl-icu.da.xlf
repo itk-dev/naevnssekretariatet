@@ -1607,7 +1607,7 @@
       </trans-unit>
       <trans-unit id="bk_hPaS" resname="Inspection">
         <source>Inspection</source>
-        <target state="needs-l10n">__Inspection</target>
+        <target state="translated">Besigtigelse</target>
       </trans-unit>
     </body>
   </file>
