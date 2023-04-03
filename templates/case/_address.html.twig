@@ -3,7 +3,7 @@
 {% set address = attribute(case, address_property) %}
 
 <div class="case-address address-{{ address_property }}">
-    <div class="row">
+    <div class="row mb-3">
         <div class="col col-md-6">
             <label  class="form-label">{% trans %}Road{% endtrans %}</label>
             <input type="text" class="form-control" value="{{ address.street }}" readonly>

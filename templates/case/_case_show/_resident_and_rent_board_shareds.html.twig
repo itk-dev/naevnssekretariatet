@@ -52,7 +52,7 @@
                 <fieldset>
                     <legend>{% trans %}Case specifics{% endtrans %}</legend>
                     {% for complaint_category in case.complaintCategories %}
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col col-md-6">
                             <label  class="form-label">{% trans %}Complaint category{% endtrans %}</label>
                             <input type="text" class="form-control" value="{{ complaint_category.name }}" readonly>
