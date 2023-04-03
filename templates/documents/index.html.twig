@@ -88,7 +88,9 @@
                                     <!-- Delete button -->
                                     <!-- Note: Document is NOT deletable if it has been sent via digital post, or it is attached to an agenda item -->
                                     {% if isDocumentDeletable(document, case) %}
-                                        <a href="" role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_document{{ document.id }}" data-placement="auto" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></a>
+                                        <span data-bs-toggle="modal" data-bs-target="#delete_document{{ document.id }}">
+                                            <a role="button" class="btn btn-danger" data-bs-toggle="tooltip" title="{% trans %}Delete document{% endtrans %}"><i class="fas fa-trash-alt"></i></a>
+                                        </span>
                                         {{ render(controller('App\\Controller\\DocumentController:delete', {id: case.id, document_id: document.id})) }}
                                     {% else %}
                                         <button class="btn btn-danger" disabled title="{% trans %}Cannot delete document that has been sent or is attached to an agenda{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
