@@ -6,24 +6,24 @@
     {% set validate_identifier_width = 2 %}
     <div class="col col-md-2">
         <label  class="form-label">{% trans with {type: id.type} %}Identifier ({type}){% endtrans %}</label>
-        <input type="text" class="form-control" value="{{ id.identifier }}" readonly>
+        <input type="text" class="form-control" value="{{ id.identifier }}" readonly disabled>
     </div>
     <div class="col col-md-2">
         <label  class="form-label">{% trans %}P-number{% endtrans %}</label>
-        <input type="text" class="form-control" value="{{ id.pNumber }}" readonly>
+        <input type="text" class="form-control" value="{{ id.pNumber }}" readonly disabled>
     </div>
 {% elseif id.type == 'CPR' %}
     {# To account for no P-number, we allow more space for validate button #}
     {% set validate_identifier_width = 4 %}
     <div class="col col-md-2">
         <label  class="form-label">{% trans with {type: id.type} %}Identifier ({type}){% endtrans %}</label>
-        <input type="text" class="form-control" value="{{ id.identifier }}" readonly>
+        <input type="text" class="form-control" value="{{ id.identifier }}" readonly disabled>
     </div>
 {% endif %}
 
 {% if id.identifier %}
     <div class="col col-md-{{ validate_identifier_width }}">
-        <label class="invisible">{% trans %}Validate{% endtrans %}</label>
+        <label class="invisible form-label">{% trans %}Validate{% endtrans %}</label>
         {% if id.validatedAt %}
             <span class="btn w-100 btn-success" type="button" data-bs-toggle="tooltip" data-placement="auto" title="{{ 'Identification validated at {validation_time}'|trans({'validation_time': id.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans with {type: id.type} %}Identifier ({type}) validated{% endtrans %}</span>
         {% else %}
@@ -33,7 +33,7 @@
 {% else %}
     {# No identifier is provided (which can only occur on a fence case) #}
     <div class="col col-md-4">
-        <label class="invisible">{% trans %}Validate{% endtrans %}</label>
+        <label class="invisible form-label">{% trans %}Validate{% endtrans %}</label>
         <p>
             {% trans %}Add an identifier before being able to validate it{% endtrans %}
         </p>

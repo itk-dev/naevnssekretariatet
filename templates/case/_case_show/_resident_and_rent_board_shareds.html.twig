@@ -35,11 +35,11 @@
                     <div class="row">
                         <div class="col col-md-4">
                             <label  class="form-label">{% trans %}Bringer name{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.bringer }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.bringer }}" readonly disabled>
                         </div>
                         <div class="col col-md-2">
                             <label  class="form-label">{% trans %}Telephone number{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.bringerPhone }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.bringerPhone }}" readonly disabled>
                         </div>
                         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                             {% include 'case/_identifier.html.twig' with {case: case, id_property: 'bringerIdentification', address_property: 'bringerAddress', address_protection_property: 'bringerIsUnderAddressProtection', name_property: 'bringer'} %}
@@ -55,22 +55,22 @@
                     <div class="row mb-3">
                         <div class="col col-md-6">
                             <label  class="form-label">{% trans %}Complaint category{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ complaint_category.name }}" readonly>
+                            <input type="text" class="form-control" value="{{ complaint_category.name }}" readonly disabled>
                         </div>
                         <div class="col col-md-3">
                             <label  class="form-label">{% trans %}KLE{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ complaint_category.kle }}" readonly>
+                            <input type="text" class="form-control" value="{{ complaint_category.kle }}" readonly disabled>
                         </div>
                         <div class="col col-md-3">
                             <label  class="form-label">{% trans %}Complaint fee in DKK{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ complaint_category.fee }}" readonly>
+                            <input type="text" class="form-control" value="{{ complaint_category.fee }}" readonly disabled>
                         </div>
                     </div>
                     {% endfor %}
                     <div class="row">
                         <div class="col">
                             <label  class="form-label">{% trans %}Extra complaint category information{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.extraComplaintCategoryInformation }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.extraComplaintCategoryInformation }}" readonly disabled>
                         </div>
                     </div>
                 </fieldset>
@@ -168,19 +168,19 @@
                     <div class="row">
                         <div class="col col-md-3">
                             <label  class="form-label">{% trans %}Agreed rent{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.leaseAgreedRent }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.leaseAgreedRent }}" readonly disabled>
                         </div>
                         <div class="col col-md-3">
                             <label  class="form-label">{% trans %}Regulated rent{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.leaseRegulatedRent is not null ? (case.leaseRegulatedRent ? 'Yes'|trans : 'No'|trans) }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.leaseRegulatedRent is not null ? (case.leaseRegulatedRent ? 'Yes'|trans : 'No'|trans) }}" readonly disabled>
                         </div>
                         <div class="col col-md-3">
                             <label  class="form-label">{% trans %}Regulated at{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.leaseRegulatedAt|date_nullable(format_date) }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.leaseRegulatedAt|date_nullable(format_date) }}" readonly disabled>
                         </div>
                         <div class="col col-md-3">
                             <label  class="form-label">{% trans %}Rent at collection time{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.leaseRentAtCollectionTime }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.leaseRentAtCollectionTime }}" readonly disabled>
                         </div>
                     </div>
                 </fieldset>
@@ -188,11 +188,11 @@
                     <div class="row">
                         <div class="col col-md-3">
                             <label  class="form-label">{% trans %}Security deposit{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.leaseSecurityDeposit }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.leaseSecurityDeposit }}" readonly disabled>
                         </div>
                         <div class="col col-md-3">
                             <label  class="form-label">{% trans %}Prepaid rent{% endtrans %}</label>
-                            <input type="text" class="form-control" value="{{ case.prepaidRent }}" readonly>
+                            <input type="text" class="form-control" value="{{ case.prepaidRent }}" readonly disabled>
                         </div>
                     </div>
                 </fieldset>
