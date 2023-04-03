@@ -34,13 +34,13 @@
                     {% endif %}
 
                     <div class="col-auto ms-auto">
-                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="{{ should_be_expanded }}" aria-controls="collapseExample">
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#quickNote" aria-expanded="{{ should_be_expanded }}" aria-controls="quickNote">
                             <span class="hide">{% trans %}Hide quick note{% endtrans %}</span>
                             <span class="show">{% trans %}Show quick note{% endtrans %}</span>
                         </button>
                     </div>
                 </div>
-                <div class="collapse {{ collapse_value }}" id="collapseExample">
+                <div class="collapse {{ collapse_value }}" id="quickNote">
                     {{ form_start(note_form) }}
                     <div class="col">
                         <label  class="form-label">{% trans %}Subject{% endtrans %}</label>
@@ -51,7 +51,7 @@
                         <label  class="form-label">{% trans %}Note content{% endtrans %}</label>
                         {{ form_widget(note_form.content, {'attr': {'type': 'textarea', 'class': 'form-control', 'rows': 3}}) }}
                     </div>
-                    <button class="btn btn-success float-end">{{ button_label|default('Create note'|trans([], 'case', 'da')) }}</button>
+                    <button class="btn btn-success float-end mt-2">{{ button_label|default('Create note'|trans([], 'case', 'da')) }}</button>
                     {{ form_end(note_form) }}
                 </div>
             </div>
