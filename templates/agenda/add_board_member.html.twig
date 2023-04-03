@@ -22,7 +22,7 @@
             <label class="form-label">{% trans %}Board members{% endtrans %}</label>
             {{ form_widget(agenda_add_board_member_form.boardMemberToAdd, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
         </div>
-        <button class="btn btn-success float-right">{{ button_label|default('Add board members'|trans([], 'agenda', 'da')) }}</button>
+        <button class="btn btn-success float-end">{{ button_label|default('Add board members'|trans([], 'agenda', 'da')) }}</button>
         {{ form_end(agenda_add_board_member_form) }}
     </main>
 {% endblock %}

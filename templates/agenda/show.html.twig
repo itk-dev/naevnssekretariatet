@@ -76,7 +76,7 @@
     </div>
         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
             <div class="row">
-                <button class="btn btn-primary float-right">{{ button_label|default('Save changes'|trans([], 'agenda', 'da')) }}</button>
+                <button class="btn btn-primary float-end">{{ button_label|default('Save changes'|trans([], 'agenda', 'da')) }}</button>
             </div>
         {% endif %}
     {{ form_end(agenda_form) }}

@@ -51,7 +51,7 @@
                         <label  class="form-label">{% trans %}Note content{% endtrans %}</label>
                         {{ form_widget(note_form.content, {'attr': {'type': 'textarea', 'class': 'form-control', 'rows': 3}}) }}
                     </div>
-                    <button class="btn btn-success float-right">{{ button_label|default('Create note'|trans([], 'case', 'da')) }}</button>
+                    <button class="btn btn-success float-end">{{ button_label|default('Create note'|trans([], 'case', 'da')) }}</button>
                     {{ form_end(note_form) }}
                 </div>
             </div>

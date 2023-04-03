@@ -62,7 +62,7 @@
                                 {% set hearing_response_deadline_difference = today.diff(case.hearingResponseDeadline) %}
                                 <td>
                                     {{ case.hearingResponseDeadline|date(format_date) }}, {{ hearing_response_deadline_difference.days|e }} {{ hearing_response_deadline_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
-                                    <a class="btn btn-primary float-right" href="" role="button" data-bs-toggle="modal" data-bs-target="#reschedule_hearing_response_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                                    <a class="btn btn-primary float-end" href="" role="button" data-bs-toggle="modal" data-bs-target="#reschedule_hearing_response_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                                 </td>
                             {% else %}
                                 <td>
@@ -75,7 +75,7 @@
                             {% set finished_hearing_difference = today.diff(case.finishHearingDeadline) %}
                             <td>
                                 {{ case.finishHearingDeadline|date(format_date) }}, {{ finished_hearing_difference.days|e }} {{ finished_hearing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
-                                <a class="btn btn-primary float-right" href="" role="button" data-bs-toggle="modal" data-bs-target="#reschedule_finish_hearing_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                                <a class="btn btn-primary float-end" href="" role="button" data-bs-toggle="modal" data-bs-target="#reschedule_finish_hearing_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                             </td>
                         </tr>
                         <tr>
@@ -83,7 +83,7 @@
                             {% set finished_processing_difference = today.diff(case.finishProcessingDeadline) %}
                             <td>
                                 {{ case.finishProcessingDeadline|date(format_date) }}, {{ finished_processing_difference.days|e }} {{ finished_processing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
-                                <a class="btn btn-primary float-right" href="" role="button" data-bs-toggle="modal" data-bs-target="#reschedule_finish_process_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                                <a class="btn btn-primary float-end" href="" role="button" data-bs-toggle="modal" data-bs-target="#reschedule_finish_process_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                             </td>
                         </tr>
                         </tbody>
