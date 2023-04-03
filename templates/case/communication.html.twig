@@ -11,7 +11,7 @@
         </div>
         <div class="col-auto">
             <a class="btn btn-primary" href={{ url('case_decision', {id: case.id}) }} role="button">{% trans %}Create decision{% endtrans %}</a>
-            <button type="button" class="btn btn-success"  data-bs-toggle="modal" data-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
+            <button type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
@@ -290,7 +290,7 @@
         <div class="row">
             <div class="col-auto ms-auto">
                 <a class="btn btn-primary" href="/case/decision" role="button">{% trans %}Create decision{% endtrans %}</a>
-                <button type="button" class="btn btn-success"  data-bs-toggle="modal" data-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
+                <button type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
             </div>
         </div>
     </footer>
@@ -301,7 +301,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createPhoneNoteModalLabel">{% trans %}Create new phone note{% endtrans %}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'Close'|trans([], 'messages') }}">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|trans([], 'messages') }}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -322,7 +322,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans from 'messages' %}Close{% endtrans %}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans from 'messages' %}Close{% endtrans %}</button>
                     <button type="button" class="btn btn-success">{% trans %}Save changes{% endtrans %}</button>
                 </div>
             </div>

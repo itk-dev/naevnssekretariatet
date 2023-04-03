@@ -6,16 +6,14 @@
             {{ form_start(reschedule_form, {'method': 'POST', 'action': path('case_reschedule_finish_hearing_deadline', {'id': case.id}), 'attr': {'id': 'reschedule_hearing_form', 'data-use-ajax': true}}) }}
             <div class="modal-header">
                 <h5 class="modal-title" id="rescheduleFinishHearingDeadlineModalLabel">{% trans %}Reschedule finish hearing deadline{% endtrans %}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body form-body">
                 {{ form_widget(reschedule_form) }}
                 <div class="form-error"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}Close{% endtrans %}</button>
                 <button id="finish_hearing_submit_button" type="submit" class="btn btn-primary">{% trans %}Reschedule{% endtrans %}</button>
             </div>
             {{ form_end(reschedule_form) }}

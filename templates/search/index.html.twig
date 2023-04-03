@@ -62,8 +62,8 @@
                         {% endif %}
                         <td>
                             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-                                <a href="" role="button" class="btn btn-success" data-bs-toggle="modal" data-target="#assign_case{{ case.id }}" data-placement="auto" title="{{ 'Assign caseworker'|trans({}, 'case') }}"><i class="fas fa-user-plus"></i><span class="sr-only">{{ 'Assign caseworker'|trans({}, 'case') }}</span></a>
-                                <a href="" role="button" class="btn btn-warning" data-bs-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{{ 'Add reminder'|trans({}, 'case') }}"><i class="fas fa-clock"></i><span class="sr-only">{{ 'Add reminder'|trans({}, 'case') }}</span></a>
+                                <a href="" role="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#assign_case{{ case.id }}" data-placement="auto" title="{{ 'Assign caseworker'|trans({}, 'case') }}"><i class="fas fa-user-plus"></i><span class="sr-only">{{ 'Assign caseworker'|trans({}, 'case') }}</span></a>
+                                <a href="" role="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reminder_new{{ case.id }}" data-placement="auto" title="{{ 'Add reminder'|trans({}, 'case') }}"><i class="fas fa-clock"></i><span class="sr-only">{{ 'Add reminder'|trans({}, 'case') }}</span></a>
                             {% endif %}
                             <a href="{{ url('case_summary', {id: case.id}) }}" role="button" class="btn btn-primary" data-bs-toggle="tooltip" data-placement="auto" title="{{ 'Show case'|trans({}, 'case') }}"><i class="fas fa-eye"></i><span class="sr-only">{{ 'Show case'|trans({}, 'case') }}</span></a>
                         </td>

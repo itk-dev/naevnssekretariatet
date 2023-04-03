@@ -49,15 +49,15 @@
         <div class="col-auto">
             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                 <a class="btn btn-secondary" href="{{ url("case_index") }}" role="button">{% trans %}Back to list{% endtrans %}</a>
-                <button class="btn btn-warning" data-bs-toggle="modal" data-target="#reminder_new{{ case.id }}" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}">{% trans %}Add reminder{% endtrans %}</button>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reminder_new{{ case.id }}" data-placement="auto" title="{% trans %}Add reminder{% endtrans %}">{% trans %}Add reminder{% endtrans %}</button>
                 {% if suitable_boards %}
-                    <a href="" role="button" class="btn btn-primary" data-bs-toggle="modal" data-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
+                    <a href="" role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#move_case" data-placement="auto" title="{% trans %}Move case to different board{% endtrans %}">{% trans %}Move case{% endtrans %}</a>
                     {{ render(controller('App\\Controller\\CaseController:move', {id: case.id})) }}
                 {% else %}
                     <button disabled class="btn btn-primary" title="{% trans %}No suitable boards{% endtrans %}">{% trans %}Move case{% endtrans %}</button>
                 {% endif %}
                 {% if is_deletable %}
-                    <a href="" role="button" class="btn btn-danger" data-bs-toggle="modal" data-target="#delete_case" data-placement="auto" title="{% trans %}Delete case{% endtrans %}">{% trans %}Delete case{% endtrans %}</a>
+                    <a href="" role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_case" data-placement="auto" title="{% trans %}Delete case{% endtrans %}">{% trans %}Delete case{% endtrans %}</a>
                     {{ render(controller('App\\Controller\\CaseController:delete', {id: case.id})) }}
                 {% else %}
                     <button disabled class="btn btn-danger" title="{% trans %}Cannot delete case that has been in hearing or on an agenda{% endtrans %}">{% trans %}Delete case{% endtrans %}</button>
