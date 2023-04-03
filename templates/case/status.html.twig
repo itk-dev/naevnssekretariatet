@@ -137,7 +137,7 @@
                                 <td>
                                     {{ active_agenda.agenda.board.name|e }}
                                     {% if active_agenda.inspection %}
-                                        <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                        <span class="badge rounded-pill text-bg-info">{% trans %}Inspection{% endtrans %}</span>
                                     {% endif %}
                                 </td>
                                 <td>{{ active_agenda.agenda.date|date(format_date) }}</td>
@@ -176,7 +176,7 @@
                                 <td>
                                     {{ finished_agenda.agenda.board.name|e }}
                                     {% if finished_agenda.inspection %}
-                                        <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                        <span class="badge rounded-pill bg-info"><span class="text-dark">B</span></span>
                                     {% endif %}
                                 </td>
                                 <td>{{ finished_agenda.agenda.date|date(format_date) }}</td>

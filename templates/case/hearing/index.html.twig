@@ -103,10 +103,10 @@
                                                     - {{ post.title }}
                                                 {% endif %}
                                                 {% if post.forwardedOn is defined and not post.getForwardedOn %}
-                                                    <span class="badge badge-pill badge-success ml-2">{% trans %}New{% endtrans %}</span>
+                                                    <span class="badge rounded-pill bg-success ml-2">{% trans %}New{% endtrans %}</span>
                                                 {% endif %}
                                                 {% if post.approvedOn is defined and not post.getApprovedOn %}
-                                                    <span class="badge badge-pill badge-success ml-2">{% trans %}New{% endtrans %}</span>
+                                                    <span class="badge rounded-pill bg-success ml-2">{% trans %}New{% endtrans %}</span>
                                                 {% endif %}
                                             </button>
                                         </h2>
