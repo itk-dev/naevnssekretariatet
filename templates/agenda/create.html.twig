@@ -40,7 +40,7 @@
             <label >{% trans %}Meeting point{% endtrans %}</label>
             {{ form_widget(agenda_create_form.agendaMeetingPoint, {'attr': {'type': 'text', 'class': 'form-control'}}) }}
         </div>
-        <button class="btn btn-success float-right">{{ button_label|default('Create Agenda'|trans([], 'agenda', 'da')) }}</button>
+        <button class="btn btn-success float-end">{{ button_label|default('Create Agenda'|trans([], 'agenda', 'da')) }}</button>
         {{ form_end(agenda_create_form) }}
     </main>
 {% endblock %}

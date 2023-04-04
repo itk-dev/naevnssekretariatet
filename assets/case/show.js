@@ -4,7 +4,7 @@ require('bootstrap-history-tabs/bootstrap-history-tabs.js')
 
 $(() => {
   // https://github.com/jeffdavidgreen/bootstrap-html5-history-tabs#how-to-use
-  $('a[data-toggle="tab"]').historyTabs()
+  $('a[data-bs-toggle="tab"]').historyTabs()
 
   // Add referer (current url) to links requesting it (via the
   // data-referer-query-name attribute).

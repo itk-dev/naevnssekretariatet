@@ -20,7 +20,7 @@
     <main role="main" class="col-12 mt-3">
         {{ form_start(agenda_item_create_form) }}
         {{ form_rest(agenda_item_create_form) }}
-        <button class="btn btn-primary float-right">{{ button_label|default('Create agenda item'|trans([], 'agenda', 'da')) }}</button>
+        <button class="btn btn-primary float-end">{{ button_label|default('Create agenda item'|trans([], 'agenda', 'da')) }}</button>
         {{ form_end(agenda_item_create_form) }}
     </main>
 {% endblock %}

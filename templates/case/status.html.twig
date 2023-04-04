@@ -62,7 +62,7 @@
                                 {% set hearing_response_deadline_difference = today.diff(case.hearingResponseDeadline) %}
                                 <td>
                                     {{ case.hearingResponseDeadline|date(format_date) }}, {{ hearing_response_deadline_difference.days|e }} {{ hearing_response_deadline_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
-                                    <a class="btn btn-primary float-right" href="" role="button" data-bs-toggle="modal" data-target="#reschedule_hearing_response_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                                    <a class="btn btn-primary float-end" role="button" data-bs-toggle="modal" data-bs-target="#reschedule_hearing_response_deadline"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                                 </td>
                             {% else %}
                                 <td>
@@ -75,7 +75,7 @@
                             {% set finished_hearing_difference = today.diff(case.finishHearingDeadline) %}
                             <td>
                                 {{ case.finishHearingDeadline|date(format_date) }}, {{ finished_hearing_difference.days|e }} {{ finished_hearing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
-                                <a class="btn btn-primary float-right" href="" role="button" data-bs-toggle="modal" data-target="#reschedule_finish_hearing_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                                <a class="btn btn-primary float-end" role="button" data-bs-toggle="modal" data-bs-target="#reschedule_finish_hearing_deadline"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                             </td>
                         </tr>
                         <tr>
@@ -83,7 +83,7 @@
                             {% set finished_processing_difference = today.diff(case.finishProcessingDeadline) %}
                             <td>
                                 {{ case.finishProcessingDeadline|date(format_date) }}, {{ finished_processing_difference.days|e }} {{ finished_processing_difference.invert ? 'days ago'|trans({}, 'case') : 'days remaining'|trans({}, 'case') }}.
-                                <a class="btn btn-primary float-right" href="" role="button" data-bs-toggle="modal" data-target="#reschedule_finish_process_deadline" data-placement="auto" title="{% trans %}Reschedule{% endtrans %}"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
+                                <a class="btn btn-primary float-end" role="button" data-bs-toggle="modal" data-bs-target="#reschedule_finish_process_deadline"><i class="fas fa-calendar-alt me-2"></i>{% trans %}Reschedule{% endtrans %}</a>
                             </td>
                         </tr>
                         </tbody>
@@ -137,7 +137,7 @@
                                 <td>
                                     {{ active_agenda.agenda.board.name|e }}
                                     {% if active_agenda.inspection %}
-                                        <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                        <span class="badge rounded-pill text-bg-info">{% trans %}Inspection{% endtrans %}</span>
                                     {% endif %}
                                 </td>
                                 <td>{{ active_agenda.agenda.date|date(format_date) }}</td>
@@ -176,7 +176,7 @@
                                 <td>
                                     {{ finished_agenda.agenda.board.name|e }}
                                     {% if finished_agenda.inspection %}
-                                        <span class="badge badge-pill badge-info"><span class="text-dark">B</span></span>
+                                        <span class="badge rounded-pill bg-info"><span class="text-dark">B</span></span>
                                     {% endif %}
                                 </td>
                                 <td>{{ finished_agenda.agenda.date|date(format_date) }}</td>
@@ -201,9 +201,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="rescheduleDeadlineModalLabel">{% trans %}Reschedule deadline{% endtrans %}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'Close'|trans([], 'messages') }}">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|trans([], 'messages') }}"></button>
                 </div>
                 <div class="modal-body">
                     <div class="col">
@@ -218,7 +216,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans from 'messages' %}Close{% endtrans %}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans from 'messages' %}Close{% endtrans %}</button>
                     <button type="button" class="btn btn-primary">{% trans %}Save changes{% endtrans %}</button>
                 </div>
             </div>

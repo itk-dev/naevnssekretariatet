@@ -28,7 +28,7 @@
         {{ form_start(agenda_item_edit_form) }}
         {{ form_rest(agenda_item_edit_form) }}
         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
-            <button class="btn btn-primary float-right">{{ button_label|default('Edit agenda item'|trans([], 'agenda', 'da')) }}</button>
+            <button class="btn btn-primary float-end">{{ button_label|default('Edit agenda item'|trans([], 'agenda', 'da')) }}</button>
         {% endif %}
         {{ form_end(agenda_item_edit_form) }}
     </main>

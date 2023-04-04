@@ -37,13 +37,15 @@
                         <td>{{ reminder.content|e }}</td>
                         <td>
                             <!-- Complete button -->
-                            <form method="post" class="btn" style="margin:0; padding:0; display:inline;" action="{{ path('reminder_complete', {'id': reminder.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to complete this reminder?{% endtrans %}');">
+                            <form method="post" role="button" style="margin:0; padding:0; display:inline;" action="{{ path('reminder_complete', {'id': reminder.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to complete this reminder?{% endtrans %}');">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('complete' ~ reminder.id) }}">
                                 <button class="btn btn-success" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Mark as completed{% endtrans %}"><i class="fas fa-check-circle"></i></button>
                             </form>
                             <!-- Edit button -->
-                            <a href="" role="button" class="btn btn-warning" data-bs-toggle="modal" data-target="#reminder_edit{{ reminder.id }}" data-placement="auto" title="{% trans %}Edit reminder{% endtrans %}"><i class="fas fa-pen"></i><span class="sr-only">{% trans %}Edit reminder{% endtrans %}</span></a>
+                            <span data-bs-toggle="modal" data-bs-target="#reminder_edit{{ reminder.id }}">
+                                <a role="button" class="btn btn-warning" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Edit reminder{% endtrans %}"><i class="fas fa-pen"></i><span class="sr-only">{% trans %}Edit reminder{% endtrans %}</span></a>
+                            </span>
                             <!-- Show case button -->
                             <a href="{{ url('case_summary', {id: reminder.caseEntity.id}) }}" class="btn btn-primary" role="button" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Show case{% endtrans %} {{ reminder.caseEntity.casenumber|e }}"><i class="fas fa-file-alt"></i><span class="sr-only">"{% trans %}Show case{% endtrans %} {{ reminder.caseEntity.casenumber|e }}"</span></a>
                         </td>

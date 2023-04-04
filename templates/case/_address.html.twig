@@ -6,38 +6,38 @@
     <div class="row mb-3">
         <div class="col col-md-6">
             <label  class="form-label">{% trans %}Road{% endtrans %}</label>
-            <input type="text" class="form-control" value="{{ address.street }}" readonly>
+            <input type="text" class="form-control" value="{{ address.street }}" readonly disabled>
         </div>
         <div class="col col-md-2">
             <label  class="form-label">{% trans %}Number{% endtrans %}</label>
-            <input type="text" class="form-control" value="{{ address.number }}" readonly>
+            <input type="text" class="form-control" value="{{ address.number }}" readonly disabled>
         </div>
         <div class="col col-md-2">
             <label  class="form-label">{% trans %}Floor{% endtrans %}</label>
-            <input type="text" class="form-control" value="{{ address.floor }}" readonly>
+            <input type="text" class="form-control" value="{{ address.floor }}" readonly disabled>
         </div>
         <div class="col col-md-2">
             <label  class="form-label">{% trans %}Side{% endtrans %}</label>
-            <input type="text" class="form-control" value="{{ address.side }}" readonly>
+            <input type="text" class="form-control" value="{{ address.side }}" readonly disabled>
         </div>
     </div>
     <div class="row">
         <div class="col col-md-2">
             <label  class="form-label">{% trans %}Postal code{% endtrans %}</label>
-            <input type="text" class="form-control" value="{{ address.postalCode }}" readonly>
+            <input type="text" class="form-control" value="{{ address.postalCode }}" readonly disabled>
         </div>
         <div class="col col-md-2">
             <label  class="form-label">{% trans %}City{% endtrans %}</label>
-            <input type="text" class="form-control" value="{{ address.city }}" readonly>
+            <input type="text" class="form-control" value="{{ address.city }}" readonly disabled>
         </div>
         <div class="col col-md-6">
             <label  class="form-label">{% trans %}Extra address information{% endtrans %}</label>
-            <input type="text" class="form-control" value="{{ address.extraInformation }}" readonly>
+            <input type="text" class="form-control" value="{{ address.extraInformation }}" readonly disabled>
         </div>
         {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
             {% if withValidation|default(true) %}
                 <div class="col col-md-2">
-                    <label class="invisible">{% trans %}Validate{% endtrans %}</label>
+                    <label class="invisible form-label">{% trans %}Validate{% endtrans %}</label>
                     {% if address.validatedAt %}
                         <span class="btn w-100 btn-success" type="button" data-bs-toggle="tooltip" data-placement="auto" title="{{ 'Address validated at {validation_time}'|trans({'validation_time': address.validatedAt|date(format_datetime)}) }}"><i class="fas fa-check-circle"></i> {% trans %}Address validated{% endtrans %}</span>
                     {% else %}

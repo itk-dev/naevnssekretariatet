@@ -23,7 +23,7 @@
     } %}
     {% set info = digital_post_envelope_info[envelope.status]|default({}) %}
 
-    <span class="badge badge-{{ info.level|default('dark') }} digital-post-envelope-status">
+    <span class="badge text-bg-{{ info.level|default('dark') }} digital-post-envelope-status">
         {{ info.label ?: status }}
     </span>
     {% if options.show_message|default(false) %}

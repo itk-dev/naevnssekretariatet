@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block content %}
-    <main role="main" class="col-12 mt-3">
+    <main role="main" class="col-12">
         <form id="filter_form11" method="get" action="." class="form">
             {{ form_start(filter_form) }}
             <div class="row g-0">
@@ -79,7 +79,7 @@
                                 {% elseif agenda.agendaItems|length > 0 %}
                                     <button class="btn btn-danger" disabled title="{% trans %}Cannot delete agenda containing agenda items{% endtrans %}"><i class="fas fa-trash-alt"></i></button>
                                 {% else %}
-                                <form id="myform" class="btn" style="margin:0; padding:0; display:inline;" method="post" action="{{ path('agenda_delete', {'id': agenda.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this agenda?{% endtrans %}');">
+                                <form id="myform" role="button" style="margin:0; padding:0; display:inline;" method="post" action="{{ path('agenda_delete', {'id': agenda.id}) }}" onsubmit="return confirm('{% trans %}Are you sure you want to delete this agenda?{% endtrans %}');">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ agenda.id) }}">
                                     <button class="btn btn-danger" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Delete agenda{% endtrans %}"><i class="fas fa-trash-alt"></i></button>

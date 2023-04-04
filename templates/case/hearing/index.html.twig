@@ -75,7 +75,7 @@
                         </div>
                     {% endif %}
                     <div class="col-auto">
-                        <button class="btn btn-primary float-right">{{ button_label|default('Update'|trans([], 'case', 'da')) }}</button>
+                        <button class="btn btn-primary float-end">{{ button_label|default('Update'|trans([], 'case', 'da')) }}</button>
                     </div>
                 </div>
                 {{ form_end(form) }}
@@ -97,16 +97,16 @@
                                 <div class="row">
                                     <div class="col">
                                         <h2 class="m-0 p-0">
-                                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
+                                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
                                                 {{ class(post)|trans({}, 'case') }}
                                                 {% if post.title is defined %}
                                                     - {{ post.title }}
                                                 {% endif %}
                                                 {% if post.forwardedOn is defined and not post.getForwardedOn %}
-                                                    <span class="badge badge-pill badge-warning">N</span>
+                                                    <span class="badge rounded-pill bg-success ms-2">{% trans %}New{% endtrans %}</span>
                                                 {% endif %}
                                                 {% if post.approvedOn is defined and not post.getApprovedOn %}
-                                                    <span class="badge badge-pill badge-warning">N</span>
+                                                    <span class="badge rounded-pill bg-success ms-2">{% trans %}New{% endtrans %}</span>
                                                 {% endif %}
                                             </button>
                                         </h2>
