@@ -14,8 +14,19 @@
 {% endblock %}
 
 {% block content %}
-
     <main role="main" class="col-12 mt-3">
-        {{ form(protocol_form) }}
+        {{ form_start(protocol_form) }}
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label" for="hest">{% trans %}Agenda protocol{% endtrans %}</label>
+                {{ form_widget(protocol_form.protocol, {'attr': {'class': 'form-control', 'name': 'hest'}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary float-end">{{ button_label|default('Update protocol'|trans([], 'agenda', 'da')) }}</button>
+            </div>
+        </div>
+        {{ form_rest(protocol_form) }}
     </main>
 {% endblock %}
