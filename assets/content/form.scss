@@ -1,7 +1,6 @@
 form .required::after {
   font-family: var(--fa-font-solid);
   content: fa-content($fa-var-asterisk);
-  vertical-align: super;
   padding: 0 ($spacer * 0.25);
   color: $danger;
 }
