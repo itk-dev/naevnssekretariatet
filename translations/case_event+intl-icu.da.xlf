@@ -171,7 +171,7 @@
       </trans-unit>
       <trans-unit id="B45ud_7" resname="Event list">
         <source>Event list</source>
-        <target state="needs-l10n">__Event list</target>
+        <target state="needs-l10n">Hændelsesliste</target>
       </trans-unit>
     </body>
   </file>
