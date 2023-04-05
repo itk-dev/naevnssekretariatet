@@ -17,7 +17,6 @@ about writing changes to this log.
 - [PR-346](https://github.com/itk-dev/naevnssekretariatet/pull/346)
   Frontend improvements
 
-
 ## [1.3.2] 2023-03-30
 
 - [TVIST1-809](https://jira.itkdev.dk/browse/TVIST1-809)
