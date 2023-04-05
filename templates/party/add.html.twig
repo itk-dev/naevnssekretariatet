@@ -51,11 +51,18 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 mb-3">
+            <div class="col-md-6 mb-3">
                 {{ form_row(add_party_form.type) }}
             </div>
+            <div class="col-md-6 mb-3">
+                {{ form_row(add_party_form.referenceNumber) }}
+            </div>
         </div>
-        <button class="btn btn-success float-end" type="submit" name="submit">{% trans %}Add party{% endtrans %}</button>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-success float-end" type="submit" name="submit">{% trans %}Add party{% endtrans %}</button>
+            </div>
+        </div>
         {{ form_end(add_party_form) }}
     </main>
 {% endblock %}

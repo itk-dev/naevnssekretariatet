@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Logging\LoggableEntityInterface;
 use App\Traits\SoftDeletableEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -38,6 +39,12 @@ class CasePartyRelation implements LoggableEntityInterface
      * @ORM\Column(type="string", length=255)
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"mail_template"})
+     */
+    private $referenceNumber;
 
     public function __construct()
     {
@@ -81,6 +88,18 @@ class CasePartyRelation implements LoggableEntityInterface
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getReferenceNumber(): ?string
+    {
+        return $this->referenceNumber;
+    }
+
+    public function setReferenceNumber(?string $referenceNumber): self
+    {
+        $this->referenceNumber = $referenceNumber;
 
         return $this;
     }

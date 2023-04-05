@@ -19,15 +19,25 @@
 {% block content %}
     <main role="main" class="col-12 mt-3">
         {{ form_start(add_party_form) }}
-        <div>
-            <label >{% trans %}Party to add{% endtrans %}</label>
-            {{ form_widget(add_party_form.partyToAdd, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
+        {{ form_errors(add_party_form) }}
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                {{ form_row(add_party_form.partyToAdd) }}
+            </div>
         </div>
-        <div>
-            <label >{% trans %}Party type{% endtrans %}</label>
-            {{ form_widget(add_party_form.type, {'attr': {'type': 'text', 'class': 'form-control', 'required': true}}) }}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                {{ form_row(add_party_form.type) }}
+            </div>
+            <div class="col-md-6 mb-3">
+                {{ form_row(add_party_form.referenceNumber) }}
+            </div>
         </div>
-        <button class="btn btn-success float-end mt-3">{{ button_label|default('Add party'|trans([], 'party', 'da')) }}</button>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-success float-end">{{ button_label|default('Add party'|trans([], 'party', 'da')) }}</button>
+            </div>
+        </div>
         {{ form_end(add_party_form) }}
     </main>
 {% endblock %}

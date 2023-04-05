@@ -136,6 +136,7 @@
                                 <th scope="col">{% trans %}Identifier{% endtrans %}</th>
                                 <th scope="col">{% trans %}P-number{% endtrans %}</th>
                                 <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Reference number{% endtrans %}</th>
                                 <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
                             </tr>
                             </thead>
@@ -153,6 +154,7 @@
                                     <td>{{ party_data.party.identification.identifier|e }}</td>
                                     <td>{{ party_data.party.identification.pNumber|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
+                                    <td>{{ party_data.referenceNumber|e }}</td>
                                     <td class="text-end">
                                         <!-- Edit button -->
                                         <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
@@ -185,6 +187,7 @@
                                 <th scope="col">{% trans %}Identifier{% endtrans %}</th>
                                 <th scope="col">{% trans %}P-number{% endtrans %}</th>
                                 <th scope="col">{% trans %}Telephone number{% endtrans %}</th>
+                                <th scope="col">{% trans %}Reference number{% endtrans %}</th>
                                 <th scope="col" data-orderable="false">{% trans %}Function{% endtrans %}</th>
                             </tr>
                             </thead>
@@ -202,6 +205,7 @@
                                     <td>{{ party_data.party.identification.identifier|e }}</td>
                                     <td>{{ party_data.party.identification.pNumber|e }}</td>
                                     <td>{{ party_data.party.phoneNumber|e }}</td>
+                                    <td>{{ party_data.referenceNumber|e }}</td>
                                     <td class="text-end">
                                         <!-- Edit button -->
                                         <a href="{{ url("party_edit", {id: case.id, party_id: party_data.party.id}) }}" role="button" class="btn btn-primary" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Edit party{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit party{% endtrans %} </span></a>
