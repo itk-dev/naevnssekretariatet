@@ -348,13 +348,9 @@ class MailTemplateHelper
 
                 $data += ['relation' => $relationData];
 
-                switch (get_class($entity)) {
-                    case HearingPostRequest::class:
-                        $data['recipient'] += $relationData;
-                        break;
-                    case HearingPostResponse::class:
-                        $data['sender'] += $relationData;
-                }
+                // For convenience, we add the same relation data with relevant prefix to help users.
+                $key = $entity instanceof HearingPostRequest ? 'recipient' : 'sender';
+                $data[$key] += $relationData;
             } elseif ($entity instanceof AgendaBroadcast) {
                 $data += json_decode($this->serializer->serialize($entity->getAgenda(), 'json', ['groups' => ['mail_template']]), true);
             }
