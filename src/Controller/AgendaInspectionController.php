@@ -76,16 +76,6 @@ class AgendaInspectionController extends AbstractController
 
             $inspection->setCustomData($customData);
 
-            // Create new file from template
-            $fileName = $mailTemplateHelper->renderMailTemplate($inspection->getTemplate(), $inspection);
-
-            // Create document
-            $document = $documentUploader->createDocumentFromPath($fileName, $inspection->getTitle(), 'Agenda inspection');
-
-            $entityManager->persist($document);
-
-            $inspection->setDocument($document);
-
             // Create recipients
             $digitalPostRecipients = [];
 
@@ -99,6 +89,16 @@ class AgendaInspectionController extends AbstractController
             }
 
             $inspection->setAgendaCaseItem($agendaItem);
+
+            // Create new file from template
+            $fileName = $mailTemplateHelper->renderMailTemplate($inspection->getTemplate(), $inspection);
+
+            // Create document
+            $document = $documentUploader->createDocumentFromPath($fileName, $inspection->getTitle(), 'Agenda inspection');
+
+            $entityManager->persist($document);
+
+            $inspection->setDocument($document);
 
             $entityManager->persist($inspection);
 
