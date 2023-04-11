@@ -37,6 +37,7 @@ class CasePartyRelation implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"mail_template"})
      */
     private $type;
 

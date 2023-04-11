@@ -5,11 +5,14 @@ namespace App\Service;
 use App\Entity\AgendaBroadcast;
 use App\Entity\CaseEntity;
 use App\Entity\HearingPost;
+use App\Entity\HearingPostRequest;
+use App\Entity\HearingPostResponse;
 use App\Entity\InspectionLetter;
 use App\Entity\MailTemplate;
 use App\Entity\User;
 use App\Exception\MailTemplateException;
 use App\Form\MailTemplateCustomDataType;
+use App\Repository\CasePartyRelationRepository;
 use App\Repository\MailTemplateMacroRepository;
 use App\Repository\MailTemplateRepository;
 use App\Service\MailTemplate\ComplexMacro;
@@ -48,7 +51,7 @@ class MailTemplateHelper
 
     private string $placeholderPattern = '/\$\{(?P<key>[^}]+)\}/';
 
-    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, private TranslatorInterface $translator, private ComplexMacroHelper $macroHelper, array $mailTemplateHelperOptions)
+    public function __construct(private MailTemplateRepository $mailTemplateRepository, private MailTemplateMacroRepository $mailTemplateMacroRepository, private EntityManagerInterface $entityManager, private SerializerInterface $serializer, private Filesystem $filesystem, private LoggerInterface $logger, private TokenStorageInterface $tokenStorage, private TranslatorInterface $translator, private ComplexMacroHelper $macroHelper, private CasePartyRelationRepository $relationRepository, array $mailTemplateHelperOptions)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -322,17 +325,39 @@ class MailTemplateHelper
                 }, $placeHolders)
             );
         } else {
-            // Convert entity to array.
+            $case = $this->getCase($entity);
 
+            // Convert entity to array.
             $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
 
             // Make hearing, agenda and case data easily available.
             if ($entity instanceof HearingPost) {
                 $data += json_decode($this->serializer->serialize($entity->getHearing(), 'json', ['groups' => ['mail_template']]), true);
+
+                $relation = match (true) {
+                    $entity instanceof HearingPostRequest => $this->relationRepository->findOneBy(['case' => $case->getId()->toBinary(), 'party' => $entity->getRecipient()->getId()->toBinary()]),
+                    $entity instanceof HearingPostResponse => $this->relationRepository->findOneBy(['case' => $case->getId()->toBinary(), 'party' => $entity->getSender()->getId()->toBinary()]),
+                    default => throw new MailTemplateException(sprintf('Invalid entity type %s, expected instance of %s or %s', get_class($entity), HearingPostRequest::class, HearingPostResponse::class)),
+                };
+
+                if (!$relation) {
+                    throw new MailTemplateException('Could not findrelation between party and case.');
+                }
+
+                $relationData = json_decode($this->serializer->serialize($relation, 'json', ['groups' => ['mail_template']]), true);
+
+                $data += ['relation' => $relationData];
+
+                switch (get_class($entity)) {
+                    case HearingPostRequest::class:
+                        $data['recipient'] += $relationData;
+                        break;
+                    case HearingPostResponse::class:
+                        $data['sender'] += $relationData;
+                }
             } elseif ($entity instanceof AgendaBroadcast) {
                 $data += json_decode($this->serializer->serialize($entity->getAgenda(), 'json', ['groups' => ['mail_template']]), true);
             }
-            $case = $this->getCase($entity);
             if (null !== $case) {
                 // If the entity itself is a case it has already been added to the data.
                 if ($case !== $entity) {
