@@ -77,6 +77,10 @@
         <source>Identifier</source>
         <target state="translated">Id</target>
       </trans-unit>
+      <trans-unit id="z57ogPt" resname="Reference number">
+        <source>Reference number</source>
+        <target state="translated">Reference nummer</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

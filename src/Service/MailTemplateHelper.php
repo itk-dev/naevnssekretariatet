@@ -341,7 +341,7 @@ class MailTemplateHelper
                 };
 
                 if (!$relation) {
-                    throw new MailTemplateException('Could not findrelation between party and case.');
+                    throw new MailTemplateException('Could not find relation between party and case.');
                 }
 
                 $relationData = json_decode($this->serializer->serialize($relation, 'json', ['groups' => ['mail_template']]), true);
