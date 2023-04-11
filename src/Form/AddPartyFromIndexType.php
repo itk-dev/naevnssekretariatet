@@ -7,8 +7,10 @@ use App\Service\PartyHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AddPartyFromIndexType extends AbstractType
 {
@@ -17,9 +19,15 @@ class AddPartyFromIndexType extends AbstractType
      */
     private $partyHelper;
 
-    public function __construct(PartyHelper $partyHelper)
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(PartyHelper $partyHelper, TranslatorInterface $translator)
     {
         $this->partyHelper = $partyHelper;
+        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -47,6 +55,10 @@ class AddPartyFromIndexType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'choices' => $this->partyHelper->getAllPartyTypes($case),
                 'data' => $type,
+            ])
+            ->add('referenceNumber', TextType::class, [
+                'label' => $this->translator->trans('Reference number', [], 'party'),
+                'required' => false,
             ])
         ;
     }

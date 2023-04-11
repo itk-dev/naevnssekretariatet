@@ -48,11 +48,18 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 mb-3">
+            <div class="col-md-6 mb-3">
                 {{ form_row(edit_party_form.type) }}
             </div>
+            <div class="col-md-6 mb-3">
+                {{ form_row(edit_party_form.referenceNumber) }}
+            </div>
         </div>
-        <button class="btn btn-primary float-end mt-3">{{ button_label|default('Edit party'|trans([], 'party', 'da')) }}</button>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary float-end">{{ button_label|default('Edit party'|trans) }}</button>
+            </div>
+        </div>
         {{ form_end(edit_party_form) }}
     </main>
 {% endblock %}
