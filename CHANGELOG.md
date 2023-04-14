@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-354](https://github.com/itk-dev/naevnssekretariatet/pull/354)
+  Downgraded `symfony/maker-bundle` to ensure support for annotations
 - [PR-353](https://github.com/itk-dev/naevnssekretariatet/pull/353)
   Adds `referenceNumber` to `CasePartyRelation`
   and usage of this during hearing
