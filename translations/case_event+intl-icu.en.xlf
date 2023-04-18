@@ -169,6 +169,10 @@
         <source>Be aware, that this creates a link between the case event and the selected cases, meaning changes to the case event will be shown on all linked cases.</source>
         <target>Be aware, that this creates a link between the case event and the selected cases, meaning changes to the case event will be shown on all linked cases.</target>
       </trans-unit>
+      <trans-unit id="B45ud_7" resname="Event list">
+        <source>Event list</source>
+        <target>Event list</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

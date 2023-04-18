@@ -169,6 +169,10 @@
         <source>Be aware, that this creates a link between the case event and the selected cases, meaning changes to the case event will be shown on all linked cases.</source>
         <target state="translated">Vær opmærksom på, at dette tilknytter de valgte sager til sagshændelsen, således at ændringer på sagshændelsen vil tage effekt på alle tilknyttede sager.</target>
       </trans-unit>
+      <trans-unit id="B45ud_7" resname="Event list">
+        <source>Event list</source>
+        <target state="translated">Hændelsesliste</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

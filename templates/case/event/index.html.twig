@@ -31,61 +31,63 @@
 {% block content %}
     <main role="main" class="col-12 mt-3">
         {{ form_start(filter_form) }}
-        <div class="row g-0">
-            <div class="col-auto">
-                {{ form_widget(filter_form.category) }}
-            </div>
-            <div class="col-auto ms-2">
-                {{ form_widget(filter_form.query) }}
-            </div>
-            <div class="col-auto ms-2">
-                <button class="btn btn-primary">{% trans %}Apply filter{% endtrans %}</button>
+            <div class="row row-cols-lg-auto g-3 align-items-center mb-3">
+                <div class="col-12">
+                    {{ form_widget(filter_form.category) }}
+                </div>
+                <div class="col-12">
+                    {{ form_widget(filter_form.query) }}
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary">{% trans %}Apply filter{% endtrans %}</button>
 
-                {# Get query parameters without filter#}
-                {% set query_parameters = app.request.query.all|filter((v, k) => k != 'case_event_filter') %}
-                {% set reset_filter_path = path(
-                    app.request.attributes.get('_route'),
-                    app.request.attributes.get('_route_params')|merge(query_parameters)
-                ) %}
-                <a class="btn btn-secondary" href="{{ reset_filter_path }}" role="button">{% trans %}Reset filter{% endtrans %}</a>
+                    {# Get query parameters without filter#}
+                    {% set query_parameters = app.request.query.all|filter((v, k) => k != 'case_event_filter') %}
+                    {% set reset_filter_path = path(
+                        app.request.attributes.get('_route'),
+                        app.request.attributes.get('_route_params')|merge(query_parameters)
+                    ) %}
+                </div>
+                <div class="col-12">
+                    <a class="btn btn-secondary" href="{{ reset_filter_path }}" role="button">{% trans %}Reset filter{% endtrans %}</a>
+                </div>
+            {{ form_rest(filter_form) }}
             </div>
-        </div>
-        {{ form_rest(filter_form) }}
         {{ form_end(filter_form) }}
 
-        <table class="table table-striped mt-2">
-            <thead>
-            <tr>
-                <th>{% trans %}Category{% endtrans %}</th>
-                <th>{% trans %}Sender{% endtrans %}</th>
-                <th>{% trans %}Recipient{% endtrans %}</th>
-                <th>{% trans %}Subject{% endtrans %}</th>
-                <th>{% trans %}Received at{% endtrans %}</th>
-                <th>{% trans %}User{% endtrans %}</th>
-                <th>{% trans %}Status{% endtrans %}</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for case_event in case_events %}
-                <tr>
-                    <td>{{ case_event.category }}</td>
-                    <td>{{ case_event.senders|join(', ') }}</td>
-                    <td>{{ case_event.recipients|join(', ') }}</td>
-                    <td>{{ case_event.subject }}</td>
-                    <td>{{ case_event.receivedAt ? case_event.receivedAt|date(format_datetime) : '' }}</td>
-                    <td>{{ case_event.createdBy.name }}</td>
-                    <td>{{ _self.case_event_status(case_event) }}</td>
-                    <td>
-                        <a href="{{ path('case_event_show', {'id': case.id, 'caseEvent': case_event.id}) }}">{% trans %}Show{% endtrans %}</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="7">{% trans %}No case events{% endtrans %}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        <h2 class="fs-4">{% trans %}Event list{% endtrans %}</h2>
+
+        <div class="list-group d-grid gap-3 w-auto">
+        {% for case_event in case_events %}
+            <a class="list-group-item list-group-item-action rounded-1 py-3 border-top" href="{{ path('case_event_show', {'id': case.id, 'caseEvent': case_event.id}) }}">
+                <div class="row">
+                    <div class="col-auto">
+                        <p class="fw-semibold fs-5 mb-0 d-inline me-3">{{ case_event.subject }}</p>  {{ _self.case_event_status(case_event) }}
+                    </div>
+                    <div class="col-auto ms-auto">
+                        <p class="text-secondary mb-0"><i class="fa-solid fa-tag fa-xs fa-fw opacity-50 me-1"></i>{{ case_event.category }}<i class="fa-solid fa-user fa-xs fa-fw ms-3 me-1 opacity-50"></i>{{ case_event.createdBy.name }}<i class="fa-solid fa-clock fa-xs fa-fw ms-3 me-1 opacity-50"></i>{{ case_event.receivedAt ? case_event.receivedAt|date(format_datetime) : '' }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto">
+                        {% if case_event.senders %}
+                            <p class="mb-0"><span class="text-secondary">{% trans %}Sender{% endtrans %}:</span> {{ case_event.senders|join(', ') }}</p>
+                        {% endif %}
+                        {% if case_event.recipients %}
+                            <p class="mb-0"><span class="text-secondary">{% trans %}Recipient{% endtrans %}:</span> {{ case_event.recipients|join(', ') }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-auto ms-auto">
+                        <p class="text-secondary"></p>
+                    </div>
+                </div>
+            </a>
+        {% else %}
+            <div class="list-group-item">
+                <div class="col">{% trans %}No case events{% endtrans %}</div>
+            </div>
+        {% endfor %}
+        </div>
+
     </main>
 {% endblock %}
