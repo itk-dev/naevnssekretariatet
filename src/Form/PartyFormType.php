@@ -82,6 +82,10 @@ class PartyFormType extends AbstractType
                 'choices' => $this->partyHelper->getAllPartyTypes($case),
                 'data' => $options['type'],
             ])
+            ->add('referenceNumber', TextType::class, [
+                'label' => $this->translator->trans('Reference number', [], 'party'),
+                'required' => false,
+            ])
         ;
     }
 }

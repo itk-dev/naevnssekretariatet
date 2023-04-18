@@ -12,6 +12,13 @@ about writing changes to this log.
 
 - [PR-351](https://github.com/itk-dev/naevnssekretariatet/pull/351)
   Cleanup case envents
+- [PR-354](https://github.com/itk-dev/naevnssekretariatet/pull/354)
+  Downgraded `symfony/maker-bundle` to ensure support for annotations
+- [PR-353](https://github.com/itk-dev/naevnssekretariatet/pull/353)
+  Adds `referenceNumber` to `CasePartyRelation`
+  and usage of this during hearing
+- [PR-352](https://github.com/itk-dev/naevnssekretariatet/pull/352)
+  Fixes digital post creation for inspection letters
 - [PR-350](https://github.com/itk-dev/naevnssekretariatet/pull/350)
   Update dependenscies and migrate bootstrap from v4 to v5
 - [PR-346](https://github.com/itk-dev/naevnssekretariatet/pull/346)
