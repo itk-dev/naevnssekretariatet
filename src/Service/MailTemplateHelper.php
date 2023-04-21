@@ -5,8 +5,8 @@ namespace App\Service;
 use App\Entity\AgendaBroadcast;
 use App\Entity\CaseEntity;
 use App\Entity\HearingPost;
-use App\Entity\HearingPostRequest;
 use App\Entity\HearingPostResponse;
+use App\Entity\HearingRecipient;
 use App\Entity\InspectionLetter;
 use App\Entity\MailTemplate;
 use App\Entity\User;
@@ -331,14 +331,12 @@ class MailTemplateHelper
             $data = json_decode($this->serializer->serialize($entity, 'json', ['groups' => ['mail_template']]), true);
 
             // Make hearing, agenda and case data easily available.
-            if ($entity instanceof HearingPost) {
-                $data += json_decode($this->serializer->serialize($entity->getHearing(), 'json', ['groups' => ['mail_template']]), true);
+            if ($entity instanceof HearingRecipient) {
+                $hearingPost = $entity->getHearingPostRequest();
 
-                $relation = match (true) {
-                    $entity instanceof HearingPostRequest => $this->relationRepository->findOneBy(['case' => $case->getId()->toBinary(), 'party' => $entity->getRecipient()->getId()->toBinary()]),
-                    $entity instanceof HearingPostResponse => $this->relationRepository->findOneBy(['case' => $case->getId()->toBinary(), 'party' => $entity->getSender()->getId()->toBinary()]),
-                    default => throw new MailTemplateException(sprintf('Invalid entity type %s, expected instance of %s or %s', get_class($entity), HearingPostRequest::class, HearingPostResponse::class)),
-                };
+                $data += json_decode($this->serializer->serialize($hearingPost->getHearing(), 'json', ['groups' => ['mail_template']]), true);
+
+                $relation = $this->relationRepository->findOneBy(['case' => $case->getId()->toBinary(), 'party' => $entity->getRecipient()->getId()->toBinary()]);
 
                 if (!$relation) {
                     throw new MailTemplateException('Could not find relation between party and case.');
@@ -349,8 +347,22 @@ class MailTemplateHelper
                 $data += ['relation' => $relationData];
 
                 // For convenience, we add the same relation data with relevant prefix to help users.
-                $key = $entity instanceof HearingPostRequest ? 'recipient' : 'sender';
-                $data[$key] += $relationData;
+                $data['recipient'] += $relationData;
+            } elseif ($entity instanceof HearingPostResponse) {
+                $data += json_decode($this->serializer->serialize($entity->getHearing(), 'json', ['groups' => ['mail_template']]), true);
+
+                $relation = $this->relationRepository->findOneBy(['case' => $case->getId()->toBinary(), 'party' => $entity->getSender()->getId()->toBinary()]);
+
+                if (!$relation) {
+                    throw new MailTemplateException('Could not find relation between party and case.');
+                }
+
+                $relationData = json_decode($this->serializer->serialize($relation, 'json', ['groups' => ['mail_template']]), true);
+
+                $data += ['relation' => $relationData];
+
+                // For convenience, we add the same relation data with relevant prefix to help users.
+                $data['sender'] += $relationData;
             } elseif ($entity instanceof AgendaBroadcast) {
                 $data += json_decode($this->serializer->serialize($entity->getAgenda(), 'json', ['groups' => ['mail_template']]), true);
             }
@@ -434,6 +446,8 @@ class MailTemplateHelper
     {
         if ($entity instanceof CaseEntity) {
             return $entity;
+        } elseif ($entity instanceof HearingRecipient) {
+            return $entity->getHearingPostRequest()->getHearing()->getCaseEntity();
         } elseif ($entity instanceof HearingPost) {
             return $entity->getHearing()->getCaseEntity();
         } elseif ($entity instanceof InspectionLetter) {

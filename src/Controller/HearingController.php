@@ -7,10 +7,12 @@ use App\Entity\CaseEntity;
 use App\Entity\CaseEvent;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostAttachment;
+use App\Entity\Document;
 use App\Entity\Hearing;
 use App\Entity\HearingPost;
 use App\Entity\HearingPostRequest;
 use App\Entity\HearingPostResponse;
+use App\Entity\HearingRecipient;
 use App\Entity\User;
 use App\Exception\HearingException;
 use App\Form\HearingFinishType;
@@ -38,7 +40,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class HearingController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager, private TranslatorInterface $translator)
+    public function __construct(private EntityManagerInterface $entityManager, private DocumentUploader $documentUploader, private CaseDocumentRelationRepository $relationRepository, private TranslatorInterface $translator)
     {
     }
 
@@ -216,24 +218,37 @@ class HearingController extends AbstractController
 
             $hearingPost->setHearing($hearing);
 
-            // Create new file from template
-            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $hearingPost);
+            // Per chosen recipient, create a HearingRecipient and add it to the HearingPostRequest
+            // HearingRecipient is then responsible for containing the rendered document.
+            foreach ($form->get('recipients')->getData() as $recipient) {
+                $hearingRecipient = new HearingRecipient();
+                $hearingRecipient->setRecipient($recipient);
+                $hearingRecipient->setHearingPostRequest($hearingPost);
 
-            // Create document
-            $document = $documentUploader->createDocumentFromPath($fileName, $hearingPost->getTitle(), 'Hearing');
+                // Create new file from template
+                $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $hearingRecipient);
 
-            $hearingPost->setDocument($document);
+                // Create document
+                $document = $documentUploader->createDocumentFromPath($fileName, $hearingPost->getTitle(), 'Hearing');
 
-            // Create case document relation
-            $relation = new CaseDocumentRelation();
-            $relation->setCase($case);
-            $relation->setDocument($document);
+                $hearingRecipient->setDocument($document);
+
+                // Create case document relation
+                $relation = new CaseDocumentRelation();
+                $relation->setCase($case);
+                $relation->setDocument($document);
+
+                $this->entityManager->persist($relation);
+                $this->entityManager->persist($document);
+                $this->entityManager->persist($hearingRecipient);
+
+                $hearingPost->addHearingRecipient($hearingRecipient);
+            }
 
             $hearing->setHasNewHearingPost(false);
-            $this->entityManager->persist($relation);
-            $this->entityManager->persist($document);
             $this->entityManager->persist($hearingPost);
             $this->entityManager->flush();
+
             $this->addFlash('success', new TranslatableMessage('Hearing post request created', [], 'case'));
 
             return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId(), 'hearing' => $hearing->getId()]);
@@ -328,6 +343,7 @@ class HearingController extends AbstractController
             'case_parties' => $availableParties,
             'mail_template_choices' => $mailTemplates,
             'available_case_documents' => $caseDocuments,
+            'preselects' => array_map(static fn (HearingRecipient $hearingRecipient) => $hearingRecipient->getRecipient(), $hearingPost->getHearingRecipients()->toArray()),
         ]);
 
         $form->handleRequest($request);
@@ -342,18 +358,45 @@ class HearingController extends AbstractController
 
             $hearingPost->setCustomData($customData);
 
-            // Create new file
-            $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $hearingPost);
+            // We do it the slow way by simply just remaking the HearingRecipients
+            foreach ($hearingPost->getHearingRecipients() as $hearingRecipient) {
+                $document = $hearingRecipient->getDocument();
 
-            // For now, we just overwrite completely
-            $documentUploader->replaceFileContent($hearingPost->getDocument(), $fileName);
+                $this->removeDocumentFromCase($case, $document);
 
-            // Update Document
-            /** @var User $user */
-            $user = $this->getUser();
-            $hearingPost->getDocument()->setDocumentName($hearingPost->getTitle());
-            $hearingPost->getDocument()->setUploadedBy($user);
-            $hearingPost->getDocument()->setUploadedAt(new DateTime('now'));
+                $hearingPost->removeHearingRecipient($hearingRecipient);
+
+                $this->entityManager->remove($hearingRecipient);
+                $this->entityManager->remove($document);
+                $this->entityManager->flush();
+            }
+
+            // Per chosen recipient, create a HearingRecipient and add it to the HearingPostRequest
+            // HearingRecipient is then responsible for containing the rendered document.
+            foreach ($form->get('recipients')->getData() as $recipient) {
+                $hearingRecipient = new HearingRecipient();
+                $hearingRecipient->setRecipient($recipient);
+                $hearingRecipient->setHearingPostRequest($hearingPost);
+
+                // Create new file from template
+                $fileName = $mailTemplateHelper->renderMailTemplate($hearingPost->getTemplate(), $hearingRecipient);
+
+                // Create document
+                $document = $documentUploader->createDocumentFromPath($fileName, $hearingPost->getTitle(), 'Hearing');
+
+                $hearingRecipient->setDocument($document);
+
+                // Create case document relation
+                $relation = new CaseDocumentRelation();
+                $relation->setCase($case);
+                $relation->setDocument($document);
+
+                $this->entityManager->persist($relation);
+                $this->entityManager->persist($document);
+                $this->entityManager->persist($hearingRecipient);
+
+                $hearingPost->addHearingRecipient($hearingRecipient);
+            }
 
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Hearing post request updated', [], 'case'));
@@ -467,19 +510,18 @@ class HearingController extends AbstractController
             $digitalPostAttachments[] = $digitalPostAttachment;
         }
 
-        // Handle recipients
-        $digitalPostRecipients = [];
+        foreach ($hearingPost->getHearingRecipients() as $hearingRecipient) {
+            $digitalPostRecipient = (new DigitalPost\Recipient())
+                ->setName($hearingRecipient->getRecipient()->getName())
+                ->setIdentifierType($hearingRecipient->getRecipient()->getIdentification()->getType())
+                ->setIdentifier($hearingRecipient->getRecipient()->getIdentification()->getIdentifier())
+                ->setAddress($hearingRecipient->getRecipient()->getAddress())
+            ;
 
-        $digitalPostRecipients[] = (new DigitalPost\Recipient())
-            ->setName($hearingPost->getRecipient()->getName())
-            ->setIdentifierType($hearingPost->getRecipient()->getIdentification()->getType())
-            ->setIdentifier($hearingPost->getRecipient()->getIdentification()->getIdentifier())
-            ->setAddress($hearingPost->getRecipient()->getAddress())
-        ;
+            $digitalPost = $digitalPostHelper->createDigitalPost($hearingRecipient->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, [$digitalPostRecipient]);
 
-        $digitalPost = $digitalPostHelper->createDigitalPost($hearingPost->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, $digitalPostRecipients);
-
-        $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, [$hearingPost->getRecipient()]);
+            $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, [$hearingRecipient->getRecipient()]);
+        }
 
         $today = new DateTime('today');
 
@@ -528,34 +570,41 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/delete", name="case_hearing_post_delete")
      */
-    public function hearingPostDelete(CaseEntity $case, HearingPost $hearingPost, DocumentUploader $documentUploader, CaseDocumentRelationRepository $relationRepository, Request $request): Response
+    public function hearingPostDelete(CaseEntity $case, HearingPost $hearingPost, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
         // Check that CSRF token is valid
         if ($this->isCsrfTokenValid('delete'.$hearingPost->getId(), $request->request->get('_token'))) {
-            // Remove relation between case and document
-            $document = $hearingPost->getDocument();
-            $relation = $relationRepository->findOneBy(['case' => $case, 'document' => $document]);
+            if ($hearingPost instanceof HearingPostRequest) {
+                foreach ($hearingPost->getHearingRecipients() as $hearingRecipient) {
+                    $document = $hearingRecipient->getDocument();
 
-            if (null !== $relation) {
-                $this->entityManager->remove($relation);
-                $this->entityManager->flush();
+                    $this->removeDocumentFromCase($case, $document);
+
+                    $hearingPost->removeHearingRecipient($hearingRecipient);
+
+                    $this->entityManager->remove($hearingRecipient);
+                    $this->entityManager->remove($document);
+                }
+            } elseif ($hearingPost instanceof HearingPostResponse) {
+                // Remove relation between case and document
+                $document = $hearingPost->getDocument();
+
+                $this->removeDocumentFromCase($case, $document);
+
+                $hearingPost->setDocument(null);
+
+                $this->entityManager->remove($document);
+            } else {
+                throw new HearingException(sprintf('Unhandled HearingPost of type %s detected during deletion.', get_class($hearingPost)));
             }
-
-            // Remove file
-            $documentUploader->deleteDocumentFile($document);
-
-            // Remove reference between post and document
-            $hearingPost->setDocument(null);
-            $this->entityManager->flush();
 
             // Remove new hearing post alert
             $hearingPost->getHearing()->setHasNewHearingPost(false);
 
             // Remove hearing post and document
             $this->entityManager->remove($hearingPost);
-            $this->entityManager->remove($document);
             $this->entityManager->flush();
 
             $message = match (get_class($hearingPost)) {
@@ -567,5 +616,18 @@ class HearingController extends AbstractController
         }
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
+    }
+
+    public function removeDocumentFromCase(CaseEntity $case, Document $document)
+    {
+        $relation = $this->relationRepository->findOneBy(['case' => $case, 'document' => $document]);
+
+        if (null !== $relation) {
+            $this->entityManager->remove($relation);
+            $this->entityManager->flush();
+        }
+
+        // Remove file
+        $this->documentUploader->deleteDocumentFile($document);
     }
 }

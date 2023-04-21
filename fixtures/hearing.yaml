@@ -34,8 +34,6 @@ App\Entity\Hearing:
 
 App\Entity\HearingPostRequest:
     hearing-post-request-1:
-        recipient: '@party-1'
-        document: '@document-003'
         hearing: '@hearing-1'
         template: '@mail-template-hearing-001'
         title: 'Some fancy title'
@@ -43,12 +41,29 @@ App\Entity\HearingPostRequest:
         createdAt: <(new \DateTime('yesterday'))>
 
     hearing-post-request-2:
-        recipient: '@party-1'
-        document: '@document-003'
         hearing: '@hearing-1'
         template: '@mail-template-hearing-001'
         title: 'Some other fancy title'
         forwardedOn: <(new \DateTime('today'))>
+        createdAt: <(new \DateTime('today'))>
+
+App\Entity\HearingRecipient:
+    hearing-recipient-1:
+        hearingPostRequest: '@hearing-post-request-1'
+        recipient: '@party-1'
+        document: '@document-003'
+        createdAt: <(new \DateTime('yesterday'))>
+
+    hearing-recipient-2:
+        hearingPostRequest: '@hearing-post-request-1'
+        recipient: '@party-2'
+        document: '@document-003'
+        createdAt: <(new \DateTime('yesterday'))>
+
+    hearing-recipient-3:
+        hearingPostRequest: '@hearing-post-request-2'
+        recipient: '@party-3'
+        document: '@document-003'
         createdAt: <(new \DateTime('today'))>
 
 App\Entity\HearingPostResponse:

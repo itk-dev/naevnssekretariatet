@@ -3,6 +3,9 @@
 {{ form_start(form) }}
     {% for name, child in form|filter((_, name) => name != 'attachments') %}
         {{ form_row(child) }}
+        {% if name is same as 'recipients' %}
+            {{ form_errors(form) }}
+        {% endif %}
     {% endfor %}
 
     <div class="attachments">

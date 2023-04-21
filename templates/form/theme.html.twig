@@ -45,6 +45,43 @@
     </div>
 {% endblock %}
 
+{% block choice_widget_expanded -%}
+    {# Allow grouping of expanded choice fields #}
+    {# See https://github.com/symfony/symfony/issues/19514 #}
+    <div {{ block('widget_container_attributes') }}>
+        {# Slight modificaton compated to https://github.com/symfony/symfony/issues/19514#issuecomment-1013738644 #}
+        {#  to avoid messing up other expanded choice fields with exactly two choices (that are indexed by integers) #}
+        {% if not (form.vars.choices|keys|first matches '/^\\d+$/') %}
+            {% if form.children['placeholder'] is defined %}
+                {{- form_widget(form.children['placeholder'], {
+                    parent_label_class: label_attr.class|default(''),
+                    translation_domain: choice_translation_domain,
+                    valid: valid,
+                }) -}}
+            {% endif %}
+            {% for name, choices in form.vars.choices %}
+                <div class='choice_category'>
+                    <strong>{{ name }}</strong>
+                </div>
+                <div class="my-radio-group">
+                    {% for key, choice in choices %}
+                        {{- form_widget(form[key]) -}}
+                        {{- form_label(form[key]) -}}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+            {%- for child in form %}
+                {{- form_widget(child, {
+                    parent_label_class: label_attr.class|default(''),
+                    translation_domain: choice_translation_domain,
+                    valid: valid,
+                }) -}}
+            {% endfor -%}
+        {% endif %}
+    </div>
+{%- endblock choice_widget_expanded %}
+
 {% block address_lookup_widget %}
     {{ block('address_widget') }}
 {% endblock %}

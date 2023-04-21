@@ -111,9 +111,13 @@
                                             </button>
                                         </h2>
                                     </div>
-                                    {% if post.recipient is defined %}
+                                    {% if post.hearingRecipients is defined %}
                                         <div class="col-auto ms-auto">
-                                            <p class="pt-2"><span class="text-muted">{% trans %}Recipient{% endtrans %}:</span> {{ post.recipient|e }}</p>
+                                            {% if post.hearingRecipients|length > 1 %}
+                                                <p class="pt-2"><span class="text-muted">{% trans %}Recipients{% endtrans %}:</span> {{ post.hearingRecipients|first.recipient.name }}, ...</p>
+                                            {% elseif post.hearingRecipients|length == 1 %}
+                                                <p class="pt-2"><span class="text-muted">{% trans %}Recipient{% endtrans %}:</span> {{ post.hearingRecipients|first.recipient.name }}</p>
+                                            {% endif %}
                                         </div>
                                     {% endif %}
                                     {% if post.sender is defined %}
@@ -135,10 +139,21 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col" aria-label="attachments">
-                                            <p class="text-muted">
-                                                {% trans %}Document{% endtrans %}:
-                                                <a href="{{ url("document_view", {id: case.id, document_id: post.document.id}) }}">{{ post.document.documentName }}</a>
-                                            </p>
+                                            {% if post.hearingRecipients is defined and post.hearingRecipients|length > 0 %}
+                                                <p class="text-muted"> {% trans %}Documents{% endtrans %}</p>
+                                                {% for hearing_recipient in post.hearingRecipients %}
+                                                    <p class="text-muted">
+                                                        {{ hearing_recipient.recipient.name }}:
+                                                        <a href="{{ url("document_view", {id: case.id, document_id: hearing_recipient.document.id}) }}">{{ hearing_recipient.document.documentName }}</a>
+                                                    </p>
+                                                {% endfor %}
+                                            {% endif %}
+                                            {% if post.document is defined and post.document is not null %}
+                                                <p class="text-muted">
+                                                    {% trans %}Document{% endtrans %}:
+                                                    <a href="{{ url("document_view", {id: case.id, document_id: post.document.id}) }}">{{ post.document.documentName }}</a>
+                                                </p>
+                                            {% endif %}
                                             {% if post.sendReceipt is defined %}
                                                 <p class="text-muted">
                                                     {% trans %}Receipt{% endtrans %}:

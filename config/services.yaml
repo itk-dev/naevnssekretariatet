@@ -74,6 +74,7 @@ services:
                         label: Hearing
                         entity_class_names:
                             - App\Entity\HearingPost
+                            - App\Entity\HearingRecipient
                     agenda_inspection:
                       label: Agenda inspection
                       entity_class_names:
