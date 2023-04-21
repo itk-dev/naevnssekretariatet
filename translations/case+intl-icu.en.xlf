@@ -1617,6 +1617,18 @@
         <source>Reference number</source>
         <target>Reference number</target>
       </trans-unit>
+      <trans-unit id="tOkp2Lz" resname="Documents">
+        <source>Documents</source>
+        <target>Documents</target>
+      </trans-unit>
+      <trans-unit id="CFkEv_G" resname="Choose at least one recipient">
+        <source>Choose at least one recipient</source>
+        <target>Choose at least one recipient</target>
+      </trans-unit>
+      <trans-unit id="qRRazVN" resname="You must select at least one recipient">
+        <source>You must select at least one recipient</source>
+        <target>You must select at least one recipient</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

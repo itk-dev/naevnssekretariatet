@@ -358,7 +358,7 @@ class HearingController extends AbstractController
 
             $hearingPost->setCustomData($customData);
 
-            // We do it the slow way by simply just remaking the HearingRecipients
+            // We do it the slow way by simply just remaking the documents
             foreach ($hearingPost->getHearingRecipients() as $hearingRecipient) {
                 $document = $hearingRecipient->getDocument();
 

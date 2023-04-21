@@ -57,7 +57,7 @@ class HearingPostRequestType extends AbstractType
             'data' => $preselects,
             'mapped' => false,
             'required' => false,
-            'help' => $this->translator->trans('Choose at least one recipient'),
+            'help' => $this->translator->trans('Choose at least one recipient', [], 'case'),
         ]);
 
         $this->addTemplate($builder, $availableTemplateChoices);
@@ -82,7 +82,7 @@ class HearingPostRequestType extends AbstractType
             $form = $event->getForm();
 
             if (count($form->get('recipients')->getData()) < 1) {
-                $form->get('recipients')->addError(new FormError($this->translator->trans('Select at least one recipient')));
+                $form->get('recipients')->addError(new FormError($this->translator->trans('You must select at least one recipient', [], 'case')));
             }
         });
     }

@@ -1613,6 +1613,18 @@
         <source>Reference number</source>
         <target state="translated">Referencenummer</target>
       </trans-unit>
+      <trans-unit id="tOkp2Lz" resname="Documents">
+        <source>Documents</source>
+        <target state="translated">Dokumenter</target>
+      </trans-unit>
+      <trans-unit id="CFkEv_G" resname="Choose at least one recipient">
+        <source>Choose at least one recipient</source>
+        <target state="translated">Vælg mindst en modtager</target>
+      </trans-unit>
+      <trans-unit id="qRRazVN" resname="You must select at least one recipient">
+        <source>You must select at least one recipient</source>
+        <target state="translated">Der skal vælges mindst en modtager</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
