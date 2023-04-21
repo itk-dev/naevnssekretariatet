@@ -35,7 +35,7 @@ class MailTemplateCustomDataType extends AbstractType
             foreach ($customFields as $key => $value) {
                 $type = self::TYPE_TEXTAREA === $value['type'] ? TextareaType::class : TextType::class;
 
-                $options = [
+                $typeOptions = [
                     'label' => $value['label'],
                     'mapped' => false,
                     'data' => isset($options['data'][$key]) && !empty($options['data'][$key]) ? $options['data'][$key] : '',
@@ -43,10 +43,10 @@ class MailTemplateCustomDataType extends AbstractType
                 ];
 
                 if (self::TYPE_TEXTAREA === $value['type']) {
-                    $options['attr'] = ['rows' => 5];
+                    $typeOptions['attr'] = ['rows' => 5];
                 }
 
-                $builder->add($key, $type, $options);
+                $builder->add($key, $type, $typeOptions);
             }
         }
     }
