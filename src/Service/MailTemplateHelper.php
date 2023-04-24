@@ -334,6 +334,7 @@ class MailTemplateHelper
             if ($entity instanceof HearingRecipient) {
                 $hearingPost = $entity->getHearingPostRequest();
 
+                $data += json_decode($this->serializer->serialize($hearingPost, 'json', ['groups' => ['mail_template']]), true);
                 $data += json_decode($this->serializer->serialize($hearingPost->getHearing(), 'json', ['groups' => ['mail_template']]), true);
 
                 $relation = $this->relationRepository->findOneBy(['case' => $case->getId()->toBinary(), 'party' => $entity->getRecipient()->getId()->toBinary()]);
