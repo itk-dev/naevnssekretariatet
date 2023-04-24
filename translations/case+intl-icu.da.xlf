@@ -1627,7 +1627,7 @@
       </trans-unit>
       <trans-unit id="cKi2kS8" resname="Ambiguous">
         <source>Ambiguous</source>
-        <target state="translated">Tvetydig</target>
+        <target state="translated">Flertydigt</target>
       </trans-unit>
     </body>
   </file>

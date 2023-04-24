@@ -349,7 +349,7 @@ class CaseController extends AbstractController
 
                 if ($mostRecentPost instanceof HearingPostRequest && $mostRecentPost->getForwardedOn() && !$hearing->getFinishedOn()) {
                     // TODO: Figure out how to detect this.
-                    if (count($mostRecentPost->getHearingRecipients()) === 1) {
+                    if (1 === count($mostRecentPost->getHearingRecipients())) {
                         $hearingRecipient = $mostRecentPost->getHearingRecipients()->first()->getRecipient();
                         $initiativeHaver = new TranslatableMessage('{name}, party', ['name' => $hearingRecipient->getName()], 'case');
                     } else {
