@@ -45,6 +45,11 @@ class HearingRecipient
         $this->id = Uuid::v4();
     }
 
+    public function __toString(): string
+    {
+        return $this->getRecipient()->getName();
+    }
+
     public function getId(): ?Uuid
     {
         return $this->id;
