@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-358](https://github.com/itk-dev/naevnssekretariatet/pull/358)
+  Set post-kategori-kode in digital post.
 - [PR-357](https://github.com/itk-dev/naevnssekretariatet/pull/357)
   Properly displays mail template custom data
 - [PR-355](https://github.com/itk-dev/naevnssekretariatet/pull/355)
