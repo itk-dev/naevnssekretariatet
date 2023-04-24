@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-357](https://github.com/itk-dev/naevnssekretariatet/pull/357)
+  Properly displays mail template custom data
 - [PR-355](https://github.com/itk-dev/naevnssekretariatet/pull/355)
   Added restart setting to libreoffice-api service
 - [PR-354](https://github.com/itk-dev/naevnssekretariatet/pull/354)
