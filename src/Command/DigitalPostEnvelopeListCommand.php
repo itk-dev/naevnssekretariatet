@@ -6,8 +6,13 @@ use App\Entity\DigitalPostAttachment;
 use App\Entity\DigitalPostEnvelope;
 use App\Repository\DigitalPostEnvelopeRepository;
 use App\Service\DigitalPostEnvelopeHelper;
+use DigitalPost\MeMo\Message;
 use Doctrine\Common\Collections\Criteria;
+use ItkDev\Serviceplatformen\Certificate\FilesystemCertificateLocator;
+use ItkDev\Serviceplatformen\Service\SF1601\SF1601;
+use ItkDev\Serviceplatformen\Service\SF1601\Serializer;
 use Itkdev\BeskedfordelerBundle\Helper\MessageHelper;
+use Oio\Fjernprint\ForsendelseI;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,6 +51,8 @@ class DigitalPostEnvelopeListCommand extends Command
             ->addOption('show-throwable', null, InputOption::VALUE_NONE, 'Show throwable')
             ->addOption('has-errors', null, InputOption::VALUE_NONE, 'Show envelopes with errors')
             ->addOption('show-errors', null, InputOption::VALUE_NONE, 'show errors')
+
+            ->addOption('dump-kombi-request', null, InputOption::VALUE_NONE)
         ;
     }
 
@@ -58,6 +65,9 @@ class DigitalPostEnvelopeListCommand extends Command
 
         $envelopes = $this->findEnvelopes($input);
         foreach ($envelopes as $envelope) {
+            if ($input->getOption('dump-kombi-request')) {
+                return $this->dumpKombiRequest($envelope);
+            }
             $data = array_map(
                 fn (string $message) => $this->messageHelper->getBeskeddata($message),
                 $envelope->getBeskedfordelerMessages()
@@ -166,5 +176,25 @@ class DigitalPostEnvelopeListCommand extends Command
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    private function dumpKombiRequest(DigitalPostEnvelope $envelope)
+    {
+        $serializer = new Serializer();
+        $method = new \ReflectionMethod($serializer, 'serializer');
+        /** @var \JMS\Serializer\SerializerInterface $serializer */
+        $serializer = $method->invoke($serializer);
+        $message = $serializer->deserialize($envelope->getMeMoMessage(), Message::class, 'xml');
+        $forsendelse = $serializer->deserialize($envelope->getForsendelse(), ForsendelseI::class, 'xml');
+        $sf1601 = new SF1601(['authority_cvr' => null, 'certificate_locator' => new FilesystemCertificateLocator(__FILE__)]);
+        $method = new \ReflectionMethod($sf1601, 'buildKombiRequestDocument');
+        $type = SF1601::TYPE_AUTOMATISK_VALG;
+        /** @var \DOMDocument $result */
+        $result = $method->invoke($sf1601, $type, $message, $forsendelse);
+        $result->formatOutput = true;
+
+        echo $result->saveXML();
+
+        return self::SUCCESS;
     }
 }
