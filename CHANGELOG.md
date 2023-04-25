@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.4.0] 2023-04-25
+
 - [PR-358](https://github.com/itk-dev/naevnssekretariatet/pull/358)
   Set post-kategori-kode in digital post.
 - [PR-357](https://github.com/itk-dev/naevnssekretariatet/pull/357)
@@ -248,7 +250,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.2...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.0...HEAD
+[1.4.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.2...1.4.0
 [1.3.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.2.0...1.3.0
