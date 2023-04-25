@@ -9,6 +9,7 @@ See [keep a changelog](https://keepachangelog.com/en/1.0.0/) for information
 about writing changes to this log.
 
 ## [Unreleased]
+
 - [PR-361](https://github.com/itk-dev/naevnssekretariatet/pull/361)
   Update accordions
 
