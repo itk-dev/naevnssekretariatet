@@ -66,12 +66,19 @@
                         {% set header = 'heading' ~ incrementer %}
                         {% set collapse = 'collapse' ~ incrementer %}
                         <h2 class="accordion-header" id="{{ header|e }}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
-                                {{ note.subject|e }}<span class="text-black small ms-3">{% trans %}By{% endtrans %} {{ note.createdBy|e }} {{ note.updatedAt|date(format_datetime) }}</span>
+                            <button class="accordion-button {% if incrementer != 1 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collapse|e }}" aria-expanded="{% if incrementer == 1 %}true{% else %}false{% endif %}" aria-controls="{{ collapse|e }}">
+                                <div class="row w-100">
+                                    <div class="col-auto">
+                                        {{ note.subject|e }}
+                                    </div>
+                                    <div class="col-auto ms-auto me-5">
+                                        <span class="text-black small ms-5">{% trans %}By{% endtrans %} {{ note.createdBy|e }} - {{ note.updatedAt|date(format_datetime) }}</span>
+                                    </div>
+                                </div>
                             </button>
                         </h2>
-                        <div id="{{ collapse|e }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionAllMessages">
-                            <div class="accordion-body d-flex justify-content-between border-bottom border-top-0">
+                        <div id="{{ collapse|e }}" class="accordion-collapse collapse {% if incrementer == 1 %}show{% endif %}" aria-labelledby="headingOne" data-bs-parent="#accordionAllMessages">
+                            <div class="accordion-body d-flex justify-content-between border-bottom">
                                 <p>{{ note.content|e }}</p>
                                 <div class="d-flex gap-2 align-items-center">
                                     <a href="{{ url("note_edit", {id: case.id, note_id: note.id}) }}" role="button" class="btn btn-primary" data-bs-toggle="tooltip" data-placement="auto" title="{% trans %}Edit note{% endtrans %}"><i class="fas fa-file-alt"></i><span class="sr-only">{% trans %}Edit note{% endtrans %} </span></a>
