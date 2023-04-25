@@ -86,53 +86,45 @@
                     {# Hearing started but no posts yet #}
                     <p>{% trans %}No hearing posts have been received yet.{% endtrans %}</p>
                 {% else %}
-                    {# Hearing started and there are posts #}
+
                     {% set incrementer = 0 %}
                     {% for post in posts %}
                         {% set incrementer = incrementer + 1 %}
-                        <div class="card">
+                        <div class="accordion-item">
                             {% set header = 'heading' ~ incrementer %}
                             {% set collapse = 'collapse' ~ incrementer %}
-                            <div class="card-header" id="{{ header|e }}">
-                                <div class="row">
-                                    <div class="col">
-                                        <h2 class="m-0 p-0">
-                                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collapse|e }}" aria-expanded="false" aria-controls="{{ collapse|e }}">
-                                                {{ class(post)|trans({}, 'case') }}
-                                                {% if post.title is defined %}
-                                                    - {{ post.title }}
-                                                {% endif %}
-                                                {% if post.forwardedOn is defined and not post.getForwardedOn %}
-                                                    <span class="badge rounded-pill bg-success ms-2">{% trans %}New{% endtrans %}</span>
-                                                {% endif %}
-                                                {% if post.approvedOn is defined and not post.getApprovedOn %}
-                                                    <span class="badge rounded-pill bg-success ms-2">{% trans %}New{% endtrans %}</span>
-                                                {% endif %}
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    {% if post.recipient is defined %}
-                                        <div class="col-auto ms-auto">
-                                            <p class="pt-2"><span class="text-muted">{% trans %}Recipient{% endtrans %}:</span> {{ post.recipient|e }}</p>
-                                        </div>
+                            <h2 class="accordion-header position-relative" id="{{ header|e }}">
+                                <button class="accordion-button {% if incrementer != 1 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collapse|e }}" aria-expanded="{% if incrementer == 1 %}true{% else %}false{% endif %}" aria-controls="{{ collapse|e }}">
+                                    {% if post.forwardedOn is defined and not post.getForwardedOn %}
+                                        <span class="badge rounded-pill bg-success me-2 position-absolute top-0 start-0 translate-middle">{% trans %}New{% endtrans %}</span>
                                     {% endif %}
-                                    {% if post.sender is defined %}
-                                        <div class="col-auto ms-auto">
-                                            <p class="pt-2"><span class="text-muted">{% trans %}Sender{% endtrans %}:</span> {{ post.sender|e }}</p>
-                                        </div>
+                                    {% if post.approvedOn is defined and not post.getApprovedOn %}
+                                        <span class="badge rounded-pill bg-success me-2 position-absolute top-0 start-0 translate-middle">{% trans %}New{% endtrans %}</span>
                                     {% endif %}
-                                    <div class="col-auto">
-                                        <p class="pt-2">{{ post.createdAt|date(format_datetime) }}</p>
+
+                                    <div class="row w-100">
+                                        <div class="col-auto">
+                                            {{ class(post)|trans({}, 'case') }}
+                                            {% if post.title is defined %}
+                                                - {{ post.title }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-auto ms-auto me-5">
+                                            <span class="text-black small ms-3">
+                                                {% if post.recipient is defined %}
+                                                    {% trans %}Recipient{% endtrans %}: {{ post.recipient|e }}
+                                                {% endif %}
+                                                {% if post.sender is defined %}
+                                                    {% trans %}Sender{% endtrans %}: {{ post.sender|e }}
+                                                {% endif %}
+                                                {{ post.createdAt|date(format_datetime) }}
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            {% if incrementer == 1 %}
-                                {% set collapse_variable = 'show' %}
-                            {% else %}
-                                {% set collapse_variable = 'collapse' %}
-                            {% endif %}
-                            <div id="{{ collapse|e }}" class="{{ collapse_variable }}" aria-labelledby="{{ header|e }}" data-parent="#accordionAllHearingPosts">
-                                <div class="card-body">
+                                </button>
+                            </h2>
+                            <div id="{{ collapse|e }}" class="accordion-collapse collapse {% if incrementer == 1 %}show{% endif %}" aria-labelledby="headingOne" data-bs-parent="#accordionAllHearingPosts">
+                                <div class="accordion-body d-flex justify-content-between border-bottom">
                                     <div class="row">
                                         <div class="col" aria-label="attachments">
                                             <p class="text-muted">
@@ -193,6 +185,7 @@
                             </div>
                         </div>
                     {% endfor %}
+
                 {% endif %}
             </div>
         {% else %}
