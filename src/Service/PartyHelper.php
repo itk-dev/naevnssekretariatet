@@ -35,6 +35,7 @@ class PartyHelper
     {
         $party = $data['partyToAdd'];
         $type = $data['type'];
+        $referenceNumber = $data['referenceNumber'];
 
         // Check if this party has been added previously and is soft deleted
         $existingRelation = $this->relationRepository->findOneBy(['case' => $case, 'party' => $party]);
@@ -44,10 +45,12 @@ class PartyHelper
             $relation->setCase($case);
             $relation->setParty($party);
             $relation->setType($type);
+            $relation->setReferenceNumber($referenceNumber);
 
             $this->entityManager->persist($relation);
         } else {
             $existingRelation->setType($type);
+            $existingRelation->setReferenceNumber($referenceNumber);
             $existingRelation->setSoftDeleted(false);
             $existingRelation->setSoftDeletedAt(null);
         }
@@ -69,6 +72,7 @@ class PartyHelper
         $form->get('phoneNumber')->setData($party->getPhoneNumber());
         $form->get('isUnderAddressProtection')->setData($party->getIsUnderAddressProtection());
         $form->get('type')->setData($relation->getType());
+        $form->get('referenceNumber')->setData($relation->getReferenceNumber());
 
         return $form;
     }
@@ -81,6 +85,7 @@ class PartyHelper
         $party->setPhoneNumber($data['phoneNumber']);
         $party->setIsUnderAddressProtection($data['isUnderAddressProtection']);
         $relation->setType($data['type']);
+        $relation->setReferenceNumber($data['referenceNumber']);
 
         $this->entityManager->flush();
     }
@@ -102,6 +107,7 @@ class PartyHelper
         $relation->setCase($case);
         $relation->setParty($party);
         $relation->setType($data['type']);
+        $relation->setReferenceNumber($data['referenceNumber']);
 
         if ($data['type'] === $this->getSortingPartyType($case)) {
             $case->setSortingParty($data['name']);
@@ -183,6 +189,7 @@ class PartyHelper
                 return [
                     'party' => $relation->getParty(),
                     'type' => $relation->getType(),
+                    'referenceNumber' => $relation->getReferenceNumber(),
                 ];
             }, $partyRelations
         );
@@ -200,6 +207,7 @@ class PartyHelper
                 return [
                     'party' => $relation->getParty(),
                     'type' => $relation->getType(),
+                    'referenceNumber' => $relation->getReferenceNumber(),
                 ];
             }, $counterpartyRelations
         );

@@ -31,14 +31,14 @@
 {% block content %}
     <main role="main" class="col-12 mt-3">
         {{ form_start(filter_form) }}
-        <div class="row no-gutters">
+        <div class="row g-0">
             <div class="col-auto">
                 {{ form_widget(filter_form.category) }}
             </div>
-            <div class="col-auto ml-2">
+            <div class="col-auto ms-2">
                 {{ form_widget(filter_form.query) }}
             </div>
-            <div class="col-auto ml-2">
+            <div class="col-auto ms-2">
                 <button class="btn btn-primary">{% trans %}Apply filter{% endtrans %}</button>
 
                 {# Get query parameters without filter#}

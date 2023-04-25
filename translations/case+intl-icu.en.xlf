@@ -1609,6 +1609,14 @@
         <source>A case must contain at least one party or counterparty before entering the hearing phase.</source>
         <target>A case must contain at least one party or counterparty before entering the hearing phase.</target>
       </trans-unit>
+      <trans-unit id="bk_hPaS" resname="Inspection">
+        <source>Inspection</source>
+        <target>Inspection</target>
+      </trans-unit>
+      <trans-unit id="z57ogPt" resname="Reference number">
+        <source>Reference number</source>
+        <target>Reference number</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

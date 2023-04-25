@@ -21,12 +21,12 @@
     <main role="main" class="col-12 mt-3">
         {{ form_start(edit_party_form) }}
         {{ form_errors(edit_party_form) }}
-        <div class="form-row">
+        <div class="row">
             <div class="col-md-6 mb-3">
                 {{ form_row(edit_party_form.identification) }}
             </div>
         </div>
-        <div class="form-row">
+        <div class="row">
             <div class="col-md-6 mb-3">
                 {{ form_row(edit_party_form.lookupIdentifier) }}
             </div>
@@ -34,7 +34,7 @@
                 {{ form_row(edit_party_form.isUnderAddressProtection) }}
             </div>
         </div>
-        <div class="form-row">
+        <div class="row">
             <div class="col-md-6 mb-3">
                 {{ form_row(edit_party_form.name) }}
             </div>
@@ -42,17 +42,24 @@
                 {{ form_row(edit_party_form.phoneNumber) }}
             </div>
         </div>
-        <div class="form-row">
+        <div class="row">
             <div class="col-md-12 mb-3">
                 {{ form_row(edit_party_form.address) }}
             </div>
         </div>
-        <div class="form-row">
-            <div class="col-md-12 mb-3">
+        <div class="row">
+            <div class="col-md-6 mb-3">
                 {{ form_row(edit_party_form.type) }}
             </div>
+            <div class="col-md-6 mb-3">
+                {{ form_row(edit_party_form.referenceNumber) }}
+            </div>
         </div>
-        <button class="btn btn-primary float-right mt-3">{{ button_label|default('Edit party'|trans([], 'party', 'da')) }}</button>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary float-end">{{ button_label|default('Edit party'|trans) }}</button>
+            </div>
+        </div>
         {{ form_end(edit_party_form) }}
     </main>
 {% endblock %}

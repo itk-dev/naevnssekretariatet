@@ -10,6 +10,26 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.4.0] 2023-04-25
+
+- [PR-358](https://github.com/itk-dev/naevnssekretariatet/pull/358)
+  Set post-kategori-kode in digital post.
+- [PR-357](https://github.com/itk-dev/naevnssekretariatet/pull/357)
+  Properly displays mail template custom data
+- [PR-355](https://github.com/itk-dev/naevnssekretariatet/pull/355)
+  Added restart setting to libreoffice-api service
+- [PR-354](https://github.com/itk-dev/naevnssekretariatet/pull/354)
+  Downgraded `symfony/maker-bundle` to ensure support for annotations
+- [PR-353](https://github.com/itk-dev/naevnssekretariatet/pull/353)
+  Adds `referenceNumber` to `CasePartyRelation`
+  and usage of this during hearing
+- [PR-352](https://github.com/itk-dev/naevnssekretariatet/pull/352)
+  Fixes digital post creation for inspection letters
+- [PR-350](https://github.com/itk-dev/naevnssekretariatet/pull/350)
+  Update dependenscies and migrate bootstrap from v4 to v5
+- [PR-346](https://github.com/itk-dev/naevnssekretariatet/pull/346)
+  Frontend improvements
+
 ## [1.3.2] 2023-03-30
 
 - [TVIST1-809](https://jira.itkdev.dk/browse/TVIST1-809)
@@ -230,7 +250,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.2...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.0...HEAD
+[1.4.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.2...1.4.0
 [1.3.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.2.0...1.3.0

@@ -21,14 +21,14 @@
             {% block content %}
                 {{ form_start(note_form) }}
                 <div>
-                    <label>{% trans %}Subject{% endtrans %}</label>
+                    <label  class="form-label">{% trans %}Subject{% endtrans %}</label>
                     {{ form_widget(note_form.subject) }}
                 </div>
                 <div>
-                    <label>{% trans %}Note content{% endtrans %}</label>
+                    <label  class="form-label">{% trans %}Note content{% endtrans %}</label>
                     {{ form_widget(note_form.content, {'attr': {'rows': 10}}) }}
                 </div>
-                <button class="btn btn-success mt-3 float-right">{{ button_label|default('Create note'|trans([], 'notes', 'da')) }}</button>
+                <button class="btn btn-success mt-3 float-end">{{ button_label|default('Create note'|trans([], 'notes', 'da')) }}</button>
                 {{ form_rest(note_form) }}
             {% endblock %}
             </div>

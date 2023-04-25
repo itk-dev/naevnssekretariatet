@@ -43,11 +43,11 @@ $(() => {
     // Tell that we're ajax'ing.
     url += (url.indexOf('?') < 0 ? '?' : '&') + 'ajax=1'
     $.ajax({
-      url: url,
+      url,
       type: $form.attr('method'),
       data: $form.serialize(),
       success: function (html) {
-        if ($(html).find('.form-error-message').length > 0) {
+        if ($(html).find('.invalid-feedback').length > 0) {
           // Replace form body with form body from response
           $form.find('.form-body').replaceWith($(html).find('.form-body'))
         } else {

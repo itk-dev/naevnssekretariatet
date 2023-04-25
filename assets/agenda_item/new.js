@@ -9,7 +9,7 @@ $type.on('change', function () {
   $.ajax({
     url: $form.attr('action'),
     type: $form.attr('method'),
-    data: data,
+    data,
     success: function (html) {
       $('#agenda_item_agendaItem').replaceWith(
         $(html).find('#agenda_item_agendaItem')

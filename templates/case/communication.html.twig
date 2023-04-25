@@ -11,7 +11,7 @@
         </div>
         <div class="col-auto">
             <a class="btn btn-primary" href={{ url('case_decision', {id: case.id}) }} role="button">{% trans %}Create decision{% endtrans %}</a>
-            <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
+            <button type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
         </div>
     </div>
 {% endblock %}
@@ -22,16 +22,16 @@
         {# TODO: Add active tab to url #}
         <ul class="nav nav-tabs" id="communicationTabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="all-messages-tab" data-toggle="tab" href="#all-messages" role="tab" aria-controls="all-messages" aria-selected="true">{% trans %}All messages{% endtrans %}<span class="badge badge-pill badge-primary ml-2">2</span></a>
+                <a class="nav-link active" id="all-messages-tab" data-bs-toggle="tab" href="#all-messages" role="tab" aria-controls="all-messages" aria-selected="true">{% trans %}All messages{% endtrans %}<span class="badge rounded-pill bg-primary ms-2">2</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="phone-notes-tab" data-toggle="tab" href="#phone-notes" role="tab" aria-controls="phone-notes" aria-selected="false">{% trans %}Phone notes{% endtrans %}</a>
+                <a class="nav-link" id="phone-notes-tab" data-bs-toggle="tab" href="#phone-notes" role="tab" aria-controls="phone-notes" aria-selected="false">{% trans %}Phone notes{% endtrans %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="parties-messages-tab" data-toggle="tab" href="#parties-messages" role="tab" aria-controls="parties-messages" aria-selected="false">{% trans %}Parties messages{% endtrans %}<span class="badge badge-pill badge-primary ml-2">2</span></a>
+                <a class="nav-link" id="parties-messages-tab" data-bs-toggle="tab" href="#parties-messages" role="tab" aria-controls="parties-messages" aria-selected="false">{% trans %}Parties messages{% endtrans %}<span class="badge rounded-pill bg-primary ms-2">2</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="citizens-messages-tab" data-toggle="tab" href="#citizens-messages" role="tab" aria-controls="citizens-messages" aria-selected="false">{% trans %}Citizens messages{% endtrans %}</a>
+                <a class="nav-link" id="citizens-messages-tab" data-bs-toggle="tab" href="#citizens-messages" role="tab" aria-controls="citizens-messages" aria-selected="false">{% trans %}Citizens messages{% endtrans %}</a>
             </li>
         </ul>
 
@@ -47,12 +47,12 @@
                             <div class="row">
                                 <div class="col">
                                     <h2 class="m-0 p-0">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            <span class="badge badge-danger mr-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
+                                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <span class="badge bg-danger me-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
                                         </button>
                                     </h2>
                                 </div>
-                                <div class="col-auto ml-auto">
+                                <div class="col-auto ms-auto">
                                     <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
                                 </div>
                                 <div class="col-auto">
@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary me-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
                                         <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
@@ -85,12 +85,12 @@
                             <div class="row">
                                 <div class="col">
                                     <h2 class="m-0 p-0">
-                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            <span class="badge badge-danger mr-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
+                                        <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <span class="badge bg-danger me-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
                                         </button>
                                     </h2>
                                 </div>
-                                <div class="col-auto ml-auto">
+                                <div class="col-auto ms-auto">
                                     <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
                                 </div>
                                 <div class="col-auto">
@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary me-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
                                         <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
@@ -122,12 +122,12 @@
                             <div class="row">
                                 <div class="col">
                                     <h2 class="m-0 p-0">
-                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                             Partshøringsinvitation
                                         </button>
                                     </h2>
                                 </div>
-                                <div class="col-auto ml-auto">
+                                <div class="col-auto ms-auto">
                                     <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
                                 </div>
                                 <div class="col-auto">
@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary me-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
                                         <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
@@ -171,12 +171,12 @@
                             <div class="row">
                                 <div class="col">
                                     <h2 class="m-0 p-0">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                                            <span class="badge badge-danger mr-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
+                                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                            <span class="badge bg-danger me-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
                                         </button>
                                     </h2>
                                 </div>
-                                <div class="col-auto ml-auto">
+                                <div class="col-auto ms-auto">
                                     <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
                                 </div>
                                 <div class="col-auto">
@@ -197,7 +197,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary me-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
                                         <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
@@ -209,12 +209,12 @@
                             <div class="row">
                                 <div class="col">
                                     <h2 class="m-0 p-0">
-                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                            <span class="badge badge-danger mr-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
+                                        <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                            <span class="badge bg-danger me-2">{% trans %}New{% endtrans %}</span><strong>Partshøringsinvitation</strong>
                                         </button>
                                     </h2>
                                 </div>
-                                <div class="col-auto ml-auto">
+                                <div class="col-auto ms-auto">
                                     <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
                                 </div>
                                 <div class="col-auto">
@@ -234,7 +234,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary me-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
                                         <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
@@ -246,12 +246,12 @@
                             <div class="row">
                                 <div class="col">
                                     <h2 class="m-0 p-0">
-                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                                             Partshøringsinvitation
                                         </button>
                                     </h2>
                                 </div>
-                                <div class="col-auto ml-auto">
+                                <div class="col-auto ms-auto">
                                     <p class="pt-2">Sagsbehandler <span class="text-muted">sendt til</span> Part</p>
                                 </div>
                                 <div class="col-auto">
@@ -271,7 +271,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a class="btn btn-primary mr-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
+                                        <a class="btn btn-primary me-2" href="#" role="button">{% trans %}Answer{% endtrans %}</a>
                                         <a class="btn btn-primary" href="#" role="button">{% trans %}Answer on behalf of part{% endtrans %}</a>
                                     </div>
                                 </div>
@@ -288,9 +288,9 @@
     </main>
     <footer class="col-12 mt-3">
         <div class="row">
-            <div class="col-auto ml-auto">
+            <div class="col-auto ms-auto">
                 <a class="btn btn-primary" href="/case/decision" role="button">{% trans %}Create decision{% endtrans %}</a>
-                <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
+                <button type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#createPhoneNoteModal">{% trans %}Create phone note{% endtrans %}</a>
             </div>
         </div>
     </footer>
@@ -301,28 +301,28 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createPhoneNoteModalLabel">{% trans %}Create new phone note{% endtrans %}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'Close'|trans([], 'messages') }}">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|trans([], 'messages') }}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">{% trans %}From{% endtrans %}</label>
+                    <div class="col">
+                        <label class="form-label" for="">{% trans %}From{% endtrans %}</label>
                         <input type="text" class="form-control" aria-describedby="helpId" placeholder="">
                         <small id="helpId" class="form-text text-muted">{% trans %}Who is the call from{% endtrans %}</small>
                     </div>
-                    <div class="form-group">
-                        <label for="">{% trans %}Subject{% endtrans %}</label>
+                    <div class="col">
+                        <label class="form-label" for="">{% trans %}Subject{% endtrans %}</label>
                         <input type="text" class="form-control" aria-describedby="helpId" placeholder="">
                         <small id="helpId" class="form-text text-muted">{% trans %}Subject of the call{% endtrans %}</small>
                     </div>
-                    <div class="form-group">
-                        <label for="">{% trans %}Message{% endtrans %}</label>
+                    <div class="col">
+                        <label class="form-label" for="">{% trans %}Message{% endtrans %}</label>
                         <textarea class="form-control" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans from 'messages' %}Close{% endtrans %}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans from 'messages' %}Close{% endtrans %}</button>
                     <button type="button" class="btn btn-success">{% trans %}Save changes{% endtrans %}</button>
                 </div>
             </div>

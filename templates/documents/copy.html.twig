@@ -22,7 +22,7 @@
             <label >{% trans %}Cases{% endtrans %}</label>
             {{ form_widget(copy_document_form.cases) }}
         </div>
-        <button class="btn btn-success float-right mt-3">{{ button_label|default('Copy'|trans([], 'documents')) }}</button>
+        <button class="btn btn-success float-end mt-3">{{ button_label|default('Copy'|trans([], 'documents')) }}</button>
         {{ form_end(copy_document_form) }}
     </main>
 {% endblock %}

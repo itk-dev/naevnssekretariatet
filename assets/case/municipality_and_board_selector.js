@@ -19,7 +19,7 @@ window.addEventListener('ajaxload', function () {
       $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
-        data: data,
+        data,
         success: function (html) {
           $('#new_case_municipality_and_board_board').replaceWith(
             $(html).find('#new_case_municipality_and_board_board')
@@ -42,7 +42,7 @@ window.addEventListener('ajaxload', function () {
       $.ajax({
         url: $form.attr('action'),
         type: $form.attr('method'),
-        data: data,
+        data,
         success: function (html) {
           window.dispatchEvent(new Event('ajaxload'))
         }

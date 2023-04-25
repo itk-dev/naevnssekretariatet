@@ -4,7 +4,7 @@
     {% set identifier_type = attribute(case, id_property).type %}
     {# twigcs use-var identifier_type #}
     <div class="form-header">
-        <button class="btn btn-block btn-secondary" type="submit">{% trans with {type: identifier_type} %}Validate identifier ({type}){% endtrans %}</button>
+        <button class="btn w-100 btn-secondary" type="submit">{% trans with {type: identifier_type} %}Validate identifier ({type}){% endtrans %}</button>
     </div>
     <div class="form-body">
         {{ form_widget(form) }}

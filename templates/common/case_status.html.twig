@@ -21,10 +21,10 @@
     },
 ] %}
 
-<div class="row form-inline mt-3">
-    <div class="form-group col">
-        <label for="casestatus" class="mr-2">{% trans %}Casestatus{% endtrans %}</label>
-        <select class="form-control form-control-sm" name="casestatus" id="casestatus">
+<div class="row mt-3">
+    <div class="col">
+        <label class="form-label" for="casestatus" class="me-2">{% trans %}Casestatus{% endtrans %}</label>
+        <select class="form-select form-select-sm" name="casestatus" id="casestatus">
             {# TODO: Dynamicly populated with availeble statues #}
             {# TODO: Case changes status if a new status is selected. Confirm or cancel via dialog #}
             {% for item in casestatuses %}

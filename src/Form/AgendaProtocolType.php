@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\AgendaProtocol;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -39,9 +38,6 @@ class AgendaProtocolType extends AbstractType
                     'uiColor' => '#ffffff',
                     'toolbar' => 'editor',
                 ],
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('Update protocol', [], 'agenda'),
             ])
         ;
     }

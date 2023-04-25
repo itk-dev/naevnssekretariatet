@@ -11,5 +11,6 @@ services:
 
   libreoffice-api:
     build: ./.docker/libreoffice-api
+    restart: unless-stopped
     networks:
       - app

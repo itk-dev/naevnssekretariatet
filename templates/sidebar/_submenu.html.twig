@@ -1,7 +1,7 @@
 {% for item in submenu_items %}
     <li class="nav-item">
-        <a class="nav-link {{ item.active ? 'btn btn-secondary disabled text-left mx-3' }}" href="{{ item.link|e }}">
-            {{ item.name|e }}{% if item.notification_count is defined %}<span class="badge badge-pill badge-primary ml-3">{{ item.notification_count|e }}</span>{% endif %}
+        <a class="nav-link {{ item.active ? 'btn btn-secondary disabled text-start mx-3 text-white' }}" href="{{ item.link|e }}">
+            {{ item.name|e }}{% if item.notification_count is defined %}<span class="badge rounded-pill bg-primary ms-3">{{ item.notification_count|e }}</span>{% endif %}
         </a>
     </li>
 {% endfor %}
