@@ -8,7 +8,6 @@ use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
 use App\Service\DocumentUploader;
 use ItkDev\Serviceplatformen\Service\SF1601\Serializer;
-use ItkDev\Serviceplatformen\SF1600\StructType\PostParametreType;
 use Oio\Dkal\AfsendelseModtager;
 use Oio\Ebxml\CountryIdentificationCode;
 use Oio\Fjernprint\Bilag;
@@ -16,6 +15,7 @@ use Oio\Fjernprint\DokumentParametre;
 use Oio\Fjernprint\ForsendelseI;
 use Oio\Fjernprint\ForsendelseModtager;
 use Oio\Fjernprint\ModtagerAdresse;
+use Oio\Fjernprint\PostParametre;
 
 class ForsendelseHelper
 {
@@ -44,7 +44,7 @@ class ForsendelseHelper
         $forsendelse = new ForsendelseI();
 
         $forsendelse
-            ->setPostParametre((new PostParametreType())
+            ->setPostParametre((new PostParametre())
                 ->setPostKategoriKode(self::POST_KATEGORI_KODE_PRIORITAIRE))
             ->setForsendelseModtager($this->createModtager($digitalPostRecipient))
             ->setForsendelseTypeIdentifikator($options[self::FORSENDELSES_TYPE_IDENTIFIKATOR])

@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-360](https://github.com/itk-dev/naevnssekretariatet/pull/360)
+  Fixed type.
+
 ## [1.4.0] 2023-04-25
 
 - [PR-358](https://github.com/itk-dev/naevnssekretariatet/pull/358)
