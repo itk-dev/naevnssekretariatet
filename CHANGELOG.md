@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-361](https://github.com/itk-dev/naevnssekretariatet/pull/361)
+  Update accordions
+
 ## [1.4.0] 2023-04-25
 
 - [PR-358](https://github.com/itk-dev/naevnssekretariatet/pull/358)
