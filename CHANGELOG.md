@@ -12,6 +12,8 @@ about writing changes to this log.
 
 - [PR-360](https://github.com/itk-dev/naevnssekretariatet/pull/360)
   Fixed type.
+- [PR-361](https://github.com/itk-dev/naevnssekretariatet/pull/361)
+  Update accordions
 
 ## [1.4.0] 2023-04-25
 
