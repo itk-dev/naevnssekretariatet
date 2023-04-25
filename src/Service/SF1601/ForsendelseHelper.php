@@ -8,6 +8,7 @@ use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
 use App\Service\DocumentUploader;
 use ItkDev\Serviceplatformen\Service\SF1601\Serializer;
+use ItkDev\Serviceplatformen\SF1600\StructType\PostParametreType;
 use Oio\Dkal\AfsendelseModtager;
 use Oio\Ebxml\CountryIdentificationCode;
 use Oio\Fjernprint\Bilag;
@@ -20,10 +21,8 @@ class ForsendelseHelper
 {
     public const FORSENDELSES_TYPE_IDENTIFIKATOR = 'forsendelses_type_identifikator';
 
-    public const IDENTIFIER_TYPE_CPR = 'CPR';
-    public const IDENTIFIER_TYPE_CVR = 'CVR';
-    public const SENDER_IDENTIFIER_TYPE = 'sender_identifier_type';
-    public const SENDER_IDENTIFIER = 'sender_identifier';
+    // PostKategoriKode
+    public const POST_KATEGORI_KODE_PRIORITAIRE = 'Prioritaire';
 
     public function __construct(private DocumentUploader $documentUploader)
     {
@@ -45,6 +44,8 @@ class ForsendelseHelper
         $forsendelse = new ForsendelseI();
 
         $forsendelse
+            ->setPostParametre((new PostParametreType())
+                ->setPostKategoriKode(self::POST_KATEGORI_KODE_PRIORITAIRE))
             ->setForsendelseModtager($this->createModtager($digitalPostRecipient))
             ->setForsendelseTypeIdentifikator($options[self::FORSENDELSES_TYPE_IDENTIFIKATOR])
             ->setAfsendelseIdentifikator(Serializer::createUuid())
