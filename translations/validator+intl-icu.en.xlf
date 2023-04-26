@@ -5,9 +5,13 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="xQHn_hC" resname="The value { value } is not a valid CPR or CVR number.">
-        <source>The value { value } is not a valid CPR or CVR number.</source>
-        <target>The value { value } is not a valid CPR or CVR number.</target>
+      <trans-unit id="MMKlrKq" resname="CPR number must contain 10 digits">
+        <source>CPR number must contain 10 digits</source>
+        <target>CPR number must contain 10 digits</target>
+      </trans-unit>
+      <trans-unit id="cwAuLZC" resname="CVR number must contain 8 digits">
+        <source>CVR number must contain 8 digits</source>
+        <target>CVR number must contain 8 digits</target>
       </trans-unit>
     </body>
   </file>

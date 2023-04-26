@@ -3,6 +3,7 @@
 namespace App\Validator;
 
 use App\Entity\Embeddable\Identification;
+use App\Service\IdentifierChoices;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -25,12 +26,23 @@ class PartyIdentificationValidator extends ConstraintValidator
             return;
         }
 
-        // Ensure identifier looks like a CPR or CVR number
-        if (!preg_match('/^(\d{6}-?\d{4}|\d{8})$/', $value->getIdentifier(), $matches)) {
-            $message = $this->translator->trans('The value { value } is not a valid CPR or CVR number.', ['{ value }' => $value->getIdentifier()], 'validator');
-            $this->context->buildViolation($message)
-                ->addViolation()
-            ;
+        $identifier = $value->getIdentifier();
+
+        if (IdentifierChoices::IDENTIFIER_TYPE_CHOICES['CPR'] === $value->getType()) {
+            // Ensure identifier looks like a CPR number
+            if (!preg_match('/^\d{10}$/', $identifier, $matches)) {
+                $message = $this->translator->trans('CPR number must contain 10 digits', [], 'validator');
+                $this->context->buildViolation($message)
+                    ->addViolation()
+                ;
+            }
+        } else {
+            if (!preg_match('/^\d{8}$/', $identifier, $matches)) {
+                $message = $this->translator->trans('CVR number must contain 8 digits', [], 'validator');
+                $this->context->buildViolation($message)
+                    ->addViolation()
+                ;
+            }
         }
     }
 }
