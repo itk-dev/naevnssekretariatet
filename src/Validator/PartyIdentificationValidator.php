@@ -37,6 +37,7 @@ class PartyIdentificationValidator extends ConstraintValidator
                 ;
             }
         } else {
+            // Ensure identifier looks like a CVR number
             if (!preg_match('/^\d{8}$/', $identifier, $matches)) {
                 $message = $this->translator->trans('CVR number must contain 8 digits', [], 'validator');
                 $this->context->buildViolation($message)

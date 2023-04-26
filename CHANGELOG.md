@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-360](https://github.com/itk-dev/naevnssekretariatet/pull/363)
+  Validate party identifier based on identifier type
+
 ## [1.4.1] 2023-04-25
 
 - [PR-360](https://github.com/itk-dev/naevnssekretariatet/pull/360)
