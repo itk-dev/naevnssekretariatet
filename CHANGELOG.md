@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-366](https://github.com/itk-dev/naevnssekretariatet/pull/366)
+  Removed `InspectionLetter` and its logic.
+
 ## [1.4.1] 2023-04-25
 
 - [PR-360](https://github.com/itk-dev/naevnssekretariatet/pull/360)
