@@ -10,13 +10,13 @@
             <h1>{% trans %}Decision{% endtrans %}</h1>
         </div>
         {# TODO: Reintroduce at a later stage #}
-{#        <div class="col-auto">#}
-{#            {% if hasNoActiveParty %}#}
-{#                <button class="btn btn-success" disabled title="{% trans %}Cannot create decision since case has no party to send it to{% endtrans %}">{% trans %}Create decision{% endtrans %}</button>#}
-{#            {% else %}#}
-{#                <a class="btn btn-success" href="{{ path('case_decision_create', {'id': case.id}) }}" role="button">{% trans %}Create decision{% endtrans %}</a>#}
-{#            {% endif %}#}
-{#        </div>#}
+        {#<div class="col-auto">
+            {% if hasNoActiveParty %}
+                <button class="btn btn-success" disabled title="{% trans %}Cannot create decision since case has no party to send it to{% endtrans %}">{% trans %}Create decision{% endtrans %}</button>
+            {% else %}
+                <a class="btn btn-success" href="{{ path('case_decision_create', {'id': case.id}) }}" role="button">{% trans %}Create decision{% endtrans %}</a>
+            {% endif %}
+        </div>#}
     </div>
 {% endblock %}
 
