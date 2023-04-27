@@ -56,14 +56,6 @@
                 </dd>
             {% endif %}
 
-            {# TODO: Do we still need this?
-            <dt class="col-sm-3">{% trans %}Status{% endtrans %}</dt>
-            <dd class="col-sm-9">{{ digital_post.status ?? '–' }}</dd>
-
-            <dt class="col-sm-3">{% trans %}Sent at{% endtrans %}</dt>
-            <dd class="col-sm-9">{{ digital_post.sentAt ? digital_post.sentAt|date(format_datetime) : '–' }}</dd>
-            #}
-
             <dt class="col-sm-3">{% trans %}Recipients{% endtrans %}</dt>
 
             {% if digital_post.envelopes is empty %}
