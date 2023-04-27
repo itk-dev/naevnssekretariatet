@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\DigitalPostAttachment;
 use App\Entity\DigitalPostEnvelope;
+use App\Repository\AgendaRepository;
 use App\Repository\DigitalPostEnvelopeRepository;
 use App\Service\DigitalPostEnvelopeHelper;
 use Doctrine\Common\Collections\Criteria;
@@ -28,8 +29,8 @@ class DigitalPostEnvelopeListCommand extends Command
         readonly private DigitalPostEnvelopeRepository $envelopeRepository,
         readonly private DigitalPostEnvelopeHelper $envelopeHelper,
         readonly private MessageHelper $messageHelper,
-        readonly private UrlGeneratorInterface $urlGenerator)
-    {
+        readonly private UrlGeneratorInterface $urlGenerator
+    ) {
         parent::__construct(null);
     }
 
