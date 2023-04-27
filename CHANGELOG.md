@@ -27,6 +27,8 @@ about writing changes to this log.
 
 ## [1.4.1] 2023-04-25
 
+- [PR-365](https://github.com/itk-dev/naevnssekretariatet/pull/365)
+  Handled display of broadcast digital post
 - [PR-360](https://github.com/itk-dev/naevnssekretariatet/pull/360)
   Fixed type.
 - [PR-361](https://github.com/itk-dev/naevnssekretariatet/pull/361)

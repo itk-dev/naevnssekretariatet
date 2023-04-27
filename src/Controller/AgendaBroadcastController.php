@@ -16,6 +16,7 @@ use App\Service\DocumentUploader;
 use App\Service\MailTemplateHelper;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
+use Itkdev\BeskedfordelerBundle\Helper\MessageHelper;
 use ItkDev\Serviceplatformen\Service\Exception\NoPnrFoundException;
 use ItkDev\Serviceplatformen\Service\Exception\ServiceException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -129,13 +130,14 @@ class AgendaBroadcastController extends AbstractController
      * @Route("/{digital_post}/show", name="agenda_broadcast_show", methods={"GET", "POST"})
      * @Entity("digitalPost", expr="repository.find(digital_post)")
      */
-    public function show(Agenda $agenda, DigitalPost $digitalPost)
+    public function show(Agenda $agenda, DigitalPost $digitalPost, MessageHelper $messageHelper)
     {
         $this->denyAccessUnlessGranted('edit', $agenda);
 
         return $this->render('agenda/broadcast/show.html.twig', [
             'digital_post' => $digitalPost,
             'agenda' => $agenda,
+            'message_helper' => $messageHelper,
         ]);
     }
 
