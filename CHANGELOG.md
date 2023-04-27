@@ -11,7 +11,8 @@ about writing changes to this log.
 ## [Unreleased]
 
 - [PR-364](https://github.com/itk-dev/naevnssekretariatet/pull/364)
-  Removes button for creating `HearingPostResponse` and `Decision`.
+  Removes button for creating `HearingPostResponse` and `Decision`,
+  and receipt logic.
 
 ## [1.4.1] 2023-04-25
 
