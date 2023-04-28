@@ -116,12 +116,13 @@ class PartyController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        $form = $this->createForm(PartyFormType::class, null, [
-            'case' => $case,
-        ]);
-
         /** @var CasePartyRelation $relation */
         $relation = $relationRepository->findOneBy(['case' => $case, 'party' => $party]);
+
+        $form = $this->createForm(PartyFormType::class, null, [
+            'case' => $case,
+            'type' => $relation->getType(),
+        ]);
 
         $form = $this->partyHelper->setUpFormData($party, $relation, $form);
 
