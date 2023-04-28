@@ -59,33 +59,12 @@ App\Entity\MailTemplate:
       Bruges til udsendelse af dagsorden til nævnsmedlemmer.
     templateFilename: <uploadFile(mail_template/mail_template_agenda.docx, templateFile, App\Entity\MailTemplate)>
 
-  mail-template-board-receipt-case-001:
-    type: board_receipt_case
-    name: Board receipt (case)
-    description: |-
-      Kvittering til indbringer af ny sag
-    templateFilename: <uploadFile(mail_template/mail_template_board_receipt_case.docx, templateFile, App\Entity\MailTemplate)>
-
-  mail-template-board-receipt-hearing_post-001:
-    type: board_receipt_hearing_post
-    name: Board receipt (hearing post)
-    description: |-
-      Kvittering til indbringer ved nyt høringssvar
-    templateFilename: <uploadFile(mail_template/mail_template_board_receipt_hearing_post.docx, templateFile, App\Entity\MailTemplate)>
-
   mail-template-hearing-post-form-001:
     type: hearing
     name: Hearing post form
     description: |-
       Used to tell a citizen where to add a hearing post to a specific case
     templateFilename: <uploadFile(mail_template/hearing_post_form.docx, templateFile, App\Entity\MailTemplate)>
-
-  mail-template-hearing-post-response-001:
-    type: hearing_post_response_template
-    name: Hearing post response (hearing post)
-    description: |-
-      Bruges til oprettelse af partshøringssvar
-    templateFilename: <uploadFile(mail_template/mail_template_hearing_post_response.docx, templateFile, App\Entity\MailTemplate)>
 
   mail-template-decision-attorney:
     type: decision

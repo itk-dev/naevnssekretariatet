@@ -12,6 +12,11 @@ about writing changes to this log.
 
 - [PR-360](https://github.com/itk-dev/naevnssekretariatet/pull/363)
   Validate party identifier based on identifier type
+- [PR-366](https://github.com/itk-dev/naevnssekretariatet/pull/366)
+  Removed `InspectionLetter` and its logic.
+- [PR-364](https://github.com/itk-dev/naevnssekretariatet/pull/364)
+  Removes button for creating `HearingPostResponse` and `Decision`,
+  and receipt logic.
 
 ## [1.4.1] 2023-04-25
 

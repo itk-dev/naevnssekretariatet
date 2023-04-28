@@ -38,16 +38,10 @@ class AgendaCaseItem extends AgendaItem
      */
     private $decisionProposal;
 
-    /**
-     * @ORM\OneToMany(targetEntity=InspectionLetter::class, mappedBy="agendaCaseItem", orphanRemoval=true)
-     */
-    private $inspectionLetters;
-
     public function __construct()
     {
         parent::__construct();
         $this->documents = new ArrayCollection();
-        $this->inspectionLetters = new ArrayCollection();
     }
 
     public function getInspection(): ?bool
@@ -118,36 +112,6 @@ class AgendaCaseItem extends AgendaItem
     public function setDecisionProposal(?CaseDecisionProposal $decisionProposal): self
     {
         $this->decisionProposal = $decisionProposal;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|InspectionLetter[]
-     */
-    public function getInspectionLetters(): Collection
-    {
-        return $this->inspectionLetters;
-    }
-
-    public function addInspectionLetter(InspectionLetter $inspectionLetter): self
-    {
-        if (!$this->inspectionLetters->contains($inspectionLetter)) {
-            $this->inspectionLetters[] = $inspectionLetter;
-            $inspectionLetter->setAgendaCaseItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInspectionLetter(InspectionLetter $inspectionLetter): self
-    {
-        if ($this->inspectionLetters->removeElement($inspectionLetter)) {
-            // set the owning side to null (unless already changed)
-            if ($inspectionLetter->getAgendaCaseItem() === $this) {
-                $inspectionLetter->setAgendaCaseItem(null);
-            }
-        }
 
         return $this;
     }

@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Board;
-use App\Entity\MailTemplate;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -106,36 +105,6 @@ class BoardCrudController extends AbstractCrudController
         yield TextareaField::new('statuses', 'Statuses')
             ->setHelp($this->translator->trans('List of case statuses (one per line). Board members will be able to see cases with the last status.',
                 [], 'admin'))
-        ;
-
-        yield AssociationField::new('receiptCase', 'Receipt on case')
-            ->hideOnIndex()
-            ->setFormTypeOptions([
-                'placeholder' => $this->translator->trans('Select receipt template', [], 'admin'),
-                'choice_filter' => static fn (?MailTemplate $mailTemplate) => 'board_receipt_case' === $mailTemplate?->getType(),
-            ])
-            ->setRequired(true)
-            ->setHelp($this->translator->trans('Select template to use for sending a receipt to the bringer.', [], 'admin'))
-        ;
-
-        yield AssociationField::new('receiptHearingPost', 'Receipt on hearing post')
-            ->hideOnIndex()
-            ->setFormTypeOptions([
-                'placeholder' => $this->translator->trans('Select receipt template', [], 'admin'),
-                'choice_filter' => static fn (?MailTemplate $mailTemplate) => 'board_receipt_hearing_post' === $mailTemplate?->getType(),
-            ])
-            ->setRequired(true)
-            ->setHelp($this->translator->trans('Select template to use for sending a receipt to the bringer.', [], 'admin'))
-        ;
-
-        yield AssociationField::new('hearingPostResponseTemplate', 'Hearing post response template')
-            ->hideOnIndex()
-            ->setFormTypeOptions([
-                'placeholder' => $this->translator->trans('Select a template for hearing post response', [], 'admin'),
-                'choice_filter' => static fn (?MailTemplate $mailTemplate) => 'hearing_post_response_template' === $mailTemplate?->getType(),
-            ])
-            ->setRequired(true)
-            ->setHelp($this->translator->trans('Select a template for hearing post response', [], 'admin'))
         ;
     }
 

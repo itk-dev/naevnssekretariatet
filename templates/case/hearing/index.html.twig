@@ -20,10 +20,12 @@
                 {% else %}
                     {% if requiresProcessing %}
                         <button class="btn btn-success" disabled title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create request{% endtrans %}</button>
-                        <button class="btn btn-success" disabled title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create response{% endtrans %}</button>
+                        {# TODO: Reintroduce at a later stage #}
+                        {# <button class="btn btn-success" disabled title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create response{% endtrans %}</button> #}
                     {% else %}
                         <a class="btn btn-success" href="{{ path('case_hearing_post_request_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create request{% endtrans %}</a>
-                        <a class="btn btn-success" href="{{ path('case_hearing_post_response_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create response{% endtrans %}</a>
+                        {# TODO: Reintroduce at a later stage #}
+                        {# <a class="btn btn-success" href="{{ path('case_hearing_post_response_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create response{% endtrans %}</a> #}
                     {% endif %}
                     {% if partyHasSomethingToAdd %}
                         <button class="btn btn-danger" disabled title="{% trans %}Cannot end hearing while some side still has something to add{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
