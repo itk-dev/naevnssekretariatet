@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-366](https://github.com/itk-dev/naevnssekretariatet/pull/366)
+  Removed `InspectionLetter` and its logic.
 - [PR-364](https://github.com/itk-dev/naevnssekretariatet/pull/364)
   Removes button for creating `HearingPostResponse` and `Decision`,
   and receipt logic.

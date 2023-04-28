@@ -57,13 +57,6 @@ services:
 
             $mailTemplateHelperOptions:
                 template_types:
-                    inspection_letter:
-                        label: Inspection
-                        entity_class_names:
-                            # TODO: Modify when inspection is reintroduced
-                            - App\Entity\ResidentComplaintBoardCase
-                            - App\Entity\FenceReviewCase
-                            - App\Entity\RentBoardCase
                     decision:
                         label: Decision
                         entity_class_names:
@@ -74,10 +67,6 @@ services:
                         label: Hearing
                         entity_class_names:
                             - App\Entity\HearingPost
-                    agenda_inspection:
-                      label: Agenda inspection
-                      entity_class_names:
-                        - App\Entity\InspectionLetter
                     agenda_broadcast:
                         label: Agenda broadcast
                         entity_class_names:
