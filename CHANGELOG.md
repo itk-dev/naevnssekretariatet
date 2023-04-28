@@ -10,7 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
-- [PR-360](https://github.com/itk-dev/naevnssekretariatet/pull/363)
+- [PR-367](https://github.com/itk-dev/naevnssekretariatet/pull/367)
+  Preselected party relation type upon edit
+- [PR-363](https://github.com/itk-dev/naevnssekretariatet/pull/363)
   Validate party identifier based on identifier type
 - [PR-366](https://github.com/itk-dev/naevnssekretariatet/pull/366)
   Removed `InspectionLetter` and its logic.
