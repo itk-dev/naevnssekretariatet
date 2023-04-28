@@ -3,12 +3,15 @@
 
 {% block identification_widget %}
     <div {{ block('widget_container_attributes') }}>
-        <div class="input-group mb-3">
+        <div class="input-group">
             <div class="input-group-prepend">
                 {{ form_widget(form.type) }}
             </div>
             {{ form_widget(form.identifier) }}
             {{ form_widget(form.pNumber) }}
+        </div>
+        <div>
+            {{ form_errors(form.identifier) }}
         </div>
         {{ form_rest(form) }}
     </div>

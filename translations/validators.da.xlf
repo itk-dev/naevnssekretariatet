@@ -549,6 +549,14 @@
         <source>You have to select at least 1 item</source>
         <target state="translated">Du skal vælge mindst en klagetype</target>
       </trans-unit>
+      <trans-unit id="MMKlrKq" resname="CPR number must contain 10 digits">
+        <source>CPR number must contain 10 digits</source>
+        <target state="translated">CPR-nummer skal indeholde 10 cifre</target>
+      </trans-unit>
+      <trans-unit id="cwAuLZC" resname="CVR number must contain 8 digits">
+        <source>CVR number must contain 8 digits</source>
+        <target state="translated">CVR-nummer skal indeholde 8 cifre</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
