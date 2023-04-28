@@ -95,26 +95,6 @@ class Board implements LoggableEntityInterface
     private $complaintCategories;
 
     /**
-     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
-     * @Assert\NotNull()
-     * @Assert\Expression(
-     *     "'board_receipt_case' == value.getType()",
-     *     message="Please select a template with type board_receipt_case"
-     * )
-     */
-    private $receiptCase;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
-     * @Assert\NotNull()
-     * @Assert\Expression(
-     *     "'board_receipt_hearing_post' == value.getType()",
-     *     message="Please select a template with type board_receipt_hearing_post"
-     * )
-     */
-    private $receiptHearingPost;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Email()
      * @Groups({"mail_template"})
@@ -127,16 +107,6 @@ class Board implements LoggableEntityInterface
      * @Groups({"mail_template"})
      */
     private $url;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
-     * @Assert\NotNull()
-     * @Assert\Expression(
-     *     "'hearing_post_response_template' == value.getType()",
-     *     message="Please select a template with type hearing_post_response_template"
-     * )
-     */
-    private $hearingPostResponseTemplate;
 
     public function __construct()
     {
@@ -392,30 +362,6 @@ class Board implements LoggableEntityInterface
         return $this;
     }
 
-    public function getReceiptCase(): ?MailTemplate
-    {
-        return $this->receiptCase;
-    }
-
-    public function setReceiptCase(?MailTemplate $receiptCase): self
-    {
-        $this->receiptCase = $receiptCase;
-
-        return $this;
-    }
-
-    public function getReceiptHearingPost(): ?MailTemplate
-    {
-        return $this->receiptHearingPost;
-    }
-
-    public function setReceiptHearingPost(?MailTemplate $receiptHearingPost): self
-    {
-        $this->receiptHearingPost = $receiptHearingPost;
-
-        return $this;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -436,18 +382,6 @@ class Board implements LoggableEntityInterface
     public function setUrl(string $url): self
     {
         $this->url = $url;
-
-        return $this;
-    }
-
-    public function getHearingPostResponseTemplate(): ?MailTemplate
-    {
-        return $this->hearingPostResponseTemplate;
-    }
-
-    public function setHearingPostResponseTemplate(?MailTemplate $hearingPostResponseTemplate): self
-    {
-        $this->hearingPostResponseTemplate = $hearingPostResponseTemplate;
 
         return $this;
     }

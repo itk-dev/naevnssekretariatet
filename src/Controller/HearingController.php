@@ -379,52 +379,6 @@ class HearingController extends AbstractController
             throw new HearingException();
         }
 
-        /** @var User $caseEventUser */
-        $caseEventUser = $this->getUser();
-
-        // Send receipt
-        if ($hearingPost->getSendReceipt()) {
-            $sender = $hearingPost->getSender();
-            $digitalPostRecipients[] = (new DigitalPost\Recipient())
-                ->setName($sender->getName())
-                ->setIdentifierType($sender->getIdentification()->getType())
-                ->setIdentifier($sender->getIdentification()->getIdentifier())
-                ->setAddress($sender->getAddress())
-            ;
-            $case = $hearingPost->getHearing()?->getCaseEntity();
-            $template = $case?->getBoard()?->getReceiptHearingPost();
-
-            if (null === $case) {
-                $message = sprintf('Could not get case.');
-                throw new HearingException($message);
-            }
-            if (null === $template) {
-                $message = sprintf('Could not get hearing post receipt template.');
-                throw new HearingException($message);
-            }
-
-            $documentTitle = $this->translator->trans('Hearing post response receipt', [], 'case');
-            // The document type is translated in templates/translations/mail_template.html.twig
-            $documentType = 'Hearing post response created receipt';
-
-            $fileName = $mailTemplateHelper->renderMailTemplate($template, $hearingPost);
-            $user = $case->getAssignedTo();
-            $document = $documentUploader->createDocumentFromPath($fileName, $documentTitle, $documentType, $user);
-
-            // Create case document relation
-            $relation = (new CaseDocumentRelation())
-                ->setCase($case)
-                ->setDocument($document)
-            ;
-
-            $this->entityManager->persist($relation);
-            $this->entityManager->persist($document);
-
-            $digitalPost = $digitalPostHelper->createDigitalPost($document, $documentTitle, get_class($case), $case->getId(), [], $digitalPostRecipients);
-
-            $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, [$sender]);
-        }
-
         // Create case event (sagshændelse)
         $documents = [];
         $documents[] = $hearingPost->getDocument();
