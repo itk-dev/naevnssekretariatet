@@ -73,7 +73,6 @@ App\Entity\HearingPostResponse:
         hearing: '@hearing-1'
         response: |-
             First hearing response
-        sendReceipt: false
         approvedOn: <(new \DateTime('today'))>
         createdAt: <(new \DateTime('today'))>
 
