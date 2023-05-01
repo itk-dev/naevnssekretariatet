@@ -472,9 +472,11 @@ class HearingController extends AbstractController
                 ->setAddress($hearingRecipient->getRecipient()->getAddress())
             ;
 
-            $digitalPost = $digitalPostHelper->createDigitalPost($hearingRecipient->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $digitalPostAttachments, [$digitalPostRecipient]);
+            $clonedAttachments = array_map(static fn (DigitalPostAttachment $attachment) => (new DigitalPostAttachment())->setDigitalPost($attachment->getDigitalPost())->setDocument($attachment->getDocument()), $digitalPostAttachments);
 
-            $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, [$hearingRecipient->getRecipient()]);
+            $digitalPost = $digitalPostHelper->createDigitalPost($hearingRecipient->getDocument(), $hearingPost->getTitle(), get_class($case), $case->getId(), $clonedAttachments, [$digitalPostRecipient]);
+
+            $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, $hearingPost->getTitle(), [$hearingRecipient->getRecipient()]);
         }
 
         $today = new DateTime('today');
