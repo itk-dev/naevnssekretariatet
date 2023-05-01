@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CaseEntity;
 use App\Entity\CasePartyRelation;
 use App\Entity\Party;
+use App\Exception\PartyException;
 use App\Form\AddPartyFromIndexType;
 use App\Form\PartyFormType;
 use App\Repository\CasePartyRelationRepository;
@@ -116,12 +117,18 @@ class PartyController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        $form = $this->createForm(PartyFormType::class, null, [
-            'case' => $case,
-        ]);
-
         /** @var CasePartyRelation $relation */
         $relation = $relationRepository->findOneBy(['case' => $case, 'party' => $party]);
+
+        if (null === $relation) {
+            $message = sprintf('Could not find CasePartyRelation between case %s and party %s', $case->getCaseNumber(), $party->getName());
+            throw new PartyException($message);
+        }
+
+        $form = $this->createForm(PartyFormType::class, null, [
+            'case' => $case,
+            'type' => $relation->getType(),
+        ]);
 
         $form = $this->partyHelper->setUpFormData($party, $relation, $form);
 
