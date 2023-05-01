@@ -7,7 +7,6 @@ use App\Entity\CaseEntity;
 use App\Entity\HearingPost;
 use App\Entity\HearingPostResponse;
 use App\Entity\HearingRecipient;
-use App\Entity\InspectionLetter;
 use App\Entity\MailTemplate;
 use App\Entity\User;
 use App\Exception\MailTemplateException;
@@ -451,8 +450,6 @@ class MailTemplateHelper
             return $entity->getHearingPostRequest()->getHearing()->getCaseEntity();
         } elseif ($entity instanceof HearingPost) {
             return $entity->getHearing()->getCaseEntity();
-        } elseif ($entity instanceof InspectionLetter) {
-            return $entity->getAgendaCaseItem()?->getCaseEntity();
         }
 
         return null;

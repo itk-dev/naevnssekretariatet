@@ -30,11 +30,6 @@ class HearingPostResponse extends HearingPost
     private $response;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":"1"})
-     */
-    private $sendReceipt = true;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Document::class)
      */
     private $document;
@@ -81,18 +76,6 @@ class HearingPostResponse extends HearingPost
     public function setResponse(?string $response): self
     {
         $this->response = $response;
-
-        return $this;
-    }
-
-    public function getSendReceipt(): ?bool
-    {
-        return $this->sendReceipt;
-    }
-
-    public function setSendReceipt(bool $sendReceipt): self
-    {
-        $this->sendReceipt = $sendReceipt;
 
         return $this;
     }
