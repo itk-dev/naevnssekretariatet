@@ -36,6 +36,7 @@ class DigitalPostEnvelopeListCommand extends Command
             ->addOption('digital-post-subject', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with subject matching this LIKE expression')
             ->addOption('max-results', null, InputOption::VALUE_REQUIRED, 'Show at most this many envelopes', 10)
             ->addOption('id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Envelope id')
+            ->addOption('message-uuid', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Messaged uuid')
             ->addOption('show-throwable', null, InputOption::VALUE_NONE, 'show throwable')
             ->addOption('has-errors', null, InputOption::VALUE_NONE, 'Show envelopes with errors')
             ->addOption('show-errors', null, InputOption::VALUE_NONE, 'show errors')
@@ -117,6 +118,13 @@ class DigitalPostEnvelopeListCommand extends Command
             $qb
                 ->andWhere('e.id IN (:ids)')
                 ->setParameter('ids', $ids)
+            ;
+        }
+        if ($messageUuids = $input->getOption('message-uuid')) {
+            $messageUuids = array_map(static fn (string $id) => Uuid::fromString($id)->toRfc4122(), $messageUuids);
+            $qb
+                ->andWhere('e.meMoMessageUuid IN (:messageUuids)')
+                ->setParameter('messageUuids', $messageUuids)
             ;
         }
         if ($status = $input->getOption('status')) {
