@@ -1629,6 +1629,34 @@
         <source>Ambiguous</source>
         <target state="translated">Flertydigt</target>
       </trans-unit>
+      <trans-unit id="jsbyzH5" resname="Briefing mail template">
+        <source>Briefing mail template</source>
+        <target state="translated">Orienteringsskabelon</target>
+      </trans-unit>
+      <trans-unit id="U9zpZVW" resname="Hearing briefing created">
+        <source>Hearing briefing created</source>
+        <target state="translated">Orientering oprettet</target>
+      </trans-unit>
+      <trans-unit id="qZuAuJt" resname="Create briefing">
+        <source>Create briefing</source>
+        <target state="translated">Opret orientering</target>
+      </trans-unit>
+      <trans-unit id="q0tVexY" resname="Edit briefing">
+        <source>Edit briefing</source>
+        <target state="translated">Rediger orientering</target>
+      </trans-unit>
+      <trans-unit id="Uy.a4ko" resname="Briefing">
+        <source>Briefing</source>
+        <target state="translated">Orientering</target>
+      </trans-unit>
+      <trans-unit id="O__OVtB" resname="Send briefing">
+        <source>Send briefing</source>
+        <target state="translated">Send orientering</target>
+      </trans-unit>
+      <trans-unit id="EcBV71X" resname="Hearing briefing updated">
+        <source>Hearing briefing updated</source>
+        <target state="translated">Orientering opdateret</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -31,7 +31,7 @@
     <div class="col">
         <dl class="row">
             {% if hearingPost.hearingRecipients is defined %}
-                <div class="h2">
+                <div class="h3">
                         {% trans %}Recipients{% endtrans %}
                     </div>
                 {% for hearing_recipient in hearingPost.hearingRecipients %}
@@ -43,47 +43,61 @@
                     </dd>
                 {% endfor %}
             {% endif %}
+            {% if hearingPost.briefExtraParties is defined %}
+                <dt class="col-sm-3">
+                    {% trans %}Send briefing{% endtrans %}
+                </dt>
+                <dd class="col-sm-9">
+                    {{ hearingPost.briefExtraParties|trans }}
+                </dd>
+            {% endif %}
+            {% if hearingPost.briefing is defined and hearingPost.briefing is not null %}
+                <dt class="col-sm-3">{% trans %}Briefing{% endtrans %}</dt>
+                <dd class="col-sm-9">
+                    <a href="{{ path('case_hearing_briefing_show', {'case': case.id, 'hearing': case.hearing.id, 'hearingPost': hearingPost.id, 'briefing': hearingPost.briefing.id}) }}">{% trans %}Show{% endtrans %}</a>
+                </dd>
+            {% endif %}
             {% if hearingPost.sender is defined %}
-                <dt>
+                <dt class="col-sm-3">
                     {% trans %}Sender{% endtrans %}
                 </dt>
 
-                <dd>
+                <dd class="col-sm-9">
                     {{ hearingPost.sender }}
                 </dd>
             {% endif %}
             {% if hearingPost.template is defined %}
-                <dt>
+                <dt class="col-sm-3">
                     {% trans %}Template{% endtrans %}
                 </dt>
-                <dd>
+                <dd class="col-sm-9">
                     {{ hearingPost.template.name }}
                 </dd>
             {% endif %}
             {% if hearingPost.customData is defined %}
                 {% set custom_fields = getCustomFields(hearingPost.template) %}
                 {% for key, value in hearingPost.customData %}
-                    <dt>
+                    <dt class="col-sm-3">
                         {{ custom_fields[key]['label']|default(key) }}
                     </dt>
-                    <dd>
+                    <dd class="col-sm-9">
                         {{ value }}
                     </dd>
                 {% endfor %}
             {% endif %}
                {% if hearingPost.document is defined and hearingPost.document is not null %}
-                   <dt>
+                   <dt class="col-sm-3">
                        {% trans %}Document{% endtrans %}
                    </dt>
-                   <dd>
+                   <dd class="col-sm-9">
                        {{ _self.show_document_content_button(case, hearingPost.document) }}
                    </dd>
                {% endif %}
             {% if hearingPost.attachments %}
-                <dt>
+                <dt class="col-sm-3">
                     {% trans %}Attachments{% endtrans %}
                 </dt>
-                <dd>
+                <dd class="col-sm-9">
                     <ol class="list-unstyled">
                         {% for attachment in hearingPost.attachments %}
                             <li>

@@ -251,7 +251,11 @@ class HearingController extends AbstractController
 
             $this->addFlash('success', new TranslatableMessage('Hearing post request created', [], 'case'));
 
-            return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId(), 'hearing' => $hearing->getId()]);
+            if (HearingPostRequestType::BRIEFING_PARTIES_YES === $hearingPost->getBriefExtraParties()) {
+                return $this->redirectToRoute('case_hearing_briefing_create', ['case' => $case->getId(), 'hearing' => $hearing->getId(), 'hearingPost' => $hearingPost->getId()]);
+            } else {
+                return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId(), 'hearing' => $hearing->getId()]);
+            }
         }
 
         return $this->render('case/hearing/post_create.html.twig', [
@@ -336,15 +340,19 @@ class HearingController extends AbstractController
 
         $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
         $mailTemplates = $mailTemplateHelper->getTemplates('hearing');
+        $informMailTemplates = $mailTemplateHelper->getTemplates('briefing');
 
         $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
 
         $form = $this->createForm(HearingPostRequestType::class, $hearingPost, [
             'case_parties' => $availableParties,
-            'mail_template_choices' => $mailTemplates,
             'available_case_documents' => $caseDocuments,
             'preselects' => array_map(static fn (HearingRecipient $hearingRecipient) => $hearingRecipient->getRecipient(), $hearingPost->getHearingRecipients()->toArray()),
+            'mail_template_choices' => $mailTemplates,
+            'briefing_mail_template_choices' => $informMailTemplates,
         ]);
+
+        $briefing = $hearingPost->getBriefing();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -401,7 +409,35 @@ class HearingController extends AbstractController
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Hearing post request updated', [], 'case'));
 
-            return $this->redirectToRoute('case_hearing_post_show', ['case' => $case->getId(), 'hearingPost' => $hearingPost->getId()]);
+            if (HearingPostRequestType::BRIEFING_PARTIES_YES === $hearingPost->getBriefExtraParties()) {
+                if (null === $briefing) {
+                    return $this->redirectToRoute('case_hearing_briefing_create', ['case' => $case->getId(), 'hearing' => $hearingPost->getHearing()->getId(), 'hearingPost' => $hearingPost->getId()]);
+                } else {
+                    return $this->redirectToRoute('case_hearing_briefing_edit', ['case' => $case->getId(), 'hearing' => $hearingPost->getHearing()->getId(), 'hearingPost' => $hearingPost->getId(), 'briefing' => $briefing->getId()]);
+                }
+            } else {
+                if (null != $briefing) {
+                    // Remove everything briefing related
+                    $briefingRecipients = $briefing->getHearingBriefingRecipients();
+                    foreach ($briefingRecipients as $briefingRecipient) {
+                        $document = $briefingRecipient->getDocument();
+
+                        $this->removeDocumentFromCase($case, $document);
+
+                        $this->entityManager->remove($document);
+                        $this->entityManager->remove($briefingRecipient);
+                    }
+
+                    // Necessary due to cascade
+                    $hearingPost->setBriefing(null);
+                    $briefing->setHearingPostRequest(null);
+
+                    $this->entityManager->remove($briefing);
+                    $this->entityManager->flush();
+                }
+
+                return $this->redirectToRoute('case_hearing_post_show', ['case' => $case->getId(), 'hearingPost' => $hearingPost->getId()]);
+            }
         }
 
         return $this->render('case/hearing/post_edit.html.twig', [
@@ -479,6 +515,43 @@ class HearingController extends AbstractController
             $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, $hearingPost->getTitle(), [$hearingRecipient->getRecipient()]);
         }
 
+        // Now handle potential briefings.
+        if (HearingPostRequestType::BRIEFING_PARTIES_YES === $hearingPost->getBriefExtraParties()) {
+            $briefing = $hearingPost->getBriefing();
+            if (!$briefing) {
+                throw new HearingException('Attempting to send empty briefing');
+            }
+
+            $briefingRecipients = $briefing->getHearingBriefingRecipients();
+            if ($briefingRecipients->isEmpty()) {
+                throw new HearingException('Could not find any recipients for briefing');
+            }
+
+            $briefingAttachments = $briefing->getAttachments();
+            $digitalPostBriefingAttachments = [];
+
+            foreach ($briefingAttachments as $briefingAttachment) {
+                $digitalPostAttachment = new DigitalPostAttachment();
+                $digitalPostAttachment->setDocument($briefingAttachment);
+                $digitalPostBriefingAttachments[] = $digitalPostAttachment;
+            }
+
+            foreach ($briefingRecipients as $briefingRecipient) {
+                $digitalPostBriefingRecipient = (new DigitalPost\Recipient())
+                    ->setName($briefingRecipient->getRecipient()->getName())
+                    ->setIdentifierType($briefingRecipient->getRecipient()->getIdentification()->getType())
+                    ->setIdentifier($briefingRecipient->getRecipient()->getIdentification()->getIdentifier())
+                    ->setAddress($briefingRecipient->getRecipient()->getAddress())
+                ;
+
+                $clonedBriefingAttachments = array_map(static fn (DigitalPostAttachment $attachment) => (new DigitalPostAttachment())->setDigitalPost($attachment->getDigitalPost())->setDocument($attachment->getDocument()), $digitalPostBriefingAttachments);
+
+                $digitalPost = $digitalPostHelper->createDigitalPost($briefingRecipient->getDocument(), $briefing->getTitle(), get_class($case), $case->getId(), $clonedBriefingAttachments, [$digitalPostBriefingRecipient]);
+
+                $caseEventHelper->createDigitalPostCaseEvent($case, $digitalPost, $briefing->getTitle(), [$briefingRecipient->getRecipient()]);
+            }
+        }
+
         $today = new DateTime('today');
 
         $hearingResponseModifier = sprintf('+%s days', $case->getBoard()->getHearingResponseDeadline());
@@ -542,6 +615,22 @@ class HearingController extends AbstractController
 
                     $this->entityManager->remove($hearingRecipient);
                     $this->entityManager->remove($document);
+                }
+
+                if ($briefing = $hearingPost->getBriefing()) {
+                    $briefingRecipients = $briefing->getHearingBriefingRecipients();
+                    foreach ($briefingRecipients as $briefingRecipient) {
+                        $document = $briefingRecipient->getDocument();
+
+                        $this->removeDocumentFromCase($case, $document);
+
+                        $this->entityManager->remove($document);
+                        $this->entityManager->remove($briefingRecipient);
+                    }
+
+                    $this->entityManager->flush();
+
+                    $this->entityManager->remove($briefing);
                 }
             } elseif ($hearingPost instanceof HearingPostResponse) {
                 // Remove relation between case and document

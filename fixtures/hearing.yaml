@@ -39,6 +39,7 @@ App\Entity\HearingPostRequest:
         title: 'Some fancy title'
         forwardedOn: <(new \DateTime('yesterday'))>
         createdAt: <(new \DateTime('yesterday'))>
+        brief_extra_parties: 'No'
 
     hearing-post-request-2:
         hearing: '@hearing-1'
@@ -46,6 +47,7 @@ App\Entity\HearingPostRequest:
         title: 'Some other fancy title'
         forwardedOn: <(new \DateTime('today'))>
         createdAt: <(new \DateTime('today'))>
+        brief_extra_parties: 'No'
 
 App\Entity\HearingRecipient:
     hearing-recipient-1:

@@ -557,6 +557,10 @@
         <source>CVR number must contain 8 digits</source>
         <target>CVR number must contain 8 digits</target>
       </trans-unit>
+      <trans-unit id="sGw9vhl" resname="Your briefing letter must have at least one recipient">
+        <source>Your briefing letter must have at least one recipient</source>
+        <target>Your briefing letter must have at least one recipient</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
