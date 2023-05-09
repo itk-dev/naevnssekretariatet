@@ -10,6 +10,7 @@ use App\Entity\HearingBriefing;
 use App\Entity\HearingBriefingRecipient;
 use App\Entity\HearingPost;
 use App\Entity\HearingPostRequest;
+use App\Entity\Party;
 use App\Exception\HearingException;
 use App\Form\BriefingType;
 use App\Form\HearingPostRequestType;
@@ -27,14 +28,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HearingBriefingController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager, private DocumentUploader $documentUploader, private CaseDocumentRelationRepository $relationRepository, private TranslatorInterface $translator)
+    public function __construct(private EntityManagerInterface $entityManager, private DocumentUploader $documentUploader, private CaseDocumentRelationRepository $relationRepository, private MailTemplateHelper $mailTemplateHelper, private TranslatorInterface $translator)
     {
     }
 
     /**
      * @Route("/{case}/hearing/{hearing}/request/{hearingPost}/briefing/create", name="case_hearing_briefing_create")
      */
-    public function create(CaseEntity $case, DocumentUploader $documentUploader, Hearing $hearing, HearingPostRequest $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, Request $request): Response
+    public function create(CaseEntity $case, Hearing $hearing, HearingPostRequest $hearingPost, PartyHelper $partyHelper, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -43,7 +44,7 @@ class HearingBriefingController extends AbstractController
         }
 
         $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
-        $mailTemplates = $mailTemplateHelper->getTemplates('briefing');
+        $mailTemplates = $this->mailTemplateHelper->getTemplates('briefing');
 
         $briefing = new HearingBriefing();
 
@@ -67,30 +68,7 @@ class HearingBriefingController extends AbstractController
             $briefing->setHearingPostRequest($hearingPost);
 
             // Do something for each chosen recipient.
-            foreach ($form->get('recipients')->getData() as $recipient) {
-                $briefingRecipient = new HearingBriefingRecipient();
-                $briefingRecipient->setRecipient($recipient);
-                $briefingRecipient->setHearingBriefing($briefing);
-
-                // Create new file from template
-                $fileName = $mailTemplateHelper->renderMailTemplate($briefing->getTemplate(), $briefingRecipient);
-
-                // Create document
-                $document = $documentUploader->createDocumentFromPath($fileName, $briefing->getTitle(), 'Hearing');
-
-                $briefingRecipient->setDocument($document);
-
-                // Create case document relation
-                $relation = new CaseDocumentRelation();
-                $relation->setCase($case);
-                $relation->setDocument($document);
-
-                $this->entityManager->persist($relation);
-                $this->entityManager->persist($document);
-                $this->entityManager->persist($briefingRecipient);
-
-                $briefing->addHearingBriefingRecipient($briefingRecipient);
-            }
+            $this->createBriefingRecipients($form->get('recipients')->getData()->toArray(), $briefing);
 
             // TODO: Skal alle udsendte høringsskrivelser medsendes?
             foreach ($hearingPost->getHearingRecipients() as $hearingRecipient) {
@@ -117,7 +95,7 @@ class HearingBriefingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearing}/request/{hearingPost}/briefing/{briefing}/edit", name="case_hearing_briefing_edit")
      */
-    public function edit(CaseEntity $case, DocumentUploader $documentUploader, Hearing $hearing, HearingPostRequest $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, HearingBriefing $briefing, Request $request): Response
+    public function edit(CaseEntity $case, Hearing $hearing, HearingPostRequest $hearingPost, MailTemplateHelper $mailTemplateHelper, PartyHelper $partyHelper, HearingBriefing $briefing, Request $request): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -154,37 +132,13 @@ class HearingBriefingController extends AbstractController
 
                 $this->removeDocumentFromCase($case, $document);
 
-                $this->entityManager->remove($document);
                 $this->entityManager->remove($briefingRecipient);
             }
 
             $this->entityManager->flush();
 
             // Regeneration
-            foreach ($form->get('recipients')->getData() as $recipient) {
-                $briefingRecipient = new HearingBriefingRecipient();
-                $briefingRecipient->setRecipient($recipient);
-                $briefingRecipient->setHearingBriefing($briefing);
-
-                // Create new file from template
-                $fileName = $mailTemplateHelper->renderMailTemplate($briefing->getTemplate(), $briefingRecipient);
-
-                // Create document
-                $document = $documentUploader->createDocumentFromPath($fileName, $briefing->getTitle(), 'Hearing');
-
-                $briefingRecipient->setDocument($document);
-
-                // Create case document relation
-                $relation = new CaseDocumentRelation();
-                $relation->setCase($case);
-                $relation->setDocument($document);
-
-                $this->entityManager->persist($relation);
-                $this->entityManager->persist($document);
-                $this->entityManager->persist($briefingRecipient);
-
-                $briefing->addHearingBriefingRecipient($briefingRecipient);
-            }
+            $this->createBriefingRecipients($form->get('recipients')->getData(), $briefing);
 
             // TODO: Skal alle udsendte høringsskrivelser medsendes?
             foreach ($hearingPost->getHearingRecipients() as $hearingRecipient) {
@@ -231,7 +185,7 @@ class HearingBriefingController extends AbstractController
      */
     public function cancel(CaseEntity $case, Hearing $hearing, HearingPostRequest $hearingPost): Response
     {
-        $hearingPost->setBriefExtraParties(HearingPostRequestType::BRIEFING_PARTIES_NO);
+        $hearingPost->setShouldSendBriefing(false);
         $this->entityManager->flush();
 
         return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId()]);
@@ -248,5 +202,37 @@ class HearingBriefingController extends AbstractController
 
         // Remove file
         $this->documentUploader->deleteDocumentFile($document);
+
+        $this->entityManager->remove($document);
+    }
+
+    private function createBriefingRecipients(array $parties, HearingBriefing $briefing)
+    {
+        foreach ($parties as $recipient) {
+            $briefingRecipient = new HearingBriefingRecipient();
+            $briefingRecipient->setRecipient($recipient);
+            $briefingRecipient->setHearingBriefing($briefing);
+
+            // Create new file from template
+            $fileName = $this->mailTemplateHelper->renderMailTemplate($briefing->getTemplate(), $briefingRecipient);
+
+            // Create document
+            $document = $this->documentUploader->createDocumentFromPath($fileName, $briefing->getTitle(), 'Hearing');
+
+            $briefingRecipient->setDocument($document);
+
+            // Create case document relation
+            $relation = new CaseDocumentRelation();
+            $relation->setCase($briefing->getHearingPostRequest()->getHearing()->getCaseEntity());
+            $relation->setDocument($document);
+
+            $this->entityManager->persist($relation);
+            $this->entityManager->persist($document);
+            $this->entityManager->persist($briefingRecipient);
+
+            $briefing->addHearingBriefingRecipient($briefingRecipient);
+        }
+
+        $this->entityManager->flush();
     }
 }

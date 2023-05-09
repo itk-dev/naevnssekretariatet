@@ -29,8 +29,7 @@ final class Version20230504091710 extends AbstractMigration
         $this->addSql('ALTER TABLE hearing_briefing_recipient ADD CONSTRAINT FK_9D2175E61555A28D FOREIGN KEY (hearing_briefing_id) REFERENCES hearing_briefing (id)');
         $this->addSql('ALTER TABLE hearing_briefing_recipient ADD CONSTRAINT FK_9D2175E6E92F8F78 FOREIGN KEY (recipient_id) REFERENCES party (id)');
         $this->addSql('ALTER TABLE hearing_briefing_recipient ADD CONSTRAINT FK_9D2175E6C33F7837 FOREIGN KEY (document_id) REFERENCES document (id)');
-        $this->addSql('ALTER TABLE hearing_post_request ADD briefing_id BINARY(16) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', ADD brief_extra_parties VARCHAR(255) NOT NULL');
-        $this->addSql("UPDATE hearing_post_request SET hearing_post_request.brief_extra_parties = 'No'");
+        $this->addSql('ALTER TABLE hearing_post_request ADD briefing_id BINARY(16) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', ADD should_send_briefing TINYINT(1) DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE hearing_post_request ADD CONSTRAINT FK_A12A6D0027266F69 FOREIGN KEY (briefing_id) REFERENCES hearing_briefing (id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_A12A6D0027266F69 ON hearing_post_request (briefing_id)');
     }
@@ -45,6 +44,6 @@ final class Version20230504091710 extends AbstractMigration
         $this->addSql('DROP TABLE hearing_briefing_document');
         $this->addSql('DROP TABLE hearing_briefing_recipient');
         $this->addSql('DROP INDEX UNIQ_A12A6D0027266F69 ON hearing_post_request');
-        $this->addSql('ALTER TABLE hearing_post_request DROP briefing_id, DROP brief_extra_parties');
+        $this->addSql('ALTER TABLE hearing_post_request DROP briefing_id, DROP should_send_briefing');
     }
 }

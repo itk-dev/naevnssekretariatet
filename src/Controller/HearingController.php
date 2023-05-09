@@ -9,6 +9,7 @@ use App\Entity\DigitalPost;
 use App\Entity\DigitalPostAttachment;
 use App\Entity\Document;
 use App\Entity\Hearing;
+use App\Entity\HearingBriefing;
 use App\Entity\HearingPost;
 use App\Entity\HearingPostRequest;
 use App\Entity\HearingPostResponse;
@@ -251,7 +252,7 @@ class HearingController extends AbstractController
 
             $this->addFlash('success', new TranslatableMessage('Hearing post request created', [], 'case'));
 
-            if (HearingPostRequestType::BRIEFING_PARTIES_YES === $hearingPost->getBriefExtraParties()) {
+            if ($hearingPost->getShouldSendBriefing()) {
                 return $this->redirectToRoute('case_hearing_briefing_create', ['case' => $case->getId(), 'hearing' => $hearing->getId(), 'hearingPost' => $hearingPost->getId()]);
             } else {
                 return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId(), 'hearing' => $hearing->getId()]);
@@ -349,7 +350,6 @@ class HearingController extends AbstractController
             'available_case_documents' => $caseDocuments,
             'preselects' => array_map(static fn (HearingRecipient $hearingRecipient) => $hearingRecipient->getRecipient(), $hearingPost->getHearingRecipients()->toArray()),
             'mail_template_choices' => $mailTemplates,
-            'briefing_mail_template_choices' => $informMailTemplates,
         ]);
 
         $briefing = $hearingPost->getBriefing();
@@ -375,7 +375,6 @@ class HearingController extends AbstractController
                 $hearingPost->removeHearingRecipient($hearingRecipient);
 
                 $this->entityManager->remove($hearingRecipient);
-                $this->entityManager->remove($document);
                 $this->entityManager->flush();
             }
 
@@ -409,7 +408,7 @@ class HearingController extends AbstractController
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Hearing post request updated', [], 'case'));
 
-            if (HearingPostRequestType::BRIEFING_PARTIES_YES === $hearingPost->getBriefExtraParties()) {
+            if ($hearingPost->getShouldSendBriefing()) {
                 if (null === $briefing) {
                     return $this->redirectToRoute('case_hearing_briefing_create', ['case' => $case->getId(), 'hearing' => $hearingPost->getHearing()->getId(), 'hearingPost' => $hearingPost->getId()]);
                 } else {
@@ -417,23 +416,11 @@ class HearingController extends AbstractController
                 }
             } else {
                 if (null != $briefing) {
-                    // Remove everything briefing related
-                    $briefingRecipients = $briefing->getHearingBriefingRecipients();
-                    foreach ($briefingRecipients as $briefingRecipient) {
-                        $document = $briefingRecipient->getDocument();
-
-                        $this->removeDocumentFromCase($case, $document);
-
-                        $this->entityManager->remove($document);
-                        $this->entityManager->remove($briefingRecipient);
-                    }
-
                     // Necessary due to cascade
                     $hearingPost->setBriefing(null);
                     $briefing->setHearingPostRequest(null);
 
-                    $this->entityManager->remove($briefing);
-                    $this->entityManager->flush();
+                    $this->removeBriefing($briefing);
                 }
 
                 return $this->redirectToRoute('case_hearing_post_show', ['case' => $case->getId(), 'hearingPost' => $hearingPost->getId()]);
@@ -450,7 +437,7 @@ class HearingController extends AbstractController
     /**
      * @Route("/{case}/hearing/{hearingPost}/approve", name="case_hearing_post_approve", methods={"POST"})
      */
-    public function hearingPostApprove(CaseEntity $case, HearingPostResponse $hearingPost, MailTemplateHelper $mailTemplateHelper, DocumentUploader $documentUploader, DigitalPostHelper $digitalPostHelper, CaseEventHelper $caseEventHelper): Response
+    public function hearingPostApprove(CaseEntity $case, HearingPostResponse $hearingPost, CaseEventHelper $caseEventHelper): Response
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
@@ -516,7 +503,7 @@ class HearingController extends AbstractController
         }
 
         // Now handle potential briefings.
-        if (HearingPostRequestType::BRIEFING_PARTIES_YES === $hearingPost->getBriefExtraParties()) {
+        if ($hearingPost->getShouldSendBriefing()) {
             $briefing = $hearingPost->getBriefing();
             if (!$briefing) {
                 throw new HearingException('Attempting to send empty briefing');
@@ -612,25 +599,11 @@ class HearingController extends AbstractController
                     $this->removeDocumentFromCase($case, $document);
 
                     $hearingPost->removeHearingRecipient($hearingRecipient);
-
                     $this->entityManager->remove($hearingRecipient);
-                    $this->entityManager->remove($document);
                 }
 
                 if ($briefing = $hearingPost->getBriefing()) {
-                    $briefingRecipients = $briefing->getHearingBriefingRecipients();
-                    foreach ($briefingRecipients as $briefingRecipient) {
-                        $document = $briefingRecipient->getDocument();
-
-                        $this->removeDocumentFromCase($case, $document);
-
-                        $this->entityManager->remove($document);
-                        $this->entityManager->remove($briefingRecipient);
-                    }
-
-                    $this->entityManager->flush();
-
-                    $this->entityManager->remove($briefing);
+                    $this->removeBriefing($briefing);
                 }
             } elseif ($hearingPost instanceof HearingPostResponse) {
                 // Remove relation between case and document
@@ -639,8 +612,6 @@ class HearingController extends AbstractController
                 $this->removeDocumentFromCase($case, $document);
 
                 $hearingPost->setDocument(null);
-
-                $this->entityManager->remove($document);
             } else {
                 throw new HearingException(sprintf('Unhandled HearingPost of type %s detected during deletion.', get_class($hearingPost)));
             }
@@ -672,7 +643,22 @@ class HearingController extends AbstractController
             $this->entityManager->flush();
         }
 
-        // Remove file
+        // Remove file and document
         $this->documentUploader->deleteDocumentFile($document);
+        $this->entityManager->remove($document);
+    }
+
+    private function removeBriefing(HearingBriefing $briefing)
+    {
+        $briefingRecipients = $briefing->getHearingBriefingRecipients();
+        foreach ($briefingRecipients as $briefingRecipient) {
+            $document = $briefingRecipient->getDocument();
+
+            $this->removeDocumentFromCase($briefing->getHearingPostRequest()->getHearing()->getCaseEntity(), $document);
+            $this->entityManager->remove($briefingRecipient);
+        }
+
+        $this->entityManager->remove($briefing);
+        $this->entityManager->flush();
     }
 }

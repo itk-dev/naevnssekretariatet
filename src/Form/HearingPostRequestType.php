@@ -35,7 +35,6 @@ class HearingPostRequestType extends AbstractType
             'mail_template_choices' => null,
             'available_case_documents' => null,
             'preselects' => null,
-            'briefing_mail_template_choices' => null,
         ]);
     }
 
@@ -44,7 +43,6 @@ class HearingPostRequestType extends AbstractType
         $caseParties = $options['case_parties'];
         $availableTemplateChoices = $options['mail_template_choices'];
         $preselects = $options['preselects'];
-        $availableBriefingTemplateChoices = $options['briefing_mail_template_choices'];
 
         $builder
             ->add('title', TextType::class, [
@@ -65,12 +63,12 @@ class HearingPostRequestType extends AbstractType
             'help' => $this->translator->trans('Choose at least one recipient', [], 'case'),
         ]);
 
-        $builder->add('briefExtraParties', ChoiceType::class, [
+        $builder->add('shouldSendBriefing', ChoiceType::class, [
             'choices' => [
-                self::BRIEFING_PARTIES_NO => self::BRIEFING_PARTIES_NO,
-                self::BRIEFING_PARTIES_YES => self::BRIEFING_PARTIES_YES,
+                self::BRIEFING_PARTIES_NO => false,
+                self::BRIEFING_PARTIES_YES => true,
             ],
-            'choice_translation_domain' => 'documents',
+            'choice_translation_domain' => 'case',
             'label' => $this->translator->trans('Send briefing', [], 'case'),
         ]);
 
