@@ -272,8 +272,8 @@ jobs:
       - name: Update translations
         run: |
           docker network create frontend
-          docker compose run --rm phpfpm composer install --no-scripts
-          docker compose run --rm phpfpm composer update-translations
+          docker compose run --rm --user root phpfpm composer install --no-scripts
+          docker compose run --rm --user root phpfpm composer update-translations
       - name: Check for changes in translation files
         run: |
           git diff --diff-filter=ACMRT --exit-code translations
