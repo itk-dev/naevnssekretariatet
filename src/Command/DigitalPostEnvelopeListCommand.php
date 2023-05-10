@@ -2,10 +2,10 @@
 
 namespace App\Command;
 
-use App\Entity\CaseDocumentRelation;
 use App\Entity\DigitalPostAttachment;
 use App\Entity\DigitalPostEnvelope;
 use App\Repository\DigitalPostEnvelopeRepository;
+use App\Service\DigitalPostEnvelopeHelper;
 use Doctrine\Common\Collections\Criteria;
 use Itkdev\BeskedfordelerBundle\Helper\MessageHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -24,7 +24,11 @@ use Symfony\Component\Yaml\Yaml;
 )]
 class DigitalPostEnvelopeListCommand extends Command
 {
-    public function __construct(readonly private DigitalPostEnvelopeRepository $envelopeRepository, readonly private MessageHelper $messageHelper, readonly private UrlGeneratorInterface $urlGenerator)
+    public function __construct(
+        readonly private DigitalPostEnvelopeRepository $envelopeRepository,
+        readonly private DigitalPostEnvelopeHelper $envelopeHelper,
+        readonly private MessageHelper $messageHelper,
+        readonly private UrlGeneratorInterface $urlGenerator)
     {
         parent::__construct(null);
     }
@@ -57,12 +61,9 @@ class DigitalPostEnvelopeListCommand extends Command
                 $envelope->getBeskedfordelerMessages()
             );
 
-            $digitalPost = $envelope->getDigitalPost();
-            $digitalPostUrls = array_map(
-                fn (CaseDocumentRelation $relation) => $this->urlGenerator->generate('digital_post_show', ['id' => $relation->getCase()->getId(), 'digitalPost' => $digitalPost->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
-                $digitalPost->getDocument()->getCaseDocumentRelations()->toArray()
-            );
+            $digitalPostUrls = $this->envelopeHelper->getDigitalPostUrls($envelope);
 
+            $digitalPost = $envelope->getDigitalPost();
             $filenames = array_merge(
                 [$digitalPost->getDocument()->getOriginalFileName()],
                 array_map(
