@@ -263,3 +263,19 @@ services:
                     authority_cvr: '%env(SF1601_AUTHORITY_CVR)%'
                     forsendelses_type_identifikator: '%env(int:SF1601_FORSENDELSES_TYPE_IDENTIFIKATOR)%'
                     test_mode: '%env(bool:SF1601_TEST_MODE)%'
+
+    App\Retry\DigitalPostRetryStrategy:
+        arguments:
+            $options:
+                # T0: Digital post udsendes
+                # T1: 10 sekunder efter T0
+                # T2: 1 minut efter T1
+                # T3: 15 minutter efter T2
+                # T4: 1 time efter T3
+                waiting_times:
+                    # Waiting times in seconds
+                    # Retry number => seconds
+                    - 10 # First retry
+                    - 60
+                    - 900 # 15 minutes (15 * 60 seconds)
+                    - 3600 # 1 hour (60 * 60 seconds)

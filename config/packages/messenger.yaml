@@ -16,6 +16,9 @@ framework:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN_DIGITAL_POST)%'
                 failure_transport: failed_digital_post
 
+                retry_strategy:
+                    service: App\Retry\DigitalPostRetryStrategy
+
             failed_default: '%env(MESSENGER_TRANSPORT_DSN_FAILED)%'
             failed_digital_post: '%env(MESSENGER_TRANSPORT_DSN_FAILED_DIGITAL_POST)%'
 
