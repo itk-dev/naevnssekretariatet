@@ -357,6 +357,46 @@
         <source>Upload an image of your signature.</source>
         <target>Upload an image of your signature.</target>
       </trans-unit>
+      <trans-unit id="akoxbYa" resname="Digital post envelopes">
+        <source>Digital post envelopes</source>
+        <target>Digital post envelopes</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="sxA19uy" resname="Digital post">
+        <source>Digital post</source>
+        <target>Digital post</target>
+      </trans-unit>
+      <trans-unit id="UfrJhel" resname="Recipient">
+        <source>Recipient</source>
+        <target>Recipient</target>
+      </trans-unit>
+      <trans-unit id="PUQzcBC" resname="Created At">
+        <source>Created At</source>
+        <target>Created At</target>
+      </trans-unit>
+      <trans-unit id="41yOT1y" resname="Updated At">
+        <source>Updated At</source>
+        <target>Updated At</target>
+      </trans-unit>
+      <trans-unit id="RZqXnja" resname="Digital post envelope">
+        <source>Digital post envelope</source>
+        <target>Digital post envelope</target>
+      </trans-unit>
+      <trans-unit id="OEOXHc." resname="ID">
+        <source>ID</source>
+        <target>ID</target>
+      </trans-unit>
+      <trans-unit id="veyKGux" resname="Status Message">
+        <source>Status Message</source>
+        <target>Status Message</target>
+      </trans-unit>
+      <trans-unit id="srjWZJp" resname="DigitalPostEnvelope">
+        <source>DigitalPostEnvelope</source>
+        <target>DigitalPostEnvelope</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
