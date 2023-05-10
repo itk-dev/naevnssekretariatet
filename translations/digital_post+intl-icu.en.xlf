@@ -109,6 +109,14 @@
         <source>Digital post failed</source>
         <target>Digital post failed</target>
       </trans-unit>
+      <trans-unit id="DYVf76T" resname="Failed (too many retries)">
+        <source>Failed (too many retries)</source>
+        <target>Failed (too many retries)</target>
+      </trans-unit>
+      <trans-unit id="kJGpLM." resname="Digital post failed after too many retries">
+        <source>Digital post failed after too many retries</source>
+        <target>Digital post failed after too many retries</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
