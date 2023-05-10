@@ -309,22 +309,6 @@
         <source>Edit agenda item</source>
         <target>Edit agenda item</target>
       </trans-unit>
-      <trans-unit id="m3ypDwa" resname="Inspection case">
-        <source>Inspection case</source>
-        <target>Inspection case</target>
-      </trans-unit>
-      <trans-unit id="AZ84Cld" resname="Send message to parties regarding inspection">
-        <source>Send message to parties regarding inspection</source>
-        <target>Send message to parties regarding inspection</target>
-      </trans-unit>
-      <trans-unit id="OI8Dt5w" resname="Create inspection letter">
-        <source>Create inspection letter</source>
-        <target>Create inspection letter</target>
-      </trans-unit>
-      <trans-unit id="0CeFT6c" resname="Inspection letter">
-        <source>Inspection letter</source>
-        <target>Inspection letter</target>
-      </trans-unit>
       <trans-unit id="QISCbyx" resname="Case presentation">
         <source>Case presentation</source>
         <target>Case presentation</target>
@@ -361,17 +345,9 @@
         <source>Back to agenda</source>
         <target>Back to agenda</target>
       </trans-unit>
-      <trans-unit id="vzRWYyS" resname="Choose a title for the inspection letter">
-        <source>Choose a title for the inspection letter</source>
-        <target>Choose a title for the inspection letter</target>
-      </trans-unit>
       <trans-unit id="lSyC1Lx" resname="Choose a title for the broadcast">
         <source>Choose a title for the broadcast</source>
         <target>Choose a title for the broadcast</target>
-      </trans-unit>
-      <trans-unit id="9vRoj.I" resname="Send">
-        <source>Send</source>
-        <target>Send</target>
       </trans-unit>
       <trans-unit id="QSX8nui" resname="Send notice to board members informing them that they now have access to the agenda.">
         <source>Send notice to board members informing them that they now have access to the agenda.</source>
@@ -408,10 +384,6 @@
       <trans-unit id="DfbxytN" resname="Show">
         <source>Show</source>
         <target>Show</target>
-      </trans-unit>
-      <trans-unit id="r7fkVA0" resname="No inspection letters sent">
-        <source>No inspection letters sent</source>
-        <target>No inspection letters sent</target>
       </trans-unit>
       <trans-unit id="yni3tKo" resname="No boardmember notifications">
         <source>No boardmember notifications</source>

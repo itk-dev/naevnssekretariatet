@@ -9,10 +9,6 @@
         <source>Decision</source>
         <target state="translated">Afgørelse</target>
       </trans-unit>
-      <trans-unit id="NxmQBC4" resname="Create decision">
-        <source>Create decision</source>
-        <target state="translated">Opret afgørelse</target>
-      </trans-unit>
       <trans-unit id="d1tb_WR" resname="Created at">
         <source>Created at</source>
         <target state="translated">Oprettet</target>
@@ -32,10 +28,6 @@
       <trans-unit id="wz6dXMN" resname="No decisions">
         <source>No decisions</source>
         <target state="translated">Ingen afgørelser</target>
-      </trans-unit>
-      <trans-unit id="D0O5han" resname="Cannot create decision since case has no party to send it to">
-        <source>Cannot create decision since case has no party to send it to</source>
-        <target state="translated">Kan ikke oprette afgørelse da sag ikke har nogle parter</target>
       </trans-unit>
       <trans-unit id="fX6ypiQ" resname="Decision created">
         <source>Decision created</source>

@@ -81,10 +81,6 @@
         <source>Agenda item</source>
         <target>Agenda item</target>
       </trans-unit>
-      <trans-unit id="bk_hPaS" resname="Inspection">
-        <source>Inspection</source>
-        <target>Inspection</target>
-      </trans-unit>
       <trans-unit id="FfhuJO0" resname="Case">
         <source>Case</source>
         <target>Case</target>

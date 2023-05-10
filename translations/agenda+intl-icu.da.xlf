@@ -261,22 +261,6 @@
         <source>Inspection</source>
         <target>Besigtigelse</target>
       </trans-unit>
-      <trans-unit id="m3ypDwa" resname="Inspection case">
-        <source>Inspection case</source>
-        <target>Besigtigelsessag</target>
-      </trans-unit>
-      <trans-unit id="AZ84Cld" resname="Send message to parties regarding inspection">
-        <source>Send message to parties regarding inspection</source>
-        <target>Send besked vedrørende besigtigelse til parter</target>
-      </trans-unit>
-      <trans-unit id="OI8Dt5w" resname="Create inspection letter">
-        <source>Create inspection letter</source>
-        <target>Opret besigtigelsesbrev</target>
-      </trans-unit>
-      <trans-unit id="0CeFT6c" resname="Inspection letter">
-        <source>Inspection letter</source>
-        <target>Besigtigelsesbrev</target>
-      </trans-unit>
       <trans-unit id="QISCbyx" resname="Case presentation">
         <source>Case presentation</source>
         <target>Sagsfremstilling</target>
@@ -365,10 +349,6 @@
         <source>Choose a title for the broadcast</source>
         <target state="translated">Vælg et navn til publiseringen af dagsordenen</target>
       </trans-unit>
-      <trans-unit id="9vRoj.I" resname="Send">
-        <source>Send</source>
-        <target state="translated">Send</target>
-      </trans-unit>
       <trans-unit id="QSX8nui" resname="Send notice to board members informing them that they now have access to the agenda.">
         <source>Send notice to board members informing them that they now have access to the agenda.</source>
         <target state="translated">Send advisering omkring dagsordenen til tilknyttede nævnsmedlemmer.</target>
@@ -405,10 +385,6 @@
         <source>Show</source>
         <target state="translated">Vis</target>
       </trans-unit>
-      <trans-unit id="r7fkVA0" resname="No inspection letters sent">
-        <source>No inspection letters sent</source>
-        <target state="translated">Ingen besigtigelsesbreve sendt</target>
-      </trans-unit>
       <trans-unit id="yni3tKo" resname="No boardmember notifications">
         <source>No boardmember notifications</source>
         <target state="translated">Ingen publiseringer</target>
@@ -416,10 +392,6 @@
       <trans-unit id="dpAPG.0" resname="Back">
         <source>Back</source>
         <target state="translated">Tilbage</target>
-      </trans-unit>
-      <trans-unit id="vzRWYyS" resname="Choose a title for the inspection letter">
-        <source>Choose a title for the inspection letter</source>
-        <target state="translated">Vælg en titel for besigtigelsesbrev</target>
       </trans-unit>
       <trans-unit id="35AGWK2" resname="Open agenda in browser">
         <source>Open agenda in browser</source>

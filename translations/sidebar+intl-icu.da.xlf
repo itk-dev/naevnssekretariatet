@@ -85,10 +85,6 @@
         <source>Agenda item</source>
         <target>Dagsordenspunkt</target>
       </trans-unit>
-      <trans-unit id="bk_hPaS" resname="Inspection">
-        <source>Inspection</source>
-        <target>Besigtigelse</target>
-      </trans-unit>
       <trans-unit id="ZArkuvl" resname="Decision">
         <source>Decision</source>
         <target state="translated">Afgørelse</target>

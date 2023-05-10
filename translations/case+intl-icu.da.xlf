@@ -805,10 +805,6 @@
         <source>Resume hearing</source>
         <target state="translated">Genoptag høring</target>
       </trans-unit>
-      <trans-unit id="MlTlhEZ" resname="Create response">
-        <source>Create response</source>
-        <target state="translated">Opret høringssvar</target>
-      </trans-unit>
       <trans-unit id="zat0sN2" resname="Start hearing">
         <source>Start hearing</source>
         <target state="translated">Start høring</target>
@@ -1281,14 +1277,6 @@
         <source>Continue</source>
         <target state="translated">Fortsæt</target>
       </trans-unit>
-      <trans-unit id="ZTwHwE1" resname="Case receipt">
-        <source>Case receipt</source>
-        <target state="translated">Kvittering for ny sag</target>
-      </trans-unit>
-      <trans-unit id="VBlJ5OL" resname="Hearing post response receipt">
-        <source>Hearing post response receipt</source>
-        <target state="translated">Kvittering for nyt høringssvar</target>
-      </trans-unit>
       <trans-unit id="f0vzKrx" resname="Open hearing post form">
         <source>Open hearing post form</source>
         <target state="translated">Åbn høringssvarformular</target>
@@ -1372,10 +1360,6 @@
       <trans-unit id="3na35C4" resname="Complaint categories">
         <source>Complaint categories</source>
         <target state="translated">Klagetyper</target>
-      </trans-unit>
-      <trans-unit id="ZRXdL6y" resname="Send receipt">
-        <source>Send receipt</source>
-        <target state="translated">Send kvittering</target>
       </trans-unit>
       <trans-unit id="2tWpaSM" resname="Receipt">
         <source>Receipt</source>

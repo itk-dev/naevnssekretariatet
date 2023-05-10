@@ -325,21 +325,9 @@
         <source>Upload a Word document (docx) to use as a template.</source>
         <target state="translated">Upload et Word-dokument (docx) der skal bruges som skabelon.</target>
       </trans-unit>
-      <trans-unit id="nN_UcHC" resname="Select template to use for sending a receipt to the bringer.">
-        <source>Select template to use for sending a receipt to the bringer.</source>
-        <target state="translated">Vælg skabelon for kvittering til indbringer.</target>
-      </trans-unit>
-      <trans-unit id="XMZPtw0" resname="Select receipt template">
-        <source>Select receipt template</source>
-        <target state="translated">Vælg kvitteringsskabelon</target>
-      </trans-unit>
       <trans-unit id="VWbbSfr" resname="Custom fields">
         <source>Custom fields</source>
         <target state="translated">Brugerdefinerede flettefelter</target>
-      </trans-unit>
-      <trans-unit id="CrVu0l7" resname="Select a template for hearing post response">
-        <source>Select a template for hearing post response</source>
-        <target state="translated">Vælg en skabelon til oprettelse af partshøringssvar</target>
       </trans-unit>
       <trans-unit id="5IJuiio" resname="Hearing post response template">
         <source>Hearing post response template</source>

@@ -9,10 +9,6 @@
         <source>Error</source>
         <target>Fejl</target>
       </trans-unit>
-      <trans-unit id="mqmNLCS" resname="Your inspection letter must have at least one recipient">
-        <source>Your inspection letter must have at least one recipient</source>
-        <target state="translated">Besigtigelsesbreve skal have mindst en modtager</target>
-      </trans-unit>
       <trans-unit id="7F2gCWD" resname="Please upload a valid Word document (docx).">
         <source>Please upload a valid Word document (docx).</source>
         <target state="translated">Upload venligst et gyldigt Word-dokument (docx).</target>
