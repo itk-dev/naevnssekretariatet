@@ -9,10 +9,6 @@
         <source>User settings</source>
         <target>Brugerindstillinger</target>
       </trans-unit>
-      <trans-unit id="SWFhRVF" resname="Log out">
-        <source>Log out</source>
-        <target>Log ud</target>
-      </trans-unit>
       <trans-unit id="fDqfJ.h" resname="New case">
         <source>New case</source>
         <target>Ny sag</target>

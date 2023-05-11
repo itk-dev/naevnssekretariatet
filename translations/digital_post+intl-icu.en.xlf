@@ -37,10 +37,6 @@
         <source>No digital posts</source>
         <target>No digital posts</target>
       </trans-unit>
-      <trans-unit id="0SKFZW_" resname="Back to digital post">
-        <source>Back to digital post</source>
-        <target>Back to digital post</target>
-      </trans-unit>
       <trans-unit id="Y03hFHd" resname="Attachments">
         <source>Attachments</source>
         <target>Attachments</target>
@@ -60,10 +56,6 @@
       <trans-unit id="pXsIpIC" resname="Previous">
         <source>Previous</source>
         <target>Previous</target>
-      </trans-unit>
-      <trans-unit id="0CeFT6c" resname="Inspection letter">
-        <source>Inspection letter</source>
-        <target>Inspection letter</target>
       </trans-unit>
       <trans-unit id="HtGnOKw" resname="Agenda broadcast">
         <source>Agenda broadcast</source>

@@ -169,17 +169,9 @@
         <source>Document types</source>
         <target>Dokumenttyper</target>
       </trans-unit>
-      <trans-unit id="xsCUvAB" resname="Empty">
-        <source>Empty</source>
-        <target>Tom</target>
-      </trans-unit>
       <trans-unit id="0AItL4V" resname="Add to part index">
         <source>Add to part index</source>
         <target>Tilføj til partskartotek</target>
-      </trans-unit>
-      <trans-unit id="jeMLk7v" resname="Hearing response deadline (days)">
-        <source>Hearing response deadline (days)</source>
-        <target>Frist for svar på partshøring (dage)</target>
       </trans-unit>
       <trans-unit id="RoBaH.A" resname="Finish hearing deadline (days)">
         <source>Finish hearing deadline (days)</source>
@@ -204,10 +196,6 @@
       <trans-unit id="suC1YnM" resname="BoardRole">
         <source>BoardRole</source>
         <target>Nævnsroller</target>
-      </trans-unit>
-      <trans-unit id="6bzwwVZ" resname="List of complainant party types (one per line). The first party type can be used for sorting cases.">
-        <source>List of complainant party types (one per line). The first party type can be used for sorting cases.</source>
-        <target>Liste af klagertyper (en pr. linje). Der vil kunne sorteres på den første type på sagslisten.</target>
       </trans-unit>
       <trans-unit id="XVtm1Zq" resname="List of counterparty types (one per line). The first party type can be used for sorting cases.">
         <source>List of counterparty types (one per line). The first party type can be used for sorting cases.</source>
@@ -337,29 +325,9 @@
         <source>Upload a Word document (docx) to use as a template.</source>
         <target state="translated">Upload et Word-dokument (docx) der skal bruges som skabelon.</target>
       </trans-unit>
-      <trans-unit id="nN_UcHC" resname="Select template to use for sending a receipt to the bringer.">
-        <source>Select template to use for sending a receipt to the bringer.</source>
-        <target state="translated">Vælg skabelon for kvittering til indbringer.</target>
-      </trans-unit>
-      <trans-unit id="XMZPtw0" resname="Select receipt template">
-        <source>Select receipt template</source>
-        <target state="translated">Vælg kvitteringsskabelon</target>
-      </trans-unit>
       <trans-unit id="VWbbSfr" resname="Custom fields">
         <source>Custom fields</source>
         <target state="translated">Brugerdefinerede flettefelter</target>
-      </trans-unit>
-      <trans-unit id="k9uhES_" resname="List of custom fields (one per line). Should not contain any spaces.">
-        <source>List of custom fields (one per line). Should not contain any spaces.</source>
-        <target state="translated">Liste af brugerdefinerede flettefelter (en pr. linje). Må ikke indeholde mellemrum.</target>
-      </trans-unit>
-      <trans-unit id="ni8VgZH" resname="List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.">
-        <source>List of custom fields (one per line). Format «name»|«label». Example: full_name|Full name.</source>
-        <target state="translated">Liste af brugerdefinerede flettefelter (en pr. linje). Format «navn»|«label». Eksempel: fulde_navn|Fulde navn.</target>
-      </trans-unit>
-      <trans-unit id="CrVu0l7" resname="Select a template for hearing post response">
-        <source>Select a template for hearing post response</source>
-        <target state="translated">Vælg en skabelon til oprettelse af partshøringssvar</target>
       </trans-unit>
       <trans-unit id="5IJuiio" resname="Hearing post response template">
         <source>Hearing post response template</source>

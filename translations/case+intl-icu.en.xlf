@@ -57,10 +57,6 @@
         <source>Some deadline exceeded</source>
         <target>Some deadline exceeded</target>
       </trans-unit>
-      <trans-unit id="eOHlIKW" resname="Both deadlines exceeded">
-        <source>Both deadlines exceeded</source>
-        <target>Both deadlines exceeded</target>
-      </trans-unit>
       <trans-unit id="en4Z_eY" resname="No exceeded deadlines">
         <source>No exceeded deadlines</source>
         <target>No exceeded deadlines</target>
@@ -105,21 +101,9 @@
         <source>Complainant</source>
         <target>Complainant</target>
       </trans-unit>
-      <trans-unit id="10nq6fg" resname="Complainant address">
-        <source>Complainant address</source>
-        <target>Complainant address</target>
-      </trans-unit>
-      <trans-unit id="xGEOv7m" resname="Look up complainant address">
-        <source>Look up complainant address</source>
-        <target>Look up complainant address</target>
-      </trans-unit>
       <trans-unit id="bpOcnZE" resname="Look up an address to fill out the address fields">
         <source>Look up an address to fill out the address fields</source>
         <target>Look up an address to fill out the address fields</target>
-      </trans-unit>
-      <trans-unit id="sFKfeQz" resname="Complainant cadastral number">
-        <source>Complainant cadastral number</source>
-        <target>Complainant cadastral number</target>
       </trans-unit>
       <trans-unit id="UcF5Wrz" resname="Accused">
         <source>Accused</source>
@@ -141,10 +125,6 @@
         <source>Complaint category</source>
         <target>Complaint category</target>
       </trans-unit>
-      <trans-unit id="Xzo8ESE" resname="Select a complaint category">
-        <source>Select a complaint category</source>
-        <target>Select a complaint category</target>
-      </trans-unit>
       <trans-unit id="l9S_iWB" resname="Conditions">
         <source>Conditions</source>
         <target>Conditions</target>
@@ -152,10 +132,6 @@
       <trans-unit id="TKQdsCg" resname="Claim">
         <source>Claim</source>
         <target>Claim</target>
-      </trans-unit>
-      <trans-unit id="j1Jgg.v" resname="Complainant phone">
-        <source>Complainant phone</source>
-        <target>Complainant phone</target>
       </trans-unit>
       <trans-unit id="kovWgmq" resname="Has vacated">
         <source>Has vacated</source>
@@ -233,14 +209,6 @@
         <source>BBR data updated</source>
         <target>BBR data updated</target>
       </trans-unit>
-      <trans-unit id="ZLjpBRI" resname="Process deadline updated!">
-        <source>Process deadline updated!</source>
-        <target>Process deadline updated!</target>
-      </trans-unit>
-      <trans-unit id="lDAfL6A" resname="Hearing deadline updated!">
-        <source>Hearing deadline updated!</source>
-        <target>Hearing deadline updated!</target>
-      </trans-unit>
       <trans-unit id="bmiw4cB" resname="Address validated">
         <source>Address validated</source>
         <target>Address validated</target>
@@ -305,17 +273,9 @@
         <source>Lease</source>
         <target>Lease</target>
       </trans-unit>
-      <trans-unit id="f6wAbuN" resname="Complainant name">
-        <source>Complainant name</source>
-        <target>Complainant name</target>
-      </trans-unit>
       <trans-unit id="MAUEDTa" resname="Telephone number">
         <source>Telephone number</source>
         <target>Telephone number</target>
-      </trans-unit>
-      <trans-unit id="1gLIib9" resname="Validate CPR number">
-        <source>Validate CPR number</source>
-        <target>Validate CPR number</target>
       </trans-unit>
       <trans-unit id="jzfGRUD" resname="Case specifics">
         <source>Case specifics</source>
@@ -400,10 +360,6 @@
       <trans-unit id="yANxAwL" resname="Function">
         <source>Function</source>
         <target>Function</target>
-      </trans-unit>
-      <trans-unit id="ImnkQgY" resname="List functions">
-        <source>List functions</source>
-        <target>List functions</target>
       </trans-unit>
       <trans-unit id="6kE0Yr5" resname="Edit party">
         <source>Edit party</source>
@@ -533,41 +489,9 @@
         <source>Decision</source>
         <target>Decision</target>
       </trans-unit>
-      <trans-unit id="xFeYYs7" resname="Send decision">
-        <source>Send decision</source>
-        <target>Send decision</target>
-      </trans-unit>
-      <trans-unit id="Kc9JLnb" resname="Select a letter template">
-        <source>Select a letter template</source>
-        <target>Select a letter template</target>
-      </trans-unit>
-      <trans-unit id="5ZiVth6" resname="Use letter templates to create standardized letters">
-        <source>Use letter templates to create standardized letters</source>
-        <target>Use letter templates to create standardized letters</target>
-      </trans-unit>
-      <trans-unit id="n1OzYSt" resname="Select recipient(s)">
-        <source>Select recipient(s)</source>
-        <target>Select recipient(s)</target>
-      </trans-unit>
-      <trans-unit id="PmMrn5P" resname="Select who should recieve the letter">
-        <source>Select who should recieve the letter</source>
-        <target>Select who should recieve the letter</target>
-      </trans-unit>
-      <trans-unit id="mJ94Xuh" resname="Should describe the essence of the letter">
-        <source>Should describe the essence of the letter</source>
-        <target>Should describe the essence of the letter</target>
-      </trans-unit>
       <trans-unit id="Y03hFHd" resname="Attachments">
         <source>Attachments</source>
         <target>Attachments</target>
-      </trans-unit>
-      <trans-unit id="Do.Wbv4" resname="Attatch files to the letter">
-        <source>Attatch files to the letter</source>
-        <target>Attatch files to the letter</target>
-      </trans-unit>
-      <trans-unit id="R70pB1_" resname="Content">
-        <source>Content</source>
-        <target>Content</target>
       </trans-unit>
       <trans-unit id="hAA_WCr" resname="Decision proposal">
         <source>Decision proposal</source>
@@ -645,17 +569,9 @@
         <source>Create new Case</source>
         <target>Create new Case</target>
       </trans-unit>
-      <trans-unit id="uP0XvCB" resname="Create case">
-        <source>Create case</source>
-        <target>Create case</target>
-      </trans-unit>
       <trans-unit id="QISCbyx" resname="Case presentation">
         <source>Case presentation</source>
         <target>Case presentation</target>
-      </trans-unit>
-      <trans-unit id="DiWTxj9" resname="Create representative">
-        <source>Create representative</source>
-        <target>Create representative</target>
       </trans-unit>
       <trans-unit id="4n3Tx2Z" resname="Status info">
         <source>Status info</source>
@@ -680,10 +596,6 @@
       <trans-unit id="b1Hpu29" resname="No entry yet">
         <source>No entry yet</source>
         <target>No entry yet</target>
-      </trans-unit>
-      <trans-unit id="6YB4rkh" resname="Last parts post">
-        <source>Last parts post</source>
-        <target>Last parts post</target>
       </trans-unit>
       <trans-unit id="av9fm0I" resname="Deadlines">
         <source>Deadlines</source>
@@ -873,17 +785,9 @@
         <source>Recipient</source>
         <target>Recipient</target>
       </trans-unit>
-      <trans-unit id="RfS.Er3" resname="Choose documents">
-        <source>Choose documents</source>
-        <target>Choose documents</target>
-      </trans-unit>
       <trans-unit id="CVsT4cX" resname="Attach case documents">
         <source>Attach case documents</source>
         <target>Attach case documents</target>
-      </trans-unit>
-      <trans-unit id="auofo_R" resname="Complainants">
-        <source>Complainants</source>
-        <target>Complainants</target>
       </trans-unit>
       <trans-unit id="Gcp_she" resname="Counterparties">
         <source>Counterparties</source>
@@ -900,26 +804,6 @@
       <trans-unit id="HLpcGqj" resname="Resume hearing">
         <source>Resume hearing</source>
         <target>Resume hearing</target>
-      </trans-unit>
-      <trans-unit id="g1.k8xM" resname="A case must have both a complainant and a counter part before entering the hearing phase.">
-        <source>A case must have both a complainant and a counter part before entering the hearing phase.</source>
-        <target>A case must have both a complainant and a counter part before entering the hearing phase.</target>
-      </trans-unit>
-      <trans-unit id="m2LE75V" resname="Cannot create new post while there is an unforwarded post">
-        <source>Cannot create new post while there is an unforwarded post</source>
-        <target>Cannot create new post while there is an unforwarded post</target>
-      </trans-unit>
-      <trans-unit id="MlTlhEZ" resname="Create response">
-        <source>Create response</source>
-        <target>Create response</target>
-      </trans-unit>
-      <trans-unit id="kNUge99" resname="Cannot end hearing while complainant or counterpart still has something to add">
-        <source>Cannot end hearing while complainant or counterpart still has something to add</source>
-        <target>Cannot end hearing while complainant or counterpart still has something to add</target>
-      </trans-unit>
-      <trans-unit id="o1QAYVY" resname="Cannot end hearing while there exists hearing post that has not been forwarded">
-        <source>Cannot end hearing while there exists hearing post that has not been forwarded</source>
-        <target>Cannot end hearing while there exists hearing post that has not been forwarded</target>
       </trans-unit>
       <trans-unit id="zat0sN2" resname="Start hearing">
         <source>Start hearing</source>
@@ -945,17 +829,9 @@
         <source>Show</source>
         <target>Show</target>
       </trans-unit>
-      <trans-unit id="8cZeFIF" resname="Forward">
-        <source>Forward</source>
-        <target>Forward</target>
-      </trans-unit>
       <trans-unit id="2zeovmz" resname="Hearing has not yet been started.">
         <source>Hearing has not yet been started.</source>
         <target>Hearing has not yet been started.</target>
-      </trans-unit>
-      <trans-unit id="aduvTx7" resname="Create hearing post">
-        <source>Create hearing post</source>
-        <target>Create hearing post</target>
       </trans-unit>
       <trans-unit id="dpAPG.0" resname="Back">
         <source>Back</source>
@@ -973,41 +849,9 @@
         <source>Template</source>
         <target>Template</target>
       </trans-unit>
-      <trans-unit id="yfBvKla" resname="Hearing post content">
-        <source>Hearing post content</source>
-        <target>Hearing post content</target>
-      </trans-unit>
-      <trans-unit id="OAs1gv3" resname="Document name">
-        <source>Document name</source>
-        <target>Document name</target>
-      </trans-unit>
-      <trans-unit id="Hl9Om1x" resname="Uploaded by">
-        <source>Uploaded by</source>
-        <target>Uploaded by</target>
-      </trans-unit>
-      <trans-unit id="rArhFm_" resname="Upload date">
-        <source>Upload date</source>
-        <target>Upload date</target>
-      </trans-unit>
-      <trans-unit id="delC5bN" resname="Functions">
-        <source>Functions</source>
-        <target>Functions</target>
-      </trans-unit>
       <trans-unit id="8qjJAnt" resname="No suitable boards">
         <source>No suitable boards</source>
         <target>No suitable boards</target>
-      </trans-unit>
-      <trans-unit id="KIDnRq6" resname="Complainant has no more to add">
-        <source>Complainant has no more to add</source>
-        <target>Complainant has no more to add</target>
-      </trans-unit>
-      <trans-unit id="vVbaAus" resname="Counterpart has no more to add">
-        <source>Counterpart has no more to add</source>
-        <target>Counterpart has no more to add</target>
-      </trans-unit>
-      <trans-unit id="xwmzKet" resname="Identifier type">
-        <source>Identifier type</source>
-        <target>Identifier type</target>
       </trans-unit>
       <trans-unit id="mxBYf4S" resname="Identifier">
         <source>Identifier</source>
@@ -1081,21 +925,9 @@
         <source>Error validating address ({message})</source>
         <target>Error validating address ({message})</target>
       </trans-unit>
-      <trans-unit id="m34cDS6" resname="Ambiguous address: {address}">
-        <source>Ambiguous address: {address}</source>
-        <target>Ambiguous address: {address}</target>
-      </trans-unit>
       <trans-unit id="cSZdvhV" resname="Invalid address: {address}">
         <source>Invalid address: {address}</source>
         <target>Invalid address: {address}</target>
-      </trans-unit>
-      <trans-unit id="cYDhA4d" resname="Cannot get adgangsadresse for address {address}">
-        <source>Cannot get adgangsadresse for address {address}</source>
-        <target>Cannot get adgangsadresse for address {address}</target>
-      </trans-unit>
-      <trans-unit id=".CHnYIg" resname="Invalid or unknown address: {address}">
-        <source>Invalid or unknown address: {address}</source>
-        <target>Invalid or unknown address: {address}</target>
       </trans-unit>
       <trans-unit id="PKqe.03" resname="Error validating address">
         <source>Error validating address</source>
@@ -1128,10 +960,6 @@
       <trans-unit id="wpn5uFy" resname="Sender">
         <source>Sender</source>
         <target>Sender</target>
-      </trans-unit>
-      <trans-unit id="gILChLs" resname="Choose a document">
-        <source>Choose a document</source>
-        <target>Choose a document</target>
       </trans-unit>
       <trans-unit id="cpEu3W3" resname="Create request">
         <source>Create request</source>
@@ -1193,10 +1021,6 @@
         <source>Identification type</source>
         <target>Identification type</target>
       </trans-unit>
-      <trans-unit id="kfYGsy3" resname="Identification">
-        <source>Identification</source>
-        <target>Identification</target>
-      </trans-unit>
       <trans-unit id="Q2VFI5o" resname="Find information from identifier">
         <source>Find information from identifier</source>
         <target>Find information from identifier</target>
@@ -1224,10 +1048,6 @@
       <trans-unit id="Xoa3cgZ" resname="Identification validated at {validation_time}">
         <source>Identification validated at {validation_time}</source>
         <target>Identification validated at {validation_time}</target>
-      </trans-unit>
-      <trans-unit id="Y1M23kg" resname="CVR not found">
-        <source>CVR not found</source>
-        <target>CVR not found</target>
       </trans-unit>
       <trans-unit id="W1AP7_f" resname="Case data not match CVR data">
         <source>Case data not match CVR data</source>
@@ -1289,10 +1109,6 @@
         <source>Bringer cadastral number</source>
         <target>Bringer cadastral number</target>
       </trans-unit>
-      <trans-unit id="YKAydEk" resname="Party has no more to add">
-        <source>Party has no more to add</source>
-        <target>Party has no more to add</target>
-      </trans-unit>
       <trans-unit id="R5dtr4F" resname="Bringer phone">
         <source>Bringer phone</source>
         <target>Bringer phone</target>
@@ -1305,14 +1121,6 @@
         <source>Bringer name</source>
         <target>Bringer name</target>
       </trans-unit>
-      <trans-unit id="VXVbSna" resname="A case must have both a party and a counter part before entering the hearing phase.">
-        <source>A case must have both a party and a counter part before entering the hearing phase.</source>
-        <target>A case must have both a party and a counter part before entering the hearing phase.</target>
-      </trans-unit>
-      <trans-unit id=".Tvom67" resname="Cannot end hearing while party or counterpart still has something to add">
-        <source>Cannot end hearing while party or counterpart still has something to add</source>
-        <target>Cannot end hearing while party or counterpart still has something to add</target>
-      </trans-unit>
       <trans-unit id="BbxidD6" resname="P-number">
         <source>P-number</source>
         <target>P-number</target>
@@ -1320,18 +1128,6 @@
       <trans-unit id="lVUY_Cv" resname="Is under address protection">
         <source>Is under address protection</source>
         <target>Is under address protection</target>
-      </trans-unit>
-      <trans-unit id="zhnSEJz" resname="Party is under address protection">
-        <source>Party is under address protection</source>
-        <target>Party is under address protection</target>
-      </trans-unit>
-      <trans-unit id="VBPnK3i" resname="Bringer is under address protection">
-        <source>Bringer is under address protection</source>
-        <target>Bringer is under address protection</target>
-      </trans-unit>
-      <trans-unit id="vllbxN9" resname="Accused is under address protection">
-        <source>Accused is under address protection</source>
-        <target>Accused is under address protection</target>
       </trans-unit>
       <trans-unit id="wEC.s8." resname="!Is under address protection!">
         <source>!Is under address protection!</source>
@@ -1481,14 +1277,6 @@
         <source>Continue</source>
         <target>Continue</target>
       </trans-unit>
-      <trans-unit id="ZTwHwE1" resname="Case receipt">
-        <source>Case receipt</source>
-        <target>Case receipt</target>
-      </trans-unit>
-      <trans-unit id="VBlJ5OL" resname="Hearing post response receipt">
-        <source>Hearing post response receipt</source>
-        <target>Hearing post response receipt</target>
-      </trans-unit>
       <trans-unit id="f0vzKrx" resname="Open hearing post form">
         <source>Open hearing post form</source>
         <target>Open hearing post form</target>
@@ -1500,10 +1288,6 @@
       <trans-unit id="kGE4O44" resname="Response">
         <source>Response</source>
         <target>Response</target>
-      </trans-unit>
-      <trans-unit id="YWYJT1R" resname="Hearing post response">
-        <source>Hearing post response</source>
-        <target>Hearing post response</target>
       </trans-unit>
       <trans-unit id="Hdsadcx" resname="Received at">
         <source>Received at</source>
@@ -1577,17 +1361,9 @@
         <source>Complaint categories</source>
         <target>Complaint categories</target>
       </trans-unit>
-      <trans-unit id="ZRXdL6y" resname="Send receipt">
-        <source>Send receipt</source>
-        <target>Send receipt</target>
-      </trans-unit>
       <trans-unit id="2tWpaSM" resname="Receipt">
         <source>Receipt</source>
         <target>Receipt</target>
-      </trans-unit>
-      <trans-unit id=".Z3i94q" resname="A case must contain a party before entering the hearing phase.">
-        <source>A case must contain a party before entering the hearing phase.</source>
-        <target>A case must contain a party before entering the hearing phase.</target>
       </trans-unit>
       <trans-unit id="zcz3NLT" resname="On behalf of">
         <source>On behalf of</source>
