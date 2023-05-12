@@ -1,0 +1,8 @@
+{% set envelope = entity.instance %}
+{% set urls = digital_post_envelope_helper.getDigitalPostUrls(envelope) %}
+{% for url in urls %}
+    {% if not loop.first %}
+        <br/>
+    {% endif %}
+    <a href="{{ url }}">{{ envelope.digitalPost.subject }}</a>
+{% endfor %}

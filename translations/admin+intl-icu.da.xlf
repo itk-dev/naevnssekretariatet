@@ -357,6 +357,46 @@
         <source>Upload an image of your signature.</source>
         <target>Upload et billede af din signatur.</target>
       </trans-unit>
+      <trans-unit id="akoxbYa" resname="Digital post envelopes">
+        <source>Digital post envelopes</source>
+        <target state="translated">Digital post-forsendelser</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target state="translated">Status</target>
+      </trans-unit>
+      <trans-unit id="sxA19uy" resname="Digital post">
+        <source>Digital post</source>
+        <target state="translated">Digital post</target>
+      </trans-unit>
+      <trans-unit id="UfrJhel" resname="Recipient">
+        <source>Recipient</source>
+        <target state="translated">Modtager</target>
+      </trans-unit>
+      <trans-unit id="PUQzcBC" resname="Created At">
+        <source>Created At</source>
+        <target state="translated">Oprettet</target>
+      </trans-unit>
+      <trans-unit id="41yOT1y" resname="Updated At">
+        <source>Updated At</source>
+        <target state="translated">Opdateret</target>
+      </trans-unit>
+      <trans-unit id="RZqXnja" resname="Digital post envelope">
+        <source>Digital post envelope</source>
+        <target state="translated">Digital post-forsendelse</target>
+      </trans-unit>
+      <trans-unit id="OEOXHc." resname="ID">
+        <source>ID</source>
+        <target state="translated">Id</target>
+      </trans-unit>
+      <trans-unit id="veyKGux" resname="Status Message">
+        <source>Status Message</source>
+        <target state="translated">Statusbesked</target>
+      </trans-unit>
+      <trans-unit id="srjWZJp" resname="DigitalPostEnvelope">
+        <source>DigitalPostEnvelope</source>
+        <target state="translated">Digital post-forsendelse</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

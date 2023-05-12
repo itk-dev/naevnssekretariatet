@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-370](https://github.com/itk-dev/naevnssekretariatet/pull/370) Added
+  digital post message transport and tuned retry intervals.
 - Cleaned up translations.
 - [PR-368](https://github.com/itk-dev/naevnssekretariatet/pull/368)
   Added `message-uuid` filter on `tvist1:digital-post-envelope:list` command.

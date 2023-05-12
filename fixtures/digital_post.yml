@@ -101,6 +101,11 @@ App\Entity\DigitalPost\Recipient:
         address: '@test-case-aarhus-1-bringer-address'
 
 App\Entity\DigitalPostEnvelope:
+    digital-post-001/envelope/recipient-001:
+        digitalPost: '@digital-post-001'
+        recipient: '@recipient-001'
+        status: <(App\Entity\DigitalPostEnvelope::STATUS_FAILED_TOO_MANY_RETRIES)>
+
     digital-post-005/envelope/recipient-003:
         digitalPost: '@digital-post-005'
         recipient: '@recipient-003'
