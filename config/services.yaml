@@ -67,6 +67,7 @@ services:
                         label: Hearing
                         entity_class_names:
                             - App\Entity\HearingPost
+                            - App\Entity\HearingRecipient
                     agenda_broadcast:
                         label: Agenda broadcast
                         entity_class_names:
@@ -75,6 +76,10 @@ services:
                         label: Hearing_post_form
                         entity_class_names:
                             - App\Entity\HearingPost
+                    briefing:
+                        label: Briefing regarding hearing template
+                        entity_class_names:
+                            - App\Entity\HearingBriefingRecipient
 
                 upload_destination: '%kernel.project_dir%/upload/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination

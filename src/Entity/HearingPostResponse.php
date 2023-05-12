@@ -29,6 +29,11 @@ class HearingPostResponse extends HearingPost
      */
     private $response;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Document::class)
+     */
+    private $document;
+
     public function getSender(): ?Party
     {
         return $this->sender;
@@ -71,6 +76,18 @@ class HearingPostResponse extends HearingPost
     public function setResponse(?string $response): self
     {
         $this->response = $response;
+
+        return $this;
+    }
+
+    public function getDocument(): ?Document
+    {
+        return $this->document;
+    }
+
+    public function setDocument(?Document $document): self
+    {
+        $this->document = $document;
 
         return $this;
     }

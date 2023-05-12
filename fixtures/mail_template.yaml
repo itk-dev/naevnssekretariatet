@@ -73,3 +73,13 @@ App\Entity\MailTemplate:
       A template using attorney signature.
     # @see \DataFixtures\Faker\Provider\FileUploadProvider
     templateFilename: <uploadFile(mail_template/mail_template_decision_attorney.docx, templateFile, App\Entity\MailTemplate)>
+
+  brief-mail-template-001:
+    type: briefing
+    name: Briefing mail template 001
+    description: |-
+      Bruges til orientering om at noget er sendt til høring hos en part.
+    templateFilename: <uploadFile(mail_template/mail_template_briefing_custom_data_001.docx, templateFile, App\Entity\MailTemplate)>
+    customFields: |-
+        something_important|Some important message
+        something_else_important|Another important but longer message|textarea

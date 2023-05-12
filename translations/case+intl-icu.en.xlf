@@ -1361,10 +1361,6 @@
         <source>Complaint categories</source>
         <target>Complaint categories</target>
       </trans-unit>
-      <trans-unit id="2tWpaSM" resname="Receipt">
-        <source>Receipt</source>
-        <target>Receipt</target>
-      </trans-unit>
       <trans-unit id="zcz3NLT" resname="On behalf of">
         <source>On behalf of</source>
         <target>On behalf of</target>
@@ -1392,6 +1388,42 @@
       <trans-unit id="z57ogPt" resname="Reference number">
         <source>Reference number</source>
         <target>Reference number</target>
+      </trans-unit>
+      <trans-unit id="CFkEv_G" resname="Choose at least one recipient">
+        <source>Choose at least one recipient</source>
+        <target>Choose at least one recipient</target>
+      </trans-unit>
+      <trans-unit id="qRRazVN" resname="You must select at least one recipient">
+        <source>You must select at least one recipient</source>
+        <target>You must select at least one recipient</target>
+      </trans-unit>
+      <trans-unit id="cKi2kS8" resname="Ambiguous">
+        <source>Ambiguous</source>
+        <target>Ambiguous</target>
+      </trans-unit>
+      <trans-unit id="O__OVtB" resname="Send briefing">
+        <source>Send briefing</source>
+        <target>Send briefing</target>
+      </trans-unit>
+      <trans-unit id="U9zpZVW" resname="Hearing briefing created">
+        <source>Hearing briefing created</source>
+        <target>Hearing briefing created</target>
+      </trans-unit>
+      <trans-unit id="qZuAuJt" resname="Create briefing">
+        <source>Create briefing</source>
+        <target>Create briefing</target>
+      </trans-unit>
+      <trans-unit id="q0tVexY" resname="Edit briefing">
+        <source>Edit briefing</source>
+        <target>Edit briefing</target>
+      </trans-unit>
+      <trans-unit id="Uy.a4ko" resname="Briefing">
+        <source>Briefing</source>
+        <target>Briefing</target>
+      </trans-unit>
+      <trans-unit id="EcBV71X" resname="Hearing briefing updated">
+        <source>Hearing briefing updated</source>
+        <target>Hearing briefing updated</target>
       </trans-unit>
     </body>
   </file>

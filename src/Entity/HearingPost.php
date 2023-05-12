@@ -44,11 +44,6 @@ abstract class HearingPost implements LoggableEntityInterface
      */
     private $attachments;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Document::class)
-     */
-    private $document;
-
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -123,17 +118,5 @@ abstract class HearingPost implements LoggableEntityInterface
         foreach ($this->getAttachments() as $attachment) {
             $attachment->setPosition($index++);
         }
-    }
-
-    public function getDocument(): ?Document
-    {
-        return $this->document;
-    }
-
-    public function setDocument(?Document $document): self
-    {
-        $this->document = $document;
-
-        return $this;
     }
 }

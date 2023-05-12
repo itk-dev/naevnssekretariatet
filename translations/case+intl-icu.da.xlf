@@ -1361,10 +1361,6 @@
         <source>Complaint categories</source>
         <target state="translated">Klagetyper</target>
       </trans-unit>
-      <trans-unit id="2tWpaSM" resname="Receipt">
-        <source>Receipt</source>
-        <target state="translated">Kvittering</target>
-      </trans-unit>
       <trans-unit id="zcz3NLT" resname="On behalf of">
         <source>On behalf of</source>
         <target state="translated">Indbragt på vegne af</target>
@@ -1392,6 +1388,42 @@
       <trans-unit id="z57ogPt" resname="Reference number">
         <source>Reference number</source>
         <target state="translated">Referencenummer</target>
+      </trans-unit>
+      <trans-unit id="CFkEv_G" resname="Choose at least one recipient">
+        <source>Choose at least one recipient</source>
+        <target state="translated">Vælg mindst en modtager</target>
+      </trans-unit>
+      <trans-unit id="qRRazVN" resname="You must select at least one recipient">
+        <source>You must select at least one recipient</source>
+        <target state="translated">Der skal vælges mindst en modtager</target>
+      </trans-unit>
+      <trans-unit id="cKi2kS8" resname="Ambiguous">
+        <source>Ambiguous</source>
+        <target state="translated">Flertydigt</target>
+      </trans-unit>
+      <trans-unit id="U9zpZVW" resname="Hearing briefing created">
+        <source>Hearing briefing created</source>
+        <target state="translated">Orientering oprettet</target>
+      </trans-unit>
+      <trans-unit id="qZuAuJt" resname="Create briefing">
+        <source>Create briefing</source>
+        <target state="translated">Opret orientering</target>
+      </trans-unit>
+      <trans-unit id="q0tVexY" resname="Edit briefing">
+        <source>Edit briefing</source>
+        <target state="translated">Rediger orientering</target>
+      </trans-unit>
+      <trans-unit id="Uy.a4ko" resname="Briefing">
+        <source>Briefing</source>
+        <target state="translated">Orientering</target>
+      </trans-unit>
+      <trans-unit id="O__OVtB" resname="Send briefing">
+        <source>Send briefing</source>
+        <target state="translated">Send orientering</target>
+      </trans-unit>
+      <trans-unit id="EcBV71X" resname="Hearing briefing updated">
+        <source>Hearing briefing updated</source>
+        <target state="translated">Orientering opdateret</target>
       </trans-unit>
     </body>
   </file>

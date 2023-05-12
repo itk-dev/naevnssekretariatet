@@ -4,6 +4,7 @@ namespace App\Logging\EntityListener;
 
 use App\Entity\CaseEntity;
 use App\Entity\ComplaintCategory;
+use App\Entity\HearingBriefing;
 use App\Entity\LogEntry;
 use App\Entity\User;
 use App\Logging\ItkDevGetFunctionNotFoundException;
@@ -120,6 +121,10 @@ abstract class AbstractEntityListener
             }
 
             if ($changedValue instanceof PersistentCollection) {
+                continue;
+            }
+
+            if ($changedValue instanceof HearingBriefing) {
                 continue;
             }
 

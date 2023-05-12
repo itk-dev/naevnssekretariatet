@@ -28,4 +28,53 @@ App\Entity\CasePartyRelation:
 App\Entity\Hearing:
   hearing-1:
     caseEntity: '@test-case-aarhus-1'
-#    hearingPosts: ['@hearing-post-1']
+    hearingPosts: ['@hearing-post-request-1', '@hearing-post-response-1', '@hearing-post-request-2']
+    startedOn: <(new \DateTime('yesterday'))>
+
+
+App\Entity\HearingPostRequest:
+    hearing-post-request-1:
+        hearing: '@hearing-1'
+        template: '@mail-template-hearing-001'
+        title: 'Some fancy title'
+        forwardedOn: <(new \DateTime('yesterday'))>
+        createdAt: <(new \DateTime('yesterday'))>
+        shouldSendBriefing: false
+
+    hearing-post-request-2:
+        hearing: '@hearing-1'
+        template: '@mail-template-hearing-001'
+        title: 'Some other fancy title'
+        forwardedOn: <(new \DateTime('today'))>
+        createdAt: <(new \DateTime('today'))>
+        shouldSendBriefing: false
+
+App\Entity\HearingRecipient:
+    hearing-recipient-1:
+        hearingPostRequest: '@hearing-post-request-1'
+        recipient: '@party-1'
+        document: '@document-003'
+        createdAt: <(new \DateTime('yesterday'))>
+
+    hearing-recipient-2:
+        hearingPostRequest: '@hearing-post-request-1'
+        recipient: '@party-2'
+        document: '@document-003'
+        createdAt: <(new \DateTime('yesterday'))>
+
+    hearing-recipient-3:
+        hearingPostRequest: '@hearing-post-request-2'
+        recipient: '@party-3'
+        document: '@document-003'
+        createdAt: <(new \DateTime('today'))>
+
+App\Entity\HearingPostResponse:
+    hearing-post-response-1:
+        sender: '@party-1'
+        document: '@document-004'
+        hearing: '@hearing-1'
+        response: |-
+            First hearing response
+        approvedOn: <(new \DateTime('today'))>
+        createdAt: <(new \DateTime('today'))>
+

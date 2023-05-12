@@ -95,7 +95,7 @@ class SidebarController extends AbstractController
         }
 
         if ($isCaseworker || $isAdministration) {
-            $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing_index', 'case_hearing_start', 'case_hearing_post_request_create', 'case_hearing_post_request_edit', 'case_hearing_post_response_create', 'case_hearing_post_show', 'case_hearing_post_response_edit'], $caseId, $activeRoute);
+            $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing_index', 'case_hearing_start', 'case_hearing_post_request_create', 'case_hearing_post_request_edit', 'case_hearing_post_response_create', 'case_hearing_post_show', 'case_hearing_post_response_edit', 'case_hearing_briefing_show', 'case_hearing_briefing_create', 'case_hearing_briefing_edit'], $caseId, $activeRoute);
             // $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['digital_post_index', 'digital_post_show'], $caseId, $activeRoute);
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Case events', [], 'sidebar'), ['case_event_index', 'case_event_show', 'case_event_create', 'case_event_edit', 'case_event_copy', 'digital_post_show'], $caseId, $activeRoute);
 

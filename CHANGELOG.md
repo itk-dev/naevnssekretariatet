@@ -10,6 +10,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-369](https://github.com/itk-dev/naevnssekretariatet/pull/369)
+  Added logic for briefing parties during hearing
+- [PR-356](https://github.com/itk-dev/naevnssekretariatet/pull/356)
+  Updated hearing data structure to allow multiple recipients
 - [PR-370](https://github.com/itk-dev/naevnssekretariatet/pull/370) Added
   digital post message transport and tuned retry intervals.
 - Cleaned up translations.

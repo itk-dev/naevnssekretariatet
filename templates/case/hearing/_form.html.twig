@@ -3,9 +3,12 @@
 {{ form_start(form) }}
     {% for name, child in form|filter((_, name) => name != 'attachments') %}
         {{ form_row(child) }}
+        {% if name is same as 'recipients' %}
+            {{ form_errors(form) }}
+        {% endif %}
     {% endfor %}
 
-    <div class="attachments">
+    <div class="attachments mb-3">
         {{ form_label(form.attachments) }}
         {# store the prototype on the data-prototype attribute #}
         <ul id="attachment-fields-list"
@@ -30,6 +33,7 @@
             {# twigcs use-var ignore #}
         {% endif %}
     </div>
+    {{ form_rest(form) }}
 
     <button class="btn btn-primary float-end">{{ button_label|default('Save hearing post'|trans) }}</button>
 {{ form_end(form) }}
