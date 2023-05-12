@@ -1,0 +1,30 @@
+{% extends 'layout-with-case-submenu.html.twig' %}
+
+{% trans_default_domain 'case' %}
+
+{% block title %}{{ translated_title|e }}{% endblock %}
+
+{% block header %}
+    <div class="row">
+        <div class="col">
+            <h1>{{ translated_title|e }}</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('case_hearing_briefing_cancel', {case: case.id, hearing: hearing.id, hearingPost: hearing_post_request.id}) }}">{% trans %}Cancel{% endtrans %}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-12 mt-3">
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button class="btn btn-success float-end mt-2">{{ button_label|default('Create'|trans([], 'case', 'da')) }}</button>
+        {{ form_end(form) }}
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('mail_templates_custom_data') }}
+{% endblock %}

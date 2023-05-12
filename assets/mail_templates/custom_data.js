@@ -5,7 +5,8 @@ window.addEventListener('ajaxload', function () {
   const ids = [
     'title',
     'template',
-    'recipient'
+    'recipient',
+    'shouldSendBriefing'
   ]
 
   $template

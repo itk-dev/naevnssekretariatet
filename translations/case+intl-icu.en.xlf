@@ -1633,6 +1633,34 @@
         <source>Ambiguous</source>
         <target>Ambiguous</target>
       </trans-unit>
+      <trans-unit id="O__OVtB" resname="Send briefing">
+        <source>Send briefing</source>
+        <target>Send briefing</target>
+      </trans-unit>
+      <trans-unit id="jsbyzH5" resname="Briefing mail template">
+        <source>Briefing mail template</source>
+        <target>Briefing mail template</target>
+      </trans-unit>
+      <trans-unit id="U9zpZVW" resname="Hearing briefing created">
+        <source>Hearing briefing created</source>
+        <target>Hearing briefing created</target>
+      </trans-unit>
+      <trans-unit id="qZuAuJt" resname="Create briefing">
+        <source>Create briefing</source>
+        <target>Create briefing</target>
+      </trans-unit>
+      <trans-unit id="q0tVexY" resname="Edit briefing">
+        <source>Edit briefing</source>
+        <target>Edit briefing</target>
+      </trans-unit>
+      <trans-unit id="Uy.a4ko" resname="Briefing">
+        <source>Briefing</source>
+        <target>Briefing</target>
+      </trans-unit>
+      <trans-unit id="EcBV71X" resname="Hearing briefing updated">
+        <source>Hearing briefing updated</source>
+        <target>Hearing briefing updated</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

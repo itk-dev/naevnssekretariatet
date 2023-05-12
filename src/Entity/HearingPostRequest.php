@@ -38,6 +38,16 @@ class HearingPostRequest extends HearingPost
      */
     private $hearingRecipients;
 
+    /**
+     * @ORM\OneToOne(targetEntity=HearingBriefing::class, inversedBy="hearingPostRequest", cascade={"persist", "remove"})
+     */
+    private $briefing;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $shouldSendBriefing = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -117,6 +127,30 @@ class HearingPostRequest extends HearingPost
                 $hearingRecipient->setHearingPostRequest(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBriefing(): ?HearingBriefing
+    {
+        return $this->briefing;
+    }
+
+    public function setBriefing(?HearingBriefing $briefing): self
+    {
+        $this->briefing = $briefing;
+
+        return $this;
+    }
+
+    public function shouldSendBriefing(): bool
+    {
+        return $this->shouldSendBriefing;
+    }
+
+    public function setShouldSendBriefing(bool $shouldSendBriefing): self
+    {
+        $this->shouldSendBriefing = $shouldSendBriefing;
 
         return $this;
     }

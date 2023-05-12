@@ -20,6 +20,9 @@ class HearingPostRequestType extends AbstractType
 {
     use TemplateFormTrait;
 
+    public const BRIEFING_PARTIES_YES = 'Yes';
+    public const BRIEFING_PARTIES_NO = 'No';
+
     public function __construct(private TranslatorInterface $translator)
     {
     }
@@ -58,6 +61,15 @@ class HearingPostRequestType extends AbstractType
             'mapped' => false,
             'required' => false,
             'help' => $this->translator->trans('Choose at least one recipient', [], 'case'),
+        ]);
+
+        $builder->add('shouldSendBriefing', ChoiceType::class, [
+            'choices' => [
+                self::BRIEFING_PARTIES_NO => false,
+                self::BRIEFING_PARTIES_YES => true,
+            ],
+            'choice_translation_domain' => 'case',
+            'label' => $this->translator->trans('Send briefing', [], 'case'),
         ]);
 
         $this->addTemplate($builder, $availableTemplateChoices);

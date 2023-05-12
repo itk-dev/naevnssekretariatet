@@ -93,6 +93,10 @@
         <source>Templates that are archived will not appear when choosing mail template.</source>
         <target>Templates that are archived will not appear when choosing mail template.</target>
       </trans-unit>
+      <trans-unit id="rS_nRDG" resname="Briefing regarding hearing template">
+        <source>Briefing regarding hearing template</source>
+        <target>Briefing regarding hearing template</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
