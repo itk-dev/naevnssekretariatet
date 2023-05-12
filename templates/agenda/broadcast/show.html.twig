@@ -21,6 +21,8 @@
     </a>
 {% endmacro %}
 
+{% import 'case/communication/digital_post/_digital_post_envelope.html.twig' as digital_post_envelope %}
+
 {% block content %}
     <div class="col">
         <dl class="row">
@@ -28,7 +30,11 @@
             <dd class="col-sm-9">{{ digital_post.createdAt ? digital_post.createdAt|date(format_datetime) : '–' }}</dd>
 
             <dt class="col-sm-3">{% trans %}Subject{% endtrans %}</dt>
-            <dd class="col-sm-9">{{ digital_post.subject }}</dd>
+            <dd class="col-sm-9">{{ digital_post.subject(true) }}
+                {% if digital_post.subject(true) != digital_post.subject %}
+                    ({{ 'truncated'|trans }})
+                {% endif %}
+            </dd>
 
             {% if digital_post.next %}
                 <dt class="col-sm-3">{% trans %}Next{% endtrans %}</dt>
@@ -48,26 +54,71 @@
                 </dd>
             {% endif %}
 
-            <dt class="col-sm-3">{% trans %}Status{% endtrans %}</dt>
-            <dd class="col-sm-9">{{ digital_post.status ?? '–' }}</dd>
-
-            <dt class="col-sm-3">{% trans %}Sent at{% endtrans %}</dt>
-            <dd class="col-sm-9">{{ digital_post.sentAt ? digital_post.sentAt|date(format_datetime) : '–' }}</dd>
-
             <dt class="col-sm-3">{% trans %}Recipients{% endtrans %}</dt>
-            <dd class="col-sm-9">
-                <ul class="list-unstyled">
-                    {% for recipient in digital_post.recipients %}
-                        <li>{{ recipient.name }} ({{ recipient.identifierType }}: {{ recipient.identifier }}); {{ recipient.address }}</li>
-                    {% endfor %}
-                </ul>
-            </dd>
+
+            {% if digital_post.envelopes is empty %}
+                <dd class="col-sm-9">
+                    <ul class="list-unstyled digital-post-recipients">
+                        {% for recipient in digital_post.recipients %}
+                            <li>
+                                <div class="recipient">
+                                    {{ recipient.name }} ({{ recipient.identifierType }}: {{ recipient.identifier }}); {{ recipient.address }}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+            {% else %}
+                <dd class="col-sm-9">
+                    <ul class="list-group digital-post-recipients digital-post-envelopes">
+                        {% for envelope in digital_post.envelopes %}
+                            {% set recipient = envelope.recipient %}
+                            <li class="list-group-item">
+                                <div class="envelope-status">
+                                    {{ digital_post_envelope.digital_post_envelope_status(envelope, {show_message: true}) }}
+                                </div>
+
+                                <div class="recipient">
+                                    {{ recipient.name }} ({{ recipient.identifierType }}: {{ recipient.identifier }}); {{ recipient.address }}
+                                </div>
+
+                                <div class="envelope-message-details">
+                                    {# Render last beskedfordeler message if any #}
+                                    {% set message = envelope.beskedfordelerMessages|last %}
+                                    {% if message %}
+                                        {% set data = message_helper.beskeddata(message) %}
+                                        {% if data.FejlDetaljer|default() %}
+                                            <details>
+                                                <summary>{{ 'Beskedfordeler message details'|trans }}</summary>
+                                                <pre>{{ data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+                                            </details>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </dd>
+            {% endif %}
 
             <dt class="col-sm-3">{% trans %}Document{% endtrans %}</dt>
             <dd class="col-sm-9">
                 {{ _self.show_document_content_button(agenda, digital_post.document) }}
             </dd>
         </dl>
+
+        {% if not digital_post.attachments is empty %}
+            <dt class="col-sm-3">{% trans %}Attachments{% endtrans %}</dt>
+            <dd class="col-sm-9">
+                <ol class="list-unstyled">
+                    {% for attachment in digital_post.attachments %}
+                        <li>
+                            {{ _self.show_document_content_button(case, attachment.document) }}
+                        </li>
+                    {% endfor %}
+                </ol>
+            </dd>
+        {% endif %}
 
         <iframe name="document-content" style="border: none; width: 100%;" src="about:blank"></iframe>
     </div>

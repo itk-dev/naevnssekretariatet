@@ -28,8 +28,8 @@ class DigitalPostEnvelopeListCommand extends Command
         readonly private DigitalPostEnvelopeRepository $envelopeRepository,
         readonly private DigitalPostEnvelopeHelper $envelopeHelper,
         readonly private MessageHelper $messageHelper,
-        readonly private UrlGeneratorInterface $urlGenerator)
-    {
+        readonly private UrlGeneratorInterface $urlGenerator
+    ) {
         parent::__construct(null);
     }
 
