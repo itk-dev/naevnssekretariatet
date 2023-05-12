@@ -252,7 +252,7 @@ class HearingController extends AbstractController
 
             $this->addFlash('success', new TranslatableMessage('Hearing post request created', [], 'case'));
 
-            if ($hearingPost->getShouldSendBriefing()) {
+            if ($hearingPost->shouldSendBriefing()) {
                 return $this->redirectToRoute('case_hearing_briefing_create', ['case' => $case->getId(), 'hearing' => $hearing->getId(), 'hearingPost' => $hearingPost->getId()]);
             } else {
                 return $this->redirectToRoute('case_hearing_index', ['id' => $case->getId(), 'hearing' => $hearing->getId()]);
@@ -408,7 +408,7 @@ class HearingController extends AbstractController
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Hearing post request updated', [], 'case'));
 
-            if ($hearingPost->getShouldSendBriefing()) {
+            if ($hearingPost->shouldSendBriefing()) {
                 if (null === $briefing) {
                     return $this->redirectToRoute('case_hearing_briefing_create', ['case' => $case->getId(), 'hearing' => $hearingPost->getHearing()->getId(), 'hearingPost' => $hearingPost->getId()]);
                 } else {
@@ -503,7 +503,7 @@ class HearingController extends AbstractController
         }
 
         // Now handle potential briefings.
-        if ($hearingPost->getShouldSendBriefing()) {
+        if ($hearingPost->shouldSendBriefing()) {
             $briefing = $hearingPost->getBriefing();
             if (!$briefing) {
                 throw new HearingException('Attempting to send empty briefing');

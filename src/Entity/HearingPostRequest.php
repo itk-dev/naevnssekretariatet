@@ -143,7 +143,7 @@ class HearingPostRequest extends HearingPost
         return $this;
     }
 
-    public function getShouldSendBriefing(): bool
+    public function shouldSendBriefing(): bool
     {
         return $this->shouldSendBriefing;
     }
