@@ -37,10 +37,6 @@
         <source>No digital posts</source>
         <target>No digital posts</target>
       </trans-unit>
-      <trans-unit id="0SKFZW_" resname="Back to digital post">
-        <source>Back to digital post</source>
-        <target>Back to digital post</target>
-      </trans-unit>
       <trans-unit id="Y03hFHd" resname="Attachments">
         <source>Attachments</source>
         <target>Attachments</target>
@@ -60,10 +56,6 @@
       <trans-unit id="pXsIpIC" resname="Previous">
         <source>Previous</source>
         <target>Previous</target>
-      </trans-unit>
-      <trans-unit id="0CeFT6c" resname="Inspection letter">
-        <source>Inspection letter</source>
-        <target>Inspection letter</target>
       </trans-unit>
       <trans-unit id="HtGnOKw" resname="Agenda broadcast">
         <source>Agenda broadcast</source>
@@ -116,6 +108,14 @@
       <trans-unit id="PYL.vAl" resname="Digital post failed">
         <source>Digital post failed</source>
         <target>Digital post failed</target>
+      </trans-unit>
+      <trans-unit id="DYVf76T" resname="Failed (too many retries)">
+        <source>Failed (too many retries)</source>
+        <target>Failed (too many retries)</target>
+      </trans-unit>
+      <trans-unit id="kJGpLM." resname="Digital post failed after too many retries">
+        <source>Digital post failed after too many retries</source>
+        <target>Digital post failed after too many retries</target>
       </trans-unit>
     </body>
   </file>

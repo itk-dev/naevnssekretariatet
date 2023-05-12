@@ -6,6 +6,7 @@ twig:
         format_time: 'H:i'
         format_datetime: 'd/m/Y H:i'
         format_weekday: 'l'
+        digital_post_envelope_helper: '@App\Service\DigitalPostEnvelopeHelper'
     form_themes: ['bootstrap_5_layout.html.twig', 'form/theme.html.twig']
 
     date:

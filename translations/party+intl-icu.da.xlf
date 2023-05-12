@@ -37,14 +37,6 @@
         <source>Add party</source>
         <target>Tilføj part</target>
       </trans-unit>
-      <trans-unit id="JyaAlOn" resname="Party to add">
-        <source>Party to add</source>
-        <target>Part</target>
-      </trans-unit>
-      <trans-unit id="sqSFiwS" resname="Party type">
-        <source>Party type</source>
-        <target>Type</target>
-      </trans-unit>
       <trans-unit id="2P77Crs" resname="Edit Party">
         <source>Edit Party</source>
         <target>Rediger part</target>
@@ -68,14 +60,6 @@
       <trans-unit id="V0JdMfg" resname="Landlord (administrator)">
         <source>Landlord (administrator)</source>
         <target>Udlejer (administrator)</target>
-      </trans-unit>
-      <trans-unit id="xwmzKet" resname="Identifier type">
-        <source>Identifier type</source>
-        <target state="translated">Id-type</target>
-      </trans-unit>
-      <trans-unit id="mxBYf4S" resname="Identifier">
-        <source>Identifier</source>
-        <target state="translated">Id</target>
       </trans-unit>
       <trans-unit id="z57ogPt" resname="Reference number">
         <source>Reference number</source>

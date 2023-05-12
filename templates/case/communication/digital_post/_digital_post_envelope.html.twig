@@ -19,14 +19,19 @@
             label: 'Failed'|trans([], 'digital_post'),
             level: 'danger',
             message: 'Digital post failed'|trans([], 'digital_post')
-        }
+        },
+        (constant('App\\Entity\\DigitalPostEnvelope::STATUS_FAILED_TOO_MANY_RETRIES')): {
+            label: 'Failed (too many retries)'|trans([], 'digital_post'),
+            level: 'danger',
+            message: 'Digital post failed after too many retries'|trans([], 'digital_post')
+        },
     } %}
     {% set info = digital_post_envelope_info[envelope.status]|default({}) %}
 
     <span class="badge text-bg-{{ info.level|default('dark') }} digital-post-envelope-status">
-        {{ info.label ?: status }}
+        {{ info.label|default(envelope.status) }}
     </span>
     {% if options.show_message|default(false) %}
-        <span class="small digital-post-envelope-status-message">{{ envelope.statusMessage ?? info.message }}</span>
+        <span class="small digital-post-envelope-status-message">{{ envelope.statusMessage|default(info.message|default('')) }}</span>
     {% endif %}
 {% endmacro %}

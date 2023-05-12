@@ -14,6 +14,11 @@ about writing changes to this log.
   Added logic for briefing parties during hearing
 - [PR-356](https://github.com/itk-dev/naevnssekretariatet/pull/356)
   Updated hearing data structure to allow multiple recipients
+- [PR-370](https://github.com/itk-dev/naevnssekretariatet/pull/370) Added
+  digital post message transport and tuned retry intervals.
+- Cleaned up translations.
+- [PR-368](https://github.com/itk-dev/naevnssekretariatet/pull/368)
+  Added `message-uuid` filter on `tvist1:digital-post-envelope:list` command.
 - [PR-367](https://github.com/itk-dev/naevnssekretariatet/pull/367)
   Preselected party relation type upon edit
 - [PR-363](https://github.com/itk-dev/naevnssekretariatet/pull/363)
@@ -26,6 +31,8 @@ about writing changes to this log.
 
 ## [1.4.1] 2023-04-25
 
+- [PR-365](https://github.com/itk-dev/naevnssekretariatet/pull/365)
+  Handled display of broadcast digital post
 - [PR-360](https://github.com/itk-dev/naevnssekretariatet/pull/360)
   Fixed type.
 - [PR-361](https://github.com/itk-dev/naevnssekretariatet/pull/361)

@@ -37,25 +37,9 @@
         <source>Show case</source>
         <target>Vis sag</target>
       </trans-unit>
-      <trans-unit id="ImnkQgY" resname="List functions">
-        <source>List functions</source>
-        <target>Handlinger</target>
-      </trans-unit>
       <trans-unit id="8X9Zsqy" resname="Mark as completed">
         <source>Mark as completed</source>
         <target>Marker som udført</target>
-      </trans-unit>
-      <trans-unit id="a4ayc.8" resname="1">
-        <source>1</source>
-        <target>Afventer</target>
-      </trans-unit>
-      <trans-unit id="1HNeOiZ" resname="2">
-        <source>2</source>
-        <target>Aktiv</target>
-      </trans-unit>
-      <trans-unit id="TgdAhWK" resname="3">
-        <source>3</source>
-        <target>Overskredet</target>
       </trans-unit>
       <trans-unit id="kZ4nGjm" resname="Create reminder">
         <source>Create reminder</source>

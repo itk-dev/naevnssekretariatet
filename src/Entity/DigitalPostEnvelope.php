@@ -22,6 +22,7 @@ class DigitalPostEnvelope
     public const STATUS_SENT = 'sent';
     public const STATUS_DELIVERED = 'delivered';
     public const STATUS_FAILED = 'failed';
+    public const STATUS_FAILED_TOO_MANY_RETRIES = 'failed (too many retries)';
 
     /**
      * @ORM\Id

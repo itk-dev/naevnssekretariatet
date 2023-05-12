@@ -5,10 +5,6 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="6bzwwVZ" resname="List of complainant party types (one per line). The first party type can be used for sorting cases.">
-        <source>List of complainant party types (one per line). The first party type can be used for sorting cases.</source>
-        <target>List of complainant party types (one per line). The first party type can be used for sorting cases.</target>
-      </trans-unit>
       <trans-unit id="XVtm1Zq" resname="List of counterparty types (one per line). The first party type can be used for sorting cases.">
         <source>List of counterparty types (one per line). The first party type can be used for sorting cases.</source>
         <target>List of counterparty types (one per line). The first party type can be used for sorting cases.</target>
@@ -16,10 +12,6 @@
       <trans-unit id="Z7aWRoY" resname="Dashboard">
         <source>Dashboard</source>
         <target>Dashboard</target>
-      </trans-unit>
-      <trans-unit id="xsCUvAB" resname="Empty">
-        <source>Empty</source>
-        <target>Empty</target>
       </trans-unit>
       <trans-unit id="SaPHHYy" resname="Complaint category">
         <source>Complaint category</source>
@@ -333,21 +325,9 @@
         <source>Upload a Word document (docx) to use as a template.</source>
         <target>Upload a Word document (docx) to use as a template.</target>
       </trans-unit>
-      <trans-unit id="nN_UcHC" resname="Select template to use for sending a receipt to the bringer.">
-        <source>Select template to use for sending a receipt to the bringer.</source>
-        <target>Select template to use for sending a receipt to the bringer.</target>
-      </trans-unit>
-      <trans-unit id="XMZPtw0" resname="Select receipt template">
-        <source>Select receipt template</source>
-        <target>Select receipt template</target>
-      </trans-unit>
       <trans-unit id="VWbbSfr" resname="Custom fields">
         <source>Custom fields</source>
         <target>Custom fields</target>
-      </trans-unit>
-      <trans-unit id="CrVu0l7" resname="Select a template for hearing post response">
-        <source>Select a template for hearing post response</source>
-        <target>Select a template for hearing post response</target>
       </trans-unit>
       <trans-unit id="5IJuiio" resname="Hearing post response template">
         <source>Hearing post response template</source>
@@ -373,13 +353,49 @@
         <source>Signature</source>
         <target>Signature</target>
       </trans-unit>
-      <trans-unit id="x5YPG98" resname="Upload an image of your signature ({formats}).">
-        <source>Upload an image of your signature ({formats}).</source>
-        <target>Upload an image of your signature ({formats}).</target>
-      </trans-unit>
       <trans-unit id="2E8CqJ6" resname="Upload an image of your signature.">
         <source>Upload an image of your signature.</source>
         <target>Upload an image of your signature.</target>
+      </trans-unit>
+      <trans-unit id="akoxbYa" resname="Digital post envelopes">
+        <source>Digital post envelopes</source>
+        <target>Digital post envelopes</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="sxA19uy" resname="Digital post">
+        <source>Digital post</source>
+        <target>Digital post</target>
+      </trans-unit>
+      <trans-unit id="UfrJhel" resname="Recipient">
+        <source>Recipient</source>
+        <target>Recipient</target>
+      </trans-unit>
+      <trans-unit id="PUQzcBC" resname="Created At">
+        <source>Created At</source>
+        <target>Created At</target>
+      </trans-unit>
+      <trans-unit id="41yOT1y" resname="Updated At">
+        <source>Updated At</source>
+        <target>Updated At</target>
+      </trans-unit>
+      <trans-unit id="RZqXnja" resname="Digital post envelope">
+        <source>Digital post envelope</source>
+        <target>Digital post envelope</target>
+      </trans-unit>
+      <trans-unit id="OEOXHc." resname="ID">
+        <source>ID</source>
+        <target>ID</target>
+      </trans-unit>
+      <trans-unit id="veyKGux" resname="Status Message">
+        <source>Status Message</source>
+        <target>Status Message</target>
+      </trans-unit>
+      <trans-unit id="srjWZJp" resname="DigitalPostEnvelope">
+        <source>DigitalPostEnvelope</source>
+        <target>DigitalPostEnvelope</target>
       </trans-unit>
     </body>
   </file>
