@@ -1361,10 +1361,6 @@
         <source>Complaint categories</source>
         <target>Complaint categories</target>
       </trans-unit>
-      <trans-unit id="2tWpaSM" resname="Receipt">
-        <source>Receipt</source>
-        <target>Receipt</target>
-      </trans-unit>
       <trans-unit id="zcz3NLT" resname="On behalf of">
         <source>On behalf of</source>
         <target>On behalf of</target>
@@ -1393,10 +1389,6 @@
         <source>Reference number</source>
         <target>Reference number</target>
       </trans-unit>
-      <trans-unit id="tOkp2Lz" resname="Documents">
-        <source>Documents</source>
-        <target>Documents</target>
-      </trans-unit>
       <trans-unit id="CFkEv_G" resname="Choose at least one recipient">
         <source>Choose at least one recipient</source>
         <target>Choose at least one recipient</target>
@@ -1412,10 +1404,6 @@
       <trans-unit id="O__OVtB" resname="Send briefing">
         <source>Send briefing</source>
         <target>Send briefing</target>
-      </trans-unit>
-      <trans-unit id="jsbyzH5" resname="Briefing mail template">
-        <source>Briefing mail template</source>
-        <target>Briefing mail template</target>
       </trans-unit>
       <trans-unit id="U9zpZVW" resname="Hearing briefing created">
         <source>Hearing briefing created</source>
