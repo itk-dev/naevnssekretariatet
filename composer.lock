@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72ac2843bb623840a7f9d0d5f7322aea",
+    "content-hash": "c8bd208e5807e2d31d07413cf59251eb",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2582,16 +2582,16 @@
         },
         {
             "name": "itk-dev/openid-connect",
-            "version": "3.0.0",
+            "version": "dev-feature/authorization-code-flow",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/openid-connect.git",
-                "reference": "c4e40e36cc55dcd6c5b919725171688cf5a327bc"
+                "reference": "e0521d4709429b8e9dbfbc945eda902eda748779"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/openid-connect/zipball/c4e40e36cc55dcd6c5b919725171688cf5a327bc",
-                "reference": "c4e40e36cc55dcd6c5b919725171688cf5a327bc",
+                "url": "https://api.github.com/repos/itk-dev/openid-connect/zipball/e0521d4709429b8e9dbfbc945eda902eda748779",
+                "reference": "e0521d4709429b8e9dbfbc945eda902eda748779",
                 "shasum": ""
             },
             "require": {
@@ -2601,6 +2601,7 @@
                 "league/oauth2-client": "^2.6",
                 "php": "^7.4|^8.0|^8.1",
                 "psr/cache": "^1.0 || ^2.0 || ^3.0",
+                "psr/http-client": "^1.0",
                 "robrichards/xmlseclibs": "^3.1"
             },
             "require-dev": {
@@ -2638,43 +2639,46 @@
             "description": "OpenID connect configuration package",
             "support": {
                 "issues": "https://github.com/itk-dev/openid-connect/issues",
-                "source": "https://github.com/itk-dev/openid-connect/tree/3.0.0"
+                "source": "https://github.com/itk-dev/openid-connect/tree/feature/authorization-code-flow"
             },
-            "time": "2022-01-05T12:11:18+00:00"
+            "time": "2023-05-12T13:37:31+00:00"
         },
         {
             "name": "itk-dev/openid-connect-bundle",
-            "version": "dev-develop",
+            "version": "dev-feature/authorization-code-flow",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/openid-connect-bundle.git",
-                "reference": "5706f7ee285507952d116c757b9ec2fedd9e15dc"
+                "reference": "426e675b3b4e644a3d529d0f1630aff785abe2a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/openid-connect-bundle/zipball/5706f7ee285507952d116c757b9ec2fedd9e15dc",
-                "reference": "5706f7ee285507952d116c757b9ec2fedd9e15dc",
+                "url": "https://api.github.com/repos/itk-dev/openid-connect-bundle/zipball/426e675b3b4e644a3d529d0f1630aff785abe2a6",
+                "reference": "426e675b3b4e644a3d529d0f1630aff785abe2a6",
                 "shasum": ""
             },
             "require": {
                 "doctrine/orm": "^2.8",
                 "ext-json": "*",
                 "ext-openssl": "*",
-                "itk-dev/openid-connect": "^3.0",
-                "php": "^7.4|^8.0",
-                "symfony/cache": "^5.4",
-                "symfony/framework-bundle": "^5.4",
-                "symfony/security-bundle": "^5.4",
-                "symfony/uid": "^5.4",
-                "symfony/yaml": "^5.4"
+                "itk-dev/openid-connect": "dev-feature/authorization-code-flow as 3.0.0",
+                "php": "^8.1",
+                "symfony/cache": "^5.4|^6.0",
+                "symfony/framework-bundle": "^5.4|^6.0",
+                "symfony/security-bundle": "^5.4|^6.0",
+                "symfony/uid": "^5.4|^6.0",
+                "symfony/yaml": "^5.4|^6.0"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+                "ergebnis/composer-normalize": "^2.28",
                 "escapestudios/symfony2-coding-standard": "^3.12",
+                "friendsofphp/php-cs-fixer": "^3.11",
+                "kubawerlos/php-cs-fixer-custom-fixers": "^3.11",
                 "phpunit/phpunit": "^9.5",
-                "vimeo/psalm": "^4.7"
+                "psalm/plugin-symfony": "^5.0",
+                "rector/rector": "^0.14.2",
+                "vimeo/psalm": "^5.0"
             },
-            "default-branch": true,
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
@@ -2698,9 +2702,9 @@
             "description": "Symfony bundle for openid-connect",
             "support": {
                 "issues": "https://github.com/itk-dev/openid-connect-bundle/issues",
-                "source": "https://github.com/itk-dev/openid-connect-bundle/tree/develop"
+                "source": "https://github.com/itk-dev/openid-connect-bundle/tree/feature/authorization-code-flow"
             },
-            "time": "2022-01-10T10:54:13+00:00"
+            "time": "2023-05-15T08:39:18+00:00"
         },
         {
             "name": "itk-dev/serviceplatformen",
@@ -14833,10 +14837,24 @@
             "time": "2015-12-17T08:42:14+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "itk-dev/openid-connect",
+            "version": "dev-feature/authorization-code-flow",
+            "alias": "3.0.0",
+            "alias_normalized": "3.0.0.0"
+        },
+        {
+            "package": "itk-dev/openid-connect-bundle",
+            "version": "dev-feature/authorization-code-flow",
+            "alias": "4.0.0",
+            "alias_normalized": "4.0.0.0"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
         "itk-dev/datafordeler-php-client": 20,
+        "itk-dev/openid-connect": 20,
         "itk-dev/openid-connect-bundle": 20,
         "itk-dev/serviceplatformen": 20
     },
