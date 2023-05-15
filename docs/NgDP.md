@@ -19,7 +19,7 @@ docker compose exec phpfpm bin/console tvist1:digital-post-envelope:list
 Process the digital post send queue with
 
 ```sh
-docker compose exec phpfpm bin/console messenger:consume async -vv
+docker compose exec phpfpm bin/console messenger:consume digital_post -vv
 ```
 
 See [Deploying to
@@ -31,7 +31,7 @@ worker run forever.
 The final `cron` spell may look like
 
 ```sh
-*/5 * * * * docker compose exec phpfpm bin/console messenger:consume async -vv --limit=10 --time-limit=240 > /dev/null 2>&1
+*/5 * * * * docker compose exec phpfpm bin/console messenger:consume digital_post -vv --limit=10 --time-limit=240 > /dev/null 2>&1
 ```
 
 `--time-limit` should depend on `*/5`, i.e. when running the cron task every 5
