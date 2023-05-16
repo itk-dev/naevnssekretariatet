@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-372](https://github.com/itk-dev/naevnssekretariatet/pull/372)
+  - Switched to [Authorization Code Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow)
+  - Added mock OIDC IdPs.
 - [PR-369](https://github.com/itk-dev/naevnssekretariatet/pull/369)
   Added logic for briefing parties during hearing
 - [PR-356](https://github.com/itk-dev/naevnssekretariatet/pull/356)
