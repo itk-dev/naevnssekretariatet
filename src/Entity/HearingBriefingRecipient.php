@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HearingBriefingRecipientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -40,9 +42,15 @@ class HearingBriefingRecipient
      */
     private $document;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Document::class)
+     */
+    private $attachments;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
+        $this->attachments = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -89,5 +97,29 @@ class HearingBriefingRecipient
     public function __toString(): string
     {
         return $this->getRecipient()->getName();
+    }
+
+    /**
+     * @return Collection<int, Document>
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Document $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Document $attachment): self
+    {
+        $this->attachments->removeElement($attachment);
+
+        return $this;
     }
 }

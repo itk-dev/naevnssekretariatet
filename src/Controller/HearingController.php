@@ -514,15 +514,6 @@ class HearingController extends AbstractController
                 throw new HearingException('Could not find any recipients for briefing');
             }
 
-            $briefingAttachments = $briefing->getAttachments();
-            $digitalPostBriefingAttachments = [];
-
-            foreach ($briefingAttachments as $briefingAttachment) {
-                $digitalPostAttachment = new DigitalPostAttachment();
-                $digitalPostAttachment->setDocument($briefingAttachment);
-                $digitalPostBriefingAttachments[] = $digitalPostAttachment;
-            }
-
             foreach ($briefingRecipients as $briefingRecipient) {
                 $digitalPostBriefingRecipient = (new DigitalPost\Recipient())
                     ->setName($briefingRecipient->getRecipient()->getName())
@@ -530,6 +521,15 @@ class HearingController extends AbstractController
                     ->setIdentifier($briefingRecipient->getRecipient()->getIdentification()->getIdentifier())
                     ->setAddress($briefingRecipient->getRecipient()->getAddress())
                 ;
+
+                $briefingAttachments = $briefingRecipient->getAttachments();
+                $digitalPostBriefingAttachments = [];
+
+                foreach ($briefingAttachments as $briefingAttachment) {
+                    $digitalPostAttachment = new DigitalPostAttachment();
+                    $digitalPostAttachment->setDocument($briefingAttachment);
+                    $digitalPostBriefingAttachments[] = $digitalPostAttachment;
+                }
 
                 $clonedBriefingAttachments = array_map(static fn (DigitalPostAttachment $attachment) => (new DigitalPostAttachment())->setDigitalPost($attachment->getDigitalPost())->setDocument($attachment->getDocument()), $digitalPostBriefingAttachments);
 

@@ -34,6 +34,18 @@
                 <dd class="col-sm-9">
                 {{ _self.show_document_content_button(case, briefing_recipient.document) }}
                 </dd>
+                <dt class="col-sm-3">
+                    {% trans %}Attachments{% endtrans %}
+                </dt>
+                <dd class="col-sm-9">
+                    <ol class="list-unstyled">
+                        {% for attachment in briefing_recipient.attachments %}
+                            <li>
+                                {{ _self.show_document_content_button(case, attachment) }}
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </dd>
             {% endfor %}
             <dt class="col-sm-3">
                 {% trans %}Template{% endtrans %}
@@ -52,18 +64,6 @@
                     </dd>
                 {% endfor %}
             {% endif %}
-            <dt class="col-sm-3">
-                {% trans %}Attachments{% endtrans %}
-            </dt>
-            <dd class="col-sm-9">
-                <ol class="list-unstyled">
-                    {% for attachment in briefing.attachments %}
-                        <li>
-                            {{ _self.show_document_content_button(case, attachment) }}
-                        </li>
-                    {% endfor %}
-                </ol>
-            </dd>
         </dl>
         <iframe name="document-content" style="border: none; width: 100%;" src="about:blank"></iframe>
     </div>

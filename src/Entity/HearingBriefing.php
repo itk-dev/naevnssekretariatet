@@ -44,16 +44,10 @@ class HearingBriefing
      */
     private $hearingBriefingRecipients;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Document::class)
-     */
-    private $attachments;
-
     public function __construct()
     {
         $this->id = Uuid::v4();
         $this->hearingBriefingRecipients = new ArrayCollection();
-        $this->attachments = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -133,30 +127,6 @@ class HearingBriefing
                 $hearingBriefingRecipient->setHearingBriefing(null);
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Document>
-     */
-    public function getAttachments(): Collection
-    {
-        return $this->attachments;
-    }
-
-    public function addAttachment(Document $attachment): self
-    {
-        if (!$this->attachments->contains($attachment)) {
-            $this->attachments[] = $attachment;
-        }
-
-        return $this;
-    }
-
-    public function removeAttachment(Document $attachment): self
-    {
-        $this->attachments->removeElement($attachment);
 
         return $this;
     }
