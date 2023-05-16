@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-373](https://github.com/itk-dev/naevnssekretariatet/pull/373)
+  Updated briefing logic to avoid attaching own hearing letter
 - [PR-369](https://github.com/itk-dev/naevnssekretariatet/pull/369)
   Added logic for briefing parties during hearing
 - [PR-356](https://github.com/itk-dev/naevnssekretariatet/pull/356)
