@@ -10,7 +10,6 @@ use ItkDev\OpenIdConnectBundle\Security\OpenIdConfigurationProviderManager;
 use ItkDev\OpenIdConnectBundle\Security\OpenIdLoginAuthenticator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -26,9 +25,9 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
 {
     use TargetPathTrait;
 
-    public function __construct(private EntityManagerInterface $entityManager, private RequestStack $requestStack, private UserRepository $userRepository, private OpenIdConfigurationProviderManager $providerManager, private UrlGeneratorInterface $router, private BoardMemberRepository $boardMemberRepository, private TranslatorInterface $translator)
+    public function __construct(private EntityManagerInterface $entityManager, private UserRepository $userRepository, private OpenIdConfigurationProviderManager $providerManager, private UrlGeneratorInterface $router, private BoardMemberRepository $boardMemberRepository, private TranslatorInterface $translator)
     {
-        parent::__construct($providerManager, $requestStack);
+        parent::__construct($providerManager);
     }
 
     public function authenticate(Request $request): Passport
