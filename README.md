@@ -103,25 +103,77 @@ must be done in order to login via Azure B2C:
 
 ```sh
 ###> itk-dev/openid-connect-bundle ###
-CONFIGURATION_URL=APP_CONFIGURATION_URL
-CLIENT_ID=APP_CLIENT_ID
-CLIENT_SECRET=APP_CLIENT_SECRET
-CALLBACK_URI=APP_CALLBACK_URI
-CLI_REDIRECT=APP_CLI_REDIRECT_URI
-LEEWAY=APP_LEEWAY
+ADMIN_OIDC_METADATA_URL=APP_ADMIN_ADMIN_OIDC_METADATA_URL
+ADMIN_OIDC_CLIENT_ID=APP_ADMIN_CLIENT_ID
+ADMIN_OIDC_CLIENT_SECRET=APP_ADMIN_CLIENT_SECRET
+ADMIN_OIDC_REDIRECT_ROUTE=APP_ADMIN_CLI_REDIRECT_ROUTE
+ADMIN_OIDC_ALLOW_HTTP=false # Set to true if mocking IdP
+
+BOARD_MEMBER_OIDC_METADATA_URL=APP_BOARD_MEMBER_OIDC_METADATA_URL
+BOARD_MEMBER_OIDC_CLIENT_ID=APP_BOARD_MEMBER_OIDC_CLIENT_ID
+BOARD_MEMBER_OIDC_CLIENT_SECRET=APP_BOARD_MEMBER_OIDC_CLIENT_SECRET
+BOARD_MEMBER_OIDC_REDIRECT_ROUTE=APP_BOARD_MEMBER_OIDC_REDIRECT_ROUTE
+BOARD_MEMBER_OIDC_ALLOW_HTTP=false # Set to true if mocking OIDC IdP
+
+LEEWAY=APP_LEEWAY //
 ###< itk-dev/openid-connect-bundle ###
 ```
 
 Example configuration:
 
 ```sh
-CONFIGURATION_URL='https://.../.well-known/openid-configuration...'
-CLIENT_ID={app.client.id}
-CLIENT_SECRET={app.client.secret}
-CALLBACK_URI={app.callback.uri}
-CLI_REDIRECT={app.cli.redirect}
+ADMIN_OIDC_METADATA_URL='https://.../.well-known/openid-configuration...'
+ADMIN_OIDC_CLIENT_ID={app.admin.client.id}
+ADMIN_OIDC_CLIENT_SECRET={app.admin.client.secret}
+ADMIN_OIDC_REDIRECT_ROUTE={app.admin.cli.redirect}
+ADMIN_OIDC_ALLOW_HTTP=false # Set to true if mocking OIDC IdP
+
+BOARD_MEMBER_OIDC_METADATA_URL='https://.../.well-known/openid-configuration...'
+BOARD_MEMBER_OIDC_CLIENT_ID={app.board.client.id}
+BOARD_MEMBER_OIDC_CLIENT_SECRET={app.board.client.secret}
+BOARD_MEMBER_OIDC_REDIRECT_ROUTE={app.board.cli.redirect}
+BOARD_MEMBER_OIDC_ALLOW_HTTP=false # Set to true if mocking OIDC IdP
+
 LEEWAY=10
 ```
+
+#### Mocking OpenID Connect IdP for local development
+
+We use [OpenId Connect Server Mock](https://github.com/Soluto/oidc-server-mock).
+
+**Note**: The following assumes that [the itkdev-docker-compose helper
+script](https://github.com/itk-dev/devops_itkdev-docker#helper-scripts) is used
+for development.
+
+See [`docker-compose.override.yml`](docker-compose.override.yml) for
+the configuration of the mocked IdPs (`idp-admin` and `idp-board-member`).
+
+Simply overwrite the above variables as such
+
+```sh
+ADMIN_OIDC_METADATA_URL='http://idp-admin.naevnssekretariatet.local.itkdev.dk/.well-known/openid-configuration'
+ADMIN_OIDC_CLIENT_ID='client-id'
+ADMIN_OIDC_CLIENT_SECRET='client-secret'
+ADMIN_OIDC_REDIRECT_ROUTE=default
+ADMIN_OIDC_ALLOW_HTTP=true
+
+BOARD_MEMBER_OIDC_METADATA_URL='http://idp-board-member.naevnssekretariatet.local.itkdev.dk/.well-known/openid-configuration'
+BOARD_MEMBER_OIDC_CLIENT_ID='client-id'
+BOARD_MEMBER_OIDC_CLIENT_SECRET='client-secret'
+BOARD_MEMBER_OIDC_REDIRECT_ROUTE=authenticate-board-member
+BOARD_MEMBER_OIDC_ALLOW_HTTP=true
+```
+
+And you should be redirected to the mocked IdP. Here you can
+sign in with the configured users. See `USERS_CONFIGURATION_INLINE` in
+[`docker-compose.override.yml`](docker-compose.override.yml). This is
+also where any modifying of claims and users can be done. Run
+
+```sh
+docker compose up -d
+```
+
+to reload the mock OIDC IdP configuration.
 
 #### CLI login
 

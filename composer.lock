@@ -2649,12 +2649,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/openid-connect-bundle.git",
-                "reference": "426e675b3b4e644a3d529d0f1630aff785abe2a6"
+                "reference": "eacce17c63707b695dfa54bb28470b7774587b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/openid-connect-bundle/zipball/426e675b3b4e644a3d529d0f1630aff785abe2a6",
-                "reference": "426e675b3b4e644a3d529d0f1630aff785abe2a6",
+                "url": "https://api.github.com/repos/itk-dev/openid-connect-bundle/zipball/eacce17c63707b695dfa54bb28470b7774587b93",
+                "reference": "eacce17c63707b695dfa54bb28470b7774587b93",
                 "shasum": ""
             },
             "require": {
@@ -2704,7 +2704,7 @@
                 "issues": "https://github.com/itk-dev/openid-connect-bundle/issues",
                 "source": "https://github.com/itk-dev/openid-connect-bundle/tree/feature/authorization-code-flow"
             },
-            "time": "2023-05-15T08:39:18+00:00"
+            "time": "2023-05-15T13:57:05+00:00"
         },
         {
             "name": "itk-dev/serviceplatformen",
