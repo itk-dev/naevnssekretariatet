@@ -202,7 +202,7 @@ class HearingBriefingController extends AbstractController
             $briefingRecipient->setHearingBriefing($briefing);
 
             foreach ($briefing->getHearingPostRequest()->getHearingRecipients() as $hearingRecipient) {
-                // Do not add the document if current recipient is equal current hearing recipient.
+                // Do not add the document if current recipient is equal to current hearing recipient.
                 if ($recipient->getIdentification()->getIdentifier() === $hearingRecipient->getRecipient()->getIdentification()->getIdentifier()) {
                     continue;
                 }
