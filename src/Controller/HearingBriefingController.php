@@ -68,11 +68,6 @@ class HearingBriefingController extends AbstractController
             // Do something for each chosen recipient.
             $this->createBriefingRecipients($form->get('recipients')->getData()->toArray(), $briefing);
 
-            // TODO: Skal alle udsendte høringsskrivelser medsendes?
-            foreach ($hearingPost->getHearingRecipients() as $hearingRecipient) {
-                $briefing->addAttachment($hearingRecipient->getDocument());
-            }
-
             $this->entityManager->persist($briefing);
             $this->entityManager->flush();
 
@@ -137,11 +132,6 @@ class HearingBriefingController extends AbstractController
 
             // Regeneration
             $this->createBriefingRecipients($form->get('recipients')->getData(), $briefing);
-
-            // TODO: Skal alle udsendte høringsskrivelser medsendes?
-            foreach ($hearingPost->getHearingRecipients() as $hearingRecipient) {
-                $briefing->addAttachment($hearingRecipient->getDocument());
-            }
 
             $this->entityManager->persist($briefing);
             $this->entityManager->flush();
@@ -210,6 +200,15 @@ class HearingBriefingController extends AbstractController
             $briefingRecipient = new HearingBriefingRecipient();
             $briefingRecipient->setRecipient($recipient);
             $briefingRecipient->setHearingBriefing($briefing);
+
+            foreach ($briefing->getHearingPostRequest()->getHearingRecipients() as $hearingRecipient) {
+                // Do not add the document if current recipient is equal to current hearing recipient.
+                if ($recipient->getIdentification()->getIdentifier() === $hearingRecipient->getRecipient()->getIdentification()->getIdentifier()) {
+                    continue;
+                }
+
+                $briefingRecipient->addAttachment($hearingRecipient->getDocument());
+            }
 
             // Create new file from template
             $fileName = $this->mailTemplateHelper->renderMailTemplate($briefing->getTemplate(), $briefingRecipient);
