@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.5.0] 2023-05-22
+
 - [PR-373](https://github.com/itk-dev/naevnssekretariatet/pull/373)
   Updated briefing logic to avoid attaching own hearing letter
 - [PR-369](https://github.com/itk-dev/naevnssekretariatet/pull/369)
@@ -280,7 +282,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.1...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.0...HEAD
+[1.5.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.1...1.5.0
 [1.4.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.2...1.4.0
 [1.3.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.1...1.3.2
