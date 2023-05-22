@@ -10,8 +10,33 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.5.0] 2023-05-22
+
+- [PR-373](https://github.com/itk-dev/naevnssekretariatet/pull/373)
+  Updated briefing logic to avoid attaching own hearing letter
+- [PR-369](https://github.com/itk-dev/naevnssekretariatet/pull/369)
+  Added logic for briefing parties during hearing
+- [PR-356](https://github.com/itk-dev/naevnssekretariatet/pull/356)
+  Updated hearing data structure to allow multiple recipients
+- [PR-370](https://github.com/itk-dev/naevnssekretariatet/pull/370) Added
+  digital post message transport and tuned retry intervals.
+- Cleaned up translations.
+- [PR-368](https://github.com/itk-dev/naevnssekretariatet/pull/368)
+  Added `message-uuid` filter on `tvist1:digital-post-envelope:list` command.
+- [PR-367](https://github.com/itk-dev/naevnssekretariatet/pull/367)
+  Preselected party relation type upon edit
+- [PR-363](https://github.com/itk-dev/naevnssekretariatet/pull/363)
+  Validate party identifier based on identifier type
+- [PR-366](https://github.com/itk-dev/naevnssekretariatet/pull/366)
+  Removed `InspectionLetter` and its logic.
+- [PR-364](https://github.com/itk-dev/naevnssekretariatet/pull/364)
+  Removes button for creating `HearingPostResponse` and `Decision`,
+  and receipt logic.
+
 ## [1.4.1] 2023-04-25
 
+- [PR-365](https://github.com/itk-dev/naevnssekretariatet/pull/365)
+  Handled display of broadcast digital post
 - [PR-360](https://github.com/itk-dev/naevnssekretariatet/pull/360)
   Fixed type.
 - [PR-361](https://github.com/itk-dev/naevnssekretariatet/pull/361)
@@ -257,7 +282,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.1...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.0...HEAD
+[1.5.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.1...1.5.0
 [1.4.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.2...1.4.0
 [1.3.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.3.1...1.3.2

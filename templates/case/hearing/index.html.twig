@@ -20,10 +20,12 @@
                 {% else %}
                     {% if requiresProcessing %}
                         <button class="btn btn-success" disabled title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create request{% endtrans %}</button>
-                        <button class="btn btn-success" disabled title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create response{% endtrans %}</button>
+                        {# TODO: Reintroduce at a later stage #}
+                        {# <button class="btn btn-success" disabled title="{% trans %}Cannot create new post while a response or answer needs processing{% endtrans %}">{% trans %}Create response{% endtrans %}</button> #}
                     {% else %}
                         <a class="btn btn-success" href="{{ path('case_hearing_post_request_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create request{% endtrans %}</a>
-                        <a class="btn btn-success" href="{{ path('case_hearing_post_response_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create response{% endtrans %}</a>
+                        {# TODO: Reintroduce at a later stage #}
+                        {# <a class="btn btn-success" href="{{ path('case_hearing_post_response_create', {case: case.id, hearing: hearing.id}) }}" role="button">{% trans %}Create response{% endtrans %}</a> #}
                     {% endif %}
                     {% if partyHasSomethingToAdd %}
                         <button class="btn btn-danger" disabled title="{% trans %}Cannot end hearing while some side still has something to add{% endtrans %}">{% trans %}End Hearing{% endtrans %}</button>
@@ -111,8 +113,12 @@
                                         </div>
                                         <div class="col-auto ms-auto me-5">
                                             <span class="text-black small ms-3">
-                                                {% if post.recipient is defined %}
-                                                    {% trans %}Recipient{% endtrans %}: {{ post.recipient|e }}
+                                                {% if post.hearingRecipients is defined %}
+                                                    {% if post.hearingRecipients|length > 1 %}
+                                                        {% trans %}Recipients{% endtrans %}: {{ post.hearingRecipients|first.recipient.name }}, ...
+                                                    {% elseif post.hearingRecipients|length == 1 %}
+                                                        {% trans %}Recipient{% endtrans %}: {{ post.hearingRecipients|first.recipient.name }}
+                                                    {% endif %}
                                                 {% endif %}
                                                 {% if post.sender is defined %}
                                                     {% trans %}Sender{% endtrans %}: {{ post.sender|e }}
@@ -127,34 +133,47 @@
                                 <div class="accordion-body d-flex justify-content-between border-bottom">
                                     <div class="row">
                                         <div class="col" aria-label="attachments">
-                                            <p class="text-muted">
-                                                {% trans %}Document{% endtrans %}:
-                                                <a href="{{ url("document_view", {id: case.id, document_id: post.document.id}) }}">{{ post.document.documentName }}</a>
-                                            </p>
-                                            {% if post.sendReceipt is defined %}
+                                            {% if post.hearingRecipients is defined and post.hearingRecipients|length > 0 %}
+                                                <p class="text-muted"> {% trans %}Hearing post{% endtrans %}:</p>
+                                                <div class="row">
+                                                    {% for hearing_recipient in post.hearingRecipients %}
+                                                        <span class="text-muted">
+                                                            {{ hearing_recipient.recipient.name }}:
+                                                            <a href="{{ url("document_view", {id: case.id, document_id: hearing_recipient.document.id}) }}">{{ hearing_recipient.document.documentName }}</a>
+                                                        </span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            {% if post.document is defined and post.document is not null %}
                                                 <p class="text-muted">
-                                                    {% trans %}Receipt{% endtrans %}:
-                                                    {% if post.sendReceipt %}
-                                                        {% trans %}Yes{% endtrans %}
-                                                    {% else %}
-                                                        {% trans %}No{% endtrans %}
-                                                    {% endif %}
+                                                    {% trans %}Document{% endtrans %}:
+                                                    <a href="{{ url("document_view", {id: case.id, document_id: post.document.id}) }}">{{ post.document.documentName }}</a>
                                                 </p>
                                             {% endif %}
                                         </div>
-                                        <div class="col-auto" aria-label="attachments">
-                                            <p class="text-muted">
-                                                {% if post.attachments|length > 0 %}
-                                                    {% trans %}Attachments  {% endtrans %}:
-                                                        {% for attachment in post.attachments %}
-                                                            <a href="{{ url("document_view", {id: case.id, document_id: attachment.document.id}) }}">{{ attachment.document.documentName }}</a>
-                                                            {%- if not loop.last %}
-                                                                ;
-                                                            {% endif %}
-                                                    {%- endfor %}
-                                                {% endif %}
-                                            </p>
-                                        </div>
+                                        {% if post.attachments|length > 0 %}
+                                            <div class="col" aria-label="attachments">
+                                                <p class="text-muted">{% trans %}Attachments{% endtrans %}:</p>
+                                                {% for attachment in post.attachments %}
+                                                    <div class="row">
+                                                        <a href="{{ url("document_view", {id: case.id, document_id: attachment.document.id}) }}">{{ attachment.document.documentName }}</a>
+                                                    </div>
+                                                {%- endfor %}
+                                            </div>
+                                        {% endif %}
+                                        {% if post.briefing is defined and post.briefing is not null %}
+                                            <div class="col">
+                                                <p class="text-muted">{% trans %}Briefing{% endtrans %}:</p>
+                                                <div class="row">
+                                                    {% for briefing_recipient in post.briefing.hearingBriefingRecipients %}
+                                                        <span class="text-muted">
+                                                            {{ briefing_recipient.recipient.name }}:
+                                                            <a href="{{ url("document_view", {id: case.id, document_id: briefing_recipient.document.id}) }}">{{ briefing_recipient.document.documentName }}</a>
+                                                        </span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                     <div class="row">
                                         <div class="col">
@@ -185,7 +204,6 @@
                             </div>
                         </div>
                     {% endfor %}
-
                 {% endif %}
             </div>
         {% else %}

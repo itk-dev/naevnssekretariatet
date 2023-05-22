@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\HearingPostRequestRepository;
 use App\Traits\CustomDataTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -13,13 +15,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class HearingPostRequest extends HearingPost
 {
     use CustomDataTrait;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Party::class)
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"mail_template"})
-     */
-    private $recipient;
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
@@ -38,16 +33,25 @@ class HearingPostRequest extends HearingPost
      */
     private $title;
 
-    public function getRecipient(): ?Party
-    {
-        return $this->recipient;
-    }
+    /**
+     * @ORM\OneToMany(targetEntity=HearingRecipient::class, mappedBy="hearingPostRequest", orphanRemoval=true)
+     */
+    private $hearingRecipients;
 
-    public function setRecipient(Party $recipient): self
-    {
-        $this->recipient = $recipient;
+    /**
+     * @ORM\OneToOne(targetEntity=HearingBriefing::class, inversedBy="hearingPostRequest", cascade={"persist", "remove"})
+     */
+    private $briefing;
 
-        return $this;
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $shouldSendBriefing = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->hearingRecipients = new ArrayCollection();
     }
 
     public function getTemplate(): ?MailTemplate
@@ -90,11 +94,64 @@ class HearingPostRequest extends HearingPost
     {
         return [
             'title',
-            'recipient',
             'template',
             'forwardedOn',
             'document',
             'attachments',
         ];
+    }
+
+    /**
+     * @return Collection<int, HearingRecipient>
+     */
+    public function getHearingRecipients(): Collection
+    {
+        return $this->hearingRecipients;
+    }
+
+    public function addHearingRecipient(HearingRecipient $hearingRecipient): self
+    {
+        if (!$this->hearingRecipients->contains($hearingRecipient)) {
+            $this->hearingRecipients[] = $hearingRecipient;
+            $hearingRecipient->setHearingPostRequest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHearingRecipient(HearingRecipient $hearingRecipient): self
+    {
+        if ($this->hearingRecipients->removeElement($hearingRecipient)) {
+            // set the owning side to null (unless already changed)
+            if ($hearingRecipient->getHearingPostRequest() === $this) {
+                $hearingRecipient->setHearingPostRequest(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getBriefing(): ?HearingBriefing
+    {
+        return $this->briefing;
+    }
+
+    public function setBriefing(?HearingBriefing $briefing): self
+    {
+        $this->briefing = $briefing;
+
+        return $this;
+    }
+
+    public function shouldSendBriefing(): bool
+    {
+        return $this->shouldSendBriefing;
+    }
+
+    public function setShouldSendBriefing(bool $shouldSendBriefing): self
+    {
+        $this->shouldSendBriefing = $shouldSendBriefing;
+
+        return $this;
     }
 }

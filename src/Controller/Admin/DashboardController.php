@@ -7,6 +7,7 @@ use App\Entity\BoardMember;
 use App\Entity\BoardRole;
 use App\Entity\CaseEntity;
 use App\Entity\ComplaintCategory;
+use App\Entity\DigitalPostEnvelope;
 use App\Entity\MailTemplate;
 use App\Entity\MailTemplateMacro;
 use App\Entity\Municipality;
@@ -108,6 +109,12 @@ class DashboardController extends AbstractDashboardController
             ])
         ;
         yield MenuItem::linkToCrud('Deleted cases', '', CaseEntity::class)
+            ->setPermission('ROLE_ADMIN')
+        ;
+        yield MenuItem::linkToCrud('Digital post envelopes', '', DigitalPostEnvelope::class)
+            // Set default filter (cf. https://github.com/EasyCorp/EasyAdminBundle/issues/3941#issuecomment-734297963).
+            ->setQueryParameter('filters[status][comparison]', '=')
+            ->setQueryParameter('filters[status][value]', DigitalPostEnvelope::STATUS_FAILED_TOO_MANY_RETRIES)
             ->setPermission('ROLE_ADMIN')
         ;
         yield MenuItem::linkToCrud('Log', '', LogEntry::class);

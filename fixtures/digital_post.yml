@@ -35,6 +35,12 @@ App\Entity\DigitalPost:
         entityId: '@test-case-aarhus-1->id'
         subject: 'Physical mail (fjernprint)'
 
+    digital-post-hearing:
+        document: '@document-003'
+        entityType: 'App\Entity\HearingPostRequest'
+        entityId: '@hearing-post-request-1->id'
+        subject: 'First hearing request'
+
 App\Entity\DigitalPostAttachment:
     digital-post-attachment-001:
         digitalPost: '@digital-post-001'
@@ -92,7 +98,7 @@ App\Entity\DigitalPost\Recipient:
         identifier: '2611740000'
         address: '@test-case-aarhus-1-bringer-address'
 
-    # Recipient that cannot recipient digital post, but only physical mail ("Fjernprint")
+    # Recipient that cannot receive digital post, but only physical mail ("Fjernprint")
     recipient-fjernprint:
         digitalPost: '@digital-post-fjernprint'
         name: 'FritagetDP'
@@ -101,6 +107,11 @@ App\Entity\DigitalPost\Recipient:
         address: '@test-case-aarhus-1-bringer-address'
 
 App\Entity\DigitalPostEnvelope:
+    digital-post-001/envelope/recipient-001:
+        digitalPost: '@digital-post-001'
+        recipient: '@recipient-001'
+        status: <(App\Entity\DigitalPostEnvelope::STATUS_FAILED_TOO_MANY_RETRIES)>
+
     digital-post-005/envelope/recipient-003:
         digitalPost: '@digital-post-005'
         recipient: '@recipient-003'
@@ -128,3 +139,8 @@ App\Entity\DigitalPostEnvelope:
     digital-post-fjernprint/envelope/recipient-fjernprint:
         digitalPost: '@digital-post-fjernprint'
         recipient: '@recipient-fjernprint'
+
+    digital-post-hearing-001:
+        digitalPost: '@digital-post-hearing'
+        recipient: '@recipient-004'
+        status: <(App\Entity\DigitalPostEnvelope::STATUS_DELIVERED)>

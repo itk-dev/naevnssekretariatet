@@ -8,13 +8,20 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HearingPostRequestType extends AbstractType
 {
     use TemplateFormTrait;
+
+    public const BRIEFING_PARTIES_YES = 'Yes';
+    public const BRIEFING_PARTIES_NO = 'No';
 
     public function __construct(private TranslatorInterface $translator)
     {
@@ -27,6 +34,7 @@ class HearingPostRequestType extends AbstractType
             'case_parties' => null,
             'mail_template_choices' => null,
             'available_case_documents' => null,
+            'preselects' => null,
         ]);
     }
 
@@ -34,6 +42,7 @@ class HearingPostRequestType extends AbstractType
     {
         $caseParties = $options['case_parties'];
         $availableTemplateChoices = $options['mail_template_choices'];
+        $preselects = $options['preselects'];
 
         $builder
             ->add('title', TextType::class, [
@@ -42,15 +51,30 @@ class HearingPostRequestType extends AbstractType
             ])
         ;
 
+        $builder->add('recipients', ChoiceType::class, [
+            'placeholder' => $this->translator->trans('Choose a recipient', [], 'case'),
+            'label' => $this->translator->trans('Recipients', [], 'case'),
+            'choices' => $caseParties,
+            'multiple' => true,
+            'expanded' => true,
+            'data' => $preselects,
+            'mapped' => false,
+            'required' => false,
+            'help' => $this->translator->trans('Choose at least one recipient', [], 'case'),
+        ]);
+
+        $builder->add('shouldSendBriefing', ChoiceType::class, [
+            'choices' => [
+                self::BRIEFING_PARTIES_NO => false,
+                self::BRIEFING_PARTIES_YES => true,
+            ],
+            'choice_translation_domain' => 'case',
+            'label' => $this->translator->trans('Send briefing', [], 'case'),
+        ]);
+
         $this->addTemplate($builder, $availableTemplateChoices);
 
-        $builder
-            ->add('recipient', ChoiceType::class, [
-                'placeholder' => $this->translator->trans('Choose a recipient', [], 'case'),
-                'label' => $this->translator->trans('Recipient', [], 'case'),
-                'choices' => $caseParties,
-            ])
-            ->add('attachments', CollectionType::class, [
+        $builder->add('attachments', CollectionType::class, [
                 'label' => $this->translator->trans('Attach case documents', [], 'case'),
                 'required' => false,
                 'entry_type' => HearingPostAttachmentType::class,
@@ -64,5 +88,14 @@ class HearingPostRequestType extends AbstractType
                 'by_reference' => false,
             ])
         ;
+
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            /** @var Form $form */
+            $form = $event->getForm();
+
+            if (count($form->get('recipients')->getData()) < 1) {
+                $form->get('recipients')->addError(new FormError($this->translator->trans('You must select at least one recipient', [], 'case')));
+            }
+        });
     }
 }

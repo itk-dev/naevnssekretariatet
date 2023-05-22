@@ -5,18 +5,6 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="BXXynfi" resname="Template">
-        <source>Template</source>
-        <target>Template</target>
-      </trans-unit>
-      <trans-unit id="0RVtB8p" resname="Select a template">
-        <source>Select a template</source>
-        <target>Select a template</target>
-      </trans-unit>
-      <trans-unit id="Q3rqYqW" resname="Contents">
-        <source>Contents</source>
-        <target>Contents</target>
-      </trans-unit>
       <trans-unit id="WXAMe6v" resname="Broadcast agenda">
         <source>Broadcast agenda</source>
         <target>Broadcast agenda</target>
@@ -109,21 +97,9 @@
         <source>Presentation</source>
         <target>Presentation</target>
       </trans-unit>
-      <trans-unit id="1xOGbPf" resname="Select recipients">
-        <source>Select recipients</source>
-        <target>Select recipients</target>
-      </trans-unit>
       <trans-unit id="aJcSg4Q" resname="Subject">
         <source>Subject</source>
         <target>Subject</target>
-      </trans-unit>
-      <trans-unit id="IZ8kQJx" resname="Attach document(s)">
-        <source>Attach document(s)</source>
-        <target>Attach document(s)</target>
-      </trans-unit>
-      <trans-unit id="oTm2FLZ" resname="Send inspection letter">
-        <source>Send inspection letter</source>
-        <target>Send inspection letter</target>
       </trans-unit>
       <trans-unit id="jh2Un_v" resname="Show for">
         <source>Show for</source>
@@ -144,14 +120,6 @@
       <trans-unit id="gQdrNoD" resname="Board members">
         <source>Board members</source>
         <target>Board members</target>
-      </trans-unit>
-      <trans-unit id="0bvdoe6" resname="Send notice to board members informing them that they now has access to the agenda.">
-        <source>Send notice to board members informing them that they now has access to the agenda.</source>
-        <target>Send notice to board members informing them that they now has access to the agenda.</target>
-      </trans-unit>
-      <trans-unit id="7UP_NFQ" resname="Agenda must have status: ready, before being able to send notice to board members.">
-        <source>Agenda must have status: ready, before being able to send notice to board members.</source>
-        <target>Agenda must have status: ready, before being able to send notice to board members.</target>
       </trans-unit>
       <trans-unit id=".jGkAV9" resname="Create agenda">
         <source>Create agenda</source>
@@ -193,10 +161,6 @@
         <source>Function</source>
         <target>Function</target>
       </trans-unit>
-      <trans-unit id="ImnkQgY" resname="List functions">
-        <source>List functions</source>
-        <target>List functions</target>
-      </trans-unit>
       <trans-unit id="87gIr9x" resname="Show agenda">
         <source>Show agenda</source>
         <target>Show agenda</target>
@@ -228,10 +192,6 @@
       <trans-unit id="D99IX1v" resname="Agenda">
         <source>Agenda</source>
         <target>Agenda</target>
-      </trans-unit>
-      <trans-unit id="p8Pk0Cg" resname="Publish to boardmembers">
-        <source>Publish to boardmembers</source>
-        <target>Publish to boardmembers</target>
       </trans-unit>
       <trans-unit id="tQJcc1A" resname="Remarks">
         <source>Remarks</source>
@@ -341,10 +301,6 @@
         <source>Attach</source>
         <target>Attach</target>
       </trans-unit>
-      <trans-unit id="FV_BbAQ" resname="Submit">
-        <source>Submit</source>
-        <target>Submit</target>
-      </trans-unit>
       <trans-unit id="0dUuar9" resname="Agenda item">
         <source>Agenda item</source>
         <target>Agenda item</target>
@@ -352,46 +308,6 @@
       <trans-unit id="0Tfukb2" resname="Edit agenda item">
         <source>Edit agenda item</source>
         <target>Edit agenda item</target>
-      </trans-unit>
-      <trans-unit id="m3ypDwa" resname="Inspection case">
-        <source>Inspection case</source>
-        <target>Inspection case</target>
-      </trans-unit>
-      <trans-unit id="AZ84Cld" resname="Send message to parties regarding inspection">
-        <source>Send message to parties regarding inspection</source>
-        <target>Send message to parties regarding inspection</target>
-      </trans-unit>
-      <trans-unit id="OI8Dt5w" resname="Create inspection letter">
-        <source>Create inspection letter</source>
-        <target>Create inspection letter</target>
-      </trans-unit>
-      <trans-unit id="OAd9aCc" resname="Landlord">
-        <source>Landlord</source>
-        <target>Landlord</target>
-      </trans-unit>
-      <trans-unit id="Aksk8Gv" resname="Letter sent">
-        <source>Letter sent</source>
-        <target>Letter sent</target>
-      </trans-unit>
-      <trans-unit id="HoVoqCw" resname="Recipients">
-        <source>Recipients</source>
-        <target>Recipients</target>
-      </trans-unit>
-      <trans-unit id="L3W2Ssk" resname="Choices">
-        <source>Choices</source>
-        <target>Choices</target>
-      </trans-unit>
-      <trans-unit id="ak5D7v9" resname="Show letter">
-        <source>Show letter</source>
-        <target>Show letter</target>
-      </trans-unit>
-      <trans-unit id="4jlp0oT" resname="Tenant">
-        <source>Tenant</source>
-        <target>Tenant</target>
-      </trans-unit>
-      <trans-unit id="0CeFT6c" resname="Inspection letter">
-        <source>Inspection letter</source>
-        <target>Inspection letter</target>
       </trans-unit>
       <trans-unit id="QISCbyx" resname="Case presentation">
         <source>Case presentation</source>
@@ -417,26 +333,6 @@
         <source>Upload documents</source>
         <target>Upload documents</target>
       </trans-unit>
-      <trans-unit id="eA.VRbI" resname="Provide a recognizable name for the document">
-        <source>Provide a recognizable name for the document</source>
-        <target>Provide a recognizable name for the document</target>
-      </trans-unit>
-      <trans-unit id="wgscFcd" resname="Select a document type">
-        <source>Select a document type</source>
-        <target>Select a document type</target>
-      </trans-unit>
-      <trans-unit id="KmdBDvj" resname="Provide a document type">
-        <source>Provide a document type</source>
-        <target>Provide a document type</target>
-      </trans-unit>
-      <trans-unit id="apXUKzK" resname="Chose a file">
-        <source>Chose a file</source>
-        <target>Chose a file</target>
-      </trans-unit>
-      <trans-unit id="p9p3rZy" resname="Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls">
-        <source>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</source>
-        <target>Max file size: 10mb. File formats accepted: .pdf, .txt, .mp4, .jpeg, .png, .doc, .xls</target>
-      </trans-unit>
       <trans-unit id="LqCaMFb" resname="Upload and remove documents">
         <source>Upload and remove documents</source>
         <target>Upload and remove documents</target>
@@ -449,33 +345,9 @@
         <source>Back to agenda</source>
         <target>Back to agenda</target>
       </trans-unit>
-      <trans-unit id="vzRWYyS" resname="Choose a title for the inspection letter">
-        <source>Choose a title for the inspection letter</source>
-        <target>Choose a title for the inspection letter</target>
-      </trans-unit>
       <trans-unit id="lSyC1Lx" resname="Choose a title for the broadcast">
         <source>Choose a title for the broadcast</source>
         <target>Choose a title for the broadcast</target>
-      </trans-unit>
-      <trans-unit id="MpqO824" resname="Choose a template">
-        <source>Choose a template</source>
-        <target>Choose a template</target>
-      </trans-unit>
-      <trans-unit id="GjZq2fp" resname="Mail template">
-        <source>Mail template</source>
-        <target>Mail template</target>
-      </trans-unit>
-      <trans-unit id="1FdZ800" resname="Agenda inspection">
-        <source>Agenda inspection</source>
-        <target>Agenda inspection</target>
-      </trans-unit>
-      <trans-unit id="9vRoj.I" resname="Send">
-        <source>Send</source>
-        <target>Send</target>
-      </trans-unit>
-      <trans-unit id="HtGnOKw" resname="Agenda broadcast">
-        <source>Agenda broadcast</source>
-        <target>Agenda broadcast</target>
       </trans-unit>
       <trans-unit id="QSX8nui" resname="Send notice to board members informing them that they now have access to the agenda.">
         <source>Send notice to board members informing them that they now have access to the agenda.</source>
@@ -512,10 +384,6 @@
       <trans-unit id="DfbxytN" resname="Show">
         <source>Show</source>
         <target>Show</target>
-      </trans-unit>
-      <trans-unit id="r7fkVA0" resname="No inspection letters sent">
-        <source>No inspection letters sent</source>
-        <target>No inspection letters sent</target>
       </trans-unit>
       <trans-unit id="yni3tKo" resname="No boardmember notifications">
         <source>No boardmember notifications</source>

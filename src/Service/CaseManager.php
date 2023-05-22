@@ -220,18 +220,10 @@ class CaseManager implements LoggerAwareInterface
             $digitalPosts = $digitalPostRepository->findBy(['entityId' => $agendaCaseItem]);
 
             foreach ($digitalPosts as $digitalPost) {
-                // Inspection letters cannot have attachments so no need to check for those.
                 foreach ($digitalPost->getRecipients() as $recipient) {
                     $this->entityManager->remove($recipient);
                 }
                 $this->entityManager->remove($digitalPost);
-            }
-
-            foreach ($agendaCaseItem->getInspectionLetters() as $inspectionLetter) {
-                $document = $inspectionLetter->getDocument();
-                $this->entityManager->remove($document);
-
-                $agendaCaseItem->removeInspectionLetter($inspectionLetter);
             }
 
             $this->entityManager->remove($agendaCaseItem);

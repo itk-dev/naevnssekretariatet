@@ -57,13 +57,6 @@ services:
 
             $mailTemplateHelperOptions:
                 template_types:
-                    inspection_letter:
-                        label: Inspection
-                        entity_class_names:
-                            # TODO: Modify when inspection is reintroduced
-                            - App\Entity\ResidentComplaintBoardCase
-                            - App\Entity\FenceReviewCase
-                            - App\Entity\RentBoardCase
                     decision:
                         label: Decision
                         entity_class_names:
@@ -74,32 +67,19 @@ services:
                         label: Hearing
                         entity_class_names:
                             - App\Entity\HearingPost
-                    agenda_inspection:
-                      label: Agenda inspection
-                      entity_class_names:
-                        - App\Entity\InspectionLetter
+                            - App\Entity\HearingRecipient
                     agenda_broadcast:
                         label: Agenda broadcast
                         entity_class_names:
                           - App\Entity\AgendaBroadcast
-                    board_receipt_case:
-                        label: Board receipt (case)
-                        entity_class_names:
-                            - App\Entity\ResidentComplaintBoardCase
-                            - App\Entity\FenceReviewCase
-                            - App\Entity\RentBoardCase
-                    board_receipt_hearing_post:
-                        label: Board receipt (hearing post)
-                        entity_class_names:
-                            - App\Entity\HearingPost
                     hearing_post_form:
                         label: Hearing_post_form
                         entity_class_names:
                             - App\Entity\HearingPost
-                    hearing_post_response_template:
-                        label: Hearing post response template
+                    briefing:
+                        label: Briefing regarding hearing template
                         entity_class_names:
-                            - App\Entity\HearingPostResponse
+                            - App\Entity\HearingBriefingRecipient
 
                 upload_destination: '%kernel.project_dir%/upload/mail-templates'
                 # This value must match vich_uploader.mappings.mail_templates.upload_destination
@@ -288,3 +268,19 @@ services:
                     authority_cvr: '%env(SF1601_AUTHORITY_CVR)%'
                     forsendelses_type_identifikator: '%env(int:SF1601_FORSENDELSES_TYPE_IDENTIFIKATOR)%'
                     test_mode: '%env(bool:SF1601_TEST_MODE)%'
+
+    App\Retry\DigitalPostRetryStrategy:
+        arguments:
+            $options:
+                # T0: Digital post udsendes
+                # T1: 10 sekunder efter T0
+                # T2: 1 minut efter T1
+                # T3: 15 minutter efter T2
+                # T4: 1 time efter T3
+                waiting_times:
+                    # Waiting times in seconds
+                    # Retry number => seconds
+                    - 10 # First retry
+                    - 60
+                    - 900 # 15 minutes (15 * 60 seconds)
+                    - 3600 # 1 hour (60 * 60 seconds)

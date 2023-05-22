@@ -3,16 +3,26 @@ framework:
         # reset services after consuming messages
         reset_on_message: true
 
-        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
-        failure_transport: failed
+        # https://symfony.com/doc/current/messenger.html#multiple-failed-transports
+        failure_transport: failed_default
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
-            async: '%env(MESSENGER_TRANSPORT_DSN)%'
-            failed: '%env(MESSENGER_TRANSPORT_DSN_FAILED)%'
-            # sync: 'sync://'
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                failure_transport: failed_default
+
+            digital_post:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN_DIGITAL_POST)%'
+                failure_transport: failed_digital_post
+
+                retry_strategy:
+                    service: App\Retry\DigitalPostRetryStrategy
+
+            failed_default: '%env(MESSENGER_TRANSPORT_DSN_FAILED)%'
+            failed_digital_post: '%env(MESSENGER_TRANSPORT_DSN_FAILED_DIGITAL_POST)%'
 
         routing:
             # Route your messages to the transports
             'App\Message\NewWebformSubmissionMessage': async
-            'App\Message\DigitalPostMessage': async
+            'App\Message\DigitalPostMessage': digital_post

@@ -6,6 +6,7 @@ use App\Entity\Embeddable\Address;
 use App\Entity\Embeddable\Identification;
 use App\Repository\FenceReviewCaseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FenceReviewCaseRepository::class)
@@ -45,6 +46,7 @@ class FenceReviewCase extends CaseEntity
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
+     * @Assert\Valid()
      */
     private $accusedIdentification;
 

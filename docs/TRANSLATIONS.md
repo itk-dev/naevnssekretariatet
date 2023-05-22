@@ -55,11 +55,7 @@ $translator->trans('No results for {searchTerm}', ['searchTerm' => $search])
 3. Generate/update the translation files:
 
    ```sh
-   # We need a translation from en to en (!) (without prefix) to be able to process placeholders in en.
-   docker compose exec -e DEFAULT_LOCALE=en phpfpm bin/console translation:extract --force en --prefix=''
-   docker compose exec -e DEFAULT_LOCALE=en phpfpm bin/console translation:extract --force da
-   # Mark default translations (prefixed with `__`) as “Needs work” in Danish translations
-   sed -i '' 's/\<target\>__/\<target state="needs-l10n"\>__/' translations/*.da.*xlf
+   docker compose exec phpfpm composer update-translations
    ```
 
 4. Remember to clear the cache after the translations have been updated:

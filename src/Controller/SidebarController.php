@@ -95,7 +95,7 @@ class SidebarController extends AbstractController
         }
 
         if ($isCaseworker || $isAdministration) {
-            $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing_index', 'case_hearing_start', 'case_hearing_post_request_create', 'case_hearing_post_request_edit', 'case_hearing_post_response_create', 'case_hearing_post_show', 'case_hearing_post_response_edit'], $caseId, $activeRoute);
+            $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Hearing', [], 'sidebar'), ['case_hearing_index', 'case_hearing_start', 'case_hearing_post_request_create', 'case_hearing_post_request_edit', 'case_hearing_post_response_create', 'case_hearing_post_show', 'case_hearing_post_response_edit', 'case_hearing_briefing_show', 'case_hearing_briefing_create', 'case_hearing_briefing_edit'], $caseId, $activeRoute);
             // $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Communication', [], 'sidebar'), ['digital_post_index', 'digital_post_show'], $caseId, $activeRoute);
             $submenuItems[] = $this->generateSubmenuItem($this->translator->trans('Case events', [], 'sidebar'), ['case_event_index', 'case_event_show', 'case_event_create', 'case_event_edit', 'case_event_copy', 'digital_post_show'], $caseId, $activeRoute);
 
@@ -136,7 +136,7 @@ class SidebarController extends AbstractController
         ]);
     }
 
-    public function renderAgendaCaseItemSubmenu(UuidV4 $agendaId, UuidV4 $agendaItemId, bool $isInspection, string $activeRoute): Response
+    public function renderAgendaCaseItemSubmenu(UuidV4 $agendaId, UuidV4 $agendaItemId, string $activeRoute): Response
     {
         $submenuItems = [];
 
@@ -152,10 +152,6 @@ class SidebarController extends AbstractController
         // Currently, they do not wish to create case presentation and decision proposal via TVIST1
         // $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Case presentation', [], 'sidebar'), ['agenda_case_item_presentation'], $agendaId, $agendaItemId, $activeRoute),
         // $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Decision proposal', [], 'sidebar'), ['agenda_case_item_decision_proposal'], $agendaId, $agendaItemId, $activeRoute),
-
-        if ($isInspection && ($isCaseworker || $isAdministration)) {
-            $submenuItems[] = $this->generateAgendaItemSubmenuItem($this->translator->trans('Inspection', [], 'sidebar'), ['agenda_case_item_inspection', 'agenda_case_item_inspection_letter', 'agenda_case_item_inspection_letter_create', 'agenda_case_item_inspection_letter_show'], $agendaId, $agendaItemId, $activeRoute);
-        }
 
         return $this->render('sidebar/_submenu.html.twig', [
             'submenu_items' => $submenuItems,

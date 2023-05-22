@@ -101,14 +101,6 @@
         <source>Hearing post updated</source>
         <target>Hearing post updated</target>
       </trans-unit>
-      <trans-unit id="dvHE_Op" resname="Hearing created">
-        <source>Hearing created</source>
-        <target>Hearing created</target>
-      </trans-unit>
-      <trans-unit id="RiZ4M6r" resname="Hearing updated">
-        <source>Hearing updated</source>
-        <target>Hearing updated</target>
-      </trans-unit>
       <trans-unit id="93XR1n2" resname="Document deleted">
         <source>Document deleted</source>
         <target>Document deleted</target>

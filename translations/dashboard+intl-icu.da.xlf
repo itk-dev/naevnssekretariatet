@@ -37,10 +37,6 @@
         <source>Deadline reached</source>
         <target>Tidsfrist udløbet</target>
       </trans-unit>
-      <trans-unit id="LdYqDXZ" resname="Cases opened more than 30 days ago">
-        <source>Cases opened more than 30 days ago</source>
-        <target>Sager der ikke har været åbnet længe</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>

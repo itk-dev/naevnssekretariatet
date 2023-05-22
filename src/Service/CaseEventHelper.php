@@ -18,14 +18,14 @@ class CaseEventHelper
     {
     }
 
-    public function createDigitalPostCaseEvent(CaseEntity $case, DigitalPost $digitalPost, array $recipients)
+    public function createDigitalPostCaseEvent(CaseEntity $case, DigitalPost $digitalPost, string $subject, array $recipients)
     {
         $caseEvent = new CaseEvent();
 
         $caseEvent
             ->addCaseEntity($case)
             ->setCategory(CaseEvent::CATEGORY_OUTGOING)
-            ->setSubject(CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING)
+            ->setSubject($subject)
             ->setReceivedAt(new \DateTimeImmutable())
             ->setCreatedBy($this->security->getUser())
             ->setDigitalPost($digitalPost)

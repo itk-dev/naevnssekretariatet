@@ -171,6 +171,7 @@ abstract class CaseEntity implements Timestampable
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
      * @Groups({"mail_template"})
+     * @Assert\Valid()
      */
     private $bringerIdentification;
 

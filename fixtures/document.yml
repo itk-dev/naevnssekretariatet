@@ -27,6 +27,20 @@ App\Entity\Document:
       filename: <copyFile(document/test1.pdf, upload/documents)>
       uploadedBy: '@user-caseworker'
 
+  document-003:
+      type: '@document-type-4'
+      documentName: The first hearing request
+      # @see \DataFixtures\Faker\Provider\FileUploadProvider
+      filename: <copyFile(document/hearing_request.pdf, upload/documents)>
+      uploadedBy: '@user-caseworker'
+
+  document-004:
+      type: '@document-type-4'
+      documentName: The first hearing response
+      # @see \DataFixtures\Faker\Provider\FileUploadProvider
+      filename: <copyFile(document/hearing_response.pdf, upload/documents)>
+      uploadedBy: '@user-caseworker'
+
 # Relate documents to cases.
 App\Entity\CaseDocumentRelation:
     case-document-relation-001:
@@ -40,3 +54,11 @@ App\Entity\CaseDocumentRelation:
     case-document-relation-attachment-002:
         case: '@test-case-aarhus-1'
         document: '@attachment-002'
+
+    case-document-relation-002:
+        case: '@test-case-aarhus-1'
+        document: '@document-003'
+
+    case-document-relation-003:
+        case: '@test-case-aarhus-1'
+        document: '@document-004'

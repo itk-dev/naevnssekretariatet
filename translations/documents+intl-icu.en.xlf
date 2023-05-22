@@ -13,10 +13,6 @@
         <source>Document type</source>
         <target>Document type</target>
       </trans-unit>
-      <trans-unit id="2ZvNeLW" resname="Upload file">
-        <source>Upload file</source>
-        <target>Upload file</target>
-      </trans-unit>
       <trans-unit id="hl6J3nj" resname="Upload">
         <source>Upload</source>
         <target>Upload</target>
@@ -69,17 +65,9 @@
         <source>Functions</source>
         <target>Functions</target>
       </trans-unit>
-      <trans-unit id="ImnkQgY" resname="List functions">
-        <source>List functions</source>
-        <target>List functions</target>
-      </trans-unit>
       <trans-unit id="MY1S7iA" resname="Copy document to another case">
         <source>Copy document to another case</source>
         <target>Copy document to another case</target>
-      </trans-unit>
-      <trans-unit id="REE8PZe" resname="Are you sure you want to delete this item?">
-        <source>Are you sure you want to delete this item?</source>
-        <target>Are you sure you want to delete this item?</target>
       </trans-unit>
       <trans-unit id="BPbQmqh" resname="Delete document">
         <source>Delete document</source>

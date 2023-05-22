@@ -6,7 +6,6 @@ use App\Entity\CaseEntity;
 use App\Form\Embeddable\AddressLookupType;
 use App\Form\Embeddable\IdentificationType;
 use App\Service\PartyHelper;
-use App\Validator\PartyIdentification;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -52,9 +51,6 @@ class PartyFormType extends AbstractType
             ->add('identification', IdentificationType::class, [
                 'label' => $this->translator->trans('Party', [], 'case'),
                 'is_required' => true,
-                'constraints' => [
-                    new PartyIdentification(),
-                ],
             ])
             ->add('name', TextType::class, [
                 'label' => $this->translator->trans('Name', [], 'party'),
