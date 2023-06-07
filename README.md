@@ -66,7 +66,7 @@ To get a local copy up and running follow these simple steps.
    docker compose run --rm node yarn dev
    ```
 
-   and to watch for for changes run
+   and to watch for changes run
 
    ```sh
    docker compose run --rm node yarn watch

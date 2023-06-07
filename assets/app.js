@@ -7,7 +7,8 @@ import 'select2'
 
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 
-$(document).ready(() => {
+window.addEventListener('load', () => {
+// $(document).ready(() => {
   [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
   window.dispatchEvent(new Event('ajaxload'))
 })
