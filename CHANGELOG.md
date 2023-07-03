@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-375](https://github.com/itk-dev/naevnssekretariatet/pull/375)
+  Use document on load rather than ready.
+
 ## [1.5.0] 2023-05-22
 
 - [PR-373](https://github.com/itk-dev/naevnssekretariatet/pull/373)
