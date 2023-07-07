@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72ac2843bb623840a7f9d0d5f7322aea",
+    "content-hash": "baa7e6fe13812b5903615ff7b280ccb9",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2704,16 +2704,16 @@
         },
         {
             "name": "itk-dev/serviceplatformen",
-            "version": "dev-feature/guzzle7-adapter",
+            "version": "dev-feature/tvist1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "6fba39bed5eb60efd5169633520d128fdabcc557"
+                "reference": "64b46ba62547217758501a2af29de2230d6e4dae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/6fba39bed5eb60efd5169633520d128fdabcc557",
-                "reference": "6fba39bed5eb60efd5169633520d128fdabcc557",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/64b46ba62547217758501a2af29de2230d6e4dae",
+                "reference": "64b46ba62547217758501a2af29de2230d6e4dae",
                 "shasum": ""
             },
             "require": {
@@ -2786,9 +2786,9 @@
             ],
             "support": {
                 "issues": "https://github.com/itk-dev/serviceplatformen/issues",
-                "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/guzzle7-adapter"
+                "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/tvist1"
             },
-            "time": "2023-03-27T11:34:51+00:00"
+            "time": "2023-07-07T10:00:35+00:00"
         },
         {
             "name": "jms/metadata",

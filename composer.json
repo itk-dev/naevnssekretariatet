@@ -37,7 +37,7 @@
         "itk-dev/beskedfordeler-symfony": "^1.0",
         "itk-dev/datafordeler-php-client": "dev-develop",
         "itk-dev/openid-connect-bundle": "dev-develop",
-        "itk-dev/serviceplatformen": "dev-feature/guzzle7-adapter",
+        "itk-dev/serviceplatformen": "dev-feature/tvist1",
         "knplabs/knp-paginator-bundle": "^5.6",
         "league/oauth2-client": "^2.6",
         "lexik/form-filter-bundle": "^7.0",
