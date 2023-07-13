@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-378](https://github.com/itk-dev/naevnssekretariatet/pull/378)
+  Updated BBR meddelelse url.
+
 ## [1.5.1]
 
 - [PR-375](https://github.com/itk-dev/naevnssekretariatet/pull/375)
