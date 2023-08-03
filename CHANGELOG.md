@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-380](https://github.com/itk-dev/naevnssekretariatet/pull/380)
+  Updated `itk-dev/openid-connect-bundle` to use authorization code flow.
+
 ## [1.5.2]
 
 - [PR-378](https://github.com/itk-dev/naevnssekretariatet/pull/378)
