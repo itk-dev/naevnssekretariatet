@@ -15,7 +15,7 @@ about writing changes to this log.
 - [PR-380](https://github.com/itk-dev/naevnssekretariatet/pull/380)
   Added [OpenId Connect Server
   Mock](https://github.com/Soluto/oidc-server-mock) for mocking
-  OIDC-login during development.
+  OIDC IdPs during development.
 
 ## [1.5.2]
 
