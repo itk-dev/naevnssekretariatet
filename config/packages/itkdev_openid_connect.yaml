@@ -10,6 +10,8 @@ itkdev_openid_connect:
         client_id: '%env(ADMIN_OIDC_CLIENT_ID)%'
         client_secret: '%env(ADMIN_OIDC_CLIENT_SECRET)%'
         redirect_route: 'default'
+        allow_http: '%env(bool:ADMIN_OIDC_ALLOW_HTTP)%'
+        leeway: '%env(int:LEEWAY)%'
 
     board-member:
       options:
@@ -17,3 +19,5 @@ itkdev_openid_connect:
         client_id: '%env(BOARD_MEMBER_OIDC_CLIENT_ID)%'
         client_secret: '%env(BOARD_MEMBER_OIDC_CLIENT_SECRET)%'
         redirect_route: 'default'
+        allow_http: '%env(bool:BOARD_MEMBER_OIDC_ALLOW_HTTP)%'
+        leeway: '%env(int:LEEWAY)%'
