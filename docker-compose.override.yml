@@ -32,6 +32,8 @@ services:
     image: ghcr.io/soluto/oidc-server-mock:latest
     # Let this container be accessible both internally and externally on the same domain.
     container_name: idp-admin.${COMPOSE_DOMAIN}
+    profiles:
+      - test
     networks:
       - app
       - frontend
@@ -125,6 +127,8 @@ services:
     image: ghcr.io/soluto/oidc-server-mock:latest
     # Let this container be accessible both internally and externally on the same domain.
     container_name: idp-board-member.${COMPOSE_DOMAIN}
+    profiles:
+      - test
     networks:
       - app
       - frontend
