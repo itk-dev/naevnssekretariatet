@@ -16,8 +16,6 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            $leeway: '%env(LEEWAY)%'
-
             $bbrHelperOptions:
                 datafordeler_api_username: '%env(DATAFORDELER_API_USERNAME)%'
                 datafordeler_api_password: '%env(DATAFORDELER_API_PASSWORD)%'
