@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-382](https://github.com/itk-dev/naevnssekretariatet/pull/382)
+  Added `--digital-post-id` filter on `tvist1:digital-post-envelope:list`.
 - [PR-380](https://github.com/itk-dev/naevnssekretariatet/pull/380)
   Updated `itk-dev/openid-connect-bundle` to use authorization code flow.
 - [PR-380](https://github.com/itk-dev/naevnssekretariatet/pull/380)
