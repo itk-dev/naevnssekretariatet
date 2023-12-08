@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "baa7e6fe13812b5903615ff7b280ccb9",
+    "content-hash": "965283eea0dd3de73c2f534a59b16fb9",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2582,16 +2582,16 @@
         },
         {
             "name": "itk-dev/openid-connect",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/openid-connect.git",
-                "reference": "c4e40e36cc55dcd6c5b919725171688cf5a327bc"
+                "reference": "3d35c63c3bb9bc4424f93135f92973bd20750299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/openid-connect/zipball/c4e40e36cc55dcd6c5b919725171688cf5a327bc",
-                "reference": "c4e40e36cc55dcd6c5b919725171688cf5a327bc",
+                "url": "https://api.github.com/repos/itk-dev/openid-connect/zipball/3d35c63c3bb9bc4424f93135f92973bd20750299",
+                "reference": "3d35c63c3bb9bc4424f93135f92973bd20750299",
                 "shasum": ""
             },
             "require": {
@@ -2599,8 +2599,9 @@
                 "ext-openssl": "*",
                 "firebase/php-jwt": "^5.2",
                 "league/oauth2-client": "^2.6",
-                "php": "^7.4|^8.0|^8.1",
+                "php": "^8.1",
                 "psr/cache": "^1.0 || ^2.0 || ^3.0",
+                "psr/http-client": "^1.0",
                 "robrichards/xmlseclibs": "^3.1"
             },
             "require-dev": {
@@ -2638,43 +2639,46 @@
             "description": "OpenID connect configuration package",
             "support": {
                 "issues": "https://github.com/itk-dev/openid-connect/issues",
-                "source": "https://github.com/itk-dev/openid-connect/tree/3.0.0"
+                "source": "https://github.com/itk-dev/openid-connect/tree/3.1.0"
             },
-            "time": "2022-01-05T12:11:18+00:00"
+            "time": "2023-07-03T13:49:54+00:00"
         },
         {
             "name": "itk-dev/openid-connect-bundle",
-            "version": "dev-develop",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/openid-connect-bundle.git",
-                "reference": "5706f7ee285507952d116c757b9ec2fedd9e15dc"
+                "reference": "8ab0b9ccbe900571f0dd1c9854cd462c991b31e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/openid-connect-bundle/zipball/5706f7ee285507952d116c757b9ec2fedd9e15dc",
-                "reference": "5706f7ee285507952d116c757b9ec2fedd9e15dc",
+                "url": "https://api.github.com/repos/itk-dev/openid-connect-bundle/zipball/8ab0b9ccbe900571f0dd1c9854cd462c991b31e3",
+                "reference": "8ab0b9ccbe900571f0dd1c9854cd462c991b31e3",
                 "shasum": ""
             },
             "require": {
                 "doctrine/orm": "^2.8",
                 "ext-json": "*",
                 "ext-openssl": "*",
-                "itk-dev/openid-connect": "^3.0",
-                "php": "^7.4|^8.0",
-                "symfony/cache": "^5.4",
-                "symfony/framework-bundle": "^5.4",
-                "symfony/security-bundle": "^5.4",
-                "symfony/uid": "^5.4",
-                "symfony/yaml": "^5.4"
+                "itk-dev/openid-connect": "^3.1",
+                "php": "^8.1",
+                "symfony/cache": "^5.4|^6.0",
+                "symfony/framework-bundle": "^5.4|^6.0",
+                "symfony/security-bundle": "^5.4|^6.0",
+                "symfony/uid": "^5.4|^6.0",
+                "symfony/yaml": "^5.4|^6.0"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+                "ergebnis/composer-normalize": "^2.28",
                 "escapestudios/symfony2-coding-standard": "^3.12",
+                "friendsofphp/php-cs-fixer": "^3.11",
+                "kubawerlos/php-cs-fixer-custom-fixers": "^3.11",
                 "phpunit/phpunit": "^9.5",
-                "vimeo/psalm": "^4.7"
+                "psalm/plugin-symfony": "^5.0",
+                "rector/rector": "^0.14.2",
+                "vimeo/psalm": "^5.0"
             },
-            "default-branch": true,
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
@@ -2698,22 +2702,22 @@
             "description": "Symfony bundle for openid-connect",
             "support": {
                 "issues": "https://github.com/itk-dev/openid-connect-bundle/issues",
-                "source": "https://github.com/itk-dev/openid-connect-bundle/tree/develop"
+                "source": "https://github.com/itk-dev/openid-connect-bundle/tree/3.1.0"
             },
-            "time": "2022-01-10T10:54:13+00:00"
+            "time": "2023-08-03T12:08:33+00:00"
         },
         {
             "name": "itk-dev/serviceplatformen",
-            "version": "dev-feature/tvist1",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "64b46ba62547217758501a2af29de2230d6e4dae"
+                "reference": "444e6a290490971fcb8a1ecd2d01fa33f6996d2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/64b46ba62547217758501a2af29de2230d6e4dae",
-                "reference": "64b46ba62547217758501a2af29de2230d6e4dae",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/444e6a290490971fcb8a1ecd2d01fa33f6996d2d",
+                "reference": "444e6a290490971fcb8a1ecd2d01fa33f6996d2d",
                 "shasum": ""
             },
             "require": {
@@ -2728,7 +2732,7 @@
                 "http-interop/http-factory-guzzle": "^1.2",
                 "itk-dev/azure-key-vault-php": "^1.0",
                 "jms/serializer": "^3.18",
-                "php": "^7.4 || ^8.0",
+                "php": "^8.1",
                 "php-http/guzzle7-adapter": "^1.0",
                 "symfony/cache": "^5.4 || ^6.0",
                 "symfony/http-client": "^5.4 || ^6.0",
@@ -2762,9 +2766,11 @@
                     "DigitalPost\\MeMo\\": "lib/DigitalPost/MeMo/",
                     "MotorregisterSkatDk\\": "lib/MotorregisterSkatDk/",
                     "DataGovDk\\Model\\Core\\": "lib/DataGovDk/Model/Core/",
+                    "Digitaliseringskataloget\\": "lib/digitaliseringskataloget",
                     "ItkDev\\Serviceplatformen\\": "src/",
                     "DataGovDk\\Model\\DataTypes\\": "lib/DataGovDk/Model/DataTypes/",
                     "ServicesNsiDk\\En\\Services\\SOR\\": "lib/ServicesNsiDk/En/Services/SOR/",
+                    "ItkDev\\Serviceplatformen\\SF1500\\": "generated-classes/ItkDev/Serviceplatformen/SF1500/",
                     "ItkDev\\Serviceplatformen\\SF1600\\": "generated-classes/ItkDev/Serviceplatformen/SF1600/",
                     "WwwGs1Dk\\Gs1Standarder\\Identifikation\\GlnGlobalLocationNumber\\": "lib/WwwGs1Dk/Gs1Standarder/Identifikation/GlnGlobalLocationNumber/",
                     "WwwDstDk\\Da\\TilSalg\\Forskningsservice\\Dokumentation\\Hoejkvalitetsvariable\\Elevregister2\\Udd\\": "lib/WwwDstDk/Da/TilSalg/Forskningsservice/Dokumentation/Hoejkvalitetsvariable/Elevregister2/Udd/"
@@ -2786,9 +2792,9 @@
             ],
             "support": {
                 "issues": "https://github.com/itk-dev/serviceplatformen/issues",
-                "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/tvist1"
+                "source": "https://github.com/itk-dev/serviceplatformen/tree/1.5.0"
             },
-            "time": "2023-07-07T10:00:35+00:00"
+            "time": "2023-07-10T12:19:26+00:00"
         },
         {
             "name": "jms/metadata",
@@ -14371,16 +14377,16 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v5.4.19",
+            "version": "v5.4.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "3b213e88832612c5eee0f8a9b764897896b23bf0"
+                "reference": "f1428fe4a9977397763e1f63697cc4c24c14e85e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/3b213e88832612c5eee0f8a9b764897896b23bf0",
-                "reference": "3b213e88832612c5eee0f8a9b764897896b23bf0",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/f1428fe4a9977397763e1f63697cc4c24c14e85e",
+                "reference": "f1428fe4a9977397763e1f63697cc4c24c14e85e",
                 "shasum": ""
             },
             "require": {
@@ -14434,7 +14440,7 @@
             "description": "Provides utilities for PHPUnit, especially user deprecation notices management",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/phpunit-bridge/tree/v5.4.19"
+                "source": "https://github.com/symfony/phpunit-bridge/tree/v5.4.33"
             },
             "funding": [
                 {
@@ -14450,7 +14456,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-01T08:32:19+00:00"
+            "time": "2023-12-01T08:55:03+00:00"
         },
         {
             "name": "symfony/web-profiler-bundle",
@@ -14836,9 +14842,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "itk-dev/datafordeler-php-client": 20,
-        "itk-dev/openid-connect-bundle": 20,
-        "itk-dev/serviceplatformen": 20
+        "itk-dev/datafordeler-php-client": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
@@ -14850,5 +14854,5 @@
         "ext-soap": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

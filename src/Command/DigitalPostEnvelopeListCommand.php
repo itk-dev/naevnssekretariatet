@@ -135,12 +135,12 @@ class DigitalPostEnvelopeListCommand extends Command
                 ->setParameter('status', $status)
             ;
         }
-        if ($ids = $input->getOption('digital-post-id')) {
-            $ids = array_map(static fn (string $id) => Uuid::fromString($id)->toBinary(), $ids);
+        if ($digitalPostIds = $input->getOption('digital-post-id')) {
+            $digitalPostIds = array_map(static fn (string $id) => Uuid::fromString($id)->toBinary(), $digitalPostIds);
             $qb
-                ->join('e.digitalPost', 'p')
-                ->andWhere('p.id IN (:digital_post_ids)')
-                ->setParameter('digital_post_ids', $ids)
+                ->join('e.digitalPost', 'p_id')
+                ->andWhere('p_id.id IN (:digitalPostIds)')
+                ->setParameter('digitalPostIds', $digitalPostIds)
             ;
         }
         if ($subject = $input->getOption('digital-post-subject')) {

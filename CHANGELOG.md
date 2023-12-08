@@ -13,6 +13,19 @@ about writing changes to this log.
 - [PR-377](https://github.com/itk-dev/naevnssekretariatet/pull/377)
   Improved `tvist1:digital-post-envelope:list` command and added Digital post
   debug command.
+- [PR-382](https://github.com/itk-dev/naevnssekretariatet/pull/382)
+  Added `--digital-post-id` filter on `tvist1:digital-post-envelope:list`.
+- [PR-380](https://github.com/itk-dev/naevnssekretariatet/pull/380)
+  Updated `itk-dev/openid-connect-bundle` to use authorization code flow.
+- [PR-380](https://github.com/itk-dev/naevnssekretariatet/pull/380)
+  Added [OpenId Connect Server
+  Mock](https://github.com/Soluto/oidc-server-mock) for mocking
+  OIDC IdPs during development.
+
+## [1.5.2]
+
+- [PR-378](https://github.com/itk-dev/naevnssekretariatet/pull/378)
+  Updated BBR meddelelse url.
 
 ## [1.5.1]
 
@@ -291,7 +304,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.1...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.2...HEAD
+[1.5.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.1...1.5.0
 [1.4.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.0...1.4.1
