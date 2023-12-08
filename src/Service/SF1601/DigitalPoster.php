@@ -27,13 +27,7 @@ class DigitalPoster
 
     public function canReceive(string $type, string $identifier): ?bool
     {
-        $options = $this->options['sf1601']
-            + [
-                'certificate_locator' => $this->certificateLocatorHelper->getCertificateLocator(),
-            ];
-        unset($options[ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR]);
-        $service = new SF1601($options);
-
+        $service = $this->getSF1601();
         $transactionId = Serializer::createUuid();
 
         return $service->postForespoerg($transactionId, $type, $identifier);
@@ -80,12 +74,7 @@ class DigitalPoster
             ];
             $forsendelse = $this->forsendelseHelper->createForsendelse($digitalPost, $recipient, $forsendelseOptions);
 
-            $options = $this->options['sf1601']
-                + [
-                    'certificate_locator' => $this->certificateLocatorHelper->getCertificateLocator(),
-                ];
-            unset($options[ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR]);
-            $service = new SF1601($options);
+            $service = $this->getSF1601();
             $transactionId = Serializer::createUuid();
             $response = $service->kombiPostAfsend($transactionId, SF1601::TYPE_AUTOMATISK_VALG, $meMoMessage, $forsendelse);
 
@@ -152,6 +141,20 @@ class DigitalPoster
             // Rethrow exception for proper messenger bus retrying.
             throw $throwable;
         }
+    }
+
+    /**
+     * Get SF1601 instance.
+     */
+    private function getSF1601(): SF1601
+    {
+        $options = $this->options['sf1601']
+        + [
+            'certificate_locator' => $this->certificateLocatorHelper->getCertificateLocator(),
+        ];
+        unset($options[ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR]);
+
+        return new SF1601($options);
     }
 
     private function resolveOptions(array $options): array

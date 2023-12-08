@@ -37,8 +37,8 @@ class DigitalPostEnvelopeListCommand extends Command
     {
         $this
             ->addOption('status', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with this status')
-            ->addOption('digital-post-id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Digital post id')
-            ->addOption('digital-post-subject', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with subject matching this LIKE expression')
+            ->addOption('digital-post-id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Show only envelopes with the digital post id')
+            ->addOption('digital-post-subject', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with digital post subjects matching this LIKE expression')
             ->addOption('max-results', null, InputOption::VALUE_REQUIRED, 'Show at most this many envelopes', 10)
             ->addOption('id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Envelope id')
             ->addOption('message-uuid', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Messaged uuid')

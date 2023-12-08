@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-377](https://github.com/itk-dev/naevnssekretariatet/pull/377)
+  Improved `tvist1:digital-post-envelope:list` command and added Digital post
+  debug command.
 - [PR-382](https://github.com/itk-dev/naevnssekretariatet/pull/382)
   Added `--digital-post-id` filter on `tvist1:digital-post-envelope:list`.
 - [PR-380](https://github.com/itk-dev/naevnssekretariatet/pull/380)
