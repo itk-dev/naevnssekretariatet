@@ -158,10 +158,9 @@ class BBRHelper implements LoggerAwareInterface
 
         $bbrData = $this->getBBRData($address);
         $ejendomsrelation = $bbrData->getData()['ejendomsrelation'] ?? null;
-        if (isset($ejendomsrelation[0]['kommunekode'], $ejendomsrelation[0]['ejendomsnummer'])) {
-            return 'https://bbr.dk/pls/wwwdata/get_ois_pck.show_bbr_meddelelse_pdf?'.http_build_query([
-                    'i_municipalitycode' => $ejendomsrelation[0]['kommunekode'],
-                    'i_realpropertyidentifier' => $ejendomsrelation[0]['ejendomsnummer'],
+        if (isset($ejendomsrelation[0]['bfeNummer'])) {
+            return 'https://bbr.dk/pls/wwwdata/get_newois_pck.show_bbr_meddelelse_pdf?'.http_build_query([
+                    'i_bfe' => $ejendomsrelation[0]['bfeNummer'],
                 ]);
         }
 
