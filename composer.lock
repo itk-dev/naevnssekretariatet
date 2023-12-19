@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72ac2843bb623840a7f9d0d5f7322aea",
+    "content-hash": "67e38e62eefe8ad3301eff80be165aab",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2521,16 +2521,16 @@
         },
         {
             "name": "itk-dev/datafordeler-php-client",
-            "version": "dev-develop",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/datafordeler-php-client.git",
-                "reference": "619145e7ebe07a1c59084abfa481f9dd835984c5"
+                "reference": "7e7d31231320781a421dcc5ff8f36155f175c236"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/619145e7ebe07a1c59084abfa481f9dd835984c5",
-                "reference": "619145e7ebe07a1c59084abfa481f9dd835984c5",
+                "url": "https://api.github.com/repos/itk-dev/datafordeler-php-client/zipball/7e7d31231320781a421dcc5ff8f36155f175c236",
+                "reference": "7e7d31231320781a421dcc5ff8f36155f175c236",
                 "shasum": ""
             },
             "require": {
@@ -2575,10 +2575,10 @@
             ],
             "description": "PHP client for datafordeler.dk",
             "support": {
-                "source": "https://github.com/itk-dev/datafordeler-php-client/tree/develop",
+                "source": "https://github.com/itk-dev/datafordeler-php-client/tree/1.0.0",
                 "issues": "https://github.com/itk-dev/datafordeler-php-client/issues"
             },
-            "time": "2022-02-23T14:44:58+00:00"
+            "time": "2023-02-18T10:23:46+00:00"
         },
         {
             "name": "itk-dev/openid-connect",
@@ -2644,16 +2644,16 @@
         },
         {
             "name": "itk-dev/openid-connect-bundle",
-            "version": "dev-develop",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/openid-connect-bundle.git",
-                "reference": "5706f7ee285507952d116c757b9ec2fedd9e15dc"
+                "reference": "4dc2119ae6d8605eb647b09e80fac3f1ca8c24b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/openid-connect-bundle/zipball/5706f7ee285507952d116c757b9ec2fedd9e15dc",
-                "reference": "5706f7ee285507952d116c757b9ec2fedd9e15dc",
+                "url": "https://api.github.com/repos/itk-dev/openid-connect-bundle/zipball/4dc2119ae6d8605eb647b09e80fac3f1ca8c24b8",
+                "reference": "4dc2119ae6d8605eb647b09e80fac3f1ca8c24b8",
                 "shasum": ""
             },
             "require": {
@@ -2674,7 +2674,6 @@
                 "phpunit/phpunit": "^9.5",
                 "vimeo/psalm": "^4.7"
             },
-            "default-branch": true,
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
@@ -2698,22 +2697,22 @@
             "description": "Symfony bundle for openid-connect",
             "support": {
                 "issues": "https://github.com/itk-dev/openid-connect-bundle/issues",
-                "source": "https://github.com/itk-dev/openid-connect-bundle/tree/develop"
+                "source": "https://github.com/itk-dev/openid-connect-bundle/tree/2.0.0"
             },
-            "time": "2022-01-10T10:54:13+00:00"
+            "time": "2022-01-10T10:53:42+00:00"
         },
         {
             "name": "itk-dev/serviceplatformen",
-            "version": "dev-feature/guzzle7-adapter",
+            "version": "dev-feature/tvist1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "6fba39bed5eb60efd5169633520d128fdabcc557"
+                "reference": "64b46ba62547217758501a2af29de2230d6e4dae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/6fba39bed5eb60efd5169633520d128fdabcc557",
-                "reference": "6fba39bed5eb60efd5169633520d128fdabcc557",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/64b46ba62547217758501a2af29de2230d6e4dae",
+                "reference": "64b46ba62547217758501a2af29de2230d6e4dae",
                 "shasum": ""
             },
             "require": {
@@ -2786,9 +2785,9 @@
             ],
             "support": {
                 "issues": "https://github.com/itk-dev/serviceplatformen/issues",
-                "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/guzzle7-adapter"
+                "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/tvist1"
             },
-            "time": "2023-03-27T11:34:51+00:00"
+            "time": "2023-07-07T10:00:35+00:00"
         },
         {
             "name": "jms/metadata",
@@ -14836,8 +14835,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "itk-dev/datafordeler-php-client": 20,
-        "itk-dev/openid-connect-bundle": 20,
         "itk-dev/serviceplatformen": 20
     },
     "prefer-stable": true,
@@ -14850,5 +14847,5 @@
         "ext-soap": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

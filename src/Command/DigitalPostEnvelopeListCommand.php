@@ -37,7 +37,8 @@ class DigitalPostEnvelopeListCommand extends Command
     {
         $this
             ->addOption('status', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with this status')
-            ->addOption('digital-post-subject', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with subject matching this LIKE expression')
+            ->addOption('digital-post-id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Show only envelopes with the digital post id')
+            ->addOption('digital-post-subject', null, InputOption::VALUE_REQUIRED, 'Show only envelopes with digital post subjects matching this LIKE expression')
             ->addOption('max-results', null, InputOption::VALUE_REQUIRED, 'Show at most this many envelopes', 10)
             ->addOption('id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Envelope id')
             ->addOption('message-uuid', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Messaged uuid')
@@ -132,6 +133,14 @@ class DigitalPostEnvelopeListCommand extends Command
             $qb
                 ->andWhere('e.status = :status')
                 ->setParameter('status', $status)
+            ;
+        }
+        if ($ids = $input->getOption('digital-post-id')) {
+            $ids = array_map(static fn (string $id) => Uuid::fromString($id)->toBinary(), $ids);
+            $qb
+                ->join('e.digitalPost', 'p')
+                ->andWhere('p.id IN (:digital_post_ids)')
+                ->setParameter('digital_post_ids', $ids)
             ;
         }
         if ($subject = $input->getOption('digital-post-subject')) {

@@ -10,6 +10,12 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.5.3] - 2023-12-19
+
+- [PR-377](https://github.com/itk-dev/naevnssekretariatet/pull/377)
+  Improved `tvist1:digital-post-envelope:list` command and added Digital post
+  debug command.
+
 ## [1.5.2]
 
 - [PR-378](https://github.com/itk-dev/naevnssekretariatet/pull/378)
@@ -292,7 +298,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.2...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.3...HEAD
+[1.5.3]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.2...1.5.3
 [1.5.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.4.1...1.5.0
