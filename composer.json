@@ -35,7 +35,7 @@
         "gedmo/doctrine-extensions": "^3.0",
         "itk-dev/azure-key-vault-php": "^1.0",
         "itk-dev/beskedfordeler-symfony": "^1.0",
-        "itk-dev/datafordeler-php-client": "dev-develop",
+        "itk-dev/datafordeler-php-client": "^1.0",
         "itk-dev/openid-connect-bundle": "^3.1",
         "itk-dev/serviceplatformen": "^1.5",
         "knplabs/knp-paginator-bundle": "^5.6",
