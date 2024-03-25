@@ -377,6 +377,9 @@ class MailTemplateHelper
                 $relationData = json_decode($this->serializer->serialize($relation, 'json', ['groups' => ['mail_template']]), true);
 
                 $data += ['relation' => $relationData];
+
+                // For convenience, we add the same relation data with relevant prefix to help users.
+                $data['recipient'] += $relationData;
             } elseif ($entity instanceof AgendaBroadcast) {
                 $data += json_decode($this->serializer->serialize($entity->getAgenda(), 'json', ['groups' => ['mail_template']]), true);
             }

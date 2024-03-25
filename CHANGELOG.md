@@ -10,6 +10,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-384](https://github.com/itk-dev/naevnssekretariatet/pull/384)
+  Added template placeholder relation data to recipient
+  prefix when creating hearing briefings.
+
 ## [1.5.3] - 2023-12-19
 
 - [PR-377](https://github.com/itk-dev/naevnssekretariatet/pull/377)
