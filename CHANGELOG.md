@@ -22,6 +22,12 @@ about writing changes to this log.
   Mock](https://github.com/Soluto/oidc-server-mock) for mocking
   OIDC IdPs during development.
 
+## [1.5.4] - 2024-04-03
+
+- [PR-384](https://github.com/itk-dev/naevnssekretariatet/pull/384)
+  Added template placeholder relation data to recipient
+  prefix when creating hearing briefings.
+
 ## [1.5.3] - 2023-12-19
 
 - [PR-377](https://github.com/itk-dev/naevnssekretariatet/pull/377)
@@ -310,7 +316,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.3...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.4...HEAD
+[1.5.4]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.3...1.5.4
 [1.5.3]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.2...1.5.3
 [1.5.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.0...1.5.1
