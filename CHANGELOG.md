@@ -12,6 +12,9 @@ about writing changes to this log.
 
 ## [1.5.5] - XXXX
 
+- [PR-389](https://github.com/itk-dev/naevnssekretariatet/pull/389)
+  Fixed `BoardRole` crud search property.
+
 ## [1.5.4] - 2024-04-03
 
 - [PR-384](https://github.com/itk-dev/naevnssekretariatet/pull/384)
