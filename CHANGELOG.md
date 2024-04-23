@@ -12,6 +12,9 @@ about writing changes to this log.
 
 ## [1.5.5] - XXXX
 
+- [PR-390](https://github.com/itk-dev/naevnssekretariatet/pull/390)
+  Added logout functionality.
+
 ## [1.5.4] - 2024-04-03
 
 - [PR-384](https://github.com/itk-dev/naevnssekretariatet/pull/384)
