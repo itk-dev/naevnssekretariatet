@@ -24,10 +24,10 @@ class SearchController extends AbstractController
 
         if (null !== $search) {
             // TODO: Reintroduce if we add searchable fields
-//            $fieldMatches = $searchService->getFieldMatches($search);
-//            if (count($fieldMatches) > 0) {
-//                $qb = $searchService->applyFieldSearch($qb, $fieldMatches);
-//            }
+            //            $fieldMatches = $searchService->getFieldMatches($search);
+            //            if (count($fieldMatches) > 0) {
+            //                $qb = $searchService->applyFieldSearch($qb, $fieldMatches);
+            //            }
 
             $escapedSearch = $searchService->escapeStringForLike($search, '\\');
 
@@ -47,8 +47,8 @@ class SearchController extends AbstractController
 
         $pagination = $paginator->paginate(
             $qb->getQuery(), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */
         );
 
         $pagination->setCustomParameters(['align' => 'center']);

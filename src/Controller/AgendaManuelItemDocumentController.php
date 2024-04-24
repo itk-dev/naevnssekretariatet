@@ -40,6 +40,7 @@ class AgendaManuelItemDocumentController extends AbstractController
 
     /**
      * @Route("", name="agenda_manuel_item_documents", methods={"GET"})
+     *
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
@@ -58,6 +59,7 @@ class AgendaManuelItemDocumentController extends AbstractController
 
     /**
      * @Route("/upload", name="agenda_manuel_item_upload_document", methods={"GET", "POST"})
+     *
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      *
@@ -108,6 +110,7 @@ class AgendaManuelItemDocumentController extends AbstractController
 
     /**
      * @Route("/view/{document_id}", name="agenda_manuel_item_document_view", methods={"GET", "POST"})
+     *
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      *
@@ -124,6 +127,7 @@ class AgendaManuelItemDocumentController extends AbstractController
 
     /**
      * @Route("/delete/{document_id}", name="agenda_manuel_item_document_delete", methods={"DELETE"})
+     *
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")

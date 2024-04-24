@@ -13,24 +13,28 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PartyRepository::class)
+ *
  * @ORM\EntityListeners({"App\Logging\EntityListener\PartyListener"})
  */
 class Party implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
+     *
      * @Groups({"mail_template"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Groups({"mail_template"})
      */
     private $phoneNumber;
@@ -47,13 +51,16 @@ class Party implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Groups({"mail_template"})
      */
     private $name;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
+     *
      * @Groups({"mail_template"})
+     *
      * @Assert\Valid()
      */
     private $identification;

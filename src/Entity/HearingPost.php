@@ -14,10 +14,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=HearingPostRepository::class)
+ *
  * @ORM\InheritanceType("JOINED")
+ *
  * @ORM\DiscriminatorColumn(name="discr", type="string")
+ *
  * @ORM\DiscriminatorMap({"hearingPost" = "HearingPost", "hearingPostRequest" = "HearingPostRequest", "hearingPostResponse" = "HearingPostResponse"})
+ *
  * @ORM\EntityListeners({"App\Logging\EntityListener\HearingPostListener"})
+ *
  * @ORM\HasLifecycleCallbacks()
  */
 abstract class HearingPost implements LoggableEntityInterface
@@ -26,20 +31,25 @@ abstract class HearingPost implements LoggableEntityInterface
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Hearing::class, inversedBy="hearingPosts")
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Groups({"mail_template"})
      */
     private $hearing;
 
     /**
      * @ORM\OneToMany(targetEntity=HearingPostAttachment::class, mappedBy="hearingPost", orphanRemoval=true, cascade={"persist"})
+     *
      * @ORM\OrderBy({"position": "ASC"})
+     *
      * @Assert\Valid()
      */
     private $attachments;
@@ -110,6 +120,7 @@ abstract class HearingPost implements LoggableEntityInterface
 
     /**
      * @ORM\PrePersist
+     *
      * @ORM\PreUpdate
      */
     public function updateAttachmentPositions()

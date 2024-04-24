@@ -15,7 +15,6 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Throwable;
 
 class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
 {
@@ -55,7 +54,7 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
         return $address;
     }
 
-    private function createException(string $message, $code = 0, Throwable $previous = null)
+    private function createException(string $message, $code = 0, ?\Throwable $previous = null)
     {
         $this->logger->error($message, ['previous' => $previous]);
 

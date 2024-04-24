@@ -13,25 +13,30 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BoardRepository::class)
+ *
  * @ORM\EntityListeners({"App\Logging\EntityListener\BoardListener"})
  */
 class Board implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Groups({"mail_template"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="boards")
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Groups({"mail_template"})
      */
     private $municipality;
@@ -48,6 +53,7 @@ class Board implements LoggableEntityInterface
 
     /**
      * @Assert\Positive
+     *
      * @ORM\Column(type="integer")
      */
     private $hearingResponseDeadline;
@@ -79,12 +85,14 @@ class Board implements LoggableEntityInterface
 
     /**
      * @Assert\Positive
+     *
      * @ORM\Column(type="integer")
      */
     private $finishProcessingDeadlineDefault;
 
     /**
      * @Assert\Positive
+     *
      * @ORM\Column(type="integer")
      */
     private $finishHearingDeadlineDefault;
@@ -96,14 +104,18 @@ class Board implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Email()
+     *
      * @Groups({"mail_template"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Url()
+     *
      * @Groups({"mail_template"})
      */
     private $url;

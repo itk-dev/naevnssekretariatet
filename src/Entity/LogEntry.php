@@ -14,6 +14,7 @@ class LogEntry
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="ulid", unique=true)
      */
     private $id;
@@ -45,6 +46,7 @@ class LogEntry
 
     /**
      * @Gedmo\Timestampable(on="create")
+     *
      * @ORM\Column(type="datetime")
      */
     private $createdAt;

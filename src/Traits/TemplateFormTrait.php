@@ -32,7 +32,7 @@ trait TemplateFormTrait
             'choices' => $templateChoices,
         ]);
 
-        $formModifier = function (FormInterface $form, MailTemplate $mailTemplate = null) use ($builder) {
+        $formModifier = function (FormInterface $form, ?MailTemplate $mailTemplate = null) use ($builder) {
             $form->add('customData', MailTemplateCustomDataType::class, [
                 'label' => false,
                 'template' => $mailTemplate,

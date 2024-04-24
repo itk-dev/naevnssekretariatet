@@ -75,19 +75,18 @@ class HearingPostRequestType extends AbstractType
         $this->addTemplate($builder, $availableTemplateChoices);
 
         $builder->add('attachments', CollectionType::class, [
-                'label' => $this->translator->trans('Attach case documents', [], 'case'),
-                'required' => false,
-                'entry_type' => HearingPostAttachmentType::class,
-                'entry_options' => [
-                    'available_case_documents' => $options['available_case_documents'],
-                ],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                // Post update
-                'by_reference' => false,
-            ])
-        ;
+            'label' => $this->translator->trans('Attach case documents', [], 'case'),
+            'required' => false,
+            'entry_type' => HearingPostAttachmentType::class,
+            'entry_options' => [
+                'available_case_documents' => $options['available_case_documents'],
+            ],
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            // Post update
+            'by_reference' => false,
+        ]);
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             /** @var Form $form */

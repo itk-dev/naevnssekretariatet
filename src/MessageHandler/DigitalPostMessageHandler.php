@@ -12,6 +12,7 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Uid\Uuid;
+
 use function Safe\json_encode;
 
 #[AsMessageHandler]

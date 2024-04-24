@@ -17,6 +17,7 @@ class Document implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -33,12 +34,14 @@ class Document implements LoggableEntityInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $uploadedBy;
 
     /**
      * @Gedmo\Timestampable(on="create")
+     *
      * @ORM\Column(type="datetime")
      */
     private $uploadedAt;

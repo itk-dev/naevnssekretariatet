@@ -62,7 +62,7 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTranslationDomain('admin')
             ->setTitle($this->translator->trans('Dashboard', [], 'admin'))
-            ;
+        ;
     }
 
     public function configureCrud(): Crud
@@ -70,7 +70,7 @@ class DashboardController extends AbstractDashboardController
         return Crud::new()
             ->setPaginatorPageSize(10)
             ->setPaginatorRangeSize(2)
-            ;
+        ;
     }
 
     public function configureActions(): Actions

@@ -45,7 +45,7 @@ class AgendaItemType extends AbstractType
             'placeholder' => $this->translator->trans('Choose an agenda item type', [], 'agenda'),
         ]);
 
-        $formModifier = function (FormInterface $form, string $type = null) use ($board) {
+        $formModifier = function (FormInterface $form, ?string $type = null) use ($board) {
             if (null != $type) {
                 $formClass = null;
                 switch ($type) {

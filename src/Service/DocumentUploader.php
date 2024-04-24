@@ -37,7 +37,7 @@ class DocumentUploader
     /**
      * Creates and returns new document from filename.
      */
-    public function createDocumentFromPath(string $filePath, string $documentName, string $documentType, User $user = null, bool $move = false): Document
+    public function createDocumentFromPath(string $filePath, string $documentName, string $documentType, ?User $user = null, bool $move = false): Document
     {
         $document = new Document();
 

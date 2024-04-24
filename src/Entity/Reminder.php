@@ -13,6 +13,7 @@ class Reminder
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -24,6 +25,7 @@ class Reminder
 
     /**
      * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="reminders")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $caseEntity;

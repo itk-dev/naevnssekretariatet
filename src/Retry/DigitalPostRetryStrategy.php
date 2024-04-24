@@ -33,9 +33,6 @@ final class DigitalPostRetryStrategy implements RetryStrategyInterface
         return $retries < count($this->waitingTimes);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getWaitingTime(Envelope $message): int
     {
         $retries = RedeliveryStamp::getRetryCountFromEnvelope($message);

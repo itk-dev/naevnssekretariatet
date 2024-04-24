@@ -17,25 +17,30 @@ class HearingRecipient
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=HearingPostRequest::class, inversedBy="hearingRecipients")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $hearingPostRequest;
 
     /**
      * @ORM\ManyToOne(targetEntity=Party::class)
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Groups({"mail_template"})
      */
     private $recipient;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $document;

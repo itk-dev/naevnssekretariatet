@@ -35,6 +35,7 @@ class AgendaAddBoardMemberType extends AbstractType
                         $message = sprintf('Board member: %s, is assigned %s roles on board %s.', $boardMember->getName(), sizeof($roles), $board->getName());
                         throw new BoardMemberRoleException($message);
                     }
+
                     // TODO: Some sort of check on size of roles - should just be one element
                     return $boardMember->getName().' - '.$roles->current()->getTitle();
                 },

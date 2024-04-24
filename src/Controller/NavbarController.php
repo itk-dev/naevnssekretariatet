@@ -64,8 +64,8 @@ class NavbarController extends AbstractController
                 continue;
             }
             $data = explode(
-              ':',
-              $rawShortcut,
+                ':',
+                $rawShortcut,
                 2
             );
             $shortcuts[] = [

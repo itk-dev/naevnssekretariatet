@@ -14,20 +14,25 @@ class DecisionAttachment
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Decision::class, inversedBy="attachments")
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Assert\NotNull()
      */
     private $decision;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Assert\NotNull()
      */
     private $document;

@@ -16,7 +16,7 @@ trait SoftDeletableEntity
      */
     private $softDeletedAt;
 
-    public function setSoftDeletedAt(\DateTime $softDeletedAt = null): self
+    public function setSoftDeletedAt(?\DateTime $softDeletedAt = null): self
     {
         $this->softDeletedAt = $softDeletedAt;
 

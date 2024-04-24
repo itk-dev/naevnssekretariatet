@@ -25,14 +25,14 @@ class LogEntryCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_INDEX, 'Log entries')
             ->setPageTitle(Crud::PAGE_DETAIL, 'Log entry')
             ->setDefaultSort(['createdAt' => 'DESC'])
-            ;
+        ;
     }
 
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->disable(Action::NEW, Action::EDIT, Action::DELETE)
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable

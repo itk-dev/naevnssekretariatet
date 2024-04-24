@@ -17,7 +17,7 @@ class HearingHelper
     {
         $hearingResponse = $manager->createHearingResponseFromSubmissionData($sender, $submissionData);
 
-        //TODO: handle everything on case
+        // TODO: handle everything on case
         $this->entityManager->persist($hearingResponse);
 
         // Create case event (sagshændelse).

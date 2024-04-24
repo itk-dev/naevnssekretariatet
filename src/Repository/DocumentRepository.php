@@ -69,7 +69,7 @@ class DocumentRepository extends ServiceEntityRepository
             ->where($relationAlias.'.softDeleted = false')
             ->andWhere($relationAlias.'.case = :caseId')
             ->setParameter('caseId', $caseEntity->getId(), 'uuid')
-            ;
+        ;
     }
 
     public function getAvailableDocumentsForCase(CaseEntity $caseEntity)

@@ -61,7 +61,7 @@ class DocumentController extends AbstractController
 
         $pagination = $paginator->paginate(
             $query,
-            $request->query->getInt('page', 1), /*page number*/
+            $request->query->getInt('page', 1), /* page number */
             10,
             [
                 'defaultSortFieldName' => 'd.uploadedAt',
@@ -165,6 +165,7 @@ class DocumentController extends AbstractController
 
     /**
      * @Route("/{document_id}", name="document_delete", methods={"GET", "DELETE"})
+     *
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
@@ -201,6 +202,7 @@ class DocumentController extends AbstractController
 
     /**
      * @Route("/copy/{document_id}", name="document_copy", methods={"GET", "POST"})
+     *
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      */
@@ -231,6 +233,7 @@ class DocumentController extends AbstractController
 
     /**
      * @Route("/view/{document_id}", name="document_view", methods={"GET", "POST"})
+     *
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("case", expr="repository.find(id)")
      *

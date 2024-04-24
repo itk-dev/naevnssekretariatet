@@ -19,7 +19,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Throwable;
 
 class BBRHelper implements LoggerAwareInterface
 {
@@ -130,6 +129,7 @@ class BBRHelper implements LoggerAwareInterface
     {
         // Trim and convert newlines to a single space.
         $address = preg_replace('/[\r\n]+/', ' ', trim($address));
+
         // Collapse multiple spaces to a single space.
         // @see https://stackoverflow.com/a/42576699
         return preg_replace('/[^\S\r\n]+/', ' ', $address);
@@ -160,8 +160,8 @@ class BBRHelper implements LoggerAwareInterface
         $ejendomsrelation = $bbrData->getData()['ejendomsrelation'] ?? null;
         if (isset($ejendomsrelation[0]['bfeNummer'])) {
             return 'https://bbr.dk/pls/wwwdata/get_newois_pck.show_bbr_meddelelse_pdf?'.http_build_query([
-                    'i_bfe' => $ejendomsrelation[0]['bfeNummer'],
-                ]);
+                'i_bfe' => $ejendomsrelation[0]['bfeNummer'],
+            ]);
         }
 
         throw $this->createException($this->translator->trans('Cannot get url for BBR-meddelelse for {address}', ['address' => $address], 'case'));
@@ -177,7 +177,7 @@ class BBRHelper implements LoggerAwareInterface
         return $address;
     }
 
-    private function createException(string $message, $code = 0, Throwable $previous = null)
+    private function createException(string $message, $code = 0, ?\Throwable $previous = null)
     {
         $this->logger->error($message, ['previous' => $previous]);
 

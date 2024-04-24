@@ -136,8 +136,8 @@ class CaseController extends AbstractController
 
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/,
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */,
             [
                 'defaultSortFieldName' => 'c.caseNumber',
                 'defaultSortDirection' => 'ASC',
@@ -185,6 +185,7 @@ class CaseController extends AbstractController
 
     /**
      * @Route("/new/{municipality_id}/{board_id}", name="case_new", methods={"GET", "POST"})
+     *
      * @Entity("board", expr="repository.find(board_id)")
      */
     public function new(Board $board, BoardHelper $boardHelper, Request $request, CaseManager $caseManager): Response
@@ -826,6 +827,7 @@ class CaseController extends AbstractController
     {
         // If it is in hearing or has been in hearing it is not deletable
         $hasBeenInHearing = $case->getHearing() && ($case->getHearing()->getStartedOn() || $case->getHearing()->getFinishedOn());
+
         // If it has been on agenda or is on agenda it is also not deletable
         return $case->getAgendaCaseItems()->isEmpty() && !$hasBeenInHearing;
     }

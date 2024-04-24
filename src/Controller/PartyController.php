@@ -47,8 +47,7 @@ class PartyController extends AbstractController
         $preSelectValue =
             'counterparty' === $preSelectType
                 ? reset($counterPartyTypes) ?: null
-                : null
-        ;
+                : null;
 
         $form = $this->createForm(PartyFormType::class, null, [
             'case' => $case,
@@ -110,6 +109,7 @@ class PartyController extends AbstractController
 
     /**
      * @Route("/edit/{party_id}", name="party_edit")
+     *
      * @Entity("party", expr="repository.find(party_id)")
      * @Entity("case", expr="repository.find(id)")
      */
@@ -152,6 +152,7 @@ class PartyController extends AbstractController
 
     /**
      * @Route("/delete/{party_id}", name="party_delete", methods={"DELETE"})
+     *
      * @Entity("party", expr="repository.find(party_id)")
      * @Entity("case", expr="repository.find(id)")
      */

@@ -4,18 +4,20 @@ namespace App\Monolog;
 
 use App\Entity\User;
 use DateTime;
-use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=LogEntryRepository::class)
+ *
  * @ORM\Table(name="monolog_log_entry")
  */
 class LogEntry
 {
     /**
      * @ORM\Id
+     *
      * @ORM\GeneratedValue
+     *
      * @ORM\Column(type="integer")
      */
     private int $id;
@@ -53,7 +55,7 @@ class LogEntry
     /**
      * @ORM\Column(type="datetime")
      */
-    private DateTimeInterface $createdAt;
+    private \DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(type="text")
@@ -67,7 +69,7 @@ class LogEntry
 
     public function __construct()
     {
-        $this->createdAt = new DateTime();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -147,12 +149,12 @@ class LogEntry
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 

@@ -10,7 +10,9 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=DigitalPostEnvelopeRepository::class)
+ *
  * @ORM\Table(indexes={
+ *
  *     @ORM\Index(name="status", fields={"status"})
  * })
  */
@@ -26,6 +28,7 @@ class DigitalPostEnvelope
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private ?Uuid $id;
@@ -54,12 +57,14 @@ class DigitalPostEnvelope
 
     /**
      * @ORM\ManyToOne(targetEntity=DigitalPost::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $digitalPost;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recipient::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $recipient;
@@ -261,8 +266,6 @@ class DigitalPostEnvelope
 
     /**
      * @param mixed $receipt
-     *
-     * @return DigitalPostEnvelope
      */
     public function setReceipt(string $receipt): self
     {

@@ -42,7 +42,7 @@ class MailTemplateCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Mail template')
             ->overrideTemplate('crud/detail', 'admin/mail-template/detail.html.twig')
             ->setFormThemes(['admin/mail-template/form.html.twig', '@EasyAdmin/crud/form_theme.html.twig'])
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable

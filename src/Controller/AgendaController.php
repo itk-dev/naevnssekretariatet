@@ -22,7 +22,6 @@ use App\Service\AgendaHelper;
 use App\Service\AgendaStatus;
 use App\Service\MunicipalityHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -132,8 +131,8 @@ class AgendaController extends AbstractController
 
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/,
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */,
             [
                 'defaultSortFieldName' => 'a.date',
                 'defaultSortDirection' => 'ASC',
@@ -206,7 +205,7 @@ class AgendaController extends AbstractController
     /**
      * @Route("/{id}/show", name="agenda_show", methods={"GET", "POST"})
      *
-     * @throws Exception
+     * @throws \Exception
      * @throws \Doctrine\DBAL\Driver\Exception
      */
     public function show(Agenda $agenda, AgendaItemRepository $agendaItemRepository, BoardMemberRepository $memberRepository, Request $request): Response
@@ -364,6 +363,7 @@ class AgendaController extends AbstractController
 
     /**
      * @Route("/{id}/show/{board_member_id}", name="agenda_board_member_remove", methods={"DELETE"})
+     *
      * @Entity("boardMember", expr="repository.find(board_member_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */

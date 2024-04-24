@@ -41,6 +41,7 @@ class AgendaCaseItemController extends AbstractController
 
     /**
      * @Route("/presentation", name="agenda_case_item_presentation", methods={"GET", "POST"})
+     *
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
@@ -62,6 +63,7 @@ class AgendaCaseItemController extends AbstractController
 
     /**
      * @Route("/decision-proposal", name="agenda_case_item_decision_proposal", methods={"GET", "POST"})
+     *
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */
@@ -83,6 +85,7 @@ class AgendaCaseItemController extends AbstractController
 
     /**
      * @Route("/case/documents", name="agenda_case_item_document", methods={"GET", "POST"})
+     *
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
@@ -101,6 +104,7 @@ class AgendaCaseItemController extends AbstractController
 
     /**
      * @Route("/case/documents/select", name="agenda_case_item_document_attach", methods={"GET", "POST"})
+     *
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
      */
@@ -140,6 +144,7 @@ class AgendaCaseItemController extends AbstractController
 
     /**
      * @Route("/case/documents/delete/{document_id}", name="agenda_case_item_document_delete", methods={"DELETE"})
+     *
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      * @Entity("agenda", expr="repository.find(id)")
@@ -163,6 +168,7 @@ class AgendaCaseItemController extends AbstractController
 
     /**
      * @Route("/view/{document_id}", name="agenda_case_item_document_view", methods={"GET", "POST"})
+     *
      * @Entity("document", expr="repository.find(document_id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      *

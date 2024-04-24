@@ -46,7 +46,7 @@ class LinkedTemplateProcessor extends BaseTemplateProcessor
      * Add links to the link object.
      *
      * @param $link
-     *   PHPWord link object
+     *              PHPWord link object
      */
     public function addLink($link)
     {
@@ -83,12 +83,12 @@ class LinkedTemplateProcessor extends BaseTemplateProcessor
     /**
      * Function to add multiple links.
      *
-     * @param $link
-     *   A PHPWord link object (returned when using addLink).
-     *   These need to be passed to the template processor so the
-     *   links relationship file can be updated.
+     * @param array $links
+     *                     An array of PHPWord link object (returned when using addLink).
+     *                     These need to be passed to the template processor so the
+     *                     links relationship file can be updated.
      */
-    public function addLinks($links)
+    public function addLinks(array $links)
     {
         foreach ($links as $link) {
             $this->addLink($link);

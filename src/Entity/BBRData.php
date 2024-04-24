@@ -11,9 +11,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BBRDataRepository::class)
+ *
  * @ORM\Table(name="bbr_data", indexes={
+ *
  *     @ORM\Index(name="address_idx", columns={"address"})
  * })
+ *
  * @UniqueEntity(fields={"address"})
  */
 class BBRData
@@ -22,12 +25,14 @@ class BBRData
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     *
      * @Assert\NotBlank()
      */
     private $address;

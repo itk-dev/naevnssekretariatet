@@ -53,7 +53,7 @@ class DigitalPostListCommand extends Command
                 ['Updated at' => $digitalPost->getUpdatedAt()->format(\DateTimeInterface::ATOM)],
                 ['Url' => implode(PHP_EOL, $urls)],
                 ['Envelopes' => implode(PHP_EOL, array_map(static fn (DigitalPostEnvelope $envelope) => sprintf('%s: %s (%s)', $envelope->getStatus(), $envelope->getStatusMessage(), $envelope->getMeMoMessageUuid()),
-                                                           iterator_to_array($digitalPost->getEnvelopes())))],
+                    iterator_to_array($digitalPost->getEnvelopes())))],
             );
 
             if ($output->isDebug()) {

@@ -81,7 +81,7 @@ class MailTemplateHelper
      *
      * @throws \RuntimeException
      */
-    public function getPreviewEntity(MailTemplate $mailTemplate, string $entityType = null, string $entityId = null)
+    public function getPreviewEntity(MailTemplate $mailTemplate, ?string $entityType = null, ?string $entityId = null)
     {
         $classNames = $this->getTemplateEntityClassNames($mailTemplate) ?? [];
         if (null !== $entityType) {
@@ -289,8 +289,6 @@ class MailTemplateHelper
 
     /**
      * Get values from an entity.
-     *
-     * @param $entity
      *
      * @return array|false|mixed|string[]
      */
@@ -504,7 +502,7 @@ class MailTemplateHelper
     /**
      * @return array|ComplexMacro[]
      */
-    private function getComplexMacros(object $entity, array $values, TemplateProcessor $templateProcessor = null): array
+    private function getComplexMacros(object $entity, array $values, ?TemplateProcessor $templateProcessor = null): array
     {
         $macros = [];
 
@@ -615,6 +613,7 @@ class MailTemplateHelper
         $csv = $this->serializer->serialize($value, 'csv');
         // We now have a csv string with two lines (the first is the header) that we split and parse.
         [$header, $row] = array_map('str_getcsv', explode(PHP_EOL, $csv, 2));
+
         /*
          * @psalm-suppress InvalidArgument
          *

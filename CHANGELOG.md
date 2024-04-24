@@ -10,7 +10,7 @@ about writing changes to this log.
 
 ## [Unreleased]
 
-* [PR-391](https://github.com/itk-dev/naevnssekretariatet/pull/391)
+- [PR-391](https://github.com/itk-dev/naevnssekretariatet/pull/391)
   Updated composer packages
 - [PR-377](https://github.com/itk-dev/naevnssekretariatet/pull/377)
   Improved `tvist1:digital-post-envelope:list` command and added Digital post

@@ -15,6 +15,7 @@ class BoardRole
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -31,6 +32,7 @@ class BoardRole
 
     /**
      * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="boardRoles")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $board;

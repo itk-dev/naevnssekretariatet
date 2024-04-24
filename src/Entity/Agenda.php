@@ -18,48 +18,56 @@ class Agenda implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $start;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $end;
 
     /**
      * @ORM\Column(type="integer", length=255, nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $status = AgendaStatus::OPEN;
 
     /**
      * @ORM\ManyToMany(targetEntity=BoardMember::class, inversedBy="agendas")
+     *
      * @Groups({"mail_template"})
      */
     private $boardmembers;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $remarks;
 
     /**
      * @ORM\OneToMany(targetEntity=AgendaItem::class, mappedBy="agenda")
+     *
      * @ORM\OrderBy({"startTime" = "ASC"})
      */
     private $agendaItems;
@@ -71,7 +79,9 @@ class Agenda implements LoggableEntityInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="agendas")
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Groups({"mail_template"})
      */
     private $board;
@@ -88,6 +98,7 @@ class Agenda implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $agendaMeetingPoint;

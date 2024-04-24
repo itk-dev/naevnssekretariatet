@@ -51,7 +51,7 @@ class WebformSubmissionMessageHandler implements MessageHandlerInterface
         //      "sender":"http:\/\/0.0.0.0:53779\/",
         //      "get_submission_url":"http:\/\/0.0.0.0:53779\/webform_rest\/tvist_opret_sag\/submission\/eb994d46-7724-48b5-ab45-f76ffb4cdf0f"
         //  }
-        //}
+        // }
 
         if (isset($data['links']['get_submission_url']) && is_string($data['links']['get_submission_url'])
             && isset($data['data']['webform']['id']) && is_string($data['data']['webform']['id'])

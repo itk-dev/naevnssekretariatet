@@ -14,6 +14,7 @@ class Note
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -30,24 +31,28 @@ class Note
 
     /**
      * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="notes")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $caseEntity;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $createdBy;
 
     /**
      * @Gedmo\Timestampable(on="create")
+     *
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
      * @Gedmo\Timestampable(on="update")
+     *
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;

@@ -128,6 +128,7 @@ class AgendaBroadcastController extends AbstractController
 
     /**
      * @Route("/{digital_post}/show", name="agenda_broadcast_show", methods={"GET", "POST"})
+     *
      * @Entity("digitalPost", expr="repository.find(digital_post)")
      */
     public function show(Agenda $agenda, DigitalPost $digitalPost, MessageHelper $messageHelper)

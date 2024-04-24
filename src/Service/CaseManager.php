@@ -16,7 +16,6 @@ use App\Repository\CaseEntityRepository;
 use App\Repository\DigitalPostRepository;
 use App\Repository\MunicipalityRepository;
 use App\Service\OS2Forms\SubmissionManager\CaseSubmissionManagerInterface;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -103,7 +102,7 @@ class CaseManager implements LoggerAwareInterface
         $caseCounter = 1;
         $query = $this->caseRepository->createQueryBuilder('c')->getQuery();
 
-        $today = new DateTime('today');
+        $today = new \DateTime('today');
 
         $this->logger->info('Today: '.$today->format('d/m/Y'));
 
@@ -149,7 +148,7 @@ class CaseManager implements LoggerAwareInterface
         }
     }
 
-    public function getCaseIdentificationValues(CaseEntity $case, string $addressProperty, string $nameProperty, string $addressProtectionProperty = null): array
+    public function getCaseIdentificationValues(CaseEntity $case, string $addressProperty, string $nameProperty, ?string $addressProtectionProperty = null): array
     {
         /** @var Address $address */
         $address = $this->propertyAccessor->getValue($case, $addressProperty);
@@ -193,7 +192,7 @@ class CaseManager implements LoggerAwareInterface
         }
 
         // Cases created via OS2Forms get a default received at (today).
-        $case->setReceivedAt(new DateTime('today'));
+        $case->setReceivedAt(new \DateTime('today'));
 
         // Create case event (sagshændelse).
         $this->createCaseEvent($case, $documents);
@@ -320,7 +319,7 @@ class CaseManager implements LoggerAwareInterface
         $caseEvent->setCaseEntity($case);
         $caseEvent->setCategory(CaseEvent::CATEGORY_INCOMING);
         $caseEvent->setSubject(CaseEvent::SUBJECT_CASE_BRINGING);
-        $caseEvent->setReceivedAt(new DateTime('now'));
+        $caseEvent->setReceivedAt(new \DateTime('now'));
 
         foreach ($documents as $document) {
             $caseEvent->addDocument($document);

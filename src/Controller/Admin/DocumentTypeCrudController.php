@@ -22,7 +22,7 @@ class DocumentTypeCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Document types')
             ->setSearchFields(['name'])
             ->setDefaultSort(['name' => 'ASC'])
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable

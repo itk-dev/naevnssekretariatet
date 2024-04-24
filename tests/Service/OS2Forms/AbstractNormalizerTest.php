@@ -8,6 +8,7 @@ use App\Service\OS2Forms\SubmissionNormalizers\AbstractSubmissionNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 use function PHPUnit\Framework\assertEquals;
 
 class AbstractNormalizerTest extends TestCase

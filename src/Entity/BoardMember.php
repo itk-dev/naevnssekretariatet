@@ -11,12 +11,14 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=BoardMemberRepository::class)
+ *
  * @UniqueEntity(fields={"cpr"})
  */
 class BoardMember
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;

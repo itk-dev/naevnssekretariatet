@@ -13,7 +13,9 @@ class HearingPostResponse extends HearingPost
 {
     /**
      * @ORM\ManyToOne(targetEntity=Party::class)
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Groups({"mail_template"})
      */
     private $sender;
@@ -25,6 +27,7 @@ class HearingPostResponse extends HearingPost
 
     /**
      * @ORM\Column(type="text", nullable=false)
+     *
      * @Groups({"mail_template"})
      */
     private $response;

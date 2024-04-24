@@ -99,7 +99,7 @@ class MailTemplateRenderCommand extends Command
         return $this->parameters->has('locale') ? $this->parameters->get('locale') : null;
     }
 
-    private function setLocale(string $locale = null)
+    private function setLocale(?string $locale = null)
     {
         // @see \Symfony\Component\HttpFoundation\Request::setPhpDefaultLocale().
         try {

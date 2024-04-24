@@ -8,7 +8,9 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=CaseDocumentRelationRepository::class)
+ *
  * @ORM\Table(name="case_documents")
+ *
  * @ORM\EntityListeners({"App\Logging\EntityListener\CaseDocumentRelationListener"})
  */
 class CaseDocumentRelation
@@ -17,18 +19,21 @@ class CaseDocumentRelation
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="CaseEntity", inversedBy="caseDocumentRelation")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $case;
 
     /**
      * @ORM\ManyToOne(targetEntity="Document", inversedBy="caseDocumentRelations")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $document;
