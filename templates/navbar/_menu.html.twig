@@ -29,6 +29,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
             {% if is_granted('ROLE_CASEWORKER') or is_granted('ROLE_ADMINISTRATION') %}
                 <a class="dropdown-item" href="{{ path('user_settings') }}">{% trans %}User settings{% endtrans %}</a>
+                <a class="dropdown-item" href="{{ path('app_logout') }}">{% trans %}Log out{% endtrans %}</a>
             {% endif %}
         </div>
     </li>

@@ -25,6 +25,10 @@
         <source>Create new</source>
         <target>Opret ny</target>
       </trans-unit>
+      <trans-unit id="SWFhRVF" resname="Log out">
+        <source>Log out</source>
+        <target state="translated">Log ud</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
