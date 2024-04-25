@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-393](https://github.com/itk-dev/naevnssekretariatet/pull/393)
+  Fixed `BoardRole` crud search property.
 - [PR-391](https://github.com/itk-dev/naevnssekretariatet/pull/391)
   Updated composer packages
 - [PR-377](https://github.com/itk-dev/naevnssekretariatet/pull/377)
