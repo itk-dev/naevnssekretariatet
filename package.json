@@ -35,10 +35,10 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "check-coding-standards/markdownlint": "markdownlint --ignore LICENSE.md '*.md' docs/",
-        "check-coding-standards/standard": "standard 'assets/**/*.js'",
-        "check-coding-standards/stylelint": "stylelint --config=.stylelintrc.json 'assets/**/*.scss'",
-        "check-coding-standards": "yarn check-coding-standards/markdownlint && yarn check-coding-standards/stylelint"
+        "coding-standards-check/markdownlint": "markdownlint --ignore LICENSE.md '*.md' docs/",
+        "coding-standards-check/standard": "standard 'assets/**/*.js'",
+        "coding-standards-check/stylelint": "stylelint --config=.stylelintrc.json 'assets/**/*.scss'",
+        "coding-standards-check": "yarn coding-standards-check/markdownlint && yarn coding-standards-check/stylelint"
     },
     "dependencies": {}
 }

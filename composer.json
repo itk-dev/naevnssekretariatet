@@ -136,21 +136,21 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "check-coding-standards/php-cs-fixer": [
+        "coding-standards-check/php-cs-fixer": [
             "php-cs-fixer --config=.php-cs-fixer.dist.php fix --dry-run"
         ],
-        "check-coding-standards/twigcs": [
+        "coding-standards-check/twigcs": [
             "twigcs templates"
         ],
-        "check-coding-standards": [
-            "@check-coding-standards/php-cs-fixer",
-            "@check-coding-standards/twigcs"
+        "coding-standards-check": [
+            "@coding-standards-check/php-cs-fixer",
+            "@coding-standards-check/twigcs"
         ],
-        "apply-coding-standards/php-cs-fixer": [
+        "coding-standards-apply/php-cs-fixer": [
             "php-cs-fixer --config=.php-cs-fixer.dist.php fix"
         ],
-        "apply-coding-standards": [
-            "@apply-coding-standards/php-cs-fixer"
+        "coding-standards-apply": [
+            "@coding-standards-apply/php-cs-fixer"
         ],
         "code-analysis/phpstan": [
             "phpstan analyse src tests"

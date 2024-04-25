@@ -425,19 +425,19 @@ we decided to adhere to in this project.
 * Javascript files (Standard with standard settings)
 
   ```sh
-  docker compose run --rm node yarn check-coding-standards/standard
+  docker compose run --rm node yarn coding-standards-check/standard
   ```
 
 * Sass files (Sass guidelines)
 
   ```sh
-  docker compose run --rm node yarn check-coding-standards/stylelint
+  docker compose run --rm node yarn coding-standards-check/stylelint
   ```
 
 * Markdown files (markdownlint standard rules)
 
   ```sh
-  docker compose run --rm node yarn check-coding-standards/markdownlint
+  docker compose run --rm node yarn coding-standards-check/markdownlint
   ```
 
 ## Code analysis
