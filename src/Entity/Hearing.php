@@ -13,6 +13,7 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=HearingRepository::class)
+ *
  * @ORM\EntityListeners({"App\Logging\EntityListener\HearingListener"})
  */
 class Hearing implements LoggableEntityInterface
@@ -21,6 +22,7 @@ class Hearing implements LoggableEntityInterface
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -32,6 +34,7 @@ class Hearing implements LoggableEntityInterface
 
     /**
      * @ORM\OneToOne(targetEntity=CaseEntity::class, mappedBy="hearing", cascade={"persist", "remove"})
+     *
      * @Groups({"mail_template"})
      */
     private $caseEntity;
@@ -53,6 +56,7 @@ class Hearing implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $startedOn;

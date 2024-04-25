@@ -12,24 +12,28 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=ComplaintCategoryRepository::class)
+ *
  * @ORM\EntityListeners({"App\Logging\EntityListener\ComplaintCategoryListener"})
  */
 class ComplaintCategory implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Groups({"mail_template"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $fee;
@@ -41,6 +45,7 @@ class ComplaintCategory implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $kle;

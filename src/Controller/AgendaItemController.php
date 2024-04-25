@@ -9,7 +9,6 @@ use App\Entity\AgendaManuelItem;
 use App\Form\AgendaItemType;
 use App\Service\AgendaItemHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,10 +81,11 @@ class AgendaItemController extends AbstractController
 
     /**
      * @Route("/{agenda_item_id}/edit", name="agenda_item_edit", methods={"GET", "POST"})
+     *
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function edit(Agenda $agenda, AgendaItem $agendaItem, Request $request): Response
     {
@@ -126,6 +126,7 @@ class AgendaItemController extends AbstractController
 
     /**
      * @Route("/{agenda_item_id}", name="agenda_item_delete", methods={"DELETE"})
+     *
      * @Entity("agenda", expr="repository.find(id)")
      * @Entity("agendaItem", expr="repository.find(agenda_item_id)")
      */

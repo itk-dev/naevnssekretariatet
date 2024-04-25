@@ -35,14 +35,14 @@ class DeletedCasesCrudController extends AbstractCrudController
         return $crud
             ->setPageTitle('index', 'Deleted cases')
             ->setDefaultSort(['caseNumber' => 'ASC'])
-            ;
+        ;
     }
 
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->disable(Action::NEW, Action::DELETE, Action::EDIT)
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable

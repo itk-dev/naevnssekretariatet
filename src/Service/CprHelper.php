@@ -102,19 +102,19 @@ class CprHelper
     {
         $resolver
             ->setRequired([
-                    'azure_tenant_id',
-                    'azure_application_id',
-                    'azure_client_secret',
-                    'azure_key_vault_name',
-                    'azure_key_vault_secret',
-                    'azure_key_vault_secret_version',
-                    'serviceplatformen_cpr_service_agreement_uuid',
-                    'serviceplatformen_cpr_user_system_uuid',
-                    'serviceplatformen_cpr_user_uuid',
-                    'serviceplatformen_cpr_service_uuid',
-                    'serviceplatformen_cpr_service_endpoint',
-                    'serviceplatformen_cpr_service_contract',
-                ],
+                'azure_tenant_id',
+                'azure_application_id',
+                'azure_client_secret',
+                'azure_key_vault_name',
+                'azure_key_vault_secret',
+                'azure_key_vault_secret_version',
+                'serviceplatformen_cpr_service_agreement_uuid',
+                'serviceplatformen_cpr_user_system_uuid',
+                'serviceplatformen_cpr_user_uuid',
+                'serviceplatformen_cpr_service_uuid',
+                'serviceplatformen_cpr_service_endpoint',
+                'serviceplatformen_cpr_service_contract',
+            ],
             )
         ;
     }

@@ -18,6 +18,7 @@ class AgendaBroadcast
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -29,6 +30,7 @@ class AgendaBroadcast
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $template;
@@ -40,6 +42,7 @@ class AgendaBroadcast
 
     /**
      * @ORM\ManyToOne(targetEntity=Agenda::class, inversedBy="agendaBroadcasts")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $agenda;

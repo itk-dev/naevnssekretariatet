@@ -32,8 +32,6 @@ class ComplexMacroHelper
     }
 
     /**
-     * @param $entity
-     *
      * @return array|ComplexMacro[]
      */
     public function buildMacros($entity): array
@@ -123,7 +121,7 @@ class ComplexMacroHelper
         // Agenda items
         $table = new Table([
             // @see https://github.com/PHPOffice/PHPWord/blob/develop/src/PhpWord/SimpleType/TblWidth.php#L36
-            //Width in Fiftieths of a Percent
+            // Width in Fiftieths of a Percent
             'unit' => TblWidth::PERCENT,
             'cellMargin' => 0,
             'spacing' => 0,
@@ -134,11 +132,10 @@ class ComplexMacroHelper
         foreach ($agenda->getAgendaItems() as $agendaItem) {
             $text =
                 sprintf('%s–%s &lt; %s',
-                $agendaItem->getStartTime()->format('H:i'),
-                $agendaItem->getEndTime()->format('H:i'),
-                $agendaItem->getTitle(),
-            )
-            ;
+                    $agendaItem->getStartTime()->format('H:i'),
+                    $agendaItem->getEndTime()->format('H:i'),
+                    $agendaItem->getTitle(),
+                );
 
             if ($agendaItem->getMeetingPoint()) {
                 $text .= sprintf(', %s', $agendaItem->getMeetingPoint());
@@ -183,7 +180,7 @@ class ComplexMacroHelper
         return $values;
     }
 
-    public function createLink(string $url, string $text = null): Link
+    public function createLink(string $url, ?string $text = null): Link
     {
         $linkFontStyle = (new Font())
             ->setStyleName($this->options['formatting']['hyperlink']['style_name'])
@@ -228,7 +225,8 @@ class ComplexMacroHelper
             } elseif (is_array($value) && isset($value['text']) && is_scalar($value['text'])) {
                 $row
                     ->addCell($value['cell']['width'] ?? null, $value['cell']['style'] ?? null)
-                    ->addTextRun($value['text-style'] ?? [])->addText($value['text']);
+                    ->addTextRun($value['text-style'] ?? [])->addText($value['text'])
+                ;
             } elseif (null === $value) {
                 $row->addCell()->addText('');
             } else {

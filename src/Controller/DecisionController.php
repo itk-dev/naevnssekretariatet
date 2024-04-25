@@ -57,7 +57,7 @@ class DecisionController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $case);
 
-        //TODO: Rename function
+        // TODO: Rename function
         $availableRecipients = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
 
         $caseDocuments = $documentRepository->getAvailableDocumentsForCase($case);
@@ -86,7 +86,7 @@ class DecisionController extends AbstractController
             $this->entityManager->persist($document);
             $this->entityManager->persist($relation);
 
-            //Create DigitalPost attachments without linking them to a specific DigitalPost
+            // Create DigitalPost attachments without linking them to a specific DigitalPost
             $digitalPostAttachments = [];
 
             $attachments = $decision->getAttachments();
@@ -125,6 +125,7 @@ class DecisionController extends AbstractController
 
     /**
      * @Route("/{decision_id}/show", name="case_decision_show")
+     *
      * @Entity("decision", expr="repository.find(decision_id)")
      * @Entity("case", expr="repository.find(id)")
      */

@@ -30,7 +30,7 @@ class ComplaintCategoryRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findOneByNameAndBoard(string $name, Board $board): ComplaintCategory|null
+    public function findOneByNameAndBoard(string $name, Board $board): ?ComplaintCategory
     {
         return $this->createQueryBuilder('cc')
             ->where(':board MEMBER OF cc.boards')

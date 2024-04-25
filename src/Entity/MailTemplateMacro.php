@@ -19,6 +19,7 @@ class MailTemplateMacro
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -30,6 +31,7 @@ class MailTemplateMacro
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Regex(pattern="/^[[:alnum:]._-]+$/", message="Only letters, digits, dots, dashed and underscores allowed")
      */
     private $macro;

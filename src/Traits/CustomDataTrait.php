@@ -9,6 +9,7 @@ trait CustomDataTrait
 {
     /**
      * @ORM\Column(type="json")
+     *
      * @Groups({"mail_template"})
      */
     private $customData = [];

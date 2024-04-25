@@ -36,8 +36,8 @@ class NoteController extends AbstractController
 
         $pagination = $paginator->paginate(
             $noteQuery, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            5 /*limit per page*/
+            $request->query->getInt('page', 1), /* page number */
+            5 /* limit per page */
         );
         $pagination->setCustomParameters(['align' => 'center']);
 
@@ -101,6 +101,7 @@ class NoteController extends AbstractController
 
     /**
      * @Route("/{note_id}/edit", name="note_edit", methods={"GET", "POST"})
+     *
      * @Entity("note", expr="repository.find(note_id)")
      * @Entity("case", expr="repository.find(id)")
      */
@@ -131,6 +132,7 @@ class NoteController extends AbstractController
 
     /**
      * @Route("/{note_id}/delete", name="note_delete", methods={"DELETE"})
+     *
      * @Entity("note", expr="repository.find(note_id)")
      * @Entity("case", expr="repository.find(id)")
      */

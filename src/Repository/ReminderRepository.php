@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Municipality;
 use App\Entity\Reminder;
 use App\Entity\User;
-use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -24,8 +23,8 @@ class ReminderRepository extends ServiceEntityRepository
 
     public function findRemindersWithinWeekByUserAndMunicipality(User $user, Municipality $municipality)
     {
-        $from = new DateTime('today');
-        $to = new DateTime('today');
+        $from = new \DateTime('today');
+        $to = new \DateTime('today');
         $to->modify('+1 week');
 
         $result = $this->createQueryBuilder('r')
@@ -47,7 +46,7 @@ class ReminderRepository extends ServiceEntityRepository
 
     public function findExceededRemindersByUserAndMunicipality(User $user, Municipality $municipality)
     {
-        $today = new DateTime('today');
+        $today = new \DateTime('today');
 
         $result = $this->createQueryBuilder('r')
             ->leftJoin('r.caseEntity', 'c')

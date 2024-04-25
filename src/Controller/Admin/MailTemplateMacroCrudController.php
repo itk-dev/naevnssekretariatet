@@ -27,7 +27,7 @@ class MailTemplateMacroCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInPlural('Mail template macros')
             ->setEntityLabelInSingular('Mail template macro')
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable

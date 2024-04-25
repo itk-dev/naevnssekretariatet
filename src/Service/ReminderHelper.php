@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Municipality;
 use App\Entity\User;
 use App\Repository\ReminderRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -35,7 +34,7 @@ class ReminderHelper implements LoggerAwareInterface
     public function updateStatuses(bool $dryRun)
     {
         // Handle pending => active transition
-        $currentDate = new DateTime('today');
+        $currentDate = new \DateTime('today');
 
         $this->logger->info('Today: '.$currentDate->format('d/m/Y'));
 
@@ -94,7 +93,7 @@ class ReminderHelper implements LoggerAwareInterface
 
     public function getStatusByDate(\DateTimeInterface $reminderDate): int
     {
-        $today = new DateTime('today');
+        $today = new \DateTime('today');
 
         if ($reminderDate > $today) {
             return ReminderStatus::PENDING;

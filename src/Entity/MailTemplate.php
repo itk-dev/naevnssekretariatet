@@ -14,6 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=MailTemplateRepository::class)
+ *
  * @Vich\Uploadable
  */
 class MailTemplate implements LoggableEntityInterface
@@ -23,18 +24,21 @@ class MailTemplate implements LoggableEntityInterface
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     *
      * @Assert\NotBlank()
      */
     private $description;
@@ -108,7 +112,7 @@ class MailTemplate implements LoggableEntityInterface
         return $this;
     }
 
-    public function setTemplateFile(File $templateFile = null): self
+    public function setTemplateFile(?File $templateFile = null): self
     {
         $this->templateFile = $templateFile;
 

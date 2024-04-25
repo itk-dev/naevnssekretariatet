@@ -13,36 +13,42 @@ class Address implements LoggableEntityInterface
 {
     /**
      * @ORM\Column(type="string")
+     *
      * @Groups({"mail_template"})
      */
     private $street;
 
     /**
      * @ORM\Column(type="string")
+     *
      * @Groups({"mail_template"})
      */
     private $number;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $floor;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $side;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @Groups({"mail_template"})
      */
     private $postalCode;
 
     /**
      * @ORM\Column(type="string")
+     *
      * @Groups({"mail_template"})
      */
     private $city;
@@ -59,6 +65,7 @@ class Address implements LoggableEntityInterface
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $extraInformation;
@@ -167,13 +174,11 @@ class Address implements LoggableEntityInterface
 
         $address .= $this->getFloor()
             ? ', '.$this->getFloor()
-            : ''
-        ;
+            : '';
 
         $address .= $this->getSide()
             ? ' '.$this->getSide()
-            : ''
-        ;
+            : '';
 
         $address .= ', '.$this->getPostalCode();
         $address .= ' '.$this->getCity();

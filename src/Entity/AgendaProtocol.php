@@ -13,6 +13,7 @@ class AgendaProtocol
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;

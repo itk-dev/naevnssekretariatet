@@ -12,18 +12,21 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=MunicipalityRepository::class)
+ *
  * @ORM\EntityListeners({"App\Logging\EntityListener\MunicipalityListener"})
  */
 class Municipality implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     *
      * @Groups({"mail_template"})
      */
     private $name;

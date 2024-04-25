@@ -55,14 +55,14 @@ class DigitalPostEnvelopeCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_INDEX, 'Digital post envelopes')
             ->setPageTitle(Crud::PAGE_DETAIL, 'Digital post envelope')
             ->setDefaultSort(['updatedAt' => 'ASC'])
-            ;
+        ;
     }
 
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->disable(Action::NEW, Action::DELETE, Action::EDIT)
-            ;
+        ;
     }
 
     public function configureFilters(Filters $filters): Filters

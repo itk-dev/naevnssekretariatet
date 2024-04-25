@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FenceReviewCaseRepository::class)
+ *
  * @ORM\HasLifecycleCallbacks()
  */
 class FenceReviewCase extends CaseEntity
@@ -46,6 +47,7 @@ class FenceReviewCase extends CaseEntity
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
+     *
      * @Assert\Valid()
      */
     private $accusedIdentification;
@@ -134,6 +136,7 @@ class FenceReviewCase extends CaseEntity
 
     /**
      * @ORM\PrePersist
+     *
      * @ORM\PreUpdate
      */
     public function updateSortingAddress()

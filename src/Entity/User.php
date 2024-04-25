@@ -17,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ *
  * @Vich\Uploadable
  */
 class User implements UserInterface, LoggableEntityInterface, \Serializable
@@ -25,6 +26,7 @@ class User implements UserInterface, LoggableEntityInterface, \Serializable
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -46,6 +48,7 @@ class User implements UserInterface, LoggableEntityInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Groups({"mail_template"})
      */
     private $name;
@@ -67,6 +70,7 @@ class User implements UserInterface, LoggableEntityInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $initials;
@@ -84,8 +88,6 @@ class User implements UserInterface, LoggableEntityInterface, \Serializable
     /**
      * @Vich\UploadableField(mapping="user_signatures", fileNameProperty="signatureFilename")
      *
-     * @var File
-     *
      * @Assert\File(
      *     maxSize = "1M",
      *     mimeTypes = {"image/jpeg", "image/png"},
@@ -96,8 +98,6 @@ class User implements UserInterface, LoggableEntityInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @var string
      */
     private ?string $signatureFilename = null;
 
@@ -339,7 +339,7 @@ class User implements UserInterface, LoggableEntityInterface, \Serializable
         return $this->signatureFile;
     }
 
-    public function setSignatureFile(File $signatureFile = null): self
+    public function setSignatureFile(?File $signatureFile = null): self
     {
         $this->signatureFile = $signatureFile;
 
@@ -375,25 +375,16 @@ class User implements UserInterface, LoggableEntityInterface, \Serializable
      * https://www.php.net/manual/en/class.serializable.php#class.serializable).
      */
 
-    /**
-     * {@inheritdoc}
-     */
     public function serialize()
     {
         return serialize($this->__serialize());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function unserialize(string $data)
     {
         $this->__unserialize(unserialize($data));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __serialize(): array
     {
         return [
@@ -407,9 +398,6 @@ class User implements UserInterface, LoggableEntityInterface, \Serializable
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __unserialize(array $data): void
     {
         $this->id = $data['id'];

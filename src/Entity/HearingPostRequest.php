@@ -18,6 +18,7 @@ class HearingPostRequest extends HearingPost
 
     /**
      * @ORM\ManyToOne(targetEntity=MailTemplate::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $template;
@@ -29,6 +30,7 @@ class HearingPostRequest extends HearingPost
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Groups({"mail_template"})
      */
     private $title;

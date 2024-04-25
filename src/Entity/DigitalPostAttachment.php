@@ -14,24 +14,28 @@ class DigitalPostAttachment
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=DigitalPost::class, inversedBy="attachments")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $digitalPost;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $document;
 
     /**
      * @Gedmo\SortablePosition()
+     *
      * @ORM\Column(type="integer")
      */
     private $position;

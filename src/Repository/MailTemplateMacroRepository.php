@@ -22,7 +22,7 @@ class MailTemplateMacroRepository extends ServiceEntityRepository
     /**
      * Find macros by template type.
      */
-    public function findByTemplateType(string $templateType, array $criteria = [], array $orderBy = null, $limit = null, $offset = null): array
+    public function findByTemplateType(string $templateType, array $criteria = [], ?array $orderBy = null, $limit = null, $offset = null): array
     {
         // This is a lazy, but effective, way to filter out the macros having no attached template type or one matching the requested type.
         $macros = $this->findAll();

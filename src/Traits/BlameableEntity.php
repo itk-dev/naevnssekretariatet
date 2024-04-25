@@ -14,14 +14,18 @@ trait BlameableEntity
 {
     /**
      * @var User
+     *
      * @Gedmo\Blameable(on="create")
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     protected $createdBy;
 
     /**
      * @var User
+     *
      * @Gedmo\Blameable(on="update")
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     protected $updatedBy;
@@ -40,8 +44,6 @@ trait BlameableEntity
 
     /**
      * Returns createdBy.
-     *
-     * @return User
      */
     public function getCreatedBy(): ?User
     {
@@ -62,8 +64,6 @@ trait BlameableEntity
 
     /**
      * Returns updatedBy.
-     *
-     * @return User
      */
     public function getUpdatedBy(): ?User
     {

@@ -8,14 +8,18 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=AgendaItemRepository::class)
+ *
  * @ORM\InheritanceType("JOINED")
+ *
  * @ORM\DiscriminatorColumn(name="discr", type="string")
+ *
  * @ORM\DiscriminatorMap({"caseEntity" = "CaseEntity", "agendaCaseItem" = "AgendaCaseItem", "agendaManuelItem" = "AgendaManuelItem"})
  */
 abstract class AgendaItem
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -42,6 +46,7 @@ abstract class AgendaItem
 
     /**
      * @ORM\ManyToOne(targetEntity=Agenda::class, inversedBy="agendaItems")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $agenda;

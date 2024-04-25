@@ -9,12 +9,14 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=CasePresentationRepository::class)
+ *
  * @ORM\EntityListeners({"App\Logging\EntityListener\CasePresentationListener"})
  */
 class CasePresentation implements LoggableEntityInterface
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;

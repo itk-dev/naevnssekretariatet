@@ -30,7 +30,7 @@ class BoardRoleCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Board roles')
             ->setSearchFields(['board'])
             ->setDefaultSort(['board' => 'ASC'])
-            ;
+        ;
     }
 
     public function configureFields(string $pageName): iterable

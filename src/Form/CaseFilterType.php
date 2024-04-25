@@ -71,7 +71,7 @@ class CaseFilterType extends AbstractType
         ;
 
         // Dynamically show list of statuses via board
-        $formModifier = function (FormInterface $form, Board $board = null) {
+        $formModifier = function (FormInterface $form, ?Board $board = null) {
             if (null != $board) {
                 // Retrieve list of statuses by board and make them into options
                 $statuses = array_filter(array_map('trim', explode(PHP_EOL, $board->getStatuses())));
@@ -127,8 +127,7 @@ class CaseFilterType extends AbstractType
                 'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
                     return $this->filterHelper->applyFilterWithUuids($filterQuery, $field, $values);
                 },
-            ])
-            ;
+            ]);
 
             $builder
                 ->add('deadlines', Filters\ChoiceFilterType::class, [

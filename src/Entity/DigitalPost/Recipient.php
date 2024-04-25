@@ -14,12 +14,14 @@ class Recipient
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=DigitalPost::class, inversedBy="recipients")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $digitalPost;

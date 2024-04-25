@@ -260,6 +260,7 @@ class PartyHelper
     private function getSortingPartyType(CaseEntity $case)
     {
         $partyTypes = $this->getPartyTypesByCase($case);
+
         // Return first entry in array
         return reset($partyTypes);
     }
@@ -267,6 +268,7 @@ class PartyHelper
     private function getSortingCounterpartyType(CaseEntity $case)
     {
         $counterpartTypes = $this->getCounterpartyTypesByCase($case);
+
         // Return first entry in array
         return reset($counterpartTypes);
     }

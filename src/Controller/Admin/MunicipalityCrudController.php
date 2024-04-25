@@ -27,7 +27,7 @@ class MunicipalityCrudController extends AbstractCrudController
             ->setPermission(Action::EDIT, 'ROLE_ADMIN')
             ->setPermission(Action::DELETE, 'ROLE_ADMIN')
             ->setPermission(Action::NEW, 'ROLE_ADMIN')
-            ;
+        ;
     }
 
     public function configureCrud(Crud $crud): Crud

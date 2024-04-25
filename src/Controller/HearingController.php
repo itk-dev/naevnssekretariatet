@@ -27,7 +27,6 @@ use App\Service\DigitalPostHelper;
 use App\Service\DocumentUploader;
 use App\Service\MailTemplateHelper;
 use App\Service\PartyHelper;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -113,7 +112,7 @@ class HearingController extends AbstractController
         $hearing = $case->getHearing();
 
         // Mark hearing as started
-        $today = new DateTime('today');
+        $today = new \DateTime('today');
         $hearing->setStartedOn($today);
         $this->entityManager->persist($hearing);
         $this->entityManager->flush();
@@ -313,7 +312,7 @@ class HearingController extends AbstractController
             $documentName = $this->translator->trans('Hearing post response by {sender} on {date}', ['sender' => $hearingPost->getSender()->getName(), 'date' => $today->format('d/m/Y')], 'case');
             $hearingPost->getDocument()->setDocumentName($documentName);
             $hearingPost->getDocument()->setUploadedBy($user);
-            $hearingPost->getDocument()->setUploadedAt(new DateTime('now'));
+            $hearingPost->getDocument()->setUploadedAt(new \DateTime('now'));
 
             $this->entityManager->flush();
             $this->addFlash('success', new TranslatableMessage('Hearing post response updated', [], 'case'));
@@ -455,7 +454,7 @@ class HearingController extends AbstractController
 
         $caseEventHelper->createDocumentCaseEvent($case, CaseEvent::SUBJECT_HEARING_CONTRADICTIONS_BRIEFING, [$hearingPost->getSender()], null, [], null, $documents);
 
-        $today = new DateTime('today');
+        $today = new \DateTime('today');
         $hearingPost->setApprovedOn($today);
         $hearingPost->getHearing()->setHasNewHearingPost(false);
 
@@ -539,7 +538,7 @@ class HearingController extends AbstractController
             }
         }
 
-        $today = new DateTime('today');
+        $today = new \DateTime('today');
 
         $hearingResponseModifier = sprintf('+%s days', $case->getBoard()->getHearingResponseDeadline());
         $case->setHearingResponseDeadline($today->modify($hearingResponseModifier));
@@ -560,7 +559,7 @@ class HearingController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $case);
 
         // TODO: Consider whether more logic is needed upon finishing a hearing
-        $today = new DateTime('today');
+        $today = new \DateTime('today');
         $hearing->setFinishedOn($today);
         $this->entityManager->flush();
         $this->addFlash('success', new TranslatableMessage('Hearing finished', [], 'case'));

@@ -18,9 +18,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CaseEntityRepository::class)
+ *
  * @ORM\InheritanceType("JOINED")
+ *
  * @ORM\DiscriminatorColumn(name="discr", type="string")
+ *
  * @ORM\DiscriminatorMap({"caseEntity" = "CaseEntity", "residentComplaintBoardCase" = "ResidentComplaintBoardCase", "rentBoardCase" = "RentBoardCase", "fenceReviewCase" = "FenceReviewCase"})
+ *
  * @ORM\EntityListeners({"App\Logging\EntityListener\CaseListener"})
  */
 abstract class CaseEntity implements Timestampable
@@ -31,26 +35,32 @@ abstract class CaseEntity implements Timestampable
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Board::class, inversedBy="caseEntities")
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Groups({"mail_template"})
      */
     private $board;
 
     /**
      * @ORM\ManyToOne(targetEntity=Municipality::class, inversedBy="caseEntities")
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Groups({"mail_template"})
      */
     private $municipality;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Groups({"mail_template"})
      */
     private $caseNumber;
@@ -62,6 +72,7 @@ abstract class CaseEntity implements Timestampable
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Groups({"mail_template"})
      */
     private $currentPlace;
@@ -103,18 +114,21 @@ abstract class CaseEntity implements Timestampable
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignedCases")
+     *
      * @Groups({"mail_template"})
      */
     private $assignedTo;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Groups({"mail_template"})
      */
     private $bringer;
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Address")
+     *
      * @Groups({"mail_template"})
      */
     private $bringerAddress;
@@ -141,14 +155,18 @@ abstract class CaseEntity implements Timestampable
 
     /**
      * @Assert\GreaterThanOrEqual(propertyPath="finishHearingDeadline", groups={"process_finish"})
+     *
      * @Assert\NotBlank()
+     *
      * @ORM\Column(type="date")
      */
     private $finishProcessingDeadline;
 
     /**
      * @Assert\GreaterThanOrEqual("today", groups={"hearing_finish"})
+     *
      * @Assert\NotBlank()
+     *
      * @ORM\Column(type="date")
      */
     private $finishHearingDeadline;
@@ -170,7 +188,9 @@ abstract class CaseEntity implements Timestampable
 
     /**
      * @ORM\Embedded(class="App\Entity\Embeddable\Identification")
+     *
      * @Groups({"mail_template"})
+     *
      * @Assert\Valid()
      */
     private $bringerIdentification;
@@ -187,6 +207,7 @@ abstract class CaseEntity implements Timestampable
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $extraComplaintCategoryInformation;
@@ -198,18 +219,21 @@ abstract class CaseEntity implements Timestampable
 
     /**
      * @ORM\Column(type="datetime")
+     *
      * @Groups({"mail_template"})
      */
     private $receivedAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $validatedAt;
 
     /**
      * @Assert\GreaterThanOrEqual("today", groups={"hearing_response_deadline"})
+     *
      * @ORM\Column(type="date", nullable=true)
      */
     private $hearingResponseDeadline;
@@ -221,12 +245,14 @@ abstract class CaseEntity implements Timestampable
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $dateForActiveAgenda;
 
     /**
      * @ORM\ManyToMany(targetEntity=ComplaintCategory::class, inversedBy="caseEntities")
+     *
      * @Assert\Count(
      *      min = "1",
      *      minMessage = "You have to select at least 1 item"

@@ -106,17 +106,17 @@ class DigitalPoster
             $this->logger->info(
                 $isNew
                     ? sprintf(
-                    'Created envelope %s for digital post %s to %s',
-                    $envelope->getMeMoMessageUuid(),
-                    $digitalPost,
-                    $recipient
-                )
+                        'Created envelope %s for digital post %s to %s',
+                        $envelope->getMeMoMessageUuid(),
+                        $digitalPost,
+                        $recipient
+                    )
                     : sprintf(
-                    'Reused envelope %s for digital post %s to %s',
-                    $envelope->getMeMoMessageUuid(),
-                    $digitalPost,
-                    $recipient
-                )
+                        'Reused envelope %s for digital post %s to %s',
+                        $envelope->getMeMoMessageUuid(),
+                        $digitalPost,
+                        $recipient
+                    )
             );
         } catch (\Throwable $throwable) {
             $context = [];

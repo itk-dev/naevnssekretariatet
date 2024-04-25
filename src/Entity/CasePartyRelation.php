@@ -10,7 +10,9 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity
+ *
  * @ORM\Table(name="case_parties")
+ *
  * @ORM\EntityListeners({"App\Logging\EntityListener\CasePartyRelationListener"})
  */
 class CasePartyRelation implements LoggableEntityInterface
@@ -19,30 +21,35 @@ class CasePartyRelation implements LoggableEntityInterface
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="CaseEntity", inversedBy="casePartyRelation")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $case;
 
     /**
      * @ORM\ManyToOne(targetEntity="Party", inversedBy="casePartyRelation")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $party;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Groups({"mail_template"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      * @Groups({"mail_template"})
      */
     private $referenceNumber;

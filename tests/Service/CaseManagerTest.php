@@ -60,7 +60,7 @@ class CaseManagerTest extends TestCase
             ->willReturn(null)
         ;
 
-        $date = new DateTime();
+        $date = new \DateTime();
         $year = $date->format('y');
 
         $actual = $this->caseManager->generateCaseNumber();
@@ -80,7 +80,7 @@ class CaseManagerTest extends TestCase
             ->willReturn($mockCase)
         ;
 
-        $currentDate = new DateTime();
+        $currentDate = new \DateTime();
         $currentYear = $currentDate->format('y');
 
         // Subtract a year from DateTime and get the year

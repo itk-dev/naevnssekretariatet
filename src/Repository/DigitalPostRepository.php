@@ -22,7 +22,7 @@ class DigitalPostRepository extends ServiceEntityRepository
         parent::__construct($registry, DigitalPost::class);
     }
 
-    public function findByEntity(object $entity, array $criteria = [], array $orderBy = null, $limit = null, $offset = null): array
+    public function findByEntity(object $entity, array $criteria = [], ?array $orderBy = null, $limit = null, $offset = null): array
     {
         $criteria['entityType'] = get_class($entity);
         $criteria['entityId'] = $entity->getId();
@@ -30,14 +30,14 @@ class DigitalPostRepository extends ServiceEntityRepository
         return $this->findBy($criteria, $orderBy, $limit, $offset);
     }
 
-    public function findByDocumentAndCase(Document $document, CaseEntity $case, array $criteria = [], array $orderBy = null, $limit = null, $offset = null): array
+    public function findByDocumentAndCase(Document $document, CaseEntity $case, array $criteria = [], ?array $orderBy = null, $limit = null, $offset = null): array
     {
         $criteria['document'] = $document;
 
         return $this->findByEntity($case, $criteria, $orderBy, $limit, $offset);
     }
 
-    public function findByDocumentAndAgendaCaseItem(Document $document, AgendaCaseItem $agendaCaseItem, array $criteria = [], array $orderBy = null, $limit = null, $offset = null): array
+    public function findByDocumentAndAgendaCaseItem(Document $document, AgendaCaseItem $agendaCaseItem, array $criteria = [], ?array $orderBy = null, $limit = null, $offset = null): array
     {
         $criteria['document'] = $document;
 

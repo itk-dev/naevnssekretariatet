@@ -22,7 +22,7 @@ class CaseEventRepository extends ServiceEntityRepository
         parent::__construct($registry, CaseEvent::class);
     }
 
-    public function findByCase(CaseEntity $case, array $criteria = [], array $orderBy = null, $limit = null, $offset = null): array
+    public function findByCase(CaseEntity $case, array $criteria = [], ?array $orderBy = null, $limit = null, $offset = null): array
     {
         $criteria['caseEntity'] = $case;
 
@@ -36,7 +36,7 @@ class CaseEventRepository extends ServiceEntityRepository
             ->where('c.id = :case_id')
             ->setParameter('case_id', $caseEntity->getId(), 'uuid')
             ->orderBy($alias.'.receivedAt', Criteria::DESC)
-            ;
+        ;
     }
 
     public function getAvailableCaseEventsForCase(CaseEntity $caseEntity)
@@ -44,6 +44,6 @@ class CaseEventRepository extends ServiceEntityRepository
         return $this->createAvailableCaseEventsForCaseQueryBuilder('ce', $caseEntity)
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

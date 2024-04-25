@@ -124,7 +124,7 @@ class AzureAdLoginAuthenticator extends OpenIdLoginAuthenticator
         return new RedirectResponse($targetUrl);
     }
 
-    public function start(Request $request, AuthenticationException $authException = null)
+    public function start(Request $request, ?AuthenticationException $authException = null)
     {
         return new RedirectResponse($this->router->generate('login'));
     }

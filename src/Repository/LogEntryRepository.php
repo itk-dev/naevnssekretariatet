@@ -44,7 +44,8 @@ class LogEntryRepository extends ServiceEntityRepository
                     ->setParameter('log_entry_id', $logEntry->getId()->toBinary())
                     ->orderBy('e.id', 'next' === $relation ? Criteria::ASC : Criteria::DESC)
                     ->setMaxResults(1)
-                    ->getQuery()->getOneOrNullResult();
+                    ->getQuery()->getOneOrNullResult()
+                ;
             default:
                 throw new \InvalidArgumentException(sprintf('Unknown relation: %s', $relation));
         }

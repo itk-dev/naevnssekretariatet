@@ -56,11 +56,11 @@ class SidebarController extends AbstractController
 
         if ($isCaseworker || $isAdministration) {
             $menuItems[] = $this->generateMenuItem(
-                    $this->translator->trans('Settings', [], 'sidebar'),
-                    $this->translator->trans('Go to settings', [], 'sidebar'),
-                    'admin',
-                    'cog',
-                    $activeRoute
+                $this->translator->trans('Settings', [], 'sidebar'),
+                $this->translator->trans('Go to settings', [], 'sidebar'),
+                'admin',
+                'cog',
+                $activeRoute
             );
         }
 

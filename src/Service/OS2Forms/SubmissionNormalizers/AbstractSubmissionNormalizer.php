@@ -33,8 +33,7 @@ abstract class AbstractSubmissionNormalizer implements SubmissionNormalizerInter
         foreach ($config as $property => $spec) {
             $value = isset($spec['value_callback'])
                 ? $spec['value_callback']($property, $spec, $submissionData, $normalizedArray, $this->entityManager)
-                : $submissionData[$spec['os2forms_key']] ?? null
-            ;
+                : $submissionData[$spec['os2forms_key']] ?? null;
 
             if (isset($spec['type']) && null !== $value) {
                 $type = $spec['type'];

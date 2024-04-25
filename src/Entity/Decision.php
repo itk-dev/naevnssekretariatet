@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DecisionRepository::class)
+ *
  * @ORM\HasLifecycleCallbacks()
  */
 class Decision
@@ -20,25 +21,30 @@ class Decision
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $document;
 
     /**
      * @ORM\ManyToOne(targetEntity=CaseEntity::class, inversedBy="decisions")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $caseEntity;
 
     /**
      * @ORM\OneToMany(targetEntity=DecisionAttachment::class, mappedBy="decision", orphanRemoval=true, cascade={"persist"})
+     *
      * @ORM\OrderBy({"position": "ASC"})
+     *
      * @Assert\Valid
      */
     private $attachments;
@@ -121,6 +127,7 @@ class Decision
 
     /**
      * @ORM\PrePersist
+     *
      * @ORM\PreUpdate
      */
     public function updateAttachmentPositions()

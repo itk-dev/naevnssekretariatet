@@ -13,9 +13,12 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=DigitalPostRepository::class)
+ *
  * @ORM\Table(indexes={
+ *
  *     @ORM\Index(name="entity_idx", columns={"entity_type", "entity_id"})
  * })
+ *
  * @ORM\HasLifecycleCallbacks()
  */
 class DigitalPost
@@ -24,12 +27,14 @@ class DigitalPost
 
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Document::class)
+     *
      * @ORM\JoinColumn(nullable=false)
      */
     private $document;
@@ -61,6 +66,7 @@ class DigitalPost
 
     /**
      * @ORM\OneToMany(targetEntity=DigitalPostAttachment::class, mappedBy="digitalPost", orphanRemoval=true, cascade={"persist"})
+     *
      * @ORM\OrderBy({"position": "ASC"})
      */
     private $attachments;
@@ -132,9 +138,6 @@ class DigitalPost
         return $this->entityType;
     }
 
-    /**
-     * @return DigitalPost
-     */
     public function setEntityType(string $entityType): self
     {
         $this->entityType = $entityType;
@@ -147,9 +150,6 @@ class DigitalPost
         return $this->entityId;
     }
 
-    /**
-     * @return DigitalPost
-     */
     public function setEntityId(Uuid $entityId): self
     {
         $this->entityId = $entityId;
@@ -259,6 +259,7 @@ class DigitalPost
 
     /**
      * @ORM\PrePersist
+     *
      * @ORM\PreUpdate
      */
     public function updateAttachmentPositions()
