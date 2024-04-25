@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-392](https://github.com/itk-dev/naevnssekretariatet/pull/392)
+  Updated translations.
 - [PR-391](https://github.com/itk-dev/naevnssekretariatet/pull/391)
   Updated composer packages
 - [PR-377](https://github.com/itk-dev/naevnssekretariatet/pull/377)
