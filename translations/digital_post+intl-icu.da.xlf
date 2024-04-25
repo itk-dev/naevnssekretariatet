@@ -59,7 +59,7 @@
       </trans-unit>
       <trans-unit id="HtGnOKw" resname="Agenda broadcast">
         <source>Agenda broadcast</source>
-        <target state="translated">Dagsordenspublisering</target>
+        <target state="translated">Dagsordenspublicering</target>
       </trans-unit>
       <trans-unit id="nlcHDTm" resname="PNR for {boardMember} not found ({cprNumber})">
         <source>PNR for {boardMember} not found ({cprNumber})</source>
