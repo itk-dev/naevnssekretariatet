@@ -96,10 +96,9 @@ class DefaultController extends AbstractController
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout(): Response
+    public function logout(): void
     {
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+        // This will never be called so can be blank,
+        // cf. https://symfony.com/doc/5.x/security.html#logging-out
     }
 }
