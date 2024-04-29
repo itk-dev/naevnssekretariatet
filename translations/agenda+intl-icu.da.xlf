@@ -347,7 +347,7 @@
       </trans-unit>
       <trans-unit id="lSyC1Lx" resname="Choose a title for the broadcast">
         <source>Choose a title for the broadcast</source>
-        <target state="translated">Vælg et navn til publiseringen af dagsordenen</target>
+        <target state="translated">Vælg et navn til publiceringen af dagsordenen</target>
       </trans-unit>
       <trans-unit id="QSX8nui" resname="Send notice to board members informing them that they now have access to the agenda.">
         <source>Send notice to board members informing them that they now have access to the agenda.</source>
@@ -355,19 +355,19 @@
       </trans-unit>
       <trans-unit id="F7yReDQ" resname="Broadcast">
         <source>Broadcast</source>
-        <target state="translated">Publisering</target>
+        <target state="translated">Publicering</target>
       </trans-unit>
       <trans-unit id="M0iL.jV" resname="Agenda broadcasts">
         <source>Agenda broadcasts</source>
-        <target state="translated">Dagsordenspubliseringer</target>
+        <target state="translated">Dagsordenspubliceringer</target>
       </trans-unit>
       <trans-unit id="B2uLUYi" resname="Cannot broadcast agenda with no assigned board members">
         <source>Cannot broadcast agenda with no assigned board members</source>
-        <target state="translated">Kan ikke publisere dagsorden, som ikke har nogle tilknyttede nævnsmedlemmer</target>
+        <target state="translated">Kan ikke publicere dagsorden, som ikke har nogle tilknyttede nævnsmedlemmer</target>
       </trans-unit>
       <trans-unit id="MLLgk.9" resname="Cannot broadcast agenda that does not have status ready">
         <source>Cannot broadcast agenda that does not have status ready</source>
-        <target state="translated">Kan ikke publisere dagsorden, som ikke har status klar.</target>
+        <target state="translated">Kan ikke publicere dagsorden, som ikke har status klar.</target>
       </trans-unit>
       <trans-unit id="d1tb_WR" resname="Created at">
         <source>Created at</source>
@@ -387,7 +387,7 @@
       </trans-unit>
       <trans-unit id="yni3tKo" resname="No boardmember notifications">
         <source>No boardmember notifications</source>
-        <target state="translated">Ingen publiseringer</target>
+        <target state="translated">Ingen publiceringer</target>
       </trans-unit>
       <trans-unit id="dpAPG.0" resname="Back">
         <source>Back</source>
@@ -439,7 +439,7 @@
       </trans-unit>
       <trans-unit id="a_4Bg6H" resname="Agenda published">
         <source>Agenda published</source>
-        <target state="translated">Dagsorden publiseret</target>
+        <target state="translated">Dagsorden publiceret</target>
       </trans-unit>
       <trans-unit id="Qy_9gnt" resname="Documents added to agenda">
         <source>Documents added to agenda</source>
