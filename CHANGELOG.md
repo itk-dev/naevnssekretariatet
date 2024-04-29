@@ -12,6 +12,10 @@ about writing changes to this log.
 
 - [PR-394](https://github.com/itk-dev/naevnssekretariatet/pull/394)
   Added logout functionality.
+- [PR-393](https://github.com/itk-dev/naevnssekretariatet/pull/393)
+  Fixed `BoardRole` crud search property.
+- [PR-392](https://github.com/itk-dev/naevnssekretariatet/pull/392)
+  Updated translations.
 - [PR-391](https://github.com/itk-dev/naevnssekretariatet/pull/391)
   Updated composer packages
 - [PR-377](https://github.com/itk-dev/naevnssekretariatet/pull/377)
