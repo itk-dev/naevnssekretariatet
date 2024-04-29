@@ -28,7 +28,7 @@ class BoardRoleCrudController extends AbstractCrudController
             ->setPageTitle('new', 'Add board role')
             ->setEntityLabelInSingular('Board role')
             ->setEntityLabelInPlural('Board roles')
-            ->setSearchFields(['board'])
+            ->setSearchFields(['board.name', 'title'])
             ->setDefaultSort(['board' => 'ASC'])
         ;
     }
