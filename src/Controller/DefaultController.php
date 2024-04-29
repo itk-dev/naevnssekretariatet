@@ -92,4 +92,13 @@ class DefaultController extends AbstractController
 
         return $this->redirect($url);
     }
+
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout(): void
+    {
+        // This will never be called so can be blank,
+        // cf. https://symfony.com/doc/5.x/security.html#logging-out
+    }
 }
