@@ -27,7 +27,6 @@ class MeMoHelper
     public const IDENTIFIER_TYPE_CVR = 'CVR';
     public const SENDER_IDENTIFIER_TYPE = 'sender_identifier_type';
     public const SENDER_IDENTIFIER = 'sender_identifier';
-    public const SENDER_LABEL = 'sender_label';
 
     public function __construct(private DocumentUploader $documentUploader)
     {
@@ -40,13 +39,13 @@ class MeMoHelper
 
         $message = new Message();
 
+        $label = $digitalPost->getSubject();
         $sender = (new Sender())
             ->setIdType($options[self::SENDER_IDENTIFIER_TYPE])
             ->setSenderID($options[self::SENDER_IDENTIFIER])
-            ->setLabel($options[self::SENDER_LABEL])
+            ->setLabel($label)
         ;
 
-        $label = $digitalPost->getSubject();
         $recipient = $this->createRecipient($digitalPostRecipient);
 
         $messageHeader = (new MessageHeader())

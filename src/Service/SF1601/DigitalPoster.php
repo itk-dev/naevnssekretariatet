@@ -64,7 +64,6 @@ class DigitalPoster
             $meMoOptions = [
                 MeMoHelper::SENDER_IDENTIFIER_TYPE => MeMoHelper::IDENTIFIER_TYPE_CVR,
                 MeMoHelper::SENDER_IDENTIFIER => $this->options['sf1601']['authority_cvr'],
-                MeMoHelper::SENDER_LABEL => $this->options['sf1601']['sender_label'],
             ];
 
             $meMoMessage = $this->meMoHelper->createMeMoMessage($digitalPost, $recipient, $meMoOptions);
@@ -169,8 +168,6 @@ class DigitalPoster
                     ->setAllowedTypes('authority_cvr', 'string')
                     ->setRequired('forsendelses_type_identifikator')
                     ->setAllowedTypes('forsendelses_type_identifikator', 'int')
-                    ->setRequired('sender_label')
-                    ->setAllowedTypes('sender_label', 'string')
                 ;
             })
             ->resolve($options)
