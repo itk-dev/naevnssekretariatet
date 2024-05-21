@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-396](https://github.com/itk-dev/naevnssekretariatet/pull/396)
+  Filtered out finished cases when creating agenda case items.
+
 ## [1.5.5]
 
 - [PR-394](https://github.com/itk-dev/naevnssekretariatet/pull/394)
