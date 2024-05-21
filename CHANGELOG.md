@@ -12,6 +12,8 @@ about writing changes to this log.
 
 - [PR-396](https://github.com/itk-dev/naevnssekretariatet/pull/396)
   Filtered out finished cases when creating agenda case items.
+- [PR-397](https://github.com/itk-dev/naevnssekretariatet/pull/397)
+  Updated MeMo message sender label.
 
 ## [1.5.5]
 
