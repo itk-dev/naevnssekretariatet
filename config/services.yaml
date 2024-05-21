@@ -264,6 +264,7 @@ services:
             $options:
                 sf1601:
                     authority_cvr: '%env(SF1601_AUTHORITY_CVR)%'
+                    sender_label: '%env(SF1601_SENDER_LABEL)%'
                     forsendelses_type_identifikator: '%env(int:SF1601_FORSENDELSES_TYPE_IDENTIFIKATOR)%'
                     test_mode: '%env(bool:SF1601_TEST_MODE)%'
 
