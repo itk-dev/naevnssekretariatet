@@ -46,11 +46,17 @@ class CaseEntityRepository extends ServiceEntityRepository
 
         $qb = $this->createQueryBuilder('c');
 
+        // We filter out finished cases, i.e. with last status in board.
+        $statuses = explode(PHP_EOL, $board->getStatuses());
+        $endStatus = end($statuses);
+
         $qb->select('c')
             ->where('c.board = :board')
             ->setParameter('board', $board->getId()->toBinary())
             ->andWhere('c.isReadyForAgenda = :isReadyForAgendaCheck')
             ->setParameter('isReadyForAgendaCheck', true)
+            ->andWhere('c.currentPlace != :end_status')
+            ->setParameter('end_status', $endStatus)
         ;
 
         // If $binaryIdsOfActiveCases array is empty NOT IN does not behave as expected
