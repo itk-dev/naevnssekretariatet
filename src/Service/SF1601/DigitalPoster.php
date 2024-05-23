@@ -154,6 +154,7 @@ class DigitalPoster
             'certificate_locator' => $this->certificateLocatorHelper->getCertificateLocator(),
         ];
         unset($options[ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR]);
+        unset($options[MeMoHelper::SENDER_LABEL]);
 
         return new SF1601($options);
     }
