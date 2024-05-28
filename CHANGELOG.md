@@ -10,12 +10,14 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.5.6] 2024-05-28
+
 - [PR-396](https://github.com/itk-dev/naevnssekretariatet/pull/396)
   Filtered out finished cases when creating agenda case items.
 - [PR-397](https://github.com/itk-dev/naevnssekretariatet/pull/397)
   Updated MeMo message sender label.
 
-## [1.5.5]
+## [1.5.5] 2024-04-29
 
 - [PR-394](https://github.com/itk-dev/naevnssekretariatet/pull/394)
   Added logout functionality.
@@ -37,24 +39,24 @@ about writing changes to this log.
   Mock](https://github.com/Soluto/oidc-server-mock) for mocking
   OIDC IdPs during development.
 
-## [1.5.4] - 2024-04-03
+## [1.5.4] 2024-04-03
 
 - [PR-384](https://github.com/itk-dev/naevnssekretariatet/pull/384)
   Added template placeholder relation data to recipient
   prefix when creating hearing briefings.
 
-## [1.5.3] - 2023-12-19
+## [1.5.3] 2023-12-19
 
 - [PR-377](https://github.com/itk-dev/naevnssekretariatet/pull/377)
   Improved `tvist1:digital-post-envelope:list` command and added Digital post
   debug command.
 
-## [1.5.2]
+## [1.5.2] 2023-07-13
 
 - [PR-378](https://github.com/itk-dev/naevnssekretariatet/pull/378)
   Updated BBR meddelelse url.
 
-## [1.5.1]
+## [1.5.1] 2023-07-03
 
 - [PR-375](https://github.com/itk-dev/naevnssekretariatet/pull/375)
   Use document on load rather than ready.
@@ -331,7 +333,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.5...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.6...HEAD
+[1.5.6]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.5...1.5.6
 [1.5.5]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.4...1.5.5
 [1.5.4]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.3...1.5.4
 [1.5.3]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.2...1.5.3
