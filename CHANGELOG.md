@@ -10,6 +10,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-399](https://github.com/itk-dev/naevnssekretariatet/pull/399)
+  Added `forsendelse-uuid` filtering option to
+  `digital-post-envelope:list` command.
+
 ## [1.5.6] 2024-05-28
 
 - [PR-396](https://github.com/itk-dev/naevnssekretariatet/pull/396)
