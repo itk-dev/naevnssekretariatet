@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/linuxserver/libreoffice
-FROM linuxserver/libreoffice:7.2.2
+FROM linuxserver/libreoffice:7.6.7
 
 # https://github.com/unoconv/unoconv#installing-unoconv
 # RUN apk add --update --no-cache unoconv npm
@@ -8,10 +8,9 @@ FROM linuxserver/libreoffice:7.2.2
 ENV UNO_URL https://raw.githubusercontent.com/dagwieers/unoconv/master/unoconv
 
 # Install Unoconv and Microsoft fonts (e.g. Arial)
-RUN apk add --update --no-cache npm msttcorefonts-installer fontconfig \
+RUN apk add --update --no-cache npm msttcorefonts-installer fontconfig python3 \
     && wget $UNO_URL -O /usr/local/bin/unoconv \
     && chmod +x /usr/local/bin/unoconv \
-    && ln -s /usr/bin/python3 /usr/bin/python \
     && update-ms-fonts \
     && fc-cache -f
 
