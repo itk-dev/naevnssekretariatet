@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+* [PR-401](https://github.com/itk-dev/naevnssekretariatet/pull/401)
+  Update itk-dev/serviceplatformen
+
 ## [1.5.6] 2024-05-28
 
 - [PR-396](https://github.com/itk-dev/naevnssekretariatet/pull/396)
