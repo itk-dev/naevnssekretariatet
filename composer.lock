@@ -2771,16 +2771,16 @@
         },
         {
             "name": "itk-dev/serviceplatformen",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "0e3548174c8d263acf06dd5448aabc48a1d15c97"
+                "reference": "fe4a2d01677607c50c43d9a96a184963ec37da9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/0e3548174c8d263acf06dd5448aabc48a1d15c97",
-                "reference": "0e3548174c8d263acf06dd5448aabc48a1d15c97",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/fe4a2d01677607c50c43d9a96a184963ec37da9b",
+                "reference": "fe4a2d01677607c50c43d9a96a184963ec37da9b",
                 "shasum": ""
             },
             "require": {
@@ -2855,9 +2855,9 @@
             ],
             "support": {
                 "issues": "https://github.com/itk-dev/serviceplatformen/issues",
-                "source": "https://github.com/itk-dev/serviceplatformen/tree/1.5.1"
+                "source": "https://github.com/itk-dev/serviceplatformen/tree/1.5.2"
             },
-            "time": "2024-04-24T13:31:20+00:00"
+            "time": "2024-08-06T14:04:36+00:00"
         },
         {
             "name": "jms/metadata",
