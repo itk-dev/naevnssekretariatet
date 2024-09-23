@@ -194,16 +194,6 @@ class HearingController extends AbstractController
 
         $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
 
-        foreach ($availableParties as $type => &$parties) {
-            foreach ($parties as $key => $party) {
-                if (!$party->canReceiveDigitalPost()) {
-                    $newKey = $key.sprintf(' (%s)', new TranslatableMessage('Cannot receive digital post'));
-                    $parties[$newKey] = $party;
-                    unset($parties[$key]);
-                }
-            }
-        }
-
         $mailTemplates = $mailTemplateHelper->getTemplates('hearing');
 
         $hearingPost = new HearingPostRequest();

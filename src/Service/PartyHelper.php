@@ -329,15 +329,12 @@ class PartyHelper
     private function setCanReceiveDigitalPost(array $parties): array
     {
         foreach ($parties as $party) {
-            $canReceiveDigitalPost = true;
             try {
                 $identification = $party->getIdentification();
-                if (IdentificationHelper::IDENTIFIER_TYPE_CPR === $identification->getType()) {
-                    $canReceiveDigitalPost = $this->digitalPoster->canReceive(
-                        SF1601::FORESPOERG_TYPE_DIGITAL_POST,
-                        $identification->getIdentifier()
-                    );
-                }
+                $canReceiveDigitalPost = $this->digitalPoster->canReceive(
+                    SF1601::FORESPOERG_TYPE_DIGITAL_POST,
+                    $identification->getIdentifier()
+                );
                 $party->setCanReceiveDigitalPost($canReceiveDigitalPost);
             } catch (\Throwable $t) {
                 throw $t;

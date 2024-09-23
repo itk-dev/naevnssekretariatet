@@ -39,7 +39,7 @@ class DigitalPostForespoergCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $table = $io->createTable();
-        $table->setHeaders(['Identifier', 'Result']);
+        $table->setHeaders(['Type', 'Identifier', 'Result']);
         $identifiers = array_unique($input->getArgument('identifier'));
         $type = $input->getOption('type');
         if (!in_array($type, SF1601::FORESPOERG_TYPES)) {
@@ -48,7 +48,7 @@ class DigitalPostForespoergCommand extends Command
 
         foreach ($identifiers as $identifier) {
             $result = $this->digitalPoster->canReceive($type, $identifier);
-            $table->appendRow([$identifier, is_bool($result) ? json_encode($result) : $result]);
+            $table->appendRow([$type, $identifier, is_bool($result) ? json_encode($result) : $result]);
         }
 
         return self::SUCCESS;
