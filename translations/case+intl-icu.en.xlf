@@ -885,10 +885,6 @@
         <source>Title</source>
         <target>Title</target>
       </trans-unit>
-      <trans-unit id="huykMiK" resname="Choose a title for the hearing post">
-        <source>Choose a title for the hearing post</source>
-        <target>Choose a title for the hearing post</target>
-      </trans-unit>
       <trans-unit id="HoVoqCw" resname="Recipients">
         <source>Recipients</source>
         <target>Recipients</target>
@@ -1393,10 +1389,6 @@
         <source>Choose at least one recipient</source>
         <target>Choose at least one recipient</target>
       </trans-unit>
-      <trans-unit id="qRRazVN" resname="You must select at least one recipient">
-        <source>You must select at least one recipient</source>
-        <target>You must select at least one recipient</target>
-      </trans-unit>
       <trans-unit id="cKi2kS8" resname="Ambiguous">
         <source>Ambiguous</source>
         <target>Ambiguous</target>
@@ -1424,6 +1416,10 @@
       <trans-unit id="EcBV71X" resname="Hearing briefing updated">
         <source>Hearing briefing updated</source>
         <target>Hearing briefing updated</target>
+      </trans-unit>
+      <trans-unit id="M6kb.2H" resname="Cannot receive digital post">
+        <source>Cannot receive digital post</source>
+        <target>Cannot receive digital post</target>
       </trans-unit>
     </body>
   </file>

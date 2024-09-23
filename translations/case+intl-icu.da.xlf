@@ -881,10 +881,6 @@
         <source>Title</source>
         <target state="translated">Emne</target>
       </trans-unit>
-      <trans-unit id="huykMiK" resname="Choose a title for the hearing post">
-        <source>Choose a title for the hearing post</source>
-        <target state="translated">Vælg et emne for høringssvar</target>
-      </trans-unit>
       <trans-unit id="HoVoqCw" resname="Recipients">
         <source>Recipients</source>
         <target state="translated">Modtagere</target>
@@ -1393,10 +1389,6 @@
         <source>Choose at least one recipient</source>
         <target state="translated">Vælg mindst en modtager</target>
       </trans-unit>
-      <trans-unit id="qRRazVN" resname="You must select at least one recipient">
-        <source>You must select at least one recipient</source>
-        <target state="translated">Der skal vælges mindst en modtager</target>
-      </trans-unit>
       <trans-unit id="cKi2kS8" resname="Ambiguous">
         <source>Ambiguous</source>
         <target state="translated">Flertydigt</target>
@@ -1424,6 +1416,10 @@
       <trans-unit id="EcBV71X" resname="Hearing briefing updated">
         <source>Hearing briefing updated</source>
         <target state="translated">Orientering opdateret</target>
+      </trans-unit>
+      <trans-unit id="M6kb.2H" resname="Cannot receive digital post">
+        <source>Cannot receive digital post</source>
+        <target state="translated">Kan ikke modtage digital post</target>
       </trans-unit>
     </body>
   </file>

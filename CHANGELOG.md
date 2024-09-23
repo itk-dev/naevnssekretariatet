@@ -10,7 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
-* [PR-401](https://github.com/itk-dev/naevnssekretariatet/pull/401)
+- [PR-402](https://github.com/itk-dev/naevnssekretariatet/pull/402)
+  Optimized handling of digital post
+- [PR-401](https://github.com/itk-dev/naevnssekretariatet/pull/401)
   Update itk-dev/serviceplatformen
 - [PR-399](https://github.com/itk-dev/naevnssekretariatet/pull/399)
   Added `forsendelse-uuid` filtering option to

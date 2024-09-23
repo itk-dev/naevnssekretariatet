@@ -7,14 +7,21 @@ use App\Entity\CasePartyRelation;
 use App\Entity\Party;
 use App\Repository\CasePartyRelationRepository;
 use App\Repository\PartyRepository;
+use App\Service\SF1601\DigitalPoster;
 use Doctrine\ORM\EntityManagerInterface;
+use ItkDev\Serviceplatformen\Service\SF1601\SF1601;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartyHelper
 {
-    public function __construct(private EntityManagerInterface $entityManager, private PartyRepository $partyRepository, private CasePartyRelationRepository $relationRepository, private TranslatorInterface $translator)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly PartyRepository $partyRepository,
+        private readonly CasePartyRelationRepository $relationRepository,
+        private readonly TranslatorInterface $translator,
+        private readonly DigitalPoster $digitalPoster,
+    ) {
     }
 
     public function findPartyIndexChoices(CaseEntity $case): array
@@ -273,6 +280,9 @@ class PartyHelper
         return reset($counterpartTypes);
     }
 
+    /**
+     * @return array<string, Party[]>
+     */
     public function getRelevantPartiesForHearingPostByCase(CaseEntity $case): array
     {
         $partyRelations = $this->relationRepository
@@ -307,7 +317,34 @@ class PartyHelper
         // Sort alphabetically
         uasort($counterparties, static fn ($a, $b) => $a->getName() <=> $b->getName());
 
+        $this->setCanReceiveDigitalPost($parties);
+        $this->setCanReceiveDigitalPost($counterparties);
+
         return [$this->translator->trans('Parties', [], 'case') => $parties, $this->translator->trans('Counterparties', [], 'case') => $counterparties];
+    }
+
+    /**
+     * @param Party[] $parties
+     */
+    private function setCanReceiveDigitalPost(array $parties): array
+    {
+        foreach ($parties as $party) {
+            $canReceiveDigitalPost = true;
+            try {
+                $identification = $party->getIdentification();
+                if (IdentificationHelper::IDENTIFIER_TYPE_CPR === $identification->getType()) {
+                    $canReceiveDigitalPost = $this->digitalPoster->canReceive(
+                        SF1601::FORESPOERG_TYPE_DIGITAL_POST,
+                        $identification->getIdentifier()
+                    );
+                }
+                $party->setCanReceiveDigitalPost($canReceiveDigitalPost);
+            } catch (\Throwable $t) {
+                throw $t;
+            }
+        }
+
+        return $parties;
     }
 
     public function getTransformedRelevantPartiesByCase(CaseEntity $case): array

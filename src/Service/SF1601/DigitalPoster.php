@@ -9,8 +9,10 @@ use ItkDev\Serviceplatformen\Service\SF1601\Serializer;
 use ItkDev\Serviceplatformen\Service\SF1601\SF1601;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 
 class DigitalPoster
@@ -27,10 +29,26 @@ class DigitalPoster
 
     public function canReceive(string $type, string $identifier): ?bool
     {
-        $service = $this->getSF1601();
-        $transactionId = Serializer::createUuid();
+        $cache = new FilesystemAdapter();
+        $cacheKey = preg_replace(
+            '#[{}()/\\\\@:]+#',
+            '_',
+            implode('|||', [__METHOD__, $type, $identifier])
+        );
 
-        return $service->postForespoerg($transactionId, $type, $identifier);
+        return $cache->get($cacheKey, function (ItemInterface $item) use ($type, $identifier): ?bool {
+            try {
+                $service = $this->getSF1601();
+                $transactionId = Serializer::createUuid();
+                $result = $service->postForespoerg($transactionId, $type, $identifier);
+                $item->expiresAt(new \DateTimeImmutable($this->options['post_forespoerg_cache_expire_at']));
+            } catch (\Throwable $throwable) {
+                // Never cache is case of error.
+                $item->expiresAt(new \DateTimeImmutable('2001-01-01'));
+            }
+
+            return true === ($result['result'] ?? false);
+        });
     }
 
     public function sendDigitalPost(DigitalPost $digitalPost, DigitalPost\Recipient $recipient)
@@ -174,6 +192,7 @@ class DigitalPoster
                     ->setAllowedTypes('sender_label', 'string')
                 ;
             })
+            ->setDefault('post_forespoerg_cache_expire_at', '+1 day')
             ->resolve($options)
         ;
     }

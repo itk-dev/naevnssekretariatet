@@ -70,6 +70,11 @@ class Party implements LoggableEntityInterface
      */
     private $isUnderAddressProtection = false;
 
+    /**
+     * Virtual property set on runtime.
+     */
+    private ?bool $canReceiveDigitalPost = null;
+
     public function __construct()
     {
         $this->id = Uuid::v4();
@@ -161,6 +166,18 @@ class Party implements LoggableEntityInterface
     public function setIsUnderAddressProtection(bool $isUnderAddressProtection): self
     {
         $this->isUnderAddressProtection = $isUnderAddressProtection;
+
+        return $this;
+    }
+
+    public function canReceiveDigitalPost(): ?bool
+    {
+        return $this->canReceiveDigitalPost;
+    }
+
+    public function setCanReceiveDigitalPost(bool $canReceiveDigitalPost): self
+    {
+        $this->canReceiveDigitalPost = $canReceiveDigitalPost;
 
         return $this;
     }
