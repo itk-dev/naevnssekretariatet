@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.1' ]
+        php: [ '8.3' ]
     name: Validate composer (${{ matrix.php}})
     steps:
       - name: Checkout
@@ -55,7 +55,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.1' ]
+        php: [ '8.3' ]
     name: Unit tests (${{ matrix.php}})
     steps:
       - name: Checkout
@@ -98,7 +98,7 @@ jobs:
   #   strategy:
   #     fail-fast: false
   #     matrix:
-  #       php: [ '8.1' ]
+  #       php: [ '8.3' ]
   #   steps:
   #     - name: Checkout
   #       uses: actions/checkout@v2
@@ -154,7 +154,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.1' ]
+        php: [ '8.3' ]
     name: PHP Coding Standards Fixer (${{ matrix.php }})
     steps:
       - name: Checkout
@@ -184,7 +184,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.1' ]
+        php: [ '8.3' ]
     name: Twigcs (${{ matrix.php }})
     steps:
       - name: Checkout
@@ -264,7 +264,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.1' ]
+        php: [ '8.3' ]
     name: Check translations are up to date (${{ matrix.php}})
     steps:
       - name: Checkout

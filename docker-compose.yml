@@ -21,7 +21,7 @@ services:
       #- ENCRYPT=1 # Uncomment to enable database encryption.
 
   phpfpm:
-    image: itkdev/php8.1-fpm:latest
+    image: itkdev/php8.3-fpm:latest
     networks:
       - app
     extra_hosts:
