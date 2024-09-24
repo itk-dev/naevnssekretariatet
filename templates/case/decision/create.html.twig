@@ -50,6 +50,19 @@
         {% endfor %}
 
         <div class="attachments">
+            <div class="digital-post-attachments-info">
+                <div class="digital-post-attachments-info-item" data-digital-post-allowed="{{ true }}" hidden>
+                    <div class="alert alert-success">
+                        <span class="digital-post-message">{{ 'All recipients can receive digital post'|trans }}</span>
+                    </div>
+                </div>
+                <div class="digital-post-attachments-info-item" data-digital-post-allowed="{{ false }}" hidden>
+                    <div class="alert alert-warning">
+                        <span class="digital-post-message">{{ 'Some recipients cannot receive digital post'|trans }}</span>
+                    </div>
+                </div>
+            </div>
+
             {{ form_label(form.attachments) }}
             {# store the prototype on the data-prototype attribute #}
             <ul id="attachment-fields-list"

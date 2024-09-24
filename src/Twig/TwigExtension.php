@@ -7,6 +7,8 @@ use App\Entity\Document;
 use App\Entity\MailTemplate;
 use App\Service\DocumentDeletableHelper;
 use App\Service\MailTemplateHelper;
+use Symfony\Component\Form\ChoiceList\View\ChoiceGroupView;
+use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -26,6 +28,7 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('type', 'gettype'),
             new TwigFunction('isDocumentDeletable', [$this, 'isDocumentDeletable']),
             new TwigFunction('getCustomFields', [$this, 'getCustomFields']),
+            new TwigFunction('get_choice', $this->getChoice(...)),
         ];
     }
 
@@ -68,5 +71,26 @@ class TwigExtension extends AbstractExtension
     public function getCustomFields(MailTemplate $mailTemplate): array
     {
         return $this->mailTemplateHelper->getCustomFields($mailTemplate);
+    }
+
+    /**
+     * Get choice by value from a (nested) list of choices.
+     */
+    public function getChoice(array $choices, string $value): ?ChoiceView
+    {
+        $choice = null;
+        \Safe\array_walk_recursive($choices, function ($item) use ($value, &$choice) {
+            if ($item instanceof ChoiceGroupView) {
+                /** @var ChoiceView $choiceView */
+                foreach ($item as $choiceView) {
+                    if ($choiceView->value === $value) {
+                        $choice = $choiceView;
+                        break;
+                    }
+                }
+            }
+        });
+
+        return $choice;
     }
 }

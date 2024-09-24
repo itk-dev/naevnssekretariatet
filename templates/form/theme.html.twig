@@ -89,20 +89,45 @@
     {{ block('address_widget') }}
 {% endblock %}
 
-{% block _hearing_post_request_recipients_entry_widget %}
-    {% set canReceiveDigitalPost = null %}
-    {% for key in form.parent.vars.choices|keys %}
-        {% for choice in form.parent.vars.choices[key] %}
-            {% if choice.value == value and class(choice.data) == 'Party' %}
-                {% set canReceiveDigitalPost = choice.data.canReceiveDigitalPost %}
-            {% endif %}
-        {% endfor %}
-    {% endfor %}
+{% macro digital_post_recipient_widget(form, value, content) %}
+    {% set choice = get_choice(form.parent.vars.choices, value) %}
 
-    <div class="tvist1-{{ (canReceiveDigitalPost ? 'can' : 'cannot') }}-receive-digital-post">
-        <fieldset>
-            <legend>tvist1-{{ (canReceiveDigitalPost ? 'can' : 'cannot') }}-receive-digital-post</legend>
-            {{ block('checkbox_widget') }}
-        </fieldset>
+    <div class="digital-post-recipient" data-digital-post-allowed="{{ choice.data.canReceiveDigitalPost|default(false) }}">
+        {{ content|raw }}
     </div>
+{% endmacro %}
+
+{% macro digital_post_recipient_label(form, value, content) %}
+    {% if content %}
+        {{ content|raw }}
+
+        {% set choice = get_choice(form.parent.vars.choices, value) %}
+        <span class="digital-post-message">
+            ({{ choice.data.canReceiveDigitalPost|default(false) ? 'can receive digital post'|trans([], 'case') : 'cannot receive digital post'|trans([], 'case') }})
+        </span>
+    {% endif %}
+{% endmacro %}
+
+{% block _hearing_post_request_recipients_entry_widget %}
+    {{ _self.digital_post_recipient_widget(form, value, block('checkbox_widget')) }}
+{% endblock %}
+
+{% block _hearing_post_request_recipients_entry_label %}
+    {{ _self.digital_post_recipient_label(form, value, block('checkbox_label')) }}
+{% endblock %}
+
+{% block _briefing_recipients_entry_widget %}
+    {{ _self.digital_post_recipient_widget(form, value, block('checkbox_widget')) }}
+{% endblock %}
+
+{% block _briefing_recipients_entry_label %}
+    {{ _self.digital_post_recipient_label(form, value, block('checkbox_label')) }}
+{% endblock %}
+
+{% block _decision_recipients_entry_widget %}
+    {{ _self.digital_post_recipient_widget(form, value, block('checkbox_widget')) }}
+{% endblock %}
+
+{% block _decision_recipients_entry_label %}
+    {{ _self.digital_post_recipient_label(form, value, block('checkbox_label')) }}
 {% endblock %}
