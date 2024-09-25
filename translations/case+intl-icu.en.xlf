@@ -1425,14 +1425,6 @@
         <source>Hearing briefing updated</source>
         <target>Hearing briefing updated</target>
       </trans-unit>
-      <trans-unit id="u_9nlcv" resname="All recipients can receive digital post">
-        <source>All recipients can receive digital post</source>
-        <target>All recipients can receive digital post</target>
-      </trans-unit>
-      <trans-unit id="GDd.qJJ" resname="Some recipients cannot receive digital post">
-        <source>Some recipients cannot receive digital post</source>
-        <target>Some recipients cannot receive digital post</target>
-      </trans-unit>
       <trans-unit id="x2ELEO5" resname="can receive digital post">
         <source>can receive digital post</source>
         <target>can receive digital post</target>
@@ -1440,6 +1432,14 @@
       <trans-unit id="Gfb5K71" resname="cannot receive digital post">
         <source>cannot receive digital post</source>
         <target>cannot receive digital post</target>
+      </trans-unit>
+      <trans-unit id="VVAGf_5" resname="All recipients can receive digital post. Attach at most &lt;strong&gt;{max_size}&lt;/strong&gt;.">
+        <source>All recipients can receive digital post. Attach at most &lt;strong&gt;{max_size}&lt;/strong&gt;.</source>
+        <target><![CDATA[All recipients can receive digital post. Attach at most <strong>{max_size}</strong>.]]></target>
+      </trans-unit>
+      <trans-unit id="vkzTAeQ" resname="Some recipients cannot receive digital post. Attach at most &lt;strong&gt;{max_size}&lt;/strong&gt;.">
+        <source>Some recipients cannot receive digital post. Attach at most &lt;strong&gt;{max_size}&lt;/strong&gt;.</source>
+        <target><![CDATA[Some recipients cannot receive digital post. Attach at most <strong>{max_size}</strong>.]]></target>
       </trans-unit>
     </body>
   </file>

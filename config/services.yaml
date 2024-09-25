@@ -268,6 +268,8 @@ services:
                     forsendelses_type_identifikator: '%env(int:SF1601_FORSENDELSES_TYPE_IDENTIFIKATOR)%'
                     test_mode: '%env(bool:SF1601_TEST_MODE)%'
                 post_forespoerg_cache_expire_at: '%env(SF1601_POST_FORESPOERG_CACHE_EXPIRE_AT)%'
+                digital_post_max_size: '%env(int:SF1601_DIGITAL_POST_MAX_SIZE)%'
+                physical_post_max_size: '%env(int:SF1601_PHYSICAL_POST_MAX_SIZE)%'
 
     App\Retry\DigitalPostRetryStrategy:
         arguments:

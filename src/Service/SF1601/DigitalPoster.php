@@ -5,6 +5,7 @@ namespace App\Service\SF1601;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostEnvelope;
 use App\Repository\DigitalPostEnvelopeRepository;
+use App\Service\DocumentUploader;
 use ItkDev\Serviceplatformen\Service\SF1601\Serializer;
 use ItkDev\Serviceplatformen\Service\SF1601\SF1601;
 use Psr\Log\LoggerAwareTrait;
@@ -176,6 +177,20 @@ class DigitalPoster
         }
     }
 
+    public function getDigitalPostMaxSize(bool $format = true): string
+    {
+        $size = $this->options['digital_post_max_size'];
+
+        return $format ? DocumentUploader::formatBytes($size) : (string) $size;
+    }
+
+    public function getPhysicalPostMaxSize(bool $format = true): string
+    {
+        $size = $this->options['physical_post_max_size'];
+
+        return $format ? DocumentUploader::formatBytes($size) : (string) $size;
+    }
+
     /**
      * Get SF1601 instance.
      */
@@ -207,6 +222,10 @@ class DigitalPoster
                 ;
             })
             ->setDefault('post_forespoerg_cache_expire_at', '+1 day')
+            ->setRequired('digital_post_max_size')
+            ->setAllowedTypes('digital_post_max_size', 'int')
+            ->setRequired('physical_post_max_size')
+            ->setAllowedTypes('physical_post_max_size', 'int')
             ->resolve($options)
         ;
     }
