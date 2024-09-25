@@ -10,9 +10,9 @@ use ItkDev\Serviceplatformen\Service\SF1601\Serializer;
 use ItkDev\Serviceplatformen\Service\SF1601\SF1601;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 
@@ -22,22 +22,28 @@ class DigitalPoster
 
     private array $options;
 
-    public function __construct(private CertificateLocatorHelper $certificateLocatorHelper, private MeMoHelper $meMoHelper, private readonly ForsendelseHelper $forsendelseHelper, private DigitalPostEnvelopeRepository $envelopeRepository, LoggerInterface $logger, array $options)
-    {
+    public function __construct(
+        private readonly CertificateLocatorHelper $certificateLocatorHelper,
+        private readonly MeMoHelper $meMoHelper,
+        private readonly ForsendelseHelper $forsendelseHelper,
+        private readonly DigitalPostEnvelopeRepository $envelopeRepository,
+        private readonly CacheInterface $cache,
+        LoggerInterface $logger,
+        array $options
+    ) {
         $this->options = $this->resolveOptions($options);
         $this->setLogger($logger);
     }
 
     public function canReceive(string $type, string $identifier): ?bool
     {
-        $cache = new FilesystemAdapter();
         $cacheKey = preg_replace(
             '#[{}()/\\\\@:]+#',
             '_',
             implode('|||', [__METHOD__, $type, $identifier])
         );
 
-        return $cache->get($cacheKey, function (ItemInterface $item) use ($type, $identifier): ?bool {
+        return $this->cache->get($cacheKey, function (ItemInterface $item) use ($type, $identifier): ?bool {
             try {
                 $service = $this->getSF1601();
                 $transactionId = Serializer::createUuid();
