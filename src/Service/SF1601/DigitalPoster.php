@@ -85,17 +85,26 @@ class DigitalPoster
                 MeMoHelper::SENDER_LABEL => $this->options['sf1601']['sender_label'],
             ];
 
-            $meMoMessage = $this->meMoHelper->createMeMoMessage($digitalPost, $recipient, $meMoOptions);
-            $messageUuid = $meMoMessage->getMessageHeader()->getMessageUUID();
+            // For performance reasons we want send as little a payload as possible. Using SF1601::TYPE_AUTOMATISK_VALG
+            // will require us to duplicate the content in the call to "kombiPostAfsend".
+            $meMoMessage = null;
+            $forsendelse = null;
+            $type = $this->canReceive(SF1601::FORESPOERG_TYPE_DIGITAL_POST, $recipient->getIdentifier() ?? '') ? SF1601::TYPE_DIGITAL_POST : SF1601::TYPE_FYSISK_POST;
 
-            $forsendelseOptions = [
-                ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR => $this->options['sf1601']['forsendelses_type_identifikator'],
-            ];
-            $forsendelse = $this->forsendelseHelper->createForsendelse($digitalPost, $recipient, $forsendelseOptions);
+            if (in_array($type, [SF1601::TYPE_DIGITAL_POST, SF1601::TYPE_AUTOMATISK_VALG], true)) {
+                $meMoMessage = $this->meMoHelper->createMeMoMessage($digitalPost, $recipient, $meMoOptions);
+            }
+
+            if (in_array($type, [SF1601::TYPE_FYSISK_POST, SF1601::TYPE_AUTOMATISK_VALG], true)) {
+                $forsendelseOptions = [
+                    ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR => $this->options['sf1601']['forsendelses_type_identifikator'],
+                ];
+                $forsendelse = $this->forsendelseHelper->createForsendelse($digitalPost, $recipient, $forsendelseOptions);
+            }
 
             $service = $this->getSF1601();
             $transactionId = Serializer::createUuid();
-            $response = $service->kombiPostAfsend($transactionId, SF1601::TYPE_AUTOMATISK_VALG, $meMoMessage, $forsendelse);
+            $response = $service->kombiPostAfsend($transactionId, $type, $meMoMessage, $forsendelse);
 
             $serializer = new Serializer();
             $receipt = $response->getContent();
@@ -107,10 +116,15 @@ class DigitalPoster
                 ->setTransactionId(Uuid::fromRfc4122($transactionId))
                 ->setStatus(DigitalPostEnvelope::STATUS_SENT)
                 ->setStatusMessage(null)
-                ->setMeMoMessage($serializer->serialize($meMoMessage))
-                ->setMeMoMessageUuid($messageUuid)
                 ->setReceipt($receipt)
             ;
+
+            if (null !== $meMoMessage) {
+                $envelope
+                    ->setMeMoMessage($serializer->serialize($meMoMessage))
+                    ->setMeMoMessageUuid($meMoMessage->getMessageHeader()->getMessageUUID())
+                ;
+            }
 
             if (null !== $forsendelse) {
                 $this->forsendelseHelper->removeDocumentContent($forsendelse);

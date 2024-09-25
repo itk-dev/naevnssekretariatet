@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b6b5be55e35381d58072426e58972bd",
+    "content-hash": "d1d33aec73680e50c999d11a93a1ed84",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2771,16 +2771,16 @@
         },
         {
             "name": "itk-dev/serviceplatformen",
-            "version": "1.5.2",
+            "version": "dev-feature/postForespoerg-types",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "fe4a2d01677607c50c43d9a96a184963ec37da9b"
+                "reference": "ccc42ef4155b3d1d099370dff1fcd6403ec2d5ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/fe4a2d01677607c50c43d9a96a184963ec37da9b",
-                "reference": "fe4a2d01677607c50c43d9a96a184963ec37da9b",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/ccc42ef4155b3d1d099370dff1fcd6403ec2d5ac",
+                "reference": "ccc42ef4155b3d1d099370dff1fcd6403ec2d5ac",
                 "shasum": ""
             },
             "require": {
@@ -2855,9 +2855,9 @@
             ],
             "support": {
                 "issues": "https://github.com/itk-dev/serviceplatformen/issues",
-                "source": "https://github.com/itk-dev/serviceplatformen/tree/1.5.2"
+                "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/postForespoerg-types"
             },
-            "time": "2024-08-06T14:04:36+00:00"
+            "time": "2024-09-25T07:32:35+00:00"
         },
         {
             "name": "jms/metadata",
@@ -14908,7 +14908,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "itk-dev/serviceplatformen": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

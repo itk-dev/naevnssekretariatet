@@ -332,7 +332,7 @@ class PartyHelper
             try {
                 $identification = $party->getIdentification();
                 $canReceiveDigitalPost = $this->digitalPoster->canReceive(
-                    'digitalpost',
+                    SF1601::FORESPOERG_TYPE_DIGITAL_POST,
                     $identification->getIdentifier()
                 );
                 $party->setCanReceiveDigitalPost($canReceiveDigitalPost);
