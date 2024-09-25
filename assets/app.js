@@ -15,18 +15,20 @@ window.addEventListener('load', () => {
   const digitalPostAttachmentsInfo = document.querySelector('.digital-post-attachments-info')
   if (digitalPostRecipientWrapper && digitalPostAttachmentsInfo) {
     const recipients = digitalPostRecipientWrapper.querySelectorAll(recipientSelector)
-    const updateStuff = () => {
-      const recipientTheCannotReceiveDigitalPost = [...recipients]
+    const updateDigitalPostInfo = () => {
+      const recipientsThatCannotReceiveDigitalPost = [...recipients]
         .filter(el => !el.dataset.digitalPostAllowed &&
                 el.querySelector('input[type="checkbox"]').checked);
 
+      // Show only the appropriate digital post message (cf.
+      // ../templates/common/digital_post_attachments_info.html.twig).
       [...digitalPostAttachmentsInfo.querySelectorAll('.digital-post-attachments-info-item')]
         .forEach(el => {
-          el.hidden = !(el.dataset.digitalPostAllowed ^ (recipientTheCannotReceiveDigitalPost.length > 0))
+          el.hidden = !(el.dataset.digitalPostAllowed ^ (recipientsThatCannotReceiveDigitalPost.length > 0))
         })
     }
 
-    [...recipients].forEach(el => el.addEventListener('change', (event) => updateStuff()))
-    updateStuff()
+    [...recipients].forEach(el => el.addEventListener('change', (event) => updateDigitalPostInfo()))
+    updateDigitalPostInfo()
   }
 })
