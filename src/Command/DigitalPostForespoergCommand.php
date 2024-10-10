@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Service\SF1601\DigitalPoster;
+use ItkDev\Serviceplatformen\Service\SF1601\SF1601;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -38,12 +39,16 @@ class DigitalPostForespoergCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $table = $io->createTable();
-        $table->setHeaders(['Identifier', 'Result']);
+        $table->setHeaders(['Type', 'Identifier', 'Result']);
         $identifiers = array_unique($input->getArgument('identifier'));
         $type = $input->getOption('type');
+        if (!in_array($type, SF1601::FORESPOERG_TYPES)) {
+            throw new \InvalidArgumentException(sprintf('Invalid type: %s. Must be one of %s', $type, implode(', ', SF1601::FORESPOERG_TYPES)));
+        }
+
         foreach ($identifiers as $identifier) {
             $result = $this->digitalPoster->canReceive($type, $identifier);
-            $table->appendRow([$identifier, is_bool($result) ? json_encode($result) : $result]);
+            $table->appendRow([$type, $identifier, is_bool($result) ? json_encode($result) : $result]);
         }
 
         return self::SUCCESS;

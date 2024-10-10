@@ -10,6 +10,16 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.6.0] - 2024-10-10
+
+- [PR-402](https://github.com/itk-dev/naevnssekretariatet/pull/402)
+  Optimized handling of digital post
+- [PR-401](https://github.com/itk-dev/naevnssekretariatet/pull/401)
+  Update itk-dev/serviceplatformen
+- [PR-399](https://github.com/itk-dev/naevnssekretariatet/pull/399)
+  Added `forsendelse-uuid` filtering option to
+  `digital-post-envelope:list` command.
+
 ## [1.5.6] 2024-05-28
 
 - [PR-396](https://github.com/itk-dev/naevnssekretariatet/pull/396)
@@ -333,7 +343,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.6...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.0...HEAD
+[1.6.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.6...1.6.0
 [1.5.6]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.5...1.5.6
 [1.5.5]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.4...1.5.5
 [1.5.4]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.3...1.5.4

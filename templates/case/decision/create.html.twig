@@ -50,6 +50,8 @@
         {% endfor %}
 
         <div class="attachments">
+            {{ include('common/digital_post_attachments_info.html.twig') }}
+
             {{ form_label(form.attachments) }}
             {# store the prototype on the data-prototype attribute #}
             <ul id="attachment-fields-list"

@@ -5,12 +5,15 @@ namespace App\Service\SF1601;
 use App\Entity\DigitalPost;
 use App\Entity\DigitalPostEnvelope;
 use App\Repository\DigitalPostEnvelopeRepository;
+use App\Service\DocumentUploader;
 use ItkDev\Serviceplatformen\Service\SF1601\Serializer;
 use ItkDev\Serviceplatformen\Service\SF1601\SF1601;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 
 class DigitalPoster
@@ -19,18 +22,40 @@ class DigitalPoster
 
     private array $options;
 
-    public function __construct(private CertificateLocatorHelper $certificateLocatorHelper, private MeMoHelper $meMoHelper, private readonly ForsendelseHelper $forsendelseHelper, private DigitalPostEnvelopeRepository $envelopeRepository, LoggerInterface $logger, array $options)
-    {
+    public function __construct(
+        private readonly CertificateLocatorHelper $certificateLocatorHelper,
+        private readonly MeMoHelper $meMoHelper,
+        private readonly ForsendelseHelper $forsendelseHelper,
+        private readonly DigitalPostEnvelopeRepository $envelopeRepository,
+        private readonly CacheInterface $cache,
+        LoggerInterface $logger,
+        array $options
+    ) {
         $this->options = $this->resolveOptions($options);
         $this->setLogger($logger);
     }
 
     public function canReceive(string $type, string $identifier): ?bool
     {
-        $service = $this->getSF1601();
-        $transactionId = Serializer::createUuid();
+        $cacheKey = preg_replace(
+            '#[{}()/\\\\@:]+#',
+            '_',
+            implode('|||', [__METHOD__, $type, $identifier])
+        );
 
-        return $service->postForespoerg($transactionId, $type, $identifier);
+        return $this->cache->get($cacheKey, function (ItemInterface $item) use ($type, $identifier): ?bool {
+            try {
+                $service = $this->getSF1601();
+                $transactionId = Serializer::createUuid();
+                $result = $service->postForespoerg($transactionId, $type, $identifier);
+                $item->expiresAt(new \DateTimeImmutable($this->options['post_forespoerg_cache_expire_at']));
+            } catch (\Throwable $throwable) {
+                // Never cache is case of error.
+                $item->expiresAt(new \DateTimeImmutable('2001-01-01'));
+            }
+
+            return true === ($result['result'] ?? false);
+        });
     }
 
     public function sendDigitalPost(DigitalPost $digitalPost, DigitalPost\Recipient $recipient)
@@ -67,17 +92,26 @@ class DigitalPoster
                 MeMoHelper::SENDER_LABEL => $this->options['sf1601']['sender_label'],
             ];
 
-            $meMoMessage = $this->meMoHelper->createMeMoMessage($digitalPost, $recipient, $meMoOptions);
-            $messageUuid = $meMoMessage->getMessageHeader()->getMessageUUID();
+            // For performance reasons we want send as little a payload as possible. Using SF1601::TYPE_AUTOMATISK_VALG
+            // will require us to duplicate the content in the call to "kombiPostAfsend".
+            $meMoMessage = null;
+            $forsendelse = null;
+            $type = $this->canReceive(SF1601::FORESPOERG_TYPE_DIGITAL_POST, $recipient->getIdentifier() ?? '') ? SF1601::TYPE_DIGITAL_POST : SF1601::TYPE_FYSISK_POST;
 
-            $forsendelseOptions = [
-                ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR => $this->options['sf1601']['forsendelses_type_identifikator'],
-            ];
-            $forsendelse = $this->forsendelseHelper->createForsendelse($digitalPost, $recipient, $forsendelseOptions);
+            if (in_array($type, [SF1601::TYPE_DIGITAL_POST, SF1601::TYPE_AUTOMATISK_VALG], true)) {
+                $meMoMessage = $this->meMoHelper->createMeMoMessage($digitalPost, $recipient, $meMoOptions);
+            }
+
+            if (in_array($type, [SF1601::TYPE_FYSISK_POST, SF1601::TYPE_AUTOMATISK_VALG], true)) {
+                $forsendelseOptions = [
+                    ForsendelseHelper::FORSENDELSES_TYPE_IDENTIFIKATOR => $this->options['sf1601']['forsendelses_type_identifikator'],
+                ];
+                $forsendelse = $this->forsendelseHelper->createForsendelse($digitalPost, $recipient, $forsendelseOptions);
+            }
 
             $service = $this->getSF1601();
             $transactionId = Serializer::createUuid();
-            $response = $service->kombiPostAfsend($transactionId, SF1601::TYPE_AUTOMATISK_VALG, $meMoMessage, $forsendelse);
+            $response = $service->kombiPostAfsend($transactionId, $type, $meMoMessage, $forsendelse);
 
             $serializer = new Serializer();
             $receipt = $response->getContent();
@@ -89,10 +123,15 @@ class DigitalPoster
                 ->setTransactionId(Uuid::fromRfc4122($transactionId))
                 ->setStatus(DigitalPostEnvelope::STATUS_SENT)
                 ->setStatusMessage(null)
-                ->setMeMoMessage($serializer->serialize($meMoMessage))
-                ->setMeMoMessageUuid($messageUuid)
                 ->setReceipt($receipt)
             ;
+
+            if (null !== $meMoMessage) {
+                $envelope
+                    ->setMeMoMessage($serializer->serialize($meMoMessage))
+                    ->setMeMoMessageUuid($meMoMessage->getMessageHeader()->getMessageUUID())
+                ;
+            }
 
             if (null !== $forsendelse) {
                 $this->forsendelseHelper->removeDocumentContent($forsendelse);
@@ -144,6 +183,20 @@ class DigitalPoster
         }
     }
 
+    public function getDigitalPostMaxSize(bool $format = true): string
+    {
+        $size = $this->options['digital_post_max_size'];
+
+        return $format ? DocumentUploader::formatBytes($size) : (string) $size;
+    }
+
+    public function getPhysicalPostMaxSize(bool $format = true): string
+    {
+        $size = $this->options['physical_post_max_size'];
+
+        return $format ? DocumentUploader::formatBytes($size) : (string) $size;
+    }
+
     /**
      * Get SF1601 instance.
      */
@@ -174,6 +227,11 @@ class DigitalPoster
                     ->setAllowedTypes('sender_label', 'string')
                 ;
             })
+            ->setDefault('post_forespoerg_cache_expire_at', '+1 day')
+            ->setRequired('digital_post_max_size')
+            ->setAllowedTypes('digital_post_max_size', 'int')
+            ->setRequired('physical_post_max_size')
+            ->setAllowedTypes('physical_post_max_size', 'int')
             ->resolve($options)
         ;
     }
