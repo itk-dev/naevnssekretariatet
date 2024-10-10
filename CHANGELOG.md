@@ -348,7 +348,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.0...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.1...HEAD
+[1.6.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.6...1.6.0
 [1.5.6]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.5...1.5.6
 [1.5.5]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.4...1.5.5
