@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1d33aec73680e50c999d11a93a1ed84",
+    "content-hash": "51f30beebec7e6ab14e3b85bff8e2fe7",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2771,16 +2771,16 @@
         },
         {
             "name": "itk-dev/serviceplatformen",
-            "version": "dev-feature/postForespoerg-types",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "ccc42ef4155b3d1d099370dff1fcd6403ec2d5ac"
+                "reference": "825b66b09ea833be7b2c849ca7da5983b2e33be0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/ccc42ef4155b3d1d099370dff1fcd6403ec2d5ac",
-                "reference": "ccc42ef4155b3d1d099370dff1fcd6403ec2d5ac",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/825b66b09ea833be7b2c849ca7da5983b2e33be0",
+                "reference": "825b66b09ea833be7b2c849ca7da5983b2e33be0",
                 "shasum": ""
             },
             "require": {
@@ -2855,9 +2855,9 @@
             ],
             "support": {
                 "issues": "https://github.com/itk-dev/serviceplatformen/issues",
-                "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/postForespoerg-types"
+                "source": "https://github.com/itk-dev/serviceplatformen/tree/1.6.0"
             },
-            "time": "2024-09-25T07:32:35+00:00"
+            "time": "2024-10-10T12:08:21+00:00"
         },
         {
             "name": "jms/metadata",
@@ -14908,9 +14908,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "itk-dev/serviceplatformen": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
