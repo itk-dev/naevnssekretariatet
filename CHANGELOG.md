@@ -10,6 +10,11 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.6.1] - 2024-10-10
+
+- [PR-404](https://github.com/itk-dev/naevnssekretariatet/pull/404)
+  Change max allowed upload size in nginx server config
+
 ## [1.6.0] - 2024-10-10
 
 - [PR-402](https://github.com/itk-dev/naevnssekretariatet/pull/402)
