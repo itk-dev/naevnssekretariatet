@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Document;
 use App\Entity\UploadedDocumentType;
+use App\Service\DocumentUploader;
 use App\Service\PartyHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -173,7 +174,7 @@ class DocumentType extends AbstractType
             }
         }
 
-        return $this->formatBytes($maxSize);
+        return DocumentUploader::formatBytes($maxSize);
     }
 
     public function parseSize(string $size): float
@@ -186,18 +187,5 @@ class DocumentType extends AbstractType
         } else {
             return round($size);
         }
-    }
-
-    public function formatBytes($bytes, $precision = 2): string
-    {
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-
-        $bytes /= pow(1024, $pow);
-
-        return round($bytes, $precision).' '.$units[$pow];
     }
 }

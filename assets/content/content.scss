@@ -3,3 +3,12 @@ th, td {
         text-align: right;
     }
 }
+
+.digital-post-recipient,
+.digital-post-attachments-info-item {
+  &[data-digital-post-allowed=""] {
+    .digital-post-message {
+      color: red;
+    }
+  }
+}

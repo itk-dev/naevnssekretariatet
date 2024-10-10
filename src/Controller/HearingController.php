@@ -193,6 +193,7 @@ class HearingController extends AbstractController
         }
 
         $availableParties = $partyHelper->getRelevantPartiesForHearingPostByCase($case);
+
         $mailTemplates = $mailTemplateHelper->getTemplates('hearing');
 
         $hearingPost = new HearingPostRequest();
