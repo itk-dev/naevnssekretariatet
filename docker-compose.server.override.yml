@@ -9,6 +9,11 @@ services:
     depends_on:
       - libreoffice-api
 
+  nginx:
+    environment:
+      # Allow uploading 9 very large files.
+      NGINX_MAX_BODY_SIZE: 100M
+
   libreoffice-api:
     build: ./.docker/libreoffice-api
     restart: unless-stopped
