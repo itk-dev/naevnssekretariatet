@@ -117,7 +117,9 @@ class DigitalPoster
             $receipt = $response->getContent();
 
             // We don't want to store actual document content in the envelope.
-            $this->meMoHelper->removeDocumentContent($meMoMessage);
+            if (null !== $meMoMessage) {
+                $this->meMoHelper->removeDocumentContent($meMoMessage);
+            }
 
             $envelope
                 ->setTransactionId(Uuid::fromRfc4122($transactionId))
