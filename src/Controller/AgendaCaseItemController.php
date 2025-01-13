@@ -11,6 +11,7 @@ use App\Form\CasePresentationType;
 use App\Repository\DocumentRepository;
 use App\Service\AgendaHelper;
 use App\Service\DocumentUploader;
+use ArrayIterator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -95,10 +96,17 @@ class AgendaCaseItemController extends AbstractController
 
         $documents = $agendaItem->getDocuments();
 
+        /** @var ArrayIterator $iterator */
+        $iterator = $documents->getIterator();
+
+        $iterator->uasort(function (Document $a, Document $b) {
+            return $a->getUploadedAt() <=> $b->getUploadedAt();
+        });
+
         return $this->render('agenda_case_item/documents.html.twig', [
             'agenda' => $agenda,
             'agenda_item' => $agendaItem,
-            'documents' => $documents,
+            'documents' => $iterator->getArrayCopy(),
         ]);
     }
 

@@ -54,6 +54,8 @@ class DocumentRepository extends ServiceEntityRepository
             ;
         }
 
+        $qb->orderBy('d.uploadedAt', 'ASC');
+
         return $qb
             ->getQuery()
             ->getResult()
