@@ -26,6 +26,8 @@ class AgendaCaseItem extends AgendaItem
 
     /**
      * @ORM\ManyToMany(targetEntity=Document::class, inversedBy="agendaCaseItems")
+     *
+     * @ORM\OrderBy({"uploadedAt" = "ASC"})
      */
     private $documents;
 
