@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-407](https://github.com/itk-dev/naevnssekretariatet/pull/407)
+  Sort documents chronologically after upload date in agenda item routes.
+
 ## [1.6.2] - 2024-12-17
 
 - [PR-405](https://github.com/itk-dev/naevnssekretariatet/pull/405)

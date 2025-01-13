@@ -11,7 +11,6 @@ use App\Form\CasePresentationType;
 use App\Repository\DocumentRepository;
 use App\Service\AgendaHelper;
 use App\Service\DocumentUploader;
-use ArrayIterator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -96,7 +95,7 @@ class AgendaCaseItemController extends AbstractController
 
         $documents = $agendaItem->getDocuments();
 
-        /** @var ArrayIterator $iterator */
+        /** @var \ArrayIterator $iterator */
         $iterator = $documents->getIterator();
 
         $iterator->uasort(function (Document $a, Document $b) {
