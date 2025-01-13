@@ -93,19 +93,16 @@ class AgendaCaseItemController extends AbstractController
     {
         $this->denyAccessUnlessGranted('view', $agendaItem);
 
-        $documents = $agendaItem->getDocuments();
+        $documents = $agendaItem->getDocuments()->toArray();
 
-        /** @var \ArrayIterator $iterator */
-        $iterator = $documents->getIterator();
-
-        $iterator->uasort(function (Document $a, Document $b) {
+        uasort($documents, function (Document $a, Document $b) {
             return $a->getUploadedAt() <=> $b->getUploadedAt();
         });
 
         return $this->render('agenda_case_item/documents.html.twig', [
             'agenda' => $agenda,
             'agenda_item' => $agendaItem,
-            'documents' => $iterator->getArrayCopy(),
+            'documents' => $documents,
         ]);
     }
 
