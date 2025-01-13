@@ -93,11 +93,7 @@ class AgendaCaseItemController extends AbstractController
     {
         $this->denyAccessUnlessGranted('view', $agendaItem);
 
-        $documents = $agendaItem->getDocuments()->toArray();
-
-        uasort($documents, function (Document $a, Document $b) {
-            return $a->getUploadedAt() <=> $b->getUploadedAt();
-        });
+        $documents = $agendaItem->getDocuments();
 
         return $this->render('agenda_case_item/documents.html.twig', [
             'agenda' => $agenda,

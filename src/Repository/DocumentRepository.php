@@ -6,6 +6,7 @@ use App\Entity\AgendaCaseItem;
 use App\Entity\CaseEntity;
 use App\Entity\Document;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
@@ -54,7 +55,7 @@ class DocumentRepository extends ServiceEntityRepository
             ;
         }
 
-        $qb->orderBy('d.uploadedAt', 'ASC');
+        $qb->orderBy('d.uploadedAt', Order::Ascending->value);
 
         return $qb
             ->getQuery()
