@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.7.0] - 2025-01-20
+
 - [PR-407](https://github.com/itk-dev/naevnssekretariatet/pull/407)
   Sort documents chronologically after upload date in agenda item routes.
 
@@ -356,7 +358,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.2...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.7.0...HEAD
+[1.7.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.2...1.7.0
 [1.6.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.1...1.6.2
 [1.6.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.5.6...1.6.0
