@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-409](https://github.com/itk-dev/naevnssekretariatet/pull/409)
+  Updated GitHub workflow images
+
 ## [1.7.0] - 2025-01-20
 
 - [PR-407](https://github.com/itk-dev/naevnssekretariatet/pull/407)
