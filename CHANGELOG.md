@@ -11,8 +11,9 @@ about writing changes to this log.
 ## [Unreleased]
 
 - [PR-410](https://github.com/itk-dev/naevnssekretariatet/pull/410)
-  Updates to latest `itk-dev/serviceplatformen` to ensure latest endpoints
+  - Updates to latest `itk-dev/serviceplatformen` to ensure latest endpoints
   are used when fetching SAML-token.
+  - Updates GitHub Actions.
 - [PR-409](https://github.com/itk-dev/naevnssekretariatet/pull/409)
   Updated GitHub workflow images
 
