@@ -2771,16 +2771,16 @@
         },
         {
             "name": "itk-dev/serviceplatformen",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "825b66b09ea833be7b2c849ca7da5983b2e33be0"
+                "reference": "141b4cf65dd868427b3b0f42273923d766c05706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/825b66b09ea833be7b2c849ca7da5983b2e33be0",
-                "reference": "825b66b09ea833be7b2c849ca7da5983b2e33be0",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/141b4cf65dd868427b3b0f42273923d766c05706",
+                "reference": "141b4cf65dd868427b3b0f42273923d766c05706",
                 "shasum": ""
             },
             "require": {
@@ -2855,9 +2855,9 @@
             ],
             "support": {
                 "issues": "https://github.com/itk-dev/serviceplatformen/issues",
-                "source": "https://github.com/itk-dev/serviceplatformen/tree/1.6.0"
+                "source": "https://github.com/itk-dev/serviceplatformen/tree/1.6.1"
             },
-            "time": "2024-10-10T12:08:21+00:00"
+            "time": "2025-04-01T08:10:57+00:00"
         },
         {
             "name": "jms/metadata",
@@ -14908,7 +14908,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -14918,6 +14918,6 @@
         "ext-json": "*",
         "ext-soap": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
