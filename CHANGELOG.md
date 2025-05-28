@@ -10,6 +10,15 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.7.1] - 2025-05-28
+
+- [PR-410](https://github.com/itk-dev/naevnssekretariatet/pull/410)
+  - Updates to latest `itk-dev/serviceplatformen` to ensure latest endpoints
+  are used when fetching SAML-token.
+  - Updates GitHub Actions.
+- [PR-409](https://github.com/itk-dev/naevnssekretariatet/pull/409)
+  Updated GitHub workflow images
+
 ## [1.7.0] - 2025-01-20
 
 - [PR-407](https://github.com/itk-dev/naevnssekretariatet/pull/407)
@@ -359,6 +368,7 @@ Fixed error in unescaped characters in filename
   Resolved issue regarding time formats.
 
 [Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.7.0...HEAD
+[1.7.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.7.0...1.7.1
 [1.7.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.2...1.7.0
 [1.6.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.1...1.6.2
 [1.6.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.0...1.6.1

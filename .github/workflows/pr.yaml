@@ -19,7 +19,7 @@ jobs:
         run: git diff --exit-code origin/${{ github.base_ref }} -- CHANGELOG.md && exit 1 || exit 0
 
   test-composer-install:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -38,7 +38,7 @@ jobs:
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
       - name: Cache composer dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -51,7 +51,7 @@ jobs:
           APP_ENV=prod composer install --no-dev -o
 
   unit_tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -70,7 +70,7 @@ jobs:
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
       - name: Cache composer dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -81,7 +81,7 @@ jobs:
         run: ./bin/phpunit --coverage-clover=coverage/unit.xml
 
   # end-to-end-tests:
-  #   runs-on: ubuntu-20.04
+  #   runs-on: ubuntu-latest
   #   env:
   #     DATABASE_URL: mysql://db:db@127.0.0.1:3306/db?serverVersion=mariadb-10.3.17&charset=utf8mb4
   #   services:
@@ -113,7 +113,7 @@ jobs:
   #       id: composer-cache
   #       run: echo "::set-output name=dir::$(composer config cache-files-dir)"
   #     - name: Cache composer dependencies
-  #       uses: actions/cache@v2
+  #       uses: actions/cache@v4
   #       with:
   #         path: ${{ steps.composer-cache.outputs.dir }}
   #         key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -127,7 +127,7 @@ jobs:
   #     - name: Yarn install
   #       uses: actions/setup-node@v2
   #       with:
-  #         node-version: '14'
+  #         node-version: '22'
   #     - run: yarn install
   #     - name: Yarn build
   #       run: yarn run encore production
@@ -150,7 +150,7 @@ jobs:
   #         CYPRESS_baseUrl: http://127.0.0.1:8000
 
   php-cs-fixer:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -169,7 +169,7 @@ jobs:
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
       - name: Cache composer dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -180,7 +180,7 @@ jobs:
         run: phpdbg -qrr ./vendor/bin/php-cs-fixer fix --dry-run
 
   twigcs:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -199,7 +199,7 @@ jobs:
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
       - name: Cache composer dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -210,7 +210,7 @@ jobs:
         run: phpdbg -qrr ./vendor/bin/twigcs templates
 
   javascript-standard-style:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: JavaScript Standard Style
     steps:
       - name: Checkout
@@ -219,7 +219,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache yarn packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -229,13 +229,13 @@ jobs:
       - name: Yarn install
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '22'
       - run: yarn install
       - name: javascript-standard-style
         run: yarn coding-standards-check/standard
 
   markdownlint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: markdownlint
     steps:
       - name: Checkout
@@ -244,7 +244,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache yarn packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -254,13 +254,13 @@ jobs:
       - name: Yarn install
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '22'
       - run: yarn install
       - name: markdownlint
         run: yarn coding-standards-check/markdownlint
 
   translations:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
