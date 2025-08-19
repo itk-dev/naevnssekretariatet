@@ -37,7 +37,7 @@
         "itk-dev/beskedfordeler-symfony": "^1.0",
         "itk-dev/datafordeler-php-client": "^1.0",
         "itk-dev/openid-connect-bundle": "^3.1",
-        "itk-dev/serviceplatformen": "^1.6",
+        "itk-dev/serviceplatformen": "dev-feature/5189-memo-1.2 as 1.7.0",
         "knplabs/knp-paginator-bundle": "^5.6",
         "league/oauth2-client": "^2.6",
         "lexik/form-filter-bundle": "^7.0",
@@ -181,6 +181,10 @@
         }
     },
     "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/itk-dev/serviceplatformen"
+        },
         {
             "type": "vcs",
             "url": "https://github.com/theofidry/AliceBundle"

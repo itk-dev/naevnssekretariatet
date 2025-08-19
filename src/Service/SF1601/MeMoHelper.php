@@ -102,7 +102,7 @@ class MeMoHelper
         return (new File())
             ->setEncodingFormat($this->documentUploader->getMimeType($document))
             ->setLanguage('da')
-            ->setFilename($document->getFilename())
+            ->setFilename(SF1601::sanitizeFilename($document->getFilename()))
             ->setContent($this->documentUploader->getFileContent($document))
         ;
     }
