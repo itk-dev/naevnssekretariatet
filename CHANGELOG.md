@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-412](https://github.com/itk-dev/naevnssekretariatet/pull/412)
+  Sanitized MeMo filenames
+
 ## [1.7.1] - 2025-05-28
 
 - [PR-410](https://github.com/itk-dev/naevnssekretariatet/pull/410)

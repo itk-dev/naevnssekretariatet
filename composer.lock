@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51f30beebec7e6ab14e3b85bff8e2fe7",
+    "content-hash": "4f3ebb4d59c1808a17cc6c95745cb0d0",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2771,16 +2771,16 @@
         },
         {
             "name": "itk-dev/serviceplatformen",
-            "version": "1.6.1",
+            "version": "dev-feature/5189-memo-1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itk-dev/serviceplatformen.git",
-                "reference": "141b4cf65dd868427b3b0f42273923d766c05706"
+                "reference": "beae623562ceee555b29d5a3f360a759e5b4f036"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/141b4cf65dd868427b3b0f42273923d766c05706",
-                "reference": "141b4cf65dd868427b3b0f42273923d766c05706",
+                "url": "https://api.github.com/repos/itk-dev/serviceplatformen/zipball/beae623562ceee555b29d5a3f360a759e5b4f036",
+                "reference": "beae623562ceee555b29d5a3f360a759e5b4f036",
                 "shasum": ""
             },
             "require": {
@@ -2823,23 +2823,69 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Oio\\": "lib/Oio/",
-                    "KleOnlineDk\\": "lib/KleOnlineDk/",
-                    "WwwFormOnlineDk\\": "lib/WwwFormOnlineDk/",
-                    "DigitalPost\\MeMo\\": "lib/DigitalPost/MeMo/",
-                    "MotorregisterSkatDk\\": "lib/MotorregisterSkatDk/",
-                    "DataGovDk\\Model\\Core\\": "lib/DataGovDk/Model/Core/",
-                    "Digitaliseringskataloget\\": "lib/digitaliseringskataloget",
                     "ItkDev\\Serviceplatformen\\": "src/",
-                    "DataGovDk\\Model\\DataTypes\\": "lib/DataGovDk/Model/DataTypes/",
-                    "ServicesNsiDk\\En\\Services\\SOR\\": "lib/ServicesNsiDk/En/Services/SOR/",
                     "ItkDev\\Serviceplatformen\\SF1500\\": "generated-classes/ItkDev/Serviceplatformen/SF1500/",
                     "ItkDev\\Serviceplatformen\\SF1600\\": "generated-classes/ItkDev/Serviceplatformen/SF1600/",
+                    "DigitalPost\\MeMo\\": "lib/DigitalPost/MeMo/",
+                    "DataGovDk\\Model\\DataTypes\\": "lib/DataGovDk/Model/DataTypes/",
+                    "DataGovDk\\Model\\Core\\": "lib/DataGovDk/Model/Core/",
                     "WwwGs1Dk\\Gs1Standarder\\Identifikation\\GlnGlobalLocationNumber\\": "lib/WwwGs1Dk/Gs1Standarder/Identifikation/GlnGlobalLocationNumber/",
-                    "WwwDstDk\\Da\\TilSalg\\Forskningsservice\\Dokumentation\\Hoejkvalitetsvariable\\Elevregister2\\Udd\\": "lib/WwwDstDk/Da/TilSalg/Forskningsservice/Dokumentation/Hoejkvalitetsvariable/Elevregister2/Udd/"
+                    "ServicesNsiDk\\En\\Services\\SOR\\": "lib/ServicesNsiDk/En/Services/SOR/",
+                    "MotorregisterSkatDk\\": "lib/MotorregisterSkatDk/",
+                    "KleOnlineDk\\": "lib/KleOnlineDk/",
+                    "WwwFormOnlineDk\\": "lib/WwwFormOnlineDk/",
+                    "WwwDstDk\\Da\\TilSalg\\Forskningsservice\\Dokumentation\\Hoejkvalitetsvariable\\Elevregister2\\Udd\\": "lib/WwwDstDk/Da/TilSalg/Forskningsservice/Dokumentation/Hoejkvalitetsvariable/Elevregister2/Udd/",
+                    "Digitaliseringskataloget\\": "lib/digitaliseringskataloget",
+                    "Oio\\": "lib/Oio/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "ItkDev\\Serviceplatformen\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "tests/unit": [
+                    "phpunit --configuration phpunit.xml.dist --testsuite Unit"
+                ],
+                "tests/end-to-end": [
+                    "phpunit --configuration phpunit.xml.dist --testsuite EndToEnd"
+                ],
+                "tests": [
+                    "@tests/unit",
+                    "@tests/end-to-end"
+                ],
+                "coding-standards-check/php-cs-fixer": [
+                    "php-cs-fixer fix --dry-run"
+                ],
+                "coding-standards-check/phpcs": [
+                    "phpcs --standard=phpcs.xml.dist"
+                ],
+                "coding-standards-check": [
+                    "@coding-standards-check/php-cs-fixer",
+                    "@coding-standards-check/phpcs"
+                ],
+                "coding-standards-apply/php-cs-fixer": [
+                    "php-cs-fixer fix"
+                ],
+                "coding-standards-apply/phpcs": [
+                    "phpcbf --standard=phpcs.xml.dist"
+                ],
+                "coding-standards-apply": [
+                    "@coding-standards-apply/php-cs-fixer",
+                    "@coding-standards-apply/phpcs"
+                ],
+                "code-analysis/phan": [
+                    "phan --allow-polyfill-parser"
+                ],
+                "code-analysis/phpstan": [
+                    "phpstan analyse"
+                ],
+                "code-analysis": [
+                    "@code-analysis/phan",
+                    "@code-analysis/phpstan"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -2854,10 +2900,10 @@
                 }
             ],
             "support": {
-                "issues": "https://github.com/itk-dev/serviceplatformen/issues",
-                "source": "https://github.com/itk-dev/serviceplatformen/tree/1.6.1"
+                "source": "https://github.com/itk-dev/serviceplatformen/tree/feature/5189-memo-1.2",
+                "issues": "https://github.com/itk-dev/serviceplatformen/issues"
             },
-            "time": "2025-04-01T08:10:57+00:00"
+            "time": "2025-08-19T12:15:04+00:00"
         },
         {
             "name": "jms/metadata",
@@ -14906,9 +14952,18 @@
             "time": "2015-12-17T08:42:14+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "itk-dev/serviceplatformen",
+            "version": "dev-feature/5189-memo-1.2",
+            "alias": "1.7.0",
+            "alias_normalized": "1.7.0.0"
+        }
+    ],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "itk-dev/serviceplatformen": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
