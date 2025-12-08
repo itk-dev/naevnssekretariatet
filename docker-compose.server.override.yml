@@ -7,15 +7,15 @@ services:
       # Allow uploading 9 very large files.
       - PHP_POST_MAX_SIZE=700M
     depends_on:
-      - libreoffice-api
+      - gotenberg
 
   nginx:
     environment:
       # Allow uploading 9 very large files.
       NGINX_MAX_BODY_SIZE: 100M
 
-  libreoffice-api:
-    build: ./.docker/libreoffice-api
+  gotenberg:
+    image: gotenberg/gotenberg:8
     restart: unless-stopped
     networks:
       - app

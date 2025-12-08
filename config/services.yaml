@@ -85,8 +85,8 @@ services:
                 # This value must match vich_uploader.mappings.user_signatures.upload_destination
                 user_signatures_file_directory: '%kernel.project_dir%/upload/user-signatures'
                 user_signature_height: '%env(USER_SIGNATURE_HEIGHT)%'
-                libreoffice_http_client_options:
-                    base_uri: '%env(LIBREOFFICE_API_BASE_URL)%'
+                gotenberg_http_client_options:
+                    base_uri: '%env(GOTENBERG_API_BASE_URL)%'
                     verify_peer: false
                     verify_host: false
 

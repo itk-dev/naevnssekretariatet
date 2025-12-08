@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- Switched to [gotenberg](https://github.com/gotenberg/gotenberg) for docx to pdf generation.
+
 ## [1.7.1] - 2025-05-28
 
 - [PR-410](https://github.com/itk-dev/naevnssekretariatet/pull/410)

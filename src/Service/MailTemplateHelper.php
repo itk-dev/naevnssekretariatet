@@ -245,21 +245,28 @@ class MailTemplateHelper
             return $processedFileName;
         }
 
-        $client = HttpClient::create($this->options['libreoffice_http_client_options']);
+        $client = HttpClient::create($this->options['gotenberg_http_client_options']);
+
+        // Gotenberg requires file extension to work.
+        $renamedProcessedFileName = $processedFileName.'.docx';
+        $this->filesystem->copy($processedFileName, $renamedProcessedFileName);
+
         $formFields = [
-            'data' => DataPart::fromPath($processedFileName),
+            'files' => [DataPart::fromPath($renamedProcessedFileName)],
         ];
         $formData = new FormDataPart($formFields);
 
         try {
-            $response = $client->request('POST', '/convert-to/pdf', [
+            $response = $client->request('POST', '/forms/libreoffice/convert', [
                 'headers' => $formData->getPreparedHeaders()->toArray(),
                 'body' => $formData->bodyToIterable(),
             ]);
             $content = $response->getContent();
         } catch (ClientException|TransportException $exception) {
-            $this->logger->critical(sprintf('Error talking to Libreoffice: %s', $exception->getMessage()), ['exception' => $exception]);
+            $this->logger->critical(sprintf('Error talking to Gotenberg: %s', $exception->getMessage()), ['exception' => $exception]);
             throw new MailTemplateException(sprintf('Error rendering mail template %s', $mailTemplate->getName()), $exception->getCode(), $exception);
+        } finally {
+            $this->filesystem->remove($renamedProcessedFileName);
         }
 
         $fileName = $this->filesystem->tempnam('/tmp/', 'mail_template', '.pdf');
@@ -596,7 +603,7 @@ class MailTemplateHelper
             'template_file_directory',
             'user_signatures_file_directory',
             'user_signature_height',
-            'libreoffice_http_client_options',
+            'gotenberg_http_client_options',
         ]);
         $resolver->setAllowedTypes('template_types', 'array');
     }
