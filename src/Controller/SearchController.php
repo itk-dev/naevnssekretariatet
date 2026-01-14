@@ -33,6 +33,13 @@ class SearchController extends AbstractController
 
             $qb->orWhere('c.caseNumber LIKE :search');
             $qb->orWhere('c.sortingAddress LIKE :search');
+
+            // Make complaint category kle searchable if the search string follows the format xx.xx.xx
+            if (preg_match('/^\d{2}\.\d{2}\.\d{2}$/', $escapedSearch, $matches)) {
+                $qb->leftJoin('c.complaintCategories', 'cc');
+                $qb->orWhere('cc.kle LIKE :search');
+            }
+
             $qb->setParameter(':search', '%'.$escapedSearch.'%');
         }
 

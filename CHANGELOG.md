@@ -13,6 +13,10 @@ about writing changes to this log.
 - Switched to [gotenberg](https://github.com/gotenberg/gotenberg) for docx
   to pdf generation.
 
+## [1.8.0] - 2025-01-14
+
+- Made kle searchable.
+
 ## [1.7.1] - 2025-05-28
 
 - [PR-410](https://github.com/itk-dev/naevnssekretariatet/pull/410)
@@ -370,7 +374,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.7.0...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.8.0...HEAD
+[1.8.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.7.1...1.8.0
 [1.7.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.7.0...1.7.1
 [1.7.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.2...1.7.0
 [1.6.2]: https://github.com/itk-dev/naevnssekretariatet/compare/1.6.1...1.6.2
