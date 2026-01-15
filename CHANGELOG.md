@@ -10,7 +10,7 @@ about writing changes to this log.
 
 ## [Unreleased]
 
-- Switched to [gotenberg](https://github.com/gotenberg/gotenberg) for docx
+- Switched to [Gotenberg](https://github.com/gotenberg/gotenberg) for docx
   to pdf generation.
 
 ## [1.8.0] - 2025-01-14
