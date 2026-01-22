@@ -11,10 +11,10 @@ services:
       # Allow uploading 9 very large files.
       - PHP_POST_MAX_SIZE=700M
     depends_on:
-      - libreoffice-api
+      - gotenberg
 
-  libreoffice-api:
-    build: ./.docker/libreoffice-api
+  gotenberg:
+    image: gotenberg/gotenberg:8
     restart: unless-stopped
     networks:
       - app
