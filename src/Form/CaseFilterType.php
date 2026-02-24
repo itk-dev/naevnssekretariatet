@@ -306,7 +306,7 @@ class CaseFilterType extends AbstractType
                     $expression->add($filterQuery->getExpr()->like('cc.kle', ':'.$paramName));
                 }
 
-                $parameters = ['search_query' => '%' . $escapedSearch . '%'];
+                $parameters = ['search_query' => '%'.$escapedSearch.'%'];
 
                 return $filterQuery->createCondition($expression, $parameters);
             },

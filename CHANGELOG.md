@@ -10,6 +10,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- [PR-415](https://github.com/itk-dev/naevnssekretariatet/pull/415)
+  - Adds search functionality in the already existing filtering on `/case`.
+  - Adds Taskfile.
+
 ## [1.9.0] - 2025-01-22
 
 - Switched to [Gotenberg](https://github.com/gotenberg/gotenberg) for docx
