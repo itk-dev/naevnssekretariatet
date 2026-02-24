@@ -294,7 +294,7 @@ class CaseFilterType extends AbstractType
                 $qb = $filterQuery->getQueryBuilder();
                 $paramName = 'search_query';
 
-                // Start with your base search conditions
+                // Start with base search conditions
                 $expression = $filterQuery->getExpr()->orX(
                     $filterQuery->getExpr()->like('c.caseNumber', ':'.$paramName),
                     $filterQuery->getExpr()->like('c.sortingAddress', ':'.$paramName)
