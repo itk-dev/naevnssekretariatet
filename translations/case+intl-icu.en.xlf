@@ -1441,6 +1441,14 @@
         <source>Some recipients cannot receive digital post. Attach at most &lt;strong&gt;{max_size}&lt;/strong&gt;.</source>
         <target><![CDATA[Some recipients cannot receive digital post. Attach at most <strong>{max_size}</strong>.]]></target>
       </trans-unit>
+      <trans-unit id="ScJmuqq" resname="Search">
+        <source>Search</source>
+        <target>Search</target>
+      </trans-unit>
+      <trans-unit id="ZGtytiL" resname="You can search for case number, KLE-numbers or parts of an address.">
+        <source>You can search for case number, KLE-numbers or parts of an address.</source>
+        <target>You can search for case number, KLE-numbers or parts of an address.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
