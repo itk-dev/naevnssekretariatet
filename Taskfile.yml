@@ -1,0 +1,114 @@
+version: '3'
+
+dotenv: [".task.env", ".env"]
+
+vars:
+    DOCKER_COMPOSE: '{{ .TASK_DOCKER_COMPOSE | default "docker compose" }}'
+    # https://taskfile.dev/reference/templating/
+    BASE_URL: '{{.TASK_BASE_URL | default .COMPOSE_SERVER_DOMAIN | default .COMPOSE_DOMAIN | default ""}}'
+
+tasks:
+    compose:
+        desc: "Run `docker compose` command. Example: task compose -- up --detach"
+        cmds:
+            - '{{ .DOCKER_COMPOSE }} {{ .CLI_ARGS }}'
+
+    compose-exec:
+        desc: "Run `docker compose exec` command handling content on stdin. Example: task compose-exec -- phpfpm php -v"
+        cmds:
+            # Check if we have content on stdin (cf.
+            # https://unix.stackexchange.com/questions/762992/bash-check-if-the-standard-input-contains-anything)
+            - if [[ ! -t 0 ]]; then task compose -- exec --no-TTY {{ .CLI_ARGS }}; else task compose -- exec {{ .CLI_ARGS }}; fi
+        silent: true
+
+    composer:
+        desc: "Run composer command. Example: task composer -- install"
+        cmds:
+            - task compose-exec -- phpfpm composer {{ .CLI_ARGS }}
+        silent: true
+
+    console:
+        desc: "Run console command"
+        cmds:
+            - task compose-exec -- phpfpm bin/console {{ .CLI_ARGS }}
+
+    start:
+        desc: "Start docker compose stuff and install composer stuff"
+        cmds:
+            - task compose -- pull
+            - task compose -- up --detach --build --remove-orphans
+            - task composer -- install
+            - task run-build
+            - task migrate
+        silent: true
+
+
+    start:local:
+        desc: "Start and apply fixtures"
+        cmds:
+            - task start
+            - task fixtures
+        silent: true
+
+    site-url:
+        desc: "Show site URL"
+        cmds:
+            - echo {{.URL}}
+        vars:
+            URL:
+                # Compute base URL if not set.
+                sh: if [ ! -z "{{.BASE_URL}}" ]; then echo "https://{{.BASE_URL}}"; else echo "http://$(task compose -- port nginx 8080)"; fi
+        silent: true
+
+    check-code:
+        desc: "Check coding standards"
+        cmds:
+            - task compose -- run --rm node yarn coding-standards-check/markdownlint
+            - task composer -- validate composer.json --strict
+            # @todo enable this
+            # - task composer -- code-analysis
+            - task composer -- coding-standards-check
+
+    coding-standards-apply:
+        desc: "Apply coding standards"
+        cmds:
+            - task composer -- coding-standards-apply
+
+    run-dev:
+        desc: "Build assets"
+        cmds:
+            - task compose -- run --rm node yarn run dev
+
+    run-watch:
+        desc: "Build and watch assets"
+        cmds:
+            - task compose -- run --rm node yarn run watch
+
+    run-build:
+        desc: "Build assets for production"
+        cmds:
+            - task compose -- run --rm node yarn run build
+
+    migrate:
+        desc: "Run migrations with no interaction"
+        cmds:
+            - task console -- doctrine:migrations:migrate --no-interaction
+
+    fixtures:
+        desc: "Apply fixtures"
+        cmds:
+            - task console -- hautelook:fixtures:load --no-bundles --purge-with-truncate --no-interaction
+
+    login:
+        desc: "Get login url for user with email. Example: task login -- admin@example.com"
+        requires:
+            vars: [ CLI_ARGS ]
+        cmds:
+            - task console -- itk-dev:openid-connect:login {{.CLI_ARGS}}
+
+    update:translations:
+        desc: "Update translations"
+        cmds:
+            - task compose-exec -- phpfpm composer update-translations
+            - task compose-exec -- phpfpm bin/console cache:clear
+

@@ -12,6 +12,7 @@ use App\Service\AgendaStatus;
 use App\Service\CaseDeadlineStatuses;
 use App\Service\CaseSpecialFilterStatuses;
 use App\Service\FilterHelper;
+use App\Service\SearchService;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use Symfony\Component\Form\AbstractType;
@@ -25,7 +26,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CaseFilterType extends AbstractType
 {
-    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseEntityRepository, private FilterHelper $filterHelper, private TranslatorInterface $translator, private UserRepository $userRepository)
+    public function __construct(private BoardRepository $boardRepository, private CaseEntityRepository $caseEntityRepository, private FilterHelper $filterHelper, private TranslatorInterface $translator, private UserRepository $userRepository, private SearchService $searchService)
     {
     }
 
@@ -275,6 +276,40 @@ class CaseFilterType extends AbstractType
             },
             'label' => false,
             'placeholder' => $this->translator->trans('Select a general status filter', [], 'case'),
+        ]);
+
+        $builder->add('searchFilter', Filters\TextFilterType::class, [
+            'label' => false,
+            'attr' => [
+                'placeholder' => $this->translator->trans('Search', [], 'case'),
+            ],
+            'apply_filter' => function (QueryInterface $filterQuery, $field, $values) {
+                $searchValue = $values['value'] ?? null;
+                if (empty($searchValue)) {
+                    return null;
+                }
+
+                $escapedSearch = $this->searchService->escapeStringForLike($searchValue, '\\');
+
+                $qb = $filterQuery->getQueryBuilder();
+                $paramName = 'search_query';
+
+                // Start with base search conditions
+                $expression = $filterQuery->getExpr()->orX(
+                    $filterQuery->getExpr()->like('c.caseNumber', ':'.$paramName),
+                    $filterQuery->getExpr()->like('c.sortingAddress', ':'.$paramName)
+                );
+
+                // Check if value matches the pattern (e.g., 12.34.56)
+                if (preg_match('/^\d{2}\.\d{2}\.\d{2}$/', $searchValue)) {
+                    $qb->leftJoin('c.complaintCategories', 'cc');
+                    $expression->add($filterQuery->getExpr()->like('cc.kle', ':'.$paramName));
+                }
+
+                $parameters = ['search_query' => '%'.$escapedSearch.'%'];
+
+                return $filterQuery->createCondition($expression, $parameters);
+            },
         ]);
     }
 }
