@@ -10,6 +10,11 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.10.1] - 2026-05-21
+
+* [PR-416](https://github.com/itk-dev/naevnssekretariatet/pull/416)
+  Symfony security updates.
+
 ## [1.10.0] - 2026-03-02
 
 - [PR-415](https://github.com/itk-dev/naevnssekretariatet/pull/415)
@@ -382,7 +387,8 @@ Fixed error in unescaped characters in filename
 - [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.10.0...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.10.1...HEAD
+[1.10.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.10.0...1.10.1
 [1.10.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.9.0...1.10.0
 [1.9.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.8.0...1.9.0
 [1.8.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.7.1...1.8.0
