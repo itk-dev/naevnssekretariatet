@@ -39,5 +39,10 @@
         "coding-standards-check/stylelint": "stylelint --config=.stylelintrc.json 'assets/**/*.scss'",
         "coding-standards-check": "yarn coding-standards-check/markdownlint && yarn coding-standards-check/stylelint"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "standard": {
+        "ignore": [
+            "assets/vendor/"
+        ]
+    }
 }
