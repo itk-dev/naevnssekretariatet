@@ -67,9 +67,14 @@
     </main>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('address-lookup') }}
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('party_identification_lookup') }}
     {{ encore_entry_script_tags('identification_type_handler') }}
-    {{ encore_entry_script_tags('dawa-address-lookup') }}
+    {{ encore_entry_script_tags('address-lookup') }}
 {% endblock %}

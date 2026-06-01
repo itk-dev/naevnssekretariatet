@@ -2650,15 +2650,6 @@ date-fns@^1.27.2:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
-dawa-autocomplete2@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/dawa-autocomplete2/-/dawa-autocomplete2-1.1.0.tgz#621abc4f04d2dd48998022e4f8853869b93ce388"
-  integrity sha512-Ep+E3akQhY55Onn4YAxwyaLQ+ViZ5kIJkFHGjsETkGbzckukUWpX8d3aQFOm71/A5MWzi534B09r0FRMIqpfqQ==
-  dependencies:
-    incremental-dom "^0.7.0"
-    lodash.debounce "^4.0.8"
-    unfetch "^4.1.0"
-
 dayjs@^1.9.3:
   version "1.10.4"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.4.tgz#8e544a9b8683f61783f570980a8a80eaf54ab1e2"
@@ -4102,11 +4093,6 @@ imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
   integrity sha1-khi5srkoojixPcT7a21XbyMUU+o=
-
-incremental-dom@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/incremental-dom/-/incremental-dom-0.7.0.tgz#b03664731bdc430035f32df7d76fa56daedee9b8"
-  integrity sha512-SBHQ6AiCmtwh7TU9hjq2CspasJe7ggGa9k+qYZft+d5Qq9v7V+07wlnRSZH5GGYjI8wn6U5p7dDua7f1bih52g==
 
 indent-string@^3.0.0:
   version "3.2.0"
@@ -7175,11 +7161,6 @@ unbox-primitive@^1.0.2:
     has-bigints "^1.0.2"
     has-symbols "^1.0.3"
     which-boxed-primitive "^1.0.2"
-
-unfetch@^4.1.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/unfetch/-/unfetch-4.2.0.tgz#7e21b0ef7d363d8d9af0fb929a5555f6ef97a3be"
-  integrity sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==
 
 unicode-canonical-property-names-ecmascript@^2.0.0:
   version "2.0.0"
