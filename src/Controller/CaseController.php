@@ -8,10 +8,13 @@ use App\Entity\CaseEntity;
 use App\Entity\CasePresentation;
 use App\Entity\HearingPostRequest;
 use App\Entity\LogEntry;
+use App\Entity\MailTemplate;
 use App\Entity\User;
 use App\Exception\BoardMemberException;
+use App\Exception\MailTemplateException;
 use App\Form\CaseAgendaStatusType;
 use App\Form\CaseAssignCaseworkerType;
+use App\Form\CaseCoverType;
 use App\Form\CaseDecisionProposalType;
 use App\Form\CaseDeleteType;
 use App\Form\CaseFilterType;
@@ -40,6 +43,7 @@ use App\Service\BoardHelper;
 use App\Service\CaseManager;
 use App\Service\IdentificationHelper;
 use App\Service\LogEntryHelper;
+use App\Service\MailTemplateHelper;
 use App\Service\MunicipalityHelper;
 use App\Service\PartyHelper;
 use App\Service\WorkflowService;
@@ -50,10 +54,13 @@ use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -215,7 +222,7 @@ class CaseController extends AbstractController
     /**
      * @Route("/{id}/summary", name="case_summary", methods={"GET", "POST"})
      */
-    public function summary(BoardRepository $boardRepository, CaseEntity $case, NoteRepository $noteRepository, DigitalPostRepository $digitalPostRepository): Response
+    public function summary(BoardRepository $boardRepository, CaseEntity $case, NoteRepository $noteRepository, DigitalPostRepository $digitalPostRepository, MailTemplateHelper $mailTemplateHelper): Response
     {
         $this->denyAccessUnlessGranted('view', $case);
 
@@ -232,6 +239,7 @@ class CaseController extends AbstractController
             'communications' => $communications,
             'suitable_boards' => $suitableBoards,
             'is_deletable' => $this->isDeletable($case),
+            'case_cover_templates' => $mailTemplateHelper->getTemplates('case_cover'),
         ]);
     }
 
@@ -901,5 +909,63 @@ class CaseController extends AbstractController
         }
 
         return new JsonResponse(['address' => $addressHelper->getInspectionAddress($case)->__toString()]);
+    }
+
+    /**
+     * @Route("/{id}/case-cover", name="case_case_cover", methods={"POST"})
+     */
+    public function caseCover(CaseEntity $case, MailTemplateHelper $mailTemplateHelper, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('view', $case);
+
+        $form = $this->createForm(CaseCoverType::class, null, [
+            'mail_template_choices' => $mailTemplateHelper->getTemplates('case_cover'),
+        ]);
+
+        $form->handleRequest($request);
+
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            $this->addFlash('danger', new TranslatableMessage('No case cover template selected.', [], 'case'));
+
+            return $this->redirectToRoute('case_summary', ['id' => $case->getId()]);
+        }
+
+        /** @var MailTemplate $mailTemplate */
+        $mailTemplate = $form->get('template')->getData();
+
+        try {
+            $fileName = $mailTemplateHelper->renderMailTemplate($mailTemplate, $case);
+            $mimeType = (new MimeTypes())->guessMimeType($fileName);
+        } catch (MailTemplateException $exception) {
+            $this->addFlash('danger', $exception->getMessage());
+
+            return $this->redirectToRoute('case_summary', ['id' => $case->getId()]);
+        }
+
+        $response = new BinaryFileResponse($fileName, Response::HTTP_OK, ['content-type' => $mimeType]);
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_INLINE,
+            sprintf('Forside - %s.pdf', $case->getCaseNumber())
+        );
+        $response->deleteFileAfterSend();
+
+        return $response;
+    }
+
+    /**
+     * @Route("/{id}/case-cover/select", name="case_case_cover_select", methods={"GET"})
+     */
+    public function caseCoverSelect(CaseEntity $case, MailTemplateHelper $mailTemplateHelper): Response
+    {
+        $this->denyAccessUnlessGranted('view', $case);
+
+        $form = $this->createForm(CaseCoverType::class, null, [
+            'mail_template_choices' => $mailTemplateHelper->getTemplates('case_cover'),
+        ]);
+
+        return $this->render('case/_case_cover.html.twig', [
+            'case' => $case,
+            'case_cover_form' => $form->createView(),
+        ]);
     }
 }

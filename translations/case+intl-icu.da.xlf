@@ -1461,6 +1461,30 @@
         <source>No parties available</source>
         <target state="translated">Ingen parter tilgængelige</target>
       </trans-unit>
+      <trans-unit id="i.yzVXZ" resname="No case cover template selected.">
+        <source>No case cover template selected.</source>
+        <target state="translated">Ingen sagsomslagsksabelon valgt.</target>
+      </trans-unit>
+      <trans-unit id="9cX6lut" resname="Please choose a case cover template.">
+        <source>Please choose a case cover template.</source>
+        <target state="translated">Vælg en skabelon til sagsomslag.</target>
+      </trans-unit>
+      <trans-unit id="tMzYNUF" resname="Generate case cover">
+        <source>Generate case cover</source>
+        <target state="translated">Print forside</target>
+      </trans-unit>
+      <trans-unit id=".gwXDGr" resname="Choose a case cover template">
+        <source>Choose a case cover template</source>
+        <target state="translated">Vælg sagsomslagsksabelon</target>
+      </trans-unit>
+      <trans-unit id="SeSbtEA" resname="Generate">
+        <source>Generate</source>
+        <target state="translated">Generer</target>
+      </trans-unit>
+      <trans-unit id="sL_gF9c" resname="No case cover templates available">
+        <source>No case cover templates available</source>
+        <target state="translated">Ingen sagsomslagsksabelon tilgængelig</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
