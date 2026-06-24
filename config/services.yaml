@@ -55,6 +55,12 @@ services:
 
             $mailTemplateHelperOptions:
                 template_types:
+                    case_cover:
+                        label: Case cover
+                        entity_class_names:
+                            - App\Entity\ResidentComplaintBoardCase
+                            - App\Entity\FenceReviewCase
+                            - App\Entity\RentBoardCase
                     decision:
                         label: Decision
                         entity_class_names:

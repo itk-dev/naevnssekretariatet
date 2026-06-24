@@ -6,8 +6,14 @@ use App\Entity\Agenda;
 use App\Entity\AgendaBroadcast;
 use App\Entity\CaseEntity;
 use App\Entity\ComplaintCategory;
+use App\Entity\Embeddable\Address;
+use App\Entity\FenceReviewCase;
 use App\Entity\HearingPost;
+use App\Entity\Party;
+use App\Entity\RentBoardCase;
+use App\Entity\ResidentComplaintBoardCase;
 use App\Repository\BoardMemberRepository;
+use App\Service\PartyHelper;
 use PhpOffice\PhpWord\Element\Link;
 use PhpOffice\PhpWord\Element\Row;
 use PhpOffice\PhpWord\Element\Table;
@@ -21,9 +27,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ComplexMacroHelper
 {
+    private const CASE_COVER_FONT_SIZE = 18;
+    private const TABLE_FONT_SIZE = 10;
+    private const TABLE_PARAGRAPH_STYLE = [
+        'spaceBefore' => 0,
+        'spaceAfter' => 0,
+        'lineHeight' => 1.0,
+    ];
+
     private array $options;
 
-    public function __construct(private RouterInterface $router, private TranslatorInterface $translator, private BoardMemberRepository $memberRepository, array $options)
+    public function __construct(private RouterInterface $router, private TranslatorInterface $translator, private BoardMemberRepository $memberRepository, private PartyHelper $partyHelper, array $options)
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -104,7 +118,58 @@ class ComplexMacroHelper
             'Comma separated complaint category names'
         );
 
+        // Count of categories
+        $text = new Text();
+
+        $text->setText(count($case->getComplaintCategories()));
+
+        $values['complaintCategories.count'] = new ComplexMacro(
+            $text,
+            'Count of complaint categories'
+        );
+
+        // Parties/counterparties tables
+        $parties = $this->partyHelper->getRelevantPartiesByCase($case);
+
+        $values['parties.formatted'] = $this->buildPartiesMacro($parties['parties'], 'Formatted parties');
+        $values['counterparties.formatted'] = $this->buildPartiesMacro($parties['counterparties'], 'Formatted counterparties');
+
+        // Single-line primary address
+        $primaryAddress = match (true) {
+            $case instanceof RentBoardCase,
+            $case instanceof ResidentComplaintBoardCase => $case->getLeaseAddress(),
+            $case instanceof FenceReviewCase => $case->getBringerAddress(),
+            default => null,
+        };
+
+        if (null !== $primaryAddress) {
+            $values['primaryAddress.formatted'] = new ComplexMacro(
+                new Text(
+                    $this->formatLeaseAddressLine($primaryAddress),
+                    ['size' => self::CASE_COVER_FONT_SIZE, 'bold' => true]
+                ),
+                'Formatted primary address'
+            );
+        }
+
         return $values;
+    }
+
+    /**
+     * Combine the address fields into a single line.
+     */
+    private function formatLeaseAddressLine(Address $address): string
+    {
+        $parts = [
+            $address->getStreet(),
+            empty($address->getNumber()) ? '' : $address->getNumber().',',
+            empty($address->getFloor()) ? '' : $address->getFloor().'.',
+            empty($address->getSide()) ? '' : $address->getSide().'.,',
+            (string) $address->getPostalCode(),
+            $address->getCity(),
+        ];
+
+        return implode(' ', array_filter($parts));
     }
 
     private function buildAgendaMacros(Agenda $agenda): array
@@ -225,7 +290,7 @@ class ComplexMacroHelper
             } elseif (is_array($value) && isset($value['text']) && is_scalar($value['text'])) {
                 $row
                     ->addCell($value['cell']['width'] ?? null, $value['cell']['style'] ?? null)
-                    ->addTextRun($value['text-style'] ?? [])->addText($value['text'])
+                    ->addTextRun($value['text-style'] ?? [])->addText($value['text'], $value['font-style'] ?? null)
                 ;
             } elseif (null === $value) {
                 $row->addCell()->addText('');
@@ -274,5 +339,104 @@ class ComplexMacroHelper
     private function buildAgendaBroadcastMacros(AgendaBroadcast $agendaBroadcast): array
     {
         return $this->buildAgendaMacros($agendaBroadcast->getAgenda());
+    }
+
+    /**
+     * Build the macro for a group of parties: a formatted table, a notice when
+     * there are none, or a fallback notice when there are too many to list.
+     */
+    private function buildPartiesMacro(array $parties, string $description): ComplexMacro
+    {
+        if (empty($parties)) {
+            $noPartiesText = new Text();
+            $noPartiesText->setText($this->translator->trans('No parties available', [], 'case'));
+
+            return new ComplexMacro($noPartiesText, $description);
+        }
+
+        if (count($parties) > 3) {
+            $tooManyPartiesText = new Text();
+            $tooManyPartiesText->setText($this->translator->trans('There are several parties to the case – see further details in TVIST1.', [], 'case'));
+
+            return new ComplexMacro($tooManyPartiesText, $description);
+        }
+
+        return new ComplexMacro($this->buildPartiesTable($parties), $description);
+    }
+
+    /**
+     * Build parties table.
+     */
+    private function buildPartiesTable(array $parties): Table
+    {
+        $table = $this->createStyledTable();
+
+        // Column widths in fiftieths of a percent (TblWidth::PERCENT, total 100 * 50).
+        $widths = [
+            'name' => 30 * 50,
+            'type' => 20 * 50,
+            'address' => 35 * 50,
+            'id' => 15 * 50,
+        ];
+
+        $this->addTableHeaderRow($table, [
+            $this->headerCell($this->translator->trans('Name', [], 'case'), $widths['name']),
+            $this->headerCell($this->translator->trans('Party type', [], 'case'), $widths['type']),
+            $this->headerCell($this->translator->trans('Address', [], 'case'), $widths['address']),
+            $this->headerCell($this->translator->trans('Id', [], 'case'), $widths['id']),
+        ]);
+
+        foreach ($parties as $entry) {
+            $party = $entry['party'];
+
+            $this->addTableRow($table, [
+                $this->bodyCell($party->getName() ?? '', $widths['name']),
+                $this->bodyCell($this->translator->trans($entry['type'], [], 'party'), $widths['type']),
+                $this->bodyCell((string) $party->getAddress(), $widths['address']),
+                $this->bodyCell($party->getIdentification()->getIdentifier() ?? '', $widths['id']),
+            ]);
+        }
+
+        return $table;
+    }
+
+    private function createStyledTable(): Table
+    {
+        return new Table([
+            // Width in Fiftieths of a Percent; see TblWidth::PERCENT.
+            'unit' => TblWidth::PERCENT,
+            'width' => 100 * 50,
+            'cellMarginTop' => 40,
+            'cellMarginBottom' => 40,
+            'cellMarginLeft' => 120,
+            'cellMarginRight' => 120,
+            'cellSpacing' => 0,
+            'borderColor' => 'DDDDDD',
+            'borderSize' => 6,
+            'borderInsideVSize' => 0,
+        ]);
+    }
+
+    private function headerCell(string $text, int $width): array
+    {
+        return [
+            'text' => $text,
+            'font-style' => ['bold' => true, 'size' => self::TABLE_FONT_SIZE],
+            'text-style' => self::TABLE_PARAGRAPH_STYLE,
+            'cell' => [
+                'width' => $width,
+                'style' => ['bgColor' => 'F5F5F5'],
+            ],
+        ];
+    }
+
+    private function bodyCell(string $text, int $width): array
+    {
+        return [
+            'text' => $text,
+            'font-style' => ['size' => self::TABLE_FONT_SIZE],
+            'text-style' => self::TABLE_PARAGRAPH_STYLE,
+            'cell' => ['width' => $width],
+        ];
     }
 }

@@ -1449,6 +1449,18 @@
         <source>You can search for case number, KLE-numbers or parts of an address.</source>
         <target state="translated">Der kan søges på sagsnummer, KLE-nummer eller dele af en adresse.</target>
       </trans-unit>
+      <trans-unit id="1PSX1PK" resname="There are several parties to the case – see further details in TVIST1.">
+        <source>There are several parties to the case – see further details in TVIST1.</source>
+        <target state="translated">Der er flere parter på sagen – se yderligere i TVIST1</target>
+      </trans-unit>
+      <trans-unit id="EhVukhv" resname="Id">
+        <source>Id</source>
+        <target state="translated">Id</target>
+      </trans-unit>
+      <trans-unit id="HKlzQ0K" resname="No parties available">
+        <source>No parties available</source>
+        <target state="translated">Ingen parter tilgængelige</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
