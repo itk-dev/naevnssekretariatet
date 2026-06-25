@@ -145,7 +145,7 @@ class ComplexMacroHelper
         if (null !== $primaryAddress) {
             $values['primaryAddress.formatted'] = new ComplexMacro(
                 new Text(
-                    $this->formatLeaseAddressLine($primaryAddress),
+                    $this->formatAddressLine($primaryAddress),
                     ['size' => self::CASE_COVER_FONT_SIZE, 'bold' => true]
                 ),
                 'Formatted primary address'
@@ -158,7 +158,7 @@ class ComplexMacroHelper
     /**
      * Combine the address fields into a single line.
      */
-    private function formatLeaseAddressLine(Address $address): string
+    private function formatAddressLine(Address $address): string
     {
         $parts = [
             $address->getStreet(),
