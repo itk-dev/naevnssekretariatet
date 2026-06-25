@@ -403,7 +403,6 @@ class ComplexMacroHelper
     private function createStyledTable(): Table
     {
         return new Table([
-            // Width in Fiftieths of a Percent; see TblWidth::PERCENT.
             'unit' => TblWidth::PERCENT,
             'width' => 100 * 50,
             'cellMarginTop' => 40,

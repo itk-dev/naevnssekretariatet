@@ -1465,10 +1465,6 @@
         <source>No case cover template selected.</source>
         <target state="translated">Ingen sagsomslagsksabelon valgt.</target>
       </trans-unit>
-      <trans-unit id="9cX6lut" resname="Please choose a case cover template.">
-        <source>Please choose a case cover template.</source>
-        <target state="translated">Vælg en skabelon til sagsomslag.</target>
-      </trans-unit>
       <trans-unit id="tMzYNUF" resname="Generate case cover">
         <source>Generate case cover</source>
         <target state="translated">Print forside</target>

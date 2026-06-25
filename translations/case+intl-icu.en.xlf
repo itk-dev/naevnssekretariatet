@@ -1465,10 +1465,6 @@
         <source>No case cover template selected.</source>
         <target>No case cover template selected.</target>
       </trans-unit>
-      <trans-unit id="9cX6lut" resname="Please choose a case cover template.">
-        <source>Please choose a case cover template.</source>
-        <target>Please choose a case cover template.</target>
-      </trans-unit>
       <trans-unit id="tMzYNUF" resname="Generate case cover">
         <source>Generate case cover</source>
         <target>Generate case cover</target>

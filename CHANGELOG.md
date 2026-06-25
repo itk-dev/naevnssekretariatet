@@ -10,6 +10,12 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+* [PR-418](https://github.com/itk-dev/naevnssekretariatet/pull/418)
+  Added case-cover logic
+  * Adds new template type, `case_cover`.
+  * Adds a button for generating case cover in case summary overview.
+  * Adds various new template macros.
+
 ## [1.10.1] - 2026-05-21
 
 * [PR-416](https://github.com/itk-dev/naevnssekretariatet/pull/416)
