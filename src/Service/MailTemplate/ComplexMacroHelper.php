@@ -326,6 +326,7 @@ class ComplexMacroHelper
                 ],
                 'case_cover_font_size' => 18,
             ],
+            'case_cover_max_parties' => 3,
             'hearing_post_form_link_text' => '',
         ])
         ->setRequired('hearing_post_form_url')
@@ -355,7 +356,7 @@ class ComplexMacroHelper
             return new ComplexMacro($noPartiesText, $description);
         }
 
-        if (count($parties) > 3) {
+        if (count($parties) > $this->options['case_cover_max_parties']) {
             $tooManyPartiesText = new Text();
             $tooManyPartiesText->setText($this->translator->trans('There are several parties to the case – see further details in TVIST1.', [], 'case'));
 

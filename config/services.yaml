@@ -219,6 +219,7 @@ services:
                             spaceAfter: 0
                             lineHeight: 1.0
                     case_cover_font_size: 18
+                case_cover_max_parties: 3
                 hearing_post_form_url: '%env(HEARING_POST_FORM_URL)%'
                 hearing_post_form_link_text: '%env(HEARING_POST_FORM_LINK_TEXT)%'
 
