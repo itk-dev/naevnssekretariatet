@@ -23,6 +23,8 @@ class CaseCoverType extends AbstractType
         $resolver->setDefaults([
             'data_class' => null,
             'mail_template_choices' => [],
+            // Generating a case cover only renders a document, so GET.
+            'method' => 'GET',
         ]);
     }
 

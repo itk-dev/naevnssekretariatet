@@ -912,7 +912,7 @@ class CaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/case-cover", name="case_case_cover", methods={"POST"})
+     * @Route("/{id}/case-cover", name="case_case_cover", methods={"GET"})
      */
     public function caseCover(CaseEntity $case, MailTemplateHelper $mailTemplateHelper, Request $request): Response
     {
