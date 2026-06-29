@@ -326,7 +326,7 @@ class ComplexMacroHelper
                 ],
                 'case_cover_font_size' => 18,
             ],
-            'case_cover_max_parties' => 3,
+            'case_cover_max_parties' => 4,
             'hearing_post_form_link_text' => '',
         ])
         ->setRequired('hearing_post_form_url')
@@ -356,11 +356,15 @@ class ComplexMacroHelper
             return new ComplexMacro($noPartiesText, $description);
         }
 
-        if (count($parties) > $this->options['case_cover_max_parties']) {
-            $tooManyPartiesText = new Text();
-            $tooManyPartiesText->setText($this->translator->trans('There are several parties to the case – see further details in TVIST1.', [], 'case'));
+        $maxParties = $this->options['case_cover_max_parties'];
 
-            return new ComplexMacro($tooManyPartiesText, $description);
+        // Show at most $maxParties parties. When there are more, the final row
+        // becomes the overflow notice.
+        if (count($parties) > $maxParties) {
+            return new ComplexMacro(
+                $this->buildPartiesTable(array_slice($parties, 0, $maxParties - 1), true),
+                $description
+            );
         }
 
         return new ComplexMacro($this->buildPartiesTable($parties), $description);
@@ -369,7 +373,7 @@ class ComplexMacroHelper
     /**
      * Build parties table.
      */
-    private function buildPartiesTable(array $parties): Table
+    private function buildPartiesTable(array $parties, bool $hasOverflow = false): Table
     {
         $table = $this->createStyledTable();
 
@@ -396,6 +400,20 @@ class ComplexMacroHelper
                 $this->bodyCell($this->translator->trans($entry['type'], [], 'party'), $widths['type']),
                 $this->bodyCell((string) $party->getAddress(), $widths['address']),
                 $this->bodyCell($party->getIdentification()->getIdentifier() ?? '', $widths['id']),
+            ]);
+        }
+
+        if ($hasOverflow) {
+            $this->addTableRow($table, [
+                [
+                    'text' => $this->translator->trans('There are several parties to the case – see further details in TVIST1.', [], 'case'),
+                    'font-style' => ['size' => $this->options['formatting']['table_style']['font_size']],
+                    'text-style' => $this->options['formatting']['table_style']['text_style'],
+                    'cell' => [
+                        'width' => array_sum($widths),
+                        'style' => ['gridSpan' => count($widths)],
+                    ],
+                ],
             ]);
         }
 
