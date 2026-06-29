@@ -451,7 +451,7 @@ To analyse the code with both tools, run
 composer code-analysis
 ```
 
-Alternatively you can run just a single tool with
+Alternatively, you can run just a single tool with
 
 ```sh
 composer code-analysis/phpstan

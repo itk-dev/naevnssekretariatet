@@ -28,7 +28,7 @@ Encore
   .addEntry('agenda_filter', './assets/agenda/processFilter.js')
   .addEntry('ajax-forms', './assets/ajax-forms.js')
   .addEntry('municipality_select', './assets/municipality/select.js')
-  .addEntry('dawa-address-lookup', './assets/dawa-address-lookup.js')
+  .addEntry('address-lookup', './assets/address-lookup.js')
   .addEntry('identification-lookup', './assets/case/identification-lookup.js')
   .addEntry('identification_type_handler', './assets/identification/type_handler.js')
   .addEntry('admin_board_member_cpr_lookup', './assets/admin/board_member_cpr_lookup.js')

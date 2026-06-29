@@ -21,9 +21,14 @@
     {{ form_end(case_form) }}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('address-lookup') }}
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('case_new') }}
     {{ encore_entry_script_tags('identification-lookup') }}
-    {{ encore_entry_script_tags('dawa-address-lookup') }}
+    {{ encore_entry_script_tags('address-lookup') }}
 {% endblock %}

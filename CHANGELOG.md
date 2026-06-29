@@ -15,6 +15,14 @@ about writing changes to this log.
   * Adds new template type, `case_cover`.
   * Adds a button for generating case cover in case summary overview.
   * Adds various new template macros.
+* Replaced the deprecated `dawa-autocomplete2` library with Klimadatastyrelsens's
+  `adressevaelger` for client-side address lookup.
+* NOTE: `AddressHelper::fetchAddressData()` still calls
+ `https://api.dataforsyningen.dk/datavask/adresser`, which shuts down on
+ **2026-10-01** together with the rest of DAWA. The replacement has yet to
+  be released, cf. [Addressevask](https://confluence.sdfi.dk/display/ADV/Adressevask).
+  That means, address validation (the `case_validate_address` action and the
+  BBR data flow in `BBRHelper`) will stop working **2026-10-01**.
 
 ## [1.10.1] - 2026-05-21
 
