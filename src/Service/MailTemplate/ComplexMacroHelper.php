@@ -27,14 +27,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ComplexMacroHelper
 {
-    private const CASE_COVER_FONT_SIZE = 18;
-    private const TABLE_FONT_SIZE = 10;
-    private const TABLE_PARAGRAPH_STYLE = [
-        'spaceBefore' => 0,
-        'spaceAfter' => 0,
-        'lineHeight' => 1.0,
-    ];
-
     private array $options;
 
     public function __construct(private RouterInterface $router, private TranslatorInterface $translator, private BoardMemberRepository $memberRepository, private PartyHelper $partyHelper, array $options)
@@ -146,7 +138,7 @@ class ComplexMacroHelper
             $values['primaryAddress.formatted'] = new ComplexMacro(
                 new Text(
                     $this->formatAddressLine($primaryAddress),
-                    ['size' => self::CASE_COVER_FONT_SIZE, 'bold' => true]
+                    ['size' => $this->options['formatting']['case_cover_font_size'], 'bold' => true]
                 ),
                 'Formatted primary address'
             );
@@ -324,6 +316,15 @@ class ComplexMacroHelper
                         'underline' => Font::UNDERLINE_SINGLE,
                     ],
                 ],
+                'table_style' => [
+                    'font_size' => 10,
+                    'text_style' => [
+                        'spaceBefore' => 0,
+                        'spaceAfter' => 0,
+                        'lineHeight' => 1.0,
+                    ],
+                ],
+                'case_cover_font_size' => 18,
             ],
             'hearing_post_form_link_text' => '',
         ])
@@ -420,8 +421,8 @@ class ComplexMacroHelper
     {
         return [
             'text' => $text,
-            'font-style' => ['bold' => true, 'size' => self::TABLE_FONT_SIZE],
-            'text-style' => self::TABLE_PARAGRAPH_STYLE,
+            'font-style' => ['bold' => true, 'size' => $this->options['formatting']['table_style']['font_size']],
+            'text-style' => $this->options['formatting']['table_style']['text_style'],
             'cell' => [
                 'width' => $width,
                 'style' => ['bgColor' => 'F5F5F5'],
@@ -433,8 +434,8 @@ class ComplexMacroHelper
     {
         return [
             'text' => $text,
-            'font-style' => ['size' => self::TABLE_FONT_SIZE],
-            'text-style' => self::TABLE_PARAGRAPH_STYLE,
+            'font-style' => ['size' => $this->options['formatting']['table_style']['font_size']],
+            'text-style' => $this->options['formatting']['table_style']['text_style'],
             'cell' => ['width' => $width],
         ];
     }
