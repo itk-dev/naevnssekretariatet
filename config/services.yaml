@@ -55,6 +55,12 @@ services:
 
             $mailTemplateHelperOptions:
                 template_types:
+                    case_cover:
+                        label: Case cover
+                        entity_class_names:
+                            - App\Entity\ResidentComplaintBoardCase
+                            - App\Entity\FenceReviewCase
+                            - App\Entity\RentBoardCase
                     decision:
                         label: Decision
                         entity_class_names:
@@ -206,6 +212,14 @@ services:
                             # See https://phpword.readthedocs.io/en/latest/styles.html#font for styles options.
                             color: 0563C1
                             underline: !php/const \PhpOffice\PhpWord\Style\Font::UNDERLINE_SINGLE
+                    table_style:
+                        font_size: 10
+                        text_style:
+                            spaceBefore: 0
+                            spaceAfter: 0
+                            lineHeight: 1.0
+                    case_cover_font_size: 18
+                case_cover_max_parties: 4
                 hearing_post_form_url: '%env(HEARING_POST_FORM_URL)%'
                 hearing_post_form_link_text: '%env(HEARING_POST_FORM_LINK_TEXT)%'
 

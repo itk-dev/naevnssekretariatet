@@ -97,6 +97,10 @@
         <source>Briefing regarding hearing template</source>
         <target>Briefing regarding hearing template</target>
       </trans-unit>
+      <trans-unit id="OPNvBDN" resname="Case cover">
+        <source>Case cover</source>
+        <target>Case cover</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -1,0 +1,21 @@
+{% trans_default_domain 'case' %}
+
+<div class="modal fade" id="case_cover{{ case.id }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{% trans %}Generate case cover{% endtrans %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {{ form_start(case_cover_form, {'action': path('case_case_cover', {'id': case.id}), 'attr': {'target': '_blank'}}) }}
+            <div class="modal-body">
+                {{ form_widget(case_cover_form) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                <button type="submit" class="btn btn-success">{% trans %}Generate{% endtrans %}</button>
+            </div>
+            {{ form_end(case_cover_form) }}
+        </div>
+    </div>
+</div>

@@ -1449,6 +1449,38 @@
         <source>You can search for case number, KLE-numbers or parts of an address.</source>
         <target>You can search for case number, KLE-numbers or parts of an address.</target>
       </trans-unit>
+      <trans-unit id="1PSX1PK" resname="There are several parties to the case – see further details in TVIST1.">
+        <source>There are several parties to the case – see further details in TVIST1.</source>
+        <target>There are several parties to the case – see further details in TVIST1.</target>
+      </trans-unit>
+      <trans-unit id="EhVukhv" resname="Id">
+        <source>Id</source>
+        <target>Id</target>
+      </trans-unit>
+      <trans-unit id="HKlzQ0K" resname="No parties available">
+        <source>No parties available</source>
+        <target>No parties available</target>
+      </trans-unit>
+      <trans-unit id="i.yzVXZ" resname="No case cover template selected.">
+        <source>No case cover template selected.</source>
+        <target>No case cover template selected.</target>
+      </trans-unit>
+      <trans-unit id="tMzYNUF" resname="Generate case cover">
+        <source>Generate case cover</source>
+        <target>Generate case cover</target>
+      </trans-unit>
+      <trans-unit id=".gwXDGr" resname="Choose a case cover template">
+        <source>Choose a case cover template</source>
+        <target>Choose a case cover template</target>
+      </trans-unit>
+      <trans-unit id="SeSbtEA" resname="Generate">
+        <source>Generate</source>
+        <target>Generate</target>
+      </trans-unit>
+      <trans-unit id="sL_gF9c" resname="No case cover templates available">
+        <source>No case cover templates available</source>
+        <target>No case cover templates available</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
