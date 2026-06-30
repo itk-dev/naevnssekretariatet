@@ -10,6 +10,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.11.0] - 2026-06-30
+
 * [PR-418](https://github.com/itk-dev/naevnssekretariatet/pull/418)
   Added case-cover logic
   * Adds new template type, `case_cover`.
@@ -401,7 +403,8 @@ Fixed error in unescaped characters in filename
 * [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.10.1...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.11.0...HEAD
+[1.11.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.10.1...1.11.0
 [1.10.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.10.0...1.10.1
 [1.10.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.9.0...1.10.0
 [1.9.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.8.0...1.9.0
