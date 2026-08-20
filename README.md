@@ -255,12 +255,9 @@ SERVICEPLATFORMEN_CPR_SERVICE_UUID='xyz'
 SERVICEPLATFORMEN_CPR_SERVICE_ENDPOINT='https://xyz.com'
 SERVICEPLATFORMEN_CPR_SERVICE_CONTRACT='%kernel.project_dir%/vendor/itk-dev/serviceplatformen/resources/person-base-data-extended-service-contract/wsdl/context/PersonBaseDataExtendedService.wsdl'
 
-# CVR lookup
-AZURE_KEY_VAULT_DATAFORDELER_NAME='xyz'
-AZURE_KEY_VAULT_DATAFORDELER_SECRET='xyz'
-AZURE_KEY_VAULT_DATAFORDELER_SECRET_VERSION='xyz'
-
-DATAFORDELER_CVR_LOOKUP_BASE_URL='https://xyz.com'
+# CVR lookup (doesn't use a certificate, but an API key)
+DATAFORDELER_CVR_LOOKUP_SERVICE_URL='https://graphql.datafordeler.dk/flexibleCurrent/v1'
+DATAFORDELER_CVR_LOOKUP_API_KEY='xyz'
 ```
 
 ## OS2Forms

@@ -14,21 +14,27 @@ use ItkDev\AzureKeyVault\Authorisation\VaultToken;
 use ItkDev\AzureKeyVault\Exception\SecretException;
 use ItkDev\AzureKeyVault\Exception\TokenException;
 use ItkDev\AzureKeyVault\KeyVault\VaultSecret;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CvrHelper
 {
     /**
-     * The client.
+     * @var array {
+     *   lookup_service_url: string,
+     *   lookup_api_key: string,
+     * }
      */
-    private Client $guzzleClient;
     private array $serviceOptions;
 
-    public function __construct(private CaseManager $caseManager, private EntityManagerInterface $entityManager, private PropertyAccessorInterface $propertyAccessor, private TranslatorInterface $translator, array $options)
+    public function __construct(private CaseManager $caseManager, private EntityManagerInterface $entityManager, private PropertyAccessorInterface $propertyAccessor, private TranslatorInterface $translator, private HttpClientInterface $httpClient, array $options)
     {
-        $this->guzzleClient = new Client();
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
 
@@ -39,13 +45,8 @@ class CvrHelper
     {
         $resolver
             ->setRequired([
-                'azure_tenant_id',
-                'azure_application_id',
-                'azure_client_secret',
-                'azure_key_vault_name',
-                'azure_key_vault_datafordeler_secret',
-                'azure_key_vault_datafordeler_secret_version',
-                'datafordeler_cvr_lookup_base_url',
+                'lookup_service_url',
+                'lookup_api_key',
             ],
             )
         ;
@@ -54,61 +55,70 @@ class CvrHelper
     /**
      * @throws CvrException
      */
-    public function lookupCvr(string $cvr)
+    public function lookupCvr(string $cvr): array
     {
         try {
-            $certificate = $this->getAbsolutePathToSecret(
-                $this->serviceOptions['azure_tenant_id'],
-                $this->serviceOptions['azure_application_id'],
-                $this->serviceOptions['azure_client_secret'],
-                $this->serviceOptions['azure_key_vault_name'],
-                $this->serviceOptions['azure_key_vault_datafordeler_secret'],
-                $this->serviceOptions['azure_key_vault_datafordeler_secret_version']
-            );
-
-            $apiUrl = $this->serviceOptions['datafordeler_cvr_lookup_base_url'].$cvr;
-
-            $client = new Client();
-            $res = $client->request('GET', $apiUrl, [
-                'cert' => $certificate,
-            ]);
-        } catch (SecretException|TokenException|GuzzleException $e) {
+            $res = $this->executeQuery($cvr);
+            return      $res->toArray();
+        } catch (ExceptionInterface $e) {
             throw new CvrException($e->getMessage(), $e->getCode(), $e);
         }
-
-        return json_decode((string) $res->getBody(), true);
     }
 
     /**
-     * Get absolute path to secret.
+     * Lifted from https://github.com/OS2web/os2web_datalookup/blob/main/src/Plugin/os2web/DataLookup/DatafordelerCVR.php.
      *
-     * @throws TokenException
-     * @throws SecretException
+     * Executes the GraphQL lookup request for a specific CVR number.
+     *
+     * Builds the GraphQL payload and sends it to the configured Datafordeler
+     * endpoint.
+     *
+     * @see https://datafordeler.dk/dataoversigt/det-centrale-virksomhedsregister-cvr/cvr-graphql/
+     *
+     * @throws TransportExceptionInterface
      */
-    private function getAbsolutePathToSecret(
-        string $tenantId,
-        string $applicationId,
-        string $clientSecret,
-        string $keyVaultName,
-        string $keyVaultSecret,
-        string $keyVaultSecretVersion
-    ): string {
-        $httpClient = new GuzzleAdapter($this->guzzleClient);
-        $requestFactory = new RequestFactory();
+    private function executeQuery(string $cvr): ResponseInterface {
+        // Setting date to TODAY 00:00:00, so that we are always getting up-to-date
+        // information.
+        $virkningstid = (new \DateTimeImmutable('today', new \DateTimeZone('UTC')))
+            ->format('Y-m-d\T00:00:00\Z');
 
-        $vaultToken = new VaultToken($httpClient, $requestFactory);
+        $query = <<<GRAPHQL
+{ CVR_Virksomhed(first: 1, virkningstid: "{$virkningstid}", where: { CVRNummer: { eq: {$cvr} } }) {
+    nodes {
+      CVRNummer
+      id_CVR_CVREnhed_id_ref(first: 1) {
+        nodes {
+          id_CVR_Navn_CVREnhedsId_ref { vaerdi }
+          id_CVR_Adressering_CVREnhedsId_ref(first: 1, where: { AdresseringAnvendelse: { in: ["beliggenhedsadresse", "postadresse"] } }) {
+            nodes {
+              AdresseringAnvendelse
+              CVRAdresse_vejnavn
+              CVRAdresse_husnummerFra
+              CVRAdresse_etagebetegnelse
+              CVRAdresse_doerbetegnelse
+              CVRAdresse_postnummer
+              CVRAdresse_postdistrikt
+              CVRAdresse_kommunekode
+            }
+          }
+        }
+      }
+    }
+  }
+}
+GRAPHQL;
 
-        $token = $vaultToken->getToken(
-            $tenantId,
-            $applicationId,
-            $clientSecret
-        );
+        $webserviceUrl = $this->serviceOptions['lookup_service_url'];
 
-        $vaultSecret = new VaultSecret($httpClient, $requestFactory, $keyVaultName, $token->getAccessToken());
-
-        $secret = $vaultSecret->getSecret($keyVaultSecret, $keyVaultSecretVersion);
-
-        return $this->getAbsoluteTmpPathByContent($secret);
+        return $this->httpClient->request(Request::METHOD_POST, $webserviceUrl, [
+            'query' => [
+                'apiKey' => $this->serviceOptions['lookup_api_key'],
+            ],
+            'json' => [
+                'query' => $query,
+            ],
+        ]);
     }
 
     /**
@@ -142,41 +152,22 @@ class CvrHelper
     {
         $relevantData = [];
 
-        $relevantData['name'] = $data['virksomhedsnavn']['vaerdi'] ?? '';
-        $relevantData['street'] = $data['beliggenhedsadresse']['CVRAdresse_vejnavn'] ?? '';
-        $relevantData['number'] = $data['beliggenhedsadresse']['CVRAdresse_husnummerFra'] ?? '';
-        $relevantData['floor'] = $data['beliggenhedsadresse']['CVRAdresse_etagebetegnelse'] ?? '';
-        $relevantData['side'] = $data['beliggenhedsadresse']['CVRAdresse_doerbetegnelse'] ?? '';
-        $relevantData['postalCode'] = $data['beliggenhedsadresse']['CVRAdresse_postnummer'] ?? '';
-        $relevantData['city'] = $data['beliggenhedsadresse']['CVRAdresse_postdistrikt'] ?? '';
+        $name = $data['data']['CVR_Virksomhed']['nodes']['0']['id_CVR_CVREnhed_id_ref']['nodes']['0']['id_CVR_Navn_CVREnhedsId_ref']['vaerdi'] ?? '';
+        $relevantData['name'] = $name;
+
+        $addresses = (array)($data['data']['CVR_Virksomhed']['nodes']['0']['id_CVR_CVREnhed_id_ref']['nodes']['0']['id_CVR_Adressering_CVREnhedsId_ref']['nodes'] ?? []);
+        foreach ($addresses as $address) {
+            if ('beliggenhedsadresse' === ($address['AdresseringAnvendelse'] ?? null)) {
+                $relevantData['street'] = $address['CVRAdresse_vejnavn'] ?? '';
+                $relevantData['number'] = $address['CVRAdresse_husnummerFra'] ?? '';
+                $relevantData['floor'] = $address['CVRAdresse_etagebetegnelse'] ?? '';
+                $relevantData['side'] = $address['CVRAdresse_doerbetegnelse'] ?? '';
+                $relevantData['postalCode'] = $address['CVRAdresse_postnummer'] ?? '';
+                $relevantData['city'] = $address['CVRAdresse_postdistrikt'] ?? '';
+            }
+        }
 
         return $relevantData;
     }
 
-    /**
-     * Taken from itk-dev serviceplatformen.
-     *
-     * @see https://github.com/itk-dev/serviceplatformen/blob/develop/src/Certificate/AzureKeyVaultCertificateLocator.php
-     *
-     * Creates a temporary file with the provided content and returns the absolute path to the temporary file.
-     *
-     * The file will be removed from the filesystem when no more references exists to the file.
-     *
-     * @param string $content the content of the temporary file
-     *
-     * @return string the absolute path to the temporary file
-     */
-    private function getAbsoluteTmpPathByContent(string $content): string
-    {
-        // Static variables is stored in the global variable area and destroyed during the shutdown phase.
-        // This ensures that there are no references to the file when the code has executed and thus is deleted.
-        // The variable must be declared static before the temporary file is assigned to the variable or else PHP
-        // thinks you are assigning values to a constant.
-        static $tmpFile = null;
-        $tmpFile = tmpfile();
-        fwrite($tmpFile, $content);
-        $streamMetaData = stream_get_meta_data($tmpFile);
-
-        return $streamMetaData['uri'];
-    }
 }

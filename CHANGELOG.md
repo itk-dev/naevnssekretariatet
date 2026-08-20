@@ -10,6 +10,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+* [PR-420](https://github.com/itk-dev/naevnssekretariatet/pull/420)
+  Datafordeler CVR lookup with API key
+
 ## [1.11.0] - 2026-06-30
 
 * [PR-418](https://github.com/itk-dev/naevnssekretariatet/pull/418)
