@@ -58,8 +58,7 @@ class CvrHelper
     public function lookupCvr(string $cvr): array
     {
         try {
-            $res = $this->executeQuery($cvr);
-            return      $res->toArray();
+            return $this->executeQuery($cvr)->toArray();
         } catch (ExceptionInterface $e) {
             throw new CvrException($e->getMessage(), $e->getCode(), $e);
         }
