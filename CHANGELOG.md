@@ -10,6 +10,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+* Switched address washing from DAWA Adresse datavask to
+  [Klimadatastyrelsen's Adressevask](https://confluence.kds.dk/display/ADV/Adressevask).
+* Added console command, `tvist1:adresse:vask`, for using Adressevask.
+
 ## [1.12.0] - 2026-08-25
 
 * [PR-420](https://github.com/itk-dev/naevnssekretariatet/pull/420)

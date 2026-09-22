@@ -11,7 +11,6 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -20,7 +19,11 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
 {
     use LoggerAwareTrait;
 
-    public function __construct(private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private TranslatorInterface $translator)
+    // Exact match on street name, house number and postal code
+    // (cf. https://confluence.kds.dk/display/ADV/Adressevask).
+    private const VASKESTATUS_EXACT_MATCH = 1000;
+
+    public function __construct(private PropertyAccessorInterface $propertyAccessor, private EntityManagerInterface $entityManager, private HttpClientInterface $httpClient, private TranslatorInterface $translator, private string $adressevaelgerToken, private string $adressevaelgerVaskApiUrl)
     {
     }
 
@@ -47,7 +50,7 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
     private function getAddress($entity, string $property): Address
     {
         $address = $this->propertyAccessor->getValue($entity, $property);
-        if (!($address instanceof Address)) {
+        if (!$address instanceof Address) {
             throw $this->createException(sprintf('Property %s.%s must be an instance of %s; is %s', get_class($entity), $property, Address::class, get_class($address)));
         }
 
@@ -62,30 +65,27 @@ class AddressHelper implements LoggerAwareInterface, EventSubscriberInterface
     }
 
     /**
-     * Get an address object from a stringified address using Adresse datavask.
+     * Get an address object from a stringified address using Adressevask.
      *
-     * @see https://dawadocs.dataforsyningen.dk/dok/api/adresse#datavask
+     * @see https://confluence.kds.dk/display/ADV/Adressevask
      *
      * @throws AddressException
      */
     public function fetchAddressData(string $address): array
     {
         try {
-            $client = HttpClient::create([
-                'base_uri' => 'https://api.dataforsyningen.dk/datavask/adresser',
-            ]);
-
-            $response = $client->request('GET', '', [
+            $response = $this->httpClient->request('GET', $this->adressevaelgerVaskApiUrl, [
                 'query' => [
-                    'betegnelse' => $address,
+                    'token' => $this->adressevaelgerToken,
+                    'adresse' => $address,
                 ],
             ]);
 
             $data = $response->toArray();
             // We only accept exact matches
-            if (in_array($data['kategori'] ?? null, ['A'])
-                && isset($data['resultater'][0]['adresse'])) {
-                return $data['resultater'][0]['adresse'];
+            if (self::VASKESTATUS_EXACT_MATCH === ($data['vaskestatus']['kode'] ?? null)
+                && isset($data['vaskeresultat']['adresse_id_lokalid'])) {
+                return $data['vaskeresultat'];
             }
         } catch (\Throwable $throwable) {
             throw $this->createException($this->translator->trans('Invalid address: {address}', ['address' => $address], 'case'), $throwable->getCode(), $throwable);
