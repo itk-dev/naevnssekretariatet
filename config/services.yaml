@@ -170,6 +170,11 @@ services:
             $adressevaelgerToken: '%env(ADRESSEVAELGER_TOKEN)%'
             $adressevaelgerApiUrl: '%env(ADRESSEVAELGER_API_URL)%'
 
+    App\Service\AddressHelper:
+        arguments:
+            $adressevaelgerToken: '%env(ADRESSEVAELGER_TOKEN)%'
+            $adressevaelgerVaskApiUrl: '%env(ADRESSEVAELGER_VASK_API_URL)%'
+
     App\Service\CprHelper:
         arguments:
             $options:
