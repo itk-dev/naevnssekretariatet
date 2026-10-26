@@ -10,6 +10,11 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.13.1] - 2026-10-27
+
+* [PR-424](https://github.com/itk-dev/naevnssekretariatet/pull/424)
+  Switched to maintained `nginx/nginx-unprivileged` image.
+
 ## [1.13.0] - 2026-09-23
 
 * Switched address washing from DAWA Adresse datavask to
@@ -414,7 +419,8 @@ Fixed error in unescaped characters in filename
 * [TVIST1-604](https://jira.itkdev.dk/browse/TVIST1-604):
   Resolved issue regarding time formats.
 
-[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.13.0...HEAD
+[Unreleased]: https://github.com/itk-dev/naevnssekretariatet/compare/1.13.1...HEAD
+[1.13.1]: https://github.com/itk-dev/naevnssekretariatet/compare/1.13.0...1.13.1
 [1.13.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.12.0...1.13.0
 [1.12.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.11.0...1.12.0
 [1.11.0]: https://github.com/itk-dev/naevnssekretariatet/compare/1.10.1...1.11.0
